@@ -1,29 +1,10 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
-import { fireEvent, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../test/data/mock-state.json';
 import { CHAIN_IDS } from '../../../../../shared/constants/network';
 import { mockNetworkState } from '../../../../../test/stub/networks';
 import AddFundsModal from './add-funds-modal';
-
-const mockGoToBuy = jest.fn().mockResolvedValue('native');
-jest.mock(
-  '../../../../hooks/ramps/useRampsNavigation/useRampsNavigation',
-  () => ({
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    __esModule: true,
-    default: () => ({ goToBuy: mockGoToBuy }),
-  }),
-);
-
-jest.mock('../../../../helpers/utils/show-buy-tab-opened-toast', () => ({
-  showBuyTabOpenedToast: jest.fn(),
-}));
-const mockShowBuyTabOpenedToast = jest.mocked(
-  jest.requireMock('../../../../helpers/utils/show-buy-tab-opened-toast')
-    .showBuyTabOpenedToast,
-);
 
 const mockTrackEvent = jest.fn();
 
@@ -60,8 +41,8 @@ describe('Add funds modal Component', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  it('should match snapshot', () => {
-    const { container } = renderWithProvider(
+  it('keeps receiving available without a fiat purchase action', () => {
+    const { getByTestId, queryByTestId } = renderWithProvider(
       <AddFundsModal
         onClose={jest.fn()}
         token={{
@@ -78,74 +59,11 @@ describe('Add funds modal Component', () => {
       mockStore,
     );
 
-    expect(container).toMatchSnapshot();
-  });
-
-  it('routes the Buy row through useRampsNavigation.goToBuy', () => {
-    const { getByTestId } = renderWithProvider(
-      <AddFundsModal
-        onClose={jest.fn()}
-        token={{
-          address: '0x0',
-          decimals: 18,
-          symbol: 'USDC',
-          conversionRate: { usd: '1' },
-        }}
-        chainId="0x1"
-        payerAddress="0x0"
-      />,
-      mockStore,
-    );
-
-    fireEvent.click(getByTestId('add-funds-modal-buy-crypto-button'));
-    expect(mockGoToBuy).toHaveBeenCalledWith();
-  });
-
-  it('does not track or close when the ramps gate blocks the buy', async () => {
-    mockGoToBuy.mockResolvedValueOnce(false);
-    const onClose = jest.fn();
-    const { getByTestId } = renderWithProvider(
-      <AddFundsModal
-        onClose={onClose}
-        token={{
-          address: '0x0',
-          decimals: 18,
-          symbol: 'USDC',
-          conversionRate: { usd: '1' },
-        }}
-        chainId="0x1"
-        payerAddress="0x0"
-      />,
-      mockStore,
-    );
-
-    fireEvent.click(getByTestId('add-funds-modal-buy-crypto-button'));
-    await waitFor(() => expect(mockGoToBuy).toHaveBeenCalled());
-    expect(mockTrackEvent).not.toHaveBeenCalled();
-    expect(onClose).not.toHaveBeenCalled();
-  });
-
-  it('shows the tab-opened toast when Buy opens Portfolio', async () => {
-    mockGoToBuy.mockResolvedValueOnce('portfolio');
-    const { getByTestId } = renderWithProvider(
-      <AddFundsModal
-        onClose={jest.fn()}
-        token={{
-          address: '0x0',
-          decimals: 18,
-          symbol: 'USDC',
-          conversionRate: { usd: '1' },
-        }}
-        chainId="0x1"
-        payerAddress="0x0"
-      />,
-      mockStore,
-    );
-
-    fireEvent.click(getByTestId('add-funds-modal-buy-crypto-button'));
-    await waitFor(() => expect(mockGoToBuy).toHaveBeenCalled());
-    expect(mockShowBuyTabOpenedToast.mock.calls.length).toMatchInlineSnapshot(
-      `1`,
-    );
+    expect(
+      getByTestId('add-funds-modal-receive-crypto-button'),
+    ).toBeInTheDocument();
+    expect(
+      queryByTestId('add-funds-modal-buy-crypto-button'),
+    ).not.toBeInTheDocument();
   });
 });

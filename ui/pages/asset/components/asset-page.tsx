@@ -452,7 +452,6 @@ const AssetPage = ({
                         updatedAsset.balance.value !== '0',
                       ),
                       disableSendForNonEvm: true,
-                      buyAssetId: caipAssetId,
                     }}
                   />
                 ) : null}
@@ -723,7 +722,6 @@ const AssetPage = ({
       container, which is what lets it stick to the bottom of the viewport. */}
       <AssetStickyActions
         asset={updatedAsset}
-        buyAssetId={caipAssetId as CaipAssetType}
         isMarketClosed={isMarketClosed}
         isSigningEnabled={isSigningEnabled}
       />

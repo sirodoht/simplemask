@@ -24,7 +24,6 @@ import { useAnalytics } from '../../hooks/useAnalytics';
 import type { ActivityListItem } from '../../../shared/lib/activity/types';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { TransactionDetails } from '../details/transaction-details';
-import { useRampsOrderActivity } from '../../hooks/ramps/useRampsOrderActivity';
 import { TX_DETAILS_ROUTE } from '../../helpers/constants/routes';
 import { ActivityListSkeleton } from './components/activity-list-skeleton';
 import { ActivityRow } from './rows/activity-row';
@@ -71,7 +70,6 @@ export function ActivityList({
 
   const localItems = useLocalTransactions(filters);
   const nonEvmItems = useNonEvmTransactions(filters);
-  const rampsItems = useRampsOrderActivity(filters);
   const evmItems = useMemo(
     () => data?.pages.flatMap((page) => page.data) ?? [],
     [data],
@@ -79,9 +77,9 @@ export function ActivityList({
 
   const groupedItems = useMemo(() => {
     return groupActivityListItems(
-      dedupeItems(localItems, evmItems, nonEvmItems, rampsItems),
+      dedupeItems(localItems, evmItems, nonEvmItems),
     );
-  }, [evmItems, localItems, nonEvmItems, rampsItems]);
+  }, [evmItems, localItems, nonEvmItems]);
 
   const lastEvmItemIndex = useMemo(
     () => getLastEvmItemIndex(groupedItems, evmItems),
@@ -92,7 +90,7 @@ export function ActivityList({
     filter,
     isSettled: networks !== null && !isLoading,
     isEmpty: groupedItems.length === 0,
-    pendingLength: [...localItems, ...nonEvmItems, ...rampsItems].filter(
+    pendingLength: [...localItems, ...nonEvmItems].filter(
       (item) => item.status === 'pending',
     ).length,
     entryPoint,

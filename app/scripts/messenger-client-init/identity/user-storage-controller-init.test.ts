@@ -54,7 +54,10 @@ describe('UserStorageControllerInit', () => {
 
     expect(UserStorageControllerClassMock).toHaveBeenCalledWith({
       messenger: requestMock.controllerMessenger,
-      state: requestMock.persistedState.UserStorageController,
+      state: {
+        ...requestMock.persistedState.UserStorageController,
+        isRampsSyncingEnabled: false,
+      },
       trace: expect.any(Function),
       config: {
         contactSyncing: {

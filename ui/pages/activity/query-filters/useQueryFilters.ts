@@ -3,12 +3,11 @@ import type {
   V1TransactionByHashResponse,
   V4MultiAccountTransactionsResponse,
 } from '@metamask/core-backend';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { mapApiTransaction } from '@metamask/client-utils';
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
 import { selectProtectedLocalTransactions } from '../../../selectors/activity';
-import { selectRampsSettlementHashes } from '../../../selectors/rampsController';
 import { selectRequiredTransactionHashes } from '../../../selectors/transactionController';
 import { activityMatchesAssetId, type ActivityListFilter } from '../helpers';
 import { isExcludedTransactionHash } from './excluded-transaction-hash';
@@ -22,11 +21,7 @@ type Props = ActivityListFilter & { subjectAddress: string };
 export function useQueryFilters(queryFilters: Props) {
   const { subjectAddress } = queryFilters;
   const requiredHashes = useSelector(selectRequiredTransactionHashes);
-  const rampHashes = useSelector(selectRampsSettlementHashes);
-  const excludedHashes = useMemo(
-    () => new Set([...requiredHashes, ...rampHashes]),
-    [requiredHashes, rampHashes],
-  );
+  const excludedHashes = requiredHashes;
   const protectedLocalTransactions = useSelector(
     selectProtectedLocalTransactions,
   );

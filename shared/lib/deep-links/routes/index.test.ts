@@ -62,6 +62,8 @@ describe('retired feature links', () => {
     '/trending',
     '/top-traders',
     '/predict',
+    '/buy',
+    '/sell',
   ]) {
     it(`rejects the removed feature link ${path}`, async () => {
       expect(await parse(new URL(`https://link.metamask.io${path}`))).toBe(

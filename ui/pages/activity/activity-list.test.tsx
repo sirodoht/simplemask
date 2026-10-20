@@ -7,7 +7,6 @@ import { ActivityList } from './activity-list';
 const mockUseTransactionsQuery = jest.fn();
 const mockUseActivityScreenViewed = jest.fn();
 const mockUseLocalTransactions = jest.fn((): ActivityListItem[] => []);
-const mockUseRampsOrderActivity = jest.fn((): ActivityListItem[] => []);
 
 jest.mock('./useActivityScreenViewed', () => ({
   useActivityScreenViewed: (props: unknown) =>
@@ -25,10 +24,6 @@ jest.mock('./useLocalTransactions', () => ({
 
 jest.mock('./useNonEvmTransactions', () => ({
   useNonEvmTransactions: () => [],
-}));
-
-jest.mock('../../hooks/ramps/useRampsOrderActivity', () => ({
-  useRampsOrderActivity: () => mockUseRampsOrderActivity(),
 }));
 
 jest.mock('./rows/activity-row', () => ({
@@ -101,7 +96,6 @@ describe('ActivityList', () => {
   afterEach(() => {
     jest.clearAllMocks();
     mockUseLocalTransactions.mockReturnValue([]);
-    mockUseRampsOrderActivity.mockReturnValue([]);
     window.history.replaceState(null, '', '/');
   });
 
@@ -145,34 +139,6 @@ describe('ActivityList', () => {
     );
   });
 
-  it('navigates to details using the internal ramps order code', () => {
-    const pushStateSpy = jest.spyOn(window.history, 'pushState');
-    mockUseTransactionsQuery.mockReturnValue({
-      data: { pages: [] },
-      isLoading: false,
-      fetchNextVisiblePage: jest.fn(),
-    });
-    mockUseRampsOrderActivity.mockReturnValue([
-      {
-        type: 'rampBuy',
-        chainId: 'eip155:1',
-        status: 'pending',
-        timestamp: 1,
-        data: { id: 'moonpay/orders/native-uuid', from: '0x1' },
-      },
-    ]);
-
-    render(<ActivityList />);
-    fireEvent.click(screen.getByTestId('activity-row-rampBuy'));
-
-    expect(pushStateSpy).toHaveBeenCalledWith(
-      null,
-      '',
-      '#/tx/eip155:1/native-uuid',
-    );
-    pushStateSpy.mockRestore();
-  });
-
   it('replaces the details hash when another item is opened while details are open', () => {
     const pushStateSpy = jest.spyOn(window.history, 'pushState');
     const replaceStateSpy = jest.spyOn(window.history, 'replaceState');
@@ -181,61 +147,37 @@ describe('ActivityList', () => {
       isLoading: false,
       fetchNextVisiblePage: jest.fn(),
     });
-    mockUseRampsOrderActivity.mockReturnValue([
+
+    mockUseLocalTransactions.mockReturnValue([
       {
-        type: 'rampBuy',
+        type: 'send',
         chainId: 'eip155:1',
         status: 'pending',
         timestamp: 2,
-        data: { id: 'moonpay/orders/order-a', from: '0x1' },
+        hash: '0xaaa',
+        data: { from: '0x1', to: '0x2' },
       },
       {
-        type: 'rampSell',
+        type: 'receive',
         chainId: 'eip155:1',
-        status: 'pending',
+        status: 'success',
         timestamp: 1,
-        data: { id: 'moonpay/orders/order-b', from: '0x1' },
+        hash: '0xbbb',
+        data: { from: '0x2', to: '0x1' },
       },
     ]);
-
     render(<ActivityList />);
-    fireEvent.click(screen.getByTestId('activity-row-rampBuy'));
-    fireEvent.click(screen.getByTestId('activity-row-rampSell'));
+    fireEvent.click(screen.getByTestId('activity-row-send'));
+    fireEvent.click(screen.getByTestId('activity-row-receive'));
 
     expect(pushStateSpy).toHaveBeenCalledTimes(1);
-    expect(pushStateSpy).toHaveBeenCalledWith(
-      null,
-      '',
-      '#/tx/eip155:1/order-a',
-    );
+    expect(pushStateSpy).toHaveBeenCalledWith(null, '', '#/tx/eip155:1/0xaaa');
     expect(replaceStateSpy).toHaveBeenCalledWith(
       null,
       '',
-      '#/tx/eip155:1/order-b',
+      '#/tx/eip155:1/0xbbb',
     );
     pushStateSpy.mockRestore();
     replaceStateSpy.mockRestore();
-  });
-
-  it('renders a pending header when a ramp order is pending', () => {
-    mockUseTransactionsQuery.mockReturnValue({
-      data: { pages: [] },
-      isLoading: false,
-      fetchNextVisiblePage: jest.fn(),
-    });
-    mockUseRampsOrderActivity.mockReturnValue([
-      {
-        type: 'rampBuy',
-        chainId: 'eip155:1',
-        status: 'pending',
-        timestamp: 1,
-        data: { id: 'order-1', from: '0x1' },
-      },
-    ]);
-
-    render(<ActivityList />);
-
-    expect(screen.getByText('[pending]')).toBeInTheDocument();
-    expect(screen.getByTestId('activity-row-rampBuy')).toBeInTheDocument();
   });
 });

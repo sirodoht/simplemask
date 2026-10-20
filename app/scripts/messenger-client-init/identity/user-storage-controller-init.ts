@@ -33,7 +33,10 @@ export const UserStorageControllerInit: MessengerClientInitFunction<
   const { controllerMessenger, persistedState } = request;
   const messengerClient = new UserStorageController({
     messenger: controllerMessenger,
-    state: persistedState.UserStorageController as UserStorageControllerState,
+    state: {
+      ...(persistedState.UserStorageController as UserStorageControllerState),
+      isRampsSyncingEnabled: false,
+    },
     // @ts-expect-error Controller uses string for names rather than enum
     trace,
     config: {

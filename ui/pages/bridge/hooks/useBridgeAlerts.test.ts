@@ -6,7 +6,6 @@ import { renderHookWithProvider } from '../../../../test/lib/render-helpers-navi
 import { DEFAULT_VALIDATION_ERRORS } from '../../../../test/data/bridge/mock-bridge-store';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
-import useRampsNavigation from '../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import {
   getActiveQuoteInsufficientNativeReserveError,
   getActiveQuotePriceData,
@@ -30,7 +29,6 @@ import { useBridgeAlerts } from './useBridgeAlerts';
 
 jest.mock('../../../hooks/useI18nContext');
 jest.mock('../../../hooks/useMultichainSelector');
-jest.mock('../../../hooks/ramps/useRampsNavigation/useRampsNavigation');
 jest.mock('./useSecurityAlerts');
 jest.mock('./useAssetSecurityData');
 jest.mock('../utils/quote', () => ({
@@ -131,8 +129,6 @@ const MOCK_STELLAR_USDC = toBridgeToken({
 });
 
 describe('useBridgeAlerts', () => {
-  const mockGoToBuy = jest.fn();
-
   const renderHook = () =>
     renderHookWithProvider(() => useBridgeAlerts(), { metamask: {} });
 
@@ -141,9 +137,6 @@ describe('useBridgeAlerts', () => {
 
     jest.mocked(useI18nContext).mockReturnValue(mockT);
     jest.mocked(useMultichainSelector).mockReturnValue('ETH');
-    jest.mocked(useRampsNavigation).mockReturnValue({
-      goToBuy: mockGoToBuy,
-    } as never);
     jest
       .mocked(getFromChain)
       .mockReturnValue({ chainId: MOCK_FROM_CHAIN_ID } as never);
@@ -660,7 +653,7 @@ describe('useBridgeAlerts', () => {
       jest.mocked(getBridgeQuotes).mockReturnValue(MOCK_GET_BRIDGE_QUOTES);
     });
 
-    it('adds insufficient-gas to bannerAlerts with a buy action button', () => {
+    it('keeps the insufficient-gas warning without a purchase action', () => {
       const { result } = renderHook();
 
       expect(
@@ -676,12 +669,8 @@ describe('useBridgeAlerts', () => {
           isConfirmationAlert: false,
         }),
       );
-      expect(alert?.bannerAlertProps?.actionButtonLabel).toBe(
-        'buyMoreAsset:ETH',
-      );
-      expect(alert?.bannerAlertProps?.actionButtonOnClick).toBeInstanceOf(
-        Function,
-      );
+      expect(alert?.bannerAlertProps?.actionButtonLabel).toBeUndefined();
+      expect(alert?.bannerAlertProps?.actionButtonOnClick).toBeUndefined();
       expect(
         result.current.confirmationAlerts.map((a: BridgeAlert) => a.id),
       ).not.toContain('insufficient-gas');
@@ -720,13 +709,10 @@ describe('useBridgeAlerts', () => {
           isConfirmationAlert: false,
           bannerAlertProps: expect.objectContaining({
             severity: BannerAlertSeverity.Danger,
-            actionButtonLabel: 'buyMoreAsset:ETH',
           }),
         }),
       );
-      expect(alert?.bannerAlertProps?.actionButtonOnClick).toBeInstanceOf(
-        Function,
-      );
+      expect(alert?.bannerAlertProps?.actionButtonOnClick).toBeUndefined();
       expect(
         result.current.confirmationAlerts.map((a: BridgeAlert) => a.id),
       ).not.toContain('insufficient-gas');
@@ -743,21 +729,6 @@ describe('useBridgeAlerts', () => {
       expect(result.current.alertsById['insufficient-gas']?.description).toBe(
         'swapValidationInsufficientGasMessage:ETH',
       );
-    });
-
-    it('routes through goToBuy with the source chain native gas token when the action button is clicked', () => {
-      const { result } = renderHook();
-
-      result.current.alertsById[
-        'insufficient-gas'
-      ]?.bannerAlertProps?.actionButtonOnClick?.();
-
-      // Passes the source chain as-is (CAIP); getBuyURI normalizes it for the
-      // flag-off Portfolio fallback.
-      expect(mockGoToBuy).toHaveBeenCalledWith({
-        assetId: getNativeAssetForChainId(MOCK_FROM_CHAIN_ID).assetId,
-        chainId: MOCK_FROM_CHAIN_ID,
-      });
     });
 
     it('does not add insufficient-gas when isLoading is true', () => {

@@ -9,7 +9,6 @@ import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 import { mockNetworkState } from '../../../../test/stub/networks';
 import { AssetType } from '../../../../shared/constants/transaction';
-import { toAssetId } from '../../../../shared/lib/asset-utils';
 import { MOCK_ACCOUNT_STELLAR_PUBNET } from '../../../../test/data/mock-accounts';
 import initializedMockState from '../../../../test/data/mock-state.json';
 import * as storeActions from '../../../store/actions';
@@ -17,28 +16,13 @@ import * as stellarSnapRequests from '../utils/stellar-snap-client-requests';
 import { Asset } from '../types/asset';
 import TokenButtons from './token-buttons';
 
-const mockGoToBuy = jest.fn().mockResolvedValue('native');
 const mockOpenBridgeExperience = jest.fn();
-
-jest.mock('../../../hooks/ramps/useRampsNavigation/useRampsNavigation', () => ({
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: () => ({ goToBuy: mockGoToBuy }),
-}));
 
 jest.mock('../../../hooks/bridge/useBridging', () => ({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   __esModule: true,
   default: () => ({ openBridgeExperience: mockOpenBridgeExperience }),
 }));
-
-jest.mock('../../../helpers/utils/show-buy-tab-opened-toast', () => ({
-  showBuyTabOpenedToast: jest.fn(),
-}));
-const mockShowBuyTabOpenedToast = jest.mocked(
-  jest.requireMock('../../../helpers/utils/show-buy-tab-opened-toast')
-    .showBuyTabOpenedToast,
-);
 
 jest.mock('../../../selectors/assets', () => ({
   ...jest.requireActual('../../../selectors/assets'),
@@ -74,46 +58,19 @@ const store = configureMockStore()({
   },
 });
 
-describe('TokenButtons buy wiring', () => {
+describe('TokenButtons wallet actions', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('routes the Buy button through goToBuy with the token as intent assetId', () => {
-    const { getByTestId } = renderWithProvider(
-      <TokenButtons token={token} />,
+  it('offers Send without an integrated Buy action', () => {
+    renderWithProvider(
+      <TokenButtons
+        token={{ ...token, balance: { value: '1', display: '1', fiat: '1' } }}
+      />,
       store,
     );
 
-    fireEvent.click(getByTestId('token-overview-buy'));
-    expect(mockGoToBuy).toHaveBeenCalledWith({
-      assetId: toAssetId(token.address, token.chainId),
-      chainId: token.chainId,
-    });
-  });
-
-  it('does not track a buy click when the ramps gate blocks the buy', async () => {
-    mockGoToBuy.mockResolvedValueOnce(false);
-    const { getByTestId } = renderWithProvider(
-      <TokenButtons token={token} />,
-      store,
-    );
-
-    fireEvent.click(getByTestId('token-overview-buy'));
-    await waitFor(() => expect(mockGoToBuy).toHaveBeenCalled());
-    expect(mockTrackEvent).not.toHaveBeenCalled();
-  });
-
-  it('shows the tab-opened toast when Buy opens Portfolio', async () => {
-    mockGoToBuy.mockResolvedValueOnce('portfolio');
-    const { getByTestId } = renderWithProvider(
-      <TokenButtons token={token} />,
-      store,
-    );
-
-    fireEvent.click(getByTestId('token-overview-buy'));
-    await waitFor(() => expect(mockGoToBuy).toHaveBeenCalled());
-    expect(mockShowBuyTabOpenedToast.mock.calls.length).toMatchInlineSnapshot(
-      `1`,
-    );
+    expect(screen.queryByTestId('token-overview-buy')).not.toBeInTheDocument();
+    expect(screen.getByTestId('eth-overview-send')).toBeInTheDocument();
   });
 });
 

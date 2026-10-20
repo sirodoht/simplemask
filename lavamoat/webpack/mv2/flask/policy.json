@@ -919,7 +919,6 @@
       },
       "packages": {
         "@ethereumjs/tx>@ethereumjs/util": true,
-        "ethers>@ethersproject/address": true,
         "@ethersproject/contracts": true,
         "@ethersproject/providers": true,
         "@metamask/assets-controllers>@metamask/abi-utils": true,
@@ -927,7 +926,6 @@
         "@metamask/base-controller": true,
         "@metamask/contract-metadata": true,
         "@metamask/assets-controllers>@metamask/controller-utils": true,
-        "@metamask/core-backend": true,
         "@metamask/controller-utils>@metamask/eth-query": true,
         "@metamask/keyring-api": true,
         "@metamask/keyring-snap-client": true,
@@ -1408,24 +1406,6 @@
       }
     },
     "@metamask/profile-metrics-controller>@metamask/controller-utils": {
-      "globals": {
-        "Buffer.from": true,
-        "console.error": true,
-        "fetch": true,
-        "setTimeout": true
-      },
-      "packages": {
-        "@metamask/controller-utils>@metamask/ethjs-unit": true,
-        "@metamask/utils": true,
-        "ethereumjs-util>bn.js": true,
-        "buffer": true,
-        "cockatiel": true,
-        "eth-ens-namehash": true,
-        "eslint>fast-deep-equal": true,
-        "@metamask/assets-controller>lodash-es": true
-      }
-    },
-    "@metamask/ramps-controller>@metamask/controller-utils": {
       "globals": {
         "Buffer.from": true,
         "console.error": true,
@@ -2895,26 +2875,12 @@
         "@metamask/providers>readable-stream": true
       }
     },
-    "@metamask/ramps-controller": {
+    "@metamask/transaction-pay-controller>@metamask/ramps-controller": {
       "globals": {
-        "AbortController": true,
-        "URL": true,
-        "clearInterval": true,
-        "console.error": true,
-        "crypto": true,
-        "setInterval": true
-      },
-      "meta": {
-        "webpack-optimization": [
-          "Dependency '@metamask/ramps-controller>@metamask/controller-utils' reexports from 'cockatiel' and webpack collapsed that to a direct import."
-        ]
+        "URL": true
       },
       "packages": {
-        "@metamask/base-controller": true,
-        "@metamask/ramps-controller>@metamask/controller-utils": true,
-        "@metamask/ramps-controller>bignumber.js": true,
-        "cockatiel": true,
-        "eslint>fast-deep-equal": true
+        "@metamask/transaction-pay-controller>@metamask/ramps-controller>@metamask/controller-utils": true
       }
     },
     "@metamask/rate-limit-controller": {
@@ -3331,7 +3297,7 @@
         "@metamask/keyring-controller": true,
         "@metamask/metamask-eth-abis": true,
         "@metamask/network-controller": true,
-        "@metamask/ramps-controller": true,
+        "@metamask/transaction-pay-controller>@metamask/ramps-controller": true,
         "@metamask/sentinel-api-service": true,
         "@metamask/transaction-controller": true,
         "@metamask/utils": true,
@@ -4636,11 +4602,6 @@
       }
     },
     "@metamask/wallet>@metamask/controller-utils>bignumber.js": {
-      "globals": {
-        "crypto": true
-      }
-    },
-    "@metamask/ramps-controller>bignumber.js": {
       "globals": {
         "crypto": true
       }

@@ -1,7 +1,7 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import { EthAccountType, EthMethod, BtcScope } from '@metamask/keyring-api';
 import { AVAILABLE_MULTICHAIN_NETWORK_CONFIGURATIONS } from '@metamask/multichain-network-controller';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
@@ -73,17 +73,6 @@ jest.mock('../../../store/actions', () => ({
 jest.mock('../../../hooks/useMultiPolling', () => ({
   __esModule: true,
   default: jest.fn(),
-}));
-
-const mockOpenBuyCryptoInPdapp = jest.fn();
-jest.mock('../../../hooks/ramps/useRamps/useRamps', () => ({
-  __esModule: true,
-  default: jest.fn(() => ({
-    openBuyCryptoInPdapp: mockOpenBuyCryptoInPdapp,
-  })),
-  RampsMetaMaskEntry: {
-    BuySellButton: 'ext_buy_sell_button',
-  },
 }));
 
 const mockGetIntlLocale = getIntlLocale;
@@ -229,7 +218,6 @@ describe('EthOverview', () => {
   };
 
   const store = configureMockStore([thunk])(mockStore);
-  const ETH_OVERVIEW_BUY = 'eth-overview-buy';
   const ETH_OVERVIEW_BRIDGE = 'eth-overview-bridge';
   const ETH_OVERVIEW_RECEIVE = 'eth-overview-receive';
   const ETH_OVERVIEW_SWAP = 'eth-overview-swap';
@@ -549,98 +537,6 @@ describe('EthOverview', () => {
       const portfolioButton = queryByTestId('portfolio-link');
       expect(portfolioButton).not.toBeInTheDocument();
     });
-
-    it('should always show the Buy button regardless of current chain Id', () => {
-      const { queryByTestId } = renderWithProvider(<EthOverview />, store);
-      const buyButton = queryByTestId(ETH_OVERVIEW_BUY);
-      expect(buyButton).toBeInTheDocument();
-    });
-
-    it('should keep the Buy native token button enabled on unsupported chains', () => {
-      const mockedStoreWithUnbuyableChainId = {
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: CHAIN_IDS.GOERLI }),
-          accountsByChainId: {
-            [CHAIN_IDS.GOERLI]: {
-              '0x1': { address: '0x1', balance: '0x24da51d247e8b8' },
-            },
-          },
-        },
-      };
-      const mockedStore = configureMockStore([thunk])(
-        mockedStoreWithUnbuyableChainId,
-      );
-
-      const { queryByTestId } = renderWithProvider(
-        <EthOverview />,
-        mockedStore,
-      );
-      const buyButton = queryByTestId(ETH_OVERVIEW_BUY);
-      expect(buyButton).toBeInTheDocument();
-      expect(buyButton).not.toBeDisabled();
-    });
-
-    it('should open the in-extension buy flow when clicking on Buy button', async () => {
-      const mockedStoreWithBuyableChainId = {
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: CHAIN_IDS.POLYGON }),
-          accountsByChainId: {
-            [CHAIN_IDS.POLYGON]: {
-              '0x1': { address: '0x1', balance: '0x24da51d247e8b8' },
-            },
-          },
-        },
-      };
-      const mockedStore = configureMockStore([thunk])(
-        mockedStoreWithBuyableChainId,
-      );
-
-      const { queryByTestId } = renderWithProvider(
-        <EthOverview />,
-        mockedStore,
-      );
-      const buyButton = queryByTestId(ETH_OVERVIEW_BUY);
-
-      expect(buyButton).toBeInTheDocument();
-      expect(buyButton).not.toBeDisabled();
-
-      fireEvent.click(buyButton);
-      await waitFor(() =>
-        expect(mockOpenBuyCryptoInPdapp).toHaveBeenCalledTimes(1),
-      );
-    });
-  });
-
-  it('sends an event when clicking the Buy button: %s', async () => {
-    mockTrackEvent.mockClear();
-
-    const mockedStore = configureMockStore([thunk])(mockStore);
-    const { queryByTestId } = renderWithProvider(<EthOverview />, mockedStore);
-
-    const buyButton = queryByTestId(ETH_OVERVIEW_BUY);
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).not.toBeDisabled();
-    fireEvent.click(buyButton);
-
-    // handleBuyAndSellOnClick awaits the async goToBuy gate before tracking.
-    await waitFor(() => expect(mockTrackEvent).toHaveBeenCalledTimes(1));
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        name: MetaMetricsEventName.NavBuyButtonClicked,
-        properties: expect.objectContaining({
-          category: MetaMetricsEventCategory.Navigation,
-          account_type: mockEvmAccount1.type,
-          chain_id: CHAIN_IDS.MAINNET,
-          location: 'Home',
-          text: 'Buy',
-          token_symbol: expect.any(Object),
-        }),
-      }),
-    );
   });
 
   it('sends an event when clicking the Batch Sell button', () => {

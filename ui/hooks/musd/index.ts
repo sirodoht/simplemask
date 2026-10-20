@@ -48,8 +48,6 @@ export {
   type UseCustomAmountResult,
 } from './useCustomAmount';
 
-export { useCanBuyMusd, type UseCanBuyMusdResult } from './useCanBuyMusd';
-
 export { useMusdConversionConfirmTrace } from './useMusdConversionConfirmTrace';
 
 export {

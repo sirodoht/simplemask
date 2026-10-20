@@ -7,7 +7,6 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import type { CaipAssetType } from '@metamask/utils';
 import {
   Box,
   Text,
@@ -47,14 +46,10 @@ import {
   useMusdConversion,
   useMusdGeoBlocking,
   useMusdConversionTokens,
-  useCanBuyMusd,
 } from '../../../hooks/musd';
-import useRampsNavigation from '../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import {
-  getMusdAssetIdForChain,
   MUSD_CONVERSION_APY,
   MUSD_CONVERSION_BONUS_TERMS_OF_USE,
-  MUSD_CONVERSION_DEFAULT_CHAIN_ID,
 } from '../../../components/app/musd/constants';
 import { MUSD_DEEPLINK_PARAM } from '../../../../shared/lib/deep-links/routes/musd';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
@@ -109,27 +104,17 @@ const MusdEducationScreen = () => {
   const { isBlocked: isGeoBlocked } = useMusdGeoBlocking();
   const { tokens: conversionTokens, defaultPaymentToken } =
     useMusdConversionTokens();
-  const { canBuyMusdInRegion } = useCanBuyMusd();
-  const { goToBuy } = useRampsNavigation();
   const [isLoading, setIsLoading] = useState(false);
 
   const hasEligibleConversionTokens = conversionTokens.length > 0;
 
-  /**
-   * When deeplink and user has no eligible tokens: if they can buy in region
-   * (not geo-blocked AND buyable on at least one enabled chain) then primary
-   * CTA goes to buy flow; otherwise "Continue" goes home.
-   */
+  // Users without conversion tokens return to the wallet.
   const isDeeplinkNoTokensContinueHome =
-    isDeeplink && !hasEligibleConversionTokens && !canBuyMusdInRegion;
-  const isDeeplinkNoTokensGoToBuy =
-    isDeeplink && !hasEligibleConversionTokens && canBuyMusdInRegion;
+    isDeeplink && !hasEligibleConversionTokens;
 
   // Determine button labels - must be before callbacks that use them
   let primaryButtonLabel = t('musdEducationGetStarted') as string;
-  if (isDeeplinkNoTokensGoToBuy) {
-    primaryButtonLabel = t('musdBuyMusd') as string;
-  } else if (isDeeplinkNoTokensContinueHome || isGeoBlocked) {
+  if (isDeeplinkNoTokensContinueHome || isGeoBlocked) {
     primaryButtonLabel = t('continue') as string;
   }
   const secondaryButtonLabel = t('musdEducationNotNow') as string;
@@ -139,26 +124,17 @@ const MusdEducationScreen = () => {
    */
   const getRedirectDestination =
     useCallback((): MusdEducationButtonClickedEventProperties['redirects_to'] => {
-      if (isDeeplinkNoTokensGoToBuy) {
-        return MUSD_EVENTS_CONSTANTS.REDIRECT_DESTINATIONS
-          .BUY_SCREEN as MusdEducationButtonClickedEventProperties['redirects_to'];
-      }
       if (isDeeplinkNoTokensContinueHome || isGeoBlocked) {
         return MUSD_EVENTS_CONSTANTS.REDIRECT_DESTINATIONS
           .HOME_SCREEN as MusdEducationButtonClickedEventProperties['redirects_to'];
       }
       return MUSD_EVENTS_CONSTANTS.REDIRECT_DESTINATIONS
         .CUSTOM_AMOUNT_SCREEN as MusdEducationButtonClickedEventProperties['redirects_to'];
-    }, [
-      isDeeplinkNoTokensGoToBuy,
-      isDeeplinkNoTokensContinueHome,
-      isGeoBlocked,
-    ]);
+    }, [isDeeplinkNoTokensContinueHome, isGeoBlocked]);
 
   /**
    * Handle primary CTA click.
-   * - Deeplink + no tokens + can buy: open buy flow then go home ("Buy mUSD").
-   * - Deeplink + no tokens + cannot buy: go home ("Continue").
+   * - Deeplink + no tokens: go home ("Continue").
    * - Geo-blocked (non-deeplink): go home ("Continue").
    * - Otherwise (including deeplink + has tokens): start conversion flow ("Get started").
    */
@@ -184,25 +160,6 @@ const MusdEducationScreen = () => {
     );
 
     dispatch(setMusdConversionEducationSeen(true));
-
-    if (isDeeplinkNoTokensGoToBuy) {
-      const destination = await goToBuy({
-        // Pre-select mUSD (mainnet) so the in-app flow lands on build-quote
-        // instead of the token-selection page; chainId is only used for the
-        // flag-off Portfolio fallback.
-        assetId: getMusdAssetIdForChain(MUSD_CONVERSION_DEFAULT_CHAIN_ID) as
-          | CaipAssetType
-          | undefined,
-        chainId: MUSD_CONVERSION_DEFAULT_CHAIN_ID,
-      });
-      // The Portfolio paths open a new tab, so send the user home; the in-app
-      // path navigates itself (build-quote, or a blocking modal on the
-      // education screen), so leave routing to goToBuy.
-      if (destination === 'portfolio') {
-        navigate(DEFAULT_ROUTE);
-      }
-      return;
-    }
 
     if (isDeeplinkNoTokensContinueHome) {
       navigate(DEFAULT_ROUTE);
@@ -236,11 +193,9 @@ const MusdEducationScreen = () => {
   }, [
     dispatch,
     navigate,
-    isDeeplinkNoTokensGoToBuy,
     isDeeplinkNoTokensContinueHome,
     isDeeplink,
     isGeoBlocked,
-    goToBuy,
     startConversionFlow,
     defaultPaymentToken,
     createEventBuilder,

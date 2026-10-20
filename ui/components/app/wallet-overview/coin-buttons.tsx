@@ -11,7 +11,6 @@ import { toHex } from '@metamask/controller-utils';
 import {
   isCaipChainId,
   CaipChainId,
-  CaipAssetType,
   isCaipAssetType,
   parseCaipAssetType,
 } from '@metamask/utils';
@@ -61,18 +60,10 @@ import {
   BlockSize,
   IconColor as IconColorLegacy,
 } from '../../../helpers/constants/design-system';
-import {
-  Icon as IconLegacy,
-  IconName as IconNameLegacy,
-  IconSize as IconSizeLegacy,
-  Tag,
-  TagProps,
-} from '../../component-library';
+import { Tag, TagProps } from '../../component-library';
 import IconButton from '../../ui/icon-button';
-import useRampsNavigation from '../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import useBridging from '../../../hooks/bridge/useBridging';
 import { ReceiveModal } from '../../multichain/receive-modal';
-import { showBuyTabOpenedToast } from '../../../helpers/utils/show-buy-tab-opened-toast';
 import { setActiveNetworkWithError } from '../../../store/actions';
 import {
   getMultichainNativeCurrency,
@@ -207,11 +198,6 @@ type CoinButtonsProps = {
   hasBalance?: boolean;
   /** When true, disables the send button for non-EVM chains (used on asset page) */
   disableSendForNonEvm?: boolean;
-  /**
-   * CAIP-19 asset to pre-select when buying (asset-page native tokens). When
-   * omitted (e.g. wallet overview), Buy opens the token-selection page instead.
-   */
-  buyAssetId?: CaipAssetType;
 };
 
 const CoinButtons = ({
@@ -223,7 +209,6 @@ const CoinButtons = ({
   classPrefix = 'coin',
   hasBalance = true,
   disableSendForNonEvm = false,
-  buyAssetId,
 }: CoinButtonsProps) => {
   const t = useContext(I18nContext);
   const dispatch = useDispatch();
@@ -343,8 +328,6 @@ const CoinButtons = ({
     return {};
   };
 
-  const { goToBuy } = useRampsNavigation();
-
   const { openBridgeExperience } = useBridging();
 
   const assetPageSwapToken = useMemo(() => {
@@ -419,41 +402,6 @@ const CoinButtons = ({
       trackingLocation === 'home' ? undefined : { chainId: chainId.toString() };
     transitionForward(() => navigateToSendRoute(navigate, params));
   }, [chainId, account, setCorrectChain, trackingLocation]);
-
-  const handleBuyAndSellOnClick = useCallback(async () => {
-    const destination = await goToBuy({
-      assetId: buyAssetId,
-      chainId: getChainId(),
-    });
-    if (!destination) {
-      return;
-    }
-    if (destination === 'portfolio') {
-      showBuyTabOpenedToast(
-        t('buyTabOpenedToastText'),
-        t('buyTabOpenedToastDescription'),
-      );
-    }
-    trackEvent(
-      createEventBuilder(MetaMetricsEventName.NavBuyButtonClicked)
-        .addCategory(MetaMetricsEventCategory.Navigation)
-        .addProperties({
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          account_type: account.type,
-          location: 'Home',
-          text: 'Buy',
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          chain_id: chainId,
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          token_symbol: defaultSwapsToken,
-          ...getSnapAccountMetaMetricsPropertiesIfAny(account),
-        })
-        .build(),
-    );
-  }, [chainId, defaultSwapsToken, buyAssetId, goToBuy]);
 
   const handleSwapOnClick = useCallback(async () => {
     // Determine the chainId to use in the Swap experience using the url
@@ -555,20 +503,6 @@ const CoinButtons = ({
     >
       {
         <>
-          <IconButton
-            className={`${classPrefix}-overview__button`}
-            Icon={
-              <IconLegacy
-                name={IconNameLegacy.Dollar}
-                color={IconColorLegacy.iconAlternative}
-                size={IconSizeLegacy.Md}
-              />
-            }
-            data-testid={`${classPrefix}-overview-buy`}
-            label={t('buy')}
-            onClick={handleBuyAndSellOnClick}
-            width={BlockSize.Full}
-          />
           <IconButton
             className={`${classPrefix}-overview__button`}
             disabled={!isSigningEnabled || !isExternalServicesEnabled}

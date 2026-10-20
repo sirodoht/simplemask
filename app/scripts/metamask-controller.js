@@ -202,7 +202,6 @@ import {
 } from './controllers/analytics';
 import { setDataCollectionForMarketing } from './controllers/analytics/analytics';
 import Backup from './lib/backup';
-import { handleRampsOrderStatusChanged } from './lib/ramps/handleRampsOrderStatusChanged';
 import createMetaRPCHandler from './lib/createMetaRPCHandler';
 import {
   addHexPrefix,
@@ -266,8 +265,6 @@ import { GeolocationApiServiceInit } from './messenger-client-init/geolocation-a
 import { GeolocationControllerInit } from './messenger-client-init/geolocation-controller-init';
 import { ComplianceServiceInit } from './messenger-client-init/compliance-service-init';
 import { ComplianceControllerInit } from './messenger-client-init/compliance-controller-init';
-import { RampsServiceInit } from './messenger-client-init/ramps-service-init';
-import { RampsControllerInit } from './messenger-client-init/ramps-controller-init';
 import { PPOMControllerInit } from './messenger-client-init/confirmations/ppom-controller-init';
 import { SmartTransactionsControllerInit } from './messenger-client-init/smart-transactions/smart-transactions-controller-init';
 import { initMessengerClients } from './messenger-client-init/utils';
@@ -543,8 +540,6 @@ export default class MetamaskController extends EventEmitter {
       SentinelApiService: SentinelApiServiceInit,
       ComplianceService: ComplianceServiceInit,
       ComplianceController: ComplianceControllerInit,
-      RampsService: RampsServiceInit,
-      RampsController: RampsControllerInit,
       PPOMController: PPOMControllerInit,
       AccountTrackerController: AccountTrackerControllerInit,
       PhishingController: PhishingControllerInit,
@@ -621,8 +616,6 @@ export default class MetamaskController extends EventEmitter {
     this.controllerMemState = controllerMemState;
     this.controllerPersistedState = controllerPersistedState;
     this.messengerClientsByName = messengerClientsByName;
-
-    this.rampsController = messengerClientsByName.RampsController;
 
     // Backwards compatibility for existing references
     this.approvalController = this.wallet.getInstance('ApprovalController');
@@ -785,15 +778,6 @@ export default class MetamaskController extends EventEmitter {
 
     this.controllerMessenger.subscribe('KeyringController:lock', () =>
       this._onLock(),
-    );
-
-    // Ramps buy-flow terminal-outcome KPIs (completed / failed). Fires in the
-    // background (not the UI) so the outcome is captured even when the popup is
-    // closed — the common case, since the order polls to a terminal status
-    // after the user finishes on the provider's page.
-    this.controllerMessenger.subscribe(
-      'RampsController:orderStatusChanged',
-      (event) => handleRampsOrderStatusChanged(event),
     );
 
     // on/off shield controller based on shield subscription
@@ -1569,23 +1553,15 @@ export default class MetamaskController extends EventEmitter {
         }
       });
     }
-
-    if (this.preferencesController.state.useExternalServices) {
-      this.messengerClientApi.startRampsLifecycle?.();
-    }
   }
 
   triggerNetworkrequests() {
     this.tokenDetectionController.enable();
     this.getInfuraFeatureFlags();
-    if (this.preferencesController.state.useExternalServices) {
-      this.messengerClientApi.startRampsLifecycle?.();
-    }
   }
 
   stopNetworkRequests() {
     this.tokenDetectionController.disable();
-    this.messengerClientApi.stopRampsLifecycle?.();
   }
 
   resetStates(resetMethods) {
@@ -1637,26 +1613,6 @@ export default class MetamaskController extends EventEmitter {
         const { currentLocale } = currState;
 
         await updateCurrentLocale(currentLocale);
-      }, this.preferencesController.state),
-    );
-
-    this.controllerMessenger.subscribe(
-      'PreferencesController:stateChange',
-      previousValueComparator((prevState, currState) => {
-        const { useExternalServices: prev } = prevState;
-        const { useExternalServices: curr } = currState;
-        if (
-          prev !== curr &&
-          this.messengerClientApi.startRampsLifecycle &&
-          this.messengerClientApi.stopRampsLifecycle
-        ) {
-          if (curr) {
-            this.messengerClientApi.startRampsLifecycle?.();
-          } else {
-            this.messengerClientApi.stopRampsLifecycle?.();
-          }
-        }
-        return true;
       }, this.preferencesController.state),
     );
 

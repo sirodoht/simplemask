@@ -1091,12 +1091,6 @@
         ]
       }
     },
-    "RampsController": {
-      "autoramps": [],
-      "orders": [],
-      "providerAutoSelected": false,
-      "userRegion": null
-    },
     "RemoteFeatureFlagController": {
       "cacheTimestamp": 1770282502510,
       "featureFlagThresholdGroups": {

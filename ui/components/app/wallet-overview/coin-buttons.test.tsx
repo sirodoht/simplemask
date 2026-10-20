@@ -19,14 +19,6 @@ jest.mock('../../../hooks/useAnalytics', () => {
   };
 });
 
-jest.mock('../../../hooks/ramps/useRampsNavigation/useRampsNavigation', () => ({
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: jest.fn(() => ({
-    goToBuy: jest.fn().mockResolvedValue('native'),
-  })),
-}));
-
 jest.mock('../../../hooks/bridge/useBridging', () => ({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   __esModule: true,
@@ -175,6 +167,7 @@ describe('CoinButtons – asset page swap token', () => {
     renderAssetPageCoinButtons('0x1', { hasBalance: false });
 
     expect(screen.getByTestId('coin-overview-send')).toBeInTheDocument();
+    expect(screen.queryByTestId('coin-overview-buy')).not.toBeInTheDocument();
     expect(
       screen.queryByTestId('coin-overview-receive'),
     ).not.toBeInTheDocument();

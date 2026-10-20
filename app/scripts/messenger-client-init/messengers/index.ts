@@ -117,11 +117,6 @@ import {
 import { getOnboardingControllerMessenger } from './onboarding-controller-messenger';
 import { getQrSyncControllerMessenger } from './qr-sync';
 import {
-  getRampsControllerInitMessenger,
-  getRampsControllerMessenger,
-} from './ramps-controller-messenger';
-import { getRampsServiceMessenger } from './ramps-service-messenger';
-import {
   getBridgeControllerInitMessenger,
   getBridgeControllerMessenger,
 } from './bridge-controller-messenger';
@@ -234,12 +229,6 @@ export {
 export { getOnboardingControllerMessenger } from './onboarding-controller-messenger';
 export { getPreferencesControllerMessenger } from './preferences-controller-messenger';
 export { getQrSyncControllerMessenger } from './qr-sync';
-export {
-  getRampsControllerInitMessenger,
-  getRampsControllerMessenger,
-} from './ramps-controller-messenger';
-export type { RampsControllerInitMessenger } from './ramps-controller-messenger';
-export { getRampsServiceMessenger } from './ramps-service-messenger';
 export type {
   PermissionControllerMessenger,
   PermissionControllerInitMessenger,
@@ -600,14 +589,6 @@ export const MESSENGER_FACTORIES = {
   QrSyncController: {
     getMessenger: getQrSyncControllerMessenger,
     getInitMessenger: noop,
-  },
-  RampsService: {
-    getMessenger: getRampsServiceMessenger,
-    getInitMessenger: noop,
-  },
-  RampsController: {
-    getMessenger: getRampsControllerMessenger,
-    getInitMessenger: getRampsControllerInitMessenger,
   },
   TokenBalancesController: {
     getMessenger: getTokenBalancesControllerMessenger,

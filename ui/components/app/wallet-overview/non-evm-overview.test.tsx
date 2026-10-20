@@ -1,6 +1,6 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import thunk from 'redux-thunk';
 import { Cryptocurrency } from '@metamask/assets-controllers';
 import { BtcAccountType, BtcMethod, BtcScope } from '@metamask/keyring-api';
@@ -63,23 +63,6 @@ jest.mock('../../../hooks/useMultiPolling', () => ({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   __esModule: true,
   default: jest.fn(),
-}));
-
-const mockOpenBuyCryptoInPdapp = jest.fn();
-jest.mock('../../../hooks/ramps/useRamps/useRamps', () => ({
-  // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: jest.fn(() => ({
-    openBuyCryptoInPdapp: mockOpenBuyCryptoInPdapp,
-  })),
-  RampsMetaMaskEntry: {
-    BuySellButton: 'ext_buy_sell_button',
-    NftBanner: 'ext_buy_banner_nfts',
-    TokensBanner: 'ext_buy_banner_tokens',
-    ActivityBanner: 'ext_buy_banner_activity',
-    BtcBanner: 'ext_buy_banner_btc',
-  },
 }));
 
 const BUY_BUTTON = 'coin-overview-buy';
@@ -293,76 +276,6 @@ describe('NonEvmOverview', () => {
       expect(button).toBeInTheDocument();
       expect(button).toBeDisabled();
     }
-  });
-
-  it('shows the "Buy & Sell" button', () => {
-    const { queryByTestId } = renderWithProvider(
-      <NonEvmOverview />,
-      getStore(),
-    );
-    const buyButton = queryByTestId(BUY_BUTTON);
-    expect(buyButton).toBeInTheDocument();
-  });
-
-  it('keeps the "Buy & Sell" button enabled regardless of buyable chain state', () => {
-    const { queryByTestId } = renderWithProvider(
-      <NonEvmOverview />,
-      getStore(),
-    );
-    const buyButton = queryByTestId(BUY_BUTTON);
-
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).not.toBeDisabled();
-  });
-
-  it('calls openBuyInPdapp when clicking on "Buy & Sell" button', async () => {
-    const { queryByTestId } = renderWithProvider(
-      <NonEvmOverview />,
-      getStore(),
-    );
-
-    const buyButton = queryByTestId(BUY_BUTTON);
-    expect(buyButton).toBeInTheDocument();
-    fireEvent.click(buyButton as HTMLElement);
-    await waitFor(() =>
-      expect(mockOpenBuyCryptoInPdapp).toHaveBeenCalledTimes(1),
-    );
-  });
-
-  it('sends an event when clicking the Buy button', async () => {
-    mockTrackEvent.mockClear();
-    const storeWithBtcBuyable = getStore();
-
-    const { queryByTestId } = renderWithProvider(
-      <NonEvmOverview />,
-      storeWithBtcBuyable,
-    );
-
-    const buyButton = queryByTestId(BUY_BUTTON);
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).not.toBeDisabled();
-    fireEvent.click(buyButton as HTMLElement);
-
-    // handleBuyAndSellOnClick awaits the async goToBuy gate before tracking.
-    await waitFor(() => expect(mockTrackEvent).toHaveBeenCalled());
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        name: MetaMetricsEventName.NavBuyButtonClicked,
-        properties: expect.objectContaining({
-          category: MetaMetricsEventCategory.Navigation,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          account_type: mockNonEvmAccount.type,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          chain_id: MultichainNetworks.BITCOIN,
-          location: 'Home',
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          snap_id: mockNonEvmAccount.metadata.snap.id,
-          text: 'Buy',
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          token_symbol: expect.any(Object),
-        }),
-      }),
-    );
   });
 
   it('shows the Receive button inside the more-options dropdown', () => {

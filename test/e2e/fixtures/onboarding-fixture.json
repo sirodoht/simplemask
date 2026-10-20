@@ -2073,12 +2073,6 @@
       "reportedAccounts": [],
       "syncQueue": {}
     },
-    "RampsController": {
-      "autoramps": [],
-      "orders": [],
-      "providerAutoSelected": false,
-      "userRegion": null
-    },
     "RemoteFeatureFlagController": {
       "cacheTimestamp": 0,
       "localOverrides": {},

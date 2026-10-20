@@ -7,7 +7,6 @@ import {
   useMusdConversionToastStatus,
 } from '../../../hooks/musd';
 import { MoneyAccountToastListener } from '../money/money-account-toast/money-account-toast-listener';
-import { RampsOrderToastListener } from '../ramps/ramps-order-toast-listener';
 import { TransactionEventToastListener } from './transaction-event-toast-listener';
 
 // Carried over from custom mUSD toasts. Should move telemetry out of toasts into a more appropriate location.
@@ -30,7 +29,6 @@ export function ToastListener() {
       <MusdTelemetry />
       <TransactionEventToastListener />
       <MoneyAccountToastListener />
-      {isUnlocked ? <RampsOrderToastListener /> : null}
     </>
   );
 }

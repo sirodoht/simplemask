@@ -61,12 +61,6 @@ const TRANSACTION_MOCK = {
 
 const ALERT = [
   {
-    actions: [
-      {
-        key: 'buy',
-        label: 'Buy ETH',
-      },
-    ],
     field: 'estimatedFee',
     isBlocking: true,
     key: 'insufficientBalance',
@@ -251,12 +245,6 @@ describe('useInsufficientBalanceAlerts', () => {
 
     expect(alerts).toEqual([
       {
-        actions: [
-          {
-            key: 'buy',
-            label: 'Buy pathUSD',
-          },
-        ],
         field: 'estimatedFee',
         isBlocking: true,
         key: 'insufficientBalance',

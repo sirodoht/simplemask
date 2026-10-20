@@ -2,7 +2,6 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BannerAlertSeverity } from '@metamask/design-system-react';
-import { getNativeAssetId } from '../../../../shared/lib/asset-utils';
 import { buildAssetRoutePath } from '../../../../shared/lib/asset-route';
 import {
   getActiveQuoteInsufficientNativeReserveError,
@@ -22,7 +21,6 @@ import { useI18nContext } from '../../../hooks/useI18nContext';
 import { getBridgeQuotes } from '../../../ducks/bridge/selectors';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
 import { getMultichainNativeCurrency } from '../../../selectors/multichain';
-import useRampsNavigation from '../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import { isQuoteExpiredOrInvalid, getDestChainId } from '../utils/quote';
 import { type BridgeAlert } from '../prepare/types';
 import { useDispatch } from '../../../store/hooks';
@@ -78,7 +76,6 @@ export const useBridgeAlerts = () => {
   } = useAssetSecurityData(toToken);
 
   const { txAlert } = useSecurityAlerts(toToken);
-  const { goToBuy } = useRampsNavigation();
   const navigate = useNavigate();
   const fromChain = useSelector(getFromChain);
 
@@ -258,15 +255,6 @@ export const useBridgeAlerts = () => {
         isConfirmationAlert: false,
         bannerAlertProps: {
           severity: BannerAlertSeverity.Danger,
-          actionButtonLabel: t('buyMoreAsset', [ticker]),
-          // Pre-select the source chain's native gas token so the buy flow
-          // lands on build-quote for it; chainId also drives the flag-off
-          // Portfolio fallback.
-          actionButtonOnClick: () =>
-            goToBuy({
-              assetId: getNativeAssetId(fromChain?.chainId),
-              chainId: fromChain?.chainId,
-            }),
         },
       });
     }
@@ -406,7 +394,6 @@ export const useBridgeAlerts = () => {
     isSwap,
     insufficientNativeReserveError,
     dispatch,
-    goToBuy,
     navigateToDestAssetPage,
     fromChain,
     ticker,

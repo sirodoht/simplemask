@@ -4,10 +4,7 @@ import {
 } from '@metamask/transaction-controller';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  AlertActionKey,
-  RowAlertKey,
-} from '../../../../../components/app/confirm/info/row/constants';
+import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
@@ -118,12 +115,6 @@ export function useInsufficientBalanceAlerts({
 
     return [
       {
-        actions: [
-          {
-            key: AlertActionKey.Buy,
-            label: t('alertActionBuyWithNativeCurrency', [nativeCurrency]),
-          },
-        ],
         field: RowAlertKey.EstimatedFee,
         isBlocking: true,
         key: 'insufficientBalance',

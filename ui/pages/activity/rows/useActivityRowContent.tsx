@@ -25,8 +25,6 @@ import type {
   TokenAmount,
 } from '../../../../shared/lib/activity/types';
 import { useFormatters } from '../../../hooks/useFormatters';
-import { formatPendingRampTokenLabel } from '../../../hooks/ramps/utils/formatPendingRampTokenLabel';
-import { hasPositiveNumericAmount } from '../../../hooks/ramps/utils/hasPositiveNumericAmount';
 import type { ActivityRowProps } from '../types';
 import { useFormatAsFiat } from '../../../hooks/useFormatAsFiat';
 import { useFormatTokenAmount } from './useFormatTokenAmount';
@@ -273,30 +271,6 @@ export function useActivityRowContent(activity: ActivityRowProps['data']) {
           primaryAmount: formatTokenAmount(token),
           primaryDirection: token?.direction,
           secondaryAmount: formatAsFiat(token),
-        };
-      }
-      case 'rampBuy':
-      case 'rampSell': {
-        const { token, fiat, provider } = activity.data;
-        const symbol = token?.symbol ?? '';
-        const hasCryptoAmount = hasPositiveNumericAmount(token?.amount);
-        const orderFiat =
-          fiat?.currency && hasPositiveNumericAmount(fiat.amount)
-            ? formatCurrencyWithMinThreshold(Number(fiat.amount), fiat.currency)
-            : undefined;
-
-        return {
-          avatarTokens: [token?.assetId],
-          title: t(labelKeys.title.key, [symbol]),
-          // No provider name means no subtitle: the ramp description repeats
-          // the row title verbatim.
-          subtitle: provider?.name || undefined,
-          primaryAmount:
-            activity.status === 'pending' && token && !hasCryptoAmount
-              ? formatPendingRampTokenLabel(symbol)
-              : formatTokenAmount(token),
-          primaryDirection: token?.direction,
-          secondaryAmount: orderFiat ?? formatAsFiat(token),
         };
       }
       case 'perpsAddFunds':

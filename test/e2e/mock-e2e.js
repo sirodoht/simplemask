@@ -51,7 +51,6 @@ const CHAIN_ID_NETWORKS_PATH =
   'test/e2e/mock-response-data/chain-id-network-chains.json';
 const CLIENT_SIDE_DETECTION_BLOCKLIST_PATH =
   'test/e2e/mock-response-data/client-side-detection-blocklist.json';
-const ON_RAMP_CONTENT_PATH = 'test/e2e/mock-response-data/on-ramp-content.json';
 const TEST_DAPP_STYLES_1_PATH =
   'test/e2e/mock-response-data/test-dapp-styles-1.txt';
 const TEST_DAPP_STYLES_2_PATH =
@@ -1992,17 +1991,6 @@ async function setupMocking(
       statusCode: 404,
     };
   });
-
-  // On Ramp Content
-  const ON_RAMP_CONTENT = fs.readFileSync(ON_RAMP_CONTENT_PATH);
-  await server
-    .forGet('https://on-ramp-content.api.cx.metamask.io/regions/networks')
-    .thenCallback(() => {
-      return {
-        statusCode: 200,
-        json: JSON.parse(ON_RAMP_CONTENT),
-      };
-    });
 
   // Chains Metadata
   const CHAIN_ID_NETWORKS = fs.readFileSync(CHAIN_ID_NETWORKS_PATH);

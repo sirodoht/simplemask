@@ -214,34 +214,6 @@ describe('BackupAndSyncFeaturesToggles', () => {
     );
   });
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  it.each([
-    [false, true],
-    [true, false],
-  ])(
-    'toggles ramps syncing from %s to %s',
-    (currentValue: boolean, nextValue: boolean) => {
-      const store = initialStore();
-      store.metamask.isRampsSyncingEnabled = currentValue;
-      const { setIsBackupAndSyncFeatureEnabledMock } = arrangeMocks();
-      const { getByTestId } = render(
-        <Redux.Provider store={mockStore(store)}>
-          <BackupAndSyncFeaturesToggles />
-        </Redux.Provider>,
-      );
-      fireEvent.click(
-        getByTestId(
-          backupAndSyncFeaturesTogglesTestIds.rampsSyncingToggleButton,
-        ),
-      );
-      expect(setIsBackupAndSyncFeatureEnabledMock).toHaveBeenCalledWith(
-        BACKUPANDSYNC_FEATURES.rampsSyncing,
-        nextValue,
-      );
-    },
-  );
-
   it('disables main backup and sync when all sub-features are manually turned off', async () => {
     const store = initialStore();
     store.metamask.isBackupAndSyncEnabled = true;

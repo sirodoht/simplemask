@@ -14,6 +14,19 @@ describe('getTransactionPayControllerMessenger', () => {
     expect(transactionPayControllerMessenger).toBeInstanceOf(Messenger);
   });
 
+  it('does not expose fiat order or quote actions', () => {
+    const messenger = getRootMessenger();
+    const delegateSpy = jest.spyOn(messenger, 'delegate');
+    getTransactionPayControllerMessenger(messenger);
+
+    const delegatedActions = delegateSpy.mock.calls.flatMap(
+      ([options]) => options.actions ?? [],
+    );
+    expect(
+      delegatedActions.some((action) => action.startsWith('RampsController:')),
+    ).toBe(false);
+  });
+
   it('delegates NetworkController:getNetworkConfigurationByChainId', () => {
     const messenger = getRootMessenger<never, never>();
     const delegateSpy = jest.spyOn(messenger, 'delegate');

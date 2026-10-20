@@ -3,7 +3,6 @@ import {
   selectIsAccountSyncingEnabled,
   selectIsBackupAndSyncUpdateLoading,
   selectIsContactSyncingEnabled,
-  selectIsRampsSyncingEnabled,
 } from './backup-and-sync';
 
 describe('Backup And Sync Selectors', () => {
@@ -32,9 +31,5 @@ describe('Backup And Sync Selectors', () => {
 
   it('selects the Contact Syncing status', () => {
     expect(selectIsContactSyncingEnabled(mockState)).toBe(true);
-  });
-
-  it('selects the Ramps Syncing status', () => {
-    expect(selectIsRampsSyncingEnabled(mockState)).toBe(true);
   });
 });

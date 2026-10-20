@@ -32,10 +32,6 @@ jest.mock('./transaction-event-toast-listener', () => ({
   TransactionEventToastListener: () => null,
 }));
 
-jest.mock('../ramps/ramps-order-toast-listener', () => ({
-  RampsOrderToastListener: () => null,
-}));
-
 jest.mock('../money/money-account-toast/money-account-toast-listener', () => ({
   MoneyAccountToastListener: () => null,
 }));

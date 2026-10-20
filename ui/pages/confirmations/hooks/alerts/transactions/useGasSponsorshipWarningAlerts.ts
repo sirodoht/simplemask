@@ -3,10 +3,7 @@ import type { Hex } from '@metamask/utils';
 import { useMemo } from 'react';
 import { CHAIN_IDS } from '../../../../../../shared/constants/network';
 import { MONAD_RESERVE_BALANCE_MON } from '../../../../../../shared/lib/monad-reserve-balance';
-import {
-  AlertActionKey,
-  RowAlertKey,
-} from '../../../../../components/app/confirm/info/row/constants';
+import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
@@ -71,12 +68,6 @@ export function useGasSponsorshipWarningAlerts(): Alert[] {
 
     return [
       {
-        actions: [
-          {
-            key: AlertActionKey.Buy,
-            label: t('alertActionBuyWithNativeCurrency', [rule.nativeCurrency]),
-          },
-        ],
         field: RowAlertKey.EstimatedFee,
         isOpenModalOnClick: true,
         key: 'gasSponsorshipAlert',

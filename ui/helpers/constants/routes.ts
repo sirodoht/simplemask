@@ -192,13 +192,6 @@ export const DEEP_LINK_ROUTE = '/link';
 
 /** Shown when Basic Functionality is off and user opens a route that requires it (e.g. swap, rewards). */
 export const BASIC_FUNCTIONALITY_OFF_ROUTE = '/basic-functionality-off';
-
-// Ramps (native buy) routes
-export const RAMPS_ROUTE = '/ramps';
-export const RAMPS_BUILD_QUOTE_ROUTE = '/ramps/build-quote';
-export const RAMPS_TOKEN_SELECTION_ROUTE = '/ramps/token-selection';
-export const RAMPS_PAYMENT_METHOD_ROUTE = '/ramps/payment-method';
-export const RAMPS_COMPLETE_BUY_ROUTE = '/ramps/complete-buy';
 export const MONEY_HOME_ROUTE = '/money-home';
 export const MONEY_ACTIVITY_ROUTE = '/money-home/activity';
 export const MONEY_HOW_IT_WORKS_ROUTE = '/money-home/how-it-works';
@@ -452,26 +445,6 @@ export const ROUTES = [
   {
     path: BASIC_FUNCTIONALITY_OFF_ROUTE,
     label: 'Basic Functionality Off Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: RAMPS_BUILD_QUOTE_ROUTE,
-    label: 'Ramps Build Quote Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: RAMPS_TOKEN_SELECTION_ROUTE,
-    label: 'Ramps Token Selection Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: RAMPS_PAYMENT_METHOD_ROUTE,
-    label: 'Ramps Payment Method Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: RAMPS_COMPLETE_BUY_ROUTE,
-    label: 'Ramps Complete Buy Page',
     trackInAnalytics: false,
   },
   {

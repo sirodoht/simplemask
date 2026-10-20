@@ -8,13 +8,11 @@ import {
   selectLocalActivityItems,
   selectLocalTransactionsByHash,
 } from '../../selectors/activity';
-import { selectRampsSettlementHashes } from '../../selectors/rampsController';
 import { activityMatchesAssetId, type ActivityListFilter } from './helpers';
 
 export function useLocalTransactions(filters: ActivityListFilter) {
   const localItems = useSelector(selectLocalActivityItems);
   const localTransactionsByHash = useSelector(selectLocalTransactionsByHash);
-  const rampSettlementHashes = useSelector(selectRampsSettlementHashes);
   const assetId = 'assetId' in filters ? filters.assetId : undefined;
   const networks = 'networks' in filters ? filters.networks : undefined;
 
@@ -30,15 +28,8 @@ export function useLocalTransactions(filters: ActivityListFilter) {
       return [];
     }
 
-    if (rampSettlementHashes.size === 0) {
-      return items;
-    }
-
-    return items.filter((item) => {
-      const hash = item.hash?.toLowerCase();
-      return !hash || !rampSettlementHashes.has(hash);
-    });
-  }, [assetId, localItems, networks, rampSettlementHashes]);
+    return items;
+  }, [assetId, localItems, networks]);
 
   const localTransactionGroups = useMemo(
     () =>

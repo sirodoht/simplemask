@@ -8,7 +8,6 @@ import { MultichainNetworks } from '../../../../shared/constants/multichain/netw
 import {
   mockExchangeRates,
   mockInitialFullScan,
-  mockRampsDynamicFeatureFlag,
   mockGetUtxos,
   mockGetBlocks,
   mockFeeEstimates,
@@ -117,8 +116,6 @@ export async function withBtcWalletStandardSnap(
         await mockGetTxHex(mockServer),
         await mockGetTxHexMainnet(mockServer),
         await mockScripthashTxs2(mockServer),
-        await mockRampsDynamicFeatureFlag(mockServer, 'api'),
-        await mockRampsDynamicFeatureFlag(mockServer, 'uat-api'),
         await mockPriceMulti(mockServer),
         await mockPriceMultiBtcAndSol(mockServer),
         ...(additionalMocks ? await additionalMocks(mockServer) : []),

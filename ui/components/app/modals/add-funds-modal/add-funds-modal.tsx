@@ -18,7 +18,6 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '../../../component-library';
-import useRampsNavigation from '../../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import { ReceiveModal } from '../../../multichain/receive-modal';
 import useBridging from '../../../../hooks/bridge/useBridging';
 import {
@@ -27,7 +26,6 @@ import {
   MetaMetricsSwapsEventSource,
 } from '../../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../../hooks/useAnalytics';
-import { showBuyTabOpenedToast } from '../../../../helpers/utils/show-buy-tab-opened-toast';
 import { trace, TraceName } from '../../../../../shared/lib/trace';
 
 const AddFundsModal = ({
@@ -42,52 +40,11 @@ const AddFundsModal = ({
   payerAddress: Hex;
 }) => {
   const t = useI18nContext();
-  const { goToBuy } = useRampsNavigation();
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const { openBridgeExperience } = useBridging();
 
   const [showReceiveModal, setShowReceiveModal] = useState(false);
-
-  const handleBuyAndSellOnClick = useCallback(async () => {
-    const destination = await goToBuy();
-    // The ramps gate can block the buy (e.g. service disruption, unsupported
-    // region) and show its own modal; don't report a buy click or close this
-    // modal in that case.
-    if (!destination) {
-      return;
-    }
-    if (destination === 'portfolio') {
-      showBuyTabOpenedToast(
-        t('buyTabOpenedToastText'),
-        t('buyTabOpenedToastDescription'),
-      );
-    }
-    trackEvent(
-      createEventBuilder(MetaMetricsEventName.NavBuyButtonClicked)
-        .addCategory(MetaMetricsEventCategory.Navigation)
-        .addProperties({
-          location: 'Transaction Shield',
-          text: 'Buy',
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          chain_id: chainId,
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          token_symbol: token.symbol,
-        })
-        .build(),
-    );
-    onClose();
-  }, [
-    chainId,
-    onClose,
-    goToBuy,
-    token.symbol,
-    createEventBuilder,
-    trackEvent,
-    t,
-  ]);
 
   const handleReceiveOnClick = useCallback(() => {
     trace({ name: TraceName.ReceiveModal });
@@ -162,12 +119,6 @@ const AddFundsModal = ({
           paddingLeft={0}
           paddingRight={0}
         >
-          {buttonRow({
-            id: 'add-funds-modal-buy-crypto-button',
-            label: t('addFundsModalBuyCrypto'),
-            iconName: IconName.Add,
-            onClick: handleBuyAndSellOnClick,
-          })}
           {buttonRow({
             id: 'add-funds-modal-receive-crypto-button',
             label: t('addFundsModalReceiveTokens'),

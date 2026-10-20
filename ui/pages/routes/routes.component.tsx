@@ -42,10 +42,6 @@ import {
   TX_DETAILS_ROUTE,
   IMPORT_SRP_ROUTE,
   BASIC_FUNCTIONALITY_OFF_ROUTE,
-  RAMPS_BUILD_QUOTE_ROUTE,
-  RAMPS_TOKEN_SELECTION_ROUTE,
-  RAMPS_PAYMENT_METHOD_ROUTE,
-  RAMPS_COMPLETE_BUY_ROUTE,
   DEEP_LINK_ROUTE,
   ACCOUNT_LIST_PAGE_ROUTE,
   MULTICHAIN_ACCOUNT_ADDRESS_LIST_PAGE_ROUTE,
@@ -148,7 +144,6 @@ import { RESTORE_VAULT_ROUTE_CAPABILITIES } from '../keychains/restore-vault-mes
 import { REVEAL_SEED_ROUTE_CAPABILITIES } from '../keychains/reveal-seed-messenger';
 import { PRIVATE_KEY_LIST_ROUTE_CAPABILITIES } from '../multichain-accounts/multichain-account-private-key-list-page/messenger';
 import BatchSell from '../batch-sell/batch-sell-page';
-import { RampsFlowLayout } from '../ramps/context/ramps-flow-context';
 import { getConnectingLabel, setTheme } from './utils';
 import { ConfirmationRouter } from './confirmation-router';
 import { Modals } from './modals';
@@ -208,14 +203,6 @@ const Asset = mmLazy(() => import('../asset/index.js'));
 const SecurityTrustPage = mmLazy(
   () => import('../asset/security-trust/index.ts'),
 );
-const RampsBuildQuote = mmLazy(() => import('../ramps/build-quote/index.ts'));
-const RampsTokenSelection = mmLazy(
-  () => import('../ramps/token-selection/index.ts'),
-);
-const RampsPaymentMethod = mmLazy(
-  () => import('../ramps/payment-method/index.ts'),
-);
-const RampsCompleteBuy = mmLazy(() => import('../ramps/complete-buy/index.ts'));
 const PermissionsPage = mmLazy(
   () =>
     import('../../components/multichain/pages/permissions-page/permissions-page.js'),
@@ -543,27 +530,6 @@ export const routeConfig = [
           {
             path: `${CROSS_CHAIN_SWAP_ROUTE}/*`,
             element: <CrossChainSwap />,
-          },
-          {
-            element: <RampsFlowLayout />,
-            children: [
-              {
-                path: RAMPS_BUILD_QUOTE_ROUTE,
-                element: <RampsBuildQuote />,
-              },
-              {
-                path: RAMPS_TOKEN_SELECTION_ROUTE,
-                element: <RampsTokenSelection />,
-              },
-              {
-                path: RAMPS_PAYMENT_METHOD_ROUTE,
-                element: <RampsPaymentMethod />,
-              },
-            ],
-          },
-          {
-            path: RAMPS_COMPLETE_BUY_ROUTE,
-            element: <RampsCompleteBuy />,
           },
           {
             path: `${MUSD_CONVERSION_ROUTE}/*`,

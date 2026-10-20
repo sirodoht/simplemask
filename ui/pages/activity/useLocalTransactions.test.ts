@@ -35,18 +35,17 @@ describe('useLocalTransactions', () => {
     jest.clearAllMocks();
   });
 
-  it('omits local items whose hash matches a ramp settlement hash', () => {
-    // selectLocalActivityItems, selectLocalTransactionsByHash, selectRampsSettlementHashes
+  it('keeps every on-chain settlement transaction on the selected network', () => {
+    // Local activity and transaction-group lookup.
     jest
       .mocked(useSelector)
       .mockReturnValueOnce([localSend, otherSend])
-      .mockReturnValueOnce(new Map())
-      .mockReturnValueOnce(new Set(['0xabc']));
+      .mockReturnValueOnce(new Map());
 
     const { result } = renderHook(() =>
       useLocalTransactions({ networks: ['eip155:1'] }),
     );
 
-    expect(result.current).toStrictEqual([otherSend]);
+    expect(result.current).toStrictEqual([localSend, otherSend]);
   });
 });

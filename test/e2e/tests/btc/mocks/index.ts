@@ -7,7 +7,6 @@ export {
   mockBtcSpotPrices,
   mockSupportedVsCurrencies,
 } from './price-api';
-export { mockRampsDynamicFeatureFlag } from './ramps';
 export {
   mockTokensV2SupportedNetworks,
   mockTokensV3Assets,

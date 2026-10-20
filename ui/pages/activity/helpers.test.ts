@@ -31,7 +31,7 @@ describe('getActivityItemIdentifier', () => {
     expect(getActivityItemIdentifier(null)).toBeUndefined();
   });
 
-  it('reduces a provider-prefixed ramp order id to its order code', () => {
+  it('does not use provider order IDs as transaction identifiers', () => {
     const rampBuy = makeItem({
       timestamp: 1,
       status: 'pending',
@@ -40,7 +40,7 @@ describe('getActivityItemIdentifier', () => {
       data: { id: 'moonpay/orders/native-uuid' },
     });
 
-    expect(getActivityItemIdentifier(rampBuy)).toBe('native-uuid');
+    expect(getActivityItemIdentifier(rampBuy)).toBeUndefined();
   });
 
   it('prefers the settlement hash once the ramp order has one', () => {
@@ -55,7 +55,7 @@ describe('getActivityItemIdentifier', () => {
     expect(getActivityItemIdentifier(rampBuy)).toBe('0xdef');
   });
 
-  it('falls through an empty hash to the ramp order code', () => {
+  it('does not navigate using an empty transaction hash', () => {
     const rampBuy = makeItem({
       timestamp: 1,
       status: 'pending',
@@ -64,7 +64,7 @@ describe('getActivityItemIdentifier', () => {
       data: { id: 'moonpay/orders/native-uuid' },
     });
 
-    expect(getActivityItemIdentifier(rampBuy)).toBe('native-uuid');
+    expect(getActivityItemIdentifier(rampBuy)).toBeUndefined();
   });
 
   it('returns undefined for a ramp sell without an order id', () => {
@@ -290,7 +290,7 @@ describe('getItemKey', () => {
     expect(getItemKey({ type: 'pending-header' }, 0)).toBe('pending-header');
   });
 
-  it('uses the ramp order code when the item has no hash', () => {
+  it('uses the index when the item has no transaction hash', () => {
     const key = getItemKey(
       {
         type: 'item',
@@ -306,7 +306,7 @@ describe('getItemKey', () => {
       3,
     );
 
-    expect(key).toBe('eip155:1:42:rampBuy:native-uuid');
+    expect(key).toBe('eip155:1:42:rampBuy:3');
   });
 });
 

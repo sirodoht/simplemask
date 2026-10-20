@@ -102,7 +102,6 @@ import {
   ComplianceController,
   ComplianceService,
 } from '@metamask/compliance-controller';
-import { RampsController, RampsService } from '@metamask/ramps-controller';
 import { PasskeyController } from '@metamask/passkey-controller';
 import { AnalyticsController } from '@metamask/analytics-controller';
 import { SentinelApiService } from '@metamask/sentinel-api-service';
@@ -199,8 +198,6 @@ export type MessengerClient =
   | PPOMController
   | PreferencesController
   | QrSyncController
-  | RampsController
-  | RampsService
   | RateLimitController<RateLimitedApiMap>
   | RatesController
   | RemoteFeatureFlagController
@@ -299,7 +296,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   PPOMController['state'] &
   PreferencesController['state'] &
   QrSyncController['state'] &
-  RampsController['state'] &
   RatesController['state'] &
   RemoteFeatureFlagController['state'] &
   SeedlessOnboardingController<EncryptionKey>['state'] &

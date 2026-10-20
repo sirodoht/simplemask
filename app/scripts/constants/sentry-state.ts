@@ -293,17 +293,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     remoteFeatureFlags: true,
     cacheTimestamp: false,
   },
-  RampsController: {
-    userRegion: false,
-    countries: false,
-    providers: false,
-    tokens: false,
-    paymentMethods: false,
-    requests: false,
-    nativeProviders: false,
-    orders: false,
-    providerAutoSelected: false,
-  },
   NotificationServicesPushController: {
     fcmToken: false,
   },

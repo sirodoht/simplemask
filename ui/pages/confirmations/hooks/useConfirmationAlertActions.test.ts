@@ -1,10 +1,8 @@
 import { TransactionEnvelopeType } from '@metamask/transaction-controller';
-import { getNativeAssetForChainId } from '@metamask/bridge-controller';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 import { renderHookWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../test/data/mock-state.json';
 import { AlertActionKey } from '../../../components/app/confirm/info/row/constants';
-import useRampsNavigation from '../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import { useGasFeeModalContext } from '../context/gas-fee-modal';
 import { useConfirmContext } from '../context/confirm';
 import { GasModalType } from '../constants/gas';
@@ -17,10 +15,6 @@ jest.mock('../context/gas-fee-modal', () => ({
 jest.mock('../context/confirm', () => ({
   useConfirmContext: jest.fn(),
 }));
-
-jest.mock('../../../hooks/ramps/useRampsNavigation/useRampsNavigation');
-
-const mockGoToBuy = jest.fn();
 
 function processAlertActionKey(actionKey: string) {
   const { result } = renderHookWithProvider(
@@ -39,10 +33,6 @@ describe('useConfirmationAlertActions', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-
-    jest.mocked(useRampsNavigation).mockReturnValue({
-      goToBuy: mockGoToBuy,
-    } as unknown as ReturnType<typeof useRampsNavigation>);
 
     useGasFeeModalContextMock.mockReturnValue({
       openGasFeeModal: openGasFeeModalMock,
@@ -64,15 +54,6 @@ describe('useConfirmationAlertActions', () => {
       suppressAutoExit: jest.fn(),
       isAmountPending: false,
       setIsAmountPending: jest.fn(),
-    });
-  });
-
-  it('routes Buy through goToBuy with the native gas token and chain', () => {
-    processAlertActionKey(AlertActionKey.Buy);
-
-    expect(mockGoToBuy).toHaveBeenCalledWith({
-      assetId: getNativeAssetForChainId(CHAIN_IDS.MAINNET).assetId,
-      chainId: CHAIN_IDS.MAINNET,
     });
   });
 

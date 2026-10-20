@@ -10,10 +10,7 @@ import {
   getMockConfirmStateForTransaction,
 } from '../../../../../../test/data/confirmations/helper';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import {
-  AlertActionKey,
-  RowAlertKey,
-} from '../../../../../components/app/confirm/info/row/constants';
+import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { useGasSponsorshipWarningAlerts } from './useGasSponsorshipWarningAlerts';
 
 const ACCOUNT_ADDRESS = '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc';
@@ -36,12 +33,6 @@ const CONFIRMATION_MOCK = {
 } as TransactionMeta;
 
 const RESERVE_ALERT = {
-  actions: [
-    {
-      key: AlertActionKey.Buy,
-      label: 'Buy MON',
-    },
-  ],
   field: RowAlertKey.EstimatedFee,
   isBlocking: true,
   isOpenModalOnClick: true,

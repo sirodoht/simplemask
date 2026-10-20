@@ -1,4 +1,3 @@
-import { getInternalOrderCode } from '@metamask/ramps-controller';
 import {
   TransactionStatus,
   TransactionType,
@@ -104,10 +103,10 @@ function getItemHash(item: ActivityListItem) {
 }
 
 /**
- * Details-route identifier: settlement hash, or internal ramps order code.
+ * Details-route identifier: transaction hash.
  *
  * @param item - The activity item, or null/undefined when nothing is selected.
- * @returns The hash or ramp order code, if any.
+ * @returns The transaction hash, if any.
  */
 export function getActivityItemIdentifier(
   item: ActivityListItem | null | undefined,
@@ -117,9 +116,6 @@ export function getActivityItemIdentifier(
   }
   if (item.hash) {
     return item.hash;
-  }
-  if (item.type === 'rampBuy' || item.type === 'rampSell') {
-    return item.data.id ? getInternalOrderCode(item.data.id) : undefined;
   }
   return undefined;
 }

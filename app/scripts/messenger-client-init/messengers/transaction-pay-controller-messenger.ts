@@ -25,11 +25,22 @@ import type { RootMessenger } from '../../lib/messenger';
 
 export function getTransactionPayControllerMessenger(
   messenger: RootMessenger<
-    MessengerActions<TransactionPayControllerMessenger>,
+    Exclude<
+      MessengerActions<TransactionPayControllerMessenger>,
+      { type: `RampsController:${string}` }
+    >,
     MessengerEvents<TransactionPayControllerMessenger>
   >,
 ): TransactionPayControllerMessenger {
-  const controllerMessenger: TransactionPayControllerMessenger = new Messenger({
+  const controllerMessenger = new Messenger<
+    'TransactionPayController',
+    Exclude<
+      MessengerActions<TransactionPayControllerMessenger>,
+      { type: `RampsController:${string}` }
+    >,
+    MessengerEvents<TransactionPayControllerMessenger>,
+    typeof messenger
+  >({
     namespace: 'TransactionPayController',
     parent: messenger,
   });
@@ -51,8 +62,6 @@ export function getTransactionPayControllerMessenger(
       'TransactionController:updateTransaction',
       'KeyringController:getState',
       'KeyringController:signTypedMessage',
-      'RampsController:getOrder',
-      'RampsController:getQuoteWithFees',
       'SentinelApiService:simulateTransactions',
     ],
     events: [

@@ -30,26 +30,8 @@ describe('useNonEvmTransactions', () => {
     jest.clearAllMocks();
   });
 
-  it('omits non-EVM items whose hash matches a ramp settlement hash', () => {
-    jest
-      .mocked(useSelector)
-      .mockReturnValueOnce([solanaReceive, otherReceive])
-      .mockReturnValueOnce(new Set(['0xabc']));
-
-    const { result } = renderHook(() =>
-      useNonEvmTransactions({
-        networks: ['solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp'],
-      }),
-    );
-
-    expect(result.current).toStrictEqual([otherReceive]);
-  });
-
-  it('keeps non-EVM items when there are no ramp settlement hashes', () => {
-    jest
-      .mocked(useSelector)
-      .mockReturnValueOnce([solanaReceive, otherReceive])
-      .mockReturnValueOnce(new Set());
+  it('keeps all on-chain settlement transactions on the selected network', () => {
+    jest.mocked(useSelector).mockReturnValueOnce([solanaReceive, otherReceive]);
 
     const { result } = renderHook(() =>
       useNonEvmTransactions({
@@ -58,5 +40,17 @@ describe('useNonEvmTransactions', () => {
     );
 
     expect(result.current).toStrictEqual([solanaReceive, otherReceive]);
+  });
+
+  it('filters out transactions from other networks', () => {
+    jest.mocked(useSelector).mockReturnValueOnce([solanaReceive, otherReceive]);
+
+    const { result } = renderHook(() =>
+      useNonEvmTransactions({
+        networks: ['eip155:1'],
+      }),
+    );
+
+    expect(result.current).toStrictEqual([]);
   });
 });

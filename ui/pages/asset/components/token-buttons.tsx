@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Box, BoxJustifyContent } from '@metamask/design-system-react';
 import { I18nContext } from '../../../contexts/i18n';
-import useRampsNavigation from '../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import { getUseExternalServices } from '../../../selectors';
 import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/accounts';
 import { getSelectedAccountGroup } from '../../../selectors/multichain-accounts/account-tree';
@@ -14,7 +13,6 @@ import useBridging from '../../../hooks/bridge/useBridging';
 import { INVALID_ASSET_TYPE } from '../../../helpers/constants/error-keys';
 import { useDispatch } from '../../../store/hooks';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { showBuyTabOpenedToast } from '../../../helpers/utils/show-buy-tab-opened-toast';
 import { AssetType } from '../../../../shared/constants/transaction';
 import {
   MetaMetricsEventCategory,
@@ -35,7 +33,7 @@ import { trace, TraceName } from '../../../../shared/lib/trace';
 import { Asset } from '../types/asset';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { navigateToSendRoute } from '../../confirmations/utils/send';
-import { isEvmChainId, toAssetId } from '../../../../shared/lib/asset-utils';
+import { isEvmChainId } from '../../../../shared/lib/asset-utils';
 import { useAssetActivation } from '../hooks/useAssetActivation';
 import { useBalanceAwareSwapDefaults } from '../hooks/useBalanceAwareSwapDefaults';
 import {
@@ -70,8 +68,6 @@ const TokenButtons = ({
   );
 
   const currentChainId = token.chainId;
-
-  const { goToBuy } = useRampsNavigation();
   const { openBridgeExperience } = useBridging();
   const { sourceToken, destTokenAssetId } = useBalanceAwareSwapDefaults({
     currentToken: token,
@@ -92,58 +88,6 @@ const TokenButtons = ({
     onClickOutside: () => setIsMoreOptionsDropdownOpen(false),
     active: isMoreOptionsDropdownOpen,
   });
-
-  const handleBuyAndSellOnClick = useCallback(async () => {
-    const runBuy = async () => {
-      const destination = await goToBuy({
-        assetId: toAssetId(token.address, token.chainId),
-        chainId: token.chainId,
-      });
-      // The ramps gate can block the buy and show its own modal; don't report a
-      // buy click in that case.
-      if (!destination) {
-        return;
-      }
-      if (destination === 'portfolio') {
-        showBuyTabOpenedToast(
-          t('buyTabOpenedToastText'),
-          t('buyTabOpenedToastDescription'),
-        );
-      }
-      trackEvent(
-        createEventBuilder(MetaMetricsEventName.NavBuyButtonClicked)
-          .addCategory(MetaMetricsEventCategory.Navigation)
-          .addProperties({
-            location: 'Token Overview',
-            text: 'Buy',
-            // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            chain_id: currentChainId,
-            // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            token_symbol: token.symbol,
-          })
-          .build(),
-      );
-    };
-
-    if (gateCtaAction) {
-      gateCtaAction(runBuy, 'buy');
-      return;
-    }
-
-    await runBuy();
-  }, [
-    currentChainId,
-    gateCtaAction,
-    token.address,
-    token.chainId,
-    token.symbol,
-    trackEvent,
-    createEventBuilder,
-    goToBuy,
-    t,
-  ]);
 
   const handleSendOnClick = useCallback(async () => {
     trackEvent(
@@ -264,21 +208,6 @@ const TokenButtons = ({
     <>
       {
         <Box className="flex" gap={3} justifyContent={BoxJustifyContent.Evenly}>
-          <IconButton
-            className="token-overview__button"
-            Icon={
-              <Icon
-                name={IconName.Dollar}
-                color={IconColor.iconAlternative}
-                size={IconSize.Md}
-              />
-            }
-            label={t('buy')}
-            data-testid="token-overview-buy"
-            onClick={handleBuyAndSellOnClick}
-            disabled={token.isERC721 || !isCtaGateReady}
-          />
-
           {shouldShowSendButton ? sendButton : null}
 
           <IconButton

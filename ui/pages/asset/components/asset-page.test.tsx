@@ -163,14 +163,6 @@ jest.mock('../../../hooks/useTokenSecurityData', () => ({
 }));
 
 const mockOpenBuyCryptoInPdapp = jest.fn();
-jest.mock('../../../hooks/ramps/useRamps/useRamps', () => ({
-  // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: jest.fn(() => ({
-    openBuyCryptoInPdapp: mockOpenBuyCryptoInPdapp,
-  })),
-}));
 
 const selectedAccountAddress = 'cf8dace4-9439-4bd4-b3a8-88c821c8fcb3';
 
@@ -475,68 +467,13 @@ describe('AssetPage', () => {
     expect(actions).toHaveLength(0);
   });
 
-  it('should show ConvertTokenToNFT modal when token passed in props is an ERC721', () => {
+  it('does not open the retired NFT conversion modal', () => {
     renderWithProvider(
       <AssetPage asset={{ ...token, isERC721: true }} optionsButton={null} />,
       store,
     );
     const actions = store.getActions();
-    expect(actions).toHaveLength(1);
-    expect(actions[0].type).toBe('UI_MODAL_OPEN');
-    expect(actions[0].payload).toStrictEqual({
-      name: 'CONVERT_TOKEN_TO_NFT',
-      tokenAddress: token.address,
-    });
-  });
-
-  it('should enable the buy button on supported chains', () => {
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      store,
-    );
-    const buyButton = queryByTestId('token-overview-buy');
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).toBeEnabled();
-  });
-
-  it('keeps the buy button enabled on unsupported chains', () => {
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      configureMockStore([thunk])({
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: CHAIN_IDS.SEPOLIA }),
-        },
-      }),
-    );
-    const buyButton = queryByTestId('token-overview-buy');
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).toBeEnabled();
-  });
-
-  it('opens the in-extension buy flow when clicking the buy button', async () => {
-    const mockedStoreWithBuyableChainId = {
-      ...mockStore,
-      metamask: {
-        ...mockStore.metamask,
-        ...mockNetworkState({ chainId: CHAIN_IDS.POLYGON }),
-      },
-    };
-    const mockedStore = configureMockStore([thunk])(
-      mockedStoreWithBuyableChainId,
-    );
-
-    const { queryByTestId } = renderWithProvider(
-      <AssetPage asset={token} optionsButton={null} />,
-      mockedStore,
-    );
-    const buyButton = queryByTestId('token-overview-buy');
-    expect(buyButton).toBeInTheDocument();
-    expect(buyButton).not.toBeDisabled();
-
-    fireEvent.click(buyButton as HTMLElement);
-    expect(mockOpenBuyCryptoInPdapp).toHaveBeenCalledTimes(1);
+    expect(actions).toHaveLength(0);
   });
 
   it('hides the Send button when token balance is zero', () => {
