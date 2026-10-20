@@ -1,22 +1,12 @@
-import {
-  type TransactionMeta,
-  TransactionType,
-} from '@metamask/transaction-controller';
+import { type TransactionMeta } from '@metamask/transaction-controller';
 import { act } from '@testing-library/react';
 import { renderHookWithConfirmContextProvider } from '../../../../test/lib/confirmations/render-helpers';
-import {
-  getMockConfirmStateForTransaction,
-  getMockConfirmState,
-} from '../../../../test/data/confirmations/helper';
+import { getMockConfirmStateForTransaction } from '../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../test/data/confirmations/contract-interaction';
 import mockState from '../../../../test/data/mock-state.json';
 import type { Alert } from '../../../ducks/confirm-alerts/confirm-alerts';
-import { Severity } from '../../../helpers/constants/design-system';
-import { RowAlertKey } from '../../../components/app/confirm/info/row/constants';
 import * as Actions from '../../../store/actions';
 import useConfirmationAlerts from './useConfirmationAlerts';
-import { useNoPayTokenQuotesAlert } from './alerts/transactions/useNoPayTokenQuotesAlert';
-import { AlertsName } from './alerts/constants';
 
 jest.mock('@metamask/react-data-query', () => ({
   useQuery: () => ({ data: undefined, isLoading: false, isError: false }),
@@ -62,10 +52,6 @@ jest.mock('./alerts/useSendingAssetsFiatTotal', () => ({
   useSendingAssetsFiatTotal: () => null,
 }));
 
-jest.mock('./alerts/transactions/useNoPayTokenQuotesAlert');
-
-const useNoPayTokenQuotesAlertMock = jest.mocked(useNoPayTokenQuotesAlert);
-
 async function renderAlertsHook(state: Record<string, unknown>) {
   let renderResult!: ReturnType<typeof renderHookWithConfirmContextProvider>;
   await act(async () => {
@@ -96,7 +82,6 @@ async function getGasLimitAlerts(gas: string) {
 
 describe('useConfirmationAlerts', () => {
   beforeEach(() => {
-    useNoPayTokenQuotesAlertMock.mockReturnValue([]);
     jest
       .spyOn(Actions, 'getLastInteractedConfirmationInfo')
       .mockResolvedValue(undefined);
@@ -124,64 +109,5 @@ describe('useConfirmationAlerts', () => {
 
   it('does not add a gas limit alert for a legacy gas limit', async () => {
     expect(await getGasLimitAlerts('0x5208')).toHaveLength(0);
-  });
-
-  it('strips row field associations for MM Pay transactions', async () => {
-    useNoPayTokenQuotesAlertMock.mockReturnValue([
-      {
-        key: AlertsName.NoPayTokenQuotes,
-        field: RowAlertKey.PayWith,
-        message: 'No quotes available',
-        reason: 'No quotes',
-        severity: Severity.Danger,
-        isBlocking: true,
-      },
-    ]);
-
-    const confirmation = {
-      ...genUnapprovedContractInteractionConfirmation(),
-      type: TransactionType.batch,
-      nestedTransactions: [{ type: TransactionType.moneyAccountDeposit }],
-    };
-
-    const { result } = await renderAlertsHook(
-      getMockConfirmStateForTransaction(confirmation),
-    );
-
-    expect(result.current).toEqual([
-      {
-        key: AlertsName.NoPayTokenQuotes,
-        message: 'No quotes available',
-        reason: 'No quotes',
-        severity: Severity.Danger,
-        isBlocking: true,
-      },
-    ]);
-  });
-
-  it('keeps row field associations for non-pay transactions', async () => {
-    useNoPayTokenQuotesAlertMock.mockReturnValue([
-      {
-        key: AlertsName.NoPayTokenQuotes,
-        field: RowAlertKey.PayWith,
-        message: 'No quotes available',
-        reason: 'No quotes',
-        severity: Severity.Danger,
-        isBlocking: true,
-      },
-    ]);
-
-    const { result } = await renderAlertsHook(getMockConfirmState());
-
-    expect(result.current).toEqual([
-      {
-        key: AlertsName.NoPayTokenQuotes,
-        field: RowAlertKey.PayWith,
-        message: 'No quotes available',
-        reason: 'No quotes',
-        severity: Severity.Danger,
-        isBlocking: true,
-      },
-    ]);
   });
 });

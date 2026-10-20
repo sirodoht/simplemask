@@ -23,7 +23,6 @@ import {
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import {
   type CaipAssetType,
-  Hex,
   isCaipChainId,
   parseCaipAssetType,
 } from '@metamask/utils';
@@ -78,7 +77,6 @@ import {
   getMultichainIsTron,
 } from '../../../selectors/multichain';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../../selectors/multichain-accounts/account-tree';
-import { selectIsMusdConversionFlowEnabled } from '../../../selectors/musd';
 import { useSafeChains } from '../../../components/multichain/networks-form/use-safe-chains';
 import { useCurrentPrice } from '../hooks/useCurrentPrice';
 import { useSpendableBalance } from '../hooks/useSpendableBalance';
@@ -86,18 +84,6 @@ import { getIsAssetRequireActivate } from '../../../selectors/stellar-assets';
 import { isNativeAsset, type Asset } from '../types/asset';
 
 import { useRWAToken } from '../../../hooks/rwa/useRWAToken';
-import { useMusdCtaVisibility } from '../../../hooks/musd';
-import { MusdAssetCta } from '../../../components/app/musd';
-import { MoneyEarnBanner } from '../../../components/app/money/money-earn-banner';
-import {
-  MoneyAssetOverviewBalanceApy,
-  MoneyAssetOverviewBalanceCta,
-  MoneyAssetOverviewBalanceCtaSkeleton,
-  MoneyAssetOverviewBalanceDescription,
-  MoneyAssetOverviewBalanceDescriptionSkeleton,
-} from '../../../components/app/money/money-asset-overview-balance-cta';
-import { useMoneyAssetOverviewBalanceCta } from '../../../hooks/money/use-money-asset-overview-ctas';
-import { isMusdToken } from '../../../components/app/musd/constants';
 import { processAssetParams } from '../util';
 import { AssetInactiveBadge } from '../../../components/app/assets/asset-inactive-badge/asset-inactive-badge';
 import { AssetMarketDetails } from './asset-market-details';
@@ -108,7 +94,6 @@ import TokenButtons from './token-buttons';
 import { AssetActivateCard } from './asset-activation-card';
 import { SpendableBalanceSection } from './spendable-balance-section';
 import { TronDailyResources } from './tron-daily-resources';
-import { MusdPositionSection } from './musd-position-section';
 import {
   AssetPageSecurityTrustBanner,
   AssetPageSecurityTrustHeaderBadge,
@@ -175,12 +160,6 @@ const AssetPage = ({
   const isMainnet = !isTestnet;
   // Check if show conversion is enabled
   const showFiatInTestnets = useSelector(getShowFiatInTestnets);
-
-  // mUSD CTA visibility check
-  const { shouldShowAssetOverviewCta: checkMusdCtaVisibility } =
-    useMusdCtaVisibility();
-
-  const isMusdFlowEnabled = useSelector(selectIsMusdConversionFlowEnabled);
   const showFiat =
     shouldShowFiat && (isMainnet || (isTestnet && showFiatInTestnets));
 
@@ -365,19 +344,7 @@ const AssetPage = ({
 
   const isUpdatedAssetNative = isNativeAsset(updatedAsset);
   const tokenAsset = isUpdatedAssetNative ? null : updatedAsset;
-  const isMusdAssetPage = useMemo(
-    () =>
-      type === AssetType.token &&
-      isEvm &&
-      isMusdToken((asset as { address?: Hex }).address) &&
-      isMusdFlowEnabled,
-    [type, isEvm, asset, isMusdFlowEnabled],
-  );
-  const isYourBalanceSectionShown = !isMusdAssetPage && !showSpendableBalance;
-  const moneyBalanceCta = useMoneyAssetOverviewBalanceCta(tokenWithFiatAmount, {
-    enabled: isYourBalanceSectionShown,
-  });
-  const moneyBalanceDisplay = moneyBalanceCta.display;
+  const isYourBalanceSectionShown = !showSpendableBalance;
 
   const [isMarketClosedModalOpen, setIsMarketClosedModalOpen] = useState(false);
   const handleOpenMarketClosedModal = useCallback(() => {
@@ -455,10 +422,7 @@ const AssetPage = ({
             }
           </Box>
         </>
-        <MoneyEarnBanner
-          key={`${chainId}:${address}`}
-          token={tokenWithFiatAmount}
-        />
+
         <Box flexDirection={BoxFlexDirection.Column} paddingTop={3}>
           {showTronResources && (
             <Box>
@@ -474,21 +438,8 @@ const AssetPage = ({
               />
             </Box>
           )}
-          {isMusdAssetPage ? (
-            <>
-              <MusdPositionSection
-                balanceDisplay={balance ? `${balance} ${t('musdSymbol')}` : '0'}
-                fiatValue={tokenFiatAmount}
-                showFiat={showFiat}
-              />
-              <Box
-                marginTop={5}
-                marginBottom={5}
-                className="asset-page__divider"
-              />
-            </>
-          ) : null}
-          {!isMusdAssetPage && spendableBalanceData.hasSpendableBalance ? (
+          {null}
+          {spendableBalanceData.hasSpendableBalance ? (
             <SpendableBalanceSection
               minimumReserveBalance={spendableBalanceData.minimumReserveBalance}
               spendableBalance={spendableBalanceData.spendableBalance}
@@ -505,67 +456,21 @@ const AssetPage = ({
               >
                 {t('yourBalance')}
               </Text>
-              {moneyBalanceDisplay ? (
-                <MoneyAssetOverviewBalanceDescription
-                  tokenSymbol={symbol}
-                  apyPercent={moneyBalanceDisplay.apyPercent}
-                  projectedEarnings={
-                    moneyBalanceDisplay.projectedEarningsFormatted
-                  }
-                  privacyMode={privacyMode}
-                  onTooltipOpen={moneyBalanceCta.onProjectionTooltipOpen}
-                />
-              ) : null}
-              {moneyBalanceCta.isLoading ? (
-                <MoneyAssetOverviewBalanceDescriptionSkeleton />
-              ) : null}
+              {null}
+              {null}
               {[AssetType.token, AssetType.native].includes(type) && (
                 <TokenCell
                   key={`${symbol}-${address}`}
                   token={tokenWithFiatAmount as TokenWithFiatAmount}
                   safeChains={safeChains}
-                  priceChangeOverride={
-                    moneyBalanceDisplay ? (
-                      <MoneyAssetOverviewBalanceApy
-                        apy={moneyBalanceDisplay.apyPercentFormatted}
-                      />
-                    ) : undefined
-                  }
                 />
               )}
-              {moneyBalanceDisplay ? (
-                <MoneyAssetOverviewBalanceCta
-                  onStartEarning={moneyBalanceCta.onStartEarning}
-                />
-              ) : null}
-              {moneyBalanceCta.isLoading ? (
-                <MoneyAssetOverviewBalanceCtaSkeleton />
-              ) : null}
+              {null}
+              {null}
             </>
           ) : null}
           {/* mUSD Conversion CTA - shows for eligible stablecoins */}
-          {!isNativeAsset(updatedAsset) &&
-            type === AssetType.token &&
-            isEvm &&
-            !isMusdAssetPage &&
-            checkMusdCtaVisibility({
-              address: (asset as { address: Hex }).address,
-              chainId,
-              symbol,
-            }) && (
-              <Box marginTop={2} paddingLeft={4} paddingRight={4}>
-                <MusdAssetCta
-                  token={{
-                    address: (asset as { address: Hex }).address,
-                    chainId: chainId as string,
-                    symbol,
-                    balance: String(balance),
-                    fiatBalance: String(tokenFiatAmount),
-                  }}
-                  variant="card"
-                />
-              </Box>
-            )}
+
           <Box marginTop={6} flexDirection={BoxFlexDirection.Column} gap={4}>
             <AssetPageSecurityTrustSection />
             {[AssetType.token, AssetType.native].includes(type) && (
@@ -609,17 +514,7 @@ const AssetPage = ({
                         <AddressCopyButton address={contractAddress} shorten />,
                       )}
                       <Box flexDirection={BoxFlexDirection.Column} gap={2}>
-                        {isMusdAssetPage
-                          ? renderRow(
-                              t('tokenStandard'),
-                              <Text
-                                variant={TextVariant.BodyMd}
-                                fontWeight={FontWeight.Medium}
-                              >
-                                ERC-20
-                              </Text>,
-                            )
-                          : null}
+                        {null}
                         {asset.decimals !== undefined &&
                           renderRow(
                             t('tokenDecimal'),

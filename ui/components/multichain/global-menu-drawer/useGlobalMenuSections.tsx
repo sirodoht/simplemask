@@ -8,8 +8,6 @@ import {
   BoxJustifyContent,
   IconColor,
   IconName,
-  Tag,
-  TagSeverity,
   TextColor,
 } from '@metamask/design-system-react';
 import { useAnalytics } from '../../../hooks/useAnalytics';
@@ -56,14 +54,6 @@ import {
   getAnySnapUpdateAvailable,
   getUseExternalServices,
 } from '../../../selectors';
-import { useUserSubscriptions } from '../../../hooks/subscription/useSubscription';
-import {
-  getIsShieldSubscriptionActive,
-  getIsShieldSubscriptionPaused,
-  getShieldSubscription,
-  getSubscriptionPaymentData,
-} from '../../../../shared/lib/shield';
-import { useSubscriptionMetrics } from '../../../hooks/shield/metrics/useSubscriptionMetrics';
 import type { GlobalMenuSection } from '../global-menu/global-menu-list.types';
 import { isBeta, isFlask } from '../../../../shared/lib/build-types';
 import { useDispatch } from '../../../store/hooks';
@@ -84,8 +74,6 @@ export function useGlobalMenuSections(
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
-  const { captureCommonExistingShieldSubscriptionEvents } =
-    useSubscriptionMetrics();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -105,22 +93,6 @@ export function useGlobalMenuSections(
   const currentEnvironment = getEnvironmentType();
   const isSidepanel = currentEnvironment === ENVIRONMENT_TYPE_SIDEPANEL;
   const isPopup = currentEnvironment === ENVIRONMENT_TYPE_POPUP;
-
-  const { subscriptions } = useUserSubscriptions();
-  const isActiveShieldSubscription =
-    getIsShieldSubscriptionActive(subscriptions);
-  const isPausedShieldSubscription =
-    getIsShieldSubscriptionPaused(subscriptions);
-  const showPriorityTag = useMemo(
-    () =>
-      (isActiveShieldSubscription || isPausedShieldSubscription) &&
-      basicFunctionality,
-    [
-      isActiveShieldSubscription,
-      isPausedShieldSubscription,
-      basicFunctionality,
-    ],
-  );
 
   const supportText =
     isBeta() || isFlask() ? t('needHelpSubmitTicket') : t('support');
@@ -156,35 +128,15 @@ export function useGlobalMenuSections(
 
   const handleSupportMenuClick = useCallback(() => {
     dispatch(setShowSupportDataConsentModal(true));
-
-    if (showPriorityTag) {
-      const shieldSubscription = getShieldSubscription(subscriptions);
-      const { cryptoPaymentChain, cryptoPaymentCurrency } =
-        getSubscriptionPaymentData(shieldSubscription);
-      if (shieldSubscription) {
-        captureCommonExistingShieldSubscriptionEvents(
-          {
-            subscriptionStatus: shieldSubscription.status,
-            paymentType: shieldSubscription.paymentMethod.type,
-            billingInterval: shieldSubscription.interval,
-            cryptoPaymentChain,
-            cryptoPaymentCurrency,
-          },
-          MetaMetricsEventName.ShieldPrioritySupportClicked,
-        );
-      }
-    } else {
-      // if shield subscription is not active, track the support link clicked event for non-priority support
-      trackEvent(
-        createEventBuilder(MetaMetricsEventName.SupportLinkClicked)
-          .addCategory(MetaMetricsEventCategory.Home)
-          .addProperties({
-            url: supportLink,
-            location: segmentContext.page?.title,
-          })
-          .build(),
-      );
-    }
+    trackEvent(
+      createEventBuilder(MetaMetricsEventName.SupportLinkClicked)
+        .addCategory(MetaMetricsEventCategory.Home)
+        .addProperties({
+          url: supportLink,
+          location: segmentContext.page?.title,
+        })
+        .build(),
+    );
     onClose();
   }, [
     dispatch,
@@ -192,9 +144,6 @@ export function useGlobalMenuSections(
     createEventBuilder,
     segmentContext.page?.title,
     supportLink,
-    showPriorityTag,
-    subscriptions,
-    captureCommonExistingShieldSubscriptionEvents,
     onClose,
   ]);
 
@@ -361,15 +310,6 @@ export function useGlobalMenuSections(
               justifyContent={BoxJustifyContent.Between}
             >
               {supportText}
-              {showPriorityTag && (
-                <Tag
-                  severity={TagSeverity.Success}
-                  className="rounded-lg border-0"
-                  startIconName={IconName.Sparkle}
-                >
-                  {t('priority')}
-                </Tag>
-              )}
             </Box>
           ),
           onClick: handleSupportMenuClick,
@@ -421,7 +361,6 @@ export function useGlobalMenuSections(
     isSidepanel,
     hasUnapprovedTransactions,
     snapsUpdatesAvailable,
-    showPriorityTag,
     notificationsUnreadCount,
     isMetamaskNotificationFeatureSeen,
     onClose,

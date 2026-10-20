@@ -26,7 +26,6 @@ import { isHardwareWallet } from '../../../../../shared/lib/selectors/keyring';
 import { useGaslessSupportedSmartTransactions } from '../gas/useGaslessSupportedSmartTransactions';
 import { useIsGaslessSupported } from '../gas/useIsGaslessSupported';
 import { useGasSponsorshipPreference } from '../gas/useGasSponsorshipPreference';
-import { useMoneyAccountWithdrawConfirm } from './useMoneyAccountWithdrawConfirm';
 import { useTransactionConfirm } from './useTransactionConfirm';
 
 const mockGetEnvironmentType = jest.fn();
@@ -71,8 +70,6 @@ jest.mock('../../../../store/actions', () => ({
   attemptCloseNotificationPopup: jest.fn(),
   updateAndApproveTx: jest.fn(),
 }));
-
-jest.mock('./useMoneyAccountWithdrawConfirm');
 jest.mock('./useTransactionPayingAccount', () => ({
   useTransactionPayingAccount: () => mockUseTransactionPayingAccount(),
 }));
@@ -174,9 +171,6 @@ describe('useTransactionConfirm', () => {
   const useGasSponsorshipPreferenceMock = jest.mocked(
     useGasSponsorshipPreference,
   );
-  const useMoneyAccountWithdrawConfirmMock = jest.mocked(
-    useMoneyAccountWithdrawConfirm,
-  );
   beforeEach(() => {
     jest.resetAllMocks();
     consoleWarnSpy = jest
@@ -234,9 +228,6 @@ describe('useTransactionConfirm', () => {
     mockIsHardwareWalletError.mockReturnValue(false);
     mockIsUserRejectedHardwareWalletError.mockReturnValue(false);
     mockPrepareWithdrawTransaction.mockResolvedValue(null);
-    useMoneyAccountWithdrawConfirmMock.mockReturnValue({
-      prepareWithdrawTransaction: mockPrepareWithdrawTransaction,
-    });
     useHardwareWalletErrorMock.mockReturnValue({
       showErrorModal: jest.fn(),
       dismissErrorModal: jest.fn(),
@@ -897,129 +888,6 @@ describe('useTransactionConfirm', () => {
     const { onTransactionConfirm } = runHook();
 
     await expect(onTransactionConfirm()).rejects.toThrow('Network error');
-  });
-
-  describe('money account withdraw', () => {
-    it('approves the transaction prepared by useMoneyAccountWithdrawConfirm', async () => {
-      const prepared = {
-        id: 'prepared-id',
-        type: TransactionType.moneyAccountWithdraw,
-        txParams: { from: '0xabc', to: '0xabc', data: '0xbatchdata' },
-      } as unknown as TransactionMeta;
-      mockPrepareWithdrawTransaction.mockResolvedValue(prepared);
-
-      const { confirmation, onTransactionConfirm } = runHook({
-        type: TransactionType.moneyAccountWithdraw,
-      });
-
-      const result = await onTransactionConfirm();
-
-      expect(result).toBe(true);
-      expect(mockPrepareWithdrawTransaction).toHaveBeenCalledWith(
-        expect.objectContaining({ id: confirmation.id }),
-      );
-      const approved = updateAndApproveTxMock.mock.calls[0][0];
-      expect(approved.id).toBe('prepared-id');
-      expect(approved.txParams.data).toBe('0xbatchdata');
-    });
-
-    it('does not prepare a withdraw for other transaction types', async () => {
-      const { onTransactionConfirm } = runHook();
-
-      await onTransactionConfirm();
-
-      expect(mockPrepareWithdrawTransaction).not.toHaveBeenCalled();
-      expect(updateAndApproveTxMock).toHaveBeenCalledTimes(1);
-    });
-
-    it('does not approve when the withdraw could not be prepared', async () => {
-      mockPrepareWithdrawTransaction.mockResolvedValue(null);
-
-      const { onTransactionConfirm } = runHook({
-        type: TransactionType.moneyAccountWithdraw,
-      });
-
-      const result = await onTransactionConfirm();
-
-      expect(result).toBe(false);
-      expect(updateAndApproveTxMock).not.toHaveBeenCalled();
-    });
-
-    it('rethrows when preparing the withdraw fails', async () => {
-      mockPrepareWithdrawTransaction.mockRejectedValue(
-        new Error('Update Amount: Money Account Withdrawal: missing vault'),
-      );
-
-      const { onTransactionConfirm } = runHook({
-        type: TransactionType.moneyAccountWithdraw,
-      });
-
-      await expect(onTransactionConfirm()).rejects.toThrow(
-        'Update Amount: Money Account Withdrawal: missing vault',
-      );
-      expect(updateAndApproveTxMock).not.toHaveBeenCalled();
-    });
-
-    it('keeps gas sponsorship on money account withdraw when gasless support is unknown', async () => {
-      useIsGaslessSupportedMock.mockReturnValue({
-        isSupported: false,
-        isSmartTransaction: false,
-        pending: false,
-      });
-
-      const { confirmation, onTransactionConfirm } = runHook({
-        type: TransactionType.moneyAccountWithdraw,
-        isGasFeeSponsored: true,
-      });
-      mockPrepareWithdrawTransaction.mockResolvedValue(confirmation);
-
-      await onTransactionConfirm();
-
-      expect(updateAndApproveTxMock.mock.calls[0][0].isGasFeeSponsored).toBe(
-        true,
-      );
-    });
-
-    it('keeps isExternalSign on sponsored money account withdraw when gasless is unsupported', async () => {
-      useIsGaslessSupportedMock.mockReturnValue({
-        isSupported: false,
-        isSmartTransaction: false,
-        pending: false,
-      });
-
-      const { confirmation, onTransactionConfirm } = runHook({
-        type: TransactionType.moneyAccountWithdraw,
-        isGasFeeSponsored: true,
-        isExternalSign: true,
-      });
-      mockPrepareWithdrawTransaction.mockResolvedValue(confirmation);
-
-      await onTransactionConfirm();
-
-      const actual = updateAndApproveTxMock.mock.calls[0][0];
-      expect(actual.isExternalSign).toBe(true);
-      expect(actual.isGasFeeSponsored).toBe(true);
-    });
-
-    it('clears gas sponsorship on money account withdraw when the user opted out', async () => {
-      useGasSponsorshipPreferenceMock.mockReturnValue({
-        isSponsorshipOptedOut: true,
-        setSponsorshipOptedOut: jest.fn(),
-      });
-
-      const { confirmation, onTransactionConfirm } = runHook({
-        type: TransactionType.moneyAccountWithdraw,
-        isGasFeeSponsored: true,
-        isExternalSign: true,
-      });
-      mockPrepareWithdrawTransaction.mockResolvedValue(confirmation);
-
-      await onTransactionConfirm();
-
-      const actual = updateAndApproveTxMock.mock.calls[0][0];
-      expect(actual.isGasFeeSponsored).toBe(false);
-      expect(actual.isExternalSign).toBe(false);
-    });
   });
 
   describe('pending amount', () => {

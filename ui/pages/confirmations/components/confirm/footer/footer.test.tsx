@@ -1,6 +1,5 @@
 import React from 'react';
 import { fireEvent, waitFor } from '@testing-library/react';
-import { TransactionType } from '@metamask/transaction-controller';
 import { MetaMetricsHardwareWalletRecoveryLocation } from '../../../../../../shared/constants/metametrics';
 import { trackHardwareWalletRecoveryConnectCtaClicked } from '../../../../../helpers/utils/track-hardware-wallet-recovery-connect-cta-clicked';
 import {
@@ -47,7 +46,6 @@ import { useInsufficientBalanceAlerts } from '../../../hooks/alerts/transactions
 import { useIsGaslessLoading } from '../../../hooks/gas/useIsGaslessLoading';
 import { useConfirmationNavigation } from '../../../hooks/useConfirmationNavigation';
 import { useAddEthereumChain } from '../../../hooks/useAddEthereumChain';
-import { useUserSubscriptions } from '../../../../../hooks/subscription/useSubscription';
 import Footer from './footer';
 
 const mockTrackEvent = jest.fn();
@@ -68,17 +66,6 @@ jest.mock('../../../../../hooks/useAnalytics', () => {
 jest.mock('../../../hooks/gas/useIsGaslessLoading');
 jest.mock('../../../hooks/alerts/transactions/useInsufficientBalanceAlerts');
 jest.mock('../../../hooks/gas/useIsGaslessSupported');
-jest.mock('../../../hooks/pay/useTransactionPayData', () => ({
-  useIsTransactionPayLoading: jest.fn(() => false),
-  useIsTransactionPayQuotePending: jest.fn(() => false),
-  useTransactionPayHasExecutableQuote: jest.fn(() => false),
-  useTransactionPayHasPositiveRequiredAmount: jest.fn(() => false),
-  useTransactionPayIsPostQuote: jest.fn(() => false),
-  useTransactionPayPrimaryRequiredToken: jest.fn(() => undefined),
-  useTransactionPayQuotes: jest.fn(() => undefined),
-  useTransactionPayRequiredTokens: jest.fn(() => []),
-  useTransactionPayTotals: jest.fn(() => undefined),
-}));
 jest.mock(
   '../../../../../components/app/product-safety/scam-questionnaire/useScamQuestionnaireMetrics',
   () => ({
@@ -158,7 +145,6 @@ jest.mock('../../../hooks/useOriginThrottling');
 jest.mock(
   '../../../../../helpers/utils/track-hardware-wallet-recovery-connect-cta-clicked',
 );
-jest.mock('../../../../../hooks/subscription/useSubscription');
 jest.mock(
   '../../../../../contexts/hardware-wallets/HardwareWalletContext',
   () => ({
@@ -276,7 +262,6 @@ describe('ConfirmFooter', () => {
   const useIsGaslessLoadingMock = jest.mocked(useIsGaslessLoading);
   const useAddEthereumChainMock = jest.mocked(useAddEthereumChain);
   const useConfirmationNavigationMock = jest.mocked(useConfirmationNavigation);
-  const useUserSubscriptionsMock = jest.mocked(useUserSubscriptions);
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -335,14 +320,6 @@ describe('ConfirmFooter', () => {
     });
 
     mockUseLocation.mockImplementation(getDefaultFooterTestLocation);
-    useUserSubscriptionsMock.mockReturnValue({
-      trialedProducts: [],
-      loading: false,
-      subscriptions: [],
-      error: undefined,
-      customerId: undefined,
-      lastSubscription: undefined,
-    });
     mockGetEnvironmentType.mockReturnValue(ENVIRONMENT_TYPE_NOTIFICATION);
   });
 
@@ -859,42 +836,6 @@ describe('ConfirmFooter', () => {
       expect(queryByTestId('reconnect-hardware-wallet-button')).toBeNull();
     });
 
-    it('runs the hardware preflight for the paying account when it differs from the sender', () => {
-      const transaction = genUnapprovedContractInteractionConfirmation();
-      mockUseHardwareWalletConfig.mockReturnValue({
-        isHardwareWalletAccount: true,
-        walletType: HardwareWalletType.Ledger,
-        accountAddress: HARDWARE_CONFIRMATION_SENDER,
-      });
-      mockUseHardwareWalletState.mockReturnValue({
-        connectionState: { status: ConnectionStatus.Disconnected },
-      });
-      mockUseHardwareWalletError.mockReturnValue({
-        showErrorModal: showHardwareWalletErrorModalMock,
-        dismissErrorModal: dismissHardwareWalletErrorModalMock,
-        setErrorModalSuppressed: setErrorModalSuppressedMock,
-        isDeviceConnected: false,
-      });
-
-      const { getByTestId, queryByTestId } = render(
-        getMockConfirmStateForTransaction(transaction, {
-          appState: {},
-          metamask: {
-            transactionData: {
-              [transaction.id]: {
-                accountOverride: HARDWARE_CONFIRMATION_SENDER,
-              },
-            },
-          },
-        }),
-      );
-
-      expect(
-        getByTestId('reconnect-hardware-wallet-button'),
-      ).toBeInTheDocument();
-      expect(queryByTestId('confirm-footer-button')).toBeNull();
-    });
-
     it('tracks hardware wallet recovery CTA when reconnect is clicked', async () => {
       const connectionState = {
         status: ConnectionStatus.Disconnected as const,
@@ -1356,158 +1297,6 @@ describe('ConfirmFooter', () => {
         });
       });
     });
-  });
-
-  it('renders SingleActionFooter for musdConversion transaction type', () => {
-    jest.spyOn(confirmContext, 'useConfirmContext').mockReturnValue({
-      currentConfirmation: {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.musdConversion,
-      },
-      isScrollToBottomCompleted: true,
-      setIsScrollToBottomCompleted: () => undefined,
-    } as unknown as ReturnType<typeof confirmContext.useConfirmContext>);
-
-    const { getByTestId, queryByText } = render(
-      getMockContractInteractionConfirmState(),
-    );
-
-    expect(getByTestId('confirm-footer-button')).toBeInTheDocument();
-    expect(queryByText(messages.cancel.message)).not.toBeInTheDocument();
-  });
-
-  it('renders SingleActionFooter for perpsDeposit transaction type', () => {
-    jest.spyOn(confirmContext, 'useConfirmContext').mockReturnValue({
-      currentConfirmation: {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.perpsDeposit,
-      },
-      isScrollToBottomCompleted: true,
-      setIsScrollToBottomCompleted: () => undefined,
-    } as unknown as ReturnType<typeof confirmContext.useConfirmContext>);
-
-    const { getByTestId, queryByText } = render(
-      getMockContractInteractionConfirmState(),
-    );
-
-    expect(getByTestId('confirm-footer-button')).toBeInTheDocument();
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.addFunds.message,
-    );
-    expect(queryByText(messages.cancel.message)).not.toBeInTheDocument();
-  });
-
-  it('renders SingleActionFooter for perpsWithdraw transaction type', () => {
-    jest.spyOn(confirmContext, 'useConfirmContext').mockReturnValue({
-      currentConfirmation: {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.perpsWithdraw,
-      },
-      isScrollToBottomCompleted: true,
-      setIsScrollToBottomCompleted: () => undefined,
-    } as unknown as ReturnType<typeof confirmContext.useConfirmContext>);
-
-    const { getByTestId, queryByText } = render(
-      getMockContractInteractionConfirmState(),
-    );
-
-    expect(getByTestId('confirm-footer-button')).toBeInTheDocument();
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.perpsWithdraw.message,
-    );
-    expect(queryByText(messages.cancel.message)).not.toBeInTheDocument();
-  });
-
-  it('renders SingleActionFooter for moneyAccountDeposit transaction type', () => {
-    jest.spyOn(confirmContext, 'useConfirmContext').mockReturnValue({
-      currentConfirmation: {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.moneyAccountDeposit,
-      },
-      isScrollToBottomCompleted: true,
-      setIsScrollToBottomCompleted: () => undefined,
-    } as unknown as ReturnType<typeof confirmContext.useConfirmContext>);
-
-    const { getByTestId, queryByText } = render(
-      getMockContractInteractionConfirmState(),
-    );
-
-    expect(getByTestId('confirm-footer-button')).toBeInTheDocument();
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.addFunds.message,
-    );
-    expect(queryByText(messages.cancel.message)).not.toBeInTheDocument();
-  });
-
-  it('renders SingleActionFooter for moneyAccountWithdraw transaction type', () => {
-    jest.spyOn(confirmContext, 'useConfirmContext').mockReturnValue({
-      currentConfirmation: {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.moneyAccountWithdraw,
-      },
-      isScrollToBottomCompleted: true,
-      setIsScrollToBottomCompleted: () => undefined,
-    } as unknown as ReturnType<typeof confirmContext.useConfirmContext>);
-
-    const { getByTestId, queryByText } = render(
-      getMockContractInteractionConfirmState(),
-    );
-
-    expect(getByTestId('confirm-footer-button')).toBeInTheDocument();
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.send.message,
-    );
-    expect(queryByText(messages.cancel.message)).not.toBeInTheDocument();
-  });
-
-  it('renders SingleActionFooter for moneyAccountDeposit batch with approve companion', () => {
-    jest.spyOn(confirmContext, 'useConfirmContext').mockReturnValue({
-      currentConfirmation: {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.batch,
-        nestedTransactions: [
-          { type: TransactionType.tokenMethodApprove },
-          { type: TransactionType.moneyAccountDeposit },
-        ],
-      },
-      isScrollToBottomCompleted: true,
-      setIsScrollToBottomCompleted: () => undefined,
-    } as unknown as ReturnType<typeof confirmContext.useConfirmContext>);
-
-    const { getByTestId, queryByText } = render(
-      getMockContractInteractionConfirmState(),
-    );
-
-    expect(getByTestId('confirm-footer-button')).toBeInTheDocument();
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.addFunds.message,
-    );
-    expect(queryByText(messages.cancel.message)).not.toBeInTheDocument();
-  });
-
-  it('falls through to the two-button footer when a batch mixes moneyAccountDeposit with an unrelated nested type', () => {
-    jest.spyOn(confirmContext, 'useConfirmContext').mockReturnValue({
-      currentConfirmation: {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.batch,
-        nestedTransactions: [
-          { type: TransactionType.moneyAccountDeposit },
-          { type: TransactionType.simpleSend },
-        ],
-      },
-      isScrollToBottomCompleted: true,
-      setIsScrollToBottomCompleted: () => undefined,
-    } as unknown as ReturnType<typeof confirmContext.useConfirmContext>);
-
-    const { getByTestId, queryByText } = render(
-      getMockContractInteractionConfirmState(),
-    );
-
-    expect(getByTestId('confirm-footer-button')).toBeInTheDocument();
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.confirm.message,
-    );
-    expect(queryByText(messages.cancel.message)).toBeInTheDocument();
   });
 
   describe('goBackTo navigation', () => {

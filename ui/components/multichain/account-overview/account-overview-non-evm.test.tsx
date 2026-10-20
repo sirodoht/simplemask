@@ -20,18 +20,6 @@ jest.mock('../../../store/actions', () => {
   };
 });
 
-jest.mock('../../../hooks/musd/useMusdGeoBlocking', () => ({
-  useMusdGeoBlocking: () => ({
-    isBlocked: false,
-    userCountry: 'US',
-    isLoading: false,
-    error: null,
-    blockedRegions: [],
-    blockedMessage: null,
-    refreshGeolocation: jest.fn(),
-  }),
-}));
-
 // Mock the dispatch function
 const mockDispatch = jest.fn();
 
@@ -85,13 +73,13 @@ const expectStandardTabs = (
   queryByTestId: (id: string) => HTMLElement | null,
 ) => {
   expect(queryByTestId('account-overview__asset-tab')).toBeInTheDocument();
-  expect(queryByTestId('account-overview__nfts-tab')).toBeInTheDocument();
+  expect(queryByTestId('account-overview__nfts-tab')).not.toBeInTheDocument();
   expect(queryByTestId('account-overview__activity-tab')).toBeInTheDocument();
 };
 
 const expectAllTabs = (queryByTestId: (id: string) => HTMLElement | null) => {
   expectStandardTabs(queryByTestId);
-  expect(queryByTestId('account-overview__defi-tab')).toBeInTheDocument();
+  expect(queryByTestId('account-overview__defi-tab')).not.toBeInTheDocument();
 };
 
 describe('AccountOverviewBtc', () => {

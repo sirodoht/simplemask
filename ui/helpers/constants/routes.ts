@@ -1,6 +1,4 @@
 import { memoize } from 'lodash';
-
-import { MUSD_ROUTE_DEFINITIONS } from '../../pages/musd/constants/routes';
 import {
   NOTIFICATIONS_SETTINGS_ROUTE,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
@@ -214,22 +212,6 @@ export const ACTIVITY_ROUTE = '/activity';
 export const ROUTES = [
   { path: DEFAULT_ROUTE, label: 'Home', trackInAnalytics: true },
   { path: ACTIVITY_ROUTE, label: 'Activity', trackInAnalytics: true },
-  { path: MONEY_HOME_ROUTE, label: 'Money', trackInAnalytics: true },
-  {
-    path: MONEY_HOW_IT_WORKS_ROUTE,
-    label: 'Money How It Works',
-    trackInAnalytics: true,
-  },
-  {
-    path: MONEY_TRANSACTION_DETAILS_ROUTE,
-    label: 'Money Transaction Details',
-    trackInAnalytics: true,
-  },
-  {
-    path: MONEY_EARN_ROUTE,
-    label: 'Money Earn On Crypto',
-    trackInAnalytics: true,
-  },
   { path: '', label: 'Home', trackInAnalytics: true }, // "" is an alias for the Home route
   {
     path: `${TX_DETAILS_ROUTE}/:caipChainId/:txIdentifier`,
@@ -343,46 +325,6 @@ export const ROUTES = [
   {
     path: TRANSACTIONS_ROUTE,
     label: 'Transactions Settings Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_ROUTE,
-    label: 'Transaction Shield Settings Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_MANAGE_PLAN_ROUTE,
-    label: 'Transaction Shield Manage Plan Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE,
-    label: 'Transaction Shield Manage Past Plan Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_CLAIM_ROUTES.BASE,
-    label: 'Transaction Shield Claims Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_CLAIM_ROUTES.NEW.FULL,
-    label: 'Transaction Shield New Claim Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_CLAIM_ROUTES.EDIT_DRAFT.FULL,
-    label: 'Transaction Shield Edit Draft Claim Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_CLAIM_ROUTES.VIEW_PENDING.FULL,
-    label: 'Transaction Shield View Pending Claim Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: TRANSACTION_SHIELD_CLAIM_ROUTES.VIEW_HISTORY.FULL,
-    label: 'Transaction Shield View History Claim Page',
     trackInAnalytics: false,
   },
   {
@@ -797,11 +739,6 @@ export const ROUTES = [
     trackInAnalytics: false,
   },
   {
-    path: SHIELD_PLAN_ROUTE,
-    label: 'Shield Plan',
-    trackInAnalytics: false,
-  },
-  {
     path: GATOR_PERMISSIONS,
     label: 'Gator Permissions',
     trackInAnalytics: false,
@@ -831,7 +768,6 @@ export const ROUTES = [
     label: 'Hardware Wallet Repair',
     trackInAnalytics: false,
   },
-  ...MUSD_ROUTE_DEFINITIONS,
 ] as const satisfies AppRoute[];
 
 export type AppRoutes = (typeof ROUTES)[number];

@@ -30,7 +30,6 @@ import {
   SmartTransactionsControllerSmartTransactionEvent,
   SmartTransactionsControllerSubmitSignedTransactionsAction,
 } from '@metamask/smart-transactions-controller';
-import { SubscriptionControllerActions } from '@metamask/subscription-controller';
 import {
   TransactionControllerAddTransactionAction,
   TransactionControllerAddTransactionBatchAction,
@@ -51,11 +50,9 @@ import {
   TransactionControllerUnapprovedTransactionAddedEvent,
   TransactionControllerUpdateTransactionAction,
 } from '@metamask/transaction-controller';
-import { TransactionPayControllerActions } from '@metamask/transaction-pay-controller';
 import { RootMessenger } from '../../lib/messenger';
 import { AppStateControllerGetStateAction } from '../../controllers/app-state-controller';
 import { AppStateControllerSetDefaultHomeActiveTabNameAction } from '../../controllers/app-state-controller-method-action-types';
-import { ShieldSubscriptionServiceSubmitSubscriptionSponsorshipIntentAction } from '../../services/subscription/types';
 import {
   InstitutionalSnapControllerBeforeCheckPendingTransactionHookAction,
   InstitutionalSnapControllerPublishHookAction,
@@ -92,16 +89,13 @@ export type TransactionControllerInitMessengerActions =
   | RemoteFeatureFlagControllerGetStateAction
   | SmartTransactionsControllerGetFeesAction
   | SmartTransactionsControllerSubmitSignedTransactionsAction
-  | SubscriptionControllerActions
-  | ShieldSubscriptionServiceSubmitSubscriptionSponsorshipIntentAction
   | TransactionControllerAddTransactionAction
   | TransactionControllerAddTransactionBatchAction
   | TransactionControllerEstimateGasAction
   | TransactionControllerGetNonceLockAction
   | TransactionControllerGetStateAction
   | TransactionControllerIsAtomicBatchSupportedAction
-  | TransactionControllerUpdateTransactionAction
-  | TransactionPayControllerActions;
+  | TransactionControllerUpdateTransactionAction;
 
 export type TransactionControllerInitMessengerEvents =
   | SmartTransactionsControllerSmartTransactionEvent
@@ -176,8 +170,6 @@ export function getTransactionControllerInitMessenger(
       'RemoteFeatureFlagController:getState',
       'SmartTransactionsController:getFees',
       'SmartTransactionsController:submitSignedTransactions',
-      'SubscriptionController:getSubscriptionByProduct',
-      'ShieldSubscriptionService:submitSubscriptionSponsorshipIntent',
       'TransactionController:addTransaction',
       'TransactionController:addTransactionBatch',
       'TransactionController:estimateGas',
@@ -185,11 +177,6 @@ export function getTransactionControllerInitMessenger(
       'TransactionController:getState',
       'TransactionController:isAtomicBatchSupported',
       'TransactionController:updateTransaction',
-      'TransactionPayController:getDelegationTransaction',
-      'TransactionPayController:getPaymentOverrideData',
-      'TransactionPayController:getState',
-      'TransactionPayController:getStrategy',
-      'TransactionPayController:getAmountData',
     ],
   });
 

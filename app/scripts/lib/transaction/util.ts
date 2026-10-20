@@ -17,10 +17,6 @@ import {
 import { KeyringControllerGetKeyringForAccountAction } from '@metamask/keyring-controller';
 import type { PhishingControllerScanAddressAction } from '@metamask/phishing-controller';
 import { MessengerActions, MessengerEvents } from '@metamask/messenger';
-import {
-  PRODUCT_TYPES,
-  SubscriptionControllerGetSubscriptionByProductAction,
-} from '@metamask/subscription-controller';
 import { AuthenticationControllerGetBearerTokenAction } from '@metamask/profile-sync-controller/auth';
 import type { Hex, JsonRpcRequest } from '@metamask/utils';
 import { addHexPrefix } from 'ethereumjs-util';
@@ -39,7 +35,6 @@ import {
 } from '../../../../shared/constants/security-provider';
 import { endTrace, TraceName } from '../../../../shared/lib/trace';
 import { ORIGIN_METAMASK } from '../../../../shared/constants/app';
-import { getShieldGatewayConfig } from '../../../../shared/lib/shield/shield';
 import { scanAddressAndAddToCache } from '../trust-signals/security-alerts-api';
 import { ScanAddressResponse } from '../../../../shared/lib/trust-signals';
 import { getTransactionDataRecipient } from '../../../../shared/lib/transaction.utils';
@@ -77,7 +72,6 @@ export type AddTransactionMessenger = RootMessenger<
   | AppStateControllerGetAddressSecurityAlertResponseAction
   | AppStateControllerAddAddressSecurityAlertResponseAction
   | PhishingControllerScanAddressAction
-  | SubscriptionControllerGetSubscriptionByProductAction
   | AuthenticationControllerGetBearerTokenAction,
   MessengerEvents<PPOMMessenger>
 >;
@@ -382,27 +376,11 @@ function getTransactionByBatchId(
 ) {
   return findTransaction(messenger, (tx) => tx.batchId === batchId);
 }
-
-/**
- * Builds the security-alerts API configuration (gateway URL and authorization
- * header) from the messenger, reading the shield subscription and bearer token.
- *
- * @param messenger - The messenger used to read the subscription and token.
- * @param url - The URL of the Security Alerts API.
- * @returns The security-alerts gateway configuration.
- */
 async function getSecurityAlertsConfig(
-  messenger: AddTransactionMessenger,
+  _messenger: AddTransactionMessenger,
   url: string,
 ): Promise<{ newUrl?: string; authorization?: string }> {
-  const getShieldSubscription = () =>
-    messenger.call(
-      'SubscriptionController:getSubscriptionByProduct',
-      PRODUCT_TYPES.SHIELD,
-    );
-  const getToken = () =>
-    messenger.call('AuthenticationController:getBearerToken');
-  return getShieldGatewayConfig(getToken, getShieldSubscription, url);
+  return { newUrl: url };
 }
 
 function scanAddressForTrustSignals(request: AddTransactionRequest) {

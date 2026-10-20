@@ -95,28 +95,6 @@ export type AppStateControllerSetPna25AcknowledgedAction = {
   handler: AppStateController['setPna25Acknowledged'];
 };
 
-export type AppStateControllerSetShieldPausedToastLastClickedOrClosedAction = {
-  type: `AppStateController:setShieldPausedToastLastClickedOrClosed`;
-  handler: AppStateController['setShieldPausedToastLastClickedOrClosed'];
-};
-
-export type AppStateControllerSetShieldEndingToastLastClickedOrClosedAction = {
-  type: `AppStateController:setShieldEndingToastLastClickedOrClosed`;
-  handler: AppStateController['setShieldEndingToastLastClickedOrClosed'];
-};
-
-/**
- * Sets a generic shield API error.
- * When set to a non-null object, a toast is shown on the homepage with the error.
- * Setting to null clears/dismisses the error.
- *
- * @param error - The error object with message and optional code, or null to clear
- */
-export type AppStateControllerSetShieldSubscriptionErrorAction = {
-  type: `AppStateController:setShieldSubscriptionError`;
-  handler: AppStateController['setShieldSubscriptionError'];
-};
-
 /**
  * Sets the storage write error type, which controls whether to show the storage error toast.
  * When errorType is not null, the toast will be shown with the appropriate message.
@@ -270,39 +248,6 @@ export type AppStateControllerSetHasShownMultichainAccountsIntroModalAction = {
 };
 
 /**
- * Sets whether the mUSD conversion education screen has been seen.
- *
- * @param value - Whether the education screen has been seen
- */
-export type AppStateControllerSetMusdConversionEducationSeenAction = {
-  type: `AppStateController:setMusdConversionEducationSeen`;
-  handler: AppStateController['setMusdConversionEducationSeen'];
-};
-
-/**
- * Adds a dismissed mUSD asset-detail CTA key (chainId-tokenAddress format).
- * Used to hide the CTA for that token on that chain once dismissed.
- *
- * @param key - Key in format "chainId-tokenAddress" (e.g. "0x1-0xa0b86991...")
- */
-export type AppStateControllerAddMusdConversionDismissedCtaKeyAction = {
-  type: `AppStateController:addMusdConversionDismissedCtaKey`;
-  handler: AppStateController['addMusdConversionDismissedCtaKey'];
-};
-
-/**
- * Adds a token whose Money earn banner on token details was dismissed, so
- * the banner stays hidden for it.
- *
- * @param key - Key in `chainId:address` format, both lowercased (e.g.
- * "0x1:0xa0b86991...").
- */
-export type AppStateControllerAddMoneyEarnBannerDismissedTokenKeyAction = {
-  type: `AppStateController:addMoneyEarnBannerDismissedTokenKey`;
-  handler: AppStateController['addMoneyEarnBannerDismissedTokenKey'];
-};
-
-/**
  * Sets the product tour to be shown to the user
  *
  * @param productTour - Tour name to show (e.g., 'accountIcon') or empty string to hide
@@ -446,11 +391,6 @@ export type AppStateControllerClearAppActiveTabAction = {
   handler: AppStateController['clearAppActiveTab'];
 };
 
-export type AppStateControllerSetShowShieldEntryModalOnceAction = {
-  type: `AppStateController:setShowShieldEntryModalOnce`;
-  handler: AppStateController['setShowShieldEntryModalOnce'];
-};
-
 /**
  * Sets the pending redirect route to be applied after the default page is loaded.
  *
@@ -461,11 +401,6 @@ export type AppStateControllerSetPendingRedirectRouteAction = {
   handler: AppStateController['setPendingRedirectRoute'];
 };
 
-export type AppStateControllerSetPendingShieldCohortAction = {
-  type: `AppStateController:setPendingShieldCohort`;
-  handler: AppStateController['setPendingShieldCohort'];
-};
-
 export type AppStateControllerSetIsWalletResetInProgressAction = {
   type: `AppStateController:setIsWalletResetInProgress`;
   handler: AppStateController['setIsWalletResetInProgress'];
@@ -474,21 +409,6 @@ export type AppStateControllerSetIsWalletResetInProgressAction = {
 export type AppStateControllerGetIsWalletResetInProgressAction = {
   type: `AppStateController:getIsWalletResetInProgress`;
   handler: AppStateController['getIsWalletResetInProgress'];
-};
-
-export type AppStateControllerSetDefaultSubscriptionPaymentOptionsAction = {
-  type: `AppStateController:setDefaultSubscriptionPaymentOptions`;
-  handler: AppStateController['setDefaultSubscriptionPaymentOptions'];
-};
-
-/**
- * Update the Shield subscription metrics properties which are not accessible in the background directly.
- *
- * @param shieldSubscriptionMetricsProps - The Shield subscription metrics properties.
- */
-export type AppStateControllerSetShieldSubscriptionMetricsPropsAction = {
-  type: `AppStateController:setShieldSubscriptionMetricsProps`;
-  handler: AppStateController['setShieldSubscriptionMetricsProps'];
 };
 
 /**
@@ -535,9 +455,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerSetNewPrivacyPolicyToastShownDateAction
   | AppStateControllerSetArcUsageNoticeShownAction
   | AppStateControllerSetPna25AcknowledgedAction
-  | AppStateControllerSetShieldPausedToastLastClickedOrClosedAction
-  | AppStateControllerSetShieldEndingToastLastClickedOrClosedAction
-  | AppStateControllerSetShieldSubscriptionErrorAction
   | AppStateControllerSetStorageWriteErrorTypeAction
   | AppStateControllerSetRecoveryPhraseReminderLastShownAction
   | AppStateControllerSetTermsOfUseLastAgreedAction
@@ -553,9 +470,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerRemovePollingTokenAction
   | AppStateControllerClearPollingTokensAction
   | AppStateControllerSetHasShownMultichainAccountsIntroModalAction
-  | AppStateControllerSetMusdConversionEducationSeenAction
-  | AppStateControllerAddMusdConversionDismissedCtaKeyAction
-  | AppStateControllerAddMoneyEarnBannerDismissedTokenKeyAction
   | AppStateControllerSetProductTourAction
   | AppStateControllerSetCurrentExtensionPopupIdAction
   | AppStateControllerSetTrezorModelAction
@@ -572,13 +486,9 @@ export type AppStateControllerMethodActions =
   | AppStateControllerRequestQrCodeScanAction
   | AppStateControllerSetAppActiveTabAction
   | AppStateControllerClearAppActiveTabAction
-  | AppStateControllerSetShowShieldEntryModalOnceAction
   | AppStateControllerSetPendingRedirectRouteAction
-  | AppStateControllerSetPendingShieldCohortAction
   | AppStateControllerSetIsWalletResetInProgressAction
   | AppStateControllerGetIsWalletResetInProgressAction
-  | AppStateControllerSetDefaultSubscriptionPaymentOptionsAction
-  | AppStateControllerSetShieldSubscriptionMetricsPropsAction
   | AppStateControllerSetDeferredDeepLinkAction
   | AppStateControllerRemoveDeferredDeepLinkAction
   | AppStateControllerAddAddressSecurityAlertResponseAction

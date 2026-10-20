@@ -4,7 +4,6 @@ import {
   TransactionType,
   type TransactionMeta,
 } from '@metamask/transaction-controller';
-import type { TransactionPayControllerState } from '@metamask/transaction-pay-controller';
 import {
   EthScope,
   isEvmAccountType,
@@ -15,6 +14,10 @@ import {
   mapKeyringTransaction,
   mapLocalTransaction,
 } from '@metamask/client-utils';
+import {
+  getMoneyAccountTransactionType,
+  isProtectedByEnforcedSimulations,
+} from '../pages/confirmations/utils/confirm';
 import { ResultType } from '../../shared/lib/trust-signals';
 import { EXCLUDED_TRANSACTION_TYPES } from '../helpers/constants/transactions';
 import {
@@ -29,23 +32,19 @@ import type { MetaMaskReduxState } from '../store/store';
 import { getNetworkConfigurationsByChainId } from '../../shared/lib/selectors/networks';
 import { getTokensControllerAllTokens } from '../../shared/lib/selectors/assets-migration';
 import { toAssetId } from '../../shared/lib/asset-utils';
-import {
-  getMoneyAccountTransactionType,
-  isProtectedByEnforcedSimulations,
-} from '../pages/confirmations/utils/confirm';
 import { ActivityListItem } from '../../shared/lib/activity/types';
-import { getInternalAccountsObject } from './accounts';
-import {
-  getInternalAccountBySelectedAccountGroupAndCaip,
-  getSelectedAccountGroup,
-} from './multichain-accounts/account-tree';
-import type { MultichainAccountsState } from './multichain-accounts/account-tree.types';
 import { extractWalletIdFromGroupId } from './multichain-accounts/utils';
-import { enrichLocalActivity } from './activity/enrich-local-activity';
+import {
+  getSelectedAccountGroup,
+  getInternalAccountBySelectedAccountGroupAndCaip,
+} from './multichain-accounts/account-tree';
 import {
   selectPrimaryMoneyAccount,
   type PrimaryMoneyAccount,
-} from './money-account';
+} from './activity/historical-money-accounts';
+import { getInternalAccountsObject } from './accounts';
+import type { MultichainAccountsState } from './multichain-accounts/account-tree.types';
+import { enrichLocalActivity } from './activity/enrich-local-activity';
 import { getAssetsMetadata } from './assets';
 import {
   groupAndSortTransactionsByNonce,
@@ -64,58 +63,6 @@ import {
   getTokenScanCache,
 } from './selectors';
 import { EMPTY_ARRAY, EMPTY_OBJECT } from './shared';
-
-const selectTransactionPayData = (state: MetaMaskReduxState) =>
-  (state.metamask as unknown as TransactionPayControllerState)
-    .transactionData ??
-  (EMPTY_OBJECT as TransactionPayControllerState['transactionData']);
-
-/**
- * Whether the selected account group belongs to the same HD entropy wallet that
- * owns the primary money account. Money-account activity is only surfaced for
- * that wallet so switching to another SRP does not leak unrelated rows.
- *
- * @param selectedAccountGroup - Currently selected account group id.
- * @param primaryMoneyAccount - Primary money account, when present.
- * @returns Whether money-account batches should appear in activity.
- */
-function isSelectedGroupOwnedByMoneyAccountEntropy(
-  selectedAccountGroup: string | null | undefined,
-  primaryMoneyAccount: PrimaryMoneyAccount | undefined,
-): boolean {
-  const entropyId = primaryMoneyAccount?.options?.entropy?.id;
-  if (!selectedAccountGroup || !entropyId) {
-    return false;
-  }
-
-  return (
-    extractWalletIdFromGroupId(selectedAccountGroup as never) ===
-    `entropy:${entropyId}`
-  );
-}
-
-/**
- * Money-account deposits and withdrawals execute from the Money Keyring
- * account rather than the selected account, so the selected-address filter
- * alone would drop them from the activity list even though the user
- * initiated them. Mirrors mobile, which surfaces money-account transactions
- * in activity despite their sender being the money account.
- *
- * @param tx - The transaction to check.
- * @param moneyAccountAddress - Lowercased primary money account address.
- * @returns Whether the transaction is a money-account transaction sent by
- * the money account.
- */
-function isMoneyAccountTransaction(
-  tx: TransactionMeta,
-  moneyAccountAddress: string | undefined,
-) {
-  return Boolean(
-    moneyAccountAddress &&
-    tx.txParams?.from?.toLowerCase() === moneyAccountAddress &&
-    getMoneyAccountTransactionType(tx),
-  );
-}
 
 function isFromSelectedAccount(tx: TransactionMeta, selectedAddress: string) {
   // Ported from selectedAddressTxListSelector
@@ -136,7 +83,30 @@ export const selectEvmAddress = createSelector(
   (account) =>
     account && isEvmAccountType(account.type) ? account.address : undefined,
 );
+function isSelectedGroupOwnedByMoneyAccountEntropy(
+  selectedAccountGroup: string | null | undefined,
+  primaryMoneyAccount: PrimaryMoneyAccount | undefined,
+): boolean {
+  const entropyId = primaryMoneyAccount?.options?.entropy?.id;
+  if (!selectedAccountGroup || !entropyId) {
+    return false;
+  }
 
+  return (
+    extractWalletIdFromGroupId(selectedAccountGroup as never) ===
+    `entropy:${entropyId}`
+  );
+}
+function isMoneyAccountTransaction(
+  tx: TransactionMeta,
+  moneyAccountAddress: string | undefined,
+) {
+  return Boolean(
+    moneyAccountAddress &&
+    tx.txParams?.from?.toLowerCase() === moneyAccountAddress &&
+    getMoneyAccountTransactionType(tx),
+  );
+}
 export const selectLocalTransactions = createSelector(
   selectOrderedTransactions,
   selectEvmAddress,
@@ -367,14 +337,11 @@ function patchUnit(
 
 export const selectLocalActivityItems = createSelector(
   selectLocalTransactions,
-  selectTransactionPayData,
   getNetworkConfigurationsByChainId,
   selectEvmAddress,
   getTokensControllerAllTokens,
   (
     transactionGroups,
-
-    transactionPayData,
     networkConfigurationsByChainId,
     evmAddress,
     allTokens,
@@ -416,29 +383,13 @@ export const selectLocalActivityItems = createSelector(
         }
 
         const { metamaskPay } = transactionGroup.initialTransaction;
-        const transactionPay =
-          transactionPayData[transactionGroup.initialTransaction.id];
-        const paymentToken = transactionPay?.paymentToken;
-        const payTokenAddress =
-          metamaskPay?.tokenAddress ?? paymentToken?.address;
-        const payTokenChainId = metamaskPay?.chainId ?? paymentToken?.chainId;
+        const payTokenAddress = metamaskPay?.tokenAddress;
+        const payTokenChainId = metamaskPay?.chainId;
         const sourceTokenMetadata = resolveContractTokenMetadata(
           payTokenChainId,
           payTokenAddress,
         );
-        const sourceAmount =
-          transactionPay?.totals?.sourceAmount.raw ??
-          transactionPay?.sourceAmounts?.find((sourceAmountData) => {
-            const targetTokenAddress =
-              transactionGroup.initialTransaction.txParams.to;
-
-            return (
-              targetTokenAddress &&
-              sourceAmountData.targetTokenAddress.toLowerCase() ===
-                targetTokenAddress.toLowerCase()
-            );
-          })?.sourceAmountRaw ??
-          transactionPay?.sourceAmounts?.[0]?.sourceAmountRaw;
+        const sourceAmount = undefined;
         const sourceTokenCaipChainId = payTokenChainId
           ? toCaipChainId(
               KnownCaipNamespace.Eip155,
@@ -449,12 +400,10 @@ export const selectLocalActivityItems = createSelector(
           payTokenAddress && sourceTokenCaipChainId
             ? toAssetId(payTokenAddress, sourceTokenCaipChainId)
             : undefined;
-        const sourceTokenSymbol =
-          sourceTokenMetadata?.symbol ?? paymentToken?.symbol;
-        const sourceTokenDecimals =
-          sourceTokenMetadata?.decimals ?? paymentToken?.decimals;
+        const sourceTokenSymbol = sourceTokenMetadata?.symbol;
+        const sourceTokenDecimals = sourceTokenMetadata?.decimals;
 
-        return sourceTokenMetadata || paymentToken || sourceTokenAssetId
+        return sourceTokenMetadata || sourceTokenAssetId
           ? {
               direction: 'out' as const,
               ...(sourceAmount ? { amount: sourceAmount } : {}),

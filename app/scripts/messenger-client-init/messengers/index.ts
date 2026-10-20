@@ -23,10 +23,6 @@ import {
   getWebSocketServiceMessenger,
 } from './snaps';
 import {
-  getTransactionPayControllerMessenger,
-  getTransactionPayControllerInitMessenger,
-} from './transaction-pay-controller-messenger';
-import {
   getBackendWebSocketServiceMessenger,
   getBackendWebSocketServiceInitMessenger,
   getAccountActivityServiceMessenger,
@@ -124,7 +120,6 @@ import {
 } from './permission-controller-messenger';
 import { getSubjectMetadataControllerMessenger } from './subject-metadata-controller-messenger';
 import { getPermissionLogControllerMessenger } from './permission-log-controller-messenger';
-import { getShieldSubscriptionServiceMessenger } from './subscription/shield-subscription-service-messenger';
 import { getAccountOrderControllerMessenger } from './account-order-controller-messenger';
 import { getPhishingControllerMessenger } from './phishing-controller-messenger';
 import { getAlertControllerMessenger } from './alert-controller-messenger';
@@ -151,10 +146,6 @@ import {
 } from './user-operation-controller-messenger';
 import { getAuthenticatedUserStorageServiceMessenger } from './authenticated-user-storage-service-messenger';
 import {
-  getChompApiServiceInitMessenger,
-  getChompApiServiceMessenger,
-} from './chomp-api-service-messenger';
-import {
   getProfileMetricsControllerInitMessenger,
   getProfileMetricsControllerMessenger,
 } from './profile-metrics-controller-messenger';
@@ -169,17 +160,6 @@ import { getUserTraitsServiceMessenger } from './user-traits-service-messenger';
 import { getLegacyBackgroundApiServiceMessenger } from './legacy-background-api-service-messenger';
 import { getSentinelApiServiceMessenger } from './sentinel-api-service-messenger';
 import { getSentryTracingServiceMessenger } from './sentry-tracing-service-messenger';
-import { getMoneyAccountApiDataServiceMessenger } from './money-account-api-data-service-messenger';
-import { getMoneyAccountBalanceServiceMessenger } from './money-account-balance-service-messenger';
-import { getMoneyAccountAvailabilityServiceMessenger } from './money-account-availability-service-messenger';
-import {
-  getMoneyAccountControllerInitMessenger,
-  getMoneyAccountControllerMessenger,
-} from './money-account-controller-messenger';
-import {
-  getMoneyAccountUpgradeControllerMessenger,
-  getMoneyAccountUpgradeControllerInitMessenger,
-} from './money-account-upgrade-controller-messenger';
 
 export { getAccountOrderControllerMessenger } from './account-order-controller-messenger';
 export type { AccountTrackerControllerInitMessenger } from './account-tracker-controller-messenger';
@@ -231,22 +211,6 @@ export { getGeolocationApiServiceMessenger } from './geolocation-api-service-mes
 export { getGeolocationControllerMessenger } from './geolocation-controller-messenger';
 export { getSentinelApiServiceMessenger } from './sentinel-api-service-messenger';
 export { getSentryTracingServiceMessenger } from './sentry-tracing-service-messenger';
-export type { ChompApiServiceInitMessenger } from './chomp-api-service-messenger';
-export {
-  getChompApiServiceMessenger,
-  getChompApiServiceInitMessenger,
-} from './chomp-api-service-messenger';
-export { getMoneyAccountApiDataServiceMessenger } from './money-account-api-data-service-messenger';
-export { getMoneyAccountBalanceServiceMessenger } from './money-account-balance-service-messenger';
-export { getMoneyAccountAvailabilityServiceMessenger } from './money-account-availability-service-messenger';
-export {
-  getMoneyAccountControllerInitMessenger,
-  getMoneyAccountControllerMessenger,
-} from './money-account-controller-messenger';
-export {
-  getMoneyAccountUpgradeControllerMessenger,
-  getMoneyAccountUpgradeControllerInitMessenger,
-} from './money-account-upgrade-controller-messenger';
 export type { ComplianceControllerMessenger } from './compliance-controller-messenger';
 export { getComplianceControllerMessenger } from './compliance-controller-messenger';
 export type { ComplianceServiceMessenger } from './compliance-service-messenger';
@@ -284,11 +248,6 @@ export {
   getTokensControllerMessenger,
   getTokensControllerInitMessenger,
 } from './tokens-controller-messenger';
-export type { TransactionPayControllerInitMessenger } from './transaction-pay-controller-messenger';
-export {
-  getTransactionPayControllerMessenger,
-  getTransactionPayControllerInitMessenger,
-} from './transaction-pay-controller-messenger';
 export type { UserOperationControllerInitMessenger } from './user-operation-controller-messenger';
 export {
   getUserOperationControllerMessenger,
@@ -342,10 +301,6 @@ export const MESSENGER_FACTORIES = {
   NetworkConnectionBannerController: {
     getMessenger: getNetworkConnectionBannerControllerMessenger,
     getInitMessenger: noop,
-  },
-  ChompApiService: {
-    getMessenger: getChompApiServiceMessenger,
-    getInitMessenger: getChompApiServiceInitMessenger,
   },
   ClientController: {
     getMessenger: getClientControllerMessenger,
@@ -422,26 +377,6 @@ export const MESSENGER_FACTORIES = {
   MetaMetricsDataDeletionController: {
     getMessenger: getMetaMetricsDataDeletionControllerMessenger,
     getInitMessenger: noop,
-  },
-  MoneyAccountApiDataService: {
-    getMessenger: getMoneyAccountApiDataServiceMessenger,
-    getInitMessenger: noop,
-  },
-  MoneyAccountAvailabilityService: {
-    getMessenger: getMoneyAccountAvailabilityServiceMessenger,
-    getInitMessenger: noop,
-  },
-  MoneyAccountBalanceService: {
-    getMessenger: getMoneyAccountBalanceServiceMessenger,
-    getInitMessenger: noop,
-  },
-  MoneyAccountController: {
-    getMessenger: getMoneyAccountControllerMessenger,
-    getInitMessenger: getMoneyAccountControllerInitMessenger,
-  },
-  MoneyAccountUpgradeController: {
-    getMessenger: getMoneyAccountUpgradeControllerMessenger,
-    getInitMessenger: getMoneyAccountUpgradeControllerInitMessenger,
   },
   MultichainAssetsController: {
     getMessenger: getMultichainAssetsControllerMessenger,
@@ -555,10 +490,6 @@ export const MESSENGER_FACTORIES = {
     getMessenger: getSubjectMetadataControllerMessenger,
     getInitMessenger: noop,
   },
-  ShieldSubscriptionService: {
-    getMessenger: getShieldSubscriptionServiceMessenger,
-    getInitMessenger: noop,
-  },
   PPOMController: {
     getMessenger: getPPOMControllerMessenger,
     getInitMessenger: getPPOMControllerInitMessenger,
@@ -586,10 +517,6 @@ export const MESSENGER_FACTORIES = {
   TokensController: {
     getMessenger: getTokensControllerMessenger,
     getInitMessenger: getTokensControllerInitMessenger,
-  },
-  TransactionPayController: {
-    getMessenger: getTransactionPayControllerMessenger,
-    getInitMessenger: getTransactionPayControllerInitMessenger,
   },
   UserOperationController: {
     getMessenger: getUserOperationControllerMessenger,

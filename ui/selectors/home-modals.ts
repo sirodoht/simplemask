@@ -8,7 +8,6 @@ import {
 } from '../ducks/metamask/metamask';
 import { getIsSocialLoginFlow } from './first-time-flow';
 import {
-  getShowShieldEntryModal,
   getShowRecoveryPhraseReminder,
   getShowTermsOfUse,
   getShowUpdateModal,
@@ -153,7 +152,6 @@ export const selectCanShowLowPriorityModal = createSelector(
     selectShowMultiRpcEditModal,
     selectDisplayUpdateModal,
     getIsSeedlessPasswordOutdated,
-    getShowShieldEntryModal,
     selectShowRecoveryPhrase,
   ],
   (
@@ -162,7 +160,7 @@ export const selectCanShowLowPriorityModal = createSelector(
     showMultiRpcEditModal,
     displayUpdateModal,
     isSeedlessPasswordOutdated,
-    showShieldEntryModal,
+
     showRecoveryPhrase,
   ) =>
     canSeeModals &&
@@ -170,6 +168,5 @@ export const selectCanShowLowPriorityModal = createSelector(
     !showMultiRpcEditModal &&
     !displayUpdateModal &&
     !isSeedlessPasswordOutdated &&
-    !showShieldEntryModal &&
     !showRecoveryPhrase,
 );

@@ -76,24 +76,16 @@
       "lastUpdatedAt": null,
       "lastUpdatedFromVersion": null,
       "lastViewedUserSurvey": null,
-      "moneyEarnBannerDismissedTokenKeys": [],
-      "musdConversionDismissedCtaKeys": [],
-      "musdConversionEducationSeen": false,
       "newPrivacyPolicyToastClickedOrClosed": null,
       "newPrivacyPolicyToastShownDate": 1764061390419,
       "onboardingDate": 1764061390455,
       "outdatedBrowserWarningLastShown": null,
-      "pendingShieldCohort": null,
-      "pendingShieldCohortTxType": null,
       "perpsTabBadgeSeen": false,
       "pna25Acknowledged": false,
       "productTour": "accountIcon",
       "recoveryPhraseReminderHasBeenShown": false,
       "recoveryPhraseReminderLastShown": 7952515200000,
-      "shieldEndingToastLastClickedOrClosed": null,
-      "shieldPausedToastLastClickedOrClosed": null,
       "showDownloadMobileAppSlide": true,
-      "showShieldEntryModalOnce": null,
       "slides": [],
       "timeoutMinutes": 0,
       "trezorModel": null,
@@ -109,14 +101,6 @@
     },
     "AuthenticationController": {
       "isSignedIn": false
-    },
-    "ClaimsController": {
-      "claims": [],
-      "claimsConfigurations": {
-        "supportedNetworks": ["0x1", "0xe708"],
-        "validSubmissionWindowDays": 21
-      },
-      "drafts": []
     },
     "ComplianceController": {
       "lastCheckedAt": null,
@@ -163,12 +147,6 @@
     "MetaMetricsDataDeletionController": {
       "metaMetricsDataDeletionId": null,
       "metaMetricsDataDeletionTimestamp": 0
-    },
-    "MoneyAccountController": {
-      "moneyAccounts": {}
-    },
-    "MoneyAccountUpgradeController": {
-      "upgradedAccounts": {}
     },
     "MultichainAssetsController": {
       "accountsAssets": {},
@@ -2117,10 +2095,6 @@
         "npm:@metamask/tron-wallet-snap": "mainnet"
       }
     },
-    "ShieldController": {
-      "coverageResults": {},
-      "orderedTransactionHistory": []
-    },
     "SnapController": {
       "snapStates": {},
       "snaps": {},
@@ -2206,10 +2180,6 @@
           "version": "1.10.0"
         }
       }
-    },
-    "SubscriptionController": {
-      "subscriptions": [],
-      "trialedProducts": []
     },
     "TokenBalancesController": {
       "tokenBalances": {}

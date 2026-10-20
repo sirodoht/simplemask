@@ -33,13 +33,7 @@ import {
   getAssetsBySelectedAccountGroup,
   selectAccountGroupBalanceForEmptyState,
 } from '../../../../selectors/assets';
-import { MUSD_TOKEN_ADDRESS } from '../../musd/constants';
-import { useMoneyTokenListCta } from '../../../../hooks/money/useMoneyTokenListCta';
 import TokenList from './token-list';
-
-jest.mock('../../../../hooks/money/useMoneyTokenListCta', () => ({
-  useMoneyTokenListCta: jest.fn(),
-}));
 
 jest.mock('../../../../hooks/useAnalytics', () => {
   const mockTrackEvent = jest.fn();
@@ -248,22 +242,6 @@ describe('TokenList', () => {
     jest.mocked(selectAccountGroupBalanceForEmptyState).mockReturnValue(true);
   });
 
-  it('resolves the Money CTA once for the displayed tokens in order', () => {
-    jest
-      .mocked(getAssetsBySelectedAccountGroup)
-      .mockReturnValue(
-        createAccountGroupAssets([
-          createAsset({ symbol: 'USDC', fiatBalance: 25 }),
-          createAsset({ symbol: 'DUST', fiatBalance: 0.5 }),
-        ]),
-      );
-
-    render();
-
-    const tokens = jest.mocked(useMoneyTokenListCta).mock.lastCall?.[0];
-    expect(tokens?.map(({ symbol }) => symbol)).toStrictEqual(['USDC']);
-  });
-
   it('collapses non-native tokens with fiat balance below one dollar', () => {
     jest
       .mocked(getAssetsBySelectedAccountGroup)
@@ -383,80 +361,6 @@ describe('TokenList', () => {
     expect(screen.getByTestId('token-cell-UNKNOWN')).toBeInTheDocument();
     expect(screen.getByTestId('token-cell-DUST')).toBeInTheDocument();
     expect(screen.queryByTestId('low-value-assets-toggle')).toBeNull();
-  });
-
-  it('hides zero-balance mUSD tokens when hide zero balance tokens is enabled', () => {
-    jest.mocked(getShouldHideZeroBalanceTokens).mockReturnValue(true);
-    jest
-      .mocked(getAllEnabledNetworksForAllNamespaces)
-      .mockReturnValue([CHAIN_ID, LINEA_CHAIN_ID] as ReturnType<
-        typeof getAllEnabledNetworksForAllNamespaces
-      >);
-    jest.mocked(getAssetsBySelectedAccountGroup).mockReturnValue({
-      [CHAIN_ID]: [
-        createAsset({
-          symbol: 'MUSD',
-          address: MUSD_TOKEN_ADDRESS,
-          balance: '0',
-          fiatBalance: 0,
-        }),
-        createAsset({ symbol: 'USDC', fiatBalance: 25 }),
-      ],
-      [LINEA_CHAIN_ID]: [
-        {
-          ...createAsset({
-            symbol: 'MUSD',
-            address: MUSD_TOKEN_ADDRESS,
-            balance: '0',
-            fiatBalance: 0,
-          }),
-          chainId: LINEA_CHAIN_ID,
-        } as Asset,
-      ],
-    });
-
-    render();
-
-    expect(screen.getByTestId('token-cell-USDC')).toBeInTheDocument();
-    expect(screen.queryAllByTestId('token-cell-MUSD')).toHaveLength(0);
-    expect(screen.queryByTestId('low-value-assets-toggle')).toBeNull();
-  });
-
-  it('renders zero-balance mUSD outside the low value bucket when zero-balance tokens are shown', () => {
-    jest.mocked(getAssetsBySelectedAccountGroup).mockReturnValue(
-      createAccountGroupAssets([
-        createAsset({
-          symbol: 'MUSD',
-          address: MUSD_TOKEN_ADDRESS,
-          balance: '0',
-          fiatBalance: 0,
-        }),
-        createAsset({ symbol: 'USDC', fiatBalance: 25 }),
-      ]),
-    );
-
-    render();
-
-    expect(screen.getByTestId('token-cell-USDC')).toBeInTheDocument();
-    expect(screen.getByTestId('token-cell-MUSD')).toBeInTheDocument();
-    expect(screen.queryByTestId('low-value-assets-toggle')).toBeNull();
-  });
-
-  it('renders mUSD when it has a balance', () => {
-    jest.mocked(getAssetsBySelectedAccountGroup).mockReturnValue(
-      createAccountGroupAssets([
-        createAsset({
-          symbol: 'MUSD',
-          address: MUSD_TOKEN_ADDRESS,
-          balance: '1',
-          fiatBalance: 1,
-        }),
-      ]),
-    );
-
-    render();
-
-    expect(screen.getByTestId('token-cell-MUSD')).toBeInTheDocument();
   });
 
   it('renders low value tokens inline when sort is not declining balance', () => {

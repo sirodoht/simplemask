@@ -52,18 +52,12 @@ jest.mock('./connected-status-popover-container', () => ({
 jest.mock('../../components/app/password-outdated-modal', () => ({
   PasswordOutdatedModalContainer: () => null,
 }));
-jest.mock('../../components/app/shield-entry-modal', () => ({
-  ShieldEntryModalContainer: () => null,
-}));
 jest.mock(
   '../../components/app/modals/pna25-modal/pna25-modal-container',
   () => ({ Pna25ModalContainer: () => null }),
 );
 jest.mock('./deeplink-qrcode-modal-container', () => ({
   DeeplinkQrCodeModalContainer: () => null,
-}));
-jest.mock('./shield-cohort-container', () => ({
-  ShieldCohortContainer: () => null,
 }));
 jest.mock('./home-notifications-container', () => ({
   HomeNotificationsContainer: () => null,
@@ -72,11 +66,6 @@ jest.mock('../connected-sites', () => () => null);
 jest.mock('../connected-accounts', () => () => null);
 jest.mock('./beta-and-flask-home-footer.component', () => () => null);
 jest.mock('./HomeDeepLinkActions', () => ({ HomeDeepLinkActions: () => null }));
-jest.mock('../../contexts/shield/shield-subscription', () => ({
-  useShieldSubscriptionContext: () => ({
-    evaluateCohortEligibility: jest.fn(),
-  }),
-}));
 jest.mock('../../../shared/lib/build-types', () => ({
   isBeta: jest.fn().mockReturnValue(false),
   isFlask: jest.fn().mockReturnValue(false),

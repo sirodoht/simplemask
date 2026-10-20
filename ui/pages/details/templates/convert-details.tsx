@@ -10,8 +10,7 @@ import { useI18nContext } from '../../../hooks/useI18nContext';
 import { useFormatters } from '../../../hooks/useFormatters';
 import { useApiTransaction } from '../../../hooks/activity/useApiTransaction';
 import { useLocalTransactionMeta } from '../../../hooks/activity/useLocalTransactionMeta';
-import { Footer, Row, Section } from '../components/shared';
-import { ConvertAgainButton } from '../components/convert-again-button';
+import { Row, Section } from '../components/shared';
 import { MetadataSection, TokensSection } from '../components/sections';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { TransactionDetailsProvider } from '../../confirmations/components/activity/transaction-details-context';
@@ -107,10 +106,6 @@ export function ConvertDetails({ item }: Props) {
           </Section>
         ) : null}
       </div>
-
-      <Footer>
-        <ConvertAgainButton sourceToken={item.data.sourceToken} />
-      </Footer>
     </div>
   );
 }

@@ -66,6 +66,10 @@ describe('retired feature links', () => {
     '/sell',
     '/swap',
     '/batch-sell',
+    '/shield',
+    '/money',
+    '/earn-musd',
+    '/card-onboarding',
   ]) {
     it(`rejects the removed feature link ${path}`, async () => {
       expect(await parse(new URL(`https://link.metamask.io${path}`))).toBe(

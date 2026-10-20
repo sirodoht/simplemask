@@ -47,14 +47,10 @@ import {
   GetAddressSecurityAlertResponse,
   AddAddressSecurityAlertResponse,
 } from '../../../shared/lib/trust-signals';
-import {
-  DefaultSubscriptionPaymentOptions,
-  ShieldSubscriptionMetricsPropsFromUI,
-} from '../../../shared/types';
 import { PendingRedirectRoute } from '../../../shared/lib/pending-redirect-state';
-import { ShieldSubscriptionError } from '../../../shared/lib/shield';
 import type { DeferredDeepLink } from '../../../shared/lib/deep-links/types';
 import type { Preferences } from '../../../shared/types/preferences';
+import type { HistoricalMoneyAccount } from '../../../shared/types/historical-money-account';
 import {
   createHardwareWalletError,
   HardwareWalletType,
@@ -113,35 +109,20 @@ export type AppStateControllerState = {
   recoveryPhraseReminderHasBeenShown: boolean;
   recoveryPhraseReminderLastShown: number;
   signatureSecurityAlertResponses: Record<string, SecurityAlertResponse>;
+  historicalMoneyAccounts: Record<string, HistoricalMoneyAccount>;
   snapsInstallPrivacyWarningShown?: boolean;
-  shieldSubscriptionError: ShieldSubscriptionError | null;
-  shieldEndingToastLastClickedOrClosed: number | null;
-  shieldPausedToastLastClickedOrClosed: number | null;
   termsOfUseLastAgreed?: number;
   throttledOrigins: ThrottledOrigins;
   timeoutMinutes: number;
   trezorModel: string | null;
   updateModalLastDismissedAt: number | null;
   hasShownMultichainAccountsIntroModal: boolean;
-  musdConversionEducationSeen: boolean;
-  musdConversionDismissedCtaKeys: string[];
-  moneyEarnBannerDismissedTokenKeys: string[];
-  showShieldEntryModalOnce: boolean | null;
   /**
    * The pending redirect route to be applied after the default page is loaded.
    * If this is set, next time default page is loaded, the redirect will be applied.
    */
   pendingRedirectRoute: PendingRedirectRoute | null;
-  pendingShieldCohort: string | null;
-  pendingShieldCohortTxType: string | null;
-  defaultSubscriptionPaymentOptions?: DefaultSubscriptionPaymentOptions;
   deferredDeepLink?: DeferredDeepLink;
-
-  /**
-   * The properties for the Shield subscription metrics.
-   * Since we can't access some of these properties in the background, we need to get them from the UI.
-   */
-  shieldSubscriptionMetricsProps?: ShieldSubscriptionMetricsPropsFromUI;
 
   /**
    * Whether the wallet reset is in progress.
@@ -275,21 +256,13 @@ const getDefaultAppStateControllerState = (): AppStateControllerState => ({
   productTour: 'accountIcon',
   recoveryPhraseReminderHasBeenShown: false,
   recoveryPhraseReminderLastShown: new Date().getTime(),
-  shieldSubscriptionError: null,
-  shieldEndingToastLastClickedOrClosed: null,
-  shieldPausedToastLastClickedOrClosed: null,
   throttledOrigins: {},
   timeoutMinutes: DEFAULT_AUTO_LOCK_TIME_LIMIT,
   trezorModel: null,
   updateModalLastDismissedAt: null,
   hasShownMultichainAccountsIntroModal: false,
-  musdConversionEducationSeen: false,
-  musdConversionDismissedCtaKeys: [],
-  moneyEarnBannerDismissedTokenKeys: [],
-  showShieldEntryModalOnce: null,
   pendingRedirectRoute: null,
-  pendingShieldCohort: null,
-  pendingShieldCohortTxType: null,
+  historicalMoneyAccounts: {},
   isWalletResetInProgress: false,
   storageWriteErrorType: null,
   passkeyAutoUnlockSuppressed: false,
@@ -489,25 +462,13 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
     includeInDebugSnapshot: true,
     usedInUi: true,
   },
+  historicalMoneyAccounts: {
+    includeInStateLogs: false,
+    persist: true,
+    includeInDebugSnapshot: false,
+    usedInUi: true,
+  },
   snapsInstallPrivacyWarningShown: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  shieldSubscriptionError: {
-    includeInStateLogs: true,
-    persist: false,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  shieldEndingToastLastClickedOrClosed: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  shieldPausedToastLastClickedOrClosed: {
     includeInStateLogs: true,
     persist: true,
     includeInDebugSnapshot: true,
@@ -549,45 +510,9 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
     usedInUi: true,
     includeInStateLogs: true,
   },
-  musdConversionEducationSeen: {
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-    includeInStateLogs: true,
-  },
-  musdConversionDismissedCtaKeys: {
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-    includeInStateLogs: true,
-  },
-  moneyEarnBannerDismissedTokenKeys: {
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-    includeInStateLogs: true,
-  },
-  showShieldEntryModalOnce: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
   pendingRedirectRoute: {
     includeInStateLogs: true,
     persist: false,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  pendingShieldCohort: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  pendingShieldCohortTxType: {
-    includeInStateLogs: true,
-    persist: true,
     includeInDebugSnapshot: true,
     usedInUi: true,
   },
@@ -596,18 +521,6 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
     includeInDebugSnapshot: true,
     usedInUi: true,
     includeInStateLogs: true,
-  },
-  defaultSubscriptionPaymentOptions: {
-    includeInStateLogs: false,
-    persist: true,
-    includeInDebugSnapshot: false,
-    usedInUi: false,
-  },
-  shieldSubscriptionMetricsProps: {
-    includeInStateLogs: false,
-    persist: true,
-    includeInDebugSnapshot: false,
-    usedInUi: false,
   },
   storageWriteErrorType: {
     includeInStateLogs: true,
@@ -637,8 +550,6 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
 
 const MESSENGER_EXPOSED_METHODS = [
   'addAddressSecurityAlertResponse',
-  'addMoneyEarnBannerDismissedTokenKey',
-  'addMusdConversionDismissedCtaKey',
   'addPollingToken',
   'addSignatureSecurityAlertResponse',
   'cancelQrCodeScan',
@@ -662,7 +573,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'setCurrentExtensionPopupId',
   'setCurrentPopupId',
   'setDefaultHomeActiveTabName',
-  'setDefaultSubscriptionPaymentOptions',
   'setDeferredDeepLink',
   'setHasShownMultichainAccountsIntroModal',
   'setIsWalletResetInProgress',
@@ -671,7 +581,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'setLastUpdatedAt',
   'setLastUpdatedFromVersion',
   'setLastViewedUserSurvey',
-  'setMusdConversionEducationSeen',
   'setNewPrivacyPolicyToastClickedOrClosed',
   'setNewPrivacyPolicyToastShownDate',
   'setOnboardingDate',
@@ -680,16 +589,10 @@ const MESSENGER_EXPOSED_METHODS = [
   'setLastShownPrfMigrationReminderAt',
   'setPendingExtensionVersion',
   'setPendingRedirectRoute',
-  'setPendingShieldCohort',
   'setPna25Acknowledged',
   'setProductTour',
   'setRecoveryPhraseReminderHasBeenShown',
   'setRecoveryPhraseReminderLastShown',
-  'setShieldEndingToastLastClickedOrClosed',
-  'setShieldPausedToastLastClickedOrClosed',
-  'setShieldSubscriptionError',
-  'setShieldSubscriptionMetricsProps',
-  'setShowShieldEntryModalOnce',
   'setSnapsInstallPrivacyWarningShownStatus',
   'setStorageWriteErrorType',
   'setTermsOfUseLastAgreed',
@@ -915,31 +818,6 @@ export class AppStateController extends BaseController<
     if (disableDelay && acknowledged) {
       this.messenger.call('ProfileMetricsController:skipInitialDelay');
     }
-  }
-
-  setShieldPausedToastLastClickedOrClosed(time: number): void {
-    this.update((state) => {
-      state.shieldPausedToastLastClickedOrClosed = time;
-    });
-  }
-
-  setShieldEndingToastLastClickedOrClosed(time: number): void {
-    this.update((state) => {
-      state.shieldEndingToastLastClickedOrClosed = time;
-    });
-  }
-
-  /**
-   * Sets a generic shield API error.
-   * When set to a non-null object, a toast is shown on the homepage with the error.
-   * Setting to null clears/dismisses the error.
-   *
-   * @param error - The error object with message and optional code, or null to clear
-   */
-  setShieldSubscriptionError(error: ShieldSubscriptionError | null): void {
-    this.update((state) => {
-      state.shieldSubscriptionError = error;
-    });
   }
 
   /**
@@ -1217,46 +1095,6 @@ export class AppStateController extends BaseController<
   setHasShownMultichainAccountsIntroModal(hasShown: boolean): void {
     this.update((state) => {
       state.hasShownMultichainAccountsIntroModal = hasShown;
-    });
-  }
-
-  /**
-   * Sets whether the mUSD conversion education screen has been seen.
-   *
-   * @param value - Whether the education screen has been seen
-   */
-  setMusdConversionEducationSeen(value: boolean): void {
-    this.update((state) => {
-      state.musdConversionEducationSeen = value;
-    });
-  }
-
-  /**
-   * Adds a dismissed mUSD asset-detail CTA key (chainId-tokenAddress format).
-   * Used to hide the CTA for that token on that chain once dismissed.
-   *
-   * @param key - Key in format "chainId-tokenAddress" (e.g. "0x1-0xa0b86991...")
-   */
-  addMusdConversionDismissedCtaKey(key: string): void {
-    this.update((state) => {
-      if (!state.musdConversionDismissedCtaKeys.includes(key)) {
-        state.musdConversionDismissedCtaKeys.push(key);
-      }
-    });
-  }
-
-  /**
-   * Adds a token whose Money earn banner on token details was dismissed, so
-   * the banner stays hidden for it.
-   *
-   * @param key - Key in `chainId:address` format, both lowercased (e.g.
-   * "0x1:0xa0b86991...").
-   */
-  addMoneyEarnBannerDismissedTokenKey(key: string): void {
-    this.update((state) => {
-      if (!state.moneyEarnBannerDismissedTokenKeys.includes(key)) {
-        state.moneyEarnBannerDismissedTokenKeys.push(key);
-      }
     });
   }
 
@@ -1549,12 +1387,6 @@ export class AppStateController extends BaseController<
     });
   }
 
-  setShowShieldEntryModalOnce(showShieldEntryModalOnce: boolean | null): void {
-    this.update((state) => {
-      state.showShieldEntryModalOnce = showShieldEntryModalOnce;
-    });
-  }
-
   /**
    * Sets the pending redirect route to be applied after the default page is loaded.
    *
@@ -1566,15 +1398,6 @@ export class AppStateController extends BaseController<
     });
   }
 
-  setPendingShieldCohort(cohort: string | null, txType?: string | null): void {
-    this.update((state) => {
-      state.pendingShieldCohort = cohort;
-      if (txType !== undefined) {
-        state.pendingShieldCohortTxType = txType;
-      }
-    });
-  }
-
   setIsWalletResetInProgress(isResetting: boolean): void {
     this.update((state) => {
       state.isWalletResetInProgress = isResetting;
@@ -1583,28 +1406,6 @@ export class AppStateController extends BaseController<
 
   getIsWalletResetInProgress(): boolean {
     return this.state.isWalletResetInProgress;
-  }
-
-  setDefaultSubscriptionPaymentOptions(
-    defaultSubscriptionPaymentOptions: DefaultSubscriptionPaymentOptions,
-  ): void {
-    this.update((state) => {
-      state.defaultSubscriptionPaymentOptions =
-        defaultSubscriptionPaymentOptions;
-    });
-  }
-
-  /**
-   * Update the Shield subscription metrics properties which are not accessible in the background directly.
-   *
-   * @param shieldSubscriptionMetricsProps - The Shield subscription metrics properties.
-   */
-  setShieldSubscriptionMetricsProps(
-    shieldSubscriptionMetricsProps: ShieldSubscriptionMetricsPropsFromUI,
-  ): void {
-    this.update((state) => {
-      state.shieldSubscriptionMetricsProps = shieldSubscriptionMetricsProps;
-    });
   }
 
   /**

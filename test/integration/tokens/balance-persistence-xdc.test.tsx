@@ -24,19 +24,6 @@ jest.mock('../../../ui/store/background-connection', () => ({
   submitRequestToBackground: jest.fn(),
 }));
 
-jest.mock('../../../ui/hooks/musd/useMusdGeoBlocking', () => ({
-  ...jest.requireActual('../../../ui/hooks/musd/useMusdGeoBlocking'),
-  useMusdGeoBlocking: () => ({
-    isBlocked: false,
-    userCountry: 'US',
-    isLoading: false,
-    error: null,
-    blockedRegions: [],
-    blockedMessage: null,
-    refreshGeolocation: jest.fn(),
-  }),
-}));
-
 jest.mock('react-chartjs-2', () => {
   const React = jest.requireActual('react');
   return {

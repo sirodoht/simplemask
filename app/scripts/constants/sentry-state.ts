@@ -107,9 +107,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     pendingExtensionVersion: true,
     updateModalLastDismissedAt: true,
     lastUpdatedAt: true,
-    shieldSubscriptionError: true,
-    shieldEndingToastLastClickedOrClosed: true,
-    shieldPausedToastLastClickedOrClosed: true,
     storageWriteErrorType: true,
     isWalletResetInProgress: false,
     pna25Acknowledged: false,
@@ -166,12 +163,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
   },
   LoggingController: {
     logs: false,
-  },
-  MoneyAccountController: {
-    moneyAccounts: false,
-  },
-  MoneyAccountUpgradeController: {
-    upgradedAccounts: false,
   },
   NotificationServicesController: {
     subscriptionAccountsSeen: false,
@@ -342,9 +333,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     lastFetchedBlockNumbers: false,
     methodData: false,
     batchTransactionCounts: false,
-  },
-  TransactionPayController: {
-    transactionData: false,
   },
   TxController: {
     transactions: false,

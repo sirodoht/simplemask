@@ -17,13 +17,6 @@ import { WalletInitiatedHeader } from './wallet-initiated-header';
 
 const mockHandleShieldSubscriptionApprovalTransactionRejected = jest.fn();
 
-jest.mock('../../../hooks/transactions/useShieldConfirm', () => ({
-  useShieldConfirm: () => ({
-    handleShieldSubscriptionApprovalTransactionRejected:
-      mockHandleShieldSubscriptionApprovalTransactionRejected,
-  }),
-}));
-
 jest.mock('../../../hooks/useHasInsufficientBalance', () => ({
   useHasInsufficientBalance: jest.fn(() => ({
     hasInsufficientBalance: false,
@@ -99,30 +92,6 @@ describe('<WalletInitiatedHeader />', () => {
     );
     fireEvent.click(getByTestId('wallet-initiated-header-back-button'));
     expect(mockOnCancel).toHaveBeenCalled();
-  });
-
-  it('tracks Shield rejection when the back button is pressed', () => {
-    mockHandleShieldSubscriptionApprovalTransactionRejected.mockClear();
-    const mockOnCancel = jest.fn();
-    jest.spyOn(ConfirmActions, 'useConfirmActions').mockImplementation(() => ({
-      onCancel: mockOnCancel,
-      resetTransactionState: jest.fn(),
-    }));
-
-    const { getByTestId } = render(getShieldSubscriptionApprovalState());
-    fireEvent.click(getByTestId('wallet-initiated-header-back-button'));
-
-    expect(
-      mockHandleShieldSubscriptionApprovalTransactionRejected,
-    ).toHaveBeenCalledWith(
-      expect.objectContaining({
-        type: TransactionType.shieldSubscriptionApprove,
-      }),
-      false,
-    );
-    expect(mockOnCancel).toHaveBeenCalledWith({
-      location: 'confirmation',
-    });
   });
 
   it('calls onCancel with navigateBackToPreviousPage for musdClaim', () => {

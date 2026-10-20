@@ -1,70 +1,31 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ToastListener } from './toast-listener';
 
-const mockUseSelector = jest.fn();
-const mockPerpsDepositToast = jest.fn(() => null);
-const mockUseMusdConversionToastStatus = jest.fn(() => ({
-  activeTransactionId: undefined,
-}));
-const mockUseMusdConversionConfirmTrace = jest.fn();
 const mockIsInteractiveUI = jest.fn();
-
-jest.mock('react-redux', () => ({
-  useSelector: (selector: unknown) => mockUseSelector(selector),
-}));
-
-jest.mock('../../../ducks/metamask/base-selectors', () => ({
-  getIsUnlocked: jest.fn(),
-}));
-
 jest.mock('../../../../shared/lib/environment-type', () => ({
   isInteractiveUI: () => mockIsInteractiveUI(),
 }));
-
-jest.mock('../../../hooks/musd', () => ({
-  useMusdConversionToastStatus: () => mockUseMusdConversionToastStatus(),
-  useMusdConversionConfirmTrace: (...args: unknown[]) =>
-    mockUseMusdConversionConfirmTrace(...args),
-}));
-
 jest.mock('./transaction-event-toast-listener', () => ({
-  TransactionEventToastListener: () => null,
-}));
-
-jest.mock('../money/money-account-toast/money-account-toast-listener', () => ({
-  MoneyAccountToastListener: () => null,
+  TransactionEventToastListener: () => (
+    <div data-testid="transaction-status-listener" />
+  ),
 }));
 
 describe('ToastListener', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  function renderToastListener({
-    isInteractive,
-    isUnlocked = true,
-  }: {
-    isInteractive: boolean;
-    isUnlocked?: boolean;
-  }) {
-    mockUseSelector.mockReturnValueOnce(isUnlocked);
-    mockIsInteractiveUI.mockReturnValue(isInteractive);
+  it('keeps transaction status notifications in interactive UI', () => {
+    mockIsInteractiveUI.mockReturnValue(true);
     render(<ToastListener />);
-  }
-
-  it('mounts toast hooks in interactive UI', () => {
-    renderToastListener({ isInteractive: true });
-
-    expect(mockUseMusdConversionToastStatus).toHaveBeenCalledTimes(1);
-    expect(mockUseMusdConversionConfirmTrace).toHaveBeenCalledWith('');
+    expect(
+      screen.getByTestId('transaction-status-listener'),
+    ).toBeInTheDocument();
   });
 
-  it('does not mount toast listeners in non-interactive UI', () => {
-    renderToastListener({ isInteractive: false });
-
-    expect(mockPerpsDepositToast).not.toHaveBeenCalled();
-    expect(mockUseMusdConversionToastStatus).not.toHaveBeenCalled();
-    expect(mockUseMusdConversionConfirmTrace).not.toHaveBeenCalled();
+  it('does not mount listeners in non-interactive UI', () => {
+    mockIsInteractiveUI.mockReturnValue(false);
+    render(<ToastListener />);
+    expect(
+      screen.queryByTestId('transaction-status-listener'),
+    ).not.toBeInTheDocument();
   });
 });

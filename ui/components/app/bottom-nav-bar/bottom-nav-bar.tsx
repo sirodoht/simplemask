@@ -15,19 +15,10 @@ import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
   ACTIVITY_ROUTE,
   DEFAULT_ROUTE,
-  MONEY_HOME_ROUTE,
 } from '../../../helpers/constants/routes';
 import { ScreenViewedEntryPoint } from '../../../../shared/constants/metametrics';
 import { getDefaultHomeActiveTabName } from '../../../selectors';
 import { transitionForward } from '../../ui/transition';
-import { useMoneyAccountAvailability } from '../../../hooks/money/use-money-account-availability';
-import { useMoneyAnalytics } from '../../../hooks/money/useMoneyAnalytics';
-import {
-  MoneyButtonIntent,
-  MoneyButtonType,
-  MoneyComponentName,
-  MoneyScreenName,
-} from '../../../pages/money/constants/money-events';
 import { getActiveBottomNavTabs } from './bottom-nav-bar.utils';
 
 type NavTabProps = {
@@ -75,14 +66,9 @@ export function BottomNavBar() {
   const t = useI18nContext();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { availability: moneyAccountAvailability } =
-    useMoneyAccountAvailability();
   const lastActiveTab = useSelector(getDefaultHomeActiveTabName);
-  const { trackButtonClicked: trackMoneyButtonClicked } = useMoneyAnalytics({
-    componentName: MoneyComponentName.HomeTab,
-  });
 
-  const { isHome, isMoney, isActivity } = getActiveBottomNavTabs(pathname);
+  const { isHome, isActivity } = getActiveBottomNavTabs(pathname);
 
   const handleHomeClick = useCallback(() => {
     transitionForward(() =>
@@ -97,18 +83,6 @@ export function BottomNavBar() {
       ),
     );
   }, [navigate, lastActiveTab]);
-
-  const handleMoneyClick = useCallback(() => {
-    trackMoneyButtonClicked({
-      buttonType: MoneyButtonType.Text,
-      buttonIntent: MoneyButtonIntent.GoToMoneyHome,
-      labelKey: 'money',
-      redirectTarget: MoneyScreenName.MoneyHome,
-    });
-    transitionForward(() =>
-      navigate(MONEY_HOME_ROUTE, { state: { stayOnHomePage: true } }),
-    );
-  }, [navigate, trackMoneyButtonClicked]);
 
   const handleActivityClick = useCallback(() => {
     transitionForward(() =>
@@ -135,15 +109,6 @@ export function BottomNavBar() {
         data-testid="bottom-nav-home"
       />
 
-      {moneyAccountAvailability.isAvailable && (
-        <NavTab
-          isActive={isMoney}
-          icon={IconName.Musd}
-          label={t('money')}
-          onClick={handleMoneyClick}
-          data-testid="bottom-nav-money"
-        />
-      )}
       <NavTab
         isActive={isActivity}
         icon={isActivity ? IconName.ClockFilled : IconName.Clock}

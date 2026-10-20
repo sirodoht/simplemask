@@ -14,7 +14,6 @@ import { MetaMetricsProvider } from '../contexts/metametrics';
 import { MetamaskNotificationsProvider } from '../contexts/metamask-notifications';
 import { AssetPollingProvider } from '../contexts/assetPolling';
 import { MetamaskIdentityProvider } from '../contexts/identity';
-import { ShieldSubscriptionProvider } from '../contexts/shield/shield-subscription';
 import RiveWasmProvider from '../contexts/rive-wasm';
 import { queryClient } from '../contexts/query-client';
 import { HardwareWalletErrorProvider } from '../contexts/hardware-wallets';
@@ -48,11 +47,9 @@ function AppProviders() {
             <MetamaskIdentityProvider>
               <MetamaskNotificationsProvider>
                 <HardwareWalletErrorProvider>
-                  <ShieldSubscriptionProvider>
-                    <RiveWasmProvider>
-                      <Routes />
-                    </RiveWasmProvider>
-                  </ShieldSubscriptionProvider>
+                  <RiveWasmProvider>
+                    <Routes />
+                  </RiveWasmProvider>
                 </HardwareWalletErrorProvider>
               </MetamaskNotificationsProvider>
             </MetamaskIdentityProvider>

@@ -31,7 +31,6 @@ import {
   type SupportLinkUserData,
 } from '../../../../../shared/lib/build-support-link';
 import { SUPPORT_LINK } from '../../../../../shared/lib/ui-utils';
-import { useUserSubscriptions } from '../../../../hooks/subscription/useSubscription';
 import { getCustomerServiceToken } from '../../../../store/actions';
 
 type VisitSupportDataConsentModalProps = {
@@ -47,7 +46,6 @@ const VisitSupportDataConsentModal = ({
   const t = useI18nContext();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
-  const { customerId: shieldCustomerId } = useUserSubscriptions();
   const [isLoading, setIsLoading] = useState(false);
   const wasCancelledRef = useRef(false);
 
@@ -56,7 +54,6 @@ const VisitSupportDataConsentModal = ({
       const params: SupportLinkUserData = {
         version,
         customerServiceToken,
-        shieldCustomerId,
       };
       const supportLinkWithUserId = buildSupportLinkWithUserData(
         SUPPORT_LINK as string,
@@ -74,13 +71,7 @@ const VisitSupportDataConsentModal = ({
       );
       openWindow(supportLinkWithUserId);
     },
-    [
-      version,
-      shieldCustomerId,
-      trackEvent,
-      createEventBuilder,
-      segmentContext.page?.title,
-    ],
+    [version, trackEvent, createEventBuilder, segmentContext.page?.title],
   );
 
   const handleModalClose = useCallback(() => {

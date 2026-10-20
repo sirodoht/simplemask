@@ -25,7 +25,6 @@ import {
   selectPendingApprovalsForNavigation,
 } from '../../selectors';
 import { useModalState } from '../../hooks/useModalState';
-import { isMusdConversionTransaction } from '../../components/app/musd/utils';
 
 const EXEMPTED_ROUTES = [
   UNLOCK_ROUTE,
@@ -84,20 +83,8 @@ export const ConfirmationRouter = () => {
     SNAP_APPROVAL_TYPES.includes(approval.type),
   );
 
-  const isMUSDConversionTransaction = pendingApprovals.some(
-    (approval) =>
-      transactions.find(
-        (tx) =>
-          isMusdConversionTransaction(tx) &&
-          tx.id === approval?.requestData?.txId,
-      ),
-    [transactions, pendingApprovals],
-  );
-
   const isFullscreenExemption =
-    isFullscreen &&
-    !hasAllowedPopupRedirectApprovals &&
-    !isMUSDConversionTransaction;
+    isFullscreen && !hasAllowedPopupRedirectApprovals;
 
   // Ported from home.component - componentDidUpdate()
   useEffect(() => {

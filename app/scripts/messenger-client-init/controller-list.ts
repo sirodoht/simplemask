@@ -12,7 +12,6 @@ import {
 import { PPOMController } from '@metamask/ppom-validator';
 import { SmartTransactionsController } from '@metamask/smart-transactions-controller';
 import { TransactionController } from '@metamask/transaction-controller';
-import { TransactionPayController } from '@metamask/transaction-pay-controller';
 import { AccountsController } from '@metamask/accounts-controller';
 import {
   AccountTrackerController,
@@ -56,8 +55,6 @@ import { AccountTreeController } from '@metamask/account-tree-controller';
 import { SeedlessOnboardingController } from '@metamask/seedless-onboarding-controller';
 import { EncryptionKey } from '@metamask/browser-passworder';
 import { GatorPermissionsController } from '@metamask/gator-permissions-controller';
-import { ShieldController } from '@metamask/shield-controller';
-import { SubscriptionController } from '@metamask/subscription-controller';
 import { NameController } from '@metamask/name-controller';
 import { SelectedNetworkController } from '@metamask/selected-network-controller';
 import { ApprovalController } from '@metamask/approval-controller';
@@ -78,8 +75,6 @@ import {
   BackendWebSocketService,
 } from '@metamask/core-backend';
 import { AuthenticatedUserStorageService } from '@metamask/authenticated-user-storage';
-import { ChompApiService } from '@metamask/chomp-api-service';
-import { ClaimsController, ClaimsService } from '@metamask/claims-controller';
 import { ClientController } from '@metamask/client-controller';
 import {
   ConfigRegistryApiService,
@@ -103,11 +98,6 @@ import {
 import { PasskeyController } from '@metamask/passkey-controller';
 import { AnalyticsController } from '@metamask/analytics-controller';
 import { SentinelApiService } from '@metamask/sentinel-api-service';
-import { MoneyAccountApiDataService } from '@metamask/money-account-api-data-service';
-import { MoneyAccountBalanceService } from '@metamask/money-account-balance-service';
-import { MoneyAccountController } from '@metamask/money-account-controller';
-import { MoneyAccountUpgradeController } from '@metamask/money-account-upgrade-controller';
-import { MoneyAccountAvailabilityService } from '../lib/money/money-account-availability';
 import { OnboardingController } from '../controllers/onboarding';
 import { PreferencesController } from '../controllers/preferences-controller';
 import { InstitutionalSnapController } from '../controllers/institutional-snap/InstitutionalSnapController';
@@ -115,7 +105,6 @@ import { NetworkOrderController } from '../controllers/network-order';
 import { OAuthService } from '../services/oauth/oauth-service';
 import { SnapsNameProvider } from '../lib/SnapsNameProvider';
 import { AppStateController } from '../controllers/app-state-controller';
-import { ShieldSubscriptionService } from '../services/subscription/shield-subscription-service';
 import { AccountOrderController } from '../controllers/account-order';
 import { AlertController } from '../controllers/alert-controller';
 import { MetaMetricsDataDeletionController } from '../controllers/metametrics-data-deletion/metametrics-data-deletion';
@@ -145,8 +134,6 @@ export type MessengerClient =
   | AssetsController
   | AuthenticationController
   | AuthenticatedUserStorageService
-  | ChompApiService
-  | ClaimsController
   | CronjobController
   | CurrencyRateController
   | DataDeletionService
@@ -166,11 +153,6 @@ export type MessengerClient =
   | LegacyBackgroundApiService
   | LoggingController
   | MetaMetricsDataDeletionController
-  | MoneyAccountApiDataService
-  | MoneyAccountAvailabilityService
-  | MoneyAccountBalanceService
-  | MoneyAccountController
-  | MoneyAccountUpgradeController
   | MultichainAssetsController
   | MultichainAssetsRatesController
   | MultichainBalancesController
@@ -201,23 +183,19 @@ export type MessengerClient =
   | SentryTracingService
   | SelectedNetworkController
   | SentinelApiService
-  | ShieldController
   | SignatureController
   | SmartTransactionsController
   | SnapController
   | SnapInterfaceController
   | SnapInsightsController
   | SnapRegistryController
-  | SubscriptionController
   | SnapsNameProvider
   | SubjectMetadataController
-  | ShieldSubscriptionService
   | TokenBalancesController
   | TokenDetectionController
   | TokenListController
   | TokensController
   | TransactionController
-  | TransactionPayController
   | InstitutionalSnapController
   | UserOperationController
   | UserStorageController
@@ -230,7 +208,6 @@ export type MessengerClient =
   | SnapAccountService
   | MultichainAccountService
   | NetworkEnablementController
-  | ClaimsService
   | ClientController
   | ComplianceController
   | ComplianceService
@@ -258,7 +235,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   AnalyticsController['state'] &
   AssetsController['state'] &
   AuthenticationController['state'] &
-  ClaimsController['state'] &
   ClientController['state'] &
   ComplianceController['state'] &
   ConfigRegistryController['state'] &
@@ -294,21 +270,18 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   RemoteFeatureFlagController['state'] &
   SeedlessOnboardingController<EncryptionKey>['state'] &
   SelectedNetworkController['state'] &
-  ShieldController['state'] &
   SignatureController['state'] &
   SmartTransactionsController['state'] &
   SnapController['state'] &
   SnapInsightsController['state'] &
   SnapInterfaceController['state'] &
   SnapRegistryController['state'] &
-  SubscriptionController['state'] &
   TokenBalancesController['state'] &
   TokenDetectionController['state'] &
   TokenListController['state'] &
   TokensController['state'] &
   StaticAssetsController['state'] &
   TransactionController['state'] &
-  TransactionPayController['state'] &
   UserOperationController['state'] &
   UserStorageController['state'] &
   TokenRatesController['state'] &

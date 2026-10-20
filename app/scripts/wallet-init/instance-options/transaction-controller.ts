@@ -1,4 +1,3 @@
-import { PRODUCT_TYPES } from '@metamask/subscription-controller';
 import { ORIGIN_METAMASK } from '@metamask/controller-utils';
 import {
   getAccountAddressRelationship,
@@ -18,7 +17,6 @@ import {
   isTransactionTrusted,
 } from '../../../../shared/lib/transaction/enforced-simulations';
 import { getIsSmartTransaction } from '../../../../shared/lib/selectors';
-import { getShieldGatewayConfig } from '../../../../shared/lib/shield';
 import type {
   TransactionMetaEventPayload,
   TransactionMetricsRequest,
@@ -271,23 +269,11 @@ function getSavedGasFees(
 
   return savedGasFees;
 }
-
 async function getSimulationConfig(
-  { messenger }: { messenger: TransactionControllerInitMessenger },
+  _request: { messenger: TransactionControllerInitMessenger },
   url: string,
-  opts?: { txMeta?: { origin?: string } },
 ) {
-  const getToken = () =>
-    messenger.call('AuthenticationController:getBearerToken');
-  const getShieldSubscription = () =>
-    messenger.call(
-      'SubscriptionController:getSubscriptionByProduct',
-      PRODUCT_TYPES.SHIELD,
-    );
-  const origin = opts?.txMeta?.origin;
-  return getShieldGatewayConfig(getToken, getShieldSubscription, url, {
-    origin,
-  });
+  return { newUrl: url, authorization: undefined };
 }
 
 async function isEIP7702GasFeeTokensEnabled(

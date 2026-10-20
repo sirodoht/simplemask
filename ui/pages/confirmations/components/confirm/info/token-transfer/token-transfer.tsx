@@ -5,7 +5,6 @@ import {
 import React from 'react';
 import { useConfirmContext } from '../../../../context/confirm';
 import { SimulationDetails } from '../../../simulation-details';
-import { TransactionPaySection } from '../../../rows/transaction-pay-section/transaction-pay-section';
 import { AdvancedDetails } from '../shared/advanced-details/advanced-details';
 import { GasFeesSection } from '../shared/gas-fees-section/gas-fees-section';
 import SendHeading from '../shared/send-heading/send-heading';
@@ -35,7 +34,7 @@ const TokenTransferInfo = () => {
       />
       <EnforcedSimulationsRow />
       <TokenDetailsSection />
-      <TransactionPaySection />
+
       <GasFeesSection />
       <AdvancedDetails />
     </>

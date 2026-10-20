@@ -112,69 +112,9 @@ jest.mock(
   () => () => mockFetchWithCache,
 );
 
-jest.mock('../../hooks/musd', () => ({
-  useMusdCtaVisibility: () => ({
-    shouldShowTokenListItemCta: jest.fn().mockReturnValue(false),
-    shouldShowAssetOverviewCta: jest.fn().mockReturnValue(false),
-    isTokenWithCta: jest.fn().mockReturnValue(false),
-    getCtaKey: jest.fn().mockReturnValue(''),
-    isGeoBlocked: false,
-    isGeoBlockingLoading: false,
-  }),
-  useMusdBalance: () => ({
-    hasMusdBalance: false,
-    totalMusdBalance: '0',
-    musdBalancesByChain: {},
-    isLoading: false,
-  }),
-  useMusdNetworkFilter: () => ({
-    isPopularNetworksFilterActive: false,
-    selectedChainId: null,
-    enabledChainIds: [],
-  }),
-  useMusdConversionTokens: () => ({
-    tokens: [],
-    isLoading: false,
-  }),
-  useMusdConversion: () => ({
-    startConversionFlow: jest.fn(),
-    educationSeen: false,
-  }),
-  useMusdGeoBlocking: () => ({
-    isBlocked: false,
-    userCountry: 'US',
-    isLoading: false,
-    error: null,
-    blockedRegions: [],
-    blockedMessage: null,
-    refreshGeolocation: jest.fn(),
-  }),
-  useMusdConversionToastStatus: () => ({
-    shouldShowToast: false,
-    toastMessage: null,
-    dismissToast: jest.fn(),
-  }),
-  useCanBuyMusd: () => ({
-    canBuyMusd: false,
-  }),
-  useCustomAmount: () => ({
-    customAmount: null,
-    setCustomAmount: jest.fn(),
-  }),
-  isTokenInWildcardList: jest.fn().mockReturnValue(false),
-  checkTokenAllowed: jest.fn().mockReturnValue(false),
-}));
-
 jest.mock('../../hooks/useMultiPolling', () => ({
   __esModule: true,
   default: jest.fn(),
-}));
-
-jest.mock('../../contexts/shield/shield-subscription', () => ({
-  ...jest.requireActual('../../contexts/shield/shield-subscription'),
-  useShieldSubscriptionContext: () => ({
-    evaluateCohortEligibility: jest.fn(),
-  }),
 }));
 
 const mockIntersectionObserver = jest.fn();

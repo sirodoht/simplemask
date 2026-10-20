@@ -4,7 +4,6 @@ import type {
 } from '@metamask/assets-controllers';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Action, AnyAction } from 'redux';
-import { ModalType } from '@metamask/subscription-controller';
 import {
   HardwareTransportStates,
   WebHIDConnectedStatuses,
@@ -98,16 +97,6 @@ type AppState = {
   errorInSettings: string | null;
   showClaimSubmitToast: ClaimSubmitToastType | null;
   showInfuraSwitchToast: boolean;
-  shieldEntryModal?: {
-    show: boolean;
-    shouldSubmitEvents: boolean;
-    modalType?: ModalType;
-    triggeringCohort?: string;
-    /**
-     * Whether the user has interacted with the modal.
-     */
-    hasUserInteractedWithModal?: boolean;
-  };
   homeDeepLinkQrCode: {
     deeplinkUrl: string;
     descriptionKey: string;
@@ -585,14 +574,6 @@ export default function reduceApp(
       return {
         ...appState,
         showSupportDataConsentModal: action.payload,
-      };
-
-    case actionConstants.SET_SHIELD_ENTRY_MODAL_STATUS:
-      return {
-        ...appState,
-        shieldEntryModal: {
-          ...action.payload,
-        },
       };
 
     case actionConstants.SET_HOME_DEEP_LINK_QR_CODE:

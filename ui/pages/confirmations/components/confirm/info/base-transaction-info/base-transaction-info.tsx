@@ -1,7 +1,5 @@
 import { TransactionMeta } from '@metamask/transaction-controller';
 import React from 'react';
-
-import { TransactionPaySection } from '../../../rows/transaction-pay-section/transaction-pay-section';
 import { useConfirmContext } from '../../../../context/confirm';
 import { AdvancedDetails } from '../shared/advanced-details/advanced-details';
 import { GasFeesSection } from '../shared/gas-fees-section/gas-fees-section';
@@ -28,7 +26,7 @@ const BaseTransactionInfo = () => {
           <TransactionDetails />
         </>
       }
-      <TransactionPaySection />
+
       <GasFeesSection />
       <AdvancedDetails />
     </>

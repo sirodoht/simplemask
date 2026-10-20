@@ -13,12 +13,6 @@ import { getMockConfirmState } from '../../../../../../test/data/confirmations/h
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
 import { renderHookWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
 import { useIsGaslessSupported } from '../../gas/useIsGaslessSupported';
-import { useTransactionPayHasSourceAmount } from '../../pay/useTransactionPayHasSourceAmount';
-import {
-  useTransactionPayPrimaryRequiredToken,
-  useTransactionPayRequiredTokens,
-} from '../../pay/useTransactionPayData';
-import { useTransactionPayToken } from '../../pay/useTransactionPayToken';
 import { useInsufficientBalanceAlerts } from './useInsufficientBalanceAlerts';
 
 jest.mock('../../../../../store/background-connection', () => ({
@@ -26,21 +20,8 @@ jest.mock('../../../../../store/background-connection', () => ({
   submitRequestToBackground: jest.fn(),
 }));
 jest.mock('../../gas/useIsGaslessSupported');
-jest.mock('../../pay/useTransactionPayHasSourceAmount');
-jest.mock('../../pay/useTransactionPayData');
-jest.mock('../../pay/useTransactionPayToken');
 
 const useIsGaslessSupportedMock = jest.mocked(useIsGaslessSupported);
-const useTransactionPayHasSourceAmountMock = jest.mocked(
-  useTransactionPayHasSourceAmount,
-);
-const useTransactionPayPrimaryRequiredTokenMock = jest.mocked(
-  useTransactionPayPrimaryRequiredToken,
-);
-const useTransactionPayRequiredTokensMock = jest.mocked(
-  useTransactionPayRequiredTokens,
-);
-const useTransactionPayTokenMock = jest.mocked(useTransactionPayToken);
 
 const TRANSACTION_ID_MOCK = '123-456';
 const TRANSACTION_ID_MOCK_2 = '456-789';
@@ -136,12 +117,6 @@ describe('useInsufficientBalanceAlerts', () => {
       isSupported: false,
       pending: false,
     });
-    useTransactionPayHasSourceAmountMock.mockReturnValue(false);
-    useTransactionPayRequiredTokensMock.mockReturnValue([]);
-    useTransactionPayTokenMock.mockReturnValue({
-      payToken: undefined,
-      setPayToken: jest.fn(),
-    });
   });
 
   it('returns no alerts if no confirmation', () => {
@@ -165,18 +140,6 @@ describe('useInsufficientBalanceAlerts', () => {
         ...TRANSACTION_MOCK,
         isGasFeeSponsored: true,
       },
-    });
-
-    expect(alerts).toEqual([]);
-  });
-
-  it('returns no alerts if pay quote is being used', () => {
-    useTransactionPayHasSourceAmountMock.mockReturnValue(true);
-
-    const alerts = runHook({
-      balance: 7,
-      currentConfirmation: TRANSACTION_MOCK,
-      transaction: TRANSACTION_MOCK,
     });
 
     expect(alerts).toEqual([]);
@@ -254,24 +217,6 @@ describe('useInsufficientBalanceAlerts', () => {
         severity: 'danger',
       },
     ]);
-  });
-
-  it('returns no alerts when pay is active but required token amount is zero', () => {
-    useTransactionPayTokenMock.mockReturnValue({
-      payToken: { address: '0xabc', chainId: '0x1' } as never,
-      setPayToken: jest.fn(),
-    });
-    useTransactionPayPrimaryRequiredTokenMock.mockReturnValue({
-      amountRaw: '0',
-    } as never);
-
-    const alerts = runHook({
-      balance: 7,
-      currentConfirmation: TRANSACTION_MOCK,
-      transaction: TRANSACTION_MOCK,
-    });
-
-    expect(alerts).toEqual([]);
   });
 
   it('returns no alerts if no transaction matching confirmation', () => {
@@ -435,21 +380,6 @@ describe('useInsufficientBalanceAlerts', () => {
     expect(alerts).toEqual([]);
   });
 
-  it('returns no alerts for money account deposits even when native balance is insufficient', () => {
-    const moneyAccountDeposit = {
-      ...TRANSACTION_MOCK,
-      nestedTransactions: [{ type: TransactionType.moneyAccountDeposit }],
-    } as TransactionMeta;
-
-    const alerts = runHook({
-      balance: 7,
-      currentConfirmation: moneyAccountDeposit,
-      transaction: moneyAccountDeposit,
-    });
-
-    expect(alerts).toEqual([]);
-  });
-
   describe('post-quote withdraws', () => {
     const WITHDRAW_TRANSACTION_MOCK = {
       ...TRANSACTION_MOCK,
@@ -463,8 +393,7 @@ describe('useInsufficientBalanceAlerts', () => {
       },
       /* eslint-enable @typescript-eslint/naming-convention */
     });
-
-    it('returns no alerts when post-quote is enabled for the type', () => {
+    it('does not suppress fee warnings for a retired payment flag', () => {
       const alerts = runHook({
         balance: 7,
         currentConfirmation: WITHDRAW_TRANSACTION_MOCK,
@@ -472,18 +401,7 @@ describe('useInsufficientBalanceAlerts', () => {
         remoteFeatureFlags: buildPostQuoteFlags(true),
       });
 
-      expect(alerts).toEqual([]);
-    });
-
-    it('returns no alerts for a direct money-account withdraw, which is sponsored from the money account', () => {
-      const alerts = runHook({
-        balance: 7,
-        currentConfirmation: WITHDRAW_TRANSACTION_MOCK,
-        transaction: WITHDRAW_TRANSACTION_MOCK,
-        remoteFeatureFlags: buildPostQuoteFlags(false),
-      });
-
-      expect(alerts).toEqual([]);
+      expect(alerts).toEqual(ALERT);
     });
   });
 

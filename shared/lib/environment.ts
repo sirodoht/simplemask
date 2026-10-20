@@ -31,10 +31,6 @@ export const getIsSeedlessOnboardingFeatureEnabled = (): boolean => {
   return process.env.SEEDLESS_ONBOARDING_ENABLED?.toString() === 'true';
 };
 
-export const getIsMetaMaskShieldFeatureEnabled = (): boolean => {
-  return process.env.METAMASK_SHIELD_ENABLED?.toString() === 'true';
-};
-
 /**
  * The assets unified state is included in every build. This compatibility
  * helper remains while its callers are removed in the subsequent stack PR.

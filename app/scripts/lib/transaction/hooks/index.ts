@@ -8,10 +8,6 @@ import {
   TransactionMeta,
   TransactionType,
 } from '@metamask/transaction-controller';
-import {
-  TransactionPayControllerMessenger,
-  TransactionPayPublishHook,
-} from '@metamask/transaction-pay-controller';
 import { Hex } from '@metamask/utils';
 
 import { AccountOverviewTabKey } from '../../../../../shared/constants/app-state';
@@ -62,22 +58,11 @@ export function getTransactionControllerHooks(
   request: TransactionControllerHookRequest,
 ): TransactionControllerOptions['hooks'] {
   return {
-    afterAdd: afterAddHook(request),
     beforePublish: beforePublishHook(request),
     beforeSign: beforeSignHook(request),
     // @ts-expect-error - Controller type is missing signedTx parameter
     publish: publishHook(request),
     publishBatch: publishBatchHook(request),
-  };
-}
-
-function afterAddHook({ messenger }: TransactionControllerHookRequest) {
-  return async ({ transactionMeta }: { transactionMeta: TransactionMeta }) => {
-    await messenger.call(
-      'ShieldSubscriptionService:submitSubscriptionSponsorshipIntent',
-      transactionMeta,
-    );
-    return {};
   };
 }
 
@@ -142,15 +127,6 @@ function publishHook({
     const sendBundleSupport = await isSendBundleSupported(
       transactionMeta.chainId,
     );
-
-    const payResult = await new TransactionPayPublishHook({
-      isSmartTransaction: () => isSmartTransaction,
-      messenger: messenger as unknown as TransactionPayControllerMessenger,
-    }).getHook()(transactionMeta, signedTx as Hex);
-
-    if (payResult?.transactionHash) {
-      return payResult;
-    }
 
     const { isExternalSign } = transactionMeta;
 

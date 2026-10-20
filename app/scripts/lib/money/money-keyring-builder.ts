@@ -61,12 +61,9 @@ async function getMnemonic(
 /**
  * Build the V1 keyring builder for the Money keyring.
  *
- * The builder is registered unconditionally, and not behind the Money feature
- * flag. A builder is what lets `KeyringController` recognise the
- * `"Money Keyring"` type while deserializing the vault, so a user who has a
- * Money keyring must always have the builder available — including when the
- * flag has since been turned off. Registering it creates nothing on its own:
- * the keyring only enters the vault when `MoneyAccountController` asks for it.
+ * Keep the builder registered so `KeyringController` can deserialize existing
+ * vaults containing a `"Money Keyring"`. Product account creation has been
+ * removed; registering this builder does not create accounts.
  *
  * @param messenger - The messenger used to resolve the mnemonic.
  * @returns The Money keyring builder.

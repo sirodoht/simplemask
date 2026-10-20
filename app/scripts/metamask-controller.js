@@ -82,8 +82,6 @@ import {
   requestPermittedChainsPermissionIncremental,
   getCaip25PermissionFromLegacyPermissions,
 } from '@metamask/chain-agnostic-permission';
-
-import { PRODUCT_TYPES } from '@metamask/subscription-controller';
 import { isSnapId } from '@metamask/snaps-utils';
 import { KeyringType } from '@metamask/keyring-api/v2';
 import { KeyringControllerErrorMessage } from '@metamask/keyring-controller';
@@ -140,11 +138,6 @@ import { updateCurrentLocale } from '../../shared/lib/translate';
 import { getEnabledAdvancedPermissions } from '../../shared/lib/gator-permissions/feature-flags';
 import { isSnapPreinstalled } from '../../shared/lib/snaps/snaps';
 import { toChecksumHexAddress } from '../../shared/lib/hexstring-utils';
-import {
-  getShieldGatewayConfig,
-  updatePreferencesAndMetricsForShieldSubscription,
-  getIsShieldSubscriptionActive,
-} from '../../shared/lib/shield';
 import {
   getAccountTrackerControllerAccountsByChainId,
   getTokensControllerAllTokens,
@@ -252,7 +245,6 @@ import {
   NetworkOrderControllerInit,
   TokenRatesControllerInit,
 } from './messenger-client-init/assets';
-import { TransactionPayControllerInit } from './messenger-client-init/transaction-pay-controller-init';
 import { GeolocationApiServiceInit } from './messenger-client-init/geolocation-api-service-init';
 import { GeolocationControllerInit } from './messenger-client-init/geolocation-controller-init';
 import { ComplianceServiceInit } from './messenger-client-init/compliance-service-init';
@@ -302,7 +294,6 @@ import { RatesControllerInit } from './messenger-client-init/rates-controller-in
 import { CurrencyRateControllerInit } from './messenger-client-init/currency-rate-controller-init';
 import { NameControllerInit } from './messenger-client-init/confirmations/name-controller-init';
 import { SelectedNetworkControllerInit } from './messenger-client-init/selected-network-controller-init';
-import { ShieldSubscriptionServiceInit } from './messenger-client-init/subscription';
 import { NetworkConnectionBannerControllerInit } from './messenger-client-init/network-connection-banner';
 import { AccountTrackerControllerInit } from './messenger-client-init/account-tracker-controller-init';
 import { OnboardingControllerInit } from './messenger-client-init/onboarding-controller-init';
@@ -336,12 +327,6 @@ import { UserTraitsServiceInit } from './messenger-client-init/user-traits-servi
 import { LegacyBackgroundApiServiceInit } from './messenger-client-init/legacy-background-api-service-init';
 import { SentryTracingServiceInit } from './messenger-client-init/sentry-tracing-service-init';
 import { SentinelApiServiceInit } from './messenger-client-init/sentinel-api-service-init';
-import { ChompApiServiceInit } from './messenger-client-init/chomp-api-service-init';
-import { MoneyAccountApiDataServiceInit } from './messenger-client-init/money-account-api-data-service-init';
-import { MoneyAccountAvailabilityServiceInit } from './messenger-client-init/money-account-availability-service-init';
-import { MoneyAccountBalanceServiceInit } from './messenger-client-init/money-account-balance-service-init';
-import { MoneyAccountControllerInit } from './messenger-client-init/money-account-controller-init';
-import { MoneyAccountUpgradeControllerInit } from './messenger-client-init/money-account-upgrade-controller-init';
 import { initializeWallet } from './wallet-init/initialization';
 import { ExtensionConnectivityAdapter } from './controllers/connectivity';
 import { getTransactionControllerApi } from './wallet-init/instance-options/transaction-controller';
@@ -533,7 +518,6 @@ export default class MetamaskController extends EventEmitter {
       PPOMController: PPOMControllerInit,
       AccountTrackerController: AccountTrackerControllerInit,
       PhishingController: PhishingControllerInit,
-      TransactionPayController: TransactionPayControllerInit,
       SmartTransactionsController: SmartTransactionsControllerInit,
       AssetsContractController: AssetsContractControllerInit,
       CurrencyRateController: CurrencyRateControllerInit,
@@ -569,7 +553,6 @@ export default class MetamaskController extends EventEmitter {
       DelegationController: DelegationControllerInit,
       OAuthService: OAuthServiceInit,
       NetworkConnectionBannerController: NetworkConnectionBannerControllerInit,
-      ShieldSubscriptionService: ShieldSubscriptionServiceInit,
       NetworkOrderController: NetworkOrderControllerInit,
       GatorPermissionsController: GatorPermissionsControllerInit,
       SnapsNameProvider: SnapsNameProviderInit,
@@ -580,12 +563,6 @@ export default class MetamaskController extends EventEmitter {
       QrSyncController: QrSyncControllerInit,
       // ClientController must be initialized before AssetsController (AssetsController subscribes to ClientController:stateChange).
       ClientController: ClientControllerInit,
-      ChompApiService: ChompApiServiceInit,
-      MoneyAccountApiDataService: MoneyAccountApiDataServiceInit,
-      MoneyAccountAvailabilityService: MoneyAccountAvailabilityServiceInit,
-      MoneyAccountBalanceService: MoneyAccountBalanceServiceInit,
-      MoneyAccountController: MoneyAccountControllerInit,
-      MoneyAccountUpgradeController: MoneyAccountUpgradeControllerInit,
       AssetsController: AssetsControllerInit,
       LegacyBackgroundApiService: LegacyBackgroundApiServiceInit,
     };
@@ -658,7 +635,6 @@ export default class MetamaskController extends EventEmitter {
     this.accountTrackerController =
       messengerClientsByName.AccountTrackerController;
     this.txController = this.wallet.getInstance('TransactionController');
-    this.txPayController = messengerClientsByName.TransactionPayController;
     this.smartTransactionsController =
       messengerClientsByName.SmartTransactionsController;
     this.backendWebSocketService =
@@ -701,25 +677,17 @@ export default class MetamaskController extends EventEmitter {
       messengerClientsByName.NotificationServicesPushController;
     this.accountTreeController = messengerClientsByName.AccountTreeController;
     this.oauthService = messengerClientsByName.OAuthService;
-    this.shieldSubscriptionService =
-      messengerClientsByName.ShieldSubscriptionService;
     this.seedlessOnboardingController = this.wallet.getInstance(
       'SeedlessOnboardingController',
-    );
-    this.subscriptionController = this.wallet.getInstance(
-      'SubscriptionController',
     );
     this.networkOrderController = messengerClientsByName.NetworkOrderController;
     this.networkEnablementController =
       messengerClientsByName.NetworkEnablementController;
-    this.shieldController = this.wallet.getInstance('ShieldController');
     this.gatorPermissionsController =
       messengerClientsByName.GatorPermissionsController;
     this.nameController = messengerClientsByName.NameController;
     this.accountOrderController = messengerClientsByName.AccountOrderController;
     this.qrSyncController = messengerClientsByName.QrSyncController;
-    this.claimsController = this.wallet.getInstance('ClaimsController');
-    this.claimsService = this.wallet.getInstance('ClaimsService');
     this.profileMetricsController =
       messengerClientsByName.ProfileMetricsController;
     this.legacyBackgroundApiService =
@@ -735,8 +703,6 @@ export default class MetamaskController extends EventEmitter {
       networkController: this.networkController,
     });
     this.geolocationController = messengerClientsByName.GeolocationController;
-    this.moneyAccountUpgradeController =
-      messengerClientsByName.MoneyAccountUpgradeController;
 
     // Record installation info if this is the first time the extension is running.
     // This captures the version and date when MetaMask was first installed.
@@ -766,38 +732,6 @@ export default class MetamaskController extends EventEmitter {
       this._onLock(),
     );
 
-    // on/off shield controller based on shield subscription
-    this.controllerMessenger.subscribe(
-      'SubscriptionController:stateChange',
-      (state) => {
-        const { useExternalServices: hasBasicFunctionalityEnabled } =
-          this.preferencesController.state;
-        // shield coverage use security alerts, phish detect and transaction simulations, which is only available when basic functionality is enabled
-        if (!hasBasicFunctionalityEnabled) {
-          return;
-        }
-
-        // check if the shield subscription is active after the state change
-        const hasActiveShieldSubscription = getIsShieldSubscriptionActive(
-          state.subscriptions,
-        );
-        if (hasActiveShieldSubscription) {
-          // fetch claims configurations when shield subscription is active
-          this.claimsController.fetchClaimsConfigurations().catch((err) => {
-            log.error('Error fetching claims configurations', err);
-          });
-
-          // update preferences and metrics optin status after shield subscription is active
-          updatePreferencesAndMetricsForShieldSubscription(
-            this.preferencesController,
-          );
-          this.shieldController.start();
-        } else {
-          this.shieldController.stop();
-        }
-      },
-    );
-
     const petnamesBridgeMessenger = new Messenger({
       namespace: 'PetnamesBridge',
       parent: this.controllerMessenger,
@@ -815,40 +749,19 @@ export default class MetamaskController extends EventEmitter {
       nameController: this.nameController,
       messenger: petnamesBridgeMessenger,
     }).init();
-
-    this.getSecurityAlertsConfig = async (url) => {
-      const getShieldSubscription = () =>
-        this.controllerMessenger.call(
-          'SubscriptionController:getSubscriptionByProduct',
-          PRODUCT_TYPES.SHIELD,
-        );
-      const getToken = () =>
-        this.controllerMessenger.call(
-          'AuthenticationController:getBearerToken',
-        );
-      return getShieldGatewayConfig(getToken, getShieldSubscription, url);
-    };
+    this.getSecurityAlertsConfig = async (url) => ({
+      newUrl: url,
+      authorization: undefined,
+    });
 
     this.notificationServicesController.init();
     this.snapController.init();
     this.cronjobController.init();
-    this.moneyAccountUpgradeController.init();
 
     this.controllerMessenger.subscribe(
       'TransactionController:transactionStatusUpdated',
       ({ transactionMeta }) => {
         this._onFinishedTransaction(transactionMeta);
-      },
-    );
-
-    this.controllerMessenger.subscribe(
-      'TransactionController:transactionSubmitted',
-      ({ transactionMeta }) => {
-        this.shieldSubscriptionService
-          .handlePostTransaction(transactionMeta)
-          .catch((err) => {
-            console.error('Error onShieldSubscriptionApprovalTransaction', err);
-          });
       },
     );
 
@@ -1292,9 +1205,6 @@ export default class MetamaskController extends EventEmitter {
       NotificationServicesPushController:
         this.notificationServicesPushController,
       RemoteFeatureFlagController: this.remoteFeatureFlagController,
-      ShieldController: this.shieldController,
-      ClaimsController: this.claimsController,
-      SubscriptionController: this.subscriptionController,
       ProfileMetricsController: this.profileMetricsController,
       ConfigRegistryController: this.configRegistryController,
       TransactionController: this.txController,
@@ -1326,7 +1236,6 @@ export default class MetamaskController extends EventEmitter {
         OnboardingController: this.onboardingController,
         PasskeyController: this.passkeyController,
         SeedlessOnboardingController: this.seedlessOnboardingController,
-        SubscriptionController: this.subscriptionController,
         PermissionController: this.permissionController,
         PermissionLogController: this.permissionLogController,
         SubjectMetadataController: this.subjectMetadataController,
@@ -1358,9 +1267,6 @@ export default class MetamaskController extends EventEmitter {
           this.notificationServicesPushController,
         RemoteFeatureFlagController: this.remoteFeatureFlagController,
         PhishingController: this.phishingController,
-        ShieldController: this.shieldController,
-        ClaimsController: this.claimsController,
-        ClaimsService: this.claimsService,
         ProfileMetricsController: this.profileMetricsController,
         ConfigRegistryController: this.configRegistryController,
         TxController: this.txController,
@@ -2260,84 +2166,6 @@ export default class MetamaskController extends EventEmitter {
         'LegacyBackgroundApiService:syncPasswordAndUnlockWallet',
       ),
 
-      // subscription
-      subscriptionsStartPolling: this.subscriptionController.startPolling.bind(
-        this.subscriptionController,
-      ),
-      subscriptionsStopPolling:
-        this.subscriptionController.stopPollingByPollingToken.bind(
-          this.subscriptionController,
-        ),
-      getSubscriptionsEligibilities:
-        this.subscriptionController.getSubscriptionsEligibilities.bind(
-          this.subscriptionController,
-        ),
-      assignUserToCohort: this.subscriptionController.assignUserToCohort.bind(
-        this.subscriptionController,
-      ),
-      getSubscriptions: this.subscriptionController.getSubscriptions.bind(
-        this.subscriptionController,
-      ),
-      getSubscriptionPricing: this.subscriptionController.getPricing.bind(
-        this.subscriptionController,
-      ),
-      cacheLastSelectedPaymentMethod:
-        this.subscriptionController.cacheLastSelectedPaymentMethod.bind(
-          this.subscriptionController,
-        ),
-      getSubscriptionCryptoApprovalAmount:
-        this.subscriptionController.getCryptoApproveTransactionParams.bind(
-          this.subscriptionController,
-        ),
-      cancelSubscription: this.subscriptionController.cancelSubscription.bind(
-        this.subscriptionController,
-      ),
-      unCancelSubscription:
-        this.subscriptionController.unCancelSubscription.bind(
-          this.subscriptionController,
-        ),
-      getSubscriptionBillingPortalUrl:
-        this.subscriptionController.getBillingPortalUrl.bind(
-          this.subscriptionController,
-        ),
-      startSubscriptionWithCard:
-        this.shieldSubscriptionService.startSubscriptionWithCard.bind(
-          this.shieldSubscriptionService,
-        ),
-      updateSubscriptionCardPaymentMethod:
-        this.shieldSubscriptionService.updateSubscriptionCardPaymentMethod.bind(
-          this.shieldSubscriptionService,
-        ),
-      updateSubscriptionCryptoPaymentMethod:
-        this.shieldSubscriptionService.updateSubscriptionCryptoPaymentMethod.bind(
-          this.shieldSubscriptionService,
-        ),
-      submitSubscriptionUserEvents:
-        this.subscriptionController.submitUserEvent.bind(
-          this.subscriptionController,
-        ),
-
-      // claims
-      getSubmitClaimConfig: this.claimsController.getSubmitClaimConfig.bind(
-        this.claimsController,
-      ),
-      generateClaimSignature: this.claimsController.generateClaimSignature.bind(
-        this.claimsController,
-      ),
-      getClaims: this.claimsController.getClaims.bind(this.claimsController),
-      saveClaimDraft: this.claimsController.saveOrUpdateClaimDraft.bind(
-        this.claimsController,
-      ),
-      getClaimDrafts: this.claimsController.getClaimDrafts.bind(
-        this.claimsController,
-      ),
-      deleteClaimDraft: this.claimsController.deleteClaimDraft.bind(
-        this.claimsController,
-      ),
-      deleteAllClaimDrafts: this.claimsController.deleteAllClaimDrafts.bind(
-        this.claimsController,
-      ),
-
       // hardware wallets
       connectHardware: this.controllerMessenger.call.bind(
         this.controllerMessenger,
@@ -2660,42 +2488,12 @@ export default class MetamaskController extends EventEmitter {
         appStateController.setHasShownMultichainAccountsIntroModal.bind(
           appStateController,
         ),
-      setMusdConversionEducationSeen:
-        appStateController.setMusdConversionEducationSeen.bind(
-          appStateController,
-        ),
-      addMusdConversionDismissedCtaKey:
-        appStateController.addMusdConversionDismissedCtaKey.bind(
-          appStateController,
-        ),
-      setShowShieldEntryModalOnce:
-        appStateController.setShowShieldEntryModalOnce.bind(appStateController),
-      setPendingShieldCohort:
-        appStateController.setPendingShieldCohort.bind(appStateController),
       setPendingRedirectRoute:
         appStateController.setPendingRedirectRoute.bind(appStateController),
-      setShieldPausedToastLastClickedOrClosed:
-        appStateController.setShieldPausedToastLastClickedOrClosed.bind(
-          appStateController,
-        ),
-      setShieldEndingToastLastClickedOrClosed:
-        appStateController.setShieldEndingToastLastClickedOrClosed.bind(
-          appStateController,
-        ),
-      setShieldSubscriptionError:
-        appStateController.setShieldSubscriptionError.bind(appStateController),
       setPna25Acknowledged:
         appStateController.setPna25Acknowledged.bind(appStateController),
       setAppActiveTab:
         appStateController.setAppActiveTab.bind(appStateController),
-      setDefaultSubscriptionPaymentOptions:
-        appStateController.setDefaultSubscriptionPaymentOptions.bind(
-          appStateController,
-        ),
-      setShieldSubscriptionMetricsProps:
-        appStateController.setShieldSubscriptionMetricsProps.bind(
-          appStateController,
-        ),
 
       // OAuthService
       startOAuthLogin: this.oauthService.startOAuthLogin.bind(
@@ -5633,8 +5431,6 @@ export default class MetamaskController extends EventEmitter {
       ),
       getTransaction: (id) =>
         this.txController.state.transactions.find((tx) => tx.id === id),
-      getTransactionPayData: (id) =>
-        this.txPayController?.state?.transactionData?.[id],
       getAllTransactions: () => this.txController.state.transactions,
       getIsSmartTransaction: (chainId) => {
         return getIsSmartTransaction(this._getMetaMaskState(), chainId);

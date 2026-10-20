@@ -20,7 +20,6 @@ import {
   SNAPS_VIEW_ROUTE,
   DEEP_LINK_ROUTE,
   MULTICHAIN_ACCOUNT_DETAILS_PAGE_ROUTE,
-  SHIELD_PLAN_ROUTE,
   MULTICHAIN_WALLET_DETAILS_PAGE_ROUTE,
   GATOR_PERMISSIONS,
   TOKEN_TRANSFER_ROUTE,
@@ -281,20 +280,6 @@ export function hideAppHeader(props) {
       location.pathname,
     ),
   );
-
-  const isShieldPlanPage = Boolean(
-    matchPath(
-      {
-        path: SHIELD_PLAN_ROUTE,
-        end: false,
-      },
-      location.pathname,
-    ),
-  );
-
-  if (isShieldPlanPage) {
-    return true;
-  }
 
   const isGatorPermissionsPage = Boolean(
     matchPath(

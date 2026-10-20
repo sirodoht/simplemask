@@ -17,7 +17,6 @@ import {
 import {
   ConfirmationGoBackAction,
   ConfirmationLoader,
-  PayWithOption,
   getConfirmationRoute,
   navigateConfirmationExit,
   sanitizeConfirmationSearchParams,
@@ -437,39 +436,6 @@ describe('useConfirmationNavigation', () => {
           'loader=customAmount&goBackTo=%2Fhome%3Ftab%3Dtokens&goBackAction=pop',
       });
     });
-
-    it('navigates with payWithOption param when provided', () => {
-      const result = renderHook(ApprovalType.Transaction);
-
-      result.navigateToTransaction('tx-300', {
-        loader: ConfirmationLoader.CustomAmount,
-        payWithOption: PayWithOption.MoneyAccount,
-      });
-
-      expect(mockUseNavigate).toHaveBeenCalledWith({
-        pathname: `${CONFIRM_TRANSACTION_ROUTE}/tx-300`,
-        search:
-          'loader=customAmount&payWithOption=money_account&goBackAction=pop',
-      });
-    });
-
-    it('navigates with preferredPaymentToken params when provided', () => {
-      const result = renderHook(ApprovalType.Transaction);
-
-      result.navigateToTransaction('tx-400', {
-        loader: ConfirmationLoader.CustomAmount,
-        preferredPaymentToken: {
-          address: '0xabc',
-          chainId: '0x1',
-        },
-      });
-
-      expect(mockUseNavigate).toHaveBeenCalledWith({
-        pathname: `${CONFIRM_TRANSACTION_ROUTE}/tx-400`,
-        search:
-          'loader=customAmount&preferredPaymentTokenAddress=0xabc&preferredPaymentTokenChainId=0x1&goBackAction=pop',
-      });
-    });
   });
 });
 
@@ -646,16 +612,6 @@ describe('useConfirmationNavigationOptions', () => {
     expect(result.goBackTo).toBeUndefined();
   });
 
-  it('returns MoneyAccount payWithOption from search params', () => {
-    const searchParams = new URLSearchParams({
-      payWithOption: PayWithOption.MoneyAccount,
-    });
-
-    const result = renderOptionsHook(searchParams);
-
-    expect(result.payWithOption).toBe(PayWithOption.MoneyAccount);
-  });
-
   it('returns undefined payWithOption when the value is not recognized', () => {
     const searchParams = new URLSearchParams({
       payWithOption: 'unknown',
@@ -672,20 +628,6 @@ describe('useConfirmationNavigationOptions', () => {
     const result = renderOptionsHook(searchParams);
 
     expect(result.payWithOption).toBeUndefined();
-  });
-
-  it('returns preferredPaymentToken when both hex params are present', () => {
-    const searchParams = new URLSearchParams({
-      preferredPaymentTokenAddress: '0xabc',
-      preferredPaymentTokenChainId: '0x1',
-    });
-
-    const result = renderOptionsHook(searchParams);
-
-    expect(result.preferredPaymentToken).toStrictEqual({
-      address: '0xabc',
-      chainId: '0x1',
-    });
   });
 
   it('returns undefined preferredPaymentToken when a param is missing', () => {

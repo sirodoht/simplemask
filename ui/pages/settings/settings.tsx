@@ -34,7 +34,6 @@ import {
   DEFAULT_ROUTE,
   SETTINGS_ROUTE,
   SNAP_SETTINGS_ROUTE,
-  TRANSACTION_SHIELD_ROUTE,
 } from '../../helpers/constants/routes';
 import { SnapSettingsRenderer } from '../../components/app/snaps/snap-settings-page';
 import { getEnvironmentType } from '../../../shared/lib/environment-type';
@@ -48,11 +47,7 @@ import {
   getSnapsMetadata,
 } from '../../selectors';
 import { getSnapName } from '../../helpers/utils/util';
-import { getHasSubscribedToShield } from '../../selectors/subscription/subscription';
-import { getIsMetaMaskShieldFeatureEnabled } from '../../../shared/lib/environment';
-import ShieldEntryModal from '../../components/app/shield-entry-modal';
 import { PageHeaderWithSearch } from '../../components/app/page-header-with-search/page-header-with-search';
-import { SHIELD_QUERY_PARAMS } from '../../../shared/lib/deep-links/routes/shield';
 import { toRelativeRoutePath } from '../routes/utils';
 import { RouteMessengerProvider } from '../../contexts/route-messenger';
 import {
@@ -174,49 +169,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
         });
     };
   }, []);
-
-  // --- Shield entry modal interception ---
-  const hasSubscribedToShield = useSelector(getHasSubscribedToShield);
   const useExternalServices = Boolean(useSelector(getUseExternalServices));
-  const isShieldFeatureEnabled = getIsMetaMaskShieldFeatureEnabled();
-  const [showShieldEntryModal, setShowShieldEntryModal] = useState(false);
-
-  const shouldInterceptShieldTab =
-    isShieldFeatureEnabled && useExternalServices && !hasSubscribedToShield;
-
-  // Handle ?showShieldEntryModal=true query param (e.g. from deep links)
-  const shouldShowShieldEntryFromQuery =
-    new URLSearchParams(location.search).get(
-      SHIELD_QUERY_PARAMS.showShieldEntryModal,
-    ) === 'true';
-  const [hasHandledShieldEntryQuery, setHasHandledShieldEntryQuery] = useState(
-    () => !shouldShowShieldEntryFromQuery,
-  );
-  if (!hasHandledShieldEntryQuery && shouldShowShieldEntryFromQuery) {
-    setHasHandledShieldEntryQuery(true);
-    if (!hasSubscribedToShield) {
-      setShowShieldEntryModal(true);
-    }
-  }
-  useEffect(() => {
-    if (shouldShowShieldEntryFromQuery && hasSubscribedToShield) {
-      navigate(TRANSACTION_SHIELD_ROUTE, { replace: true });
-    }
-    // Mount-only navigation for deep-link entry; subscription status is read once.
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount only
-  }, []);
-
-  // Intercept Transaction Shield tab click for non-subscribed users
-  const handleTabClick = useCallback(
-    (key: string): boolean | void => {
-      if (key === TRANSACTION_SHIELD_ROUTE && shouldInterceptShieldTab) {
-        setShowShieldEntryModal(true);
-        return true; // prevent Link navigation
-      }
-      return undefined;
-    },
-    [shouldInterceptShieldTab],
-  );
 
   const currentPageLabelKey = meta?.labelKey;
 
@@ -336,7 +289,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   } else if (showRootLandingPage) {
     mainContent = (
       <Box className="flex-1 overflow-y-auto">
-        <SettingsRoot onBeforeNavigate={handleTabClick} />
+        <SettingsRoot />
       </Box>
     );
   } else {
@@ -384,7 +337,6 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
               );
             }}
             removeFullscreenStyles={usesCompactSettingsLayout}
-            onTabClick={handleTabClick}
           />
         </Box>
         <Box
@@ -468,12 +420,6 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       backgroundColor={BoxBackgroundColor.BackgroundDefault}
       className="h-full w-full shadow-xs"
     >
-      {showShieldEntryModal && (
-        <ShieldEntryModal
-          skipEventSubmission
-          onClose={() => setShowShieldEntryModal(false)}
-        />
-      )}
       <PageHeaderWithSearch
         title={headerTitle}
         endAction={

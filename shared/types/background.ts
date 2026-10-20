@@ -56,8 +56,6 @@ import type { SmartTransactionsControllerState } from '@metamask/smart-transacti
 import type { ConnectivityControllerState } from '@metamask/connectivity-controller';
 import type { NetworkConnectionBannerControllerState } from '@metamask/network-connection-banner-controller';
 import type { AnalyticsControllerState } from '@metamask/analytics-controller';
-
-import type { ClaimsControllerState } from '@metamask/claims-controller';
 import type { NetworkOrderControllerState } from '../../app/scripts/controllers/network-order';
 import type { AccountOrderControllerState } from '../../app/scripts/controllers/account-order';
 import type { PreferencesControllerState } from '../../app/scripts/controllers/preferences-controller';
@@ -120,17 +118,12 @@ export type ControllerStatePropertiesEnumerated = {
   hadAdvancedGasFeesSetPriorToMigration92_3: AppStateControllerState['hadAdvancedGasFeesSetPriorToMigration92_3'];
   activeQrCodeScanRequest: AppStateControllerState['activeQrCodeScanRequest'];
   lastQrScanCompletedSuccessfully: AppStateControllerState['lastQrScanCompletedSuccessfully'];
-  shieldSubscriptionError: AppStateControllerState['shieldSubscriptionError'];
-  shieldEndingToastLastClickedOrClosed: AppStateControllerState['shieldEndingToastLastClickedOrClosed'];
-  shieldPausedToastLastClickedOrClosed: AppStateControllerState['shieldPausedToastLastClickedOrClosed'];
   storageWriteErrorType: AppStateControllerState['storageWriteErrorType'];
   signatureSecurityAlertResponses: AppStateControllerState['signatureSecurityAlertResponses'];
+  historicalMoneyAccounts: AppStateControllerState['historicalMoneyAccounts'];
   addressSecurityAlertResponses: AppStateControllerState['addressSecurityAlertResponses'];
   currentExtensionPopupId: AppStateControllerState['currentExtensionPopupId'];
   hasShownMultichainAccountsIntroModal: AppStateControllerState['hasShownMultichainAccountsIntroModal'];
-  musdConversionEducationSeen: AppStateControllerState['musdConversionEducationSeen'];
-  musdConversionDismissedCtaKeys: AppStateControllerState['musdConversionDismissedCtaKeys'];
-  moneyEarnBannerDismissedTokenKeys: AppStateControllerState['moneyEarnBannerDismissedTokenKeys'];
   lastInteractedConfirmationInfo?: AppStateControllerState['lastInteractedConfirmationInfo'];
   termsOfUseLastAgreed?: AppStateControllerState['termsOfUseLastAgreed'];
   snapsInstallPrivacyWarningShown?: AppStateControllerState['snapsInstallPrivacyWarningShown'];
@@ -138,10 +131,7 @@ export type ControllerStatePropertiesEnumerated = {
   updateModalLastDismissedAt: AppStateControllerState['updateModalLastDismissedAt'];
   lastUpdatedAt: AppStateControllerState['lastUpdatedAt'];
   lastUpdatedFromVersion: AppStateControllerState['lastUpdatedFromVersion'];
-  showShieldEntryModalOnce: AppStateControllerState['showShieldEntryModalOnce'];
   pendingRedirectRoute: AppStateControllerState['pendingRedirectRoute'];
-  pendingShieldCohort: AppStateControllerState['pendingShieldCohort'];
-  pendingShieldCohortTxType: AppStateControllerState['pendingShieldCohortTxType'];
   throttledOrigins: AppStateControllerState['throttledOrigins'];
   isWalletResetInProgress: AppStateControllerState['isWalletResetInProgress'];
   sidePanelGasPollTokens: AppStateControllerState['sidePanelGasPollTokens'];
@@ -292,9 +282,6 @@ export type ControllerStatePropertiesEnumerated = {
   isContactSyncingEnabled: UserStorageController.UserStorageControllerState['isContactSyncingEnabled'];
   isContactSyncingInProgress: UserStorageController.UserStorageControllerState['isContactSyncingInProgress'];
   isRampsSyncingEnabled: UserStorageController.UserStorageControllerState['isRampsSyncingEnabled'];
-  claims: ClaimsControllerState['claims'];
-  claimsConfigurations: ClaimsControllerState['claimsConfigurations'];
-  drafts: ClaimsControllerState['drafts'];
   connectivityStatus: ConnectivityControllerState['connectivityStatus'];
   networkConnectionBannerStatus: NetworkConnectionBannerControllerState['networkConnectionBannerStatus'];
   networkConnectionBannerNetwork: NetworkConnectionBannerControllerState['networkConnectionBannerNetwork'];
@@ -310,7 +297,6 @@ export type ControllerStateTypesMerged = AccountsControllerState &
   AppMetadataControllerState &
   ApprovalControllerState &
   AppStateControllerState &
-  ClaimsControllerState &
   CronjobControllerState &
   CurrencyRateState &
   DecryptMessageControllerState &

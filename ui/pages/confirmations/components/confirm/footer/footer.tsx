@@ -1,9 +1,5 @@
-import {
-  TransactionMeta,
-  TransactionType,
-} from '@metamask/transaction-controller';
+import { TransactionMeta } from '@metamask/transaction-controller';
 import React, { useCallback, useEffect, useState } from 'react';
-import { PRODUCT_TYPES } from '@metamask/subscription-controller';
 import { useNavigate } from 'react-router-dom';
 import { MetaMetricsEventLocation } from '../../../../../../shared/constants/metametrics';
 import { isCorrectDeveloperTransactionType } from '../../../../../../shared/lib/confirmation.utils';
@@ -29,7 +25,6 @@ import { useConfirmationNavigation } from '../../../hooks/useConfirmationNavigat
 import { resolvePendingApproval } from '../../../../../store/actions';
 import { useConfirmContext } from '../../../context/confirm';
 import { useIsGaslessLoading } from '../../../hooks/gas/useIsGaslessLoading';
-import { useEnableShieldCoverageChecks } from '../../../hooks/transactions/useEnableShieldCoverageChecks';
 import { useTransactionConfirm } from '../../../hooks/transactions/useTransactionConfirm';
 import { useTransactionPayingAccount } from '../../../hooks/transactions/useTransactionPayingAccount';
 import { useConfirmActions } from '../../../hooks/useConfirmActions';
@@ -42,87 +37,12 @@ import { isSignatureTransactionType } from '../../../utils';
 import ScamQuestionnaire from '../../../../../components/app/product-safety/scam-questionnaire/scam-questionnaire';
 import { useScamQuestionnaire } from '../../../../../components/app/product-safety/scam-questionnaire/useScamQuestionnaire';
 import { getConfirmationSender } from '../utils';
-import { useUserSubscriptions } from '../../../../../hooks/subscription/useSubscription';
 import {
   useHardwareFooter,
   useHardwareWalletError,
 } from '../../../../../contexts/hardware-wallets';
 import { useDispatch } from '../../../../../store/hooks';
 import OriginThrottleModal from './origin-throttle-modal';
-import ShieldFooterAgreement from './shield-footer-agreement';
-import ShieldFooterCoverageIndicator from './shield-footer-coverage-indicator/shield-footer-coverage-indicator';
-import { SingleActionFooter } from './single-action-footer';
-
-const SINGLE_ACTION_FOOTER_TYPES = [
-  TransactionType.moneyAccountDeposit,
-  TransactionType.moneyAccountWithdraw,
-  TransactionType.musdConversion,
-  TransactionType.perpsDeposit,
-  TransactionType.perpsWithdraw,
-];
-
-/**
- * The only companion legs a single-action batch is ever built with: a
- * deposit's approve-then-deposit batch, and a withdrawal's withdraw-then-
- * transfer batch. Allowed alongside `SINGLE_ACTION_FOOTER_TYPES` so those
- * two-leg batches still route to the single-action footer, while anything
- * else mixed in falls through.
- */
-const SINGLE_ACTION_FOOTER_COMPANION_TYPES = [
-  TransactionType.tokenMethodApprove,
-  TransactionType.tokenMethodTransfer,
-];
-
-/**
- * Money Account deposit/withdraw transactions are submitted via
- * `addTransactionBatch`, which always sets the top-level transaction type to
- * `TransactionType.batch` — the money-account type only appears on the
- * nested transactions. `SINGLE_ACTION_FOOTER_TYPES` must therefore also be
- * checked against the nested transactions, or these confirmations silently
- * fall through to the plain footer, which has no "amount entered" gate.
- *
- * Routes to the single-action footer when at least one nested transaction is
- * a single-action type and every other nested transaction is one of its
- * known companion legs (approve/transfer) — a batch that mixed in anything
- * else must fall through to the full multi-step footer instead of silently
- * hiding that other call's confirmation UI.
- *
- * @param confirmation - The transaction confirmation to route.
- * @returns Whether the confirmation should use the single-action footer.
- */
-function isSingleActionFooterConfirmation(
-  confirmation: TransactionMeta,
-): boolean {
-  if (
-    confirmation.type &&
-    SINGLE_ACTION_FOOTER_TYPES.includes(confirmation.type)
-  ) {
-    return true;
-  }
-
-  const { nestedTransactions } = confirmation;
-  if (!nestedTransactions?.length) {
-    return false;
-  }
-
-  const hasSingleActionLeg = nestedTransactions.some(
-    (nestedTransaction) =>
-      nestedTransaction.type &&
-      SINGLE_ACTION_FOOTER_TYPES.includes(nestedTransaction.type),
-  );
-
-  return (
-    hasSingleActionLeg &&
-    nestedTransactions.every(
-      (nestedTransaction) =>
-        nestedTransaction.type &&
-        (SINGLE_ACTION_FOOTER_TYPES.includes(nestedTransaction.type) ||
-          SINGLE_ACTION_FOOTER_COMPANION_TYPES.includes(
-            nestedTransaction.type,
-          )),
-    )
-  );
-}
 
 export type OnCancelHandler = ({
   location,
@@ -226,9 +146,6 @@ const ConfirmButton = ({
     unconfirmedDangerAlerts,
   ]);
 
-  const { trialedProducts } = useUserSubscriptions();
-  const isShieldTrialed = trialedProducts?.includes(PRODUCT_TYPES.SHIELD);
-
   return (
     <>
       {confirmModalVisible && (
@@ -276,14 +193,7 @@ const ConfirmButton = ({
           }
           size={ButtonSize.Lg}
         >
-          {currentConfirmation?.type ===
-          TransactionType.shieldSubscriptionApprove
-            ? t(
-                isShieldTrialed
-                  ? 'shieldStartNowCTA'
-                  : 'shieldStartNowCTAWithTrial',
-              )
-            : t('confirm')}
+          {t('confirm')}
         </Button>
       )}
     </>
@@ -297,10 +207,6 @@ const CancelButton = ({
 }) => {
   const t = useI18nContext();
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
-
-  if (currentConfirmation?.type === TransactionType.shieldSubscriptionApprove) {
-    return null;
-  }
 
   return (
     <Button
@@ -511,35 +417,15 @@ const Footer = () => {
     dismissErrorModal,
   ]);
 
-  const { isShowCoverageIndicator } = useEnableShieldCoverageChecks();
-
   if (!currentConfirmation) {
     return null;
   }
 
-  if (isSingleActionFooterConfirmation(currentConfirmation)) {
-    return (
-      <SingleActionFooter
-        onSubmit={onSubmit}
-        isGaslessLoading={isGaslessLoading}
-      />
-    );
-  }
-
   return (
     <>
-      <ShieldFooterCoverageIndicator />
       <PageFooter
         className="confirm-footer_page-footer"
         flexDirection={FlexDirection.Column}
-        // box shadow to match the original var(--shadow-size-md) on the footer,
-        // but only applied to the bottom of the box, so it doesn't overlap with
-        // the shield footer coverage indicator
-        style={
-          isShowCoverageIndicator
-            ? { boxShadow: '0 4px 16px -8px var(--color-shadow-default)' }
-            : undefined
-        }
       >
         <OriginThrottleModal
           isOpen={showOriginThrottleModal}
@@ -567,7 +453,6 @@ const Footer = () => {
             />
           )}
         </Box>
-        <ShieldFooterAgreement />
       </PageFooter>
     </>
   );

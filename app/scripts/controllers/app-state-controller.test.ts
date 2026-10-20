@@ -491,74 +491,6 @@ describe('AppStateController', () => {
     });
   });
 
-  describe('setShieldPausedToastLastClickedOrClosed', () => {
-    it('set the shieldPausedToastLastClickedOrClosed time', async () => {
-      await withController(({ controller }) => {
-        const mockParams = Date.now();
-        controller.setShieldPausedToastLastClickedOrClosed(mockParams);
-
-        expect(
-          controller.state.shieldPausedToastLastClickedOrClosed,
-        ).toStrictEqual(mockParams);
-      });
-    });
-  });
-
-  describe('setShieldEndingToastLastClickedOrClosed', () => {
-    it('set the shieldEndingToastLastClickedOrClosed time', async () => {
-      await withController(({ controller }) => {
-        const mockParams = Date.now();
-        controller.setShieldEndingToastLastClickedOrClosed(mockParams);
-
-        expect(
-          controller.state.shieldEndingToastLastClickedOrClosed,
-        ).toStrictEqual(mockParams);
-      });
-    });
-  });
-
-  describe('setShieldSubscriptionError', () => {
-    it('sets the error object with message and code', async () => {
-      await withController(({ controller }) => {
-        controller.setShieldSubscriptionError({
-          message: 'payer address is already used',
-          code: 'payer_address_already_used',
-        });
-        expect(controller.state.shieldSubscriptionError).toStrictEqual({
-          message: 'payer address is already used',
-          code: 'payer_address_already_used',
-        });
-      });
-    });
-
-    it('sets the error object with message only', async () => {
-      await withController(({ controller }) => {
-        controller.setShieldSubscriptionError({
-          message: 'some error',
-        });
-        expect(controller.state.shieldSubscriptionError).toStrictEqual({
-          message: 'some error',
-        });
-      });
-    });
-
-    it('clears the error when set to null', async () => {
-      await withController(({ controller }) => {
-        controller.setShieldSubscriptionError({ message: 'some error' });
-        expect(controller.state.shieldSubscriptionError).not.toBeNull();
-
-        controller.setShieldSubscriptionError(null);
-        expect(controller.state.shieldSubscriptionError).toBeNull();
-      });
-    });
-
-    it('defaults to null', async () => {
-      await withController(({ controller }) => {
-        expect(controller.state.shieldSubscriptionError).toBeNull();
-      });
-    });
-  });
-
   describe('setPendingRedirectRoute', () => {
     it('defaults to null', async () => {
       await withController(({ controller }) => {
@@ -796,9 +728,6 @@ describe('AppStateController', () => {
               "lastUpdatedAt": null,
               "lastUpdatedFromVersion": null,
               "lastViewedUserSurvey": null,
-              "moneyEarnBannerDismissedTokenKeys": [],
-              "musdConversionDismissedCtaKeys": [],
-              "musdConversionEducationSeen": false,
               "newPrivacyPolicyToastClickedOrClosed": null,
               "newPrivacyPolicyToastShownDate": null,
               "notificationGasPollTokens": [],
@@ -807,17 +736,11 @@ describe('AppStateController', () => {
               "passkeyAutoUnlockSuppressed": false,
               "pendingExtensionVersion": null,
               "pendingRedirectRoute": null,
-              "pendingShieldCohort": null,
-              "pendingShieldCohortTxType": null,
               "pna25Acknowledged": false,
               "popupGasPollTokens": [],
               "productTour": "accountIcon",
               "recoveryPhraseReminderHasBeenShown": false,
               "recoveryPhraseReminderLastShown": 1000,
-              "shieldEndingToastLastClickedOrClosed": null,
-              "shieldPausedToastLastClickedOrClosed": null,
-              "shieldSubscriptionError": null,
-              "showShieldEntryModalOnce": null,
               "sidePanelGasPollTokens": [],
               "signatureSecurityAlertResponses": {},
               "snapsInstallPrivacyWarningShown": false,
@@ -882,9 +805,6 @@ describe('AppStateController', () => {
               "lastUpdatedAt": null,
               "lastUpdatedFromVersion": null,
               "lastViewedUserSurvey": null,
-              "moneyEarnBannerDismissedTokenKeys": [],
-              "musdConversionDismissedCtaKeys": [],
-              "musdConversionEducationSeen": false,
               "newPrivacyPolicyToastClickedOrClosed": null,
               "newPrivacyPolicyToastShownDate": null,
               "notificationGasPollTokens": [],
@@ -893,17 +813,11 @@ describe('AppStateController', () => {
               "passkeyAutoUnlockSuppressed": false,
               "pendingExtensionVersion": null,
               "pendingRedirectRoute": null,
-              "pendingShieldCohort": null,
-              "pendingShieldCohortTxType": null,
               "pna25Acknowledged": false,
               "popupGasPollTokens": [],
               "productTour": "accountIcon",
               "recoveryPhraseReminderHasBeenShown": false,
               "recoveryPhraseReminderLastShown": 1000,
-              "shieldEndingToastLastClickedOrClosed": null,
-              "shieldPausedToastLastClickedOrClosed": null,
-              "shieldSubscriptionError": null,
-              "showShieldEntryModalOnce": null,
               "sidePanelGasPollTokens": [],
               "signatureSecurityAlertResponses": {},
               "snapsInstallPrivacyWarningShown": false,
@@ -952,6 +866,7 @@ describe('AppStateController', () => {
               "defaultHomeActiveTabName": null,
               "hadAdvancedGasFeesSetPriorToMigration92_3": false,
               "hasShownMultichainAccountsIntroModal": false,
+              "historicalMoneyAccounts": {},
               "isWalletResetInProgress": false,
               "lastInteractedConfirmationInfo": {
                 "chainId": "0x1",
@@ -963,22 +878,14 @@ describe('AppStateController', () => {
               "lastUpdatedAt": null,
               "lastUpdatedFromVersion": null,
               "lastViewedUserSurvey": null,
-              "moneyEarnBannerDismissedTokenKeys": [],
-              "musdConversionDismissedCtaKeys": [],
-              "musdConversionEducationSeen": false,
               "newPrivacyPolicyToastClickedOrClosed": null,
               "newPrivacyPolicyToastShownDate": null,
               "onboardingDate": null,
               "outdatedBrowserWarningLastShown": null,
-              "pendingShieldCohort": null,
-              "pendingShieldCohortTxType": null,
               "pna25Acknowledged": false,
               "productTour": "accountIcon",
               "recoveryPhraseReminderHasBeenShown": false,
               "recoveryPhraseReminderLastShown": 1000,
-              "shieldEndingToastLastClickedOrClosed": null,
-              "shieldPausedToastLastClickedOrClosed": null,
-              "showShieldEntryModalOnce": null,
               "snapsInstallPrivacyWarningShown": false,
               "termsOfUseLastAgreed": 1000,
               "timeoutMinutes": 0,
@@ -1028,6 +935,7 @@ describe('AppStateController', () => {
               "defaultHomeActiveTabName": null,
               "fullScreenGasPollTokens": [],
               "hasShownMultichainAccountsIntroModal": false,
+              "historicalMoneyAccounts": {},
               "isWalletResetInProgress": false,
               "lastInteractedConfirmationInfo": {
                 "chainId": "0x1",
@@ -1040,9 +948,6 @@ describe('AppStateController', () => {
               "lastUpdatedAt": null,
               "lastUpdatedFromVersion": null,
               "lastViewedUserSurvey": null,
-              "moneyEarnBannerDismissedTokenKeys": [],
-              "musdConversionDismissedCtaKeys": [],
-              "musdConversionEducationSeen": false,
               "newPrivacyPolicyToastClickedOrClosed": null,
               "newPrivacyPolicyToastShownDate": null,
               "notificationGasPollTokens": [],
@@ -1051,17 +956,11 @@ describe('AppStateController', () => {
               "passkeyAutoUnlockSuppressed": false,
               "pendingExtensionVersion": null,
               "pendingRedirectRoute": null,
-              "pendingShieldCohort": null,
-              "pendingShieldCohortTxType": null,
               "pna25Acknowledged": false,
               "popupGasPollTokens": [],
               "productTour": "accountIcon",
               "recoveryPhraseReminderHasBeenShown": false,
               "recoveryPhraseReminderLastShown": 1000,
-              "shieldEndingToastLastClickedOrClosed": null,
-              "shieldPausedToastLastClickedOrClosed": null,
-              "shieldSubscriptionError": null,
-              "showShieldEntryModalOnce": null,
               "sidePanelGasPollTokens": [],
               "signatureSecurityAlertResponses": {},
               "snapsInstallPrivacyWarningShown": false,
@@ -1073,20 +972,6 @@ describe('AppStateController', () => {
           `);
         },
       );
-    });
-  });
-
-  describe('addMoneyEarnBannerDismissedTokenKey', () => {
-    it('adds each token key once', async () => {
-      await withController(async ({ controller }) => {
-        controller.addMoneyEarnBannerDismissedTokenKey('0x1:0xabc');
-        controller.addMoneyEarnBannerDismissedTokenKey('0xe708:0xdef');
-        controller.addMoneyEarnBannerDismissedTokenKey('0x1:0xabc');
-
-        expect(
-          controller.state.moneyEarnBannerDismissedTokenKeys,
-        ).toStrictEqual(['0x1:0xabc', '0xe708:0xdef']);
-      });
     });
   });
 

@@ -255,7 +255,7 @@ describe('selectLocalTransactions', () => {
     const state = structuredClone(typedMockState) as MultichainAccountsState & {
       metamask: {
         transactions?: TransactionMeta[];
-        moneyAccounts?: Record<
+        historicalMoneyAccounts?: Record<
           string,
           { address: string; options: { entropy: { id: string } } }
         >;
@@ -263,7 +263,7 @@ describe('selectLocalTransactions', () => {
     };
 
     state.metamask.transactions = [transaction];
-    state.metamask.moneyAccounts = {
+    state.metamask.historicalMoneyAccounts = {
       'money-account-1': {
         address: MONEY_ACCOUNT_ADDRESS,
         options: { entropy: { id: PRIMARY_HD_KEYRING_ID } },

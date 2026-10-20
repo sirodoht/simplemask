@@ -9,7 +9,6 @@ describe('buildSupportLinkWithUserData', () => {
     const result = buildSupportLinkWithUserData(baseSupportLink, {
       version,
       customerServiceToken: 'customer-service-token',
-      shieldCustomerId: 'shield-id',
     });
 
     const url = new URL(result);
@@ -17,7 +16,7 @@ describe('buildSupportLinkWithUserData', () => {
     expect(url.searchParams.get('customer_service_token')).toBe(
       'customer-service-token',
     );
-    expect(url.searchParams.get('shield_id')).toBe('shield-id');
+    expect(url.searchParams.has('shield_id')).toBe(false);
   });
 
   it('omits optional query parameters when values are undefined', () => {

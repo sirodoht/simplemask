@@ -15,10 +15,6 @@ import {
   SYNC_ACCOUNTS_ROUTE,
   THEME_ROUTE,
   THIRD_PARTY_APIS_ROUTE,
-  TRANSACTION_SHIELD_CLAIM_ROUTES,
-  TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE,
-  TRANSACTION_SHIELD_MANAGE_PLAN_ROUTE,
-  TRANSACTION_SHIELD_ROUTE,
 } from '../../helpers/constants/routes';
 import {
   getSettingsRouteMeta,
@@ -50,26 +46,6 @@ describe('settings-registry', () => {
       expect(meta).toEqual(
         expect.objectContaining({
           labelKey: 'debug',
-        }),
-      );
-    });
-
-    it('matches transaction shield sub-pages', () => {
-      expect(
-        getSettingsRouteMeta(TRANSACTION_SHIELD_MANAGE_PLAN_ROUTE),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'shieldManagePlan',
-          parentPath: TRANSACTION_SHIELD_ROUTE,
-        }),
-      );
-
-      expect(
-        getSettingsRouteMeta(TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'shieldPastPlansTitle',
-          parentPath: TRANSACTION_SHIELD_ROUTE,
         }),
       );
     });
@@ -108,56 +84,6 @@ describe('settings-registry', () => {
         ],
         events: [],
       });
-    });
-
-    it('matches dynamic transaction shield claim routes', () => {
-      expect(
-        getSettingsRouteMeta(TRANSACTION_SHIELD_CLAIM_ROUTES.BASE),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'shieldClaimsListTitle',
-          parentPath: TRANSACTION_SHIELD_ROUTE,
-        }),
-      );
-
-      expect(
-        getSettingsRouteMeta(TRANSACTION_SHIELD_CLAIM_ROUTES.NEW.FULL),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'shieldClaim',
-          parentPath: TRANSACTION_SHIELD_CLAIM_ROUTES.BASE,
-        }),
-      );
-
-      expect(
-        getSettingsRouteMeta(
-          `${TRANSACTION_SHIELD_CLAIM_ROUTES.EDIT_DRAFT.FULL}/draft-id`,
-        ),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'shieldClaimsListTitle',
-        }),
-      );
-
-      expect(
-        getSettingsRouteMeta(
-          `${TRANSACTION_SHIELD_CLAIM_ROUTES.VIEW_PENDING.FULL}/claim-id`,
-        ),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'shieldClaimsListTitle',
-        }),
-      );
-
-      expect(
-        getSettingsRouteMeta(
-          `${TRANSACTION_SHIELD_CLAIM_ROUTES.VIEW_HISTORY.FULL}/claim-id`,
-        ),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'shieldClaimsListTitle',
-        }),
-      );
     });
 
     it('matches notification section sub-pages', () => {
@@ -246,9 +172,6 @@ describe('settings-registry', () => {
       expect(paths).toContain(SECURITY_PASSWORD_CHANGE_V2_ROUTE);
       expect(paths).toContain(SECURITY_REGISTER_PASSKEY_ROUTE);
       expect(paths).toContain(SECURITY_TURN_OFF_PASSKEY_ROUTE);
-      expect(paths).toContain(TRANSACTION_SHIELD_MANAGE_PLAN_ROUTE);
-      expect(paths).toContain(TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE);
-      expect(paths).toContain(`${TRANSACTION_SHIELD_CLAIM_ROUTES.BASE}/*`);
       expect(paths).toContain(NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE);
       expect(paths).not.toContain('/settings/notifications/marketing');
       expect(paths).toContain(NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE);

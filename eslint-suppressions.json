@@ -310,11 +310,6 @@
       "count": 1
     }
   },
-  "ui/pages/confirmations/components/confirm/footer/shield-footer-coverage-indicator/shield-icon-animation.tsx": {
-    "react-hooks/exhaustive-deps": {
-      "count": 3
-    }
-  },
   "ui/pages/confirmations/components/confirm/info/approve/hooks/use-is-nft.ts": {
     "react-hooks/exhaustive-deps": {
       "count": 1
@@ -398,11 +393,6 @@
       "count": 1
     }
   },
-  "ui/pages/confirmations/hooks/transactions/useDepositPrefill.ts": {
-    "react-hooks/set-state-in-effect": {
-      "count": 1
-    }
-  },
   "ui/pages/confirmations/hooks/useAddEthereumChain.ts": {
     "react-hooks/exhaustive-deps": {
       "count": 1
@@ -463,11 +453,6 @@
       "count": 2
     }
   },
-  "ui/pages/details/components/convert-again-button.tsx": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
   "ui/pages/details/templates/helpers.ts": {
     "react-hooks/exhaustive-deps": {
       "count": 1
@@ -505,11 +490,6 @@
   },
   "ui/pages/settings/settings.tsx": {
     "react-hooks/preserve-manual-memoization": {
-      "count": 3
-    }
-  },
-  "ui/pages/shield/transaction-shield/shield-banner-animation.tsx": {
-    "react-hooks/exhaustive-deps": {
       "count": 2
     }
   }

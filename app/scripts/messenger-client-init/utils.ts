@@ -67,8 +67,6 @@ export type MessengerClientsToInitialize =
   | 'QrSyncController'
   | 'SentinelApiService'
   | 'SentryTracingService'
-  | 'ShieldSubscriptionService'
-  | 'TransactionPayController'
   | 'UserStorageController';
 
 type InitFunction<Name extends MessengerClientsToInitialize> =

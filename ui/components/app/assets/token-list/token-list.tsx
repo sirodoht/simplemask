@@ -68,11 +68,9 @@ import { useAnalytics } from '../../../../hooks/useAnalytics';
 import { SafeChain } from '../../../multichain/networks-form/use-safe-chains';
 import { sortAssetsWithPriority } from '../util/sortAssetsWithPriority';
 import { VirtualizedList } from '../../../ui/virtualized-list/virtualized-list';
-import { TOKEN_LIST_CELL_MUSD_OPTIONS } from '../../musd/musd-events';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import { useBoolean } from '../../../../hooks/useBoolean';
 import { useRWAToken } from '../../../../hooks/rwa/useRWAToken';
-import { useMoneyTokenListCta } from '../../../../hooks/money/useMoneyTokenListCta';
 
 type TokenListProps = {
   onTokenClick: (
@@ -348,8 +346,6 @@ function TokenList({ onTokenClick, safeChains }: TokenListProps) {
     [tokenListItems],
   );
 
-  const moneyTokenListCta = useMoneyTokenListCta(displayedTokens);
-
   useEffect(() => {
     if (sortedFilteredTokens) {
       endTrace({ name: TraceName.AccountOverviewAssetListTab });
@@ -438,8 +434,6 @@ function TokenList({ onTokenClick, safeChains }: TokenListProps) {
           privacyMode={privacyMode}
           onClick={isNonEvmTestnet ? undefined : handleTokenClick(token)}
           safeChains={safeChains}
-          musd={TOKEN_LIST_CELL_MUSD_OPTIONS}
-          moneyCta={moneyTokenListCta}
         />
       );
     },
@@ -447,7 +441,6 @@ function TokenList({ onTokenClick, safeChains }: TokenListProps) {
       handleLowValueAssetsToggle,
       handleTokenClick,
       isLowValueAssetsExpanded,
-      moneyTokenListCta,
       privacyMode,
       safeChains,
     ],

@@ -13,7 +13,6 @@ import {
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
   PREFERENCES_AND_DISPLAY_ROUTE,
   SETTINGS_ROUTE,
-  TRANSACTION_SHIELD_ROUTE,
 } from '../../helpers/constants/routes';
 import {
   ENVIRONMENT_TYPE_FULLSCREEN,
@@ -33,15 +32,6 @@ jest.mock('../../../shared/lib/environment-type', () => ({
   ...jest.requireActual('../../../shared/lib/environment-type'),
   getEnvironmentType: () => mockGetEnvironmentType(),
 }));
-
-jest.mock(
-  '../../components/app/shield-entry-modal/shield-illustration-animation',
-  () => ({
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    __esModule: true,
-    default: () => <div data-testid="shield-illustration-animation" />,
-  }),
-);
 
 let mockPathname = SETTINGS_ROUTE;
 
@@ -67,14 +57,6 @@ describe('Settings', () => {
   });
 
   describe('navigation', () => {
-    it('renders transaction shield on the settings root page', () => {
-      renderSettings(mockStore);
-
-      expect(
-        screen.getByTestId('settings-root-item-transaction-shield'),
-      ).toBeInTheDocument();
-    });
-
     it('shows grouped tabs in fullscreen at the settings root', async () => {
       mockGetEnvironmentType.mockReturnValue(ENVIRONMENT_TYPE_FULLSCREEN);
 
@@ -84,9 +66,6 @@ describe('Settings', () => {
         screen.getByTestId('settings-tab-bar-grouped'),
       ).toBeInTheDocument();
       expect(screen.getByText(messages.general.message)).toBeInTheDocument();
-      expect(
-        screen.getByTestId('settings-tab-item-transaction-shield'),
-      ).toBeInTheDocument();
       expect(screen.queryByTestId('settings-root')).not.toBeInTheDocument();
       await screen.findByTestId('settings-tab-item-preferences-and-display');
       expect(
@@ -134,18 +113,6 @@ describe('Settings', () => {
       expect(select.parentElement).toBeNull();
       expect('__reactFiber$test' in select).toBe(false);
       expect('__reactProps$test' in select).toBe(false);
-    });
-
-    it('navigates to transaction shield from the root page', async () => {
-      renderSettings(mockStore);
-
-      fireEvent.click(
-        screen.getByTestId('settings-root-item-transaction-shield'),
-      );
-
-      await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith(TRANSACTION_SHIELD_ROUTE);
-      });
     });
 
     it('navigates to home with the global menu drawer open when back is clicked at settings root', async () => {

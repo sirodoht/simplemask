@@ -4,7 +4,6 @@ import {
   TransactionType,
 } from '@metamask/transaction-controller';
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { MetaMetricsEventLocation } from '../../../../../../shared/constants/metametrics';
 import { hasTransactionType } from '../../../../../../shared/lib/transactions.utils';
 import { getConfirmationTransactionType } from '../../../utils/confirm';
@@ -22,25 +21,17 @@ import {
   IconColor,
   JustifyContent,
 } from '../../../../../helpers/constants/design-system';
-import { SHIELD_PLAN_ROUTE } from '../../../../../helpers/constants/routes';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
 import { useConfirmContext } from '../../../context/confirm';
 import { PAY_TRANSACTION_TYPES } from '../../../constants/pay';
 import { SEND_TRANSACTION_TYPES } from '../../../constants/send';
 import { useConfirmActions } from '../../../hooks/useConfirmActions';
-import { useHasInsufficientBalance } from '../../../hooks/useHasInsufficientBalance';
-import { useShieldConfirm } from '../../../hooks/transactions/useShieldConfirm';
 import { AdvancedDetailsButton } from './advanced-details-button';
 
 export const WalletInitiatedHeader = () => {
   const t = useI18nContext();
   const { onCancel } = useConfirmActions();
-  const { handleShieldSubscriptionApprovalTransactionRejected } =
-    useShieldConfirm();
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
-  const { hasInsufficientBalance, isNativeBalanceKnown } =
-    useHasInsufficientBalance();
-  const navigate = useNavigate();
 
   const confirmationType = getConfirmationTransactionType(currentConfirmation);
 
@@ -48,21 +39,6 @@ export const WalletInitiatedHeader = () => {
     confirmationType && SEND_TRANSACTION_TYPES.includes(confirmationType);
 
   const handleBackButtonClick = useCallback(() => {
-    if (
-      confirmationType === TransactionType.shieldSubscriptionApprove &&
-      currentConfirmation
-    ) {
-      handleShieldSubscriptionApprovalTransactionRejected(
-        currentConfirmation,
-        isNativeBalanceKnown &&
-          !currentConfirmation.isGasFeeSponsored &&
-          hasInsufficientBalance,
-      );
-      onCancel({ location: MetaMetricsEventLocation.Confirmation });
-      navigate(SHIELD_PLAN_ROUTE);
-      return;
-    }
-
     if (hasTransactionType(currentConfirmation, PAY_TRANSACTION_TYPES)) {
       onCancel({
         location: MetaMetricsEventLocation.Confirmation,
@@ -84,22 +60,11 @@ export const WalletInitiatedHeader = () => {
         navigateBackForSend: true,
       });
     }
-  }, [
-    confirmationType,
-    currentConfirmation,
-    hasInsufficientBalance,
-    handleShieldSubscriptionApprovalTransactionRejected,
-    isNativeBalanceKnown,
-    navigate,
-    onCancel,
-  ]);
+  }, [confirmationType, currentConfirmation, onCancel]);
 
   const getHeaderTitle = () => {
     if (isSendTransaction) {
       return null;
-    }
-    if (confirmationType === TransactionType.shieldSubscriptionApprove) {
-      return t('shieldConfirmMembership');
     }
     if (confirmationType === TransactionType.moneyAccountDeposit) {
       return t('addFunds');

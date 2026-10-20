@@ -6,7 +6,6 @@ import {
   PublishBatchHookRequest,
   PublishBatchHookTransaction,
 } from '@metamask/transaction-controller';
-import { TransactionPayPublishHook } from '@metamask/transaction-pay-controller';
 import { TransactionControllerInitMessenger } from '../../../wallet-init/messengers/transaction-controller-messenger';
 import * as smartTransactionsModule from '../../smart-transaction/smart-transactions';
 import * as sentinelApiModule from '../sentinel-api';
@@ -18,7 +17,6 @@ import {
 } from '.';
 
 jest.mock('@metamask/transaction-controller');
-jest.mock('@metamask/transaction-pay-controller');
 jest.mock('../../smart-transaction/smart-transactions');
 jest.mock('../sentinel-api');
 jest.mock('./delegation-7702-publish');
@@ -46,8 +44,6 @@ function buildMockRequest(
 }
 
 describe('Transaction Controller Hooks', () => {
-  const payHookMock: jest.MockedFn<PublishHook> = jest.fn();
-
   const mockTransactionMeta: TransactionMeta = {
     id: '123',
     chainId: CHAIN_ID_MOCK,
@@ -63,14 +59,6 @@ describe('Transaction Controller Hooks', () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-
-    jest.mocked(TransactionPayPublishHook).mockReturnValue({
-      getHook: () => payHookMock,
-    } as unknown as TransactionPayPublishHook);
-
-    payHookMock.mockResolvedValue({
-      transactionHash: undefined,
-    });
 
     enforceSimulationGetBeforeSignHookMock.mockReturnValue(jest.fn());
     jest.mocked(EnforceSimulationHook).mockReturnValue({
@@ -111,39 +99,12 @@ describe('Transaction Controller Hooks', () => {
 
       expect(hooks).toStrictEqual(
         expect.objectContaining({
-          afterAdd: expect.any(Function),
           beforePublish: expect.any(Function),
           beforeSign: expect.any(Function),
           publish: expect.any(Function),
           publishBatch: expect.any(Function),
         }),
       );
-    });
-  });
-
-  describe('afterAdd', () => {
-    it('calls ShieldSubscriptionService:submitSubscriptionSponsorshipIntent', async () => {
-      const messenger = buildMockMessenger();
-      const request = buildMockRequest({ messenger });
-      const { afterAdd } = getTransactionControllerHooks(request);
-
-      await afterAdd?.({ transactionMeta: mockTransactionMeta });
-
-      expect(messenger.call).toHaveBeenCalledWith(
-        'ShieldSubscriptionService:submitSubscriptionSponsorshipIntent',
-        mockTransactionMeta,
-      );
-    });
-
-    it('returns an empty object', async () => {
-      const request = buildMockRequest();
-      const { afterAdd } = getTransactionControllerHooks(request);
-
-      const result = await afterAdd?.({
-        transactionMeta: mockTransactionMeta,
-      });
-
-      expect(result).toStrictEqual({});
     });
   });
 
@@ -193,28 +154,6 @@ describe('Transaction Controller Hooks', () => {
   });
 
   describe('publish', () => {
-    it('calls TransactionPayPublishHook', async () => {
-      const request = buildMockRequest();
-      const { publish } = getTransactionControllerHooks(request);
-
-      await publish?.(mockTransactionMeta);
-
-      expect(payHookMock).toHaveBeenCalledTimes(1);
-    });
-
-    it('returns pay hook result when transactionHash is present', async () => {
-      payHookMock.mockResolvedValue({
-        transactionHash: '0xpayHash',
-      });
-
-      const request = buildMockRequest();
-      const { publish } = getTransactionControllerHooks(request);
-
-      const result = await publish?.(mockTransactionMeta);
-
-      expect(result).toStrictEqual({ transactionHash: '0xpayHash' });
-    });
-
     it('skips Delegation7702PublishHook for hardware wallet accounts', async () => {
       const messenger = buildMockMessenger();
       (messenger.call as jest.Mock).mockImplementation((action: string) => {

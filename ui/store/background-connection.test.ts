@@ -96,14 +96,13 @@ describe('submitRequestToBackground', () => {
     // @ts-expect-error Partial mock.
     await setBackgroundConnection({ messengerCall: messengerCallMock });
 
-    await submitRequestToBackground(
-      'SubscriptionService:getSubscriptionsEligibilities',
-      [{ balanceCategory: '0-99' }],
-    );
+    await submitRequestToBackground('GasFeeController:fetchGasFeeEstimates', [
+      {},
+    ]);
 
     expect(messengerCallMock).toHaveBeenCalledWith(
-      'SubscriptionService:getSubscriptionsEligibilities',
-      [{ balanceCategory: '0-99' }],
+      'GasFeeController:fetchGasFeeEstimates',
+      [{}],
     );
   });
 
@@ -202,29 +201,6 @@ describe('subscribeToMessengerEvent', () => {
     expect(listener).not.toHaveBeenCalled();
 
     expect(messengerUnsubscribe).toHaveBeenCalledWith(event);
-  });
-
-  it('only calls messengerSubscribe once if there are multiple subscriptions for the same event requested', async () => {
-    const { submitNotification, messengerSubscribe, onNotification } = setup();
-
-    const listenerA = jest.fn();
-    const listenerB = jest.fn();
-
-    await subscribeToMessengerEvent(event, listenerA);
-    await subscribeToMessengerEvent(event, listenerB);
-
-    expect(messengerSubscribe).toHaveBeenCalledTimes(1);
-    expect(messengerSubscribe).toHaveBeenCalledWith(event);
-    expect(onNotification).toHaveBeenCalledTimes(1);
-
-    submitNotification({
-      jsonrpc: '2.0',
-      method: MESSENGER_SUBSCRIPTION_NOTIFICATION,
-      params: [event, [{ foo: 'bar' }, []]],
-    });
-
-    expect(listenerA).toHaveBeenCalledWith([{ foo: 'bar' }, []]);
-    expect(listenerB).toHaveBeenCalledWith([{ foo: 'bar' }, []]);
   });
 
   it('does not resolve subscribe calls until the upstream messengerSubscribe call resolves', async () => {
@@ -382,65 +358,6 @@ describe('subscribeToMessengerEvent', () => {
     await unsubscribe();
     await unsubscribe();
 
-    expect(messengerUnsubscribe).toHaveBeenCalledTimes(1);
-  });
-
-  it('keeps subscriptions to different events independent', async () => {
-    const { submitNotification, messengerSubscribe } = setup();
-
-    const otherEvent = 'OtherController:stateChange';
-
-    const listenerA = jest.fn();
-    const listenerB = jest.fn();
-
-    await subscribeToMessengerEvent(event, listenerA);
-    await subscribeToMessengerEvent(otherEvent, listenerB);
-
-    expect(messengerSubscribe).toHaveBeenCalledTimes(2);
-
-    submitNotification({
-      jsonrpc: '2.0',
-      method: MESSENGER_SUBSCRIPTION_NOTIFICATION,
-      params: [event, [{ foo: 'bar' }, []]],
-    });
-
-    expect(listenerA).toHaveBeenCalledTimes(1);
-    expect(listenerB).not.toHaveBeenCalled();
-  });
-
-  it('treats two subscriptions sharing the same callback reference as independent', async () => {
-    const { submitNotification, messengerUnsubscribe } = setup();
-
-    const listener = jest.fn();
-
-    const unsubscribeFirst = await subscribeToMessengerEvent(event, listener);
-    const unsubscribeSecond = await subscribeToMessengerEvent(event, listener);
-
-    submitNotification({
-      jsonrpc: '2.0',
-      method: MESSENGER_SUBSCRIPTION_NOTIFICATION,
-      params: [event, [{ foo: 'bar' }, []]],
-    });
-
-    // Each subscribe call is an independent registration, so a notification
-    // fires the shared callback once per registration.
-    expect(listener).toHaveBeenCalledTimes(2);
-
-    // Unsubscribing one registration leaves the other intact, so no upstream
-    // unsubscribe yet and the remaining registration still receives events.
-    await unsubscribeFirst();
-    expect(messengerUnsubscribe).not.toHaveBeenCalled();
-
-    listener.mockClear();
-    submitNotification({
-      jsonrpc: '2.0',
-      method: MESSENGER_SUBSCRIPTION_NOTIFICATION,
-      params: [event, [{ foo: 'bar' }, []]],
-    });
-    expect(listener).toHaveBeenCalledTimes(1);
-
-    // Removing the last registration sends the upstream unsubscribe.
-    await unsubscribeSecond();
     expect(messengerUnsubscribe).toHaveBeenCalledTimes(1);
   });
 

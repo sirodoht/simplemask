@@ -6,9 +6,6 @@ import {
   FlexWrap,
   TextColor,
 } from '../../../../../helpers/constants/design-system';
-import { MoneyAccountDepositButton } from '../money-account-deposit-button';
-import { MoneyAccountWithdrawButton } from '../money-account-withdraw-button';
-import { MusdConversionButton } from '../musd-conversion-button';
 
 export const ConfirmationsDeveloperOptions = () => {
   return (
@@ -33,11 +30,7 @@ export const ConfirmationsDeveloperOptions = () => {
         paddingLeft={4}
         paddingRight={4}
         paddingTop={4}
-      >
-        <MusdConversionButton />
-        <MoneyAccountDepositButton />
-        <MoneyAccountWithdrawButton />
-      </Box>
+      ></Box>
     </>
   );
 };

@@ -208,21 +208,13 @@
       "lastUpdatedAt": null,
       "lastUpdatedFromVersion": null,
       "lastViewedUserSurvey": null,
-      "moneyEarnBannerDismissedTokenKeys": [],
-      "musdConversionDismissedCtaKeys": [],
-      "musdConversionEducationSeen": false,
       "newPrivacyPolicyToastClickedOrClosed": true,
       "newPrivacyPolicyToastShownDate": 1770282512702,
       "outdatedBrowserWarningLastShown": null,
-      "pendingShieldCohort": "wallet_home",
-      "pendingShieldCohortTxType": null,
       "pna25Acknowledged": true,
       "productTour": "accountIcon",
       "recoveryPhraseReminderHasBeenShown": false,
-      "shieldEndingToastLastClickedOrClosed": null,
-      "shieldPausedToastLastClickedOrClosed": null,
       "showDownloadMobileAppSlide": true,
-      "showShieldEntryModalOnce": null,
       "slides": [],
       "termsOfUseLastAgreed": 1770282497124,
       "timeoutMinutes": 0,
@@ -375,14 +367,6 @@
       "selectedCurrency": "usd"
     },
     "AuthenticationController": {},
-    "ClaimsController": {
-      "claims": [],
-      "claimsConfigurations": {
-        "supportedNetworks": ["0x1", "0xe708"],
-        "validSubmissionWindowDays": 21
-      },
-      "drafts": []
-    },
     "ComplianceController": {
       "lastCheckedAt": null,
       "walletComplianceStatusMap": {}
@@ -432,12 +416,6 @@
     "MetaMetricsDataDeletionController": {
       "metaMetricsDataDeletionId": null,
       "metaMetricsDataDeletionTimestamp": 0
-    },
-    "MoneyAccountController": {
-      "moneyAccounts": {}
-    },
-    "MoneyAccountUpgradeController": {
-      "upgradedAccounts": {}
     },
     "MultichainAssetsController": {
       "accountsAssets": {
@@ -1164,10 +1142,6 @@
         "npm:@metamask/tron-wallet-snap": "mainnet"
       }
     },
-    "ShieldController": {
-      "coverageResults": {},
-      "orderedTransactionHistory": []
-    },
     "SnapController": {
       "unencryptedSnapStates": {
         "npm:@metamask/solana-wallet-snap": "{\"keyringAccounts\":{\"688e01b8-3134-4ef4-80e6-8772bab38ef7\":{\"id\":\"688e01b8-3134-4ef4-80e6-8772bab38ef7\",\"entropySource\":\"01KGPGYE2JJGMXDJPEVXKPJ1JG\",\"derivationPath\":\"m/44'/501'/0'/0'\",\"index\":0,\"type\":\"solana:data-account\",\"address\":\"4tE76eixEgyJDrdykdWJR1XBkzUk4cLMvqjR2xVJUxer\",\"scopes\":[\"solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp\",\"solana:4uhcVJyU9pJkvQyS88uRDiswHXSCkY3z\",\"solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1\"],\"options\":{\"entropySource\":\"01KGPGYE2JJGMXDJPEVXKPJ1JG\",\"derivationPath\":\"m/44'/501'/0'/0'\",\"index\":0},\"methods\":[\"signAndSendTransaction\",\"signTransaction\",\"signMessage\",\"signIn\"]}},\"mapInterfaceNameToId\":{},\"transactions\":{},\"signatures\":{},\"assetEntities\":{},\"tokenPrices\":{},\"subscriptions\":{},\"webSocketConnections\":{\"closeWebSocketConnectionsBackgroundEventId\":null}}"
@@ -1177,10 +1151,6 @@
       "interfaces": {}
     },
     "SubjectMetadataController": {},
-    "SubscriptionController": {
-      "subscriptions": [],
-      "trialedProducts": []
-    },
     "TokenBalancesController": {
       "tokenBalances": {}
     },

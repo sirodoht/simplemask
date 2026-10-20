@@ -26,13 +26,7 @@ import { getGasFeeControllerInitMessenger } from './messengers/gas-fee-controlle
 import type { InitializeWalletRequest } from './types';
 import { getPasskeyControllerInstanceOptions } from './instance-options/passkey-controller';
 import { getSeedlessOnboardingControllerInstanceOptions } from './instance-options/seedless-onboarding-controller';
-import { getClaimsServiceInstanceOptions } from './instance-options/claims-service';
 import { getConfigRegistryApiServiceInstanceOptions } from './instance-options/config-registry-api-service';
-import {
-  getShieldApiServiceInstanceOptions,
-  getShieldControllerInstanceOptions,
-} from './instance-options/shield-controller';
-import { getSubscriptionServiceInstanceOptions } from './instance-options/subscription-service';
 
 /**
  * Construct the `@metamask/wallet` `Wallet` for the extension. Each
@@ -73,7 +67,6 @@ export function initializeWallet(request: InitializeWalletRequest) {
       approvalController: getApprovalControllerInstanceOptions({
         showApprovalRequest,
       }),
-      claimsService: getClaimsServiceInstanceOptions(),
       configRegistryApiService: getConfigRegistryApiServiceInstanceOptions(),
       connectivityController: getConnectivityControllerInstanceOptions({
         connectivityAdapter,
@@ -94,12 +87,9 @@ export function initializeWallet(request: InitializeWalletRequest) {
         getSeedlessOnboardingControllerInstanceOptions({
           initMessenger: seedlessOnboardingControllerInitMessenger,
         }),
-      shieldApiService: getShieldApiServiceInstanceOptions(),
-      shieldController: getShieldControllerInstanceOptions(),
       remoteFeatureFlagController:
         getRemoteFeatureFlagControllerInstanceOptions({ messenger, state }),
       storageService: getStorageServiceInstanceOptions(),
-      subscriptionService: getSubscriptionServiceInstanceOptions(),
       transactionController: getTransactionControllerInstanceOptions({
         initMessenger: transactionControllerInitMessenger,
         getFlatState,

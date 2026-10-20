@@ -25,18 +25,6 @@ jest.mock('../../../store/actions', () => {
   };
 });
 
-jest.mock('../../../hooks/musd/useMusdGeoBlocking', () => ({
-  useMusdGeoBlocking: () => ({
-    isBlocked: false,
-    userCountry: 'US',
-    isLoading: false,
-    error: null,
-    blockedRegions: [],
-    blockedMessage: null,
-    refreshGeolocation: jest.fn(),
-  }),
-}));
-
 // Mock the dispatch function
 const mockDispatch = jest.fn();
 
@@ -94,9 +82,9 @@ describe('AccountOverviewEth', () => {
     });
 
     expect(queryByTestId('account-overview__asset-tab')).toBeInTheDocument();
-    expect(queryByTestId('account-overview__nfts-tab')).toBeInTheDocument();
+    expect(queryByTestId('account-overview__nfts-tab')).not.toBeInTheDocument();
     expect(queryByTestId('account-overview__activity-tab')).toBeInTheDocument();
-    expect(queryByTestId('account-overview__defi-tab')).toBeInTheDocument();
+    expect(queryByTestId('account-overview__defi-tab')).not.toBeInTheDocument();
   });
 
   it('hides the DeFi tab when DeFi positions are disabled', () => {
@@ -113,7 +101,7 @@ describe('AccountOverviewEth', () => {
     );
 
     expect(queryByTestId('account-overview__asset-tab')).toBeInTheDocument();
-    expect(queryByTestId('account-overview__nfts-tab')).toBeInTheDocument();
+    expect(queryByTestId('account-overview__nfts-tab')).not.toBeInTheDocument();
     expect(queryByTestId('account-overview__activity-tab')).toBeInTheDocument();
     expect(queryByTestId('account-overview__defi-tab')).not.toBeInTheDocument();
   });

@@ -179,7 +179,6 @@ import {
   getIsEvmMultichainNetworkSelected,
 } from './multichain/networks';
 import { getApprovalRequestsByType } from './approvals';
-import { getHasShieldEntryModalShownOnce } from './subscription';
 import { getIsSocialLoginFlow } from './first-time-flow';
 import { getInternalAccounts } from './accounts';
 
@@ -309,38 +308,6 @@ export function getKeyringSnapRemovalResult(state) {
 }
 
 export const getPendingTokens = (state) => state.appState.pendingTokens;
-
-export function getShowShieldEntryModal(state) {
-  const { show, hasUserInteractedWithModal } =
-    state.appState.shieldEntryModal || {};
-  // only show the modal if `show` is true and user has not interacted with the modal
-  return Boolean(show) && !hasUserInteractedWithModal;
-}
-
-export function getPendingShieldCohort(state) {
-  return state.metamask.pendingShieldCohort;
-}
-
-export function getPendingShieldCohortTxType(state) {
-  return state.metamask.pendingShieldCohortTxType;
-}
-
-export function getShouldSubmitEventsForShieldEntryModal(state) {
-  const hasShieldEntryModalShownOnce = getHasShieldEntryModalShownOnce(state);
-  if (hasShieldEntryModalShownOnce) {
-    // if the modal has been shown to the user, we don't need to submit events anymore
-    return false;
-  }
-  return Boolean(state.appState.shieldEntryModal?.shouldSubmitEvents);
-}
-
-export function getModalTypeForShieldEntryModal(state) {
-  return state.appState.shieldEntryModal?.modalType;
-}
-
-export function getShieldEntryModalTriggeringCohort(state) {
-  return state.appState.shieldEntryModal?.triggeringCohort;
-}
 
 /** `metamask` slice selectors */
 

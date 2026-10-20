@@ -96,12 +96,6 @@ describe('selectCanShowLowPriorityModal', () => {
     ).toBe(false);
   });
 
-  it('returns false when the shield entry modal is active', () => {
-    expect(
-      selectCanShowLowPriorityModal(buildState({ showShieldEntryModal: true })),
-    ).toBe(false);
-  });
-
   it('returns false when the recovery phrase reminder is active', () => {
     // recoveryPhraseReminderLastShown=0 makes getShowRecoveryPhraseReminder true
     // (currentTime - 0 exceeds the 2-day threshold).

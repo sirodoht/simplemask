@@ -26,9 +26,6 @@ import {
   SECURITY_TURN_OFF_PASSKEY_ROUTE,
   SETTINGS_ROUTE,
   SNAP_SETTINGS_ROUTE,
-  TRANSACTION_SHIELD_CLAIM_ROUTES,
-  TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE,
-  TRANSACTION_SHIELD_MANAGE_PLAN_ROUTE,
   TRANSACTION_SHIELD_ROUTE,
   TRANSACTIONS_ROUTE,
   THEME_ROUTE,
@@ -42,8 +39,6 @@ import type {
   UIMessengerActions,
   UIMessengerEvents,
 } from '../../messengers/ui-messenger';
-// eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
-import { CLAIMS_TAB_KEYS } from '../shield/transaction-shield/types';
 import { isMfaKitEnabled } from '../../hooks/identity/mfa/isMfaKitEnabled';
 import {
   PASSKEY_PASSWORD_CHANGE_ROUTE_CAPABILITIES,
@@ -115,11 +110,6 @@ export const SETTINGS_ROOT_SECTIONS: readonly {
 const SHOW_DEBUG_SETTINGS = Boolean(
   process.env.ENABLE_SETTINGS_PAGE_DEV_OPTIONS || process.env.IN_TEST,
 );
-
-const TRANSACTION_SHIELD_CLAIMS_WILDCARD_ROUTE = `${TRANSACTION_SHIELD_CLAIM_ROUTES.BASE}/*`;
-const TRANSACTION_SHIELD_EDIT_DRAFT_ROUTE = `${TRANSACTION_SHIELD_CLAIM_ROUTES.EDIT_DRAFT.FULL}/:draftId`;
-const TRANSACTION_SHIELD_VIEW_PENDING_ROUTE = `${TRANSACTION_SHIELD_CLAIM_ROUTES.VIEW_PENDING.FULL}/:claimId`;
-const TRANSACTION_SHIELD_VIEW_HISTORY_ROUTE = `${TRANSACTION_SHIELD_CLAIM_ROUTES.VIEW_HISTORY.FULL}/:claimId`;
 
 /**
  * Single source of truth for all Settings routes.
@@ -274,58 +264,6 @@ export const SETTINGS_ROUTES: Record<string, SettingsRouteMeta> = {
     ),
     isTab: true,
     iconName: IconName.SecurityTime,
-  },
-
-  // --- Transaction Shield tab ---
-  [TRANSACTION_SHIELD_ROUTE]: {
-    labelKey: 'shieldTx',
-    parentPath: SETTINGS_ROUTE,
-    // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
-    component: mmLazy(() => import('../shield/transaction-shield/index.ts')),
-    isTab: true,
-    iconName: IconName.ShieldLock,
-  },
-  [TRANSACTION_SHIELD_MANAGE_PLAN_ROUTE]: {
-    labelKey: 'shieldManagePlan',
-    parentPath: TRANSACTION_SHIELD_ROUTE,
-    component: mmLazy(
-      () => import('./transaction-shield-tab/manage-plan-sub-page.tsx'),
-    ),
-  },
-  [TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE]: {
-    labelKey: 'shieldPastPlansTitle',
-    parentPath: TRANSACTION_SHIELD_ROUTE,
-    component: mmLazy(
-      () => import('./transaction-shield-tab/manage-past-plan-sub-page.tsx'),
-    ),
-  },
-  [TRANSACTION_SHIELD_CLAIM_ROUTES.BASE]: {
-    labelKey: 'shieldClaimsListTitle',
-    parentPath: TRANSACTION_SHIELD_ROUTE,
-  },
-  [TRANSACTION_SHIELD_CLAIMS_WILDCARD_ROUTE]: {
-    labelKey: 'shieldClaimsListTitle',
-    parentPath: TRANSACTION_SHIELD_ROUTE,
-    component: mmLazy(
-      // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
-      () => import('../shield/transaction-shield/claims-area/index.ts'),
-    ),
-  },
-  [TRANSACTION_SHIELD_CLAIM_ROUTES.NEW.FULL]: {
-    labelKey: 'shieldClaim',
-    parentPath: TRANSACTION_SHIELD_CLAIM_ROUTES.BASE,
-  },
-  [TRANSACTION_SHIELD_EDIT_DRAFT_ROUTE]: {
-    labelKey: 'shieldClaimsListTitle',
-    parentPath: `${TRANSACTION_SHIELD_CLAIM_ROUTES.BASE}?tab=${CLAIMS_TAB_KEYS.PENDING}`,
-  },
-  [TRANSACTION_SHIELD_VIEW_PENDING_ROUTE]: {
-    labelKey: 'shieldClaimsListTitle',
-    parentPath: `${TRANSACTION_SHIELD_CLAIM_ROUTES.BASE}?tab=${CLAIMS_TAB_KEYS.PENDING}`,
-  },
-  [TRANSACTION_SHIELD_VIEW_HISTORY_ROUTE]: {
-    labelKey: 'shieldClaimsListTitle',
-    parentPath: `${TRANSACTION_SHIELD_CLAIM_ROUTES.BASE}?tab=${CLAIMS_TAB_KEYS.HISTORY}`,
   },
 
   // --- Assets tab ---

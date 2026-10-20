@@ -18,17 +18,12 @@ import {
   ConfirmationLoader,
   useConfirmationNavigationOptions,
 } from '../../../hooks/useConfirmationNavigation';
-import { CustomAmountInfoSkeleton } from '../../info/custom-amount-info';
-import { MoneyAccountDepositInfo } from '../../info/money-account-deposit-info';
-import { MoneyAccountWithdrawInfo } from '../../info/money-account-withdraw-info';
-import { MusdConversionInfo } from '../../info/musd-conversion-info';
 import ApproveInfo from './approve/approve';
 import BaseTransactionInfo from './base-transaction-info/base-transaction-info';
 import NativeTransferInfo from './native-transfer/native-transfer';
 import NFTTokenTransferInfo from './nft-token-transfer/nft-token-transfer';
 import PersonalSignInfo from './personal-sign/personal-sign';
 import SetApprovalForAllInfo from './set-approval-for-all-info/set-approval-for-all-info';
-import ShieldSubscriptionApproveInfo from './shield-subscription-approve/shield-subscription-approve';
 import TokenTransferInfo from './token-transfer/token-transfer';
 import TypedSignV1Info from './typed-sign-v1/typed-sign-v1';
 import TypedSignInfo from './typed-sign/typed-sign';
@@ -122,8 +117,6 @@ const Info = () => {
       [TransactionType.personalSign]: () => PersonalSignInfo,
       [TransactionType.revokeDelegation]: () => BaseTransactionInfo,
       [TransactionType.simpleSend]: () => NativeTransferInfo,
-      [TransactionType.shieldSubscriptionApprove]: () =>
-        ShieldSubscriptionApproveInfo,
       [TransactionType.signTypedData]: () => {
         const signatureRequest = currentConfirmation as SignatureRequestType;
 
@@ -158,22 +151,14 @@ const Info = () => {
       [TransactionType.tokenMethodTransferFrom]: () => NFTTokenTransferInfo,
 
       [ApprovalType.AddEthereumChain]: () => AddEthereumChain,
-
-      [TransactionType.moneyAccountDeposit]: () => MoneyAccountDepositInfo,
-      [TransactionType.moneyAccountWithdraw]: () => MoneyAccountWithdrawInfo,
       // Merkl claiming was removed (MUSD-1223); the type stays mapped so a claim
       // still in flight across the upgrade renders instead of throwing here.
       [TransactionType.musdClaim]: () => BaseTransactionInfo,
-      [TransactionType.musdConversion]: () => MusdConversionInfo,
     }),
     [currentConfirmation, enabledPermissions],
   );
 
   if (!currentConfirmation?.type) {
-    if (loader === ConfirmationLoader.CustomAmount) {
-      return <CustomAmountInfoSkeleton />;
-    }
-
     return (
       <InfoSkeleton
         variant={

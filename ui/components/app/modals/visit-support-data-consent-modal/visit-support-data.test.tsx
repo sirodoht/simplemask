@@ -13,7 +13,6 @@ import { buildSupportLinkWithUserData } from '../../../../../shared/lib/build-su
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import { openWindow } from '../../../../helpers/utils/window';
-import { useUserSubscriptions } from '../../../../hooks/subscription/useSubscription';
 import { getCustomerServiceToken } from '../../../../store/actions';
 import VisitSupportDataConsentModal from './visit-support-data-consent-modal';
 
@@ -42,10 +41,6 @@ jest.mock('../../../../helpers/utils/window', () => ({
   openWindow: jest.fn(),
 }));
 
-jest.mock('../../../../hooks/subscription/useSubscription', () => ({
-  useUserSubscriptions: jest.fn(),
-}));
-
 jest.mock('../../../../store/actions', () => ({
   getCustomerServiceToken: jest.fn(),
 }));
@@ -54,19 +49,10 @@ describe('VisitSupportDataConsentModal', () => {
   const store = configureMockState([thunk])(mockState);
   const mockOnClose = jest.fn();
   const mockCustomerServiceToken = 'test-customer-service-token';
-  const mockShieldCustomerId = 'test-shield-customer-id';
-  const useUserSubscriptionsMock = useUserSubscriptions as jest.Mock;
   const getCustomerServiceTokenMock = jest.mocked(getCustomerServiceToken);
 
   beforeEach(() => {
     getCustomerServiceTokenMock.mockResolvedValue(mockCustomerServiceToken);
-    useUserSubscriptionsMock.mockReturnValue({
-      customerId: mockShieldCustomerId,
-      subscriptions: [],
-      trialedProducts: [],
-      loading: false,
-      error: undefined,
-    });
   });
 
   afterEach(() => {
@@ -102,7 +88,6 @@ describe('VisitSupportDataConsentModal', () => {
     const expectedUrl = buildSupportLinkWithUserData(SUPPORT_LINK as string, {
       version: 'MOCK_VERSION',
       customerServiceToken: mockCustomerServiceToken,
-      shieldCustomerId: mockShieldCustomerId,
     });
 
     await waitFor(() => {
@@ -213,49 +198,8 @@ describe('VisitSupportDataConsentModal', () => {
     expect(openWindow).toHaveBeenCalledWith(expectedUrl);
   });
 
-  it('handles clicking the accept button with undefined shield customer ID', async () => {
-    useUserSubscriptionsMock.mockReturnValue({
-      customerId: undefined,
-      subscriptions: [],
-      trialedProducts: [],
-      loading: false,
-      error: undefined,
-    });
-    const { getByTestId } = renderModal();
-
-    fireEvent.click(
-      getByTestId('visit-support-data-consent-modal-accept-button'),
-    );
-
-    const expectedUrl = buildSupportLinkWithUserData(SUPPORT_LINK as string, {
-      version: 'MOCK_VERSION',
-      customerServiceToken: mockCustomerServiceToken,
-    });
-
-    await waitFor(() => {
-      expect(mockTrackEvent).toHaveBeenCalledWith(
-        expect.objectContaining({
-          name: MetaMetricsEventName.SupportLinkClicked,
-          properties: expect.objectContaining({
-            category: MetaMetricsEventCategory.Settings,
-            url: expectedUrl,
-            [MetaMetricsContextProp.PageTitle]: 'Settings',
-          }),
-        }),
-      );
-      expect(openWindow).toHaveBeenCalledWith(expectedUrl);
-    });
-  });
-
   it('falls back to support link without token when token is unavailable', async () => {
     getCustomerServiceTokenMock.mockResolvedValue(undefined);
-    useUserSubscriptionsMock.mockReturnValue({
-      customerId: undefined,
-      subscriptions: [],
-      trialedProducts: [],
-      loading: false,
-      error: undefined,
-    });
 
     const { getByTestId } = renderModal();
 

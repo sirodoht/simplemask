@@ -7,39 +7,11 @@ import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate
 import {
   ACTIVITY_ROUTE,
   DEFAULT_ROUTE,
-  MONEY_HOME_ROUTE,
 } from '../../../helpers/constants/routes';
 import { ScreenViewedEntryPoint } from '../../../../shared/constants/metametrics';
-import type { MoneyAccountAvailability } from '../../../hooks/money/use-money-account-availability';
-import { useMoneyAnalytics } from '../../../hooks/money/useMoneyAnalytics';
-import { createMoneyAnalyticsMock } from '../../../hooks/money/useMoneyAnalytics.mock';
-import {
-  MoneyButtonIntent,
-  MoneyButtonType,
-  MoneyComponentName,
-  MoneyScreenName,
-} from '../../../pages/money/constants/money-events';
 import { BottomNavBar } from './bottom-nav-bar';
 
 const mockNavigate = jest.fn();
-const mockUseMoneyAccountAvailability: jest.MockedFunction<
-  () => { availability: MoneyAccountAvailability }
-> = jest.fn(() => ({
-  availability: {
-    isAvailable: true,
-    address: '0x0000000000000000000000000000000000000001',
-  },
-}));
-
-jest.mock('../../../hooks/money/use-money-account-availability', () => ({
-  useMoneyAccountAvailability: () => mockUseMoneyAccountAvailability(),
-}));
-
-const mockMoneyAnalytics = createMoneyAnalyticsMock();
-jest.mock('../../../hooks/money/useMoneyAnalytics', () => ({
-  useMoneyAnalytics: jest.fn(),
-}));
-const mockUseMoneyAnalytics = jest.mocked(useMoneyAnalytics);
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -88,19 +60,6 @@ function renderBottomNavBar(state = baseState, pathname = DEFAULT_ROUTE) {
 describe('BottomNavBar', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseMoneyAnalytics.mockReturnValue(mockMoneyAnalytics);
-  });
-
-  describe('renders all tabs', () => {
-    it('hides Money when the Money Account is unavailable', () => {
-      mockUseMoneyAccountAvailability.mockReturnValueOnce({
-        availability: { isAvailable: false },
-      });
-
-      const { queryByTestId } = renderBottomNavBar();
-
-      expect(queryByTestId('bottom-nav-money')).not.toBeInTheDocument();
-    });
   });
 
   describe('active state', () => {
@@ -124,18 +83,6 @@ describe('BottomNavBar', () => {
       const { getByTestId } = renderBottomNavBar(baseState, ACTIVITY_ROUTE);
 
       expect(getByTestId('bottom-nav-activity')).toHaveAttribute(
-        'aria-current',
-        'page',
-      );
-      expect(getByTestId('bottom-nav-home')).not.toHaveAttribute(
-        'aria-current',
-      );
-    });
-
-    it('marks Money as active on the Money home route', () => {
-      const { getByTestId } = renderBottomNavBar(baseState, MONEY_HOME_ROUTE);
-
-      expect(getByTestId('bottom-nav-money')).toHaveAttribute(
         'aria-current',
         'page',
       );
@@ -170,24 +117,6 @@ describe('BottomNavBar', () => {
           entryPoint: ScreenViewedEntryPoint.BottomNavClick,
           stayOnHomePage: true,
         },
-      });
-    });
-
-    it('navigates to Money Home when Money is clicked', () => {
-      const { getByTestId } = renderBottomNavBar();
-
-      fireEvent.click(getByTestId('bottom-nav-money'));
-      expect(mockNavigate).toHaveBeenCalledWith(MONEY_HOME_ROUTE, {
-        state: { stayOnHomePage: true },
-      });
-      expect(mockUseMoneyAnalytics).toHaveBeenCalledWith({
-        componentName: MoneyComponentName.HomeTab,
-      });
-      expect(mockMoneyAnalytics.trackButtonClicked).toHaveBeenCalledWith({
-        buttonType: MoneyButtonType.Text,
-        buttonIntent: MoneyButtonIntent.GoToMoneyHome,
-        labelKey: 'money',
-        redirectTarget: MoneyScreenName.MoneyHome,
       });
     });
 

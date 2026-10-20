@@ -4,6 +4,7 @@ import {
   MUSD_TOKEN_ASSET_ID_BY_CHAIN,
 } from '@metamask/money-account-utils';
 import { TransactionType } from '@metamask/transaction-controller';
+import { getMoneyAccountDepositAmount } from '../../helpers/money/money-account-amounts';
 import type {
   ActivityListItem,
   FiatAmount,
@@ -16,7 +17,6 @@ import {
   parseStandardTokenTransactionData,
 } from '../../../shared/lib/transaction.utils';
 import { hasTransactionType } from '../../../shared/lib/transactions.utils';
-import { getMoneyAccountDepositAmount } from '../../helpers/money/money-account-amounts';
 import { getMoneyAccountWithdrawTransferDetails } from '../../pages/confirmations/utils/money-account-withdraw';
 import { enrichLocalMusdClaimActivity } from './enrich-local-musd-claim';
 

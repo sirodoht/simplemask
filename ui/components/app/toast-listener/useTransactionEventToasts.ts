@@ -17,11 +17,6 @@ import {
   hasTransactionType,
   isPerpsWithdrawTransaction,
 } from '../../../../shared/lib/transactions.utils';
-import {
-  isMoneyAccountChildTx,
-  isMoneyAccountTx,
-} from '../../../helpers/money/money-transaction-guards';
-import { isKnownMoneyBatchChild } from '../../../helpers/money/money-batch-registry';
 import type { RouteMessengerFromCapabilities } from '../../../messengers/route-messenger';
 import { defineAllowedRouteCapabilities } from '../../../helpers/route-messenger-helpers';
 import type { MetaMaskReduxState } from '../../../store/store';
@@ -83,11 +78,7 @@ function isExcludedTransactionType(
   ) {
     return true;
   }
-  return (
-    hasTransactionType(transactionMeta, excludedTransactionTypes) ||
-    isMoneyAccountTx(transactionMeta) ||
-    isMoneyAccountChildTx(transactionMeta, transactions)
-  );
+  return hasTransactionType(transactionMeta, excludedTransactionTypes);
 }
 
 const failedStatuses = new Set(['failed', 'dropped', 'rejected', 'cancelled']);
@@ -186,10 +177,7 @@ export function useTransactionEventToasts(): void {
       }
 
       const transactions = selectTransactions(store.getState());
-      if (
-        isKnownMoneyBatchChild(id) ||
-        isExcludedTransactionType(transactionMeta, transactions)
-      ) {
+      if (isExcludedTransactionType(transactionMeta, transactions)) {
         return;
       }
 

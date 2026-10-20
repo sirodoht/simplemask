@@ -1,23 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { isInteractiveUI } from '../../../../shared/lib/environment-type';
-import { getIsUnlocked } from '../../../ducks/metamask/base-selectors';
-import {
-  useMusdConversionConfirmTrace,
-  useMusdConversionToastStatus,
-} from '../../../hooks/musd';
-import { MoneyAccountToastListener } from '../money/money-account-toast/money-account-toast-listener';
 import { TransactionEventToastListener } from './transaction-event-toast-listener';
 
-// Carried over from custom mUSD toasts. Should move telemetry out of toasts into a more appropriate location.
-const MusdTelemetry = () => {
-  const { activeTransactionId } = useMusdConversionToastStatus();
-  useMusdConversionConfirmTrace(activeTransactionId ?? '');
-  return null;
-};
-
 export function ToastListener() {
-  const isUnlocked = useSelector(getIsUnlocked);
   const isInteractive = isInteractiveUI();
 
   if (!isInteractive) {
@@ -26,9 +11,7 @@ export function ToastListener() {
 
   return (
     <>
-      <MusdTelemetry />
       <TransactionEventToastListener />
-      <MoneyAccountToastListener />
     </>
   );
 }

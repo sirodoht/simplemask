@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { ApprovalType } from '@metamask/controller-utils';
 import { ApprovalRequest } from '@metamask/approval-controller';
-import { isStrictHexString, Json } from '@metamask/utils';
+import { Json } from '@metamask/utils';
 
 import { TEMPLATED_CONFIRMATION_APPROVAL_TYPES } from '../confirmation/templates/approval-types';
 import {
@@ -28,7 +28,6 @@ import {
   selectPendingApprovalsForNavigation,
 } from '../../../selectors';
 import { sanitizeRedirectUrl } from '../../../../shared/lib/safe-redirect';
-import type { SetPayTokenRequest } from './pay/types';
 
 export enum ConfirmationLoader {
   Default = 'default',
@@ -105,11 +104,6 @@ export type ConfirmationNavigationOptions = {
    * entry instead of replacing it with `goBackTo`.
    */
   goBackAction?: ConfirmationGoBackAction;
-  payWithOption?: PayWithOption;
-  /**
-   * Token the confirmation should select as the source of funds.
-   */
-  preferredPaymentToken?: SetPayTokenRequest;
 };
 
 /**
@@ -221,21 +215,6 @@ export function useConfirmationNavigation() {
         params.set('goBackTo', options.goBackTo);
       }
 
-      if (options.payWithOption) {
-        params.set('payWithOption', options.payWithOption);
-      }
-
-      if (options.preferredPaymentToken) {
-        params.set(
-          'preferredPaymentTokenAddress',
-          options.preferredPaymentToken.address,
-        );
-        params.set(
-          'preferredPaymentTokenChainId',
-          options.preferredPaymentToken.chainId,
-        );
-      }
-
       // This helper always pushes. Back must pop, or `goBackTo` is written
       // on top of the page that is already the previous entry.
       params.set('goBackAction', ConfirmationGoBackAction.Pop);
@@ -342,32 +321,9 @@ export function useConfirmationNavigationOptions(): ConfirmationNavigationOption
       ? ConfirmationGoBackAction.Pop
       : undefined;
 
-  const payWithOptionParam = searchParams.get('payWithOption');
-  const payWithOption =
-    payWithOptionParam === PayWithOption.MoneyAccount
-      ? PayWithOption.MoneyAccount
-      : undefined;
-
-  const preferredPaymentTokenAddress = searchParams.get(
-    'preferredPaymentTokenAddress',
-  );
-  const preferredPaymentTokenChainId = searchParams.get(
-    'preferredPaymentTokenChainId',
-  );
-  const preferredPaymentToken =
-    isStrictHexString(preferredPaymentTokenAddress) &&
-    isStrictHexString(preferredPaymentTokenChainId)
-      ? {
-          address: preferredPaymentTokenAddress,
-          chainId: preferredPaymentTokenChainId,
-        }
-      : undefined;
-
   return {
     loader,
     goBackTo,
     goBackAction,
-    payWithOption,
-    preferredPaymentToken,
   };
 }

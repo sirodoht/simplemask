@@ -253,18 +253,6 @@ import {
   AuthenticationControllerGetStateAction,
   AuthenticationControllerPerformSignOutAction,
 } from '@metamask/profile-sync-controller/auth';
-import {
-  SubscriptionControllerClearStateAction,
-  SubscriptionControllerGetStateAction,
-  SubscriptionControllerGetSubscriptionByProductAction,
-  SubscriptionControllerStopAllPollingAction,
-} from '@metamask/subscription-controller';
-import {
-  ShieldControllerClearStateAction,
-  ShieldControllerStartAction,
-  ShieldControllerStopAction,
-} from '@metamask/shield-controller';
-import { ClaimsControllerClearStateAction } from '@metamask/claims-controller';
 import { AddressBookControllerClearAction } from '@metamask/address-book-controller';
 import {
   GasFeeControllerDisableNonRPCGasFeeApisAction,
@@ -285,7 +273,6 @@ import {
 } from '../lib/util';
 import { getIsSeedlessOnboardingFeatureEnabled } from '../../../shared/lib/environment';
 import type { ExternalServicesOwnedPreference } from '../../../shared/lib/basic-functionality-consolidation';
-import { getIsShieldSubscriptionActive } from '../../../shared/lib/shield/subscription-utils';
 import { getAllEnabledNetworkClientIds } from '../../../shared/lib/network.utils';
 import { getTokensControllerAllTokens } from '../../../shared/lib/selectors/assets-migration';
 import { toAssetId } from '../../../shared/lib/asset-utils';
@@ -604,7 +591,6 @@ type AllowedActions =
   | AuthenticationControllerGetBearerTokenAction
   | AuthenticationControllerGetStateAction
   | AuthenticationControllerPerformSignOutAction
-  | ClaimsControllerClearStateAction
   | CurrencyRateControllerSetCurrentCurrencyAction
   | DelegationControllerSignDelegationAction
   | GasFeeControllerDisableNonRPCGasFeeApisAction
@@ -699,17 +685,10 @@ type AllowedActions =
   | SeedlessOnboardingControllerIdentifyIncompleteMetadataBackupAction
   | SelectedNetworkControllerGetNetworkClientIdForDomainAction
   | GetSignatureState
-  | ShieldControllerClearStateAction
-  | ShieldControllerStartAction
-  | ShieldControllerStopAction
   | SmartTransactionsControllerWipeSmartTransactionsAction
   | SnapControllerClearStateAction
   | SnapControllerGetStateAction
   | SnapInterfaceControllerDeleteInterfaceAction
-  | SubscriptionControllerClearStateAction
-  | SubscriptionControllerGetStateAction
-  | SubscriptionControllerGetSubscriptionByProductAction
-  | SubscriptionControllerStopAllPollingAction
   | GetTokenListState
   | TokenDetectionControllerDisableAction
   | TokenDetectionControllerEnableAction
@@ -1469,14 +1448,6 @@ export class LegacyBackgroundApiService {
 
     // clear passkey early (vault-bound unlock material; runs for restoreOnly too)
     this.#messenger.call('PasskeyController:clearState');
-
-    // stop subscription polling
-    this.#messenger.call('SubscriptionController:stopAllPolling');
-
-    // clear States
-    this.#messenger.call('SubscriptionController:clearState');
-    this.#messenger.call('ShieldController:clearState');
-    this.#messenger.call('ClaimsController:clearState');
 
     // clear contacts (address book)
     this.#messenger.call('AddressBookController:clear');
@@ -2592,9 +2563,6 @@ export class LegacyBackgroundApiService {
         }
         await this.#messenger.call('KeyringController:setLocked');
 
-        // stop polling for the subscriptions when the wallet is locked manually and window/side-panel is still open
-        this.#messenger.call('SubscriptionController:stopAllPolling');
-
         // sign out from Authentication service and clear the Session Data if user is signed in
         // this check is to make sure that the user sensitive data is cleared when the wallet is locked.
         // We have `useAutoSignOut` hook that should handle the automatic sign out, however, it's not always triggered.
@@ -3030,27 +2998,12 @@ export class LegacyBackgroundApiService {
       ownedPreferences,
     );
 
-    const subscriptionState = this.#messenger.call(
-      'SubscriptionController:getState',
-    );
-    const hasActiveShieldSubscription = getIsShieldSubscriptionActive(
-      subscriptionState.subscriptions,
-    );
-
     if (useExternal) {
       this.#messenger.call('TokenDetectionController:enable');
       this.#messenger.call('GasFeeController:enableNonRPCGasFeeApis');
-      if (hasActiveShieldSubscription) {
-        this.#messenger.call('ShieldController:start');
-      }
     } else {
       this.#messenger.call('TokenDetectionController:disable');
       this.#messenger.call('GasFeeController:disableNonRPCGasFeeApis');
-      // stop polling for the subscriptions if external services are disabled
-      this.#messenger.call('SubscriptionController:stopAllPolling');
-      if (hasActiveShieldSubscription) {
-        this.#messenger.call('ShieldController:stop');
-      }
     }
   }
 

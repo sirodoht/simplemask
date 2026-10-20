@@ -29,7 +29,6 @@ import {
 } from '../../helpers/constants/routes';
 import { AccountOverview } from '../../components/multichain';
 import { PasswordOutdatedModalContainer } from '../../components/app/password-outdated-modal';
-import { ShieldEntryModalContainer } from '../../components/app/shield-entry-modal';
 import { Pna25ModalContainer } from '../../components/app/modals/pna25-modal/pna25-modal-container';
 import { AppHeader } from '../../components/multichain/app-header';
 import { DappConnectionControlBar } from '../../components/multichain/dapp-connection-control-bar';
@@ -58,7 +57,6 @@ import type { MetaMaskReduxState } from '../../store/types';
 import { useDispatch } from '../../store/hooks';
 import { ConnectedStatusPopoverContainer } from './connected-status-popover-container';
 import { DeeplinkQrCodeModalContainer } from './deeplink-qrcode-modal-container';
-import { ShieldCohortContainer } from './shield-cohort-container';
 import { HomeNotificationsContainer } from './home-notifications-container';
 import BetaAndFlaskHomeFooter from './beta-and-flask-home-footer.component';
 import { HomeDeepLinkActions } from './HomeDeepLinkActions';
@@ -265,7 +263,6 @@ export default function Home() {
         <UpdateModalContainer />
         <RecoveryPhraseReminderContainer />
         <TermsOfUsePopupContainer />
-        <ShieldEntryModalContainer />
 
         <DeeplinkQrCodeModalContainer />
         <Pna25ModalContainer />
@@ -286,7 +283,6 @@ export default function Home() {
         <ImportedTokensNotificationContainer />
       </div>
       <HomeDeepLinkActions />
-      <ShieldCohortContainer />
     </>
   );
 

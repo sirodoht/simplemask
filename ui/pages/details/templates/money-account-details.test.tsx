@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {
   TransactionStatus as TransactionMetaStatus,
   type TransactionMeta,
@@ -8,13 +7,9 @@ import {
 
 import type { MoneyAccountActivityItem } from '../../../../shared/lib/activity/types';
 import { useLocalTransactionMeta } from '../../../hooks/activity/useLocalTransactionMeta';
-import { useMoneyAccountDeposit } from '../../../hooks/money/useMoneyAccountDeposit';
-import { useMoneyAccountInfo } from '../../../hooks/money/useMoneyAccountInfo';
 import { MoneyAccountDetails } from './money-account-details';
 
 jest.mock('../../../hooks/activity/useLocalTransactionMeta');
-jest.mock('../../../hooks/money/useMoneyAccountDeposit');
-jest.mock('../../../hooks/money/useMoneyAccountInfo');
 
 jest.mock('../../../contexts/route-messenger', () => ({
   RouteMessengerProvider: ({ children }: { children: React.ReactNode }) =>
@@ -105,8 +100,6 @@ jest.mock('../components/shared', () => ({
 const MUSD_ASSET_ID = 'eip155:1/erc20:0xmusd';
 
 const mockUseLocalTransactionMeta = jest.mocked(useLocalTransactionMeta);
-const mockUseMoneyAccountDeposit = jest.mocked(useMoneyAccountDeposit);
-const mockUseMoneyAccountInfo = jest.mocked(useMoneyAccountInfo);
 const mockInitiateDeposit = jest.fn();
 
 function buildItem(
@@ -138,13 +131,6 @@ describe('MoneyAccountDetails', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockUseLocalTransactionMeta.mockReturnValue(undefined);
-    mockUseMoneyAccountDeposit.mockReturnValue({
-      initiateDeposit: mockInitiateDeposit,
-      isLoading: false,
-    });
-    mockUseMoneyAccountInfo.mockReturnValue({
-      hasMoneyAccount: true,
-    } as ReturnType<typeof useMoneyAccountInfo>);
   });
 
   describe('hero amount', () => {
@@ -265,24 +251,6 @@ describe('MoneyAccountDetails', () => {
   });
 
   describe('footer', () => {
-    it('renders the add funds button for a confirmed deposit', () => {
-      mockUseLocalTransactionMeta.mockReturnValue(buildTransactionMeta());
-
-      render(<MoneyAccountDetails item={buildItem()} />);
-
-      expect(screen.getByText('addFunds')).toBeInTheDocument();
-      expect(screen.queryByTestId('block-explorer-button')).toBeNull();
-    });
-
-    it('initiates a deposit when the button is clicked', async () => {
-      mockUseLocalTransactionMeta.mockReturnValue(buildTransactionMeta());
-
-      render(<MoneyAccountDetails item={buildItem()} />);
-      await userEvent.click(screen.getByText('addFunds'));
-
-      expect(mockInitiateDeposit).toHaveBeenCalledTimes(1);
-    });
-
     it('falls back to the block explorer for a withdrawal', () => {
       mockUseLocalTransactionMeta.mockReturnValue(buildTransactionMeta());
 
@@ -300,9 +268,6 @@ describe('MoneyAccountDetails', () => {
 
     it('falls back to the block explorer when the user has no money account', () => {
       mockUseLocalTransactionMeta.mockReturnValue(buildTransactionMeta());
-      mockUseMoneyAccountInfo.mockReturnValue({
-        hasMoneyAccount: false,
-      } as ReturnType<typeof useMoneyAccountInfo>);
 
       render(<MoneyAccountDetails item={buildItem()} />);
 

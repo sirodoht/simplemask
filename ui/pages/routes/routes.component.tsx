@@ -53,24 +53,17 @@ import {
   NETWORKS_ROUTE,
   TOKEN_MANAGEMENT_ROUTE,
   CUSTOM_TOKEN_IMPORT_ROUTE,
-  SHIELD_PLAN_ROUTE,
   GATOR_PERMISSIONS,
   TOKEN_TRANSFER_DETAILS_ROUTE,
   REVIEW_GATOR_PERMISSIONS_DETAILS_ROUTE,
   DECRYPT_MESSAGE_REQUEST_PATH,
   ENCRYPTION_PUBLIC_KEY_REQUEST_PATH,
   ACTIVITY_ROUTE,
-  MONEY_HOME_ROUTE,
-  MONEY_ACTIVITY_ROUTE,
-  MONEY_HOW_IT_WORKS_ROUTE,
-  MONEY_TRANSACTION_DETAILS_ROUTE,
-  MONEY_EARN_ROUTE,
   CONTACTS_ROUTE,
   HARDWARE_WALLET_REPAIR_ROUTE,
   SYNC_ACCOUNTS_ROUTE,
   MFA_FLOW_ROUTE,
 } from '../../helpers/constants/routes';
-import { MUSD_CONVERSION_ROUTE } from '../musd/constants/routes';
 import { getIsQrSyncEnabled } from '../../../shared/lib/environment';
 import { isMfaKitEnabled } from '../../hooks/identity/mfa';
 import MfaFlowLauncher from '../mfa/mfa-flow-launcher';
@@ -134,7 +127,6 @@ import { Toaster } from '../../components/ui/toast/toast';
 import { ToastListener } from '../../components/app/toast-listener/toast-listener';
 import { ALLOWED_CAPABILITIES as SNAP_VIEW_ROUTE_ALLOWED_CAPABILITIES } from '../snaps/snap-view/messenger';
 import { ALLOWED_CAPABILITIES as HOME_ROUTE_ALLOWED_CAPABILITIES } from '../home/messenger';
-import { ALLOWED_CAPABILITIES as MONEY_HOME_ROUTE_ALLOWED_CAPABILITIES } from '../money/messenger';
 import { ALLOWED_CAPABILITIES as ASSET_ROUTE_ALLOWED_CAPABILITIES } from '../asset/messenger';
 import { createRouteWithMessenger } from '../../helpers/route-messenger-helpers';
 import { UNLOCK_ROUTE_CAPABILITIES } from '../unlock-page/messenger';
@@ -227,20 +219,7 @@ const MultichainAccountDetailsPage = mmLazy(
 const SmartAccountPage = mmLazy(
   () => import('../multichain-accounts/smart-account-page/index.ts'),
 );
-const ShieldPlan = mmLazy(() => import('../shield/plan/index.ts'));
 const ActivityPage = mmLazy(() => import('../activity/activity-page.tsx'));
-const MoneyHomePage = mmLazy(() => import('../money/index.ts'));
-const MoneyActivityPage = mmLazy(
-  () => import('../money/money-activity-page.tsx'),
-);
-const MoneyHowItWorksPage = mmLazy(
-  () => import('../money/money-how-it-works-page.tsx'),
-);
-const MoneyTransactionDetailsPage = mmLazy(
-  () => import('../money/money-transaction-details-page.tsx'),
-);
-const MoneyEarnPage = mmLazy(() => import('../money/money-earn-page.tsx'));
-const MusdConversionPage = mmLazy(() => import('../musd/index.tsx'));
 const HardwareWalletRepair = mmLazy(
   () => import('../hardware-wallet-repair/index.ts'),
 );
@@ -519,14 +498,6 @@ export const routeConfig = [
             capabilities: SNAP_VIEW_ROUTE_ALLOWED_CAPABILITIES,
             element: <SnapView />,
           }),
-          {
-            path: `${MUSD_CONVERSION_ROUTE}/*`,
-            element: <MusdConversionPage />,
-          },
-          {
-            path: SHIELD_PLAN_ROUTE,
-            element: <ShieldPlan />,
-          },
         ],
       },
       {
@@ -544,31 +515,6 @@ export const routeConfig = [
                 path: ACTIVITY_ROUTE,
                 element: <ActivityPage />,
               },
-              createRouteWithMessenger({
-                path: MONEY_HOME_ROUTE,
-                capabilities: MONEY_HOME_ROUTE_ALLOWED_CAPABILITIES,
-                element: <MoneyHomePage />,
-              }),
-              createRouteWithMessenger({
-                path: MONEY_ACTIVITY_ROUTE,
-                capabilities: MONEY_HOME_ROUTE_ALLOWED_CAPABILITIES,
-                element: <MoneyActivityPage />,
-              }),
-              createRouteWithMessenger({
-                path: MONEY_HOW_IT_WORKS_ROUTE,
-                capabilities: MONEY_HOME_ROUTE_ALLOWED_CAPABILITIES,
-                element: <MoneyHowItWorksPage />,
-              }),
-              createRouteWithMessenger({
-                path: MONEY_TRANSACTION_DETAILS_ROUTE,
-                capabilities: MONEY_HOME_ROUTE_ALLOWED_CAPABILITIES,
-                element: <MoneyTransactionDetailsPage />,
-              }),
-              createRouteWithMessenger({
-                path: MONEY_EARN_ROUTE,
-                capabilities: MONEY_HOME_ROUTE_ALLOWED_CAPABILITIES,
-                element: <MoneyEarnPage />,
-              }),
             ],
           },
         ],

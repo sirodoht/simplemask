@@ -1,10 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {
-  CRYPTO_PAYMENT_METHOD_ERRORS,
-  PRODUCT_TYPES,
-} from '@metamask/subscription-controller';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { SECOND } from '../../../../shared/constants/time';
 import { ENVIRONMENT_TYPE_SIDEPANEL } from '../../../../shared/constants/app';
@@ -19,7 +15,6 @@ import {
   DEFAULT_ROUTE,
   REVEAL_SEED_ROUTE,
   SETTINGS_ROUTE,
-  TRANSACTION_SHIELD_ROUTE,
 } from '../../../helpers/constants/routes';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { toggleDefaultView } from '../../../store/actions';
@@ -29,21 +24,6 @@ import { SurveyToast } from '../../ui/survey-toast/survey-toast';
 import { StorageWriteErrorType } from '../../../../shared/constants/app-state';
 import { BasicFunctionalityMigrationToast } from '../basic-functionality-migration-toast';
 import { ArcUsageNoticeToast } from '../arc-usage-notice-toast';
-import {
-  useUserSubscriptionByProduct,
-  useUserSubscriptions,
-} from '../../../hooks/subscription/useSubscription';
-import { getShortDateFormatterV2 } from '../../../pages/asset/util';
-import {
-  getIsShieldSubscriptionEndingSoon,
-  getIsShieldSubscriptionPaused,
-  getSubscriptionPaymentData,
-} from '../../../../shared/lib/shield';
-import {
-  isCardPaymentMethod,
-  isCryptoPaymentMethod,
-} from '../../../pages/shield/transaction-shield/types';
-import { useSubscriptionMetrics } from '../../../hooks/shield/metrics/useSubscriptionMetrics';
 import { useDispatch } from '../../../store/hooks';
 
 import {
@@ -51,16 +31,8 @@ import {
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
 import {
-  ShieldErrorStateActionClickedEnum,
-  ShieldErrorStateClickedTypeEnum,
-  ShieldErrorStateLocationEnum,
-  ShieldErrorStateViewEnum,
-} from '../../../../shared/constants/subscriptions';
-import {
   selectShowPrivacyPolicyToast,
   selectNewPrivacyPolicyToastShownDate,
-  selectShowShieldPausedToast,
-  selectShowShieldEndingToast,
   selectShowStorageErrorToast,
   selectStorageWriteErrorType,
   selectShowInfuraSwitchToast,
@@ -70,8 +42,6 @@ import {
   setNewPrivacyPolicyToastClickedOrClosed,
   setNewPrivacyPolicyToastShownDate,
   setShowInfuraSwitchToast,
-  setShieldPausedToastLastClickedOrClosed,
-  setShieldEndingToastLastClickedOrClosed,
   dismissSidePanelMigrationToast,
 } from './utils';
 
@@ -79,8 +49,6 @@ import {
 const MemoizedSurveyToast = memo(SurveyToast);
 const MemoizedPrivacyPolicyToast = memo(PrivacyPolicyToast);
 const MemoizedInfuraSwitchToast = memo(InfuraSwitchToast);
-const MemoizedShieldPausedToast = memo(ShieldPausedToast);
-const MemoizedShieldEndingToast = memo(ShieldEndingToast);
 const MemoizedSidePanelMigrationToast = memo(SidePanelMigrationToast);
 const MemoizedBasicFunctionalityMigrationToast = memo(
   BasicFunctionalityMigrationToast,
@@ -115,8 +83,6 @@ export function ToastMaster() {
         <MemoizedArcUsageNoticeToast />
         <MemoizedInfuraSwitchToast />
 
-        <MemoizedShieldPausedToast />
-        <MemoizedShieldEndingToast />
         <MemoizedSidePanelMigrationToast />
         {basicFunctionalityMigrationToast}
       </ToastContainer>
@@ -195,149 +161,6 @@ function InfuraSwitchToast() {
         onClose={() => dispatch(setShowInfuraSwitchToast(false))}
         autoHideTime={autoHideDelay}
         onAutoHideToast={() => dispatch(setShowInfuraSwitchToast(false))}
-      />
-    )
-  );
-}
-
-function ShieldPausedToast() {
-  const t = useI18nContext();
-  const navigate = useNavigate();
-
-  const showShieldPausedToast = useSelector(selectShowShieldPausedToast);
-  const { captureShieldErrorStateClickedEvent } = useSubscriptionMetrics();
-  const { subscriptions } = useUserSubscriptions();
-
-  const shieldSubscription = useUserSubscriptionByProduct(
-    PRODUCT_TYPES.SHIELD,
-    subscriptions,
-  );
-
-  const isPaused = getIsShieldSubscriptionPaused(shieldSubscription);
-
-  const isCardPayment =
-    shieldSubscription &&
-    isCardPaymentMethod(shieldSubscription?.paymentMethod);
-  const isCryptoPaymentWithError =
-    shieldSubscription &&
-    isCryptoPaymentMethod(shieldSubscription.paymentMethod) &&
-    Boolean(shieldSubscription.paymentMethod.crypto.error);
-  const isInsufficientFundsCrypto =
-    shieldSubscription &&
-    isCryptoPaymentMethod(shieldSubscription.paymentMethod) &&
-    shieldSubscription.paymentMethod.crypto.error ===
-      CRYPTO_PAYMENT_METHOD_ERRORS.INSUFFICIENT_BALANCE;
-
-  // default text to unexpected error case
-  let descriptionText = 'shieldPaymentPausedDescriptionUnexpectedError';
-  let actionText = 'shieldPaymentPausedActionUnexpectedError';
-  if (isCardPayment) {
-    descriptionText = 'shieldPaymentPausedDescriptionCardPayment';
-    actionText = 'shieldPaymentPausedActionCardPayment';
-  }
-  if (isCryptoPaymentWithError) {
-    descriptionText = 'shieldPaymentPausedDescriptionCryptoPayment';
-    actionText = 'shieldPaymentPausedActionCryptoPayment';
-  }
-
-  const trackShieldErrorStateClickedEvent = (actionClicked) => {
-    const { cryptoPaymentChain, cryptoPaymentCurrency } =
-      getSubscriptionPaymentData(shieldSubscription);
-    const type =
-      isInsufficientFundsCrypto || isCryptoPaymentWithError
-        ? ShieldErrorStateClickedTypeEnum.AddFunds
-        : ShieldErrorStateClickedTypeEnum.UpdateCard;
-
-    // capture error state clicked event
-    captureShieldErrorStateClickedEvent({
-      subscriptionStatus: shieldSubscription.status,
-      paymentType: shieldSubscription.paymentMethod.type,
-      billingInterval: shieldSubscription.interval,
-      cryptoPaymentChain,
-      cryptoPaymentCurrency,
-      errorCause: 'payment_error',
-      actionClicked,
-      location: ShieldErrorStateLocationEnum.Homepage,
-      view: ShieldErrorStateViewEnum.Toast,
-      type,
-    });
-  };
-
-  const handleActionClick = async () => {
-    // capture error state clicked event
-    trackShieldErrorStateClickedEvent(ShieldErrorStateActionClickedEnum.Cta);
-    setShieldPausedToastLastClickedOrClosed(Date.now());
-    navigate(TRANSACTION_SHIELD_ROUTE);
-  };
-
-  const handleToastClose = () => {
-    // capture error state clicked event
-    trackShieldErrorStateClickedEvent(
-      ShieldErrorStateActionClickedEnum.Dismiss,
-    );
-    setShieldPausedToastLastClickedOrClosed(Date.now());
-  };
-
-  return (
-    Boolean(isPaused) &&
-    showShieldPausedToast && (
-      <Toast
-        key="shield-payment-declined-toast"
-        text={t('shieldPaymentPaused')}
-        description={t(descriptionText)}
-        actionText={t(actionText)}
-        onActionClick={handleActionClick}
-        startAdornment={
-          <Icon
-            name={IconName.CircleX}
-            color={IconColor.errorDefault}
-            size={IconSize.Lg}
-          />
-        }
-        onClose={handleToastClose}
-      />
-    )
-  );
-}
-
-function ShieldEndingToast() {
-  const t = useI18nContext();
-  const navigate = useNavigate();
-
-  const showShieldEndingToast = useSelector(selectShowShieldEndingToast);
-
-  const { subscriptions } = useUserSubscriptions();
-  const shieldSubscription = useUserSubscriptionByProduct(
-    PRODUCT_TYPES.SHIELD,
-    subscriptions,
-  );
-  const isSubscriptionEndingSoon =
-    getIsShieldSubscriptionEndingSoon(subscriptions);
-
-  return (
-    isSubscriptionEndingSoon &&
-    showShieldEndingToast && (
-      <Toast
-        key="shield-coverage-ending-toast"
-        text={t('shieldCoverageEnding')}
-        description={t('shieldCoverageEndingDescription', [
-          getShortDateFormatterV2().format(
-            new Date(shieldSubscription.currentPeriodEnd),
-          ),
-        ])}
-        actionText={t('shieldCoverageEndingAction')}
-        onActionClick={async () => {
-          setShieldEndingToastLastClickedOrClosed(Date.now());
-          navigate(TRANSACTION_SHIELD_ROUTE);
-        }}
-        startAdornment={
-          <Icon
-            name={IconName.Clock}
-            color={IconColor.warningDefault}
-            size={IconSize.Lg}
-          />
-        }
-        onClose={() => setShieldEndingToastLastClickedOrClosed(Date.now())}
       />
     )
   );
