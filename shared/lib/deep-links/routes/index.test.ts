@@ -58,6 +58,7 @@ describe('retired feature links', () => {
     '/perps-asset?symbol=ETH',
     '/perps-markets',
     '/rewards',
+    '/nfts',
   ]) {
     it(`rejects the removed feature link ${path}`, async () => {
       expect(await parse(new URL(`https://link.metamask.io${path}`))).toBe(

@@ -6,46 +6,20 @@ import {
   BoxFlexDirection,
   BoxJustifyContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
-import { ButtonLink } from '../../../../component-library';
-import { showIpfsModal } from '../../../../../store/actions';
-import { useDispatch } from '../../../../../store/hooks';
 
 type NftDefaultImageProps = {
   className: string;
-  clickable?: boolean;
 };
 
-export default function NftDefaultImage({
-  className,
-  clickable,
-}: NftDefaultImageProps) {
-  const t = useI18nContext();
-  const dispatch = useDispatch();
-
+export default function NftDefaultImage({ className }: NftDefaultImageProps) {
   return (
     <Box
       tabIndex={0}
       data-testid="nft-default-image"
-      className={classnames('flex', className, 'nft-default', 'rounded-lg', {
-        'nft-default--clickable': Boolean(clickable),
-      })}
+      className={classnames('flex', className, 'nft-default', 'rounded-lg', {})}
       flexDirection={BoxFlexDirection.Row}
       alignItems={BoxAlignItems.Center}
       justifyContent={BoxJustifyContent.Center}
-    >
-      {clickable && (
-        <ButtonLink
-          block
-          className="nft-default__button"
-          onClick={(e: { stopPropagation: () => void }) => {
-            e.stopPropagation();
-            dispatch(showIpfsModal());
-          }}
-        >
-          {t('show')}
-        </ButtonLink>
-      )}
-    </Box>
+    ></Box>
   );
 }

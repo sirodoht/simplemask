@@ -101,10 +101,6 @@ describe('AssetList', () => {
     { address: '0x456', chainId: '1', name: 'Token 2' },
   ];
 
-  const mockNfts = [
-    { address: '0x789', chainId: '1', tokenId: '1', name: 'NFT 1' },
-  ];
-
   beforeEach(() => {
     mockVirtualizerDOM();
     mockUseNavigateSendPage.mockReturnValue({
@@ -120,29 +116,24 @@ describe('AssetList', () => {
     jest.clearAllMocks();
   });
 
-  it('renders tokens and nfts when available', () => {
-    const { getAllByTestId, getByText } = render(
+  it('renders tokens when available', () => {
+    const { getAllByTestId } = render(
       <AssetList
         tokens={mockTokens}
-        nfts={mockNfts}
         allTokens={mockTokens}
-        allNfts={mockNfts}
         onClearFilters={mockOnClearFilters}
       />,
     );
 
     const assetComponents = getAllByTestId('asset-component');
-    expect(assetComponents).toHaveLength(3);
-    expect(getByText(messages.nfts.message)).toBeInTheDocument();
+    expect(assetComponents).toHaveLength(2);
   });
 
   it('renders only tokens when no nfts', () => {
     const { getAllByTestId, queryByText } = render(
       <AssetList
         tokens={mockTokens}
-        nfts={[]}
         allTokens={mockTokens}
-        allNfts={[]}
         onClearFilters={mockOnClearFilters}
       />,
     );
@@ -156,9 +147,7 @@ describe('AssetList', () => {
     const { getByText } = render(
       <AssetList
         tokens={[]}
-        nfts={[]}
         allTokens={mockTokens}
-        allNfts={mockNfts}
         emptyStateMessage={messages.noTokensMatchSearch.message}
       />,
     );
@@ -170,9 +159,7 @@ describe('AssetList', () => {
     const { getByText, getByTestId } = render(
       <AssetList
         tokens={[]}
-        nfts={[]}
         allTokens={mockTokens}
-        allNfts={mockNfts}
         onClearFilters={mockOnClearFilters}
       />,
     );
@@ -183,12 +170,7 @@ describe('AssetList', () => {
 
   it('does not render clear filters button when onClearFilters not provided', () => {
     const { getByText, queryByTestId } = render(
-      <AssetList
-        tokens={[]}
-        nfts={[]}
-        allTokens={mockTokens}
-        allNfts={mockNfts}
-      />,
+      <AssetList tokens={[]} allTokens={mockTokens} />,
     );
 
     expect(getByText('noTokensMatchingYourFilters')).toBeInTheDocument();
@@ -199,9 +181,7 @@ describe('AssetList', () => {
     const { getByTestId } = render(
       <AssetList
         tokens={[]}
-        nfts={[]}
         allTokens={mockTokens}
-        allNfts={mockNfts}
         onClearFilters={mockOnClearFilters}
       />,
     );
@@ -215,9 +195,7 @@ describe('AssetList', () => {
     const { getAllByTestId } = render(
       <AssetList
         tokens={mockTokens}
-        nfts={[]}
         allTokens={mockTokens}
-        allNfts={[]}
         onClearFilters={mockOnClearFilters}
       />,
     );
@@ -234,9 +212,7 @@ describe('AssetList', () => {
     const { container } = render(
       <AssetList
         tokens={[]}
-        nfts={[]}
         allTokens={[]}
-        allNfts={[]}
         onClearFilters={mockOnClearFilters}
       />,
     );
@@ -248,9 +224,7 @@ describe('AssetList', () => {
     const { getByText } = render(
       <AssetList
         tokens={[]}
-        nfts={[]}
         allTokens={[]}
-        allNfts={[]}
         emptyStateMessage={messages.rampsNoTokensAvailable.message}
       />,
     );
@@ -272,9 +246,7 @@ describe('AssetList', () => {
     const { getAllByTestId } = render(
       <AssetList
         tokens={[disabledToken]}
-        nfts={[]}
         allTokens={[disabledToken]}
-        allNfts={[]}
         onAssetSelect={mockOnAssetSelect}
       />,
     );
@@ -284,79 +256,13 @@ describe('AssetList', () => {
     expect(mockOnAssetSelect).not.toHaveBeenCalled();
   });
 
-  describe('hideNfts', () => {
-    it('hides NFTs section when hideNfts is true', () => {
-      const { getAllByTestId, queryByText } = render(
-        <AssetList
-          tokens={mockTokens}
-          nfts={mockNfts}
-          allTokens={mockTokens}
-          allNfts={mockNfts}
-          hideNfts={true}
-        />,
-      );
-
-      const assetComponents = getAllByTestId('asset-component');
-      expect(assetComponents).toHaveLength(2);
-      expect(queryByText(messages.nfts.message)).not.toBeInTheDocument();
-    });
-
-    it('shows NFTs section when hideNfts is false', () => {
-      const { getAllByTestId, getByText } = render(
-        <AssetList
-          tokens={mockTokens}
-          nfts={mockNfts}
-          allTokens={mockTokens}
-          allNfts={mockNfts}
-          hideNfts={false}
-        />,
-      );
-
-      const assetComponents = getAllByTestId('asset-component');
-      expect(assetComponents).toHaveLength(3);
-      expect(getByText(messages.nfts.message)).toBeInTheDocument();
-    });
-
-    it('renders empty when hideNfts is true and only NFTs exist', () => {
-      const { container } = render(
-        <AssetList
-          tokens={[]}
-          nfts={mockNfts}
-          allTokens={[]}
-          allNfts={mockNfts}
-          hideNfts={true}
-        />,
-      );
-
-      expect(container.firstChild).toBeNull();
-    });
-
-    it('does not show no results message when hideNfts excludes all assets', () => {
-      const { queryByText } = render(
-        <AssetList
-          tokens={[]}
-          nfts={mockNfts}
-          allTokens={[]}
-          allNfts={mockNfts}
-          hideNfts={true}
-        />,
-      );
-
-      expect(
-        queryByText('noTokensMatchingYourFilters'),
-      ).not.toBeInTheDocument();
-    });
-  });
-
   describe('onAssetSelect', () => {
     it('calls only onAssetSelect when provided', () => {
       const mockOnAssetSelect = jest.fn();
       const { getAllByTestId } = render(
         <AssetList
           tokens={mockTokens}
-          nfts={[]}
           allTokens={mockTokens}
-          allNfts={[]}
           onAssetSelect={mockOnAssetSelect}
         />,
       );
@@ -392,9 +298,7 @@ describe('AssetList', () => {
           },
           <AssetList
             tokens={mockTokens}
-            nfts={[]}
             allTokens={mockTokens}
-            allNfts={[]}
             onAssetSelect={mockOnAssetSelect}
           />,
         ),
@@ -410,12 +314,7 @@ describe('AssetList', () => {
 
     it('calls default handlers when onAssetSelect is not provided', () => {
       const { getAllByTestId } = render(
-        <AssetList
-          tokens={mockTokens}
-          nfts={[]}
-          allTokens={mockTokens}
-          allNfts={[]}
-        />,
+        <AssetList tokens={mockTokens} allTokens={mockTokens} />,
       );
 
       const assetComponents = getAllByTestId('asset-component');
@@ -441,9 +340,7 @@ describe('AssetList', () => {
     });
 
     it('looks up security results using normalised caip asset ids', () => {
-      render(
-        <AssetList tokens={tokens} nfts={[]} allTokens={tokens} allNfts={[]} />,
-      );
+      render(<AssetList tokens={tokens} allTokens={tokens} />);
 
       expect(mockUseTokenAssetSecurityResults).toHaveBeenCalledWith({
         assetIds: [usdcAssetId],
@@ -456,7 +353,7 @@ describe('AssetList', () => {
       });
 
       const { getByTestId } = render(
-        <AssetList tokens={tokens} nfts={[]} allTokens={tokens} allNfts={[]} />,
+        <AssetList tokens={tokens} allTokens={tokens} />,
       );
 
       expect(getByTestId('asset-component')).toHaveAttribute(
@@ -467,7 +364,7 @@ describe('AssetList', () => {
 
     it('leaves the security result unset for tokens without a result', () => {
       const { getByTestId } = render(
-        <AssetList tokens={tokens} nfts={[]} allTokens={tokens} allNfts={[]} />,
+        <AssetList tokens={tokens} allTokens={tokens} />,
       );
 
       expect(getByTestId('asset-component')).not.toHaveAttribute(
@@ -476,14 +373,7 @@ describe('AssetList', () => {
     });
 
     it('skips tokens whose chain id is not a hex or caip chain id', () => {
-      render(
-        <AssetList
-          tokens={mockTokens}
-          nfts={[]}
-          allTokens={mockTokens}
-          allNfts={[]}
-        />,
-      );
+      render(<AssetList tokens={mockTokens} allTokens={mockTokens} />);
 
       expect(mockUseTokenAssetSecurityResults).toHaveBeenCalledWith({
         assetIds: [],

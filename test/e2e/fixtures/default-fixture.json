@@ -965,11 +965,6 @@
         }
       ]
     },
-    "NftController": {
-      "allNftContracts": {},
-      "allNfts": {},
-      "ignoredNfts": []
-    },
     "NotificationServicesController": {
       "isFeatureAnnouncementsEnabled": true,
       "isMetamaskNotificationsFeatureSeen": true,
@@ -1024,7 +1019,6 @@
       "knownMethodData": {},
       "ledgerTransportType": "webhid",
       "manageInstitutionalWallets": false,
-      "openSeaEnabled": true,
       "overrideContentSecurityPolicyHeader": true,
       "preferences": {
         "avatarType": "maskicon",
@@ -1071,7 +1065,6 @@
       "useExternalNameSources": true,
       "useExternalServices": true,
       "useMultiAccountBalanceChecker": true,
-      "useNftDetection": true,
       "usePhishDetect": true,
       "useSafeChainsListValidation": true,
       "useTokenDetection": true,

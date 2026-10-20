@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Box, BoxJustifyContent } from '@metamask/design-system-react';
@@ -18,7 +12,6 @@ import { getMultichainAccountAddressListReceivePagePath } from '../../multichain
 import useBridging from '../../../hooks/bridge/useBridging';
 
 import { INVALID_ASSET_TYPE } from '../../../helpers/constants/error-keys';
-import { showModal } from '../../../store/actions';
 import { useDispatch } from '../../../store/hooks';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { showBuyTabOpenedToast } from '../../../helpers/utils/show-buy-tab-opened-toast';
@@ -73,7 +66,7 @@ const TokenButtons = ({
   const isCtaGateReady = useAssetPageSecurityTrustCtaGateReady();
   const isEvm = isEvmChainId(token.chainId);
   const shouldShowSendButton = Boolean(
-    token.balance?.value && token.balance.value !== '0',
+    !token.isERC721 && token.balance?.value && token.balance.value !== '0',
   );
 
   const currentChainId = token.chainId;
@@ -99,17 +92,6 @@ const TokenButtons = ({
     onClickOutside: () => setIsMoreOptionsDropdownOpen(false),
     active: isMoreOptionsDropdownOpen,
   });
-
-  useEffect(() => {
-    if (token.isERC721) {
-      dispatch(
-        showModal({
-          name: 'CONVERT_TOKEN_TO_NFT',
-          tokenAddress: token.address,
-        }),
-      );
-    }
-  }, [token.isERC721, token.address, dispatch]);
 
   const handleBuyAndSellOnClick = useCallback(async () => {
     const runBuy = async () => {

@@ -332,16 +332,6 @@ export type AppStateControllerSetTrezorModelAction = {
   handler: AppStateController['setTrezorModel'];
 };
 
-/**
- * A setter for the `nftsDropdownState` property
- *
- * @param nftsDropdownState
- */
-export type AppStateControllerUpdateNftDropDownStateAction = {
-  type: `AppStateController:updateNftDropDownState`;
-  handler: AppStateController['updateNftDropDownState'];
-};
-
 export type AppStateControllerGetSignatureSecurityAlertResponseAction = {
   type: `AppStateController:getSignatureSecurityAlertResponse`;
   handler: AppStateController['getSignatureSecurityAlertResponse'];
@@ -584,7 +574,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerSetProductTourAction
   | AppStateControllerSetCurrentExtensionPopupIdAction
   | AppStateControllerSetTrezorModelAction
-  | AppStateControllerUpdateNftDropDownStateAction
   | AppStateControllerGetSignatureSecurityAlertResponseAction
   | AppStateControllerAddSignatureSecurityAlertResponseAction
   | AppStateControllerSetCurrentPopupIdAction

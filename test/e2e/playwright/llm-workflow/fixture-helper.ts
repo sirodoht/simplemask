@@ -129,14 +129,6 @@ export function createFixturePresets(options: FixtureBuildOptions = {}) {
         .build();
     },
 
-    withNFTs: (): FixtureData => {
-      const builder = createFixtureBuilder();
-      if (options.anvilPort) {
-        applyAnvilPort(builder, options.anvilPort);
-      }
-      return builder.withNftControllerERC721().build();
-    },
-
     withFiatDisabled: (): FixtureData => {
       const builder = createFixtureBuilder();
       if (options.anvilPort) {

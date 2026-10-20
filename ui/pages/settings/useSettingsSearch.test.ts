@@ -116,7 +116,7 @@ jest.mock('./search-config', () => ({
       subPages: [
         {
           path: '/settings/privacy/third-party-apis',
-          items: [{ id: 'autodetect-nfts', titleKey: 'useNftDetection' }],
+          items: [{ id: 'network-details-check', titleKey: 'useNftDetection' }],
         },
       ],
     },
@@ -257,14 +257,14 @@ describe('useSettingsSearch', () => {
       wrapper: createWrapper(),
     });
 
-    const autodetectNfts = result.current.find(
+    const networkDetailsCheck = result.current.find(
       (item) =>
-        item.settingId === 'autodetect-nfts' &&
+        item.settingId === 'network-details-check' &&
         item.tabRoute === '/settings/privacy/third-party-apis',
     );
-    expect(autodetectNfts).toEqual(
+    expect(networkDetailsCheck).toEqual(
       expect.objectContaining({
-        settingId: 'autodetect-nfts',
+        settingId: 'network-details-check',
         parentTabLabelKey: 'privacy',
         tabRoute: '/settings/privacy/third-party-apis',
       }),

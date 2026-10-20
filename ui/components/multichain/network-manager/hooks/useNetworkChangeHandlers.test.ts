@@ -35,7 +35,6 @@ jest.mock('../../../../hooks/useAnalytics', () => ({
 }));
 
 jest.mock('../../../../store/actions', () => ({
-  detectNfts: jest.fn(() => ({ type: 'DETECT_NFTS' })),
   setActiveNetwork: jest.fn((id: string) => ({
     type: 'SET_ACTIVE_NETWORK',
     id,

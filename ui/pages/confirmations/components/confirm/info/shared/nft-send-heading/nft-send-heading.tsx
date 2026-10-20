@@ -1,4 +1,3 @@
-import { Nft } from '@metamask/assets-controllers';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import {
   Box,
@@ -10,13 +9,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../../../../../shared/constants/network';
 import { getNetworkConfigurationsByChainId } from '../../../../../../../../shared/lib/selectors/networks';
-import { isEqualCaseInsensitive } from '../../../../../../../../shared/lib/string-utils';
 import { NftItem } from '../../../../../../../components/multichain/nft-item';
-import { getNFTsByChainId } from '../../../../../../../ducks/metamask/metamask';
-import {
-  getNftImage,
-  getNftImageAlt,
-} from '../../../../../../../helpers/utils/nfts';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { useAssetDetails } from '../../../../../hooks/useAssetDetails';
 import { useNftImageUrl } from '../../../../../hooks/useNftImageUrl';
@@ -49,22 +42,9 @@ const NFTSendHeading = () => {
   // Attempt to fetch image and name from tokenURI
   const { image: imageFromTokenURI, name: nameFromTokenURI } =
     useFetchNftDetailsFromTokenURI(tokenURI);
-  const nfts: Nft[] = useSelector((state) =>
-    getNFTsByChainId(state, chainId),
-  ) as Nft[];
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);
-  const nft: Nft | undefined =
-    assetTokenId &&
-    nfts.find(
-      ({ address, tokenId }: Nft) =>
-        isEqualCaseInsensitive(address, tokenAddress as string) &&
-        assetTokenId === tokenId.toString(),
-    );
-  const imageOriginal = (nft as Nft | undefined)?.imageOriginal;
-  const image = getNftImage((nft as Nft | undefined)?.image);
-  const nftImageAlt = nft ? getNftImageAlt(nft) : '';
-  const nftSrcUrl = imageOriginal ?? (image || imageFromTokenURI || '');
-  const isIpfsURL = nftSrcUrl?.startsWith('ipfs:');
+  const nftImageAlt = assetName || nameFromTokenURI || '';
+  const isIpfsURL = (tokenImage || imageFromTokenURI || '').startsWith('ipfs:');
   const currentChain = networkConfigurations[chainId];
   const tokenIdDisplay =
     assetTokenId && `#${generateTokenIdDisplay(assetTokenId)}`;

@@ -11,12 +11,7 @@ import {
   ApprovalControllerAcceptRequestAction,
   ApprovalControllerAddRequestAction,
 } from '@metamask/approval-controller';
-import {
-  DeferredPromise,
-  Hex,
-  Json,
-  createDeferredPromise,
-} from '@metamask/utils';
+import { DeferredPromise, Hex, createDeferredPromise } from '@metamask/utils';
 import type { QrScanRequest, SerializedUR } from '@metamask/eth-qr-keyring';
 import type { Messenger } from '@metamask/messenger';
 import { Browser } from 'webextension-polyfill';
@@ -123,7 +118,6 @@ export type AppStateControllerState = {
   newPrivacyPolicyToastShownDate: number | null;
   arcUsageNoticeShown: boolean;
   pna25Acknowledged: boolean;
-  nftsDropdownState: Json;
   notificationGasPollTokens: string[];
   onboardingDate: number | null;
   outdatedBrowserWarningLastShown: number | null;
@@ -259,7 +253,6 @@ type PollingTokenType =
 type AppStateControllerInitState = Partial<
   Omit<
     AppStateControllerState,
-    | 'nftsDropdownState'
     | 'signatureSecurityAlertResponses'
     | 'addressSecurityAlertResponses'
     | 'currentExtensionPopupId'
@@ -333,7 +326,6 @@ function getInitialStateOverrides() {
   return {
     addressSecurityAlertResponses: {},
     currentExtensionPopupId: 0,
-    nftsDropdownState: {},
     signatureSecurityAlertResponses: {},
   };
 }
@@ -458,12 +450,6 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
   pna25Acknowledged: {
     includeInStateLogs: true,
     persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  nftsDropdownState: {
-    includeInStateLogs: true,
-    persist: false,
     includeInDebugSnapshot: true,
     usedInUi: true,
   },
@@ -736,7 +722,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'setTermsOfUseLastAgreed',
   'setTrezorModel',
   'setUpdateModalLastDismissedAt',
-  'updateNftDropDownState',
   'updateThrottledOriginState',
 ] as const;
 
@@ -1332,18 +1317,6 @@ export class AppStateController extends BaseController<
   setTrezorModel(trezorModel: string | null): void {
     this.update((state) => {
       state.trezorModel = trezorModel;
-    });
-  }
-
-  /**
-   * A setter for the `nftsDropdownState` property
-   *
-   * @param nftsDropdownState
-   */
-  updateNftDropDownState(nftsDropdownState: Json): void {
-    this.update((state) => {
-      const appState = state as unknown as AppStateControllerState;
-      appState.nftsDropdownState = nftsDropdownState;
     });
   }
 

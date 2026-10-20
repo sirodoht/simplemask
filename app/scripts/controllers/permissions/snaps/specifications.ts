@@ -82,14 +82,12 @@ export function getSnapPermissionSpecifications(
 
           const {
             currentLocale: locale,
-            openSeaEnabled,
             preferences: { privacyMode, showTestNetworks },
             securityAlertsEnabled,
             useCurrencyRateCheck,
             useTransactionSimulations,
             useTokenDetection,
             useMultiAccountBalanceChecker,
-            useNftDetection,
           } = messenger.call('PreferencesController:getState');
 
           return {
@@ -101,8 +99,8 @@ export function getSnapPermissionSpecifications(
             simulateOnChainActions: useTransactionSimulations,
             useTokenDetection,
             batchCheckBalances: useMultiAccountBalanceChecker,
-            displayNftMedia: openSeaEnabled,
-            useNftDetection,
+            displayNftMedia: false,
+            useNftDetection: false,
             showTestnets: showTestNetworks,
           };
         },

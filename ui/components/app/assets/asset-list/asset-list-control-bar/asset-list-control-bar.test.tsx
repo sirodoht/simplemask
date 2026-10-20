@@ -10,7 +10,6 @@ import mockState from '../../../../../../test/data/mock-state.json';
 import * as actions from '../../../../../store/actions';
 import { setBackgroundConnection } from '../../../../../store/background-connection';
 import {
-  ASSETS_ROUTE,
   NETWORKS_ROUTE,
   TOKEN_MANAGEMENT_ROUTE,
 } from '../../../../../helpers/constants/routes';
@@ -129,131 +128,9 @@ const selectSolanaAccount = (state: ReturnType<typeof createMockState>) => {
   state.metamask.completedOnboarding = true;
 };
 
-describe('NFTs options', () => {
+describe('AssetListControlBar', () => {
   afterEach(() => {
     jest.clearAllMocks();
-  });
-
-  it('renders a link "Refresh list" when some NFTs are present on mainnet and NFT auto-detection preference is set to true, which, when clicked calls methods DetectNFTs and checkAndUpdateNftsOwnershipStatus', async () => {
-    const detectNftsSpy = jest.spyOn(actions, 'detectNfts');
-    const checkAndUpdateAllNftsOwnershipStatusSpy = jest.spyOn(
-      actions,
-      'checkAndUpdateAllNftsOwnershipStatus',
-    );
-
-    const state = createMockState();
-    const store = configureMockStore([thunk])(state);
-
-    const { findByTestId } = renderWithProvider(<AssetListControlBar />, store);
-
-    const sortButton = await findByTestId('sort-by-popover-toggle');
-    let tooltipWrapper = sortButton.closest('[data-testid="tooltip"]');
-    expect(tooltipWrapper).toHaveAttribute('data-disabled', 'false');
-
-    fireEvent.click(sortButton);
-
-    tooltipWrapper = sortButton.closest('[data-testid="tooltip"]');
-    expect(tooltipWrapper).toHaveAttribute('data-disabled', 'true');
-
-    const actionButton = await findByTestId(
-      'asset-list-control-bar-action-button',
-    );
-    fireEvent.click(actionButton);
-
-    const refreshButton = await findByTestId('refresh-list-button__button');
-
-    expect(detectNftsSpy).not.toHaveBeenCalled();
-    expect(checkAndUpdateAllNftsOwnershipStatusSpy).not.toHaveBeenCalled();
-    expect(refreshButton).toBeInTheDocument();
-
-    fireEvent.click(refreshButton);
-
-    expect(detectNftsSpy).toHaveBeenCalled();
-    expect(checkAndUpdateAllNftsOwnershipStatusSpy).toHaveBeenCalled();
-  });
-
-  it('should render a link "Refresh list" when some NFTs are present on a non-mainnet chain, which, when clicked calls a method checkAndUpdateNftsOwnershipStatus', async () => {
-    const detectNftsSpy = jest.spyOn(actions, 'detectNfts');
-    const checkAndUpdateAllNftsOwnershipStatusSpy = jest.spyOn(
-      actions,
-      'checkAndUpdateAllNftsOwnershipStatus',
-    );
-
-    const state = createMockState();
-    state.metamask.networkConfigurationsByChainId = {
-      '0xe708': {
-        chainId: '0xe708',
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [
-          {
-            networkClientId: 'selectedNetworkClientId',
-          },
-        ],
-      } as unknown as NetworkConfiguration,
-    };
-    const store = configureMockStore([thunk])(state);
-
-    const { findByTestId } = renderWithProvider(<AssetListControlBar />, store);
-
-    const actionButton = await findByTestId(
-      'asset-list-control-bar-action-button',
-    );
-    fireEvent.click(actionButton);
-
-    const refreshButton = await findByTestId('refresh-list-button__button');
-
-    expect(detectNftsSpy).not.toHaveBeenCalled();
-    expect(checkAndUpdateAllNftsOwnershipStatusSpy).not.toHaveBeenCalled();
-    expect(refreshButton).toBeInTheDocument();
-
-    fireEvent.click(refreshButton);
-
-    expect(detectNftsSpy).toHaveBeenCalled();
-    expect(checkAndUpdateAllNftsOwnershipStatusSpy).toHaveBeenCalled();
-  });
-
-  it('should render a link "Enable autodetect" when some NFTs are present and NFT auto-detection preference is set to false, which, when clicked sends user to the experimental tab of settings', async () => {
-    const detectNftsSpy = jest.spyOn(actions, 'detectNfts');
-    const checkAndUpdateAllNftsOwnershipStatusSpy = jest.spyOn(
-      actions,
-      'checkAndUpdateAllNftsOwnershipStatus',
-    );
-
-    const state = createMockState();
-    // Override for disabled NFT detection and non-mainnet
-    state.metamask.useNftDetection = false;
-    state.metamask.networkConfigurationsByChainId = {
-      '0xe708': {
-        chainId: '0xe708',
-        defaultRpcEndpointIndex: 0,
-        rpcEndpoints: [
-          {
-            networkClientId: 'selectedNetworkClientId',
-          },
-        ],
-      } as unknown as NetworkConfiguration,
-    };
-    const store = configureMockStore([thunk])(state);
-
-    const { findByTestId } = renderWithProvider(<AssetListControlBar />, store);
-
-    const actionButton = await findByTestId(
-      'asset-list-control-bar-action-button',
-    );
-    fireEvent.click(actionButton);
-
-    const autodetectButton = await findByTestId(
-      'enable-autodetect-button__button',
-    );
-
-    expect(detectNftsSpy).not.toHaveBeenCalled();
-    expect(checkAndUpdateAllNftsOwnershipStatusSpy).not.toHaveBeenCalled();
-    expect(autodetectButton).toBeInTheDocument();
-
-    fireEvent.click(autodetectButton);
-    expect(mockUseNavigate).toHaveBeenCalledWith(
-      `${ASSETS_ROUTE}#autodetect-tokens`,
-    );
   });
 
   it('shows Manage tokens instead of Import tokens when the token management feature flag is enabled', async () => {
@@ -543,27 +420,6 @@ describe('NFTs options', () => {
         assetTypes: ['token', 'price', 'metadata'],
       },
     );
-  });
-
-  it('keeps the original NFT overflow menu for non-EVM accounts', async () => {
-    const state = createMockState();
-    selectSolanaAccount(state);
-    const store = configureMockStore([thunk])(state);
-
-    const { findByTestId, queryByTestId } = renderWithProvider(
-      <AssetListControlBar />,
-      store,
-    );
-
-    fireEvent.click(await findByTestId('importTokens-button'));
-
-    expect(queryByTestId('refreshList__button')).not.toBeInTheDocument();
-    expect(queryByTestId('import-nfts')).not.toBeInTheDocument();
-    expect(mockUseNavigate).toHaveBeenCalledWith(TOKEN_MANAGEMENT_ROUTE, {
-      state: {
-        globalMenuTransition: 'forward',
-      },
-    });
   });
 
   it('shows a refresh-only menu when onRefresh is provided and import token button is hidden', async () => {

@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { SettingItemConfig } from '../types';
 import { SettingsTab, createToggleItem } from '../shared';
-import { DisplayNftMediaToggleItem } from '../shared/display-nft-media-item';
-import { AutodetectNftsToggleItem } from '../shared/autodetect-nfts-item';
 import {
   setUse4ByteResolution,
   setUseAddressBarEnsResolution,
@@ -83,12 +81,6 @@ const THIRD_PARTY_APIS_ITEMS: SettingItemConfig[] = [
     id: 'make-smart-contracts-easier',
     component: MakeSmartContractsEasierToggleItem,
   },
-  {
-    id: 'display-nft-media',
-    component: DisplayNftMediaToggleItem,
-    hasDividerBefore: true,
-  },
-  { id: 'autodetect-nfts', component: AutodetectNftsToggleItem },
   {
     id: 'proposed-nicknames',
     component: ProposedNicknamesToggleItem,

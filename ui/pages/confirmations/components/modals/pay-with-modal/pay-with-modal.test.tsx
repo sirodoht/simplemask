@@ -5,7 +5,6 @@ import { renderWithProvider } from '../../../../../../test/lib/render-helpers-na
 import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
 import mockState from '../../../../../../test/data/mock-state.json';
 import configureStore from '../../../../../store/store';
-import { useDispatch } from '../../../../../store/hooks';
 import { useTransactionPayToken } from '../../../hooks/pay/useTransactionPayToken';
 import { useTransactionPayRequiredTokens } from '../../../hooks/pay/useTransactionPayData';
 import { useTransactionPayBlockedTokens } from '../../../hooks/pay/useTransactionPayBlockedTokens';
@@ -59,14 +58,12 @@ jest.mock('../../send/asset', () => ({
   Asset: ({
     onAssetSelect,
     tokenFilter,
-    hideNfts,
     includeNoBalance,
     tagRenderers,
     searchPlaceholder,
   }: {
     onAssetSelect?: (token: Record<string, unknown>) => void;
     tokenFilter?: (tokens: unknown[]) => unknown[];
-    hideNfts?: boolean;
     includeNoBalance?: boolean;
     tagRenderers?: unknown[];
     searchPlaceholder?: string;
@@ -77,7 +74,6 @@ jest.mock('../../send/asset', () => ({
 
     return (
       <div data-testid="asset-component">
-        <span data-testid="hide-nfts">{String(hideNfts)}</span>
         <span data-testid="include-no-balance">{String(includeNoBalance)}</span>
         <span data-testid="has-tag-renderers">
           {String(Boolean(tagRenderers?.length))}
@@ -235,7 +231,6 @@ describe('PayWithModal', () => {
     renderModal({ isOpen: true, onClose: onCloseMock });
 
     expect(screen.getByTestId('asset-component')).toBeInTheDocument();
-    expect(screen.getByTestId('hide-nfts')).toHaveTextContent('true');
     expect(screen.getByTestId('include-no-balance')).toHaveTextContent('true');
     expect(screen.getByTestId('has-tag-renderers')).toHaveTextContent('false');
   });

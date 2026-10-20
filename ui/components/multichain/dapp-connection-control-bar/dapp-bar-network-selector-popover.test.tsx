@@ -37,7 +37,6 @@ const mockAddPermittedChain = jest.fn(
 );
 const mockUpdateCustomNonce = jest.fn(() => ({ type: 'UPDATE_CUSTOM_NONCE' }));
 const mockSetNextNonce = jest.fn(() => ({ type: 'SET_NEXT_NONCE' }));
-const mockDetectNfts = jest.fn((_) => () => Promise.resolve());
 const mockSetTokenNetworkFilter = jest.fn((_) => ({
   type: 'SET_TOKEN_NETWORK_FILTER',
 }));
@@ -51,7 +50,6 @@ jest.mock('../../../store/actions', () => ({
     mockAddPermittedChain(origin, chainId),
   updateCustomNonce: () => mockUpdateCustomNonce(),
   setNextNonce: () => mockSetNextNonce(),
-  detectNfts: (chainIds: string[]) => mockDetectNfts(chainIds),
   setTokenNetworkFilter: (filter: Record<string, boolean>) =>
     mockSetTokenNetworkFilter(filter),
 }));
@@ -318,10 +316,6 @@ describe('DappBarNetworkSelectorPopover', () => {
 
     it('refreshes the next nonce', () => {
       expect(mockSetNextNonce).toHaveBeenCalled();
-    });
-
-    it('detects NFTs across all polled chains', () => {
-      expect(mockDetectNfts).toHaveBeenCalledWith(['0x1', '0x38', '0xaa36a7']);
     });
 
     it('updates the token-network filter to the new chain', () => {

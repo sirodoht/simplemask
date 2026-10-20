@@ -11,14 +11,12 @@ import {
   getRpcDataByChainId,
 } from '../../../../../shared/lib/network.utils';
 import {
-  detectNfts,
   setActiveNetwork,
   setEnabledNetworks,
   setNextNonce,
   updateCustomNonce,
 } from '../../../../store/actions';
 import {
-  getAllChainsToPoll,
   getEnabledNetworksByNamespace,
   getMultichainNetworkConfigurationsByChainId,
   getSelectedMultichainNetworkChainId,
@@ -70,7 +68,6 @@ export const useNetworkChangeHandlers = () => {
   const currentChainId = useSelector(getSelectedMultichainNetworkChainId);
 
   const enabledNetworksByNamespace = useSelector(getEnabledNetworksByNamespace);
-  const allChainIds = useSelector(getAllChainsToPoll);
   const [, evmNetworks] = useSelector(
     getMultichainNetworkConfigurationsByChainId,
   );
@@ -91,9 +88,8 @@ export const useNetworkChangeHandlers = () => {
     setTimeout(() => {
       dispatch(updateCustomNonce(''));
       dispatch(setNextNonce(''));
-      dispatch(detectNfts(allChainIds));
     }, 0);
-  }, [enabledNetworksByNamespace, dispatch, allChainIds]);
+  }, [enabledNetworksByNamespace, dispatch]);
 
   const handleEvmNetworkChange = useCallback(
     async (chainId: CaipChainId) => {

@@ -70,7 +70,6 @@ export const NotificationDetailCollection = ({
         <NftDefaultImage
           className="nft-item__default-image notification-detail-collection__image"
           data-testid="nft-default-image"
-          clickable={false}
         />
       )}
     </BadgeWrapper>

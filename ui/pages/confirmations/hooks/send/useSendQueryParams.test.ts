@@ -2,9 +2,8 @@ import { useSearchParams } from 'react-router-dom';
 import type { SetURLSearchParams } from 'react-router-dom';
 
 import mockState from '../../../../../test/data/mock-state.json';
-import { EVM_ASSET, MOCK_NFT1155 } from '../../../../../test/data/send/assets';
+import { EVM_ASSET } from '../../../../../test/data/send/assets';
 import { renderHookWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { Asset } from '../../types/send';
 import { SendPages } from '../../constants/send';
 import * as SendContext from '../../context/send';
 import { useSendQueryParams } from './useSendQueryParams';
@@ -18,7 +17,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('./useSendAssets', () => {
   return {
-    useSendAssets: jest.fn().mockReturnValue({ tokens: [], nfts: [] }),
+    useSendAssets: jest.fn().mockReturnValue({ tokens: [] }),
   };
 });
 
@@ -34,7 +33,7 @@ describe('useSendQueryParams', () => {
   const useSendAssetsMocked = jest.mocked(useSendAssets);
 
   beforeEach(() => {
-    useSendAssetsMocked.mockReturnValue({ tokens: [], nfts: [] });
+    useSendAssetsMocked.mockReturnValue({ tokens: [] });
   });
 
   afterEach(() => {
@@ -56,7 +55,7 @@ describe('useSendQueryParams', () => {
       chainId: '0x5',
       assetId: EVM_ASSET.address,
     };
-    useSendAssetsMocked.mockReturnValue({ tokens: [token], nfts: [] });
+    useSendAssetsMocked.mockReturnValue({ tokens: [token] });
 
     const mockUpdateAsset = jest.fn();
     jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
@@ -81,39 +80,6 @@ describe('useSendQueryParams', () => {
     expect(mockUpdateAsset).toHaveBeenCalledWith(token);
   });
 
-  it('use nft returned by useSendAssets hook', () => {
-    const nft = {
-      ...MOCK_NFT1155,
-      chainId: '0x5',
-      assetId: MOCK_NFT1155.address,
-    };
-    useSendAssetsMocked.mockReturnValue({ tokens: [], nfts: [nft as Asset] });
-    const mockUpdateAsset = jest.fn();
-    jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
-      updateAsset: mockUpdateAsset,
-      updateCurrentPage: jest.fn(),
-    } as unknown as SendContext.SendContextType);
-    const mockUseSearchParams = jest.mocked(useSearchParams);
-    mockUseSearchParams.mockReturnValue([
-      {
-        get: (param: string) => {
-          if (param === 'asset') {
-            return nft.address;
-          }
-          if (param === 'chainId') {
-            return nft.chainId;
-          }
-          if (param === 'tokenId') {
-            return nft.tokenId;
-          }
-          return undefined;
-        },
-      },
-    ] as unknown as [URLSearchParams, SetURLSearchParams]);
-    renderHook();
-    expect(mockUpdateAsset).toHaveBeenCalledWith(nft);
-  });
-
   it('does not update asset if it is already defined in send context', () => {
     const mockUpdateAsset = jest.fn();
     jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
@@ -131,7 +97,7 @@ describe('useSendQueryParams', () => {
       chainId: '0x5',
       assetId: EVM_ASSET.address,
     };
-    useSendAssetsMocked.mockReturnValue({ tokens: [token], nfts: [] });
+    useSendAssetsMocked.mockReturnValue({ tokens: [token] });
 
     const mockUpdateValue = jest.fn();
     jest.spyOn(SendContext, 'useSendContext').mockReturnValue({

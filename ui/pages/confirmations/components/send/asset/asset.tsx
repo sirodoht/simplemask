@@ -19,7 +19,6 @@ import { type TokenTagRenderer } from '../../UI/asset';
 const noop = () => undefined;
 
 export type AssetProps = {
-  hideNfts?: boolean;
   includeNoBalance?: boolean;
   onAssetSelect?: (asset: AssetType) => void;
   tokenFilter?: (assets: AssetType[]) => AssetType[];
@@ -28,11 +27,6 @@ export type AssetProps = {
    * `useSendAssets`. Useful for catalog-style pickers (e.g. ramps).
    */
   tokens?: AssetType[];
-  /**
-   * Optional NFT list used with `tokens`. Defaults to an empty list when
-   * `tokens` is provided.
-   */
-  nfts?: AssetType[];
   hideBalances?: boolean;
   disableMetrics?: boolean;
   searchPlaceholder?: string;
@@ -51,20 +45,14 @@ export type AssetProps = {
   endRenderers?: TokenTagRenderer[];
 };
 
-type AssetPickerViewProps = Omit<
-  AssetProps,
-  'tokens' | 'nfts' | 'includeNoBalance'
-> & {
+type AssetPickerViewProps = Omit<AssetProps, 'tokens' | 'includeNoBalance'> & {
   tokens: AssetType[];
-  nfts: AssetType[];
 };
 
 const AssetPickerView = ({
-  hideNfts = false,
   onAssetSelect,
   tokenFilter,
   tokens,
-  nfts,
   hideBalances = false,
   disableMetrics = false,
   searchPlaceholder,
@@ -98,19 +86,16 @@ const AssetPickerView = ({
     return tokenFilter ? tokenFilter(tokens) : tokens;
   }, [tokens, tokenFilter]);
 
-  const effectiveNfts = hideNfts ? [] : nfts;
-
-  const { filteredTokens, filteredNfts } = useSendAssetFilter({
+  const { filteredTokens } = useSendAssetFilter({
     tokens: filteredByCustomFilter,
-    nfts: effectiveNfts,
     selectedChainId,
     searchQuery: deferredSearchQuery,
   });
 
   useEffect(() => {
-    const allAssets = [...tokens, ...nfts];
+    const allAssets = tokens;
     setAssetListSize(allAssets.length.toString());
-  }, [tokens, nfts, setAssetListSize]);
+  }, [tokens, setAssetListSize]);
 
   const handleClearFilters = useCallback(() => {
     setSearchQuery('');
@@ -158,18 +143,14 @@ const AssetPickerView = ({
       />
       <NetworkFilter
         tokens={filteredByCustomFilter}
-        nfts={effectiveNfts}
         selectedChainId={selectedChainId}
         onChainIdChange={handleSelectedChainIdChange}
         disableMetrics={disableMetrics}
       />
       <AssetList
         tokens={filteredTokens}
-        nfts={filteredNfts}
         allTokens={filteredByCustomFilter}
-        allNfts={effectiveNfts}
         onClearFilters={handleClearFilters}
-        hideNfts={hideNfts}
         hideBalances={hideBalances}
         onAssetSelect={onAssetSelect}
         emptyStateMessage={emptyStateMessage}
@@ -181,7 +162,7 @@ const AssetPickerView = ({
   );
 };
 
-type SendWalletAssetPickerProps = Omit<AssetProps, 'tokens' | 'nfts'> & {
+type SendWalletAssetPickerProps = Omit<AssetProps, 'tokens'> & {
   includeNoBalance?: boolean;
 };
 
@@ -191,13 +172,7 @@ const SendWalletAssetPicker = ({
 }: SendWalletAssetPickerProps) => {
   const sendAssets = useSendAssets({ includeNoBalance });
 
-  return (
-    <AssetPickerView
-      {...props}
-      tokens={sendAssets.tokens}
-      nfts={sendAssets.nfts}
-    />
-  );
+  return <AssetPickerView {...props} tokens={sendAssets.tokens} />;
 };
 
 type CatalogAssetPickerProps = Omit<
@@ -207,12 +182,8 @@ type CatalogAssetPickerProps = Omit<
   tokens: AssetType[];
 };
 
-const CatalogAssetPicker = ({
-  tokens,
-  nfts,
-  ...props
-}: CatalogAssetPickerProps) => {
-  return <AssetPickerView {...props} tokens={tokens} nfts={nfts ?? []} />;
+const CatalogAssetPicker = ({ tokens, ...props }: CatalogAssetPickerProps) => {
+  return <AssetPickerView {...props} tokens={tokens} />;
 };
 
 /**
@@ -222,9 +193,7 @@ const CatalogAssetPicker = ({
  */
 export const Asset = (props: AssetProps = {}) => {
   if (props.tokens !== undefined) {
-    return (
-      <CatalogAssetPicker {...props} tokens={props.tokens} nfts={props.nfts} />
-    );
+    return <CatalogAssetPicker {...props} tokens={props.tokens} />;
   }
 
   return <SendWalletAssetPicker {...props} />;

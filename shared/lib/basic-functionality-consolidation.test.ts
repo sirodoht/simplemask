@@ -14,8 +14,6 @@ describe('getBasicFunctionalityConsolidationPlan', () => {
     useTokenDetection: true,
     useTransactionSimulations: true,
     use4ByteResolution: true,
-    openSeaEnabled: true,
-    useNftDetection: true,
     useExternalNameSources: true,
     useAddressBarEnsResolution: true,
   };
@@ -30,8 +28,6 @@ describe('getBasicFunctionalityConsolidationPlan', () => {
     useTokenDetection: false,
     useTransactionSimulations: false,
     use4ByteResolution: false,
-    openSeaEnabled: false,
-    useNftDetection: false,
     useExternalNameSources: false,
     useAddressBarEnsResolution: false,
   };

@@ -5,7 +5,6 @@ import { ApprovalFlowState } from '@metamask/approval-controller';
 import { renderHookWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../test/data/mock-state.json';
 import {
-  CONFIRM_ADD_SUGGESTED_NFT_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
@@ -165,7 +164,7 @@ describe('useConfirmationNavigation', () => {
       );
     });
 
-    it('navigates to add NFT route if token ID', () => {
+    it('navigates to token approval even with an extra token ID', () => {
       const result = renderHook(ApprovalType.WatchAsset, {
         asset: { tokenId: '123' },
       });
@@ -174,7 +173,7 @@ describe('useConfirmationNavigation', () => {
 
       expect(mockUseNavigate).toHaveBeenCalledTimes(1);
       expect(mockUseNavigate).toHaveBeenCalledWith(
-        `${CONFIRM_ADD_SUGGESTED_NFT_ROUTE}`,
+        `${CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE}`,
         { replace: true },
       );
     });

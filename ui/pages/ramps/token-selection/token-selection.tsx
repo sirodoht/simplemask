@@ -203,8 +203,6 @@ export function RampsTokenSelectionScreen() {
       >
         <Asset
           tokens={sourceTokens}
-          nfts={[]}
-          hideNfts
           hideBalances
           disableMetrics
           searchPlaceholder={t('enterTokenNameOrAddress')}

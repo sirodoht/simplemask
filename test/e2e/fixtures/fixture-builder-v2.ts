@@ -1,5 +1,4 @@
 import { merge, cloneDeep } from 'lodash';
-import { toHex } from '@metamask/controller-utils';
 import type { CaipAssetType, Hex, Json } from '@metamask/utils';
 import type { AccountsControllerState } from '@metamask/accounts-controller';
 import type { AccountTreeControllerState } from '@metamask/account-tree-controller';
@@ -9,7 +8,6 @@ import type {
   AccountTrackerControllerState,
   CurrencyRateState,
   MultichainAssetsRatesControllerState,
-  NftControllerState,
   RatesControllerState,
   TokenRatesControllerState,
   TokenBalancesControllerState,
@@ -73,7 +71,6 @@ import {
   TREZOR_VAULT,
 } from '../constants';
 import { KNOWN_PUBLIC_KEY_ADDRESSES } from '../../stub/keyring-bridge';
-import { SMART_CONTRACTS } from '../seeder/smart-contracts';
 import defaultFixtureJson from './default-fixture.json';
 import onboardingFixtureJson from './onboarding-fixture.json';
 
@@ -382,11 +379,6 @@ class FixtureBuilderV2 {
     data: Partial<NetworkEnablementControllerState>,
   ): this {
     merge(this.fixture.data.NetworkEnablementController, data);
-    return this;
-  }
-
-  withNftController(data: Partial<NftControllerState>): this {
-    merge(this.fixture.data.NftController, data);
     return this;
   }
 
@@ -1085,74 +1077,6 @@ class FixtureBuilderV2 {
           status: NetworkStatus.Available,
         },
       },
-    });
-  }
-
-  withNftControllerERC1155(): this {
-    return this.withNftController({
-      allNftContracts: {
-        [DEFAULT_FIXTURE_ACCOUNT_LOWERCASE]: {
-          [toHex(1337)]: [
-            {
-              address: `__FIXTURE_SUBSTITUTION__CONTRACT${SMART_CONTRACTS.ERC1155}`,
-            },
-          ],
-        },
-      },
-      allNfts: {
-        [DEFAULT_FIXTURE_ACCOUNT_LOWERCASE]: {
-          [toHex(1337)]: [
-            {
-              address: `__FIXTURE_SUBSTITUTION__CONTRACT${SMART_CONTRACTS.ERC1155}`,
-              tokenId: '1',
-              favorite: false,
-              isCurrentlyOwned: true,
-              name: 'Rocks',
-              description: 'This is a collection of Rock NFTs.',
-              image:
-                'ipfs://bafkreifvhjdf6ve4jfv6qytqtux5nd4nwnelioeiqx5x2ez5yrgrzk7ypi',
-              standard: 'ERC1155',
-              chainId: 1337,
-            },
-          ],
-        },
-      },
-      ignoredNfts: [],
-    });
-  }
-
-  withNftControllerERC721(): this {
-    return this.withNftController({
-      allNftContracts: {
-        [DEFAULT_FIXTURE_ACCOUNT_LOWERCASE]: {
-          [toHex(1337)]: [
-            {
-              address: `__FIXTURE_SUBSTITUTION__CONTRACT${SMART_CONTRACTS.NFTS}`,
-              name: 'TestDappNFTs',
-              symbol: 'TDC',
-            },
-          ],
-        },
-      },
-      allNfts: {
-        [DEFAULT_FIXTURE_ACCOUNT_LOWERCASE]: {
-          [toHex(1337)]: [
-            {
-              address: `__FIXTURE_SUBSTITUTION__CONTRACT${SMART_CONTRACTS.NFTS}`,
-              description: 'Test Dapp NFTs for testing.',
-              favorite: false,
-              image:
-                'data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjM1MCIgd2lkdGg9IjM1MCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdGggaWQ9Ik15UGF0aCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZWQiIGQ9Ik0xMCw5MCBROTAsOTAgOTAsNDUgUTkwLDEwIDUwLDEwIFExMCwxMCAxMCw0MCBRMTAsNzAgNDUsNzAgUTcwLDcwIDc1LDUwIiAvPjwvZGVmcz48dGV4dD48dGV4dFBhdGggaHJlZj0iI015UGF0aCI+UXVpY2sgYnJvd24gZm94IGp1bXBzIG92ZXIgdGhlIGxhenkgZG9nLjwvdGV4dFBhdGg+PC90ZXh0Pjwvc3ZnPg==',
-              isCurrentlyOwned: true,
-              name: 'Test Dapp NFTs #1',
-              standard: 'ERC721',
-              tokenId: '1',
-              chainId: 1337,
-            },
-          ],
-        },
-      },
-      ignoredNfts: [],
     });
   }
 

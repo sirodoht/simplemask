@@ -35,7 +35,6 @@ jest.mock('../../../store/actions', () => ({
   toggleNetworkMenu: () => mockToggleNetworkMenu(),
   updateCustomNonce: () => ({ type: 'UPDATE_CUSTOM_NONCE' }),
   setNextNonce: () => ({ type: 'SET_NEXT_NONCE' }),
-  detectNfts: () => () => Promise.resolve(),
   setTokenNetworkFilter: () => ({ type: 'SET_TOKEN_NETWORK_FILTER' }),
   addPermittedChain: () => () => Promise.resolve(),
   addPermittedAccounts: (origin: string, addresses: string[]) =>

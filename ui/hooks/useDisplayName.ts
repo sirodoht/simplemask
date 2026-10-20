@@ -9,7 +9,6 @@ import {
 } from '../../shared/constants/first-party-contracts';
 import { toChecksumHexAddress } from '../../shared/lib/hexstring-utils';
 import { getDomainResolutions } from '../ducks/domains';
-import { getNftContractsByAddressByChain } from '../selectors/nft';
 import { getTrustSignalIcon, IconProps } from '../helpers/utils/trust-signals';
 import { selectAccountGroupNameByInternalAccount } from '../pages/confirmations/selectors/accounts';
 import { MultichainAccountsState } from '../selectors/multichain-accounts/account-tree.types';
@@ -53,7 +52,6 @@ export function useDisplayNames(
     requests.map((req) => ({ ...req, chainId: req.variation as Hex })),
   );
   const erc20Tokens = useERC20Tokens(requests);
-  const watchedNFTNames = useWatchedNFTNames(requests);
   const ens = useDomainResolutions(requests);
   const accountGroupEntries = useAccountGroupNames(requests, nameEntries);
 
@@ -62,7 +60,6 @@ export function useDisplayNames(
     const firstPartyContractName = firstPartyContractNames[index];
     const trustSignal = trustSignals[index];
     const erc20Token = erc20Tokens[index];
-    const watchedNftName = watchedNFTNames[index];
     const ensName = ens[index];
     const { accountGroupName, walletName } = accountGroupEntries[index];
     const subtitle = walletName;
@@ -72,7 +69,6 @@ export function useDisplayNames(
       nameEntry?.name ||
       firstPartyContractName ||
       erc20Token?.name ||
-      watchedNftName ||
       ensName ||
       null;
 
@@ -151,25 +147,6 @@ function useERC20Tokens(
       return { name, image: image || undefined };
     },
   );
-}
-
-function useWatchedNFTNames(
-  nameRequests: UseDisplayNameRequest[],
-): (string | undefined)[] {
-  const watchedNftNamesByAddressByChain = useSelector(
-    getNftContractsByAddressByChain,
-  );
-
-  return nameRequests.map(({ type, value, variation }) => {
-    if (type !== NameType.ETHEREUM_ADDRESS) {
-      return undefined;
-    }
-
-    const contractAddress = value.toLowerCase();
-    const watchedNftNamesByAddress = watchedNftNamesByAddressByChain[variation];
-
-    return watchedNftNamesByAddress?.[contractAddress]?.name;
-  });
 }
 
 function useDomainResolutions(nameRequests: UseDisplayNameRequest[]) {

@@ -24,7 +24,6 @@ export const FIXTURES_PREFERENCES = {
   optedIn: true,
   optedInToMarketing: true,
   marketingConsentDecisionMade: true,
-  useNftDetection: true,
   usePhishDetect: true,
   useTokenDetection: true,
   useCurrencyRateCheck: true,

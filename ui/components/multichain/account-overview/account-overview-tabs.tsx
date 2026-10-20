@@ -14,17 +14,11 @@ import { useTabState } from '../../../hooks/useTabState';
 import { useSafeChains } from '../networks-form/use-safe-chains';
 import {
   getDefaultHomeActiveTabName,
-  getEnabledChainIds,
   getIsDefiPositionsEnabled,
 } from '../../../selectors';
-import {
-  detectNfts,
-  setDefaultHomeActiveTabName,
-} from '../../../store/actions';
-import { useDispatch } from '../../../store/hooks';
+import { setDefaultHomeActiveTabName } from '../../../store/actions';
 import AssetList from '../../app/assets/asset-list';
 import DeFiTab from '../../app/assets/defi-list/defi-tab';
-import NftsTab from '../../app/assets/nfts/nfts-tab';
 import { Tab, Tabs } from '../../ui/tabs';
 import { useBottomNavBar } from '../../../hooks/useBottomNavBar';
 import { ActivityList } from '../../../pages/activity/activity-list';
@@ -36,7 +30,6 @@ import { AccountOverviewCommonProps } from './common';
 export type AccountOverviewTabsProps = AccountOverviewCommonProps & {
   showTokensLinks?: boolean;
   showTokens?: boolean;
-  showNfts?: boolean;
   showDefi?: boolean;
   showActivity?: boolean;
 };
@@ -44,7 +37,6 @@ export type AccountOverviewTabsProps = AccountOverviewCommonProps & {
 export const AccountOverviewTabs = ({
   showTokensLinks,
   showTokens = true,
-  showNfts = true,
   showDefi = true,
   showActivity = true,
 }: AccountOverviewTabsProps) => {
@@ -66,8 +58,6 @@ export const AccountOverviewTabs = ({
   );
 
   const t = useI18nContext();
-  const dispatch = useDispatch();
-  const selectedChainIds = useSelector(getEnabledChainIds);
   const prefetchTransactions = usePrefetchTransactions();
   const defiPositionsEnabled = useSelector(getIsDefiPositionsEnabled);
   const showBottomNav = useBottomNavBar();
@@ -88,17 +78,13 @@ export const AccountOverviewTabs = ({
 
       setTabEntryPoint(ScreenViewedEntryPoint.SubtabClick);
       setActiveTabKey(tabName);
-
-      if (tabName === AccountOverviewTabKey.Nfts) {
-        dispatch(detectNfts(selectedChainIds));
-      }
       if (tabName in ACCOUNT_OVERVIEW_TAB_KEY_TO_TRACE_NAME_MAP) {
         trace({
           name: ACCOUNT_OVERVIEW_TAB_KEY_TO_TRACE_NAME_MAP[tabName],
         });
       }
     },
-    [activeTabKey, setActiveTabKey, dispatch, selectedChainIds],
+    [activeTabKey, setActiveTabKey],
   );
 
   const onClickAsset = useCallback(
@@ -163,18 +149,6 @@ export const AccountOverviewTabs = ({
                 safeChains={safeChains}
                 entryPoint={tabEntryPoint}
               />
-            </ErrorBoundary>
-          </Tab>
-        )}
-
-        {showNfts && (
-          <Tab
-            name={t('nfts')}
-            tabKey={AccountOverviewTabKey.Nfts}
-            data-testid="account-overview__nfts-tab"
-          >
-            <ErrorBoundary key="nfts">
-              <NftsTab entryPoint={tabEntryPoint} />
             </ErrorBoundary>
           </Tab>
         )}

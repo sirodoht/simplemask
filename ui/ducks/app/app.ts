@@ -40,13 +40,6 @@ type AppState = {
     values?: { address?: string | null };
   } | null;
   networkDropdownOpen: boolean;
-  importNftsModal: {
-    open: boolean;
-    tokenAddress?: string;
-    tokenId?: string;
-    ignoreErc20Token?: boolean;
-  };
-  showIpfsModalOpen: boolean;
   showSupportDataConsentModal: boolean;
   keyringRemovalSnapModal: {
     snapName: string;
@@ -58,7 +51,6 @@ type AppState = {
     privateKey?: string;
   };
   isLoading: boolean;
-  isNftStillFetchingIndication: boolean;
   loadingMessage: string | null;
 
   defaultHdPaths: {
@@ -148,8 +140,6 @@ const initialState: AppState = {
   alertMessage: null,
   qrCodeData: null,
   networkDropdownOpen: false,
-  importNftsModal: { open: false },
-  showIpfsModalOpen: false,
   showBasicFunctionalityModal: false,
   externalServicesOnboardingToggleState: true,
   backupAndSyncOnboardingToggleState: true,
@@ -164,8 +154,6 @@ const initialState: AppState = {
   },
   // Used to display loading indicator
   isLoading: false,
-  // Used to show a spinner at the bottom of the page when we are still fetching nfts
-  isNftStillFetchingIndication: false,
   loadingMessage: null,
   defaultHdPaths: {
     trezor: `m/44'/60'/0'/0`,
@@ -260,23 +248,6 @@ export default function reduceApp(
         networkDropdownOpen: false,
       };
 
-    case actionConstants.IMPORT_NFTS_MODAL_OPEN:
-      return {
-        ...appState,
-        importNftsModal: {
-          open: true,
-          ...action.payload,
-        },
-      };
-
-    case actionConstants.IMPORT_NFTS_MODAL_CLOSE:
-      return {
-        ...appState,
-        importNftsModal: {
-          open: false,
-        },
-      };
-
     case actionConstants.SHOW_BASIC_FUNCTIONALITY_MODAL_OPEN:
       return {
         ...appState,
@@ -309,18 +280,6 @@ export default function reduceApp(
       return {
         ...appState,
         backupAndSyncOnboardingToggleState: false,
-      };
-
-    case actionConstants.SHOW_IPFS_MODAL_OPEN:
-      return {
-        ...appState,
-        showIpfsModalOpen: true,
-      };
-
-    case actionConstants.SHOW_IPFS_MODAL_CLOSE:
-      return {
-        ...appState,
-        showIpfsModalOpen: false,
       };
 
     case actionConstants.DEPRECATED_NETWORK_POPOVER_OPEN:
@@ -459,18 +418,6 @@ export default function reduceApp(
       return {
         ...appState,
         isLoading: false,
-      };
-
-    case actionConstants.SHOW_NFT_STILL_FETCHING_INDICATION:
-      return {
-        ...appState,
-        isNftStillFetchingIndication: true,
-      };
-
-    case actionConstants.HIDE_NFT_STILL_FETCHING_INDICATION:
-      return {
-        ...appState,
-        isNftStillFetchingIndication: false,
       };
 
     case actionConstants.SHOW_PRIVATE_KEY:

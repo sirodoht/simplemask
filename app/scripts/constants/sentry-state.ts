@@ -91,7 +91,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
     // eslint-disable-next-line @typescript-eslint/naming-convention
     hadAdvancedGasFeesSetPriorToMigration92_3: true,
-    nftsDropdownState: true,
     notificationGasPollTokens: true,
     outdatedBrowserWarningLastShown: true,
     popupGasPollTokens: true,
@@ -225,11 +224,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     networksMetadata: true,
     selectedNetworkClientId: false,
   },
-  NftController: {
-    allNftContracts: false,
-    allNfts: false,
-    ignoredNfts: false,
-  },
   OnboardingController: {
     completedOnboarding: true,
     firstTimeFlowType: true,
@@ -265,7 +259,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     ipfsGateway: false,
     knownMethodData: false,
     ledgerTransportType: true,
-    openSeaEnabled: true,
     preferences: {
       autoLockTimeLimit: true,
       hideZeroBalanceTokens: true,
@@ -288,7 +281,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     useAddressBarEnsResolution: true,
     useCurrencyRateCheck: true,
     useMultiAccountBalanceChecker: true,
-    useNftDetection: true,
     usePhishDetect: true,
     useTokenDetection: true,
     useTransactionSimulations: true,

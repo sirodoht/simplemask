@@ -17,9 +17,7 @@ import Alerts from '../../components/app/alerts';
 import {
   ASSET_DETAILS_ROUTE,
   ASSET_SECURITY_TRUST_ROUTE,
-  ASSET_IMAGE_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
-  CONFIRM_ADD_SUGGESTED_NFT_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
   CONNECT_ROUTE,
   DEFAULT_ROUTE,
@@ -62,7 +60,6 @@ import {
   TOKEN_MANAGEMENT_ROUTE,
   DISCOVER_SEARCH_ROUTE,
   CUSTOM_TOKEN_IMPORT_ROUTE,
-  IMPORT_NFTS_ROUTE,
   SHIELD_PLAN_ROUTE,
   GATOR_PERMISSIONS,
   TOKEN_TRANSFER_DETAILS_ROUTE,
@@ -97,7 +94,6 @@ import { useTheme } from '../../hooks/useTheme';
 import { useIsRedesignedConfirmationType } from '../../hooks/useIsRedesignedTransactionType';
 
 import {
-  hideIpfsModal,
   setCurrentCurrency,
   setLastActiveTime,
   hideDeprecatedNetworkModal,
@@ -116,7 +112,6 @@ import {
 } from '../../../shared/constants/app';
 import { getEnvironmentType } from '../../../shared/lib/environment-type';
 import QRHardwarePopover from '../../components/app/qr-hardware-popover';
-import { ToggleIpfsModal } from '../../components/app/assets/nfts/nft-default-image/toggle-ipfs-modal';
 import { BasicConfigurationModal } from '../../components/app/basic-configuration-modal';
 import { BasicFunctionalityMigrationModal } from '../../components/app/basic-functionality-migration-modal';
 import KeyringSnapRemovalResult from '../../components/app/modals/keyring-snap-removal-modal';
@@ -183,7 +178,6 @@ const DiscoverSearchPage = mmLazy(() => import('../discover-search/index.ts'));
 const CustomTokenImportPage = mmLazy(
   () => import('../custom-token-import/index.ts'),
 );
-const ImportNftsPage = mmLazy(() => import('../import-nfts/index.ts'));
 const NotificationDetails = mmLazy(
   () => import('../notification-details/index.js'),
 );
@@ -208,18 +202,11 @@ const PermissionsConnect = mmLazy(
 const ConfirmAddSuggestedTokenPage = mmLazy(
   () => import('../confirm-add-suggested-token/index.js'),
 );
-const ConfirmAddSuggestedNftPage = mmLazy(
-  () => import('../confirm-add-suggested-nft/index.js'),
-);
 const ConfirmationPage = mmLazy(
   () => import('../confirmations/confirmation/index.js'),
 );
 const CreateAccountPage = mmLazy(
   () => import('../create-account/create-account.component.js'),
-);
-const NftFullImage = mmLazy(
-  () =>
-    import('../../components/app/assets/nfts/nft-details/nft-full-image.tsx'),
 );
 const Asset = mmLazy(() => import('../asset/index.js'));
 const SecurityTrustPage = mmLazy(
@@ -314,10 +301,6 @@ export const CustomTokenImportFeatureRoute = () => {
   return <CustomTokenImportPage />;
 };
 
-export const ImportNftsFeatureRoute = () => {
-  return <ImportNftsPage />;
-};
-
 export const routeConfig = [
   {
     element: <LegacyLayout />,
@@ -392,10 +375,6 @@ export const routeConfig = [
         element: <CustomTokenImportFeatureRoute />,
       },
       {
-        path: IMPORT_NFTS_ROUTE,
-        element: <ImportNftsFeatureRoute />,
-      },
-      {
         path: `${SETTINGS_ROUTE}/*`,
         element: (
           <GlobalMenuRouteTransition>
@@ -448,10 +427,6 @@ export const routeConfig = [
         element: <ConfirmAddSuggestedTokenPage />,
       },
       {
-        path: CONFIRM_ADD_SUGGESTED_NFT_ROUTE,
-        element: <ConfirmAddSuggestedNftPage />,
-      },
-      {
         path: `${CONFIRMATION_V_NEXT_ROUTE}/:id?`,
         element: <ConfirmationPage />,
       },
@@ -462,10 +437,6 @@ export const routeConfig = [
       {
         path: `${CONNECT_ROUTE}/:id/*`,
         element: <PermissionsConnect />,
-      },
-      {
-        path: ASSET_IMAGE_ROUTE,
-        element: <NftFullImage />,
       },
       {
         path: ASSET_SECURITY_TRUST_ROUTE,
@@ -718,9 +689,6 @@ export default function Routes() {
   const isDeprecatedNetworkModalOpen = useAppSelector(
     (state) => state.appState.deprecatedNetworkModalOpen,
   );
-  const isIpfsModalOpen = useAppSelector(
-    (state) => state.appState.showIpfsModalOpen,
-  );
   const currentExtensionPopupId = useAppSelector(
     (state) => state.metamask.currentExtensionPopupId,
   );
@@ -866,9 +834,7 @@ export default function Routes() {
       <Alert visible={alertOpen} msg={alertMessage} />
 
       <NetworkConfirmationPopover />
-      {isIpfsModalOpen ? (
-        <ToggleIpfsModal onClose={() => dispatch(hideIpfsModal())} />
-      ) : null}
+
       {isBasicConfigurationModalOpen ? <BasicConfigurationModal /> : null}
       {isUnlocked ? <BasicFunctionalityMigrationModal /> : null}
       {isDeprecatedNetworkModalOpen ? (

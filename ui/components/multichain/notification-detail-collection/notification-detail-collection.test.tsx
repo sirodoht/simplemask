@@ -40,11 +40,13 @@ describe('NotificationDetailCollection', () => {
     expect(screen.getByText(defaultProps.collection)).toBeInTheDocument();
   });
 
-  it('renders the main image and the badge image', () => {
+  it('renders the badge without fetching retired gallery media', () => {
     renderWithProvider(<NotificationDetailCollection {...defaultProps} />);
     const images = screen.getAllByRole('img');
-    expect(images.length).toBe(2);
-    expect(images[0]).toHaveAttribute('src', defaultProps.icon.src);
-    expect(images[1]).toHaveAttribute('src', defaultProps.icon.badgeSrc);
+    expect(images).toHaveLength(1);
+    expect(images[0]).toHaveAttribute('src', defaultProps.icon.badgeSrc);
+    expect(
+      document.querySelector(`img[src="${defaultProps.icon.src}"]`),
+    ).toBeNull();
   });
 });

@@ -9,8 +9,6 @@ export const BFT_CHILD_PREFERENCES = [
   'useTokenDetection',
   'useTransactionSimulations',
   'use4ByteResolution',
-  'openSeaEnabled',
-  'useNftDetection',
   'useExternalNameSources',
   'useAddressBarEnsResolution',
 ] as const;
@@ -26,8 +24,6 @@ export const EXTERNAL_SERVICES_OWNED_PREFERENCES = [
   'useCurrencyRateCheck',
   'usePhishDetect',
   'useAddressBarEnsResolution',
-  'openSeaEnabled',
-  'useNftDetection',
   'useSafeChainsListValidation',
 ] as const satisfies readonly (typeof BFT_CHILD_PREFERENCES)[number][];
 

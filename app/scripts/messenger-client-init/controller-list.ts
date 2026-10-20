@@ -23,8 +23,6 @@ import {
   MultichainAssetsController,
   MultichainAssetsRatesController,
   MultichainBalancesController,
-  NftController,
-  NftDetectionController,
   RatesController,
   TokenBalancesController,
   TokenDetectionController,
@@ -235,8 +233,6 @@ export type MessengerClient =
   | UserOperationController
   | UserStorageController
   | TokenRatesController
-  | NftController
-  | NftDetectionController
   | AssetsContractController
   | AccountTreeController
   | WebSocketService
@@ -332,8 +328,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   UserOperationController['state'] &
   UserStorageController['state'] &
   TokenRatesController['state'] &
-  NftController['state'] &
-  NftDetectionController['state'] &
   NetworkEnablementController['state'] &
   AccountTrackerController['state'] &
   ProfileMetricsController['state'];

@@ -260,19 +260,6 @@ describe('preferences controller', () => {
     });
   });
 
-  describe('setUseNftDetection', () => {
-    const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.useNftDetection).toStrictEqual(true);
-    });
-
-    it('should set the useNftDetection property in state', () => {
-      controller.setOpenSeaEnabled(true);
-      controller.setUseNftDetection(true);
-      expect(controller.state.useNftDetection).toStrictEqual(true);
-    });
-  });
-
   describe('setUse4ByteResolution', () => {
     const { controller } = setupController({});
     it('should default to true', () => {
@@ -282,18 +269,6 @@ describe('preferences controller', () => {
     it('should set the use4ByteResolution property in state', () => {
       controller.setUse4ByteResolution(false);
       expect(controller.state.use4ByteResolution).toStrictEqual(false);
-    });
-  });
-
-  describe('setOpenSeaEnabled', () => {
-    const { controller } = setupController({});
-    it('should default to true', () => {
-      expect(controller.state.openSeaEnabled).toStrictEqual(true);
-    });
-
-    it('should set the openSeaEnabled property in state', () => {
-      controller.setOpenSeaEnabled(true);
-      expect(controller.state.openSeaEnabled).toStrictEqual(true);
     });
   });
 
@@ -427,8 +402,6 @@ describe('preferences controller', () => {
       expect(controller.state.useCurrencyRateCheck).toStrictEqual(true);
       expect(controller.state.usePhishDetect).toStrictEqual(true);
       expect(controller.state.useAddressBarEnsResolution).toStrictEqual(true);
-      expect(controller.state.openSeaEnabled).toStrictEqual(true);
-      expect(controller.state.useNftDetection).toStrictEqual(true);
       expect(controller.state.useSafeChainsListValidation).toStrictEqual(true);
     });
 
@@ -440,8 +413,6 @@ describe('preferences controller', () => {
       expect(controller.state.useCurrencyRateCheck).toStrictEqual(false);
       expect(controller.state.usePhishDetect).toStrictEqual(false);
       expect(controller.state.useAddressBarEnsResolution).toStrictEqual(false);
-      expect(controller.state.openSeaEnabled).toStrictEqual(false);
-      expect(controller.state.useNftDetection).toStrictEqual(false);
       expect(controller.state.useSafeChainsListValidation).toStrictEqual(false);
       expect(controller.state.preferences.showTickerWidget).toStrictEqual(
         false,
@@ -462,8 +433,6 @@ describe('preferences controller', () => {
       expect(controller.state.useCurrencyRateCheck).toBe(false);
       expect(controller.state.usePhishDetect).toBe(true);
       expect(controller.state.useAddressBarEnsResolution).toBe(true);
-      expect(controller.state.openSeaEnabled).toBe(true);
-      expect(controller.state.useNftDetection).toBe(true);
       expect(controller.state.useSafeChainsListValidation).toBe(true);
     });
 
@@ -1000,7 +969,6 @@ describe('preferences controller', () => {
           "forgottenPassword": false,
           "isMultiAccountBalancesEnabled": true,
           "ledgerTransportType": "u2f",
-          "openSeaEnabled": true,
           "overrideContentSecurityPolicyHeader": true,
           "preferences": {
             "autoLockTimeLimit": undefined,
@@ -1040,7 +1008,6 @@ describe('preferences controller', () => {
           "useAddressBarEnsResolution": true,
           "useCurrencyRateCheck": true,
           "useMultiAccountBalanceChecker": true,
-          "useNftDetection": true,
           "usePhishDetect": true,
           "useTokenDetection": true,
           "useTransactionSimulations": true,
@@ -1074,7 +1041,6 @@ describe('preferences controller', () => {
           "knownMethodData": {},
           "ledgerTransportType": "u2f",
           "manageInstitutionalWallets": false,
-          "openSeaEnabled": true,
           "overrideContentSecurityPolicyHeader": true,
           "preferences": {
             "autoLockTimeLimit": undefined,
@@ -1120,7 +1086,6 @@ describe('preferences controller', () => {
           "useExternalNameSources": true,
           "useExternalServices": true,
           "useMultiAccountBalanceChecker": true,
-          "useNftDetection": true,
           "usePhishDetect": true,
           "useSafeChainsListValidation": true,
           "useTokenDetection": true,
@@ -1156,7 +1121,6 @@ describe('preferences controller', () => {
           "knownMethodData": {},
           "ledgerTransportType": "u2f",
           "manageInstitutionalWallets": false,
-          "openSeaEnabled": true,
           "overrideContentSecurityPolicyHeader": true,
           "preferences": {
             "autoLockTimeLimit": undefined,
@@ -1203,7 +1167,6 @@ describe('preferences controller', () => {
           "useExternalNameSources": true,
           "useExternalServices": true,
           "useMultiAccountBalanceChecker": true,
-          "useNftDetection": true,
           "usePhishDetect": true,
           "useSafeChainsListValidation": true,
           "useTokenDetection": true,
@@ -1239,7 +1202,6 @@ describe('preferences controller', () => {
           "knownMethodData": {},
           "ledgerTransportType": "u2f",
           "manageInstitutionalWallets": false,
-          "openSeaEnabled": true,
           "overrideContentSecurityPolicyHeader": true,
           "preferences": {
             "autoLockTimeLimit": undefined,
@@ -1286,7 +1248,6 @@ describe('preferences controller', () => {
           "useExternalNameSources": true,
           "useExternalServices": true,
           "useMultiAccountBalanceChecker": true,
-          "useNftDetection": true,
           "usePhishDetect": true,
           "useSafeChainsListValidation": true,
           "useTokenDetection": true,

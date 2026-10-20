@@ -26,7 +26,6 @@ import * as actionConstants from '../../store/actionConstants';
 import { updateTransactionGasFees } from '../../store/actions/update-transaction-gas-fees';
 import { setCustomGasLimit, setCustomGasPrice } from '../gas/gas.duck';
 import { FirstTimeFlowType } from '../../../shared/constants/onboarding';
-import { EMPTY_ARRAY } from '../../selectors/shared';
 import { getIsUnlocked } from './base-selectors';
 
 const initialState = {
@@ -282,48 +281,6 @@ export const getTokensByChainId = (state, chainId) => {
   const allTokens = getTokensControllerAllTokens(state);
   const { address: selectedAddress } = getSelectedInternalAccount(state);
   return allTokens?.[chainId]?.[selectedAddress] || [];
-};
-
-export function getNftsDropdownState(state) {
-  return state.metamask.nftsDropdownState;
-}
-
-export const getNfts = (state) => {
-  const {
-    metamask: { allNfts },
-  } = state;
-  const { address: selectedAddress } = getSelectedInternalAccount(state);
-
-  const { chainId } = getProviderConfig(state);
-
-  return allNfts?.[selectedAddress]?.[chainId] ?? EMPTY_ARRAY;
-};
-
-export const getAllNfts = (state) => {
-  const {
-    metamask: { allNfts },
-  } = state;
-  const { address: selectedAddress } = getSelectedInternalAccount(state);
-
-  return allNfts?.[selectedAddress] ?? EMPTY_ARRAY;
-};
-
-export const getNFTsByChainId = (state, chainId) => {
-  const {
-    metamask: { allNfts },
-  } = state;
-  const { address: selectedAddress } = getSelectedInternalAccount(state);
-
-  return allNfts?.[selectedAddress]?.[chainId] ?? EMPTY_ARRAY;
-};
-
-export const getNftContracts = (state) => {
-  const {
-    metamask: { allNftContracts },
-  } = state;
-  const { address: selectedAddress } = getSelectedInternalAccount(state);
-  const { chainId } = getProviderConfig(state);
-  return allNftContracts?.[selectedAddress]?.[chainId] ?? EMPTY_ARRAY;
 };
 
 export function getNativeCurrency(state) {

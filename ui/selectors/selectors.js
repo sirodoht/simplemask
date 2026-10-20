@@ -250,10 +250,6 @@ export function getIsHardwareWalletErrorModalVisible(state) {
   );
 }
 
-export function getNftIsStillFetchingIndication(state) {
-  return state.appState.isNftStillFetchingIndication;
-}
-
 export function getSendInputCurrencySwitched({ appState }) {
   return appState.sendInputCurrencySwitched;
 }
@@ -495,10 +491,6 @@ export const getMetaMaskCachedBalances = createSelector(
  * @returns {Function} A parameterized selector.
  */
 const createChainIdSelector = createParameterizedShallowEqualSelector(10);
-// Cache recent per-chain NFT lookups for views that switch among a small set of
-// networks during a render cycle. Ten entries accommodate the current
-// multichain asset-view network fanout without expanding the LRU unnecessarily.
-const NFT_SELECTOR_CACHE_SIZE = 10;
 // Cache recent chainId + address-list combinations for token trust signal lookups
 // across asset pages and confirmation flows. Thirty entries supports several
 // address-list variants across a handful of active networks in a single view.
@@ -1303,17 +1295,6 @@ export const selectConversionRateByChainId = createSelector(
   },
 );
 
-export const selectNftsByChainId = createParameterizedSelector(
-  NFT_SELECTOR_CACHE_SIZE,
-)(
-  getSelectedInternalAccount,
-  (state) => state.metamask.allNfts,
-  (_state, chainId) => chainId,
-  (selectedAccount, nfts, chainId) => {
-    return nfts?.[selectedAccount.address]?.[chainId] ?? EMPTY_ARRAY;
-  },
-);
-
 export const selectNetworkIdentifierByChainId = createSelector(
   selectNetworkConfigurationByChainId,
   selectDefaultRpcEndpointByChainId,
@@ -1377,17 +1358,6 @@ export const getSuggestedTokens = createShallowResultSelector(
       return (
         type === ApprovalType.WatchAsset &&
         requestData?.asset?.tokenId === undefined
-      );
-    }),
-);
-
-export const getSuggestedNfts = createSelector(
-  getUnapprovedConfirmations,
-  (unapprovedConfirmations) =>
-    unapprovedConfirmations.filter(({ requestData, type }) => {
-      return (
-        type === ApprovalType.WatchAsset &&
-        requestData?.asset?.tokenId !== undefined
       );
     }),
 );
@@ -2683,23 +2653,11 @@ export function getUseTokenDetection(state) {
 }
 
 /**
- * To get the useNftDetection flag which determines whether we autodetect NFTs
- *
- * @param {*} state
+ * NFT gallery media is disabled.
  * @returns Boolean
  */
-export function getUseNftDetection(state) {
-  return Boolean(state.metamask.useNftDetection);
-}
-
-/**
- * To get the openSeaEnabled flag which determines whether we use OpenSea's API
- *
- * @param {*} state
- * @returns Boolean
- */
-export function getOpenSeaEnabled(state) {
-  return Boolean(state.metamask.openSeaEnabled);
+export function getOpenSeaEnabled() {
+  return false;
 }
 
 /**

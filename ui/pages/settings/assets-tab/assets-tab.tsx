@@ -12,8 +12,6 @@ import {
   setHideZeroBalanceTokens,
   setShowNativeTokenAsMainBalancePreference,
 } from '../../../store/actions';
-import { DisplayNftMediaToggleItem } from '../shared/display-nft-media-item';
-import { AutodetectNftsToggleItem } from '../shared/autodetect-nfts-item';
 import { ASSET_ITEMS } from '../search-config';
 import { getIsBasicFunctionalityConsolidationEnabled } from '../../../selectors/multichain/feature-flags';
 
@@ -53,12 +51,6 @@ const ASSET_SETTING_ITEMS: SettingItemConfig[] = [
     id: 'hide-zero-balance-tokens',
     component: HideZeroBalanceTokensToggleItem,
   },
-  {
-    id: 'display-nft-media',
-    component: DisplayNftMediaToggleItem,
-    hasDividerBefore: true,
-  },
-  { id: 'autodetect-nfts', component: AutodetectNftsToggleItem },
   { id: 'autodetect-tokens', component: AutodetectTokensToggleItem },
 ];
 

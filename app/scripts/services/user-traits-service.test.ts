@@ -1,11 +1,7 @@
 import { toHex } from '@metamask/controller-utils';
 import { AddressBookEntry } from '@metamask/address-book-controller';
 import { NameEntry, NameType } from '@metamask/name-controller';
-import {
-  Nft,
-  Token,
-  TokensControllerState,
-} from '@metamask/assets-controllers';
+import { Token, TokensControllerState } from '@metamask/assets-controllers';
 import {
   AuthConnection,
   type SeedlessOnboardingControllerGetStateAction,
@@ -29,10 +25,7 @@ import {
   OS,
   PLATFORM_CHROME,
 } from '../../../shared/constants/app';
-import {
-  MetaMetricsUserTrait,
-  type MetaMetricsUserTraits,
-} from '../../../shared/constants/metametrics';
+import { MetaMetricsUserTrait } from '../../../shared/constants/metametrics';
 import { CHAIN_IDS } from '../../../shared/constants/network';
 import { KeyringType } from '../../../shared/constants/keyring';
 import { LedgerTransportTypes } from '../../../shared/constants/hardware-wallets';
@@ -145,7 +138,6 @@ describe('UserTraitsService', function () {
   ): Parameters<UserTraitsService['_buildUserTraitsObject']>[0] {
     return {
       addressBook: {},
-      allNfts: {},
       allTokens: {},
       ...mockNetworkState({ chainId: CHAIN_IDS.MAINNET }),
       internalAccounts: {
@@ -154,8 +146,6 @@ describe('UserTraitsService', function () {
       },
       multichainNetworkConfigurationsByChainId: {},
       ledgerTransportType: LedgerTransportTypes.webhid,
-      openSeaEnabled: false,
-      useNftDetection: false,
       theme: 'default' as ThemeType,
       useTokenDetection: false,
       names: {
@@ -266,32 +256,6 @@ describe('UserTraitsService', function () {
               } as AddressBookEntry,
             },
           },
-          allNfts: {
-            '0xac706cE8A9BF27Afecf080fB298d0ee13cfb978A': {
-              [toHex(56)]: [
-                {
-                  address: '0xd2cea331e5f5d8ee9fb1055c297795937645de91',
-                  tokenId: '100',
-                },
-                {
-                  address: '0xd2cea331e5f5d8ee9fb1055c297795937645de91',
-                  tokenId: '101',
-                },
-                {
-                  address: '0x7488d2ce5deb26db021285b50b661d655eb3d3d9',
-                  tokenId: '99',
-                },
-              ] as Nft[],
-            },
-            '0xe04AB39684A24D8D4124b114F3bd6FBEB779cacA': {
-              [toHex(59)]: [
-                {
-                  address: '0x63d646bc7380562376d5de205123a57b1718184d',
-                  tokenId: '14',
-                },
-              ] as Nft[],
-            },
-          },
           allTokens: MOCK_ALL_TOKENS,
           ...mockNetworkState(
             { chainId: CHAIN_IDS.MAINNET },
@@ -322,8 +286,6 @@ describe('UserTraitsService', function () {
             },
           },
           ledgerTransportType: LedgerTransportTypes.webhid,
-          openSeaEnabled: true,
-          useNftDetection: false,
           securityAlertsEnabled: true,
           theme: 'default' as ThemeType,
           useTokenDetection: true,
@@ -392,10 +354,7 @@ describe('UserTraitsService', function () {
             '0xaf',
           ],
           [MetaMetricsUserTrait.NetworksWithoutTicker]: ['0xaf'],
-          [MetaMetricsUserTrait.NftAutodetectionEnabled]: false,
           [MetaMetricsUserTrait.NumberOfAccounts]: 2,
-          [MetaMetricsUserTrait.NumberOfNftCollections]: 3,
-          [MetaMetricsUserTrait.NumberOfNfts]: 4,
           [MetaMetricsUserTrait.NumberOfTokens]: 5,
           [MetaMetricsUserTrait.NumberOfHDEntropies]: 0,
           [MetaMetricsUserTrait.NumberOfAccountGroups]: 2,
@@ -405,7 +364,6 @@ describe('UserTraitsService', function () {
           [MetaMetricsUserTrait.NumberOfLatticeAccounts]: 0,
           [MetaMetricsUserTrait.NumberOfQrHardwareAccounts]: 0,
           [MetaMetricsUserTrait.NumberOfHardwareWallets]: 0,
-          [MetaMetricsUserTrait.OpenSeaApiEnabled]: true,
           [MetaMetricsUserTrait.ThreeBoxEnabled]: false,
           [MetaMetricsUserTrait.Theme]: 'default',
           [MetaMetricsUserTrait.TokenDetectionEnabled]: true,
@@ -441,7 +399,6 @@ describe('UserTraitsService', function () {
         ({ service }) => {
           const traits = service._buildUserTraitsObject({
             addressBook: {},
-            allNfts: {},
             allTokens: {},
             ...mockNetworkState({ chainId: CHAIN_IDS.MAINNET }),
             internalAccounts: {
@@ -452,8 +409,6 @@ describe('UserTraitsService', function () {
             },
             multichainNetworkConfigurationsByChainId: {},
             ledgerTransportType: LedgerTransportTypes.webhid,
-            openSeaEnabled: true,
-            useNftDetection: false,
             securityAlertsEnabled: true,
             theme: 'default' as ThemeType,
             useTokenDetection: true,
@@ -501,17 +456,14 @@ describe('UserTraitsService', function () {
             allTokens: {},
             ...mockNetworkState({ chainId: CHAIN_IDS.MAINNET }),
             ledgerTransportType: LedgerTransportTypes.webhid,
-            openSeaEnabled: true,
             internalAccounts: {
               accounts: {
                 mock1: {} as InternalAccount,
               },
               selectedAccount: 'mock1',
             },
-            useNftDetection: false,
             theme: 'default' as ThemeType,
             useTokenDetection: true,
-            allNfts: {},
             consentDecisionMade: true,
             optedIn: true,
             analyticsId: TEST_ANALYTICS_ID,
@@ -557,17 +509,14 @@ describe('UserTraitsService', function () {
             allTokens: {},
             ...mockNetworkState({ chainId: CHAIN_IDS.MAINNET }),
             ledgerTransportType: LedgerTransportTypes.webhid,
-            openSeaEnabled: true,
             internalAccounts: {
               accounts: {
                 mock1: {} as InternalAccount,
               },
               selectedAccount: 'mock1',
             },
-            useNftDetection: false,
             theme: 'default' as ThemeType,
             useTokenDetection: true,
-            allNfts: {},
             consentDecisionMade: true,
             optedIn: true,
             analyticsId: TEST_ANALYTICS_ID,
@@ -625,7 +574,6 @@ describe('UserTraitsService', function () {
           allTokens: {},
           ...networkState,
           ledgerTransportType: LedgerTransportTypes.webhid,
-          openSeaEnabled: true,
           internalAccounts: {
             accounts: {
               mock1: {} as InternalAccount,
@@ -633,10 +581,8 @@ describe('UserTraitsService', function () {
             },
             selectedAccount: 'mock1',
           },
-          useNftDetection: false,
           theme: 'default' as ThemeType,
           useTokenDetection: true,
-          allNfts: {},
           consentDecisionMade: true,
           optedIn: true,
           analyticsId: TEST_ANALYTICS_ID,
@@ -688,7 +634,6 @@ describe('UserTraitsService', function () {
           },
           ...networkState,
           ledgerTransportType: LedgerTransportTypes.webhid,
-          openSeaEnabled: false,
           internalAccounts: {
             accounts: {
               mock1: {} as InternalAccount,
@@ -697,14 +642,12 @@ describe('UserTraitsService', function () {
             },
             selectedAccount: 'mock1',
           },
-          useNftDetection: false,
           theme: 'default' as ThemeType,
           useTokenDetection: true,
           names: {
             ethereumAddress: {},
           },
           currentCurrency: 'usd',
-          allNfts: {},
           consentDecisionMade: true,
           optedIn: true,
           analyticsId: TEST_ANALYTICS_ID,
@@ -745,7 +688,6 @@ describe('UserTraitsService', function () {
           [MetaMetricsUserTrait.NumberOfAccounts]: 3,
           [MetaMetricsUserTrait.NumberOfAccountGroups]: 3,
           [MetaMetricsUserTrait.NumberOfTokens]: 1,
-          [MetaMetricsUserTrait.OpenSeaApiEnabled]: false,
           [MetaMetricsUserTrait.ShowNativeTokenAsMainBalance]: false,
           [MetaMetricsUserTrait.CanonicalProfileId]: 'canonicalProfileId',
           [MetaMetricsUserTrait.AccountType]: 'imported',
@@ -778,7 +720,6 @@ describe('UserTraitsService', function () {
           allTokens: {},
           ...networkState,
           ledgerTransportType: LedgerTransportTypes.webhid,
-          openSeaEnabled: true,
           internalAccounts: {
             accounts: {
               mock1: {} as InternalAccount,
@@ -786,10 +727,8 @@ describe('UserTraitsService', function () {
             },
             selectedAccount: 'mock1',
           },
-          useNftDetection: true,
           theme: 'default' as ThemeType,
           useTokenDetection: true,
-          allNfts: {},
           consentDecisionMade: true,
           optedIn: true,
           analyticsId: TEST_ANALYTICS_ID,
@@ -846,7 +785,6 @@ describe('UserTraitsService', function () {
           allTokens: {},
           ...networkState,
           ledgerTransportType: LedgerTransportTypes.webhid,
-          openSeaEnabled: true,
           internalAccounts: {
             accounts: {
               mock1: {} as InternalAccount,
@@ -854,10 +792,8 @@ describe('UserTraitsService', function () {
             },
             selectedAccount: 'mock1',
           },
-          useNftDetection: true,
           theme: 'default' as ThemeType,
           useTokenDetection: true,
-          allNfts: {},
           consentDecisionMade: true,
           optedIn: true,
           analyticsId: TEST_ANALYTICS_ID,
@@ -1282,7 +1218,6 @@ describe('UserTraitsService', function () {
 
         const metaMaskState = {
           addressBook: {},
-          allNfts: {},
           allTokens: {},
           ...mockNetworkState({ chainId: CHAIN_IDS.MAINNET }),
           internalAccounts: {
@@ -1293,8 +1228,6 @@ describe('UserTraitsService', function () {
           },
           multichainNetworkConfigurationsByChainId: {},
           ledgerTransportType: LedgerTransportTypes.webhid,
-          openSeaEnabled: true,
-          useNftDetection: false,
           securityAlertsEnabled: true,
           theme: 'default' as ThemeType,
           useTokenDetection: true,

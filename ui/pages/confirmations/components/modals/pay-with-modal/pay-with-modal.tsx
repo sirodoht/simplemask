@@ -238,7 +238,6 @@ export const PayWithModal = ({ isOpen, onClose }: PayWithModalProps) => {
           ) : (
             <Asset
               includeNoBalance
-              hideNfts
               tokenFilter={tokenFilter}
               onAssetSelect={handleTokenSelect}
               tagRenderers={tagRenderers}

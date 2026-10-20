@@ -13,7 +13,6 @@ import {
   CONFIRMATION_V_NEXT_ROUTE,
   CONFIRM_IMPORT_TOKEN_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
-  CONFIRM_ADD_SUGGESTED_NFT_ROUTE,
 } from '../../../../ui/helpers/constants/routes';
 import { validateExtensionBuilt } from './validate-extension';
 import type {
@@ -42,7 +41,6 @@ const SIDEPANEL_CONFIRMATION_ROUTE_PREFIXES: string[] = [
   CONFIRMATION_V_NEXT_ROUTE,
   CONFIRM_IMPORT_TOKEN_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
-  CONFIRM_ADD_SUGGESTED_NFT_ROUTE,
 ];
 type ResolvedOptions = {
   extensionPath: string;

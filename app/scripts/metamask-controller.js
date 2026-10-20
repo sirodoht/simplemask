@@ -37,22 +37,11 @@ import {
   createSnapsMethodMiddleware,
   SnapEndowments,
 } from '@metamask/snaps-rpc-methods';
-import {
-  ApprovalType,
-  ERC1155,
-  ERC20,
-  ERC721,
-  toHex,
-} from '@metamask/controller-utils';
+import { ApprovalType, ERC20, toHex } from '@metamask/controller-utils';
 
 import { BRIDGE_CONTROLLER_NAME } from '@metamask/bridge-controller';
 
-import {
-  TransactionStatus,
-  TransactionType,
-} from '@metamask/transaction-controller';
-import { Interface } from '@ethersproject/abi';
-import { abiERC1155, abiERC721 } from '@metamask/metamask-eth-abis';
+import { TransactionStatus } from '@metamask/transaction-controller';
 import {
   hexToBigInt,
   toCaipChainId,
@@ -139,15 +128,9 @@ import {
   getStorageItem,
   setStorageItem,
 } from '../../shared/lib/storage-helpers';
-import { getTokenIdParam } from '../../shared/lib/token-util';
 import { toAssetId } from '../../shared/lib/asset-utils';
-import { isEqualCaseInsensitive } from '../../shared/lib/string-utils';
-import { parseStandardTokenTransactionData } from '../../shared/lib/transaction.utils';
 import { START_UI_SYNC } from '../../shared/constants/ui-initialization';
-import {
-  createEnsureOnboardingCompleteCallback,
-  getTokenValueParam,
-} from '../../shared/lib/metamask-controller-utils';
+import { createEnsureOnboardingCompleteCallback } from '../../shared/lib/metamask-controller-utils';
 import { isManifestV3 } from '../../shared/lib/mv3.utils';
 import { convertNetworkId } from '../../shared/lib/network.utils';
 import {
@@ -155,10 +138,6 @@ import {
   getSmartTransactionsPreferenceEnabled,
   getSmartTransactionsEnabled,
 } from '../../shared/lib/selectors';
-import {
-  TOKEN_TRANSFER_LOG_TOPIC_HASH,
-  TRANSFER_SINFLE_LOG_TOPIC_HASH,
-} from '../../shared/lib/transactions-controller-utils';
 import { endTrace, trace, TraceName } from '../../shared/lib/trace';
 import fetchWithCache from '../../shared/lib/fetch-with-cache';
 import { NON_EVM_ACCOUNT_CHANGED_CONFIGS } from '../../shared/constants/multichain/networks';
@@ -280,8 +259,6 @@ import {
   AssetsControllerInit,
   ClientControllerInit,
   NetworkOrderControllerInit,
-  NftControllerInit,
-  NftDetectionControllerInit,
   TokenRatesControllerInit,
 } from './messenger-client-init/assets';
 import { TransactionPayControllerInit } from './messenger-client-init/transaction-pay-controller-init';
@@ -577,9 +554,7 @@ export default class MetamaskController extends EventEmitter {
       SmartTransactionsController: SmartTransactionsControllerInit,
       BridgeController: BridgeControllerInit,
       BridgeStatusController: BridgeStatusControllerInit,
-      NftController: NftControllerInit,
       AssetsContractController: AssetsContractControllerInit,
-      NftDetectionController: NftDetectionControllerInit,
       CurrencyRateController: CurrencyRateControllerInit,
       RatesController: RatesControllerInit,
       TokenListController: TokenListControllerInit,
@@ -714,8 +689,6 @@ export default class MetamaskController extends EventEmitter {
     this.backendWebSocketService =
       messengerClientsByName.BackendWebSocketService;
     this.accountActivityService = messengerClientsByName.AccountActivityService;
-    this.nftController = messengerClientsByName.NftController;
-    this.nftDetectionController = messengerClientsByName.NftDetectionController;
     this.assetsContractController =
       messengerClientsByName.AssetsContractController;
     this.assetsController = messengerClientsByName.AssetsController;
@@ -1347,7 +1320,6 @@ export default class MetamaskController extends EventEmitter {
       TokenBalancesController: this.tokenBalancesController,
       StaticAssetsController: this.staticAssetsController,
       SmartTransactionsController: this.smartTransactionsController,
-      NftController: this.nftController,
       AssetsController: this.assetsController,
       PhishingController: this.phishingController,
       SelectedNetworkController: this.selectedNetworkController,
@@ -1411,7 +1383,6 @@ export default class MetamaskController extends EventEmitter {
         TokenBalancesController: this.tokenBalancesController,
         StaticAssetsController: this.staticAssetsController,
         SmartTransactionsController: this.smartTransactionsController,
-        NftController: this.nftController,
         AssetsController: this.assetsController,
         SelectedNetworkController: this.selectedNetworkController,
         LoggingController: this.loggingController,
@@ -2248,8 +2219,6 @@ export default class MetamaskController extends EventEmitter {
       addressBookController,
       alertController,
       appStateController,
-      nftController,
-      nftDetectionController,
       currencyRateController,
       tokenBalancesController,
       tokenDetectionController,
@@ -2297,9 +2266,6 @@ export default class MetamaskController extends EventEmitter {
       setUseTokenDetection: preferencesController.setUseTokenDetection.bind(
         preferencesController,
       ),
-      setUseNftDetection: preferencesController.setUseNftDetection.bind(
-        preferencesController,
-      ),
       setUse4ByteResolution: preferencesController.setUse4ByteResolution.bind(
         preferencesController,
       ),
@@ -2307,9 +2273,6 @@ export default class MetamaskController extends EventEmitter {
         preferencesController.setUseCurrencyRateCheck.bind(
           preferencesController,
         ),
-      setOpenSeaEnabled: preferencesController.setOpenSeaEnabled.bind(
-        preferencesController,
-      ),
       isPublicEndpointUrl: this.controllerMessenger.call.bind(
         this.controllerMessenger,
         'LegacyBackgroundApiService:isPublicEndpointUrl',
@@ -2729,26 +2692,6 @@ export default class MetamaskController extends EventEmitter {
           this.assetsContractController,
         ),
 
-      // NftController
-      addNft: nftController.addNft.bind(nftController),
-
-      addNftVerifyOwnership:
-        nftController.addNftVerifyOwnership.bind(nftController),
-
-      removeAndIgnoreNft: nftController.removeAndIgnoreNft.bind(nftController),
-
-      removeNft: nftController.removeNft.bind(nftController),
-
-      checkAndUpdateAllNftsOwnershipStatus:
-        nftController.checkAndUpdateAllNftsOwnershipStatus.bind(nftController),
-
-      checkAndUpdateSingleNftOwnershipStatus:
-        nftController.checkAndUpdateSingleNftOwnershipStatus.bind(
-          nftController,
-        ),
-
-      isNftOwner: nftController.isNftOwner.bind(nftController),
-
       // AddressController
       setAddressBook: addressBookController.set.bind(addressBookController),
       removeFromAddressBook: addressBookController.delete.bind(
@@ -2825,8 +2768,6 @@ export default class MetamaskController extends EventEmitter {
         appStateController.setLastUpdatedAt.bind(appStateController),
       setProductTour:
         appStateController.setProductTour.bind(appStateController),
-      updateNftDropDownState:
-        appStateController.updateNftDropDownState.bind(appStateController),
       getLastInteractedConfirmationInfo:
         appStateController.getLastInteractedConfirmationInfo.bind(
           appStateController,
@@ -3372,11 +3313,6 @@ export default class MetamaskController extends EventEmitter {
       // TokenDetectionController
       detectTokens: tokenDetectionController.detectTokens.bind(
         tokenDetectionController,
-      ),
-
-      // DetectCollectibleController
-      detectNfts: nftDetectionController.detectNfts.bind(
-        nftDetectionController,
       ),
 
       // Assets Controller - accounts passed from UI; options may include chainIds, assetTypes
@@ -4199,14 +4135,6 @@ export default class MetamaskController extends EventEmitter {
         await this.#persistUnifiedWatchAsset(asset, networkClientId);
         return undefined;
       }
-      case ERC721:
-      case ERC1155:
-        return this.nftController.watchNft(
-          asset,
-          type,
-          origin,
-          networkClientId,
-        );
       default:
         throw new Error(`Asset type ${type} not supported`);
     }
@@ -6345,7 +6273,6 @@ export default class MetamaskController extends EventEmitter {
     });
 
     await this._createTransactionNotifcation(transactionMeta);
-    await this._updateNFTOwnership(transactionMeta);
     this._trackTransactionFailure(transactionMeta);
     await this.tokenBalancesController.updateBalances({
       chainIds: [transactionMeta.chainId],
@@ -6379,169 +6306,6 @@ export default class MetamaskController extends EventEmitter {
       );
     } catch (error) {
       log.error('Failed to create transaction notification', error);
-    }
-  }
-
-  async _updateNFTOwnership(transactionMeta) {
-    // if this is a transferFrom method generated from within the app it may be an NFT transfer transaction
-    // in which case we will want to check and update ownership status of the transferred NFT.
-
-    const { type, txParams, chainId, txReceipt } = transactionMeta;
-    const selectedAddress =
-      this.accountsController.getSelectedAccount().address;
-
-    const { allNfts } = this.nftController.state;
-    const txReceiptLogs = txReceipt?.logs;
-
-    const isContractInteractionTx =
-      type === TransactionType.contractInteraction && txReceiptLogs;
-    const isTransferFromTx =
-      (type === TransactionType.tokenMethodTransferFrom ||
-        type === TransactionType.tokenMethodSafeTransferFrom) &&
-      txParams !== undefined;
-
-    if (!isContractInteractionTx && !isTransferFromTx) {
-      return;
-    }
-
-    const networkClientId =
-      this.networkController?.state?.networkConfigurationsByChainId?.[chainId]
-        ?.rpcEndpoints[
-        this.networkController?.state?.networkConfigurationsByChainId?.[chainId]
-          ?.defaultRpcEndpointIndex
-      ]?.networkClientId;
-
-    if (isTransferFromTx) {
-      const { data, to: contractAddress, from: userAddress } = txParams;
-      const transactionData = parseStandardTokenTransactionData(data);
-      // Sometimes the tokenId value is parsed as "_value" param. Not seeing this often any more, but still occasionally:
-      // i.e. call approve() on BAYC contract - https://etherscan.io/token/0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d#writeContract, and tokenId shows up as _value,
-      // not sure why since it doesn't match the ERC721 ABI spec we use to parse these transactions - https://github.com/MetaMask/metamask-eth-abis/blob/d0474308a288f9252597b7c93a3a8deaad19e1b2/src/abis/abiERC721.ts#L62.
-      const transactionDataTokenId =
-        getTokenIdParam(transactionData) ?? getTokenValueParam(transactionData);
-
-      // check if its a known NFT
-      const knownNft = allNfts?.[userAddress]?.[chainId]?.find(
-        ({ address, tokenId }) =>
-          isEqualCaseInsensitive(address, contractAddress) &&
-          tokenId === transactionDataTokenId,
-      );
-
-      // if it is we check and update ownership status.
-      if (knownNft) {
-        this.nftController.checkAndUpdateSingleNftOwnershipStatus(
-          knownNft,
-          networkClientId,
-          // TODO add networkClientId once it is available in the transactionMeta
-          // the chainId previously passed here didn't actually allow us to check for ownership on a non globally selected network
-          // because the check would use the provider for the globally selected network, not the chainId passed here.
-          { userAddress },
-        );
-      }
-    } else {
-      // Else if contract interaction we will parse the logs
-
-      const allNftTransferLog = txReceiptLogs.map((txReceiptLog) => {
-        const isERC1155NftTransfer =
-          txReceiptLog.topics &&
-          txReceiptLog.topics[0] === TRANSFER_SINFLE_LOG_TOPIC_HASH;
-        const isERC721NftTransfer =
-          txReceiptLog.topics &&
-          txReceiptLog.topics[0] === TOKEN_TRANSFER_LOG_TOPIC_HASH;
-        let isTransferToSelectedAddress;
-
-        if (isERC1155NftTransfer) {
-          isTransferToSelectedAddress =
-            txReceiptLog.topics &&
-            txReceiptLog.topics[3] &&
-            txReceiptLog.topics[3].match(selectedAddress?.slice(2));
-        }
-
-        if (isERC721NftTransfer) {
-          isTransferToSelectedAddress =
-            txReceiptLog.topics &&
-            txReceiptLog.topics[2] &&
-            txReceiptLog.topics[2].match(selectedAddress?.slice(2));
-        }
-
-        return {
-          isERC1155NftTransfer,
-          isERC721NftTransfer,
-          isTransferToSelectedAddress,
-          ...txReceiptLog,
-        };
-      });
-      if (allNftTransferLog.length !== 0) {
-        const allNftParsedLog = [];
-        allNftTransferLog.forEach((singleLog) => {
-          if (
-            singleLog.isTransferToSelectedAddress &&
-            (singleLog.isERC1155NftTransfer || singleLog.isERC721NftTransfer)
-          ) {
-            let iface;
-            if (singleLog.isERC1155NftTransfer) {
-              iface = new Interface(abiERC1155);
-            } else {
-              iface = new Interface(abiERC721);
-            }
-            try {
-              const parsedLog = iface.parseLog({
-                data: singleLog.data,
-                topics: singleLog.topics,
-              });
-              allNftParsedLog.push({
-                contract: singleLog.address,
-                ...parsedLog,
-              });
-            } catch (err) {
-              // ignore
-            }
-          }
-        });
-        // Filter known nfts and new Nfts
-        const knownNFTs = [];
-        const newNFTs = [];
-        allNftParsedLog.forEach((single) => {
-          const tokenIdFromLog = getTokenIdParam(single);
-          const existingNft = allNfts?.[selectedAddress]?.[chainId]?.find(
-            ({ address, tokenId }) => {
-              return (
-                isEqualCaseInsensitive(address, single.contract) &&
-                tokenId === tokenIdFromLog
-              );
-            },
-          );
-          if (existingNft) {
-            knownNFTs.push(existingNft);
-          } else {
-            newNFTs.push({
-              tokenId: tokenIdFromLog,
-              ...single,
-            });
-          }
-        });
-        // For known nfts only refresh ownership
-        const refreshOwnershipNFts = knownNFTs.map(async (singleNft) => {
-          return this.nftController.checkAndUpdateSingleNftOwnershipStatus(
-            singleNft,
-            networkClientId,
-            // TODO add networkClientId once it is available in the transactionMeta
-            // the chainId previously passed here didn't actually allow us to check for ownership on a non globally selected network
-            // because the check would use the provider for the globally selected network, not the chainId passed here.
-            { selectedAddress },
-          );
-        });
-        await Promise.allSettled(refreshOwnershipNFts);
-        // For new nfts, add them to state
-        const addNftPromises = newNFTs.map(async (singleNft) => {
-          return this.nftController.addNft(
-            singleNft.contract,
-            singleNft.tokenId,
-            networkClientId,
-          );
-        });
-        await Promise.allSettled(addNftPromises);
-      }
     }
   }
 

@@ -465,88 +465,6 @@ describe('Selectors', () => {
     });
   });
 
-  describe('#getSuggestedNfts', () => {
-    it('returns an empty array if pendingApprovals is undefined', () => {
-      expect(selectors.getSuggestedNfts({ metamask: {} })).toStrictEqual([]);
-    });
-
-    it('returns suggestedNfts from filtered pending approvals', () => {
-      const pendingApprovals = {
-        1: {
-          id: '1',
-          origin: 'dapp',
-          time: 1,
-          type: ApprovalType.WatchAsset,
-          requestData: {
-            asset: {
-              address: '0x8b175474e89094c44da98b954eedeac495271d0a',
-              symbol: 'NEW',
-              decimals: 18,
-              image: 'metamark.svg',
-            },
-          },
-          requestState: null,
-        },
-        2: {
-          id: '2',
-          origin: 'dapp',
-          time: 1,
-          type: ApprovalType.WatchAsset,
-          requestData: {
-            asset: {
-              address: '0xC8c77482e45F1F44dE1745F52C74426C631bDD51',
-              symbol: '0XYX',
-              decimals: 18,
-              image: '0x.svg',
-            },
-          },
-        },
-        3: {
-          id: '3',
-          origin: 'origin',
-          time: 1,
-          type: ApprovalType.Transaction,
-          requestData: {
-            // something that is not an asset
-          },
-        },
-        4: {
-          id: '4',
-          origin: 'dapp',
-          time: 1,
-          type: ApprovalType.WatchAsset,
-          requestData: {
-            asset: {
-              address: '0x1234abcd',
-              symbol: '0XYX',
-              tokenId: '123',
-              standard: 'ERC721',
-            },
-          },
-        },
-      };
-
-      expect(
-        selectors.getSuggestedNfts({ metamask: { pendingApprovals } }),
-      ).toStrictEqual([
-        {
-          id: '4',
-          origin: 'dapp',
-          time: 1,
-          type: ApprovalType.WatchAsset,
-          requestData: {
-            asset: {
-              address: '0x1234abcd',
-              symbol: '0XYX',
-              tokenId: '123',
-              standard: 'ERC721',
-            },
-          },
-        },
-      ]);
-    });
-  });
-
   describe('#getNewNetworkAdded', () => {
     it('returns undefined if newNetworkAddedName is undefined', () => {
       expect(selectors.getNewNetworkAdded({ appState: {} })).toBeUndefined();
@@ -1325,12 +1243,6 @@ describe('Selectors', () => {
             },
           },
         },
-        allNfts: {
-          [selectedAccountAddress]: {
-            [chainIdOne]: [{ address: '0xnft-1' }],
-            [chainIdTwo]: [{ address: '0xnft-2' }],
-          },
-        },
         tokenScanCache: {
           [`${chainIdOne.toLowerCase()}:${tokenAddressOne}`]: {
             result_type: 'Malicious',
@@ -1346,26 +1258,8 @@ describe('Selectors', () => {
     };
 
     beforeEach(() => {
-      selectors.selectNftsByChainId.clearCache();
-      selectors.selectNftsByChainId.resetRecomputations();
       selectors.getTokenScanResultsForAddresses.clearCache();
       selectors.getTokenScanResultsForAddresses.resetRecomputations();
-    });
-
-    it('caches NFT lookups per chain ID', () => {
-      expect(selectors.selectNftsByChainId.recomputations()).toBe(0);
-
-      expect(selectors.selectNftsByChainId(state, chainIdOne)).toStrictEqual([
-        { address: '0xnft-1' },
-      ]);
-      expect(selectors.selectNftsByChainId(state, chainIdTwo)).toStrictEqual([
-        { address: '0xnft-2' },
-      ]);
-      expect(selectors.selectNftsByChainId(state, chainIdOne)).toStrictEqual([
-        { address: '0xnft-1' },
-      ]);
-
-      expect(selectors.selectNftsByChainId.recomputations()).toBe(2);
     });
 
     it('caches token scan lookups across equivalent address arrays', () => {

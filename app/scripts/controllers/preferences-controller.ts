@@ -98,6 +98,7 @@ type PreferencesControllerOptions = {
 export type PreferencesControllerState = Omit<
   PreferencesState,
   | 'displayNftMedia'
+  | 'useNftDetection'
   | 'showTestNetworks'
   | 'smartTransactionsOptInStatus'
   | 'smartTransactionsMigrationApplied'
@@ -117,7 +118,6 @@ export type PreferencesControllerState = Omit<
   knownMethodData: Record<string, string>;
   ledgerTransportType: LedgerTransportTypes;
   manageInstitutionalWallets: boolean;
-  openSeaEnabled: boolean;
   overrideContentSecurityPolicyHeader: boolean;
   preferences: Preferences;
   // TODO: Replace `Json` with correct type
@@ -158,7 +158,6 @@ export const getDefaultPreferencesControllerState =
       ? LedgerTransportTypes.webhid
       : LedgerTransportTypes.u2f,
     manageInstitutionalWallets: false,
-    openSeaEnabled: true,
     overrideContentSecurityPolicyHeader: true,
     preferences: {
       autoLockTimeLimit: undefined,
@@ -209,7 +208,6 @@ export const getDefaultPreferencesControllerState =
     // from core PreferencesController
     isMultiAccountBalancesEnabled: true,
     useMultiAccountBalanceChecker: true,
-    useNftDetection: true,
     usePhishDetect: true,
     useSafeChainsListValidation: true,
     // set to true means the dynamic list from the API is being used
@@ -291,12 +289,6 @@ const controllerMetadata: StateMetadata<PreferencesControllerState> = {
     includeInStateLogs: true,
     persist: true,
     includeInDebugSnapshot: false,
-    usedInUi: true,
-  },
-  openSeaEnabled: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
     usedInUi: true,
   },
   overrideContentSecurityPolicyHeader: {
@@ -389,12 +381,6 @@ const controllerMetadata: StateMetadata<PreferencesControllerState> = {
     includeInDebugSnapshot: true,
     usedInUi: true,
   },
-  useNftDetection: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
   usePhishDetect: {
     includeInStateLogs: true,
     persist: true,
@@ -435,10 +421,8 @@ const MESSENGER_EXPOSED_METHODS = [
   'toggleExternalServices',
   'toggleBasicFunctionality',
   'setUseTokenDetection',
-  'setUseNftDetection',
   'setUse4ByteResolution',
   'setUseCurrencyRateCheck',
-  'setOpenSeaEnabled',
   'setSecurityAlertsEnabled',
   'setAddSnapAccountEnabled',
   'setWatchEthereumAccountEnabled',
@@ -727,17 +711,6 @@ export class PreferencesController extends BaseController<
   }
 
   /**
-   * Setter for the `useNftDetection` property
-   *
-   * @param useNftDetection - Whether or not the user prefers to autodetect NFTs.
-   */
-  setUseNftDetection(useNftDetection: boolean): void {
-    this.update((state) => {
-      state.useNftDetection = useNftDetection;
-    });
-  }
-
-  /**
    * Setter for the `use4ByteResolution` property
    *
    * @param use4ByteResolution - (Privacy) Whether or not the user prefers to have smart contract name details resolved with 4byte.directory
@@ -756,17 +729,6 @@ export class PreferencesController extends BaseController<
   setUseCurrencyRateCheck(val: boolean): void {
     this.update((state) => {
       state.useCurrencyRateCheck = val;
-    });
-  }
-
-  /**
-   * Setter for the `openSeaEnabled` property
-   *
-   * @param openSeaEnabled - Whether or not the user prefers to use the OpenSea API for NFTs data.
-   */
-  setOpenSeaEnabled(openSeaEnabled: boolean): void {
-    this.update((state) => {
-      state.openSeaEnabled = openSeaEnabled;
     });
   }
 

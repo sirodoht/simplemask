@@ -34,8 +34,6 @@ function createSearchItemMeta(
 export const ASSET_ITEMS = {
   'show-network-token': 'showNativeTokenAsMainBalance',
   'hide-zero-balance-tokens': 'hideZeroBalanceTokens',
-  'display-nft-media': 'displayNftMedia',
-  'autodetect-nfts': 'useNftDetection',
   'autodetect-tokens': 'autoDetectTokens',
 } as const;
 
@@ -76,8 +74,6 @@ export const THIRD_PARTY_API_ITEMS = {
   'network-details-check': 'useSafeChainsListValidation',
   'show-ens-domains': 'ensDomainsSettingTitle',
   'make-smart-contracts-easier': 'makeSmartContractsEasier',
-  'display-nft-media': 'displayNftMedia',
-  'autodetect-nfts': 'useNftDetection',
   'proposed-nicknames': 'externalNameSourcesSetting',
 } as const;
 

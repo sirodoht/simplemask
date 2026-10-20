@@ -5,15 +5,19 @@ import type {
   JsonRpcEngineNextCallback,
   MethodHandler,
 } from '@metamask/json-rpc-engine';
-import type { JsonRpcRequest, PendingJsonRpcResponse } from '@metamask/utils';
-import { ERC1155, ERC721 } from '@metamask/controller-utils';
+import type {
+  Json,
+  JsonRpcRequest,
+  PendingJsonRpcResponse,
+} from '@metamask/utils';
+import { ERC20 } from '@metamask/controller-utils';
 import { MESSAGE_TYPE } from '../../../../../shared/constants/app';
 
 export type HandleWatchAssetRequest = (
-  options: Record<string, string | Record<string, string>>,
+  options: Record<string, string | Record<string, Json>>,
 ) => Promise<void>;
 
-type WatchAssetParams = { options: { tokenId: string }; type: string };
+type WatchAssetParams = { options: Record<string, Json>; type: string };
 
 type RequestExtras = Partial<{ origin: string; networkClientId: string }>;
 
@@ -68,16 +72,10 @@ async function watchAssetImplementation(
     }
     const { options: asset, type } = params;
 
-    const { tokenId } = asset;
-
-    if (
-      [ERC721, ERC1155].includes(type) &&
-      tokenId !== undefined &&
-      typeof tokenId !== 'string'
-    ) {
+    if (type !== ERC20) {
       return end(
         rpcErrors.invalidParams({
-          message: `Expected parameter 'tokenId' to be type 'string'. Received type '${typeof tokenId}'`,
+          message: `Asset type ${type} not supported`,
         }),
       );
     }

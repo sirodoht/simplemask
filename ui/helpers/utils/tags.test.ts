@@ -110,42 +110,6 @@ describe('Tags Utils', () => {
       expect(tags['wallet.account_count']).toStrictEqual(2);
     });
 
-    it('includes nft count', () => {
-      const state = createMockState({
-        allNfts: {
-          '0x1234': {
-            '0x1': [
-              {
-                tokenId: '1',
-              },
-              {
-                tokenId: '2',
-              },
-            ],
-            '0x2': [
-              {
-                tokenId: '3',
-              },
-              {
-                tokenId: '4',
-              },
-            ],
-          },
-          '0x4321': {
-            '0x3': [
-              {
-                tokenId: '5',
-              },
-            ],
-          },
-        } as unknown as MetaMaskReduxState['metamask']['allNfts'],
-      });
-
-      const tags = getStartupTraceTags(state);
-
-      expect(tags['wallet.nft_count']).toStrictEqual(5);
-    });
-
     it('includes notification count', () => {
       const state = createMockState({
         metamaskNotificationsList: [

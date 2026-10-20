@@ -49,7 +49,6 @@ import {
   setNextNonce,
   addPermittedChain,
   setTokenNetworkFilter,
-  detectNfts,
 } from '../../../store/actions';
 import { isDisableableDefaultNetwork } from '../../../helpers/utils/network-sections';
 import type { NetworkItemCallbacks } from '../network-manager/hooks/useNetworkItemCallbacks';
@@ -75,7 +74,6 @@ import {
   getSelectedMultichainNetworkChainId,
   getIsTestnetInUse,
   getNetworkDiscoverButtonEnabled,
-  getAllChainsToPoll,
 } from '../../../selectors';
 import { getPreferences } from '../../../../shared/lib/selectors/preferences';
 import { selectAdditionalNetworksBlacklistFeatureFlag } from '../../../selectors/network-blacklist/network-blacklist';
@@ -83,7 +81,6 @@ import { getFeaturedEvmNetworks } from '../../../selectors/config-registry/confi
 import ToggleButton from '../../ui/toggle-button';
 import {
   Display,
-  FlexDirection,
   JustifyContent,
   TextAlign,
   TextColor,
@@ -207,8 +204,6 @@ export const NetworkListMenu = ({ onClose }: NetworkListMenuProps) => {
     [selectedTabOrigin],
   );
   const permittedChainIds = useSelector(selectPermittedChainIds);
-
-  const allChainIds = useSelector(getAllChainsToPoll);
   // Get blacklisted chain IDs from feature flag
   const blacklistedChainIds = useSelector(
     selectAdditionalNetworksBlacklistFeatureFlag,
@@ -442,7 +437,6 @@ export const NetworkListMenu = ({ onClose }: NetworkListMenuProps) => {
         dispatch(setActiveNetwork(finalNetworkClientId));
         dispatch(updateCustomNonce(''));
         dispatch(setNextNonce(''));
-        dispatch(detectNfts(allChainIds));
 
         if (Object.keys(tokenNetworkFilter || {}).length <= 1) {
           dispatch(setTokenNetworkFilter({ [hexChainId]: true }));
@@ -465,7 +459,6 @@ export const NetworkListMenu = ({ onClose }: NetworkListMenuProps) => {
       selectedTabOrigin,
       permittedChainIds,
       evmNetworks,
-      allChainIds,
       tokenNetworkFilter,
       dispatch,
     ],

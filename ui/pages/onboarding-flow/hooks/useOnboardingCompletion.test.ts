@@ -85,8 +85,6 @@ const mockSetUseAddressBarEnsResolution = jest
   .fn()
   .mockResolvedValue(undefined);
 const mockSetUsePhishDetect = jest.fn().mockResolvedValue(undefined);
-const mockSetOpenSeaEnabled = jest.fn().mockResolvedValue(undefined);
-const mockSetUseNftDetection = jest.fn().mockResolvedValue(undefined);
 const mockSetUseSafeChainsListValidation = jest
   .fn()
   .mockResolvedValue(undefined);
@@ -106,8 +104,6 @@ const backgroundConnectionMock = new Proxy(
     setUseCurrencyRateCheck: mockSetUseCurrencyRateCheck,
     setUseAddressBarEnsResolution: mockSetUseAddressBarEnsResolution,
     setUsePhishDetect: mockSetUsePhishDetect,
-    setOpenSeaEnabled: mockSetOpenSeaEnabled,
-    setUseNftDetection: mockSetUseNftDetection,
     setUseSafeChainsListValidation: mockSetUseSafeChainsListValidation,
     setHasSeenOnboardingCompletionPage: mockSetHasSeenOnboardingCompletionPage,
     completeOnboarding: mockCompleteOnboarding,
@@ -156,8 +152,6 @@ describe('useOnboardingCompletion', () => {
       useCurrencyRateCheck: true,
       useAddressBarEnsResolution: true,
       usePhishDetect: true,
-      openSeaEnabled: true,
-      useNftDetection: true,
       useSafeChainsListValidation: true,
     },
     appState: {
@@ -317,8 +311,6 @@ describe('useOnboardingCompletion', () => {
         useCurrencyRateCheck: true,
         usePhishDetect: true,
         useAddressBarEnsResolution: true,
-        openSeaEnabled: true,
-        useNftDetection: true,
         useSafeChainsListValidation: true,
       });
     });
@@ -337,8 +329,6 @@ describe('useOnboardingCompletion', () => {
             useCurrencyRateCheck: false,
             useAddressBarEnsResolution: false,
             usePhishDetect: false,
-            openSeaEnabled: false,
-            useNftDetection: false,
             useSafeChainsListValidation: false,
           },
         },
@@ -354,16 +344,12 @@ describe('useOnboardingCompletion', () => {
           useCurrencyRateCheck: false,
           usePhishDetect: false,
           useAddressBarEnsResolution: false,
-          openSeaEnabled: false,
-          useNftDetection: false,
           useSafeChainsListValidation: false,
         });
       });
       expect(mockSetUseCurrencyRateCheck).not.toHaveBeenCalled();
       expect(mockSetUseAddressBarEnsResolution).not.toHaveBeenCalled();
       expect(mockSetUsePhishDetect).not.toHaveBeenCalled();
-      expect(mockSetOpenSeaEnabled).not.toHaveBeenCalled();
-      expect(mockSetUseNftDetection).not.toHaveBeenCalled();
       expect(mockSetUseSafeChainsListValidation).not.toHaveBeenCalled();
       expect(mockSetUseTokenDetection).not.toHaveBeenCalled();
     });
@@ -390,8 +376,6 @@ describe('useOnboardingCompletion', () => {
           useCurrencyRateCheck: false,
           usePhishDetect: true,
           useAddressBarEnsResolution: true,
-          openSeaEnabled: true,
-          useNftDetection: true,
           useSafeChainsListValidation: true,
         });
       });

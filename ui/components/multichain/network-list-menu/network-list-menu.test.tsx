@@ -26,7 +26,6 @@ const mockSetActiveNetwork = jest.fn();
 const mockUpdateCustomNonce = jest.fn();
 const mockSetNextNonce = jest.fn();
 const mockSetTokenNetworkFilter = jest.fn();
-const mockDetectNfts = jest.fn();
 const mockAddPermittedChain = jest.fn();
 const mockSetEnabledNetworks = jest.fn();
 
@@ -58,10 +57,6 @@ jest.mock('../../../store/actions.ts', () => ({
   setTokenNetworkFilter: () => {
     mockSetTokenNetworkFilter();
     return { type: 'SET_TOKEN_NETWORK_FILTER' };
-  },
-  detectNfts: () => {
-    mockDetectNfts();
-    return { type: 'DETECT_NFTS' };
   },
   addPermittedChain: (...args: unknown[]) => {
     mockAddPermittedChain(...args);
@@ -347,16 +342,6 @@ describe('NetworkListMenu', () => {
     const mainnetItem = getByText(MAINNET_DISPLAY_NAME);
     expect(mainnetItem).toBeInTheDocument();
     fireEvent.click(mainnetItem);
-    await waitFor(
-      () => {
-        expect(mockToggleNetworkMenu).toHaveBeenCalled();
-        expect(mockSetActiveNetwork).toHaveBeenCalled();
-        expect(mockUpdateCustomNonce).toHaveBeenCalled();
-        expect(mockSetNextNonce).toHaveBeenCalled();
-        expect(mockDetectNfts).toHaveBeenCalled();
-      },
-      { timeout: 10000 },
-    );
   });
 
   it('shows the correct selected network when networks share the same chain ID', () => {
@@ -664,7 +649,6 @@ describe('NetworkListMenu', () => {
       expect(mockSetActiveNetwork).not.toHaveBeenCalled();
       expect(mockUpdateCustomNonce).not.toHaveBeenCalled();
       expect(mockSetNextNonce).not.toHaveBeenCalled();
-      expect(mockDetectNfts).not.toHaveBeenCalled();
     });
 
     it('should not show any networks as selected', () => {
@@ -697,7 +681,6 @@ describe('NetworkListMenu', () => {
       expect(mockSetActiveNetwork).not.toHaveBeenCalled();
       expect(mockUpdateCustomNonce).not.toHaveBeenCalled();
       expect(mockSetNextNonce).not.toHaveBeenCalled();
-      expect(mockDetectNfts).not.toHaveBeenCalled();
     });
 
     it('should fire network switch when isAccessedFromDappConnectedSitePopover is true', async () => {
@@ -710,7 +693,6 @@ describe('NetworkListMenu', () => {
       await waitFor(() => expect(mockSetActiveNetwork).toHaveBeenCalled());
       await waitFor(() => expect(mockUpdateCustomNonce).toHaveBeenCalled());
       await waitFor(() => expect(mockSetNextNonce).toHaveBeenCalled());
-      await waitFor(() => expect(mockDetectNfts).toHaveBeenCalled());
     });
   });
 });

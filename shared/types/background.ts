@@ -5,7 +5,6 @@ import type {
   TokenListState,
   TokensControllerState,
   TokenBalancesControllerState,
-  NftControllerState,
   RatesControllerState,
   TokenRatesControllerState,
   MultichainBalancesControllerState,
@@ -125,7 +124,6 @@ export type ControllerStatePropertiesEnumerated = {
   hadAdvancedGasFeesSetPriorToMigration92_3: AppStateControllerState['hadAdvancedGasFeesSetPriorToMigration92_3'];
   activeQrCodeScanRequest: AppStateControllerState['activeQrCodeScanRequest'];
   lastQrScanCompletedSuccessfully: AppStateControllerState['lastQrScanCompletedSuccessfully'];
-  nftsDropdownState: AppStateControllerState['nftsDropdownState'];
   shieldSubscriptionError: AppStateControllerState['shieldSubscriptionError'];
   shieldEndingToastLastClickedOrClosed: AppStateControllerState['shieldEndingToastLastClickedOrClosed'];
   shieldPausedToastLastClickedOrClosed: AppStateControllerState['shieldPausedToastLastClickedOrClosed'];
@@ -221,9 +219,6 @@ export type ControllerStatePropertiesEnumerated = {
   orderedNetworkList: NetworkOrderControllerState['orderedNetworkList'];
   enabledNetworkMap: NetworkEnablementControllerState['enabledNetworkMap'];
   nativeAssetIdentifiers: NetworkEnablementControllerState['nativeAssetIdentifiers'];
-  allNftContracts: NftControllerState['allNftContracts'];
-  allNfts: NftControllerState['allNfts'];
-  ignoredNfts: NftControllerState['ignoredNfts'];
   subscriptionAccountsSeen: NotificationServicesController.NotificationServicesControllerState['subscriptionAccountsSeen'];
   isMetamaskNotificationsFeatureSeen: NotificationServicesController.NotificationServicesControllerState['isMetamaskNotificationsFeatureSeen'];
   isNotificationServicesEnabled: NotificationServicesController.NotificationServicesControllerState['isNotificationServicesEnabled'];
@@ -252,10 +247,8 @@ export type ControllerStatePropertiesEnumerated = {
   ipfsGateway: PreferencesControllerState['ipfsGateway'];
   isIpfsGatewayEnabled: PreferencesControllerState['isIpfsGatewayEnabled'];
   isMultiAccountBalancesEnabled: PreferencesControllerState['isMultiAccountBalancesEnabled'];
-  openSeaEnabled: PreferencesControllerState['openSeaEnabled'];
   securityAlertsEnabled: PreferencesControllerState['securityAlertsEnabled'];
   showSidePanelMigrationToast: PreferencesControllerState['showSidePanelMigrationToast'];
-  useNftDetection: PreferencesControllerState['useNftDetection'];
   useTokenDetection: PreferencesControllerState['useTokenDetection'];
   useTransactionSimulations: PreferencesControllerState['useTransactionSimulations'];
   useSafeChainsListValidation: PreferencesControllerState['useSafeChainsListValidation'];
@@ -365,7 +358,6 @@ export type ControllerStateTypesMerged = AccountsControllerState &
   NetworkState &
   NetworkOrderControllerState &
   NetworkEnablementControllerState &
-  NftControllerState &
   NotificationServicesController.NotificationServicesControllerState &
   NotificationServicesPushController.NotificationServicesPushControllerState &
   OnboardingControllerState &

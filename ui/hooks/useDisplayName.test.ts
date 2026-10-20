@@ -389,61 +389,6 @@ describe('useDisplayName', () => {
     });
   });
 
-  describe('Watched NFT', () => {
-    it('returns watched NFT name', () => {
-      mockWatchedNFTName(VALUE_MOCK, VARIATION_MOCK, WATCHED_NFT_NAME_MOCK);
-
-      const { result } = renderHookWithProvider(
-        () =>
-          useDisplayName({
-            value: VALUE_MOCK,
-            type: NameType.ETHEREUM_ADDRESS,
-            variation: VARIATION_MOCK,
-          }),
-        state,
-      );
-
-      expect(result.current).toStrictEqual({
-        contractDisplayName: undefined,
-        hasPetname: false,
-        image: undefined,
-        isAccount: false,
-        name: WATCHED_NFT_NAME_MOCK,
-        displayState: TrustSignalDisplayState.Recognized,
-        icon: null,
-        subtitle: null,
-      });
-    });
-
-    it('returns no name if type is not address', () => {
-      mockWatchedNFTName(VALUE_MOCK, VARIATION_MOCK, WATCHED_NFT_NAME_MOCK);
-
-      const { result } = renderHookWithProvider(
-        () =>
-          useDisplayName({
-            value: VALUE_MOCK,
-            type: OTHER_NAME_TYPE,
-            variation: VARIATION_MOCK,
-          }),
-        state,
-      );
-
-      expect(result.current).toStrictEqual({
-        contractDisplayName: undefined,
-        hasPetname: false,
-        image: undefined,
-        isAccount: false,
-        name: null,
-        displayState: TrustSignalDisplayState.Unknown,
-        icon: {
-          name: IconName.Question,
-          color: undefined,
-        },
-        subtitle: null,
-      });
-    });
-  });
-
   describe('Domain Resolutions', () => {
     it('returns ENS name if domain resolution for that address exists', () => {
       mockDomainResolutions(VALUE_MOCK, ENS_NAME_MOCK);

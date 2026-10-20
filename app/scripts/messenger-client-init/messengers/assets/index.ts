@@ -5,14 +5,6 @@ export {
 export type { TokenRatesControllerInitMessenger } from './token-rates-controller-messenger';
 
 export {
-  getNftControllerMessenger,
-  getNftControllerInitMessenger,
-} from './nft-controller-messenger';
-export type { NftControllerInitMessenger } from './nft-controller-messenger';
-
-export { getNftDetectionControllerMessenger } from './nft-detection-controller-messenger';
-
-export {
   getAssetsContractControllerMessenger,
   getAssetsContractControllerInitMessenger,
 } from './assets-contract-controller-messenger';

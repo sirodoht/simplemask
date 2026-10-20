@@ -12,7 +12,6 @@ import { isStrictHexString, Json } from '@metamask/utils';
 
 import { TEMPLATED_CONFIRMATION_APPROVAL_TYPES } from '../confirmation/templates/approval-types';
 import {
-  CONFIRM_ADD_SUGGESTED_NFT_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
@@ -322,16 +321,8 @@ export function getConfirmationRoute(
     return `${CONNECT_ROUTE}/${confirmationId}`;
   }
 
-  const tokenId = (
-    nextConfirmation?.requestData?.asset as Record<string, unknown>
-  )?.tokenId as string;
-
-  if (type === ApprovalType.WatchAsset && !tokenId) {
+  if (type === ApprovalType.WatchAsset) {
     return CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE;
-  }
-
-  if (type === ApprovalType.WatchAsset && tokenId) {
-    return CONFIRM_ADD_SUGGESTED_NFT_ROUTE;
   }
 
   return '';

@@ -1,6 +1,5 @@
-import { isEqual, memoize, pickBy, size, sum } from 'lodash';
+import { isEqual, pickBy, size, sum } from 'lodash';
 import { NameType } from '@metamask/name-controller';
-import type { Nft } from '@metamask/assets-controllers';
 import type { InternalAccount } from '@metamask/keyring-internal-api';
 import type {
   SeedlessOnboardingControllerGetStateAction,
@@ -37,13 +36,10 @@ export type MetaMaskState = Pick<
   | 'ledgerTransportType'
   | 'networkConfigurationsByChainId'
   | 'internalAccounts'
-  | 'allNfts'
   | 'allTokens'
   | 'theme'
   | 'optedInToMarketing'
   | 'marketingConsentDecisionMade'
-  | 'useNftDetection'
-  | 'openSeaEnabled'
   | 'securityAlertsEnabled'
   | 'useTokenDetection'
   | 'names'
@@ -220,20 +216,12 @@ export class UserTraitsService {
           metamaskState?.multichainNetworkConfigurationsByChainId || {},
         ), // the state here is already caip-2 formatted
       ],
-      [MetaMetricsUserTrait.NftAutodetectionEnabled]:
-        metamaskState.useNftDetection,
       [MetaMetricsUserTrait.NumberOfAccounts]: Object.values(
         metamaskState.internalAccounts.accounts,
-      ).length,
-      [MetaMetricsUserTrait.NumberOfNftCollections]:
-        this.#getAllUniqueNFTAddressesLength(metamaskState.allNfts),
-      [MetaMetricsUserTrait.NumberOfNfts]: this.#getAllNFTsFlattened(
-        metamaskState.allNfts,
       ).length,
       [MetaMetricsUserTrait.NumberOfTokens]: this.#getNumberOfTokens(
         getTokensControllerAllTokens({ metamask: metamaskState }),
       ),
-      [MetaMetricsUserTrait.OpenSeaApiEnabled]: metamaskState.openSeaEnabled,
       [MetaMetricsUserTrait.ThreeBoxEnabled]: false, // deprecated, hard-coded as false
       [MetaMetricsUserTrait.Theme]: metamaskState.theme || 'default',
       [MetaMetricsUserTrait.TokenDetectionEnabled]:
@@ -337,34 +325,6 @@ export class UserTraitsService {
   ): NonNullable<MetaMetricsUserTraits[MetaMetricsUserTrait.AccountType]> {
     const authConnection = this.#getSeedlessOnboardingState()?.authConnection;
     return authConnection ? `${baseType}_${authConnection}` : baseType;
-  }
-
-  /**
-   * Returns an array of all of the NFTs the user
-   * possesses across all networks and accounts.
-   *
-   * @param allNfts
-   */
-  #getAllNFTsFlattened = memoize((allNfts: MetaMaskState['allNfts'] = {}) => {
-    return Object.values(allNfts).reduce((result: Nft[], chainNFTs) => {
-      return result.concat(...Object.values(chainNFTs));
-    }, []);
-  });
-
-  /**
-   * Returns the number of unique NFT addresses the user
-   * possesses across all networks and accounts.
-   *
-   * @param allNfts
-   */
-  #getAllUniqueNFTAddressesLength(
-    allNfts: MetaMaskState['allNfts'] = {},
-  ): number {
-    const allNFTAddresses = this.#getAllNFTsFlattened(allNfts).map(
-      (nft) => nft.address,
-    );
-    const uniqueAddresses = new Set(allNFTAddresses);
-    return uniqueAddresses.size;
   }
 
   /**

@@ -1,4 +1,4 @@
-import { ERC20, ERC721 } from '@metamask/controller-utils';
+import { ERC20, ERC721, ERC1155 } from '@metamask/controller-utils';
 import { rpcErrors } from '@metamask/rpc-errors';
 import type { JsonRpcEngineEndCallback } from '@metamask/json-rpc-engine';
 import { PendingJsonRpcResponse } from '@metamask/utils';
@@ -14,40 +14,47 @@ describe('watchAssetHandler', () => {
     mockHandleWatchAssetRequest = jest.fn();
   });
 
-  it('should handle valid input for type ERC721 correctly', async () => {
-    const req = {
-      id: '1',
-      jsonrpc: '2.0' as const,
-      method: MESSAGE_TYPE.WATCH_ASSET,
-      params: {
-        options: {
-          address: '0x1234',
-          tokenId: 'testTokenId',
+  for (const type of [ERC721, ERC1155]) {
+    it(`rejects ${type} watch requests without creating an approval`, async () => {
+      const req = {
+        id: '1',
+        jsonrpc: '2.0' as const,
+        method: MESSAGE_TYPE.WATCH_ASSET,
+        params: {
+          options: {
+            address: '0x1234',
+            tokenId: 'testTokenId',
+          },
+          type,
         },
-        type: ERC721,
-      },
-      origin: 'testOrigin',
-      networkClientId: 'networkClientId1',
-    };
+        origin: 'testOrigin',
+        networkClientId: 'networkClientId1',
+      };
 
-    const res = {
-      id: '1',
-      jsonrpc: '2.0' as const,
-    } as PendingJsonRpcResponse<true>;
+      const res = {
+        id: '1',
+        jsonrpc: '2.0' as const,
+      } as PendingJsonRpcResponse<true>;
 
-    await watchAssetHandler.implementation(req, res, () => undefined, mockEnd, {
-      handleWatchAssetRequest: mockHandleWatchAssetRequest,
+      await watchAssetHandler.implementation(
+        req,
+        res,
+        () => undefined,
+        mockEnd,
+        {
+          handleWatchAssetRequest: mockHandleWatchAssetRequest,
+        },
+      );
+
+      expect(mockHandleWatchAssetRequest).not.toHaveBeenCalled();
+      expect(res.result).toBeUndefined();
+      expect(mockEnd).toHaveBeenCalledWith(
+        rpcErrors.invalidParams({
+          message: `Asset type ${type} not supported`,
+        }),
+      );
     });
-
-    expect(mockHandleWatchAssetRequest).toHaveBeenCalledWith({
-      asset: req.params.options,
-      type: req.params.type,
-      origin: req.origin,
-      networkClientId: req.networkClientId,
-    });
-    expect(res.result).toStrictEqual(true);
-    expect(mockEnd).toHaveBeenCalledWith();
-  });
+  }
 
   it('should handle valid input for type ERC20 correctly', async () => {
     const req = {
@@ -105,38 +112,5 @@ describe('watchAssetHandler', () => {
 
     expect(mockHandleWatchAssetRequest).not.toHaveBeenCalled();
     expect(mockEnd).toHaveBeenCalledWith(rpcErrors.invalidParams());
-  });
-
-  it('should throw when type is ERC721 and tokenId type is invalid', async () => {
-    const req = {
-      id: '1',
-      jsonrpc: '2.0' as const,
-      method: MESSAGE_TYPE.WATCH_ASSET,
-      params: {
-        options: {
-          address: '0x1234',
-          tokenId: 222,
-        },
-        type: ERC721,
-      },
-      origin: 'testOrigin',
-      networkClientId: 'networkClientId1',
-    };
-
-    const res = {
-      id: '1',
-      jsonrpc: '2.0' as const,
-    } as PendingJsonRpcResponse<true>;
-
-    // @ts-expect-error: Destructive testing
-    await watchAssetHandler.implementation(req, res, () => undefined, mockEnd, {
-      handleWatchAssetRequest: mockHandleWatchAssetRequest,
-    });
-
-    expect(mockEnd).toHaveBeenCalledWith(
-      rpcErrors.invalidParams({
-        message: `Expected parameter 'tokenId' to be type 'string'. Received type 'number'`,
-      }),
-    );
   });
 });

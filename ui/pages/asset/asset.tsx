@@ -1,13 +1,9 @@
-import { Nft } from '@metamask/assets-controllers';
 import { formatChainIdToCaip } from '@metamask/bridge-controller';
 import { CaipChainId, Hex, isCaipChainId } from '@metamask/utils';
 import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useParams, useLocation } from 'react-router-dom';
-import { isEqualCaseInsensitive } from '../../../shared/lib/string-utils';
-import NftDetails from '../../components/app/assets/nfts/nft-details/nft-details';
 import { ScrollContainer } from '../../contexts/scroll-container';
-import { getNFTsByChainId } from '../../ducks/metamask/metamask';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
 import { getFungibleAssetForRoute } from '../../selectors/assets';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../selectors/multichain-accounts/account-tree';
@@ -33,10 +29,7 @@ const Asset = () => {
   const location = useLocation();
   const locationState = location.state as LocationState | undefined;
 
-  const { chainId, id, decodedAsset, assetId } =
-    resolveAssetRouteLookup(params);
-
-  const nfts = useSelector((state) => getNFTsByChainId(state, chainId));
+  const { chainId, decodedAsset, assetId } = resolveAssetRouteLookup(params);
 
   const ownedToken = useSelector((state) =>
     getFungibleAssetForRoute(state, { assetId, chainId, decodedAsset }),
@@ -65,23 +58,15 @@ const Asset = () => {
       : null,
   );
 
-  const nft: Nft = nfts.find(
-    ({ address, tokenId }: { address: Hex; tokenId: string }) =>
-      // @ts-expect-error TODO: Fix this type error by handling undefined parameters
-      isEqualCaseInsensitive(address, decodedAsset) &&
-      id === tokenId.toString(),
-  );
-
   useEffect(() => {
     const el = document.querySelector('.app');
     el?.scroll(0, 0);
   }, []);
 
   const renderContent = useCallback(() => {
-    if (nft) {
-      return <NftDetails nft={nft} nftChainId={chainId} />;
+    if (params.id) {
+      return <Navigate to={DEFAULT_ROUTE} />;
     }
-
     if (isLoading) {
       return null;
     }
@@ -97,11 +82,11 @@ const Asset = () => {
 
     return <TokenAsset chainId={displayChainId as Hex} token={token} />;
   }, [
+    params.id,
     chainId,
     displayChainId,
     hasError,
     isLoading,
-    nft,
     selectedAccountForAsset,
     token,
   ]);

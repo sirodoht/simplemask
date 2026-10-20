@@ -28,7 +28,6 @@ export const ASSET_DETAILS_ROUTE =
   `${ASSET_ROUTE}/:chainId/:asset?/:id?` as const;
 export const ASSET_SECURITY_TRUST_ROUTE =
   `${ASSET_ROUTE}/:chainId/:asset?/:id?/security-trust` as const;
-export const ASSET_IMAGE_ROUTE = `${ASSET_ROUTE}/image/:asset/:id` as const;
 export const SETTINGS_ROUTE = '/settings';
 export const LEGACY_SETTINGS_V2_ROUTE = '/settings-v2';
 export const ASSETS_ROUTE = '/settings/assets';
@@ -108,7 +107,6 @@ export const CONFIRM_IMPORT_TOKEN_ROUTE = '/confirm-import-token';
 export const TOKEN_MANAGEMENT_ROUTE = '/token-management';
 export const DISCOVER_SEARCH_ROUTE = '/discover-search';
 export const CUSTOM_TOKEN_IMPORT_ROUTE = '/custom-token-import';
-export const IMPORT_NFTS_ROUTE = '/import-nfts';
 export const CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE = '/confirm-add-suggested-token';
 export const ACCOUNT_LIST_PAGE_ROUTE = '/account-list';
 export const MULTICHAIN_ACCOUNT_ADDRESS_LIST_PAGE_ROUTE =
@@ -123,7 +121,6 @@ export const MULTICHAIN_WALLET_DETAILS_PAGE_ROUTE =
   '/multichain-wallet-details-page';
 export const MULTICHAIN_SMART_ACCOUNT_PAGE_ROUTE = '/multichain-smart-account';
 export const NEW_ACCOUNT_ROUTE = '/new-account';
-export const CONFIRM_ADD_SUGGESTED_NFT_ROUTE = '/confirm-add-suggested-nft';
 export const CONNECT_HARDWARE_ROUTE = '/new-account/connect';
 export const HARDWARE_WALLET_REPAIR_ROUTE = '/hardware-wallet-repair';
 export const SEND_ROUTE = '/send';
@@ -291,11 +288,6 @@ export const ROUTES = [
     path: MULTICHAIN_ACCOUNT_PRIVATE_KEY_LIST_PAGE_ROUTE,
     label: 'Account Private Key List Page',
     trackInAnalytics: false,
-  },
-  {
-    path: ASSET_IMAGE_ROUTE,
-    label: 'Nft Image Page',
-    trackInAnalytics: true,
   },
   {
     path: ASSET_DETAILS_ROUTE,
@@ -586,11 +578,6 @@ export const ROUTES = [
     trackInAnalytics: true,
   },
   {
-    path: IMPORT_NFTS_ROUTE,
-    label: 'Import NFTs Page',
-    trackInAnalytics: true,
-  },
-  {
     path: CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
     label: 'Confirm Add Suggested Token Page',
     trackInAnalytics: true,
@@ -598,11 +585,6 @@ export const ROUTES = [
   {
     path: NEW_ACCOUNT_ROUTE,
     label: 'New Account Page',
-    trackInAnalytics: true,
-  },
-  {
-    path: CONFIRM_ADD_SUGGESTED_NFT_ROUTE,
-    label: 'Confirm Add Suggested NFT Page',
     trackInAnalytics: true,
   },
   {

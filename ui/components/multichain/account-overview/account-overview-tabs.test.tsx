@@ -23,7 +23,6 @@ jest.mock('../../../hooks/useAnalytics', () => {
 
 jest.mock('../../../store/actions', () => ({
   setDefaultHomeActiveTabName: jest.fn(),
-  detectNfts: jest.fn(() => ({ type: 'MOCK_DETECT_NFTS' })),
   setPerpsTabBadgeSeen: jest.fn(() => () => Promise.resolve()),
 }));
 
@@ -41,12 +40,6 @@ jest.mock('../../../pages/activity/useTransactionsQuery', () => ({
   usePrefetchTransactions: () => jest.fn(),
 }));
 
-jest.mock('../../app/assets/nfts/nfts-tab', () => ({
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: () => null,
-}));
-
 jest.mock('../../app/assets/defi-list/defi-tab', () => ({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   __esModule: true,
@@ -58,7 +51,7 @@ beforeEach(() => {
 });
 
 // Old remote flags must not restore the removed product.
-it('renders wallet tabs without Perps even when old feature flags enable it', () => {
+it('renders wallet tabs without Perps or NFTs even when old feature flags enable it', () => {
   const store = configureStore({
     metamask: {
       ...mockState.metamask,
@@ -75,6 +68,9 @@ it('renders wallet tabs without Perps even when old feature flags enable it', ()
     />,
     store,
   );
+  expect(
+    screen.queryByTestId('account-overview__nfts-tab'),
+  ).not.toBeInTheDocument();
   expect(screen.getByTestId('account-overview__asset-tab')).toBeInTheDocument();
   expect(
     screen.queryByTestId('account-overview__perps-tab'),

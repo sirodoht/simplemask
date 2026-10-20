@@ -10,7 +10,6 @@ import {
 import { isEqualCaseInsensitive } from '../../../../shared/lib/string-utils';
 import { usePrevious } from '../../../hooks/usePrevious';
 import { useTokenTracker } from '../../../hooks/useTokenTracker';
-import { selectNftsByChainId } from '../../../selectors';
 import { useDispatch } from '../../../store/hooks';
 
 export function useAssetDetails(
@@ -23,7 +22,6 @@ export function useAssetDetails(
   const dispatch = useDispatch();
 
   // state selectors
-  const nfts = useSelector((state) => selectNftsByChainId(state, chainId));
   const tokens = useSelector(
     (state) => getTokensByChainId(state, chainId),
     isEqual,
@@ -63,7 +61,7 @@ export function useAssetDetails(
           tokenAddress,
           userAddress,
           transactionData,
-          nfts,
+          [],
           chainId,
         );
         if (isMounted.current) {
@@ -94,7 +92,6 @@ export function useAssetDetails(
     tokenAddress,
     userAddress,
     transactionData,
-    nfts,
     tokensWithBalances,
     prevTokenBalance,
   ]);

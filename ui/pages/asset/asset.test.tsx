@@ -7,9 +7,7 @@ import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import mockState from '../../../test/data/mock-state.json';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
 import { getFungibleAssetForRoute } from '../../selectors/assets';
-import { getNFTsByChainId } from '../../ducks/metamask/metamask';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../selectors/multichain-accounts/account-tree';
-import NftDetails from '../../components/app/assets/nfts/nft-details/nft-details';
 import { Token } from '../../components/app/assets/types';
 import Asset from './asset';
 import { useRouteAssetToken } from './hooks/useRouteAssetToken';
@@ -28,9 +26,6 @@ const STELLAR_CHAIN_ID = 'stellar:pubnet';
 const STELLAR_USDC_ASSET_ID =
   'stellar:pubnet/asset:USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN' as CaipAssetType;
 const STELLAR_XLM_ASSET_ID = 'stellar:pubnet/slip44:148' as CaipAssetType;
-
-const NFT_CONTRACT = '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d';
-const NFT_TOKEN_ID = '42';
 
 const erc20Token: Token = {
   address: DAI_ADDRESS,
@@ -83,9 +78,7 @@ jest.mock('react-router-dom', () => ({
   ),
 }));
 
-jest.mock('../../ducks/metamask/metamask', () => ({
-  getNFTsByChainId: jest.fn(),
-}));
+jest.mock('../../ducks/metamask/metamask', () => ({}));
 
 jest.mock('../../selectors/assets', () => ({
   getFungibleAssetForRoute: jest.fn(),
@@ -132,21 +125,6 @@ jest
     />
   ));
 
-jest.mock('../../components/app/assets/nfts/nft-details/nft-details', () => ({
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: jest.fn(),
-}));
-jest
-  .mocked(NftDetails)
-  .mockImplementation(({ nft, nftChainId }) => (
-    <div
-      data-testid="nft-details"
-      data-token-id={nft.tokenId}
-      data-chain-id={nftChainId}
-    />
-  ));
-
 const renderAssetPage = () => {
   const store = configureMockStore([thunk])(mockState);
   return renderWithProvider(<Asset />, store);
@@ -171,8 +149,6 @@ describe('Asset', () => {
       isLoading: false,
       hasError: false,
     });
-
-    jest.mocked(getNFTsByChainId).mockReturnValue([]);
     jest.mocked(getFungibleAssetForRoute).mockReturnValue(undefined);
     jest
       .mocked(getInternalAccountBySelectedAccountGroupAndCaip)
@@ -261,52 +237,17 @@ describe('Asset', () => {
     );
   });
 
-  describe('NFT routes', () => {
-    beforeEach(() => {
-      mockUseParams.mockReturnValue({
-        chainId: '0x1',
-        asset: NFT_CONTRACT,
-        id: NFT_TOKEN_ID,
-      });
+  it('rejects retired NFT token-ID routes', () => {
+    mockUseParams.mockReturnValue({
+      chainId: '0x1',
+      asset: '0x1234',
+      id: '42',
     });
-
-    it('renders NftDetails when a matching NFT is found', () => {
-      jest.mocked(getNFTsByChainId).mockReturnValue([
-        {
-          address: NFT_CONTRACT,
-          tokenId: NFT_TOKEN_ID,
-          name: 'Bored Ape',
-        },
-      ]);
-
-      renderAssetPage();
-
-      const nftDetails = screen.getByTestId('nft-details');
-      expect(nftDetails).toBeInTheDocument();
-      expect(nftDetails).toHaveAttribute('data-token-id', NFT_TOKEN_ID);
-      expect(nftDetails).toHaveAttribute('data-chain-id', '0x1');
-      expect(screen.queryByTestId('token-asset')).not.toBeInTheDocument();
-      expect(screen.queryByTestId('native-asset')).not.toBeInTheDocument();
-    });
-
-    it('prefers NftDetails over token loading state', () => {
-      jest.mocked(getNFTsByChainId).mockReturnValue([
-        {
-          address: NFT_CONTRACT,
-          tokenId: NFT_TOKEN_ID,
-          name: 'Bored Ape',
-        },
-      ]);
-      mockUseRouteAssetToken.mockReturnValue({
-        token: undefined,
-        isLoading: true,
-        hasError: false,
-      });
-
-      renderAssetPage();
-
-      expect(screen.getByTestId('nft-details')).toBeInTheDocument();
-    });
+    renderAssetPage();
+    expect(screen.getByTestId('navigate-redirect')).toHaveAttribute(
+      'data-to',
+      DEFAULT_ROUTE,
+    );
   });
 
   describe('loading and error states', () => {

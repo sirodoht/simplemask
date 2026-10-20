@@ -20,7 +20,6 @@ import reduceMetamask, {
   getSendHexDataFeatureFlagState,
   getSendToAccounts,
   getCurrentCurrency,
-  getAllNfts,
   getTokensByChainId,
 } from './metamask';
 import { getConversionRate, isNotEIP1559Network } from './base-selectors';
@@ -723,44 +722,6 @@ describe('MetaMask Reducers', () => {
       expect(getGasEstimateTypeByChainId(state, '0x1')).toStrictEqual(
         GAS_ESTIMATE_TYPES.FEE_MARKET,
       );
-    });
-  });
-
-  describe('getAllNfts', () => {
-    it('should return all nfts', () => {
-      const testAddress = '0xaccount';
-      const state = {
-        metamask: {
-          internalAccounts: {
-            accounts: {
-              testId: {
-                address: testAddress,
-                id: 'testId',
-              },
-            },
-            selectedAccount: 'testId',
-          },
-          allNfts: {
-            [testAddress]: {
-              '0x1': [
-                {
-                  address: '0xd2cea331e5f5d8ee9fb1055c297795937645de91',
-                  tokenId: '100',
-                },
-              ],
-            },
-          },
-        },
-      };
-
-      expect(getAllNfts(state)).toStrictEqual({
-        '0x1': [
-          {
-            address: '0xd2cea331e5f5d8ee9fb1055c297795937645de91',
-            tokenId: '100',
-          },
-        ],
-      });
     });
   });
 

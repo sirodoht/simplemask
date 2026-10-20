@@ -21,7 +21,6 @@ import {
 import {
   AssetsContractController,
   BalanceMap,
-  Nft,
   Token,
 } from '@metamask/assets-controllers';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -3045,113 +3044,6 @@ export async function findNetworkClientIdByChainId(
   ]);
 }
 
-export function addNft(
-  address: string,
-  tokenID: string,
-  networkClientId: NetworkClientId,
-  dontShowLoadingIndicator: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    if (!address) {
-      throw new Error('MetaMask - Cannot add NFT without address');
-    }
-    if (!tokenID) {
-      throw new Error('MetaMask - Cannot add NFT without tokenID');
-    }
-    if (!dontShowLoadingIndicator) {
-      dispatch(showLoadingIndication());
-    }
-    try {
-      await submitRequestToBackground('addNft', [
-        address,
-        tokenID,
-        networkClientId,
-      ]);
-    } catch (error) {
-      logErrorWithMessage(error);
-    } finally {
-      await forceUpdateMetamaskState(dispatch);
-      dispatch(hideLoadingIndication());
-    }
-  };
-}
-
-export function addNftVerifyOwnership(
-  address: string,
-  tokenID: string,
-  networkClientId: string,
-  dontShowLoadingIndicator: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    if (!address) {
-      throw new Error('MetaMask - Cannot add NFT without address');
-    }
-    if (!tokenID) {
-      throw new Error('MetaMask - Cannot add NFT without tokenID');
-    }
-    if (!networkClientId) {
-      throw new Error('MetaMask - Cannot add NFT without a networkClientId');
-    }
-    if (!dontShowLoadingIndicator) {
-      dispatch(showLoadingIndication());
-    }
-    try {
-      await submitRequestToBackground('addNftVerifyOwnership', [
-        address,
-        tokenID,
-        networkClientId,
-      ]);
-    } catch (error) {
-      if (isErrorWithMessage(error)) {
-        const message = getErrorMessage(error);
-        if (
-          message.includes('This NFT is not owned by the user') ||
-          message.includes('Unable to verify ownership')
-        ) {
-          throw error;
-        } else {
-          logErrorWithMessage(error);
-        }
-      }
-    } finally {
-      await forceUpdateMetamaskState(dispatch);
-      dispatch(hideLoadingIndication());
-    }
-  };
-}
-
-export function removeAndIgnoreNft(
-  address: string,
-  tokenID: string,
-  networkClientId: string,
-  shouldShowLoadingIndicator?: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    if (!address) {
-      throw new Error('MetaMask - Cannot ignore NFT without address');
-    }
-    if (!tokenID) {
-      throw new Error('MetaMask - Cannot ignore NFT without tokenID');
-    }
-    if (!shouldShowLoadingIndicator) {
-      dispatch(showLoadingIndication());
-    }
-    try {
-      await submitRequestToBackground('removeAndIgnoreNft', [
-        address,
-        tokenID,
-        networkClientId,
-      ]);
-    } catch (error) {
-      logErrorWithMessage(error);
-      throw error;
-    } finally {
-      await forceUpdateMetamaskState(dispatch);
-      dispatch(hideLoadingIndication());
-    }
-  };
-}
-
 export function getAssets(
   accounts: InternalAccount[],
   options: GetAssetsOptions,
@@ -3160,69 +3052,6 @@ export function getAssets(
     await submitRequestToBackground('getAssets', [accounts, options]);
     await forceUpdateMetamaskState(dispatch);
   };
-}
-
-export function removeNft(
-  address: string,
-  tokenID: string,
-  networkClientId: NetworkClientId,
-  dontShowLoadingIndicator: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    if (!address) {
-      throw new Error('MetaMask - Cannot remove NFT without address');
-    }
-    if (!tokenID) {
-      throw new Error('MetaMask - Cannot remove NFT without tokenID');
-    }
-    if (!dontShowLoadingIndicator) {
-      dispatch(showLoadingIndication());
-    }
-    try {
-      await submitRequestToBackground('removeNft', [
-        address,
-        tokenID,
-        networkClientId,
-      ]);
-    } catch (error) {
-      logErrorWithMessage(error);
-    } finally {
-      await forceUpdateMetamaskState(dispatch);
-      dispatch(hideLoadingIndication());
-    }
-  };
-}
-
-export async function checkAndUpdateAllNftsOwnershipStatus(
-  networkClientId: NetworkClientId,
-) {
-  await submitRequestToBackground('checkAndUpdateAllNftsOwnershipStatus', [
-    networkClientId,
-  ]);
-}
-
-export async function isNftOwner(
-  ownerAddress: string,
-  nftAddress: string,
-  nftId: string,
-  networkClientId: NetworkClientId,
-): Promise<boolean> {
-  return await submitRequestToBackground('isNftOwner', [
-    ownerAddress,
-    nftAddress,
-    nftId,
-    networkClientId,
-  ]);
-}
-
-export async function checkAndUpdateSingleNftOwnershipStatus(
-  nft: Nft,
-  networkClientId: NetworkClientId,
-) {
-  await submitRequestToBackground('checkAndUpdateSingleNftOwnershipStatus', [
-    nft,
-    networkClientId,
-  ]);
 }
 
 // When we upgrade to TypeScript 4.5 this is part of the language. It will get
@@ -3596,41 +3425,12 @@ export function hideModal(): Action {
   };
 }
 
-export function showImportNftsModal(payload: {
-  tokenAddress?: string;
-  tokenId?: string;
-  ignoreErc20Token?: boolean;
-}) {
-  return {
-    type: actionConstants.IMPORT_NFTS_MODAL_OPEN,
-    payload,
-  };
-}
-
-export function hideImportNftsModal(): Action {
-  return {
-    type: actionConstants.IMPORT_NFTS_MODAL_CLOSE,
-  };
-}
-
 // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31973
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function setConfirmationExchangeRates(value: Record<string, any>) {
   return {
     type: actionConstants.SET_CONFIRMATION_EXCHANGE_RATES,
     value,
-  };
-}
-
-export function showIpfsModal(): Action {
-  return {
-    type: actionConstants.SHOW_IPFS_MODAL_OPEN,
-  };
-}
-
-export function hideIpfsModal(): Action {
-  return {
-    type: actionConstants.SHOW_IPFS_MODAL_CLOSE,
   };
 }
 
@@ -3690,26 +3490,6 @@ export function hideDeprecatedNetworkModal(): Action {
   };
 }
 
-/**
- * TODO: this should be moved somewhere else when it makese sense to do so
- */
-type NftDropDownState = {
-  [address: string]: {
-    [chainId: string]: {
-      [nftAddress: string]: boolean;
-    };
-  };
-};
-
-export function updateNftDropDownState(
-  value: NftDropDownState,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('updateNftDropDownState', [value]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
 type QrCodeData = {
   // Address when a Ethereum Address has been detected
   type?: 'address' | string;
@@ -3744,12 +3524,6 @@ export function showLoadingIndication(
   };
 }
 
-function showNftStillFetchingIndication(): Action {
-  return {
-    type: actionConstants.SHOW_NFT_STILL_FETCHING_INDICATION,
-  };
-}
-
 export function setHardwareWalletDefaultHdPath({
   device,
   path,
@@ -3766,11 +3540,6 @@ export function setHardwareWalletDefaultHdPath({
 export function hideLoadingIndication(): Action {
   return {
     type: actionConstants.HIDE_LOADING,
-  };
-}
-function hideNftStillFetchingIndication(): Action {
-  return {
-    type: actionConstants.HIDE_NFT_STILL_FETCHING_INDICATION,
   };
 }
 
@@ -4435,34 +4204,6 @@ export function setUseTokenDetection(
   };
 }
 
-export function setOpenSeaEnabled(
-  val: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    dispatch(showLoadingIndication());
-    log.debug(`background.setOpenSeaEnabled`);
-    try {
-      await submitRequestToBackground('setOpenSeaEnabled', [val]);
-    } finally {
-      dispatch(hideLoadingIndication());
-    }
-  };
-}
-
-export function setUseNftDetection(
-  val: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    dispatch(showLoadingIndication());
-    log.debug(`background.setUseNftDetection`);
-    try {
-      await submitRequestToBackground('setUseNftDetection', [val]);
-    } finally {
-      dispatch(hideLoadingIndication());
-    }
-  };
-}
-
 export function setUse4ByteResolution(
   val: boolean,
 ): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
@@ -4504,22 +4245,6 @@ export function detectTokens(
     log.debug(`background.detectTokens`);
     await submitRequestToBackground('detectTokens', [{ chainIds }]);
     dispatch(hideLoadingIndication());
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-// TODO: with support of non EVM, check if possible to refactor this and get chainIds from the state in the fct instead of passing it as a param
-export function detectNfts(
-  chainIds: string[],
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    dispatch(showNftStillFetchingIndication());
-    log.debug(`background.detectNfts`);
-    try {
-      await submitRequestToBackground('detectNfts', [chainIds]);
-    } finally {
-      dispatch(hideNftStillFetchingIndication());
-    }
     await forceUpdateMetamaskState(dispatch);
   };
 }

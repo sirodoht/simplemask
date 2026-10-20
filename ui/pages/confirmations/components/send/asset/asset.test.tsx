@@ -66,11 +66,7 @@ describe('Asset', () => {
     { name: messages.networkNameEthereum.message, symbol: 'ETH', chainId: '1' },
     { name: 'USDC', symbol: 'USDC', chainId: '1' },
   ];
-  const mockNfts = [
-    { name: 'Cool NFT', collection: { name: 'Cool Collection' }, chainId: '1' },
-  ];
   const mockFilteredTokens = [mockTokens[0]];
-  const mockFilteredNfts = [mockNfts[0]];
   const mockAddAssetFilterMethod = jest.fn();
   const mockRemoveAssetFilterMethod = jest.fn();
   const mockSetAssetListSize = jest.fn();
@@ -78,12 +74,10 @@ describe('Asset', () => {
   beforeEach(() => {
     mockUseSendAssets.mockReturnValue({
       tokens: mockTokens,
-      nfts: mockNfts,
     });
 
     mockUseSendAssetFilter.mockReturnValue({
       filteredTokens: mockFilteredTokens,
-      filteredNfts: mockFilteredNfts,
     });
 
     mockUseAssetSelectionMetrics.mockReturnValue({
@@ -112,7 +106,6 @@ describe('Asset', () => {
 
     expect(mockUseSendAssetFilter).toHaveBeenCalledWith({
       tokens: mockTokens,
-      nfts: mockNfts,
       selectedChainId: null,
       searchQuery: 'test query',
     });
@@ -126,7 +119,6 @@ describe('Asset', () => {
 
     expect(mockUseSendAssetFilter).toHaveBeenCalledWith({
       tokens: mockTokens,
-      nfts: mockNfts,
       selectedChainId: '1',
       searchQuery: '',
     });
@@ -143,7 +135,6 @@ describe('Asset', () => {
 
     expect(mockUseSendAssetFilter).toHaveBeenLastCalledWith({
       tokens: mockTokens,
-      nfts: mockNfts,
       selectedChainId: null,
       searchQuery: '',
     });
@@ -154,7 +145,6 @@ describe('Asset', () => {
 
     expect(mockUseSendAssetFilter).toHaveBeenCalledWith({
       tokens: mockTokens,
-      nfts: mockNfts,
       selectedChainId: null,
       searchQuery: '',
     });
@@ -164,7 +154,7 @@ describe('Asset', () => {
     it('calls addAssetFilterMethod when search query changes', () => {
       render(<Asset />);
       expect(mockSetAssetListSize).toHaveBeenCalledWith(
-        (mockTokens.length + mockNfts.length).toString(),
+        mockTokens.length.toString(),
       );
     });
 
@@ -202,28 +192,26 @@ describe('Asset', () => {
         { name: 'Ramps ETH', symbol: 'ETH', chainId: 'eip155:1' },
       ];
 
-      render(<Asset tokens={injectedTokens} nfts={[]} hideNfts />);
+      render(<Asset tokens={injectedTokens} />);
 
       expect(mockUseSendAssets).not.toHaveBeenCalled();
       expect(mockUseSendAssetFilter).toHaveBeenCalledWith({
         tokens: injectedTokens,
-        nfts: [],
         selectedChainId: null,
         searchQuery: '',
       });
     });
 
-    it('defaults catalog nfts to an empty list when omitted', () => {
+    it('uses the supplied token catalog', () => {
       const injectedTokens = [
         { name: 'Ramps ETH', symbol: 'ETH', chainId: 'eip155:1' },
       ];
 
-      render(<Asset tokens={injectedTokens} hideNfts />);
+      render(<Asset tokens={injectedTokens} />);
 
       expect(mockUseSendAssets).not.toHaveBeenCalled();
       expect(mockUseSendAssetFilter).toHaveBeenCalledWith({
         tokens: injectedTokens,
-        nfts: [],
         selectedChainId: null,
         searchQuery: '',
       });

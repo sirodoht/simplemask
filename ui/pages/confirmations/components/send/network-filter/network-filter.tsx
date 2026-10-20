@@ -23,7 +23,6 @@ import {
 
 type NetworkFilterProps = {
   tokens: Asset[];
-  nfts: Asset[];
   selectedChainId?: string | null;
   onChainIdChange?: (chainId: string | null) => void;
   disableMetrics?: boolean;
@@ -80,7 +79,6 @@ function getNetworkSelectionItem({
 
 export const NetworkFilter = ({
   tokens,
-  nfts,
   selectedChainId = null, // Default to "All networks"
   onChainIdChange,
   disableMetrics = false,
@@ -128,20 +126,13 @@ export const NetworkFilter = ({
       }
     });
 
-    // Add chain IDs from NFTs but don't include their fiat balance in sorting
-    nfts.forEach((nft) => {
-      if (nft.chainId) {
-        chainIds.add(String(nft.chainId));
-      }
-    });
-
     // Sort chain IDs by total fiat balance (descending - highest first)
     return Array.from(chainIds).sort((chainIdA, chainIdB) => {
       const balanceA = chainIdBalances.get(chainIdA) || 0;
       const balanceB = chainIdBalances.get(chainIdB) || 0;
       return balanceB - balanceA;
     });
-  }, [tokens, nfts]);
+  }, [tokens]);
 
   const isSingleNetworkSelected = selectedChainId !== null;
 

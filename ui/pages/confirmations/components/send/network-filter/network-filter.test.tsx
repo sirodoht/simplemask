@@ -173,8 +173,6 @@ describe('NetworkFilter', () => {
     { chainId: '42161', fiat: { balance: 75 } },
   ];
 
-  const mockNfts = [{ chainId: '1' }, { chainId: '137' }];
-
   beforeEach(() => {
     mockUseSelector.mockReturnValue(true);
     mockUseI18nContext.mockReturnValue(
@@ -222,7 +220,6 @@ describe('NetworkFilter', () => {
     const { getByTestId, getByText } = render(
       <NetworkFilter
         tokens={mockTokens}
-        nfts={mockNfts}
         onChainIdChange={mockOnChainIdChange}
       />,
     );
@@ -236,7 +233,6 @@ describe('NetworkFilter', () => {
     const { getByTestId, getByText } = render(
       <NetworkFilter
         tokens={mockTokens}
-        nfts={mockNfts}
         selectedChainId="1"
         onChainIdChange={mockOnChainIdChange}
       />,
@@ -255,7 +251,6 @@ describe('NetworkFilter', () => {
     const { getByTestId, queryByTestId } = render(
       <NetworkFilter
         tokens={mockTokens}
-        nfts={mockNfts}
         onChainIdChange={mockOnChainIdChange}
       />,
     );
@@ -272,7 +267,6 @@ describe('NetworkFilter', () => {
     const { getByTestId, getAllByTestId } = render(
       <NetworkFilter
         tokens={mockTokens}
-        nfts={mockNfts}
         onChainIdChange={mockOnChainIdChange}
       />,
     );
@@ -297,7 +291,6 @@ describe('NetworkFilter', () => {
     const { getByTestId, getAllByTestId } = render(
       <NetworkFilter
         tokens={mockTokens}
-        nfts={mockNfts}
         onChainIdChange={mockOnChainIdChange}
       />,
     );
@@ -314,7 +307,6 @@ describe('NetworkFilter', () => {
     const { getByTestId, getAllByTestId } = render(
       <NetworkFilter
         tokens={mockTokens}
-        nfts={mockNfts}
         selectedChainId="1"
         onChainIdChange={mockOnChainIdChange}
       />,
@@ -330,7 +322,6 @@ describe('NetworkFilter', () => {
     const { getByTestId, getAllByTestId } = render(
       <NetworkFilter
         tokens={mockTokens}
-        nfts={mockNfts}
         onChainIdChange={mockOnChainIdChange}
       />,
     );
@@ -352,7 +343,6 @@ describe('NetworkFilter', () => {
       const { getByTestId, getAllByTestId } = render(
         <NetworkFilter
           tokens={mockTokens}
-          nfts={mockNfts}
           selectedChainId="1"
           onChainIdChange={mockOnChainIdChange}
         />,
@@ -370,7 +360,6 @@ describe('NetworkFilter', () => {
       const { getByTestId, getAllByTestId } = render(
         <NetworkFilter
           tokens={mockTokens}
-          nfts={mockNfts}
           disableMetrics
           onChainIdChange={mockOnChainIdChange}
         />,
@@ -401,7 +390,6 @@ describe('NetworkFilter', () => {
       const { getByTestId, getByText } = render(
         <NetworkFilter
           tokens={tokensWithDetails}
-          nfts={[]}
           selectedChainId="eip155:999"
           onChainIdChange={mockOnChainIdChange}
         />,
@@ -431,7 +419,6 @@ describe('NetworkFilter', () => {
       const { getByText, queryByText } = render(
         <NetworkFilter
           tokens={tokensWithConflictingDetails}
-          nfts={[]}
           selectedChainId="1"
           onChainIdChange={mockOnChainIdChange}
         />,

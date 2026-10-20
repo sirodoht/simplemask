@@ -12,7 +12,6 @@ export const AccountOverviewUnknown = (props: AccountOverviewUnknownProps) => {
   return (
     <AccountOverviewLayout
       showTokens={false}
-      showNfts={false}
       showDefi={false}
       showActivity={true}
       {...props}

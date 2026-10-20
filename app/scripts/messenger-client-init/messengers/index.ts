@@ -51,9 +51,6 @@ import {
   getAssetsContractControllerMessenger,
   getNetworkEnablementControllerMessenger,
   getNetworkOrderControllerMessenger,
-  getNftControllerInitMessenger,
-  getNftControllerMessenger,
-  getNftDetectionControllerMessenger,
   getTokenRatesControllerInitMessenger,
   getTokenRatesControllerMessenger,
   getAssetsContractControllerInitMessenger,
@@ -657,14 +654,6 @@ export const MESSENGER_FACTORIES = {
   TokenRatesController: {
     getMessenger: getTokenRatesControllerMessenger,
     getInitMessenger: getTokenRatesControllerInitMessenger,
-  },
-  NftController: {
-    getMessenger: getNftControllerMessenger,
-    getInitMessenger: getNftControllerInitMessenger,
-  },
-  NftDetectionController: {
-    getMessenger: getNftDetectionControllerMessenger,
-    getInitMessenger: noop,
   },
   AssetsContractController: {
     getMessenger: getAssetsContractControllerMessenger,

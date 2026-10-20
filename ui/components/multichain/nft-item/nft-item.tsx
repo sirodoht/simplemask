@@ -112,7 +112,6 @@ export const NftItem = ({
       <NftDefaultImage
         className="nft-item__default-image"
         data-testid="nft-default-image"
-        clickable={clickable && isIpfsURL}
       />
     );
 

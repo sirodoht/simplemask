@@ -16,7 +16,6 @@ import QRScanner from './qr-scanner';
 import { HardwareWalletErrorModal } from './hardware-wallet-error-modal';
 
 import ConfirmDeleteNetwork from './confirm-delete-network';
-import ConvertTokenToNftModal from './convert-token-to-nft-modal/convert-token-to-nft-modal';
 import CustomizeNonceModal from './customize-nonce';
 import FadeModal, { type FadeModalRef } from './fade-modal';
 import RampsInfoModal from './ramps/ramps-info-modal';
@@ -58,19 +57,6 @@ type ModalConfig = {
 };
 
 const MODALS: Record<string, ModalConfig> = {
-  CONVERT_TOKEN_TO_NFT: {
-    contents: <ConvertTokenToNftModal />,
-    mobileModalStyle: {
-      ...modalContainerMobileStyle,
-    },
-    laptopModalStyle: {
-      ...modalContainerLaptopStyle,
-    },
-    contentStyle: {
-      borderRadius: '8px',
-    },
-  },
-
   RAMPS_UNSUPPORTED: {
     contents: (
       <RampsInfoModal

@@ -50,24 +50,6 @@ const extensionMock = {
 } as unknown as jest.Mocked<Browser>;
 
 describe('AppStateController', () => {
-  describe('updateNftDropDownState', () => {
-    it('updates the NFT dropdown state', async () => {
-      await withController(({ controller }) => {
-        const nftsDropdownState = {
-          account: {
-            '0x1': true,
-          },
-        };
-
-        controller.updateNftDropDownState(nftsDropdownState);
-
-        expect(controller.state.nftsDropdownState).toStrictEqual(
-          nftsDropdownState,
-        );
-      });
-    });
-  });
-
   describe('setPasskeyAutoUnlockSuppressed', () => {
     it('updates passkeyAutoUnlockSuppressed', async () => {
       await withController(({ controller }) => {
@@ -819,7 +801,6 @@ describe('AppStateController', () => {
               "musdConversionEducationSeen": false,
               "newPrivacyPolicyToastClickedOrClosed": null,
               "newPrivacyPolicyToastShownDate": null,
-              "nftsDropdownState": {},
               "notificationGasPollTokens": [],
               "onboardingDate": null,
               "outdatedBrowserWarningLastShown": null,
@@ -906,7 +887,6 @@ describe('AppStateController', () => {
               "musdConversionEducationSeen": false,
               "newPrivacyPolicyToastClickedOrClosed": null,
               "newPrivacyPolicyToastShownDate": null,
-              "nftsDropdownState": {},
               "notificationGasPollTokens": [],
               "onboardingDate": null,
               "outdatedBrowserWarningLastShown": null,
@@ -1066,7 +1046,6 @@ describe('AppStateController', () => {
               "musdConversionEducationSeen": false,
               "newPrivacyPolicyToastClickedOrClosed": null,
               "newPrivacyPolicyToastShownDate": null,
-              "nftsDropdownState": {},
               "notificationGasPollTokens": [],
               "onboardingDate": null,
               "outdatedBrowserWarningLastShown": null,

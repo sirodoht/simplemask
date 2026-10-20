@@ -33,12 +33,10 @@ import {
   getPermittedEVMChainsForSelectedTab,
   getShouldShowTestNetworks,
   getIsTestnetInUse,
-  getAllChainsToPoll,
 } from '../../../selectors';
 import { getPreferences } from '../../../../shared/lib/selectors/preferences';
 import {
   addPermittedChain,
-  detectNfts,
   setActiveNetwork,
   setNetworkClientIdForDomain,
   setNextNonce,
@@ -101,7 +99,6 @@ export const DappBarEVMNetworkSelectorPopover: React.FC<
     getPermittedEVMChainsForSelectedTab(state, selectedTabOrigin),
   );
   const { tokenNetworkFilter } = useSelector(getPreferences);
-  const allChainIds = useSelector(getAllChainsToPoll);
 
   const activeDappChainId = dappActiveNetwork
     ? (dappActiveNetwork.chainId as Hex)
@@ -179,7 +176,6 @@ export const DappBarEVMNetworkSelectorPopover: React.FC<
         dispatch(setActiveNetwork(finalNetworkClientId));
         dispatch(updateCustomNonce(''));
         dispatch(setNextNonce(''));
-        dispatch(detectNfts(allChainIds));
 
         if (Object.keys(tokenNetworkFilter || {}).length <= 1) {
           dispatch(setTokenNetworkFilter({ [hexChainId]: true }));
@@ -218,7 +214,6 @@ export const DappBarEVMNetworkSelectorPopover: React.FC<
       domains,
       permittedChainIds,
       dispatch,
-      allChainIds,
       tokenNetworkFilter,
       trackEvent,
       createEventBuilder,

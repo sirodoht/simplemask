@@ -4,32 +4,25 @@ import { type Asset } from '../../types/send';
 
 type UseSendAssetFilterProps = {
   tokens: Asset[];
-  nfts: Asset[];
   selectedChainId?: string | null; // null means "All networks"
   searchQuery?: string;
 };
 
 type FilteredAssets = {
   filteredTokens: Asset[];
-  filteredNfts: Asset[];
 };
 
 export const useSendAssetFilter = ({
   tokens,
-  nfts,
   selectedChainId,
   searchQuery = '',
 }: UseSendAssetFilterProps): FilteredAssets => {
   return useMemo(() => {
     let networkFilteredTokens = tokens;
-    let networkFilteredNfts = nfts;
 
     if (selectedChainId !== null) {
       networkFilteredTokens = tokens.filter(
         (token) => token.chainId === selectedChainId,
-      );
-      networkFilteredNfts = nfts.filter(
-        (nft) => nft.chainId === selectedChainId,
       );
     }
 
@@ -37,15 +30,10 @@ export const useSendAssetFilter = ({
       matchesSearchQuery(token, searchQuery),
     );
 
-    const filteredNfts = networkFilteredNfts.filter((nft) =>
-      matchesSearchQuery(nft, searchQuery),
-    );
-
     return {
       filteredTokens,
-      filteredNfts,
     };
-  }, [tokens, nfts, selectedChainId, searchQuery]);
+  }, [tokens, selectedChainId, searchQuery]);
 };
 
 function matchesSearchQuery(asset: Asset, query: string): boolean {

@@ -80,7 +80,6 @@ const NftImage = ({ src }: { src: string }): JSX.Element => {
     <NftDefaultImage
       className="nft-item__default-image notification-list-item-icon__image"
       data-testid="nft-default-image"
-      clickable={isIpfs}
     />
   );
 };

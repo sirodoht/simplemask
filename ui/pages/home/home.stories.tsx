@@ -99,7 +99,7 @@ export const NFTNotifications: Story = {
             newTokensImported: '5',
             newTokensImportedError: 'Failed to import some tokens',
             newNetworkAddedName: 'Arbitrum One',
-            defaultHomeActiveTabName: AccountOverviewTabKey.Nfts,
+            defaultHomeActiveTabName: AccountOverviewTabKey.Activity,
           },
         })}
       >

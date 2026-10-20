@@ -13,7 +13,6 @@ import { renderWithProvider } from '../../../../../test/lib/render-helpers-navig
 import { mockNetworkState } from '../../../../../test/stub/networks';
 import { getDomainResolutions } from '../../../../ducks/domains';
 import { getNames, getNameSources } from '../../../../selectors';
-import { getNftContractsByAddressByChain } from '../../../../selectors/nft';
 import { setName, updateProposedNames } from '../../../../store/actions';
 import { TrustSignalDisplayState } from '../../../../hooks/useTrustSignals';
 import { useDisplayName } from '../../../../hooks/useDisplayName';
@@ -235,14 +234,6 @@ describe('NameDetails', () => {
             },
           },
         };
-      } else if (selector === getNftContractsByAddressByChain) {
-        return {
-          [VARIATION_MOCK]: {
-            [ADDRESS_RECOGNIZED_MOCK]: {
-              name: 'iZUMi Bond USD',
-            },
-          },
-        };
       } else if (selector === getDomainResolutions) {
         return [
           {
@@ -278,14 +269,6 @@ describe('NameDetails', () => {
       if (selector === getNames) {
         return {
           [NameType.ETHEREUM_ADDRESS]: {},
-        };
-      } else if (selector === getNftContractsByAddressByChain) {
-        return {
-          [VARIATION_MOCK]: {
-            [ADDRESS_RECOGNIZED_MOCK]: {
-              name: 'iZUMi Bond USD',
-            },
-          },
         };
       } else if (selector === getDomainResolutions) {
         return [
@@ -675,14 +658,6 @@ describe('NameDetails', () => {
               },
             },
           };
-        } else if (selector === getNftContractsByAddressByChain) {
-          return {
-            [VARIATION_MOCK]: {
-              [ADDRESS_RECOGNIZED_MOCK]: {
-                name: 'iZUMi Bond USD',
-              },
-            },
-          };
         } else if (selector === getDomainResolutions) {
           return [
             {
@@ -775,14 +750,6 @@ describe('NameDetails', () => {
                   },
                   name: null,
                 },
-              },
-            },
-          };
-        } else if (selector === getNftContractsByAddressByChain) {
-          return {
-            [VARIATION_MOCK]: {
-              [ADDRESS_RECOGNIZED_MOCK]: {
-                name: 'iZUMi Bond USD',
               },
             },
           };
@@ -885,14 +852,6 @@ describe('NameDetails', () => {
                   },
                   name: null,
                 },
-              },
-            },
-          };
-        } else if (selector === getNftContractsByAddressByChain) {
-          return {
-            [VARIATION_MOCK]: {
-              [ADDRESS_RECOGNIZED_MOCK]: {
-                name: 'iZUMi Bond USD',
               },
             },
           };

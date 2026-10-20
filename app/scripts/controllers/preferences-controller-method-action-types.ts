@@ -96,16 +96,6 @@ export type PreferencesControllerSetUseTokenDetectionAction = {
 };
 
 /**
- * Setter for the `useNftDetection` property
- *
- * @param useNftDetection - Whether or not the user prefers to autodetect NFTs.
- */
-export type PreferencesControllerSetUseNftDetectionAction = {
-  type: `PreferencesController:setUseNftDetection`;
-  handler: PreferencesController['setUseNftDetection'];
-};
-
-/**
  * Setter for the `use4ByteResolution` property
  *
  * @param use4ByteResolution - (Privacy) Whether or not the user prefers to have smart contract name details resolved with 4byte.directory
@@ -123,16 +113,6 @@ export type PreferencesControllerSetUse4ByteResolutionAction = {
 export type PreferencesControllerSetUseCurrencyRateCheckAction = {
   type: `PreferencesController:setUseCurrencyRateCheck`;
   handler: PreferencesController['setUseCurrencyRateCheck'];
-};
-
-/**
- * Setter for the `openSeaEnabled` property
- *
- * @param openSeaEnabled - Whether or not the user prefers to use the OpenSea API for NFTs data.
- */
-export type PreferencesControllerSetOpenSeaEnabledAction = {
-  type: `PreferencesController:setOpenSeaEnabled`;
-  handler: PreferencesController['setOpenSeaEnabled'];
 };
 
 /**
@@ -414,10 +394,8 @@ export type PreferencesControllerMethodActions =
   | PreferencesControllerToggleBasicFunctionalityAction
   | PreferencesControllerConsolidateBasicFunctionalityAction
   | PreferencesControllerSetUseTokenDetectionAction
-  | PreferencesControllerSetUseNftDetectionAction
   | PreferencesControllerSetUse4ByteResolutionAction
   | PreferencesControllerSetUseCurrencyRateCheckAction
-  | PreferencesControllerSetOpenSeaEnabledAction
   | PreferencesControllerSetSecurityAlertsEnabledAction
   | PreferencesControllerSetAddSnapAccountEnabledAction
   | PreferencesControllerSetWatchEthereumAccountEnabledAction

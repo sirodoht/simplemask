@@ -22,7 +22,7 @@ const ASSET_TYPE = {
 
 export const useAssetSelectionMetrics = () => {
   const { trackEvent, createEventBuilder } = useAnalytics();
-  const { tokens, nfts } = useSendAssets();
+  const { tokens } = useSendAssets();
   const {
     accountType,
     assetFilterMethod,
@@ -69,7 +69,7 @@ export const useAssetSelectionMetrics = () => {
       const tokenAddress = sendAsset?.address || sendAsset?.assetId;
       const isEvmSend = isEvmAddress(tokenAddress as string);
 
-      const allAssets = [...tokens, ...nfts];
+      const allAssets = tokens;
       const position =
         allAssets.findIndex((asset) => {
           if (sendAsset.tokenId) {
@@ -115,7 +115,6 @@ export const useAssetSelectionMetrics = () => {
       assetFilterMethod,
       assetListSize,
       createEventBuilder,
-      nfts,
       tokens,
       trackEvent,
     ],

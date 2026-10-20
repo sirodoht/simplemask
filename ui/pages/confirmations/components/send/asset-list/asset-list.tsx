@@ -33,11 +33,8 @@ import { useTokenAssetSecurityResults } from '../../../../../hooks/token-asset/u
 
 type AssetListProps = {
   tokens: Asset[];
-  nfts: Asset[];
   allTokens: Asset[];
-  allNfts: Asset[];
   onClearFilters?: () => void;
-  hideNfts?: boolean;
   hideBalances?: boolean;
   onAssetSelect?: (asset: Asset) => void;
   emptyStateMessage?: string;
@@ -46,22 +43,15 @@ type AssetListProps = {
   endRenderers?: TokenTagRenderer[];
 };
 
-type ListItem =
-  | { type: 'token'; asset: Asset; safetyResult?: string }
-  | { type: 'nft-header' }
-  | { type: 'nft'; asset: Asset };
+type ListItem = { type: 'token'; asset: Asset; safetyResult?: string };
 
 const ITEM_HEIGHT = 70;
-const HEADER_HEIGHT = 40;
 const noop = () => undefined;
 
 export const AssetList = ({
   tokens,
-  nfts,
   allTokens,
-  allNfts,
   onClearFilters,
-  hideNfts = false,
   hideBalances = false,
   onAssetSelect,
   emptyStateMessage,
@@ -80,9 +70,6 @@ export const AssetList = ({
   const captureAssetSelected = disableMetrics
     ? noop
     : captureAssetSelectedFromMetrics;
-
-  const effectiveNfts = hideNfts ? [] : nfts;
-  const effectiveAllNfts = hideNfts ? [] : allNfts;
 
   const tokenRows = useMemo(
     () =>
@@ -109,8 +96,8 @@ export const AssetList = ({
     assetIds: deferredDisplayedAssetIds,
   });
 
-  const hasFilteredResults = tokens.length > 0 || effectiveNfts.length > 0;
-  const hasAnyAssets = allTokens.length > 0 || effectiveAllNfts.length > 0;
+  const hasFilteredResults = tokens.length > 0;
+  const hasAnyAssets = allTokens.length > 0;
 
   const handleAssetClick = useCallback(
     (asset: Asset) => {
@@ -142,18 +129,10 @@ export const AssetList = ({
     });
   });
 
-  if (effectiveNfts.length > 0) {
-    items.push({ type: 'nft-header' });
-    effectiveNfts.forEach((nft) => {
-      items.push({ type: 'nft', asset: nft });
-    });
-  }
-
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => scrollContainerRef?.current || document.body,
-    estimateSize: (index) =>
-      items[index].type === 'nft-header' ? HEADER_HEIGHT : ITEM_HEIGHT,
+    estimateSize: () => ITEM_HEIGHT,
     overscan: 10,
   });
 
@@ -227,27 +206,13 @@ export const AssetList = ({
 
         return (
           <div
-            key={
-              item.type === 'nft-header'
-                ? String(virtualItem.key)
-                : extractKey(item)
-            }
+            key={extractKey(item)}
             className="absolute top-0 left-0 w-full"
             style={{
               transform: `translateY(${virtualItem.start}px)`,
             }}
           >
-            {item.type === 'nft-header' ? (
-              <Text
-                variant={TextVariant.bodyMdMedium}
-                color={TextColor.textAlternative}
-                marginInline={4}
-                marginTop={2}
-                marginBottom={2}
-              >
-                NFTs
-              </Text>
-            ) : (
+            {
               <AssetComponent
                 asset={item.asset}
                 onClick={() => handleAssetClick(item.asset)}
@@ -258,7 +223,7 @@ export const AssetList = ({
                 tagRenderers={tagRenderers}
                 endRenderers={endRenderers}
               />
-            )}
+            }
           </div>
         );
       })}
@@ -266,7 +231,7 @@ export const AssetList = ({
   );
 };
 
-function extractKey(item: { type: 'token' | 'nft'; asset: Asset }) {
+function extractKey(item: { type: 'token'; asset: Asset }) {
   const { asset } = item;
   if (item.type === 'token') {
     return `${asset.address ?? asset.assetId}-${asset.chainId}`;
