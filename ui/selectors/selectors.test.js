@@ -830,6 +830,7 @@ describe('Selectors', () => {
           internalAccounts: {
             accounts: {
               'mock-id-1': {
+                type: 'eip155:eoa',
                 address: '0x987654321',
                 metadata: {
                   name: 'Account 1',
@@ -1866,6 +1867,7 @@ describe('#getKeyringSnapAccounts', () => {
         internalAccounts: {
           accounts: {
             1: {
+              type: 'eip155:eoa',
               address: '0x123456789',
               metadata: {
                 name: 'Account 1',
@@ -1875,6 +1877,7 @@ describe('#getKeyringSnapAccounts', () => {
               },
             },
             2: {
+              type: 'eip155:eoa',
               address: '0x987654321',
               metadata: {
                 name: 'Account 2',
@@ -1897,6 +1900,7 @@ describe('#getKeyringSnapAccounts', () => {
         internalAccounts: {
           accounts: {
             'mock-id-1': {
+              type: 'eip155:eoa',
               address: '0x123456789',
               metadata: {
                 name: 'Account 1',
@@ -1906,6 +1910,7 @@ describe('#getKeyringSnapAccounts', () => {
               },
             },
             'mock-id-2': {
+              type: 'eip155:eoa',
               address: '0x987654321',
               metadata: {
                 name: 'Account 2',
@@ -1915,6 +1920,7 @@ describe('#getKeyringSnapAccounts', () => {
               },
             },
             'mock-id-3': {
+              type: 'eip155:eoa',
               address: '0xabcdef123',
               metadata: {
                 name: 'Account 3',
@@ -1930,6 +1936,7 @@ describe('#getKeyringSnapAccounts', () => {
 
     expect(selectors.getKeyringSnapAccounts(state)).toStrictEqual([
       {
+        type: 'eip155:eoa',
         address: '0x987654321',
         metadata: {
           name: 'Account 2',
@@ -1939,6 +1946,7 @@ describe('#getKeyringSnapAccounts', () => {
         },
       },
       {
+        type: 'eip155:eoa',
         address: '0xabcdef123',
         metadata: {
           name: 'Account 3',
@@ -3417,11 +3425,13 @@ describe('#getConnectedSitesList', () => {
         internalAccounts: {
           accounts: {
             acc1: {
+              type: 'eip155:eoa',
               address: selectedAddress,
               metadata: { keyring: { type: 'some-type' } },
               options: {},
             },
             acc2: {
+              type: 'eip155:eoa',
               address: otherAddress,
               metadata: { keyring: { type: 'some-type' } },
               options: {},
@@ -3910,9 +3920,7 @@ describe('getInternalAccountsSortedByKeyring', () => {
     );
     expect(result).toStrictEqual([
       hdAccountFromHdKeyring1,
-      solanaAccount1,
       hdAccountFromHdKeyring2,
-      solanaAccount2,
     ]);
   });
 

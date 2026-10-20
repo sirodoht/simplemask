@@ -34,8 +34,6 @@ describe('useRecipientValidation under StrictMode', () => {
     });
     mockUseSendType.mockReturnValue({
       isEvmSendType: true,
-      isSolanaSendType: false,
-      isStellarSendType: false,
     } as unknown as ReturnType<typeof useSendType>);
     mockUseSendContext.mockReturnValue({
       asset: EVM_ASSET,

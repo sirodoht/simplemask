@@ -121,3 +121,88 @@ index 550acfb0bc0860bdbd0207163323a26d345fa9a8..86d733a0cfa5fa16ab04977b17e86a25
              this.#rpcDataSource?.destroy?.();
              this.#stakedBalanceDataSource?.destroy?.();
              // Stop all active subscriptions
+diff --git a/dist/defaults.js b/dist/defaults.js
+index 0d27ed0e80d0fb5d82f62f28e3e19d055c248d4c..23cd3c5d5b31044b35d335ecb88c8d4badc8980e 100644
+--- a/dist/defaults.js
++++ b/dist/defaults.js
+@@ -1,27 +1,4 @@
+-/**
+- * EIP-55 checksummed address of MetaMask USD (mUSD) — same canonical contract
+- * address across every chain we deploy it to.
+- *
+- * Must be checksummed so that the CAIP-19 asset IDs produced by
+- * `musdAssetId()` (and therefore the keys seeded into `assetsInfo` by
+- * `buildDefaultAssetsInfo()`) match the keys written by data sources, which
+- * always pass IDs through `normalizeAssetId` → `toChecksumAddress` before
+- * emitting a `DataResponse`. Using a lowercase address would cause the
+- * pre-seeded keys to diverge from the data-source keys, leaving a duplicate
+- * entry in `assetsInfo` after the first balance or token-data poll.
+- */
+-const MUSD_ADDRESS = '0xacA92E438df0B2401fF60dA7E4337B687a2435DA';
+-/**
+- * Hardcoded metadata for MetaMask USD. Pre-seeding this in default
+- * state makes the token immediately renderable in the UI before any
+- * on-chain balance has been fetched.
+- */
+-const MUSD_METADATA = {
+-    type: 'erc20',
+-    symbol: 'mUSD',
+-    name: 'MetaMask USD',
+-    decimals: 6,
+-};
++
+ /**
+  * Arc's native USDC also exists as its own ERC20 (`0x3600...`); Accounts API
+  * resolves that identity without ever seeding native `assetsInfo` metadata.
+@@ -33,30 +10,14 @@ const ARC_NATIVE_METADATA = {
+     name: 'USDC',
+     decimals: 18,
+ };
+-/**
+- * Build the CAIP-19 asset ID for the mUSD ERC-20 token on a given EVM
+- * chain.
+- *
+- * @param chainId - The CAIP-2 chain identifier (e.g. `eip155:1`).
+- * @returns The CAIP-19 asset ID for mUSD on that chain.
+- */
+-function musdAssetId(chainId) {
+-    return `${chainId}/erc20:${MUSD_ADDRESS}`;
+-}
+ /**
+  * Default tracked tokens — assets the controller surfaces in state for
+  * every account on the listed chain even when the on-chain balance is
+  * still zero. Keyed by CAIP-2 chain id.
+  *
+- * To extend mUSD coverage to a new chain, add an entry here. To add a
+- * different default token, append its CAIP-19 asset id to the
+- * appropriate chain entry and provide its metadata in
+- * {@link DEFAULT_ASSET_METADATA}.
++ * Native defaults provide metadata for chains whose native currency also has an ERC-20 representation.
+  */
+ export const DEFAULT_TRACKED_ASSETS_BY_CHAIN = new Map([
+-    ['eip155:1', [musdAssetId('eip155:1')]],
+-    ['eip155:59144', [musdAssetId('eip155:59144')]],
+-    ['eip155:143', [musdAssetId('eip155:143')]],
+     ['eip155:5042', [ARC_NATIVE_ASSET_ID]],
+ ]);
+ /**
+@@ -70,9 +31,6 @@ export const CHAINS_WITH_DEFAULT_TRACKED_ASSETS = new Set(DEFAULT_TRACKED_ASSETS
+  * use `normalizeAssetId` to ensure the correct format before looking up.
+  */
+ export const DEFAULT_ASSET_METADATA = new Map([
+-    [musdAssetId('eip155:1'), MUSD_METADATA],
+-    [musdAssetId('eip155:59144'), MUSD_METADATA],
+-    [musdAssetId('eip155:143'), MUSD_METADATA],
+     [ARC_NATIVE_ASSET_ID, ARC_NATIVE_METADATA],
+ ]);
+ /**
+@@ -98,8 +56,7 @@ export function getDefaultAssetMetadata(assetId) {
+ /**
+  * Build the `assetsInfo` map to use in default controller state —
+  * pre-populated with metadata for every default tracked asset across
+- * every default tracked chain. This is what makes `assetsInfo[mUSD]`
+- * exist from the very first render, before any RPC poll completes.
++ * every default tracked chain. This supplies native metadata before the first RPC response.
+  *
+  * @returns A new map keyed by CAIP-19 id (canonical case from the
+  * defaults registry) with the corresponding metadata.

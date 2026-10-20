@@ -93,11 +93,5 @@
   "sandbox": {
     "pages": ["snaps/index.html"]
   },
-  "short_name": "__MSG_appName__",
-  "web_accessible_resources": [
-    {
-      "resources": ["cashtag-widget.html"],
-      "matches": ["https://x.com/*", "https://www.x.com/*"]
-    }
-  ]
+  "short_name": "__MSG_appName__"
 }

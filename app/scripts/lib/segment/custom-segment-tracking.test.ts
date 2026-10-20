@@ -133,8 +133,6 @@ describe('trackSegmentEventWhileOptedOut', () => {
         chain_id: '0x1',
       }),
       getProfileIdentityProperties: () => ({}),
-      getMarketingCampaignCookieId: () => null,
-      hasMarketingConsent: () => false,
       hasBasicFunctionalityEnabled: () => true,
       getRemoteFeatureFlags: () => ({}),
       getFeatureFlagThresholdGroups: () => ({}),
@@ -175,7 +173,6 @@ describe('trackSegmentEventWhileOptedOut', () => {
           version: '1.0.0',
         },
         userAgent: '',
-        marketingCampaignCookieId: null,
       },
     });
     expect(mockSegment.flush).toHaveBeenCalledTimes(1);
@@ -200,8 +197,6 @@ describe('trackSegmentEventWhileOptedOut', () => {
         chain_id: '0x1',
       }),
       getProfileIdentityProperties: () => ({}),
-      getMarketingCampaignCookieId: () => null,
-      hasMarketingConsent: () => false,
       hasBasicFunctionalityEnabled: () => false,
       getRemoteFeatureFlags: () => ({}),
       getFeatureFlagThresholdGroups: () => ({}),

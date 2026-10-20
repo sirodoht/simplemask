@@ -4,27 +4,15 @@ import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
 } from '#shared/constants/metametrics';
-import {
-  getInstallAttribution,
-  type InstallAttribution,
-} from '#shared/lib/install-attribution';
 import type { FlattenedBackgroundStateProxy } from '#shared/types';
 import { createEventBuilder, trackEvent } from '../../controllers/analytics';
-import type { AppMetadataController } from '../../controllers/app-metadata';
-import type { AppStateController } from '../../controllers/app-state-controller';
 import { onUpdate } from '../../on-update';
 import type ExtensionPlatform from '../../platforms/extension';
 
 type OnUpdateController = Parameters<typeof onUpdate>[0];
 type OnUpdatePlatform = Parameters<typeof onUpdate>[1];
 
-type InstallLifecycleAppStateController =
-  OnUpdateController['appStateController'] &
-    Pick<AppStateController, 'setDeferredDeepLink'>;
-
 type InstallLifecycleController = OnUpdateController & {
-  appMetadataController: Pick<AppMetadataController, 'setInstallAttribution'>;
-  appStateController: InstallLifecycleAppStateController;
   getState: () => Pick<
     FlattenedBackgroundStateProxy,
     'consentDecisionMade' | 'optedIn'
@@ -40,49 +28,21 @@ export type InstallLifecycleDependencies = {
   isInitialized: Promise<void>;
   requestSafeReload: () => void;
 };
-
 /**
- * Queues the "App Installed" event before consent, or tracks it immediately if
- * consent already exists.
- *
- * @param installAttributionPromise - Promise resolving to install attribution data.
- * @param controller - Controller APIs used for install attribution, deeplink, and consent state.
+ * Queue the installation event according to the user's analytics choice.
+ * @param controller - Consent state provider.
  */
-async function addAppInstalledEvent(
-  installAttributionPromise: Promise<InstallAttribution>,
-  controller: Pick<
-    InstallLifecycleController,
-    'appMetadataController' | 'appStateController' | 'getState'
-  >,
-): Promise<void> {
-  const { deferredDeepLink, traits: installAttributionTraits } =
-    await installAttributionPromise;
-
-  const cookieId = installAttributionTraits.cookie_id;
-  if (cookieId) {
-    controller.appMetadataController.setInstallAttribution({
-      cookieId,
-      gaClientId: installAttributionTraits.ga_client_id,
-    });
-  }
-  const eventProperties: Record<string, string> = {};
-
-  if (deferredDeepLink) {
-    controller.appStateController.setDeferredDeepLink(deferredDeepLink);
-    eventProperties.install_source = 'deeplink';
-    eventProperties.deeplink_path = deferredDeepLink.referringLink;
-  }
-
+function addAppInstalledEvent(
+  controller: Pick<InstallLifecycleController, 'getState'>,
+): void {
   const { consentDecisionMade, optedIn } = controller.getState();
-
   if (consentDecisionMade === true && optedIn === false) {
     return;
   }
-
   trackEvent(
     createEventBuilder(MetaMetricsEventName.AppInstalled)
       .addCategory(MetaMetricsEventCategory.App)
-      .addProperties(eventProperties)
+      .addProperties({})
       .build(),
   );
 }
@@ -95,7 +55,6 @@ async function addAppInstalledEvent(
  */
 async function onInstall(deps: InstallLifecycleDependencies): Promise<void> {
   log.debug('First install detected');
-  const installAttributionPromise = getInstallAttribution();
 
   if (!process.env.IN_TEST && !process.env.METAMASK_DEBUG) {
     deps.platform.openExtensionInBrowser();
@@ -103,7 +62,7 @@ async function onInstall(deps: InstallLifecycleDependencies): Promise<void> {
 
   await deps.isInitialized;
 
-  await addAppInstalledEvent(installAttributionPromise, deps.controller);
+  addAppInstalledEvent(deps.controller);
 }
 
 /**

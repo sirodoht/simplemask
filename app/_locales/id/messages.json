@@ -7157,12 +7157,6 @@
   "showTestnetNetworks": {
     "message": "Tampilkan jaringan pengujian"
   },
-  "showTickerWidget": {
-    "message": "Tampilkan widget web di X"
-  },
-  "showTickerWidgetDescription": {
-    "message": "Menampilkan widget MetaMask yang berisi detail token saat Anda menjelajahi X.com."
-  },
   "sidePanelMigrationToast": {
     "message": "MetaMask kini terbuka di panel samping secara default. $1 setiap saat dari menu.",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

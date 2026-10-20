@@ -7153,12 +7153,6 @@
   "showTestnetNetworks": {
     "message": "显示测试网络"
   },
-  "showTickerWidget": {
-    "message": "在 X 上显示 Web 小部件"
-  },
-  "showTickerWidgetDescription": {
-    "message": "在浏览 X.com 时，显示包含代币详情的 MetaMask 小部件。"
-  },
   "sidePanelMigrationToast": {
     "message": "MetaMask 现在默认在侧边栏中打开。可随时通过菜单 $1。",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

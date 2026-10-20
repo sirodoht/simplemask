@@ -131,16 +131,13 @@ export class UserTraitsService {
 
   /**
    * Returns AppMetadataController state used to derive seed traits
-   * (`install_date_ext`, `cookie_id`, `ga_client_id`).
+   * (`install_date_ext`).
    */
-  #getAppMetadataState(): Pick<
-    AppMetadataControllerState,
-    'firstTimeInfo' | 'installAttribution'
-  > {
-    const { firstTimeInfo, installAttribution } = this.#messenger.call(
+  #getAppMetadataState(): Pick<AppMetadataControllerState, 'firstTimeInfo'> {
+    const { firstTimeInfo } = this.#messenger.call(
       'AppMetadataController:getState',
     );
-    return { firstTimeInfo, installAttribution };
+    return { firstTimeInfo };
   }
 
   /**
@@ -181,10 +178,8 @@ export class UserTraitsService {
   _buildUserTraitsObject(
     metamaskState: MetaMaskState,
   ): Partial<MetaMetricsUserTraits> | null {
-    const { firstTimeInfo, installAttribution } = this.#getAppMetadataState();
+    const { firstTimeInfo } = this.#getAppMetadataState();
     const storageKindTrait = this.#getStorageKind();
-    const cookieIdTrait = installAttribution?.cookieId;
-    const gaClientIdTrait = installAttribution?.gaClientId;
     const installDateExt = firstTimeInfo?.date
       ? (new Date(firstTimeInfo.date).toISOString().split('T')[0] ?? '')
       : '';
@@ -260,14 +255,6 @@ export class UserTraitsService {
       [MetaMetricsUserTrait.Os]: getOs(),
       ...this.#getAccountCompositionTraits(metamaskState),
     };
-
-    if (cookieIdTrait !== undefined) {
-      currentTraits[MetaMetricsUserTrait.CookieId] = cookieIdTrait;
-    }
-
-    if (gaClientIdTrait !== undefined) {
-      currentTraits[MetaMetricsUserTrait.GaClientId] = gaClientIdTrait;
-    }
 
     if (
       !this.previousUserTraits &&

@@ -1887,7 +1887,7 @@
         "@metamask/keyring-utils": true,
         "@metamask/superstruct": true,
         "@metamask/utils": true,
-        "bitcoin-address-validation": true
+        "@metamask/keyring-api>bitcoin-address-validation": true
       }
     },
     "@metamask/keyring-controller": {
@@ -2023,7 +2023,7 @@
       "packages": {
         "@metamask/superstruct": true,
         "@metamask/utils": true,
-        "bitcoin-address-validation": true
+        "@metamask/keyring-api>bitcoin-address-validation": true
       }
     },
     "@metamask/logging-controller": {
@@ -3139,14 +3139,6 @@
         "@metamask/eth-money-keyring>@metamask/keyring-sdk>ethereum-cryptography>@noble/hashes": true
       }
     },
-    "viem>ox>@noble/curves": {
-      "globals": {
-        "TextEncoder": true
-      },
-      "packages": {
-        "@noble/hashes": true
-      }
-    },
     "viem>@noble/curves": {
       "globals": {
         "TextEncoder": true
@@ -3663,42 +3655,6 @@
       "globals": {
         "Float32Array": true,
         "Float64Array": true
-      }
-    },
-    "@solana/addresses": {
-      "globals": {
-        "Intl.Collator": true,
-        "TextEncoder": true,
-        "crypto.subtle.digest": true,
-        "crypto.subtle.exportKey": true
-      },
-      "packages": {
-        "@solana/addresses>@solana/assertions": true,
-        "@solana/addresses>@solana/codecs-core": true,
-        "@solana/addresses>@solana/codecs-strings": true,
-        "@solana/addresses>@solana/errors": true
-      }
-    },
-    "@solana/addresses>@solana/codecs-core": {
-      "packages": {
-        "@solana/addresses>@solana/errors": true
-      }
-    },
-    "@solana/addresses>@solana/codecs-strings": {
-      "globals": {
-        "TextDecoder": true,
-        "TextEncoder": true,
-        "atob": true,
-        "btoa": true
-      },
-      "packages": {
-        "@solana/addresses>@solana/codecs-core": true,
-        "@solana/addresses>@solana/errors": true
-      }
-    },
-    "@solana/addresses>@solana/errors": {
-      "globals": {
-        "btoa": true
       }
     },
     "@metamask/controller-utils>@spruceid/siwe-parser": {
@@ -4566,11 +4522,6 @@
         "storybook>recast>tiny-invariant": true
       }
     },
-    "css-loader": {
-      "globals": {
-        "btoa": true
-      }
-    },
     "currency-formatter": {
       "packages": {
         "currency-formatter>accounting": true,
@@ -4991,12 +4942,6 @@
         "readable-stream": true
       }
     },
-    "lightweight-charts>fancy-canvas": {
-      "globals": {
-        "ResizeObserver": true,
-        "document.body": true
-      }
-    },
     "fast-json-patch": {
       "globals": {
         "addEventListener": true,
@@ -5120,7 +5065,7 @@
         "@metamask/eth-sig-util": true,
         "viem>abitype": true,
         "eth-lattice-keyring>gridplus-sdk>aes-js": true,
-        "bitcoin-address-validation>bech32": true,
+        "eth-lattice-keyring>gridplus-sdk>bech32": true,
         "eth-lattice-keyring>gridplus-sdk>bignumber.js": true,
         "ethereumjs-util>bn.js": true,
         "eth-lattice-keyring>gridplus-sdk>bs58check": true,
@@ -5412,36 +5357,6 @@
         "ethereumjs-util>ethereum-cryptography>keccak>readable-stream": true
       }
     },
-    "lightweight-charts": {
-      "globals": {
-        "Image": true,
-        "ResizeObserver": true,
-        "URL": true,
-        "cancelAnimationFrame": true,
-        "chrome": true,
-        "clearTimeout": true,
-        "devicePixelRatio": true,
-        "document.activeElement": true,
-        "document.body": true,
-        "document.createElement": true,
-        "document.documentElement": true,
-        "document.getElementById": true,
-        "document.getSelection": true,
-        "getComputedStyle": true,
-        "location.href": true,
-        "navigator.language": true,
-        "navigator.platform": true,
-        "navigator.userAgent.toLowerCase": true,
-        "navigator.userAgentData": true,
-        "performance.now": true,
-        "queueMicrotask": true,
-        "requestAnimationFrame": true,
-        "setTimeout": true
-      },
-      "packages": {
-        "lightweight-charts>fancy-canvas": true
-      }
-    },
     "currency-formatter>locale-currency": {
       "globals": {
         "countryCode": true
@@ -5657,7 +5572,7 @@
     "@ensdomains/content-hash>cids>multihashes": {
       "packages": {
         "@ensdomains/content-hash>cids>multibase": true,
-        "@ensdomains/content-hash>cids>multihashes>uint8arrays": true,
+        "@ensdomains/content-hash>cids>uint8arrays": true,
         "@ensdomains/content-hash>cids>multihashes>varint": true
       }
     },
@@ -5726,7 +5641,7 @@
         "crypto.getRandomValues": true
       },
       "packages": {
-        "viem>ox>@noble/curves": true,
+        "viem>@noble/curves": true,
         "@noble/hashes": true,
         "viem>abitype": true
       }
@@ -6861,7 +6776,8 @@
     },
     "@ensdomains/content-hash>cids>uint8arrays": {
       "globals": {
-        "TextDecoder": true
+        "TextDecoder": true,
+        "TextEncoder": true
       },
       "packages": {
         "@ensdomains/content-hash>cids>multibase": true
@@ -6875,15 +6791,6 @@
       },
       "packages": {
         "@metamask/assets-controllers>multiformats": true
-      }
-    },
-    "@ensdomains/content-hash>cids>multihashes>uint8arrays": {
-      "globals": {
-        "TextDecoder": true,
-        "TextEncoder": true
-      },
-      "packages": {
-        "@ensdomains/content-hash>cids>multibase": true
       }
     },
     "@metamask/keyring-controller>ulid": {

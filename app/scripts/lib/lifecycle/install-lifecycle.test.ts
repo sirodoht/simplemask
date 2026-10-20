@@ -2,9 +2,7 @@ import type { Runtime } from 'webextension-polyfill';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
-  MetaMetricsUserTrait,
 } from '#shared/constants/metametrics';
-import { getInstallAttribution } from '#shared/lib/install-attribution';
 import { createEventBuilder, trackEvent } from '../../controllers/analytics';
 import type MetaMaskController from '../../metamask-controller';
 import { onUpdate } from '../../on-update';
@@ -22,17 +20,12 @@ jest.mock('../../on-update', () => ({
   onUpdate: jest.fn(),
 }));
 
-jest.mock('#shared/lib/install-attribution', () => ({
-  getInstallAttribution: jest.fn(),
-}));
-
 jest.mock('../../controllers/analytics', () => ({
   ...jest.requireActual('../../controllers/analytics'),
   trackEvent: jest.fn(),
 }));
 
 const onUpdateMock = jest.mocked(onUpdate);
-const getInstallAttributionMock = jest.mocked(getInstallAttribution);
 const trackEventMock = jest.mocked(trackEvent);
 
 function createController(
@@ -42,11 +35,7 @@ function createController(
   }> = {},
 ): InstallLifecycleDependencies['controller'] {
   return {
-    appMetadataController: {
-      setInstallAttribution: jest.fn(),
-    },
     appStateController: {
-      setDeferredDeepLink: jest.fn(),
       setPendingExtensionVersion: jest.fn(),
       setLastUpdatedAt: jest.fn(),
       setLastUpdatedFromVersion: jest.fn(),
@@ -109,57 +98,17 @@ describe('install-lifecycle', () => {
 
   describe('handleOnInstalled', () => {
     describe('install', () => {
-      it('records install attribution and tracks AppInstalled', async () => {
+      it('tracks AppInstalled without website attribution', async () => {
         const deps = createDeps();
-        getInstallAttributionMock.mockResolvedValue({
-          deferredDeepLink: null,
-          traits: {
-            [MetaMetricsUserTrait.CookieId]: 'cookie-id',
-          },
-        });
 
         const handlePromise = handleOnInstalled([installDetails], deps);
         deps.resolveInitialization();
         await handlePromise;
-
-        expect(
-          deps.controller.appMetadataController.setInstallAttribution,
-        ).toHaveBeenCalledWith({
-          cookieId: 'cookie-id',
-          gaClientId: undefined,
-        });
         expect(trackEventMock).toHaveBeenCalledWith(
           createEventBuilder(MetaMetricsEventName.AppInstalled)
             .addCategory(MetaMetricsEventCategory.App)
             .addProperties({})
             .build(),
-        );
-      });
-
-      it('persists deferred deeplink attribution on AppInstalled', async () => {
-        const deps = createDeps();
-        const deferredDeepLink = {
-          createdAt: 1,
-          referringLink: 'https://metamask.io/deeplink',
-        };
-        getInstallAttributionMock.mockResolvedValue({
-          deferredDeepLink,
-          traits: {},
-        });
-
-        const handlePromise = handleOnInstalled([installDetails], deps);
-        deps.resolveInitialization();
-        await handlePromise;
-
-        expect(
-          deps.controller.appStateController.setDeferredDeepLink,
-        ).toHaveBeenCalledWith(deferredDeepLink);
-        expect(trackEventMock).toHaveBeenCalledTimes(1);
-        const [trackedEvent] = trackEventMock.mock.calls[0];
-        expect(trackedEvent.name).toBe(MetaMetricsEventName.AppInstalled);
-        expect(trackedEvent.properties?.install_source).toBe('deeplink');
-        expect(trackedEvent.properties?.deeplink_path).toBe(
-          deferredDeepLink.referringLink,
         );
       });
 
@@ -169,10 +118,6 @@ describe('install-lifecycle', () => {
             consentDecisionMade: true,
             optedIn: false,
           }),
-        });
-        getInstallAttributionMock.mockResolvedValue({
-          deferredDeepLink: null,
-          traits: {},
         });
 
         const handlePromise = handleOnInstalled([installDetails], deps);
@@ -185,10 +130,6 @@ describe('install-lifecycle', () => {
       it('reads controller after deps object creation when accessed via getter', async () => {
         const assignedController = createController();
         let controllerReady = false;
-        getInstallAttributionMock.mockResolvedValue({
-          deferredDeepLink: null,
-          traits: {},
-        });
 
         const deps: InstallLifecycleDependencies = {
           get controller() {
@@ -209,29 +150,20 @@ describe('install-lifecycle', () => {
         expect(trackEventMock).toHaveBeenCalledTimes(1);
       });
 
-      it('opens onboarding and records install attribution after initialization', async () => {
+      it('opens onboarding and tracks installation after initialization', async () => {
         const deps = createDeps();
-        getInstallAttributionMock.mockResolvedValue({
-          deferredDeepLink: null,
-          traits: {},
-        });
 
         const handlePromise = handleOnInstalled([installDetails], deps);
         deps.resolveInitialization();
         await handlePromise;
 
         expect(deps.platform.openExtensionInBrowser).toHaveBeenCalledTimes(1);
-        expect(getInstallAttributionMock).toHaveBeenCalledTimes(1);
         expect(trackEventMock).toHaveBeenCalledTimes(1);
       });
 
       it('does not open onboarding in test builds', async () => {
         process.env.IN_TEST = 'true';
         const deps = createDeps();
-        getInstallAttributionMock.mockResolvedValue({
-          deferredDeepLink: null,
-          traits: {},
-        });
 
         const handlePromise = handleOnInstalled([installDetails], deps);
         deps.resolveInitialization();

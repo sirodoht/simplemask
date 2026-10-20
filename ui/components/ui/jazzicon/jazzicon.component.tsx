@@ -4,7 +4,6 @@ import { KnownCaipNamespace, stringToBytes } from '@metamask/utils';
 import iconFactoryGenerator, {
   IconFactory,
 } from '../../../helpers/utils/icon-factory';
-import { getCaipNamespaceFromAddress } from '../../../../shared/lib/multichain/accounts';
 
 /**
  * Generates a seed for Jazzicon based on the provided address.
@@ -62,8 +61,7 @@ function Jazzicon({
       return;
     }
 
-    // If the address is unknown, `getCaipNamespaceFromAddress` will defaults to "eip155".
-    const namespace = namespace_ ?? getCaipNamespaceFromAddress(address);
+    const namespace = namespace_ ?? KnownCaipNamespace.Eip155;
     const iconFactory =
       namespace === KnownCaipNamespace.Eip155
         ? ethereumIconFactory

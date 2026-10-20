@@ -48,10 +48,8 @@ import {
   getTokensControllerAllTokens,
   getCurrencyRateControllerCurrencyRates,
   getTokenRatesControllerMarketData,
-  getMultiChainBalancesControllerBalances,
 } from '../../shared/lib/selectors/assets-migration';
 import { getEnabledNetworks } from '../../shared/lib/selectors/multichain';
-import { getBooleanFeatureFlag } from '../../shared/lib/remote-feature-flag-utils';
 import {
   isWebAuthnSupported,
   isPasskeyAaguidIncompatibleWithSidepanel,
@@ -140,8 +138,6 @@ import {
 } from '../ducks/app/app';
 import { isEqualCaseInsensitive } from '../../shared/lib/string-utils';
 import { BackgroundColor } from '../helpers/constants/design-system';
-import { MULTICHAIN_NETWORK_TO_ASSET_TYPES } from '../../shared/constants/multichain/assets';
-import { MULTICHAIN_PROVIDER_CONFIGS } from '../../shared/constants/multichain/networks';
 import { hasTransactionData } from '../../shared/lib/transaction.utils';
 import { toChecksumHexAddress } from '../../shared/lib/hexstring-utils';
 import {
@@ -419,55 +415,25 @@ const createChainIdSelector = createParameterizedShallowEqualSelector(10);
 // across asset pages and confirmation flows. Thirty entries supports several
 // address-list variants across a handful of active networks in a single view.
 const TOKEN_SCAN_RESULTS_SELECTOR_CACHE_SIZE = 30;
-
-/**
- * Get MetaMask accounts, including account name and balance.
- */
 export const getMetaMaskAccounts = createChainIdSelector(
   getInternalAccounts,
   getMetaMaskAccountBalances,
   getMetaMaskCachedBalances,
-  getMultiChainBalancesControllerBalances,
   getCurrentChainId,
   (_, chainId) => chainId,
-  (
-    internalAccounts,
-    balances,
-    cachedBalances,
-    multichainBalances,
-    currentChainId,
-    chainId,
-  ) => {
+  (internalAccounts, balances, cachedBalances, currentChainId, chainId) => {
     return internalAccounts.reduce((accounts, internalAccount) => {
       // TODO: mix in the identity state here as well, consolidating this
       // selector with `accountsWithSendEtherInfoSelector`
       let account = internalAccount;
 
       if (chainId === undefined || currentChainId === chainId) {
-        // TODO: `AccountTracker` balances are in hex and `MultichainBalance` are in number.
-        // We should consolidate the format to either hex or number
-        if (isEvmAccountType(internalAccount.type)) {
-          if (balances?.[internalAccount.address]) {
-            account = {
-              ...account,
-              ...balances[internalAccount.address],
-            };
-          }
-        } else {
-          const multichainNetwork = Object.values(
-            MULTICHAIN_PROVIDER_CONFIGS,
-          ).find((network) =>
-            internalAccount.scopes.some((scope) => scope === network.chainId),
-          );
+        if (balances?.[internalAccount.address]) {
           account = {
             ...account,
-            balance:
-              multichainBalances?.[internalAccount.id]?.[
-                MULTICHAIN_NETWORK_TO_ASSET_TYPES[multichainNetwork.chainId]
-              ]?.amount ?? '0',
+            ...balances[internalAccount.address],
           };
         }
-
         if (account.balance === null || account.balance === undefined) {
           account = {
             ...account,
@@ -1436,19 +1402,6 @@ export function getFeatureNotificationsEnabled(state) {
 export function getShowExtensionInFullSizeView(state) {
   const { showExtensionInFullSizeView } = getPreferences(state);
   return Boolean(showExtensionInFullSizeView);
-}
-
-export function selectShowTickerWidget(state) {
-  const { showTickerWidget = true } = getPreferences(state);
-  return Boolean(showTickerWidget);
-}
-
-export function selectIsTickerWidgetFeatureEnabled(state) {
-  const remoteFeatureFlags = getRemoteFeatureFlags(state);
-  return (
-    state.metamask.useExternalServices !== false &&
-    getBooleanFeatureFlag(remoteFeatureFlags?.cashtagInjection, false)
-  );
 }
 
 export function getTestNetworkBackgroundColor(state) {

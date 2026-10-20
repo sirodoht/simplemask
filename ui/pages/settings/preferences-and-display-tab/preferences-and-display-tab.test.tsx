@@ -56,7 +56,7 @@ describe('PreferencesAndDisplayTab', () => {
       expect(view.queryByTestId('show-ticker-widget')).not.toBeInTheDocument();
     });
 
-    it('shows the setting when the cashtagInjection feature flag is on', async () => {
+    it('does not restore the retired widget when a stale feature flag is on', async () => {
       let view!: ReturnType<typeof renderWithProvider>;
       await act(async () => {
         view = renderWithProvider(
@@ -65,7 +65,7 @@ describe('PreferencesAndDisplayTab', () => {
         );
       });
 
-      expect(view.getByTestId('show-ticker-widget')).toBeInTheDocument();
+      expect(view.queryByTestId('show-ticker-widget')).not.toBeInTheDocument();
     });
 
     it('hides the setting when Basic Functionality is off', async () => {

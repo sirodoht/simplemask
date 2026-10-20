@@ -54,7 +54,6 @@ import * as gatorPermissionFeatureFlags from '../../shared/lib/gator-permissions
 import * as metamaskControllerUtils from '../../shared/lib/metamask-controller-utils';
 import { trace, endTrace, TraceName } from '../../shared/lib/trace';
 import * as utils from './lib/util';
-import { METAMASK_COOKIE_HANDLER } from './constants/stream';
 import { getAuthorizedScopesByOrigin } from './controllers/permissions';
 import { forwardRequestToSnap } from './lib/forwardRequestToSnap';
 import { trackEvent } from './controllers/analytics';
@@ -2174,94 +2173,6 @@ describe('MetaMaskController', () => {
           expect(
             metamaskController.backToSafetyPhishingWarning,
           ).toHaveBeenCalled();
-          resolveStream();
-        });
-
-        await promise;
-        streamTest.end();
-        await promiseStream;
-      });
-    });
-
-    describe('#setUpCookieHandlerCommunication', () => {
-      let localMetaMaskController;
-      beforeEach(() => {
-        localMetaMaskController = new MetaMaskController({
-          showUserConfirmation: noop,
-          encryptor: mockEncryptor,
-          initState: {
-            ...cloneDeep(firstTimeState),
-            AnalyticsController: {
-              analyticsId: 'MOCK_METRICS_ID',
-              consentDecisionMade: true,
-              marketingConsentDecisionMade: true,
-              optedIn: true,
-              optedInToMarketing: true,
-            },
-          },
-          initLangCode: 'en_US',
-          platform: {
-            showTransactionNotification: () => undefined,
-            getVersion: () => 'foo',
-          },
-          browser: browserPolyfillMock,
-          getRequestAccountTabIds: () => ({}),
-          getOpenMetamaskTabsIds: () => ({}),
-          notificationManager: {
-            closePopup: jest.fn(),
-            markAsAutomaticallyClosed: jest.fn(),
-          },
-          infuraProjectId: 'foo',
-          isFirstMetaMaskControllerSetup: true,
-          cronjobControllerStorageManager:
-            createMockCronjobControllerStorageManager(),
-          controllerMessenger: new Messenger({
-            namespace: MOCK_ANY_NAMESPACE,
-          }),
-        });
-        jest.spyOn(localMetaMaskController, 'getCookieFromMarketingPage');
-      });
-      afterEach(() => {
-        jest.clearAllMocks();
-      });
-      it('does not resume marketing cookie collection from saved consent', async () => {
-        const attributionRequest = {
-          name: METAMASK_COOKIE_HANDLER,
-          data: {
-            id: 1,
-            method: 'getCookieFromMarketingPage',
-            params: [{ ga_client_id: 'XYZ.ABC' }],
-          },
-        };
-
-        const { promise, resolve } = withResolvers();
-        const { promise: promiseStream, resolve: resolveStream } =
-          withResolvers();
-        const streamTest = createThroughStream((chunk, _, cb) => {
-          if (chunk.name !== METAMASK_COOKIE_HANDLER) {
-            cb();
-            return;
-          }
-          resolve();
-          cb(null, chunk);
-        });
-
-        localMetaMaskController.setUpCookieHandlerCommunication({
-          connectionStream: streamTest,
-        });
-
-        streamTest.write(attributionRequest, null, () => {
-          expect(
-            localMetaMaskController.getCookieFromMarketingPage,
-          ).not.toHaveBeenCalled();
-          expect(
-            localMetaMaskController.analyticsController.state
-              .optedInToMarketing,
-          ).toBe(false);
-          expect(
-            localMetaMaskController.analyticsController.state
-              .marketingCampaignCookieId,
-          ).toBeNull();
           resolveStream();
         });
 

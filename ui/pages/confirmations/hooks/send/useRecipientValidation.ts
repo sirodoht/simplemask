@@ -1,22 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-
-import {
-  isSolanaAddress,
-  isBtcMainnetAddress,
-  isStellarAddress,
-  isTronAddress,
-} from '../../../../../shared/lib/multichain/accounts';
 import { isValidHexAddress } from '../../../../../shared/lib/hexstring-utils';
 import { isResolvableName } from '../../../../helpers/utils/util';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import { RecipientValidationResult } from '../../types/send';
-import {
-  validateBtcAddress,
-  validateEvmHexAddress,
-  validateSolanaAddress,
-  validateStellarAddress,
-  validateTronAddress,
-} from '../../utils/sendValidations';
+import { validateEvmHexAddress } from '../../utils/sendValidations';
 import { useSendContext } from '../../context/send';
 import { useSendType } from './useSendType';
 import { useNameValidation } from './useNameValidation';
@@ -27,13 +14,7 @@ const VALIDATION_DEBOUNCE_MS = 500;
 export const useRecipientValidation = () => {
   const t = useI18nContext();
   const { asset, chainId, to } = useSendContext();
-  const {
-    isBitcoinSendType,
-    isEvmSendType,
-    isSolanaSendType,
-    isStellarSendType,
-    isTronSendType,
-  } = useSendType();
+  const { isEvmSendType } = useSendType();
   const { validateName } = useNameValidation();
   const [result, setResult] = useState<RecipientValidationResult>({});
   const validationRequestIdRef = useRef(0);
@@ -56,22 +37,6 @@ export const useRecipientValidation = () => {
         return validateEvmHexAddress(toAddress, asset?.address);
       }
 
-      if (isSolanaSendType && isSolanaAddress(toAddress)) {
-        return validateSolanaAddress(toAddress);
-      }
-
-      if (isBitcoinSendType && isBtcMainnetAddress(toAddress)) {
-        return validateBtcAddress(toAddress);
-      }
-
-      if (isTronSendType && isTronAddress(toAddress)) {
-        return validateTronAddress(toAddress);
-      }
-
-      if (isStellarSendType && isStellarAddress(toAddress)) {
-        return validateStellarAddress(toAddress);
-      }
-
       if (isResolvableName(toAddress)) {
         return await validateName(chainId, toAddress, signal);
       }
@@ -80,16 +45,7 @@ export const useRecipientValidation = () => {
         error: 'invalidAddress',
       };
     },
-    [
-      asset,
-      chainId,
-      isBitcoinSendType,
-      isEvmSendType,
-      isSolanaSendType,
-      isStellarSendType,
-      isTronSendType,
-      validateName,
-    ],
+    [asset, chainId, isEvmSendType, validateName],
   );
 
   useEffect(() => {

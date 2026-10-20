@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import Fuse from 'fuse.js';
 import { getIsBasicFunctionalityConsolidationEnabled } from '../../selectors/multichain/feature-flags';
-import { selectIsTickerWidgetFeatureEnabled } from '../../selectors';
 import { isMfaKitEnabled } from '../../hooks/identity/mfa/isMfaKitEnabled';
 import { SETTINGS_TABS, SETTINGS_ROUTES } from './settings-registry';
 import { SETTINGS_SEARCH_CONFIG, type TabSearchConfig } from './search-config';
@@ -150,15 +149,9 @@ export function useSettingsSearch(searchValue: string): SettingsSearchResult[] {
   const isBasicFunctionalityConsolidationEnabled = useSelector(
     getIsBasicFunctionalityConsolidationEnabled,
   );
-  const isTickerWidgetFeatureEnabled = useSelector(
-    selectIsTickerWidgetFeatureEnabled,
-  );
 
   const fuse = useMemo(() => {
     const hiddenItemIds = new Set<string>();
-    if (!isTickerWidgetFeatureEnabled) {
-      hiddenItemIds.add('show-ticker-widget');
-    }
     if (!isMfaKitEnabled()) {
       hiddenItemIds.add('mfa');
     }
@@ -180,11 +173,7 @@ export function useSettingsSearch(searchValue: string): SettingsSearchResult[] {
         return typeof labelKey === 'string' ? t(labelKey) : '';
       },
     });
-  }, [
-    isBasicFunctionalityConsolidationEnabled,
-    isTickerWidgetFeatureEnabled,
-    t,
-  ]);
+  }, [isBasicFunctionalityConsolidationEnabled, t]);
 
   return useMemo(() => {
     const query = searchValue.trim();

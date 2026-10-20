@@ -7157,12 +7157,6 @@
   "showTestnetNetworks": {
     "message": "Mostrar redes de prueba"
   },
-  "showTickerWidget": {
-    "message": "Mostrar widget web en X"
-  },
-  "showTickerWidgetDescription": {
-    "message": "Muestra un widget de MetaMask con detalles del token cuando navegas por X.com."
-  },
   "sidePanelMigrationToast": {
     "message": "MetaMask ahora se abre en el panel lateral por defecto. $1 en cualquier momento desde el menú.",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

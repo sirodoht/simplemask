@@ -7157,12 +7157,6 @@
   "showTestnetNetworks": {
     "message": "テストネットワークを表示"
   },
-  "showTickerWidget": {
-    "message": "XでWebウィジェットを表示する"
-  },
-  "showTickerWidgetDescription": {
-    "message": "X.comの閲覧中に、トークンの詳細を含むMetaMaskウィジェットを表示します。"
-  },
   "sidePanelMigrationToast": {
     "message": "MetaMaskはデフォルトでサイドパネルで開かれるようになりました。メニューからいつでも$1ことができます。",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

@@ -16,12 +16,6 @@ export const useSendType = () => {
     () => ({
       isEvmSendType,
       isEvmNativeSendType: isEvmSendType && asset?.isNative === true,
-      isBitcoinSendType: false,
-      isSolanaSendType: false,
-      isTronSendType: false,
-      isStellarSendType: false,
-      isNonEvmSendType: false,
-      isNonEvmNativeSendType: false,
     }),
     [isEvmSendType, asset?.isNative],
   );

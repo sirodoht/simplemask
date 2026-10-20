@@ -7153,12 +7153,6 @@
   "showTestnetNetworks": {
     "message": "Εμφάνιση δοκιμαστικών δικτύων"
   },
-  "showTickerWidget": {
-    "message": "Εμφάνιση widget ιστού στο X"
-  },
-  "showTickerWidgetDescription": {
-    "message": "Εμφανίζει ένα widget του MetaMask με λεπτομέρειες για το token κατά την περιήγησή σας στο X.com."
-  },
   "sidePanelMigrationToast": {
     "message": "Το MetaMask ανοίγει πλέον στο πλευρικό πάνελ από προεπιλογή. Το $1 είναι διαθέσιμο οποιαδήποτε στιγμή από το μενού.",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

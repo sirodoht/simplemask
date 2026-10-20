@@ -3,13 +3,6 @@
 // @ts-ignore
 import { confusables } from 'unicode-confusables';
 
-import {
-  isBtcMainnetAddress,
-  isSolanaAddress,
-  isStellarAddress,
-  isTronAddress,
-} from '../../../../shared/lib/multichain/accounts';
-
 import { RecipientValidationResult } from '../types/send';
 import { LOWER_CASED_BURN_ADDRESSES } from '../constants/token';
 
@@ -65,58 +58,6 @@ export const validateEvmHexAddress = (
   if (address?.toLowerCase() === assetAddress?.toLowerCase()) {
     return {
       error: 'contractAddressError',
-    };
-  }
-
-  return {};
-};
-
-// Common Solana burn addresses - addresses commonly used as burn destinations
-const SOLANA_BURN_ADDRESSES = [
-  '1nc1nerator11111111111111111111111111111111',
-  'So11111111111111111111111111111111111111112',
-];
-
-export const validateSolanaAddress = (address: string) => {
-  if (SOLANA_BURN_ADDRESSES.includes(address)) {
-    return {
-      error: 'invalidAddress',
-    };
-  }
-
-  if (!isSolanaAddress(address)) {
-    return {
-      error: 'invalidAddress',
-    };
-  }
-
-  return {};
-};
-
-export const validateBtcAddress = (address: string) => {
-  if (!isBtcMainnetAddress(address)) {
-    return {
-      error: 'invalidAddress',
-    };
-  }
-
-  return {};
-};
-
-export const validateTronAddress = (address: string) => {
-  if (!isTronAddress(address)) {
-    return {
-      error: 'invalidAddress',
-    };
-  }
-
-  return {};
-};
-
-export const validateStellarAddress = (address: string) => {
-  if (!isStellarAddress(address)) {
-    return {
-      error: 'invalidAddress',
     };
   }
 

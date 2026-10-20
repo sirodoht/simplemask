@@ -1,7 +1,4 @@
-import {
-  MULTICHAIN_PROVIDER_CONFIGS,
-  MultichainNetworks,
-} from '../../../../shared/constants/multichain/networks';
+import { MultichainNetworks } from '../../../../shared/constants/multichain/networks';
 import {
   CHAIN_IDS,
   MAINNET_DISPLAY_NAME,
@@ -40,7 +37,22 @@ const mockNonEvmNetwork: MultichainNetwork = {
   nickname: 'Bitcoin',
   isEvmNetwork: false,
   chainId: MultichainNetworks.BITCOIN,
-  network: MULTICHAIN_PROVIDER_CONFIGS[MultichainNetworks.BITCOIN],
+  network: {
+    nickname: 'Bitcoin',
+    chainId: MultichainNetworks.BITCOIN,
+    type: NETWORK_TYPES.RPC,
+    ticker: 'BTC',
+    decimals: 8,
+    isAddressCompatible: () => true,
+    rpcUrl: '',
+    rpcPrefs: { blockExplorerUrl: 'https://mempool.space' },
+    blockExplorerFormatUrls: {
+      name: 'Mempool',
+      url: 'https://mempool.space',
+      address: 'https://mempool.space/address/{address}',
+      transaction: 'https://mempool.space/tx/{txId}',
+    },
+  },
 };
 
 describe('Block Explorer Tests', () => {

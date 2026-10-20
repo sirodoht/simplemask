@@ -19,4 +19,9 @@ export const getEnabledNetworks = createSelector(
     Object.keys(networks).every((namespace) => namespace === 'eip155')
       ? networks
       : { eip155: networks.eip155 ?? {} },
+  {
+    // EVM-only state intentionally keeps its reference to avoid restarting
+    // network consumers; only legacy maps need a filtered result.
+    devModeChecks: { identityFunctionCheck: 'never' },
+  },
 );

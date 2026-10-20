@@ -11,11 +11,8 @@ import type {
   AnalyticsControllerGetStateAction,
   AnalyticsControllerIdentifyAction,
   AnalyticsControllerOptInAction,
-  AnalyticsControllerOptInToMarketingAction,
   AnalyticsControllerOptOutAction,
-  AnalyticsControllerOptOutOfMarketingAction,
   AnalyticsControllerResetConsentDecisionAction,
-  AnalyticsControllerSetMarketingCampaignCookieIdAction,
   AnalyticsControllerTrackEventAction,
   AnalyticsControllerTrackViewAction,
   AnalyticsControllerUpdateEventFragmentAction,
@@ -45,15 +42,12 @@ type InitActions =
   | NetworkControllerGetStateAction
   | NetworkControllerGetNetworkClientByIdAction
   | RemoteFeatureFlagControllerGetStateAction
-  | AnalyticsControllerSetMarketingCampaignCookieIdAction
   | AnalyticsControllerGetStateAction
   | AnalyticsControllerTrackEventAction
   | AnalyticsControllerIdentifyAction
   | AnalyticsControllerTrackViewAction
   | AnalyticsControllerOptInAction
-  | AnalyticsControllerOptInToMarketingAction
   | AnalyticsControllerOptOutAction
-  | AnalyticsControllerOptOutOfMarketingAction
   | AnalyticsControllerResetConsentDecisionAction
   | AnalyticsControllerCreateEventFragmentAction
   | AnalyticsControllerUpsertEventFragmentAction
@@ -132,7 +126,6 @@ export function getAnalyticsControllerInitMessenger(
       'AnalyticsController:optIn',
       'AnalyticsController:optOut',
       'AnalyticsController:resetConsentDecision',
-      'AnalyticsController:setMarketingCampaignCookieId',
       'AnalyticsController:createEventFragment',
       'AnalyticsController:upsertEventFragment',
       'AnalyticsController:updateEventFragment',

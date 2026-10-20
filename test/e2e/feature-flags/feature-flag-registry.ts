@@ -274,17 +274,6 @@ export const FEATURE_FLAG_REGISTRY: Record<string, FeatureFlagRegistryEntry> = {
     type: FeatureFlagType.Remote,
   },
 
-  cashtagInjection: {
-    inProd: true,
-    name: 'cashtagInjection',
-    productionDefault: {
-      enabled: false,
-      minimumVersion: '13.42.0',
-    },
-    status: FeatureFlagStatus.Active,
-    type: FeatureFlagType.Remote,
-  },
-
   complianceEnabled: {
     inProd: true,
     name: 'complianceEnabled',

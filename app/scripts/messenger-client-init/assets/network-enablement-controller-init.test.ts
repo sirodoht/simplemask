@@ -16,11 +16,7 @@ import { KnownCaipNamespace } from '@metamask/utils';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 import { MessengerClientInitRequest } from '../types';
 import { buildControllerInitRequestMock } from '../test/utils';
-import {
-  getNetworkEnablementControllerInitMessenger,
-  getNetworkEnablementControllerMessenger,
-  NetworkEnablementControllerInitMessenger,
-} from '../messengers/assets';
+import { getNetworkEnablementControllerMessenger } from '../messengers/assets';
 import { getRootMessenger } from '../../lib/messenger';
 import { NetworkEnablementControllerInit } from './network-enablement-controller-init';
 
@@ -29,15 +25,12 @@ jest.mock('@metamask/network-enablement-controller');
 function getInitRequestMock(
   baseMessenger = getRootMessenger<never, never>(),
 ): jest.Mocked<
-  MessengerClientInitRequest<
-    NetworkEnablementControllerMessenger,
-    NetworkEnablementControllerInitMessenger
-  >
+  MessengerClientInitRequest<NetworkEnablementControllerMessenger>
 > {
   const requestMock = {
     ...buildControllerInitRequestMock(),
+    initMessenger: undefined,
     controllerMessenger: getNetworkEnablementControllerMessenger(baseMessenger),
-    initMessenger: getNetworkEnablementControllerInitMessenger(baseMessenger),
   };
 
   // @ts-expect-error: Partial mock.

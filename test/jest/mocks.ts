@@ -17,7 +17,6 @@ import { keyringTypeToName } from '@metamask/accounts-controller';
 import { Json } from '@metamask/utils';
 import { MetaMaskReduxState } from '../../ui/store/store';
 import mockState from '../data/mock-state.json';
-import { isBtcMainnetAddress } from '../../shared/lib/multichain/accounts';
 import { MultichainNetworks } from '../../shared/constants/multichain/networks';
 
 export type MockState = typeof mockState;
@@ -184,7 +183,7 @@ export function createMockInternalAccount({
       break;
     case BtcAccountType.P2wpkh: {
       // If no address is given, we fallback to testnet
-      const isMainnet = Boolean(address) && isBtcMainnetAddress(address);
+      const isMainnet = Boolean(address) && /^(bc1|[13])/u.test(address);
 
       scopes = [
         isMainnet

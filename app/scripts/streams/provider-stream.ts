@@ -13,7 +13,6 @@ import {
   LEGACY_PROVIDER,
   LEGACY_PUBLIC_CONFIG,
   METAMASK_CAIP_MULTICHAIN_PROVIDER,
-  METAMASK_COOKIE_HANDLER,
   METAMASK_INPAGE,
   METAMASK_EIP_1193_PROVIDER,
   PHISHING_SAFELIST,
@@ -100,8 +99,6 @@ const setupPageStreams = () => {
 
   pageChannel = pageMux.createStream(METAMASK_EIP_1193_PROVIDER);
   caipChannel = pageMux.createStream(METAMASK_CAIP_MULTICHAIN_PROVIDER);
-
-  pageMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   pageMux.ignoreStream(LEGACY_PROVIDER);
   pageMux.ignoreStream(LEGACY_PUBLIC_CONFIG);
   pageMux.ignoreStream(PHISHING_SAFELIST);
@@ -209,8 +206,6 @@ const setupLegacyPageStreams = () => {
     legacyPageMux.createStream(LEGACY_PROVIDER);
   legacyPagePublicConfigChannel =
     legacyPageMux.createStream(LEGACY_PUBLIC_CONFIG);
-
-  legacyPageMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   legacyPageMux.ignoreStream(METAMASK_EIP_1193_PROVIDER);
   legacyPageMux.ignoreStream(METAMASK_CAIP_MULTICHAIN_PROVIDER);
   legacyPageMux.ignoreStream(PHISHING_SAFELIST);
@@ -259,7 +254,6 @@ const setupLegacyExtensionStreams = () => {
       ),
   );
   legacyExtMux.ignoreStream(METAMASK_CAIP_MULTICHAIN_PROVIDER);
-  legacyExtMux.ignoreStream(METAMASK_COOKIE_HANDLER);
   legacyExtMux.ignoreStream(LEGACY_PROVIDER);
   legacyExtMux.ignoreStream(PHISHING_SAFELIST);
   legacyExtMux.ignoreStream(PHISHING_STREAM);

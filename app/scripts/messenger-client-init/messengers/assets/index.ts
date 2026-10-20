@@ -12,11 +12,7 @@ export type { AssetsContractControllerInitMessenger } from './assets-contract-co
 
 export { getNetworkOrderControllerMessenger } from './network-order-controller-messenger';
 
-export {
-  getNetworkEnablementControllerMessenger,
-  getNetworkEnablementControllerInitMessenger,
-} from './network-enablement-controller-messenger';
-export type { NetworkEnablementControllerInitMessenger } from './network-enablement-controller-messenger';
+export { getNetworkEnablementControllerMessenger } from './network-enablement-controller-messenger';
 
 export {
   getAssetsControllerMessenger,

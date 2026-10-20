@@ -52,8 +52,6 @@ export type PlatformAdapterEnrichmentContext = {
   getDefaultChainId: () => Hex | null;
   getPageChainProperties: () => AnalyticsEventProperties;
   getProfileIdentityProperties: () => Record<string, string>;
-  getMarketingCampaignCookieId: () => string | null;
-  hasMarketingConsent: () => boolean;
   hasBasicFunctionalityEnabled: () => boolean;
   getRemoteFeatureFlags: () => Record<string, unknown>;
   getFeatureFlagThresholdGroups: () => Record<string, string>;
@@ -115,12 +113,6 @@ export function createEnrichmentContext(
       } as AnalyticsEventProperties;
     },
     getProfileIdentityProperties,
-    getMarketingCampaignCookieId: () =>
-      messenger.call('AnalyticsController:getState')
-        .marketingCampaignCookieId ?? null,
-    hasMarketingConsent: () =>
-      messenger.call('AnalyticsController:getState').optedInToMarketing ===
-      true,
     hasBasicFunctionalityEnabled: () =>
       messenger.call('PreferencesController:getState').useExternalServices,
     getRemoteFeatureFlags: () =>
@@ -151,12 +143,10 @@ export function enrichEventProperties(
   ctx: PlatformAdapterEnrichmentContext,
 ): AnalyticsEventProperties {
   const isAnonymousEvent = properties[ANONYMOUS_EVENT_PROPERTY] === true;
-  const enrichedProperties: AnalyticsEventProperties = ctx.hasMarketingConsent()
-    ? { ...properties }
-    : (omit(
-        { ...properties },
-        MARKETING_UTM_PARAMETERS,
-      ) as AnalyticsEventProperties);
+  const enrichedProperties: AnalyticsEventProperties = omit(
+    { ...properties },
+    MARKETING_UTM_PARAMETERS,
+  ) as AnalyticsEventProperties;
 
   enrichedProperties.locale = ctx.getLocale();
 
@@ -242,15 +232,15 @@ export function enrichEventContext(
   context: AnalyticsContext | undefined,
   ctx: PlatformAdapterEnrichmentContext,
 ): AnalyticsContext {
-  const enrichedContext: AnalyticsContext = { ...(context ?? {}) };
+  const enrichedContext: AnalyticsContext = {
+    ...omit(context ?? {}, 'marketingCampaignCookieId'),
+  };
 
   enrichedContext.app = {
     name: APP_NAME,
     version: ctx.appVersion,
   };
   enrichedContext.userAgent = ctx.userAgent;
-  enrichedContext.marketingCampaignCookieId =
-    ctx.getMarketingCampaignCookieId();
 
   return enrichedContext;
 }

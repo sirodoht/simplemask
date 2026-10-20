@@ -7153,12 +7153,6 @@
   "showTestnetNetworks": {
     "message": "परीक्षण नेटवर्क दिखाएं"
   },
-  "showTickerWidget": {
-    "message": "X पर वेब विजेट दिखाएं"
-  },
-  "showTickerWidgetDescription": {
-    "message": "X.com ब्राउज़ करते समय टोकन की जानकारी वाला MetaMask विजेट दिखाता है।"
-  },
   "sidePanelMigrationToast": {
     "message": "MetaMask अब डिफ़ॉल्ट रूप से साइड पैनल में खुलता है। मेनू से किसी भी समय $1।",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

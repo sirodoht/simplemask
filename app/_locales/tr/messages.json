@@ -7157,12 +7157,6 @@
   "showTestnetNetworks": {
     "message": "Test ağlarını göster"
   },
-  "showTickerWidget": {
-    "message": "Web aracını X üzerinde göster"
-  },
-  "showTickerWidgetDescription": {
-    "message": "X.com adresinde gezinirken token bilgilerini içeren bir MetaMask aracı görüntülenir."
-  },
   "sidePanelMigrationToast": {
     "message": "MetaMask artık varsayılan olarak yan panelde açılıyor. Dilediğinizden zaman menüden $1.",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

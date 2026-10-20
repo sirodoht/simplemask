@@ -2,26 +2,14 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { getWalletsWithAccounts } from '../../../../selectors/multichain-accounts/account-tree';
-import {
-  isBitcoinAccountForSend,
-  isEVMAccountForSend,
-  isSolanaAccountForSend,
-  isStellarAccountForSend,
-  isTronAccountForSend,
-} from '../../utils/account';
+import { isEVMAccountForSend } from '../../utils/account';
 import { useSendContext } from '../../context/send';
 import { type Recipient } from './useRecipients';
 import { useSendType } from './useSendType';
 import { useAccountAddressSeedIconMap } from './useAccountAddressSeedIconMap';
 
 export const useAccountRecipients = (): Recipient[] => {
-  const {
-    isEvmSendType,
-    isSolanaSendType,
-    isBitcoinSendType,
-    isTronSendType,
-    isStellarSendType,
-  } = useSendType();
+  const { isEvmSendType } = useSendType();
   const { from } = useSendContext();
   const { accountAddressSeedIconMap } = useAccountAddressSeedIconMap();
 
@@ -41,12 +29,7 @@ export const useAccountRecipients = (): Recipient[] => {
             return;
           }
 
-          const shouldInclude =
-            (isEvmSendType && isEVMAccountForSend(account)) ||
-            (isSolanaSendType && isSolanaAccountForSend(account)) ||
-            (isBitcoinSendType && isBitcoinAccountForSend(account)) ||
-            (isTronSendType && isTronAccountForSend(account)) ||
-            (isStellarSendType && isStellarAccountForSend(account));
+          const shouldInclude = isEvmSendType && isEVMAccountForSend(account);
 
           if (shouldInclude) {
             recipients.push({
@@ -64,14 +47,5 @@ export const useAccountRecipients = (): Recipient[] => {
     });
 
     return recipients;
-  }, [
-    from,
-    isEvmSendType,
-    isSolanaSendType,
-    isBitcoinSendType,
-    isTronSendType,
-    isStellarSendType,
-    accountAddressSeedIconMap,
-    walletsWithAccounts,
-  ]);
+  }, [from, isEvmSendType, accountAddressSeedIconMap, walletsWithAccounts]);
 };

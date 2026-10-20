@@ -19,10 +19,7 @@ import {
   parseCaipChainId,
 } from '@metamask/utils';
 import { createSelector } from 'reselect';
-import {
-  MULTICHAIN_PROVIDER_CONFIGS,
-  type MultichainProviderConfig,
-} from '../../../shared/constants/multichain/networks';
+import { type MultichainProviderConfig } from '../../../shared/constants/multichain/networks';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../shared/constants/network';
 import {
   type ProviderConfigState,
@@ -298,10 +295,6 @@ export type MultichainNetwork = {
   // TODO: Maybe updates ProviderConfig to add rpcPrefs.imageUrl field
   network: ProviderConfigWithImageUrlAndExplorerUrl | MultichainProviderConfig;
 };
-
-const MULTICHAIN_NETWORK_PROVIDERS: MultichainProviderConfig[] = Object.values(
-  MULTICHAIN_PROVIDER_CONFIGS,
-);
 
 // FIXME: All the following might have side-effect, like if the current account is a bitcoin one and that
 // a popup (for ethereum related stuffs) is being shown (and uses this function), then the native

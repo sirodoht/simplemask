@@ -73,7 +73,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     currentMigrationVersion: true,
     previousAppVersion: true,
     previousMigrationVersion: true,
-    installAttribution: false,
   },
   ApprovalController: {
     approvalFlows: false,

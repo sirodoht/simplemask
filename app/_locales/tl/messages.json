@@ -7153,12 +7153,6 @@
   "showTestnetNetworks": {
     "message": "Ipakita ang mga test network"
   },
-  "showTickerWidget": {
-    "message": "Ipakita ang web widget sa X"
-  },
-  "showTickerWidgetDescription": {
-    "message": "Ipinapakita ang MetaMask widget kasama ang mga detalye ng token kapag nagba-browse ka sa X.com."
-  },
   "sidePanelMigrationToast": {
     "message": "Nagbubukas na ngayon ang MetaMask sa panel sa gilid nang default. $1 anumang oras mula sa menu.",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

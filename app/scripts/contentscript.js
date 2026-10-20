@@ -10,23 +10,12 @@ import {
   isDetectedPhishingSite,
   initPhishingStreams,
 } from './streams/phishing-stream';
-import {
-  initializeCookieHandlerSteam,
-  isDetectedCookieMarketingSite,
-} from './streams/cookie-handler-stream';
-import { initCashtag } from './cashtag/contentscript';
 
 const start = () => {
   if (isDetectedPhishingSite) {
     initPhishingStreams();
     return;
   }
-
-  if (isDetectedCookieMarketingSite) {
-    initializeCookieHandlerSteam();
-  }
-
-  initCashtag();
 
   if (shouldInjectProvider()) {
     initStreams();

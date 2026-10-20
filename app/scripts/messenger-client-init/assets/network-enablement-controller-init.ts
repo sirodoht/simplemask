@@ -7,7 +7,6 @@ import { selectEvmAutoEnabledNetworksChainIds } from '@metamask/config-registry-
 import { NetworkState } from '@metamask/network-controller';
 import { toEvmCaipChainId } from '@metamask/multichain-network-controller';
 import { Hex, KnownCaipNamespace } from '@metamask/utils';
-import { NetworkEnablementControllerInitMessenger } from '../messengers/assets';
 import { MessengerClientInitFunction } from '../types';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 
@@ -58,8 +57,7 @@ function cloneEnabledNetworkMap(
 
 export const NetworkEnablementControllerInit: MessengerClientInitFunction<
   NetworkEnablementController,
-  NetworkEnablementControllerMessenger,
-  NetworkEnablementControllerInitMessenger
+  NetworkEnablementControllerMessenger
 > = ({ controllerMessenger, persistedState, getMessengerClient }) => {
   const networkControllerState = getMessengerClient('NetworkController').state;
 

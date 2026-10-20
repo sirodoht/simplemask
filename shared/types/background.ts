@@ -90,7 +90,6 @@ export type ControllerStatePropertiesEnumerated = {
   currentMigrationVersion: AppMetadataControllerState['currentMigrationVersion'];
   previousAppVersion: AppMetadataControllerState['previousAppVersion'];
   previousMigrationVersion: AppMetadataControllerState['previousMigrationVersion'];
-  installAttribution: AppMetadataControllerState['installAttribution'];
   approvalFlows: ApprovalControllerState['approvalFlows'];
   pendingApprovals: ApprovalControllerState['pendingApprovals'];
   pendingApprovalCount: ApprovalControllerState['pendingApprovalCount'];

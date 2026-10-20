@@ -77,7 +77,6 @@ import {
 import { updateRemoteFeatureFlags } from './lib/update-remote-feature-flags';
 import ExtensionPlatform from './platforms/extension';
 import { SENTRY_BACKGROUND_STATE } from './constants/sentry-state';
-import { registerCashtagBackgroundBridge } from './cashtag/background';
 
 import NotificationManager from './lib/notification-manager';
 import MetamaskController from './metamask-controller';
@@ -99,8 +98,6 @@ import {
   handleOnInstalled,
   onUpdateAvailable,
 } from './lib/lifecycle/install-lifecycle';
-
-import { COOKIE_ID_MARKETING_WHITELIST_ORIGINS } from './constants/marketing-site-whitelist';
 import {
   METAMASK_CAIP_MULTICHAIN_PROVIDER,
   METAMASK_EIP_1193_PROVIDER,
@@ -618,11 +615,6 @@ async function initialize(backup: Backup | null) {
   // `setupController` sets up the `controller` object, so we can use it now:
   maybeDetectPhishing(initializedController);
 
-  // Registers the bridge between the X ticker content script and background service
-  registerCashtagBackgroundBridge({
-    getController: () => controller,
-  });
-
   // Set up connectivity detection
   if (isManifestV3) {
     // MV3: Listener was set up earlier, now apply any pending status and mark ready
@@ -948,20 +940,6 @@ export function setupController(
           ) {
             requestAccountTabIds[origin] = tabId;
           }
-        });
-      }
-      if (
-        senderUrl &&
-        COOKIE_ID_MARKETING_WHITELIST_ORIGINS.some(
-          (origin) => origin === senderUrl.origin,
-        )
-      ) {
-        const portStreamForCookieHandlerPage = new ExtensionPortStream(
-          remotePort,
-          { chunkSize: 0 },
-        );
-        metamaskController.setUpCookieHandlerCommunication({
-          connectionStream: portStreamForCookieHandlerPage,
         });
       }
 

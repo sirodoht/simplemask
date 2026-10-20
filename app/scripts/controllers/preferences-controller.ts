@@ -175,7 +175,6 @@ export const getDefaultPreferencesControllerState =
       defaultAddressScope: 'eip155',
       showExtensionInFullSizeView: false,
       showFiatInTestnets: false,
-      showTickerWidget: true,
       showMultiRpcModal: false,
       showNativeTokenAsMainBalance: false,
       showTestNetworks: false,
@@ -569,10 +568,6 @@ export class PreferencesController extends BaseController<
           ? (ownedPreferences?.[preference] ?? true)
           : false;
       }
-
-      if (!useExternalServices) {
-        state.preferences.showTickerWidget = false;
-      }
     });
   }
 
@@ -589,10 +584,6 @@ export class PreferencesController extends BaseController<
         state[preference] = useBasicFunctionality;
       }
       state.isMultiAccountBalancesEnabled = useBasicFunctionality;
-
-      if (!useBasicFunctionality) {
-        state.preferences.showTickerWidget = false;
-      }
     });
 
     this.messenger.call(

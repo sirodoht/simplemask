@@ -210,7 +210,6 @@ import { addDappTransaction } from './lib/transaction/util';
 import { addTypedMessage, addPersonalMessage } from './lib/signature/util';
 import {
   METAMASK_CAIP_MULTICHAIN_PROVIDER,
-  METAMASK_COOKIE_HANDLER,
   METAMASK_EIP_1193_PROVIDER,
 } from './constants/stream';
 
@@ -3700,35 +3699,6 @@ export default class MetamaskController extends EventEmitter {
         phishingStream,
       ),
     );
-  }
-
-  setUpCookieHandlerCommunication({ connectionStream }) {
-    const { analyticsId, optedInToMarketing, consentDecisionMade, optedIn } =
-      this.getState();
-
-    if (analyticsId && optedInToMarketing && consentDecisionMade && optedIn) {
-      // setup multiplexing
-      const mux = setupMultiplex(connectionStream);
-      const metamaskCookieHandlerStream = mux.createStream(
-        METAMASK_COOKIE_HANDLER,
-      );
-      // set up postStream transport
-      metamaskCookieHandlerStream.on(
-        'data',
-        createMetaRPCHandler(
-          {
-            getCookieFromMarketingPage:
-              this.getCookieFromMarketingPage.bind(this),
-          },
-          metamaskCookieHandlerStream,
-        ),
-      );
-    }
-  }
-
-  getCookieFromMarketingPage(data) {
-    const { ga_client_id: cookieId } = data;
-    this.analyticsController.setMarketingCampaignCookieId(cookieId);
   }
 
   /**

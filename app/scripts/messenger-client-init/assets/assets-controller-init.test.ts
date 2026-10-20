@@ -124,6 +124,27 @@ function buildSubscribeTestSetup(
 }
 
 describe('AssetsControllerInit', () => {
+  it('seeds native asset metadata without adding promotional token balances', () => {
+    const { getDefaultAssetsControllerState, getDefaultTrackedAssetsForChain } =
+      jest.requireActual<typeof import('@metamask/assets-controller')>(
+        '@metamask/assets-controller',
+      );
+
+    for (const chainId of ['eip155:1', 'eip155:59144', 'eip155:143'] as const) {
+      expect(getDefaultTrackedAssetsForChain(chainId)).toEqual([]);
+    }
+    const { assetsInfo } = getDefaultAssetsControllerState();
+    expect(Object.keys(assetsInfo)).not.toEqual(
+      expect.arrayContaining([
+        expect.stringMatching(/aca92e438df0b2401ff60da7e4337b687a2435da/iu),
+      ]),
+    );
+    expect(assetsInfo['eip155:5042/slip44:5042']).toMatchObject({
+      type: 'native',
+      symbol: 'USDC',
+    });
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });

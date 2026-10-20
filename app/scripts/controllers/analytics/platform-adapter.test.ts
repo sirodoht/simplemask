@@ -29,8 +29,6 @@ const DEFAULT_ENRICHMENT_CONTEXT: PlatformAdapterEnrichmentContext = {
     chain_id: '0x1',
   }),
   getProfileIdentityProperties: () => ({}),
-  getMarketingCampaignCookieId: () => null,
-  hasMarketingConsent: () => false,
   hasBasicFunctionalityEnabled: () => true,
   getRemoteFeatureFlags: () => ({}),
   getFeatureFlagThresholdGroups: () => ({}),
@@ -41,7 +39,6 @@ const DEFAULT_ENRICHMENT_CONTEXT: PlatformAdapterEnrichmentContext = {
 const DEFAULT_APP_CONTEXT = {
   app: { name: 'MetaMask Extension', version: '1.0.0' },
   userAgent: '',
-  marketingCampaignCookieId: null,
 };
 
 function createMockEnrichmentContext(
@@ -108,36 +105,6 @@ describe('createPlatformAdapter', () => {
       );
     });
 
-    it('always includes marketingCampaignCookieId in context, including when null', () => {
-      const { adapter, segment } = buildAdapter();
-      adapter.track('Wallet Opened');
-      expect(segment.track).toHaveBeenCalledWith(
-        expect.objectContaining({
-          context: expect.objectContaining({
-            marketingCampaignCookieId: null,
-          }),
-        }),
-        undefined,
-      );
-    });
-
-    it('forwards marketingCampaignCookieId when present', () => {
-      const { adapter, segment } = buildAdapter(
-        createMockEnrichmentContext({
-          getMarketingCampaignCookieId: () => 'campaign-cookie-id',
-        }),
-      );
-      adapter.track('Wallet Opened');
-      expect(segment.track).toHaveBeenCalledWith(
-        expect.objectContaining({
-          context: expect.objectContaining({
-            marketingCampaignCookieId: 'campaign-cookie-id',
-          }),
-        }),
-        undefined,
-      );
-    });
-
     it('forwards properties when provided', () => {
       const { adapter, segment } = buildAdapter();
       adapter.track('Wallet Opened', { chainId: '0x1' });
@@ -184,7 +151,6 @@ describe('createPlatformAdapter', () => {
           context: {
             app: { name: 'MetaMask Extension', version: '1.0.0' },
             userAgent: '',
-            marketingCampaignCookieId: null,
           },
           messageId: 'msg-1',
           timestamp,
@@ -341,7 +307,6 @@ describe('createPlatformAdapter', () => {
           context: {
             app: { name: 'MetaMask Extension', version: '1.0.0' },
             userAgent: '',
-            marketingCampaignCookieId: null,
           },
           messageId: 'id-1',
           timestamp,
@@ -397,7 +362,6 @@ describe('createPlatformAdapter', () => {
           context: {
             app: { name: 'MetaMask Extension', version: '1.0.0' },
             userAgent: '',
-            marketingCampaignCookieId: null,
           },
           messageId: 'page-1',
           timestamp,
@@ -614,40 +578,9 @@ describe('createPlatformAdapter', () => {
       );
     });
 
-    it('preserves UTM parameters when marketing consent is granted', () => {
-      const { adapter, segment } = buildAdapter(
-        createMockEnrichmentContext({
-          hasMarketingConsent: () => true,
-        }),
-      );
-
-      adapter.track('Campaign Event', {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        utm_source: 'newsletter',
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        utm_medium: 'email',
-        foo: 'bar',
-      });
-
-      expect(segment.track).toHaveBeenCalledWith(
-        expect.objectContaining({
-          properties: expect.objectContaining({
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            utm_source: 'newsletter',
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            utm_medium: 'email',
-            foo: 'bar',
-          }),
-        }),
-        undefined,
-      );
-    });
-
     it('removes UTM parameters when marketing consent is explicitly denied', () => {
       const { adapter, segment } = buildAdapter(
-        createMockEnrichmentContext({
-          hasMarketingConsent: () => false,
-        }),
+        createMockEnrichmentContext({}),
       );
 
       adapter.track('Campaign Event', {

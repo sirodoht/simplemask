@@ -23,10 +23,6 @@ describe('useTokenContractSendAlert', () => {
     jest.mocked(useI18nContext).mockReturnValue(mockT);
     mockUseSendType.mockReturnValue({
       isEvmSendType: true,
-      isSolanaSendType: false,
-      isBitcoinSendType: false,
-      isTronSendType: false,
-      isNonEvmSendType: false,
     } as ReturnType<typeof useSendType>);
     mockUseSendContext.mockReturnValue({
       to: '0xdB055877e6c13b6A6B25aBcAA29B393777dD0a73',
@@ -51,10 +47,6 @@ describe('useTokenContractSendAlert', () => {
   it('returns null when send type is not EVM', () => {
     mockUseSendType.mockReturnValue({
       isEvmSendType: false,
-      isSolanaSendType: true,
-      isBitcoinSendType: false,
-      isTronSendType: false,
-      isNonEvmSendType: true,
     } as ReturnType<typeof useSendType>);
 
     const { result } = renderHook(() => useTokenContractSendAlert());

@@ -39,7 +39,6 @@ import {
   getTokenRatesControllerInitMessenger,
   getTokenRatesControllerMessenger,
   getAssetsContractControllerInitMessenger,
-  getNetworkEnablementControllerInitMessenger,
   getAssetsControllerMessenger,
   getAssetsControllerInitMessenger,
   getClientControllerMessenger,
@@ -532,7 +531,6 @@ export const MESSENGER_FACTORIES = {
   },
   NetworkEnablementController: {
     getMessenger: getNetworkEnablementControllerMessenger,
-    getInitMessenger: getNetworkEnablementControllerInitMessenger,
   },
   ProfileMetricsController: {
     getMessenger: getProfileMetricsControllerMessenger,

@@ -414,9 +414,6 @@ describe('preferences controller', () => {
       expect(controller.state.usePhishDetect).toStrictEqual(false);
       expect(controller.state.useAddressBarEnsResolution).toStrictEqual(false);
       expect(controller.state.useSafeChainsListValidation).toStrictEqual(false);
-      expect(controller.state.preferences.showTickerWidget).toStrictEqual(
-        false,
-      );
     });
 
     it('preserves owned preference overrides when enabling', () => {
@@ -445,7 +442,6 @@ describe('preferences controller', () => {
 
       expect(controller.state.useExternalServices).toBe(false);
       expect(controller.state.useTokenDetection).toBe(false);
-      expect(controller.state.preferences.showTickerWidget).toBe(false);
     });
   });
 
@@ -474,7 +470,6 @@ describe('preferences controller', () => {
         expect(controller.state[preference]).toBe(false);
       }
       expect(controller.state.isMultiAccountBalancesEnabled).toBe(false);
-      expect(controller.state.preferences.showTickerWidget).toBe(false);
       expect(toggleExternalServices).toHaveBeenCalledWith(false);
     });
   });
@@ -544,7 +539,6 @@ describe('preferences controller', () => {
         showExtensionInFullSizeView: false,
         privacyMode: false,
         showFiatInTestnets: false,
-        showTickerWidget: true,
         showTestNetworks: false,
         smartTransactionsMigrationApplied: false,
         smartTransactionsOptInStatus: true,
@@ -581,7 +575,6 @@ describe('preferences controller', () => {
         avatarType: 'maskicon',
         showExtensionInFullSizeView: false,
         showFiatInTestnets: false,
-        showTickerWidget: true,
         showTestNetworks: false,
         smartTransactionsMigrationApplied: false,
         smartTransactionsOptInStatus: true,
@@ -990,7 +983,6 @@ describe('preferences controller', () => {
             "showMultiRpcModal": false,
             "showNativeTokenAsMainBalance": false,
             "showTestNetworks": false,
-            "showTickerWidget": true,
             "skipDeepLinkInterstitial": false,
             "smartTransactionsMigrationApplied": false,
             "smartTransactionsOptInStatus": true,
@@ -1062,7 +1054,6 @@ describe('preferences controller', () => {
             "showMultiRpcModal": false,
             "showNativeTokenAsMainBalance": false,
             "showTestNetworks": false,
-            "showTickerWidget": true,
             "skipDeepLinkInterstitial": false,
             "smartTransactionsMigrationApplied": false,
             "smartTransactionsOptInStatus": true,
@@ -1142,7 +1133,6 @@ describe('preferences controller', () => {
             "showMultiRpcModal": false,
             "showNativeTokenAsMainBalance": false,
             "showTestNetworks": false,
-            "showTickerWidget": true,
             "skipDeepLinkInterstitial": false,
             "smartTransactionsMigrationApplied": false,
             "smartTransactionsOptInStatus": true,
@@ -1223,7 +1213,6 @@ describe('preferences controller', () => {
             "showMultiRpcModal": false,
             "showNativeTokenAsMainBalance": false,
             "showTestNetworks": false,
-            "showTickerWidget": true,
             "skipDeepLinkInterstitial": false,
             "smartTransactionsMigrationApplied": false,
             "smartTransactionsOptInStatus": true,
@@ -1280,7 +1269,6 @@ describe('preferences controller', () => {
             showExtensionInFullSizeView: true,
             privacyMode: true,
             showFiatInTestnets: true,
-            showTickerWidget: true,
             showTestNetworks: true,
             smartTransactionsMigrationApplied: false,
             smartTransactionsOptInStatus: true,

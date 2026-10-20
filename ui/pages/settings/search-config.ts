@@ -52,7 +52,6 @@ export const PREFERENCES_ITEMS = {
   'local-currency': 'localCurrency',
   'account-identicon': 'accountIdenticon',
   'show-default-address': 'showDefaultAddress',
-  'show-ticker-widget': 'showTickerWidget',
   'show-extension': 'showExtensionInFullSizeView',
   'manage-institutional-wallet': 'manageInstitutionalWallets',
 } as const;

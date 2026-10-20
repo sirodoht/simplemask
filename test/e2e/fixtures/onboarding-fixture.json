@@ -2000,7 +2000,6 @@
         "showMultiRpcModal": false,
         "showNativeTokenAsMainBalance": false,
         "showTestNetworks": false,
-        "showTickerWidget": true,
         "skipDeepLinkInterstitial": false,
         "smartTransactionsMigrationApplied": false,
         "smartTransactionsOptInStatus": true,

@@ -33,14 +33,8 @@ describe('useSendType', () => {
     } as unknown as SendContext.SendContextType);
     const result = renderHook();
     expect(result).toEqual({
-      isBitcoinSendType: false,
       isEvmNativeSendType: false,
       isEvmSendType: true,
-      isNonEvmNativeSendType: false,
-      isNonEvmSendType: false,
-      isSolanaSendType: false,
-      isStellarSendType: false,
-      isTronSendType: false,
     });
   });
 
@@ -51,14 +45,8 @@ describe('useSendType', () => {
     } as unknown as SendContext.SendContextType);
     const result = renderHook();
     expect(result).toEqual({
-      isBitcoinSendType: false,
       isEvmNativeSendType: false,
       isEvmSendType: true,
-      isNonEvmNativeSendType: false,
-      isNonEvmSendType: false,
-      isSolanaSendType: false,
-      isStellarSendType: false,
-      isTronSendType: false,
     });
   });
 
@@ -69,14 +57,8 @@ describe('useSendType', () => {
     } as unknown as SendContext.SendContextType);
     const result = renderHook();
     expect(result).toEqual({
-      isBitcoinSendType: false,
       isEvmNativeSendType: true,
       isEvmSendType: true,
-      isNonEvmNativeSendType: false,
-      isNonEvmSendType: false,
-      isSolanaSendType: false,
-      isStellarSendType: false,
-      isTronSendType: false,
     });
   });
 
@@ -87,14 +69,8 @@ describe('useSendType', () => {
     } as unknown as SendContext.SendContextType);
     const result = renderHook();
     expect(result).toEqual({
-      isBitcoinSendType: false,
       isEvmNativeSendType: false,
       isEvmSendType: false,
-      isNonEvmNativeSendType: false,
-      isNonEvmSendType: false,
-      isSolanaSendType: false,
-      isStellarSendType: false,
-      isTronSendType: false,
     });
   });
 
@@ -105,14 +81,8 @@ describe('useSendType', () => {
     } as unknown as SendContext.SendContextType);
     const result = renderHook();
     expect(result).toEqual({
-      isBitcoinSendType: false,
       isEvmNativeSendType: false,
       isEvmSendType: false,
-      isNonEvmNativeSendType: false,
-      isNonEvmSendType: false,
-      isSolanaSendType: false,
-      isStellarSendType: false,
-      isTronSendType: false,
     });
   });
 
@@ -123,14 +93,8 @@ describe('useSendType', () => {
     } as unknown as SendContext.SendContextType);
     const result = renderHook();
     expect(result).toEqual({
-      isBitcoinSendType: false,
       isEvmNativeSendType: false,
       isEvmSendType: false,
-      isNonEvmNativeSendType: false,
-      isNonEvmSendType: false,
-      isSolanaSendType: false,
-      isStellarSendType: false,
-      isTronSendType: false,
     });
   });
 });

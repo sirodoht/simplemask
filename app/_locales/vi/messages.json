@@ -7157,12 +7157,6 @@
   "showTestnetNetworks": {
     "message": "Hiển thị các mạng thử nghiệm"
   },
-  "showTickerWidget": {
-    "message": "Hiển thị tiện ích web trên X"
-  },
-  "showTickerWidgetDescription": {
-    "message": "Hiển thị tiện ích MetaMask với thông tin chi tiết về token khi bạn sử dụng X.com."
-  },
   "sidePanelMigrationToast": {
     "message": "MetaMask hiện mở trong bảng bên theo mặc định. $1 bất kỳ lúc nào từ menu.",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."

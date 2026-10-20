@@ -7153,12 +7153,6 @@
   "showTestnetNetworks": {
     "message": "Показать тестовые сети"
   },
-  "showTickerWidget": {
-    "message": "Показывать веб-виджет в X"
-  },
-  "showTickerWidgetDescription": {
-    "message": "Отображает виджет MetaMask с информацией о токене во время просмотра X.com."
-  },
   "sidePanelMigrationToast": {
     "message": "Теперь MetaMask по умолчанию открывается в боковой панели. $1 в любое время из меню.",
     "description": "Shown when the extension opens in the side panel after migration. $1 is an inline link to switch back to the popup view."
