@@ -14,6 +14,7 @@ import {
   ExcludedSnapPermissions,
 } from '../../../../shared/constants/snaps/permissions';
 import { encryptorFactory } from '../../lib/encryptor-factory';
+import { detectSupportedSnapLocation } from '../../lib/supported-snap-location';
 import { SnapControllerInitMessenger } from '../messengers/snaps';
 import { getBooleanFlag } from '../../lib/util';
 import { OnboardingControllerState } from '../../controllers/onboarding';
@@ -96,6 +97,7 @@ export const SnapControllerInit: MessengerClientInitFunction<
   }
 
   const messengerClient = new SnapController({
+    detectSnapLocation: detectSupportedSnapLocation,
     environmentEndowmentPermissions: Object.values(EndowmentPermissions),
     excludedPermissions: {
       ...ExcludedSnapPermissions,

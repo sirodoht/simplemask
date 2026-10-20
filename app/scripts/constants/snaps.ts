@@ -1,22 +1,6 @@
 // Needed for webpack to analyze the preinstalled snaps
 export const PREINSTALLED_SNAPS_URLS = [
   new URL(
-    '@metamask/bitcoin-wallet-snap/dist/preinstalled-snap.json',
-    import.meta.url,
-  ),
-  new URL(
-    '@metamask/solana-wallet-snap/dist/preinstalled-snap.json',
-    import.meta.url,
-  ),
-  new URL(
-    '@metamask/tron-wallet-snap/dist/preinstalled-snap.json',
-    import.meta.url,
-  ),
-  new URL(
-    '@metamask/stellar-wallet-snap/dist/preinstalled-snap.json',
-    import.meta.url,
-  ),
-  new URL(
     '@metamask/permissions-kernel-snap/dist/preinstalled-snap.json',
     import.meta.url,
   ),

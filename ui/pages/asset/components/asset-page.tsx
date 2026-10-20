@@ -80,18 +80,15 @@ import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../../select
 import { useSafeChains } from '../../../components/multichain/networks-form/use-safe-chains';
 import { useCurrentPrice } from '../hooks/useCurrentPrice';
 import { useSpendableBalance } from '../hooks/useSpendableBalance';
-import { getIsAssetRequireActivate } from '../../../selectors/stellar-assets';
 import { isNativeAsset, type Asset } from '../types/asset';
 
 import { useRWAToken } from '../../../hooks/rwa/useRWAToken';
 import { processAssetParams } from '../util';
-import { AssetInactiveBadge } from '../../../components/app/assets/asset-inactive-badge/asset-inactive-badge';
 import { AssetMarketDetails } from './asset-market-details';
 import { AssetPageHeader } from './asset-page-header';
 import AssetChart from './chart/asset-chart';
 import { MarketClosedActionButton } from './market-closed-action-button';
 import TokenButtons from './token-buttons';
-import { AssetActivateCard } from './asset-activation-card';
 import { SpendableBalanceSection } from './spendable-balance-section';
 import { TronDailyResources } from './tron-daily-resources';
 import {
@@ -274,12 +271,6 @@ const AssetPage = ({
     bip44Asset?.assetId ||
     assetId) as CaipAssetType;
 
-  const isAssetInactive = useSelector((state) =>
-    getIsAssetRequireActivate(state, {
-      assetId: resolvedAssetId,
-    }),
-  );
-
   const spendableBalanceData = useSpendableBalance({
     assetId: resolvedAssetId,
   });
@@ -334,7 +325,6 @@ const AssetPage = ({
     >
       <AssetPageSecurityTrustHeaderBadge />
       {isStockToken && <StockBadge isMarketClosed={isMarketClosed} />}
-      {isAssetInactive && <AssetInactiveBadge />}
     </Box>
   );
 
@@ -372,12 +362,7 @@ const AssetPage = ({
           endAccessory={optionsButton}
           onBack={handleBack}
         />
-        {isAssetInactive && (
-          <AssetActivateCard
-            asset={tokenAsset as Asset}
-            chainName={networkName}
-          />
-        )}
+
         <AssetPageSecurityTrustBanner />
         <AssetChart
           chainId={chainId}

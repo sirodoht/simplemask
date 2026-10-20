@@ -2,32 +2,25 @@ import {
   CaipAccountId,
   CaipAssetType,
   CaipChainId,
-  KnownCaipNamespace,
+  Hex,
   parseCaipAccountId,
-  parseCaipChainId,
+  parseCaipAssetType,
 } from '@metamask/utils';
 import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
 import { getInternalAccountByAddress } from '../../../../selectors';
-import { getMultiChainAssets } from '../../../../selectors/assets';
-import { TokenWithFiatAmount } from '../../assets/types';
-
+import {
+  getAssetsInfo,
+  getAssetsBalance,
+  getAssetsPrice,
+} from '../../../../selectors/assets';
 import { useFormatters } from '../../../../hooks/useFormatters';
 import { getCurrentCurrency } from '../../../../ducks/metamask/metamask';
 import { getIntlLocale } from '../../../../ducks/locale/locale';
 import { formatWithThreshold } from '../../assets/util/formatWithThreshold';
-import {
-  getImageForChainId,
-  getMultichainNetworkConfigurationsByChainId,
-} from '../../../../selectors/multichain';
-import {
-  AllowedBridgeChainIds,
-  NETWORK_TO_SHORT_NETWORK_NAME_MAP,
-} from '../../../../../shared/constants/bridge';
+import { getImageForChainId } from '../../../../selectors/multichain';
+import { getNetworkConfigurationsByChainId } from '../../../../../shared/lib/selectors/networks';
 
-/**
- * An asset for the SnapUIAssetSelector.
- */
+/** An EVM asset offered by a Snap form. */
 export type SnapUIAsset = {
   icon: string;
   symbol: string;
@@ -40,107 +33,85 @@ export type SnapUIAsset = {
   networkIcon?: string;
 };
 
-/**
- * The parameters for the hook.
- *
- * @param addresses - The addresses to get the assets for.
- * This is a list of the same address but for different chains.
- * @param chainIds - The chainIds to filter the assets by.
- */
 type UseSnapAssetSelectorDataParams = {
   addresses: CaipAccountId[];
   chainIds?: CaipChainId[];
 };
 
 /**
- * Gets the assets from state and format them for the SnapUIAssetSelector.
+ * Format retained EVM assets for Snap forms, scoped to the requested account.
  *
- * @param params - The parameters for the hook.
- * @param params.addresses - The addresses to get the assets for.
- * This is a list of the same address but for different chains.
- * @param params.chainIds - The chainIds to filter the assets by.
- * @returns The formatted assets.
+ * @param params - Requested accounts and chains.
+ * @param params.addresses - CAIP account addresses.
+ * @param params.chainIds - Optional additional chain filter.
+ * @returns Available EVM assets.
  */
 export const useSnapAssetSelectorData = ({
   addresses,
   chainIds,
-}: UseSnapAssetSelectorDataParams) => {
-  const currentCurrency = useSelector(getCurrentCurrency);
+}: UseSnapAssetSelectorDataParams): SnapUIAsset[] => {
+  const currency = useSelector(getCurrentCurrency);
   const locale = useSelector(getIntlLocale);
   const { formatTokenQuantity } = useFormatters();
-
-  const parsedAccounts = addresses.map(parseCaipAccountId);
-
+  const parsed = addresses.map(parseCaipAccountId);
   const account = useSelector((state) =>
-    getInternalAccountByAddress(state, parsedAccounts[0].address),
+    parsed[0]
+      ? getInternalAccountByAddress(state, parsed[0].address)
+      : undefined,
   );
-  const networks = useSelector(getMultichainNetworkConfigurationsByChainId);
+  const metadata = useSelector(getAssetsInfo);
+  const balances = useSelector(getAssetsBalance);
+  const prices = useSelector(getAssetsPrice);
+  const networks = useSelector(getNetworkConfigurationsByChainId);
+  if (!account) {
+    return [];
+  }
 
-  const assets = useSelector((state) => getMultiChainAssets(state, account));
+  const matchesChain = (requested: CaipChainId, actual: CaipChainId) =>
+    requested === 'eip155:0' || requested === actual;
 
-  /**
-   * Formats a fiat balance.
-   *
-   * @param balance - The balance to format.
-   * @returns The formatted balance.
-   */
-  const formatFiatBalance = (balance: number | null = 0) =>
-    formatWithThreshold(balance, 0.01, locale, {
-      style: 'currency',
-      currency: currentCurrency.toUpperCase(),
-    });
-
-  /**
-   * Formats a non-EVM asset for the SnapUIAssetSelector.
-   *
-   * @param asset - The asset to format.
-   * @returns The formatted asset.
-   */
-  const formatAsset = (asset: TokenWithFiatAmount) => {
-    const networkName =
-      NETWORK_TO_SHORT_NETWORK_NAME_MAP[
-        asset.chainId as AllowedBridgeChainIds
-      ] ?? networks[asset.chainId]?.name;
-
-    return {
-      icon: asset.image,
-      symbol: asset.symbol,
-      name: asset.title,
-      balance: formatTokenQuantity(Number(asset.balance ?? 0), asset.symbol),
-      networkName,
-      networkIcon: getImageForChainId(asset.chainId),
-      fiat: formatFiatBalance(asset.secondary),
-      chainId: asset.chainId as CaipChainId,
-      address: asset.address as CaipAssetType,
-    };
-  };
-
-  // Filter the chain IDs to only include the requested ones.
-  const requestedChainIds = parsedAccounts
-    .map((chainId) => chainId)
-    .filter(({ chainId }) => (chainIds ? chainIds?.includes(chainId) : true));
-
-  const formattedAssets = useMemo(() => {
-    // Filter the assets by the requested chain IDs
-    const filteredAssets = assets.filter((asset) =>
-      requestedChainIds.some(({ chainId, chain: { namespace, reference } }) => {
-        // Handles the "eip155:0" case
-        if (namespace === KnownCaipNamespace.Eip155 && reference === '0') {
-          const { namespace: assetNamepace } = parseCaipChainId(
-            asset.chainId as CaipChainId,
-          );
-          return assetNamepace === namespace;
-        }
-
-        return chainId === asset.chainId;
-      }),
-    );
-
-    // Format the assets
-    const formatted: SnapUIAsset[] = filteredAssets.map(formatAsset);
-
-    return formatted;
-  }, [assets]);
-
-  return formattedAssets;
+  return Object.entries(balances[account.id] ?? {}).flatMap(([id, balance]) => {
+    if (!id.startsWith('eip155:')) {
+      return [];
+    }
+    const assetId = id as CaipAssetType;
+    const { chainId } = parseCaipAssetType(assetId);
+    const info = metadata[assetId];
+    if (
+      !info ||
+      (info.type !== 'native' && info.type !== 'erc20') ||
+      !('amount' in balance) ||
+      !parsed.some(
+        (address) =>
+          address.address.toLowerCase() === account.address.toLowerCase() &&
+          matchesChain(address.chainId, chainId),
+      ) ||
+      (chainIds && !chainIds.some((chain) => matchesChain(chain, chainId)))
+    ) {
+      return [];
+    }
+    const hexChainId = `0x${BigInt(chainId.split(':')[1]).toString(16)}` as Hex;
+    const amount = Number(balance.amount);
+    return [
+      {
+        icon: info.image ?? '',
+        symbol: info.symbol,
+        name: info.name,
+        balance: formatTokenQuantity(amount, info.symbol),
+        fiat: formatWithThreshold(
+          amount * (prices[assetId]?.price ?? 0),
+          0.01,
+          locale,
+          {
+            style: 'currency',
+            currency: currency.toUpperCase(),
+          },
+        ),
+        chainId,
+        address: assetId,
+        networkName: networks[hexChainId]?.name ?? chainId,
+        networkIcon: getImageForChainId(hexChainId),
+      },
+    ];
+  });
 };

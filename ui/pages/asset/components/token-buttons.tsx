@@ -33,8 +33,6 @@ import { Asset } from '../types/asset';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { navigateToSendRoute } from '../../confirmations/utils/send';
 import { isEvmChainId } from '../../../../shared/lib/asset-utils';
-import { useAssetActivation } from '../hooks/useAssetActivation';
-import { AssetActivationErrorToast } from './asset-activation-error-toast';
 
 const TokenButtons = ({
   token,
@@ -142,17 +140,6 @@ const TokenButtons = ({
     token.chainId,
   ]);
 
-  const {
-    deactivateAsset,
-    canDeactivate,
-    dismissErrorMessage,
-    isDeactivating,
-    errorMessage,
-  } = useAssetActivation({
-    assetId: token.address,
-    assetSymbol: token.symbol,
-  });
-
   const sendButton = (
     <IconButton
       className="token-overview__button"
@@ -179,23 +166,6 @@ const TokenButtons = ({
       {
         <Box className="flex" gap={3} justifyContent={BoxJustifyContent.Evenly}>
           {shouldShowSendButton ? sendButton : null}
-
-          {canDeactivate ? (
-            <IconButton
-              className="token-overview__button"
-              Icon={
-                <Icon
-                  name={IconName.Trash}
-                  color={IconColor.iconAlternative}
-                  size={IconSize.Md}
-                />
-              }
-              onClick={deactivateAsset}
-              data-testid="token-overview-deactivate-asset"
-              label={t('assetDeactivate') as string}
-              disabled={isDeactivating}
-            />
-          ) : null}
         </Box>
       }
       {showReceiveModal && selectedAccount ? (
@@ -204,10 +174,6 @@ const TokenButtons = ({
           onClose={() => setShowReceiveModal(false)}
         />
       ) : null}
-      <AssetActivationErrorToast
-        message={errorMessage}
-        onClose={dismissErrorMessage}
-      />
     </>
   );
 };

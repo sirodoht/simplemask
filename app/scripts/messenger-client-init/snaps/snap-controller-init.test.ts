@@ -57,6 +57,7 @@ describe('SnapControllerInit', () => {
 
     const controllerMock = jest.mocked(SnapController);
     expect(controllerMock).toHaveBeenCalledWith({
+      detectSnapLocation: expect.any(Function),
       messenger: expect.any(Object),
       maxIdleTime: inMilliseconds(2, Duration.Minute),
       state: undefined,

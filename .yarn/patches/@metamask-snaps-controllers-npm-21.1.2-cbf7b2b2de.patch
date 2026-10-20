@@ -1,0 +1,116 @@
+diff --git a/dist/interface/SnapInterfaceController.cjs b/dist/interface/SnapInterfaceController.cjs
+index dc8a3896179958affbfda54b4891c0f966d3625a..38af1c4c6d93214ff0ceaf1bcf11a8ab6b996bab 100644
+--- a/dist/interface/SnapInterfaceController.cjs
++++ b/dist/interface/SnapInterfaceController.cjs
+@@ -272,12 +272,17 @@ class SnapInterfaceController extends base_controller_1.BaseController {
+         return this.messenger.call('AccountsController:getAccountByAddress', parsedAddress);
+     }
+     /**
+-     * Get the MultichainAssetsController state.
++     * Get retained EVM asset data for Snap interfaces.
+      *
+-     * @returns The MultichainAssetsController state.
++     * @returns The retained EVM assets in the interface data format.
+      */
+     #getAssetsState() {
+-        return this.messenger.call('MultichainAssetsController:getState');
++        const { assetsInfo, assetsBalance } = this.messenger.call('AssetsController:getState');
++        const accounts = this.messenger.call('AccountsController:listMultichainAccounts');
++        return {
++            assetsMetadata: assetsInfo,
++            accountsAssets: Object.fromEntries(accounts.map(({ id }) => [id, Object.keys(assetsBalance[id] ?? {}).filter((asset) => asset.startsWith('eip155:'))])),
++        };
+     }
+     /**
+      * Get a snap by its id.
+diff --git a/dist/interface/SnapInterfaceController.d.cts b/dist/interface/SnapInterfaceController.d.cts
+index caa26521f6424b2ee619f8ca035593b97ec44eb4..033a8293fd73dd6443792e6974843b0cf884aee6 100644
+--- a/dist/interface/SnapInterfaceController.d.cts
++++ b/dist/interface/SnapInterfaceController.d.cts
+@@ -1,3 +1,4 @@
++import type { AssetsControllerGetStateAction } from '@metamask/assets-controller';
+ import type { ApprovalControllerAcceptRequestAction, ApprovalControllerHasRequestAction } from "@metamask/approval-controller";
+ import type { ControllerGetStateAction, ControllerStateChangeEvent } from "@metamask/base-controller";
+ import { BaseController } from "@metamask/base-controller";
+@@ -24,14 +25,6 @@ type AccountsControllerListMultichainAccountsAction = {
+     handler: (chainId?: CaipChainId) => InternalAccount[];
+ };
+ export type SnapInterfaceControllerGetStateAction = ControllerGetStateAction<typeof controllerName, SnapInterfaceControllerState>;
+-type MultichainAssetsControllerGetStateAction = ControllerGetStateAction<'MultichainAssetsController', {
+-    assetsMetadata: {
+-        [asset: CaipAssetType]: FungibleAssetMetadata;
+-    };
+-    accountsAssets: {
+-        [account: string]: CaipAssetType[];
+-    };
+-}>;
+ type PhishingControllerTestOrigin = {
+     type: 'PhishingController:testOrigin';
+     handler: (origin: string) => {
+@@ -39,7 +32,7 @@ type PhishingControllerTestOrigin = {
+         type: string;
+     };
+ };
+-type AllowedActions = PhishingControllerTestOrigin | ApprovalControllerHasRequestAction | ApprovalControllerAcceptRequestAction | SnapControllerGetSnapAction | MultichainAssetsControllerGetStateAction | AccountsControllerGetSelectedMultichainAccountAction | AccountsControllerGetAccountByAddressAction | AccountsControllerListMultichainAccountsAction | PermissionControllerHasPermissionAction;
++type AllowedActions = PhishingControllerTestOrigin | ApprovalControllerHasRequestAction | ApprovalControllerAcceptRequestAction | SnapControllerGetSnapAction | AssetsControllerGetStateAction | AccountsControllerGetSelectedMultichainAccountAction | AccountsControllerGetAccountByAddressAction | AccountsControllerListMultichainAccountsAction | PermissionControllerHasPermissionAction;
+ export type SnapInterfaceControllerActions = SnapInterfaceControllerGetStateAction | SnapInterfaceControllerMethodActions;
+ export type SnapInterfaceControllerStateChangeEvent = ControllerStateChangeEvent<typeof controllerName, SnapInterfaceControllerState>;
+ type OtherNotification = {
+diff --git a/dist/interface/SnapInterfaceController.d.mts b/dist/interface/SnapInterfaceController.d.mts
+index 7eb652cafa81b2ee0f7948c540683458ab8a3c57..226937135f5223ff79e1e91458d867faafb689a1 100644
+--- a/dist/interface/SnapInterfaceController.d.mts
++++ b/dist/interface/SnapInterfaceController.d.mts
+@@ -1,3 +1,4 @@
++import type { AssetsControllerGetStateAction } from '@metamask/assets-controller';
+ import type { ApprovalControllerAcceptRequestAction, ApprovalControllerHasRequestAction } from "@metamask/approval-controller";
+ import type { ControllerGetStateAction, ControllerStateChangeEvent } from "@metamask/base-controller";
+ import { BaseController } from "@metamask/base-controller";
+@@ -24,14 +25,6 @@ type AccountsControllerListMultichainAccountsAction = {
+     handler: (chainId?: CaipChainId) => InternalAccount[];
+ };
+ export type SnapInterfaceControllerGetStateAction = ControllerGetStateAction<typeof controllerName, SnapInterfaceControllerState>;
+-type MultichainAssetsControllerGetStateAction = ControllerGetStateAction<'MultichainAssetsController', {
+-    assetsMetadata: {
+-        [asset: CaipAssetType]: FungibleAssetMetadata;
+-    };
+-    accountsAssets: {
+-        [account: string]: CaipAssetType[];
+-    };
+-}>;
+ type PhishingControllerTestOrigin = {
+     type: 'PhishingController:testOrigin';
+     handler: (origin: string) => {
+@@ -39,7 +32,7 @@ type PhishingControllerTestOrigin = {
+         type: string;
+     };
+ };
+-type AllowedActions = PhishingControllerTestOrigin | ApprovalControllerHasRequestAction | ApprovalControllerAcceptRequestAction | SnapControllerGetSnapAction | MultichainAssetsControllerGetStateAction | AccountsControllerGetSelectedMultichainAccountAction | AccountsControllerGetAccountByAddressAction | AccountsControllerListMultichainAccountsAction | PermissionControllerHasPermissionAction;
++type AllowedActions = PhishingControllerTestOrigin | ApprovalControllerHasRequestAction | ApprovalControllerAcceptRequestAction | SnapControllerGetSnapAction | AssetsControllerGetStateAction | AccountsControllerGetSelectedMultichainAccountAction | AccountsControllerGetAccountByAddressAction | AccountsControllerListMultichainAccountsAction | PermissionControllerHasPermissionAction;
+ export type SnapInterfaceControllerActions = SnapInterfaceControllerGetStateAction | SnapInterfaceControllerMethodActions;
+ export type SnapInterfaceControllerStateChangeEvent = ControllerStateChangeEvent<typeof controllerName, SnapInterfaceControllerState>;
+ type OtherNotification = {
+diff --git a/dist/interface/SnapInterfaceController.mjs b/dist/interface/SnapInterfaceController.mjs
+index c229eca334f13f920352ca811effc45d79c52ae1..578b305acace8677aac1e79fecdcb0a64d5f6362 100644
+--- a/dist/interface/SnapInterfaceController.mjs
++++ b/dist/interface/SnapInterfaceController.mjs
+@@ -269,12 +269,17 @@ export class SnapInterfaceController extends BaseController {
+         return this.messenger.call('AccountsController:getAccountByAddress', parsedAddress);
+     }
+     /**
+-     * Get the MultichainAssetsController state.
++     * Get retained EVM asset data for Snap interfaces.
+      *
+-     * @returns The MultichainAssetsController state.
++     * @returns The retained EVM assets in the interface data format.
+      */
+     #getAssetsState() {
+-        return this.messenger.call('MultichainAssetsController:getState');
++        const { assetsInfo, assetsBalance } = this.messenger.call('AssetsController:getState');
++        const accounts = this.messenger.call('AccountsController:listMultichainAccounts');
++        return {
++            assetsMetadata: assetsInfo,
++            accountsAssets: Object.fromEntries(accounts.map(({ id }) => [id, Object.keys(assetsBalance[id] ?? {}).filter((asset) => asset.startsWith('eip155:'))])),
++        };
+     }
+     /**
+      * Get a snap by its id.

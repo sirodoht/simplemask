@@ -575,6 +575,34 @@ class TestDapp {
     await this.driver.waitForSelector(this.connectedNetwork(networkId));
   }
 
+  /**
+   * Verify that provider discovery exposes EVM and no retired wallet protocols.
+   */
+  async checkOnlyEvmProviders(): Promise<void> {
+    const result = await this.driver.executeScript(`
+      const evmProviders = [];
+      const wallets = [];
+      const onProvider = (event) => evmProviders.push(event.detail.info.rdns);
+      window.addEventListener('eip6963:announceProvider', onProvider);
+      window.dispatchEvent(new Event('eip6963:requestProvider'));
+      window.removeEventListener('eip6963:announceProvider', onProvider);
+      window.dispatchEvent(new CustomEvent('wallet-standard:app-ready', {
+        detail: { register: (...registered) => {
+          wallets.push(...registered.map((wallet) => wallet.chains));
+          return () => {};
+        } },
+      }));
+      return {
+        evmProvider: typeof window.ethereum?.request,
+        evmProviders,
+        wallets,
+      };
+    `);
+    assert.equal(result.evmProvider, 'function');
+    assert.equal(result.evmProviders.length, 1);
+    assert.deepEqual(result.wallets, []);
+  }
+
   async checkPageIsLoaded(): Promise<void> {
     console.log('Wait for Test Dapp page to be loaded');
     try {

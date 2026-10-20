@@ -7,6 +7,23 @@ import TestDapp from '../../page-objects/pages/test-dapp';
 import { login } from '../../page-objects/flows/login.flow';
 
 describe('MetaMask', function (this: Suite) {
+  it('advertises only EVM providers', async function () {
+    await withFixtures(
+      {
+        dappOptions: { numberOfTestDapps: 1 },
+        fixtures: new FixtureBuilderV2().build(),
+        title: this.test?.fullTitle(),
+      },
+      async ({ driver }) => {
+        await login(driver);
+        const testDapp = new TestDapp(driver);
+        await testDapp.openTestDappPage();
+        await testDapp.checkPageIsLoaded();
+        await testDapp.checkOnlyEvmProviders();
+      },
+    );
+  });
+
   it('should reject unsupported methods', async function () {
     await withFixtures(
       {

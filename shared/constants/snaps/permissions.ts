@@ -21,6 +21,9 @@ export const EndowmentPermissions = Object.freeze({
 export const ExcludedSnapPermissions = Object.freeze({});
 
 export const ExcludedSnapEndowments = Object.freeze({
+  'endowment:assets': 'Snap asset discovery is not supported by this wallet.',
+  'endowment:protocol':
+    'Non-EVM request routing is not supported by this wallet.',
   'endowment:caip25':
     'eth_accounts is disabled. For more information please see https://github.com/MetaMask/snaps/issues/990.',
 });

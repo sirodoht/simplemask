@@ -4417,44 +4417,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@exodus/bitcoin-wallet-standard-chains@npm:^0.0.0":
-  version: 0.0.0
-  resolution: "@exodus/bitcoin-wallet-standard-chains@npm:0.0.0"
-  dependencies:
-    "@wallet-standard/base": "npm:^1.0.1"
-  checksum: 10/1193d95599431af7e772eaa1967502871063b1025bfe43443b7c37c0de9fbd6225cf7977a68eef1a43302ede05f0f3a634f01c5e060b53b1e240e8e250a2f156
-  languageName: node
-  linkType: hard
-
-"@exodus/bitcoin-wallet-standard-core@npm:^0.0.0":
-  version: 0.0.0
-  resolution: "@exodus/bitcoin-wallet-standard-core@npm:0.0.0"
-  dependencies:
-    "@exodus/bitcoin-wallet-standard-chains": "npm:^0.0.0"
-    "@exodus/bitcoin-wallet-standard-features": "npm:^0.0.0"
-  checksum: 10/2294b086cba5b8eb0e0880c8e15f44d7c11bb08f314bbeacda50ee7cfbdc464e6aaefe8ab56b1ed527bc7bb4e83f94425e8ee8bd3c92c3c2e5729284a19c9a3f
-  languageName: node
-  linkType: hard
-
-"@exodus/bitcoin-wallet-standard-features@npm:^0.0.0":
-  version: 0.0.0
-  resolution: "@exodus/bitcoin-wallet-standard-features@npm:0.0.0"
-  dependencies:
-    "@wallet-standard/base": "npm:^1.0.1"
-    "@wallet-standard/features": "npm:^1.0.3"
-  checksum: 10/877b9dd4965a6b3bd05c2e06e3af0f3a50467ceb4709a09164679a0e383dbf4817170b2c1b6fd1d1b42f70942fd2b4fcfc52929a8d434d232f333610d182beec
-  languageName: node
-  linkType: hard
-
-"@exodus/bitcoin-wallet-standard@npm:0.0.0":
-  version: 0.0.0
-  resolution: "@exodus/bitcoin-wallet-standard@npm:0.0.0"
-  dependencies:
-    "@exodus/bitcoin-wallet-standard-core": "npm:^0.0.0"
-  checksum: 10/d723cfc104145334eee7b63afa0698d984b15dc1aae9a3015eb92efd377d4fef765bc6c732582957a3bfa76b1bbac776b2a30384e84266c7ba49160d359361f6
-  languageName: node
-  linkType: hard
-
 "@firebase/analytics-compat@npm:0.2.17":
   version: 0.2.17
   resolution: "@firebase/analytics-compat@npm:0.2.17"
@@ -7693,26 +7655,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/bitcoin-wallet-snap@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@metamask/bitcoin-wallet-snap@npm:3.2.0"
-  checksum: 10/3a43cf6865b6e813a51511944b5b871eab3d266308abe64daa8accf2a17b250907f58fd04b7df9ea444ec5d7e80d63c4bdbbdfe2cca1c7aefd43e173c273f872
-  languageName: node
-  linkType: hard
-
-"@metamask/bitcoin-wallet-standard@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@metamask/bitcoin-wallet-standard@npm:1.1.0"
-  dependencies:
-    "@exodus/bitcoin-wallet-standard": "npm:0.0.0"
-    "@metamask/multichain-api-client": "npm:0.12.0"
-    "@wallet-standard/base": "npm:1.1.0"
-    "@wallet-standard/features": "npm:1.1.0"
-    "@wallet-standard/wallet": "npm:1.1.0"
-  checksum: 10/d0d381259c0342e3c7993c773cbc99f42235678c2a3aa8522b8a1521b57092904940a8a4bd55158926e07f9f79588b6d29124b58d023d757e62bfee0adc4399a
-  languageName: node
-  linkType: hard
-
 "@metamask/bridge-controller@npm:82.0.2":
   version: 82.0.2
   resolution: "@metamask/bridge-controller@npm:82.0.2"
@@ -9458,20 +9400,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/multichain-api-client@npm:0.12.0":
-  version: 0.12.0
-  resolution: "@metamask/multichain-api-client@npm:0.12.0"
-  checksum: 10/79f7b2e53cae25fb825a825650b98bbedf4d700b82b87a4df90c7e5ae62eb1aa8d3089fcdeaa66b104d737fe1ade93f202eae1b2599346599fccbc62d046a5fa
-  languageName: node
-  linkType: hard
-
-"@metamask/multichain-api-client@npm:^0.10.1":
-  version: 0.10.1
-  resolution: "@metamask/multichain-api-client@npm:0.10.1"
-  checksum: 10/adedb90f433cd619eee54943197dc32eb30e461173e928ea698ec70bf8c6780d9ac0bb9b12a22a17f984170841c071d228aa49e6988d5060e8a30e99c433a8f5
-  languageName: node
-  linkType: hard
-
 "@metamask/multichain-api-middleware@npm:^3.1.4":
   version: 3.1.4
   resolution: "@metamask/multichain-api-middleware@npm:3.1.4"
@@ -10465,7 +10393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-controllers@npm:^21.1.2":
+"@metamask/snaps-controllers@npm:21.1.2":
   version: 21.1.2
   resolution: "@metamask/snaps-controllers@npm:21.1.2"
   dependencies:
@@ -10506,6 +10434,50 @@ __metadata:
     "@metamask/snaps-execution-environments":
       optional: true
   checksum: 10/2596e856ba3254f232ad09a672d6fec6914540ec3300da56e72ec7992c71d9d6698a156e12b58488aefa1556ff232ee54933224b25fd61e76635651d243f1630
+  languageName: node
+  linkType: hard
+
+"@metamask/snaps-controllers@patch:@metamask/snaps-controllers@npm%3A21.1.2#~/.yarn/patches/@metamask-snaps-controllers-npm-21.1.2-cbf7b2b2de.patch":
+  version: 21.1.2
+  resolution: "@metamask/snaps-controllers@patch:@metamask/snaps-controllers@npm%3A21.1.2#~/.yarn/patches/@metamask-snaps-controllers-npm-21.1.2-cbf7b2b2de.patch::version=21.1.2&hash=4c634e"
+  dependencies:
+    "@metamask/analytics-controller": "npm:^1.2.1"
+    "@metamask/approval-controller": "npm:^9.0.2"
+    "@metamask/base-controller": "npm:^9.1.0"
+    "@metamask/json-rpc-engine": "npm:^10.5.0"
+    "@metamask/json-rpc-middleware-stream": "npm:^8.0.8"
+    "@metamask/key-tree": "npm:^10.1.1"
+    "@metamask/messenger": "npm:^2.0.0"
+    "@metamask/object-multiplex": "npm:^2.1.0"
+    "@metamask/permission-controller": "npm:^13.1.1"
+    "@metamask/post-message-stream": "npm:^10.0.0"
+    "@metamask/rpc-errors": "npm:^7.0.3"
+    "@metamask/snaps-registry": "npm:^4.0.0"
+    "@metamask/snaps-rpc-methods": "npm:^17.2.0"
+    "@metamask/snaps-sdk": "npm:^12.1.0"
+    "@metamask/snaps-utils": "npm:^12.6.1"
+    "@metamask/storage-service": "npm:^1.0.2"
+    "@metamask/superstruct": "npm:^3.4.1"
+    "@metamask/utils": "npm:^12.0.0"
+    "@xstate/fsm": "npm:^2.0.0"
+    async-mutex: "npm:^0.5.0"
+    concat-stream: "npm:^2.0.0"
+    cron-parser: "npm:^4.5.0"
+    fast-deep-equal: "npm:^3.1.3"
+    get-npm-tarball-url: "npm:^2.0.3"
+    immer: "npm:^9.0.21"
+    luxon: "npm:^3.5.0"
+    nanoid: "npm:^3.3.18"
+    readable-stream: "npm:^3.6.2"
+    readable-web-to-node-stream: "npm:^3.0.2"
+    semver: "npm:^7.5.4"
+    tar-stream: "npm:^3.1.7"
+  peerDependencies:
+    "@metamask/snaps-execution-environments": ^11.3.2
+  peerDependenciesMeta:
+    "@metamask/snaps-execution-environments":
+      optional: true
+  checksum: 10/28e3bfcbafec0309da50ece4e497ec175a5a135c88daedc4b0c0e16f0742d54fe752695bfe6e4217cd0e3a66391fc473edc548028fdbbca084b8baec849aa697
   languageName: node
   linkType: hard
 
@@ -10611,34 +10583,6 @@ __metadata:
   bin:
     solana-test-validator-up: ./dist/bin/solana-test-validator-up.mjs
   checksum: 10/094d3c7d2b4fa2f1027a67fb0c64eb2180622d7836351e9e97fefdc6015d722d4208b4eda8d09a3a4907ffdedc635ed1ae0ccdf85a5414294ad62a23557e8e98
-  languageName: node
-  linkType: hard
-
-"@metamask/solana-wallet-snap@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@metamask/solana-wallet-snap@npm:7.1.0"
-  checksum: 10/2a48bdb0a41e553bbee86109d87f1522c6147a5e5ee915de08b88abae9825abfb979077c95567490a743c087e4c1b828ea8568ba0a840dd6c2b82ef4bea1cfe2
-  languageName: node
-  linkType: hard
-
-"@metamask/solana-wallet-standard@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@metamask/solana-wallet-standard@npm:1.0.0"
-  dependencies:
-    "@solana/wallet-standard-chains": "npm:^1.1.1"
-    "@solana/wallet-standard-features": "npm:^1.3.0"
-    "@wallet-standard/base": "npm:^1.1.0"
-    "@wallet-standard/features": "npm:^1.1.0"
-    "@wallet-standard/wallet": "npm:^1.1.0"
-    bs58: "npm:^6.0.0"
-  checksum: 10/d5a21e964d1f31b3c08d28859332b7005646005de03836412c45bdfd8d9caf88ac633936f7e4fdc573591149171d0d08f8a8c9c679d99ac080f4d1d5762e333f
-  languageName: node
-  linkType: hard
-
-"@metamask/stellar-wallet-snap@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@metamask/stellar-wallet-snap@npm:1.2.0"
-  checksum: 10/2755e688b7008765f64dc796b1abe153a3255ec58c86b7c4b8b6e12b11ed5a0f8a7ac4b4e6438a140d3194fa9c5d9c1a2f172c10843db86ddaf75157b82567fb
   languageName: node
   linkType: hard
 
@@ -10850,13 +10794,6 @@ __metadata:
     "@babel/runtime": ^7.0.0
     "@metamask/eth-block-tracker": ">=9"
   checksum: 10/d2b69d73e50be01b60c2f476e98077ab3d5327fe8011e8fbe4cda672e609bd1cebfa6bc2740987e43a2e13d62943d87286d4a140c6913fb7da455905dabb1d08
-  languageName: node
-  linkType: hard
-
-"@metamask/tron-wallet-snap@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@metamask/tron-wallet-snap@npm:4.1.0"
-  checksum: 10/b4ae2610dc248b4c9ae8c7818460555c040bdda3b1a543e4c2f971aa267da23fbffee26e6c8726cd66a0633b7edb17f7f4e246c0ac9e41750c8da3cd64be5b69
   languageName: node
   linkType: hard
 
@@ -19347,13 +19284,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wallet-standard/base@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@wallet-standard/base@npm:1.1.0"
-  checksum: 10/11dbb8ed80566265916ab193ad5eab1585d55996781a88039d2bc4480428b1e778901b2dcff3e688dcac7de45e8a9272026f37f07f1e75168caff581906c5079
-  languageName: node
-  linkType: hard
-
 "@wallet-standard/base@npm:^1.0.1, @wallet-standard/base@npm:^1.1.0, @wallet-standard/base@npm:^1.1.1":
   version: 1.1.1
   resolution: "@wallet-standard/base@npm:1.1.1"
@@ -19386,30 +19316,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wallet-standard/features@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@wallet-standard/features@npm:1.1.0"
-  dependencies:
-    "@wallet-standard/base": "npm:^1.1.0"
-  checksum: 10/e046f813ec4bfea172aeb6c11358a962afe8f9a6961453e621d624f89d8b5fc8a44404dacfe18d33be815df6e9117bbf914009f5a9f9ea91ff90a136043fcac8
-  languageName: node
-  linkType: hard
-
-"@wallet-standard/features@npm:^1.0.3, @wallet-standard/features@npm:^1.1.0":
+"@wallet-standard/features@npm:^1.1.0":
   version: 1.1.1
   resolution: "@wallet-standard/features@npm:1.1.1"
   dependencies:
     "@wallet-standard/base": "npm:^1.1.1"
   checksum: 10/4333c975376df31b153f3a00eb50da1ee3e7234921af7d91d27d903ff01e041f05b434a1aa16847efc18f7221847b616bc3d3ca38f408318434342a056461d9f
-  languageName: node
-  linkType: hard
-
-"@wallet-standard/wallet@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@wallet-standard/wallet@npm:1.1.0"
-  dependencies:
-    "@wallet-standard/base": "npm:^1.1.0"
-  checksum: 10/b56846709c43b1dee6b44f7a9e15d89a00e4408d3d967eb438f415b42c5c52c4cf33a7b3126d0cf0dc0d78f244755e3d084a05824c1397ce58be169426c5337b
   languageName: node
   linkType: hard
 
@@ -35866,8 +35778,6 @@ __metadata:
     "@metamask/base-controller": "npm:^10.0.0"
     "@metamask/base-data-service": "npm:^2.1.0"
     "@metamask/bitcoin-regtest-up": "npm:^1.0.0"
-    "@metamask/bitcoin-wallet-snap": "npm:^3.2.0"
-    "@metamask/bitcoin-wallet-standard": "npm:^1.1.0"
     "@metamask/bridge-controller": "npm:^82.0.2"
     "@metamask/browser-passworder": "npm:^6.0.0"
     "@metamask/browser-playground": "npm:0.8.1"
@@ -35939,7 +35849,6 @@ __metadata:
     "@metamask/mobile-wallet-protocol-dapp-client": "npm:^0.3.0"
     "@metamask/money-account-utils": "npm:^1.2.0"
     "@metamask/multichain-account-service": "patch:@metamask/multichain-account-service@npm%3A14.1.0#~/.yarn/patches/@metamask-multichain-account-service-npm-14.1.0-4d05d783cb.patch"
-    "@metamask/multichain-api-client": "npm:^0.10.1"
     "@metamask/multichain-api-middleware": "npm:^3.1.4"
     "@metamask/multichain-network-controller": "patch:@metamask/multichain-network-controller@npm%3A3.2.4#~/.yarn/patches/@metamask-multichain-network-controller-npm-3.2.4-bab08ad1bb.patch"
     "@metamask/name-controller": "npm:^9.1.0"
@@ -35979,16 +35888,13 @@ __metadata:
     "@metamask/snap-account-abstraction-keyring-site": "npm:^1.0.0"
     "@metamask/snap-account-service": "npm:^4.0.0"
     "@metamask/snap-simple-keyring-site": "npm:^2.1.1"
-    "@metamask/snaps-controllers": "npm:^21.1.2"
+    "@metamask/snaps-controllers": "patch:@metamask/snaps-controllers@npm%3A21.1.2#~/.yarn/patches/@metamask-snaps-controllers-npm-21.1.2-cbf7b2b2de.patch"
     "@metamask/snaps-execution-environments": "npm:^11.3.2"
     "@metamask/snaps-registry": "npm:^4.0.0"
     "@metamask/snaps-rpc-methods": "npm:^17.2.0"
     "@metamask/snaps-sdk": "npm:^12.1.0"
     "@metamask/snaps-utils": "npm:^12.6.1"
     "@metamask/solana-test-validator-up": "npm:^1.0.0"
-    "@metamask/solana-wallet-snap": "npm:^7.1.0"
-    "@metamask/solana-wallet-standard": "npm:^1.0.0"
-    "@metamask/stellar-wallet-snap": "npm:^1.2.0"
     "@metamask/storage-service": "npm:^1.0.0"
     "@metamask/superstruct": "npm:^3.2.1"
     "@metamask/test-bundler": "npm:^1.0.0"
@@ -35999,7 +35905,6 @@ __metadata:
     "@metamask/test-dapp-tron": "npm:^0.3.1"
     "@metamask/test-snaps": "npm:^3.6.0"
     "@metamask/transaction-controller": "npm:^72.2.1"
-    "@metamask/tron-wallet-snap": "npm:^4.1.0"
     "@metamask/user-operation-controller": "npm:^41.2.5"
     "@metamask/utils": "npm:^12.0.0"
     "@metamask/wallet": "patch:@metamask/wallet@npm%3A17.1.0#~/.yarn/patches/@metamask-wallet-npm-17.1.0-33d73d2631.patch"

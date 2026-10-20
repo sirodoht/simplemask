@@ -977,13 +977,9 @@ export class AppStateController extends BaseController<
         periodInMinutes: timeoutToSet,
       });
     } else {
-      this.#timer = setTimeout(
-        this.messenger.call.bind(
-          this.messenger,
-          'LegacyBackgroundApiService:setLocked',
-        ),
-        timeoutToSet * MINUTE,
-      );
+      this.#timer = setTimeout(() => {
+        this.messenger.call('LegacyBackgroundApiService:setLocked');
+      }, timeoutToSet * MINUTE);
     }
   }
 

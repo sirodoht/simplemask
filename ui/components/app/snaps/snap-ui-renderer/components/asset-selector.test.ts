@@ -3,107 +3,72 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import { renderInterface } from '../test-utils';
 
 describe('SnapUIAssetSelector', () => {
-  const mockInternalAccount = {
-    accounts: {
-      '8c33fc18-6c52-44b1-b8fa-550b934a05ef': {
-        address: '7S3P4HxJpyyigGzodYwHtCxZyUQe9JiBMHyRWXArAaKv',
-        id: '8c33fc18-6c52-44b1-b8fa-550b934a05ef',
-        name: 'Solana Account',
-        keyring: {
-          type: 'Snap Keyring',
-        },
-      },
-    },
-  };
-
-  const mockBalances = {
-    '8c33fc18-6c52-44b1-b8fa-550b934a05ef': {
-      'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:105': {
-        amount: '1',
-        unit: 'SOL',
-      },
-      'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v':
-        {
-          amount: '2',
-          unit: 'USDC',
-        },
-    },
-  };
-
-  const mockAccountsAssets = {
-    ['8c33fc18-6c52-44b1-b8fa-550b934a05ef' as const]: [
-      'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:105' as const,
-      'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v' as const,
-    ],
-  };
-
-  const mockAssetsMetadata = {
-    'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:105': {
-      fungible: true as const,
-      iconUrl:
-        'https://static.cx.metamask.io/api/v2/tokenIcons/assets/solana/5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44/501.png',
-      name: 'Solana',
-      symbol: 'SOL',
-      units: [
-        {
-          decimals: 9,
-          name: 'Solana',
-          symbol: 'SOL',
-        },
-      ],
-    },
-    'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v':
-      {
-        fungible: true as const,
-        iconUrl:
-          'https://static.cx.metamask.io/api/v2/tokenIcons/assets/solana/5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png',
-        name: 'USDC',
-        symbol: 'USDC',
-        units: [
-          {
-            decimals: 9,
-            name: 'USDC',
-            symbol: 'USDC',
-          },
-        ],
-      },
-  };
-
-  const mockConversionRates = {
-    'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:105': {
-      conversionTime: 1745405595549,
-      currency: 'swift:0/iso4217:USD',
-      expirationTime: 1745409195549,
-      rate: '151.36',
-    },
-    'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v':
-      {
-        conversionTime: 1745405595549,
-        currency: 'swift:0/iso4217:USD',
-        expirationTime: 1745409195549,
-        rate: '1.00',
-      },
-  };
-
+  const address = '0x1234567890123456789012345678901234567890';
+  const accountId = '8c33fc18-6c52-44b1-b8fa-550b934a05ef';
   const mockState = {
     metamask: {
-      internalAccounts: mockInternalAccount,
-      accountIdByAddress: {
-        '7S3P4HxJpyyigGzodYwHtCxZyUQe9JiBMHyRWXArAaKv':
-          '8c33fc18-6c52-44b1-b8fa-550b934a05ef',
+      internalAccounts: {
+        accounts: {
+          [accountId]: {
+            id: accountId,
+            address,
+            type: 'eip155:eoa' as const,
+            options: {},
+            methods: ['eth_sign'],
+            scopes: ['eip155:0' as const],
+            metadata: {
+              name: 'EVM Snap Account',
+              keyring: { type: 'Snap Keyring' },
+              importTime: 0,
+            },
+          },
+        },
       },
-      balances: mockBalances,
-      accountsAssets: mockAccountsAssets,
-      assetsMetadata: mockAssetsMetadata,
-      conversionRates: mockConversionRates,
+      accountIdByAddress: { [address]: accountId },
+      assetsBalance: {
+        [accountId]: {
+          'eip155:1/slip44:60': { amount: '1' },
+          'eip155:1/erc20:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': {
+            amount: '2',
+          },
+        },
+      },
+      assetsInfo: {
+        'eip155:1/slip44:60': {
+          type: 'native' as const,
+          name: 'Ethereum',
+          symbol: 'ETH',
+          decimals: 18,
+        },
+        'eip155:1/erc20:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': {
+          type: 'erc20' as const,
+          name: 'USDC',
+          symbol: 'USDC',
+          decimals: 6,
+        },
+      },
+      assetsPrice: {
+        'eip155:1/slip44:60': {
+          assetPriceType: 'fungible' as const,
+          price: 2000,
+          usdPrice: 2000,
+          lastUpdated: 0,
+        },
+        'eip155:1/erc20:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48': {
+          assetPriceType: 'fungible' as const,
+          price: 1,
+          usdPrice: 1,
+          lastUpdated: 0,
+        },
+      },
     },
   };
 
   const mockInterfaceState = {
     'asset-selector': {
-      asset: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:105',
-      name: 'Solana',
-      symbol: 'SOL',
+      asset: 'eip155:1/slip44:60',
+      name: 'Ethereum',
+      symbol: 'ETH',
     },
   };
 
@@ -112,9 +77,7 @@ describe('SnapUIAssetSelector', () => {
       Box({
         children: AssetSelector({
           name: 'asset-selector',
-          addresses: [
-            'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp:7S3P4HxJpyyigGzodYwHtCxZyUQe9JiBMHyRWXArAaKv',
-          ],
+          addresses: ['eip155:1:0x1234567890123456789012345678901234567890'],
         }),
       }),
       {
@@ -142,9 +105,7 @@ describe('SnapUIAssetSelector', () => {
         children: AssetSelector({
           name: 'asset-selector',
           disabled: true,
-          addresses: [
-            'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp:7S3P4HxJpyyigGzodYwHtCxZyUQe9JiBMHyRWXArAaKv',
-          ],
+          addresses: ['eip155:1:0x1234567890123456789012345678901234567890'],
         }),
       }),
       {
@@ -165,9 +126,7 @@ describe('SnapUIAssetSelector', () => {
       Box({
         children: AssetSelector({
           name: 'asset-selector',
-          addresses: [
-            'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp:7S3P4HxJpyyigGzodYwHtCxZyUQe9JiBMHyRWXArAaKv',
-          ],
+          addresses: ['eip155:1:0x1234567890123456789012345678901234567890'],
         }),
       }),
       {
@@ -200,9 +159,7 @@ describe('SnapUIAssetSelector', () => {
           label: 'Asset Selector',
           children: AssetSelector({
             name: 'asset-selector',
-            addresses: [
-              'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp:7S3P4HxJpyyigGzodYwHtCxZyUQe9JiBMHyRWXArAaKv',
-            ],
+            addresses: ['eip155:1:0x1234567890123456789012345678901234567890'],
           }),
         }),
       }),
@@ -228,9 +185,7 @@ describe('SnapUIAssetSelector', () => {
           label: 'Asset Selector',
           children: AssetSelector({
             name: 'asset-selector',
-            addresses: [
-              'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp:7S3P4HxJpyyigGzodYwHtCxZyUQe9JiBMHyRWXArAaKv',
-            ],
+            addresses: ['eip155:1:0x1234567890123456789012345678901234567890'],
           }),
           error: 'This is an error',
         }),

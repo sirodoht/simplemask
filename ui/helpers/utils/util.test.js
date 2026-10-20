@@ -1381,8 +1381,7 @@ describe('util', () => {
 
       expect(util.isAbleToRevealSrp(hdAccount, [mockHDKeyring])).toBe(true);
     });
-
-    it('should return true for first party Snap accounts derived from HD keyring', () => {
+    it('returns false for retired wallet Snap accounts', () => {
       const snapAccount = {
         address: '0x123',
         options: {
@@ -1400,10 +1399,9 @@ describe('util', () => {
 
       expect(
         util.isAbleToRevealSrp(snapAccount, [mockHDKeyring, mockSnapKeyring]),
-      ).toBe(true);
+      ).toBe(false);
     });
-
-    it('returns true for first party Snap accounts derived from HD keyring', () => {
+    it('returns false for retired Snap accounts derived from HD keyring', () => {
       const snapAccount = {
         address: '0x123',
         options: {
@@ -1421,7 +1419,7 @@ describe('util', () => {
 
       expect(
         util.isAbleToRevealSrp(snapAccount, [mockHDKeyring, mockSnapKeyring]),
-      ).toBe(true);
+      ).toBe(false);
     });
 
     it('returns false for third-party Snap accounts derived from HD keyring', () => {

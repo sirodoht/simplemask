@@ -18,10 +18,7 @@ import { t } from '../../../../shared/lib/translate';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { IconName } from '../../../../ui/components/component-library/icon';
 import { isSnapPreinstalled } from '../../../../shared/lib/snaps/snaps';
-import {
-  getSnapName,
-  isMultichainWalletSnap,
-} from '../../../../shared/lib/accounts/snaps';
+import { getSnapName } from '../../../../shared/lib/accounts/snaps';
 import { isFlask } from '../../../../shared/lib/build-types';
 import { createEventBuilder, trackEvent } from '../../controllers/analytics';
 import { SnapKeyringBuilderMessenger } from './types';
@@ -319,20 +316,11 @@ export class SnapKeyringImpl implements SnapKeyringCallbacks {
     // Preinstalled Snaps can skip some confirmation dialogs.
     const isPreinstalled = isSnapPreinstalled(snapId);
 
-    // Since the introduction of BIP-44, multichain wallet Snaps will skip them automatically too!
-    let skipAll = isPreinstalled && isMultichainWalletSnap(snapId);
-    // FIXME: We still rely on the old behavior in some e2e, so we do not skip them in this case.
-    if (process.env.IN_TEST) {
-      skipAll = false;
-    }
-
     // If Snap is preinstalled and does not request confirmation, skip the confirmation dialog.
-    const skipConfirmationDialog =
-      skipAll || (isPreinstalled && !displayConfirmation);
+    const skipConfirmationDialog = isPreinstalled && !displayConfirmation;
 
     // Only pre-installed Snaps can skip the account from being selected.
-    const skipSetSelectedAccountStep =
-      skipAll || (isPreinstalled && !setSelectedAccount);
+    const skipSetSelectedAccountStep = isPreinstalled && !setSelectedAccount;
 
     // Skip the approval flow if the confirmation dialog is skipped.
     const skipApprovalFlow = skipConfirmationDialog;

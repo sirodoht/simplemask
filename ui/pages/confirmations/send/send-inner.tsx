@@ -14,7 +14,7 @@ import { ScrollContainer } from '../../../contexts/scroll-container';
 import { AmountRecipient } from '../components/send/amount-recipient';
 import { Header } from '../components/send/header';
 import { Asset } from '../components/send/asset';
-import { Loader } from '../components/send/loader';
+import LoadingScreen from '../../../components/ui/loading-screen';
 import { SendPages } from '../constants/send';
 import { useSendContext } from '../context/send';
 import { useSendQueryParams } from '../hooks/send/useSendQueryParams';
@@ -68,7 +68,7 @@ export const SendInner = () => {
   const { currentPage } = useSendContext();
 
   if (currentPage === SendPages.LOADER) {
-    return <Loader />;
+    return <LoadingScreen />;
   }
   if (currentPage === SendPages.ASSET) {
     return (
