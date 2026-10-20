@@ -133,3 +133,9 @@ These still have active consumers. They need migrations rather than deletion; na
 Retained intentionally: Firefox MV2 background support, `webextension-polyfill`, Node API shims (including `core-js-pure`'s `setImmediate` for the build), state migrations, compatible keyring readers, and base64 helpers still needed by Node 24/test environments lacking `Uint8Array.fromBase64`. These support current wallet behavior or protect existing data. Legal notices, license terms, and historical changelogs remain.
 
 Removed stale setup/release guidance and documents for deleted trading products. The automated checks are statically validated locally; GitHub-hosted workflow execution requires a push and is not implied by local validation. Repository-level GitHub settings and installed apps are separate from the files removed here.
+
+### Cleanup validation
+
+Validated locally with formatting/lint, TypeScript, circular-dependency checks, 164 affected unit/regression tests, and all 519 build-tool tests. Regenerated all eight LavaMoat application policies and passed both browser test builds. Selenium smoke tests passed on Chrome 155 and Firefox 158 for provider discovery, wallet- and dApp-initiated ETH sends, personal signing, and UI/background lockdown. The migrated Playwright home-page smoke test passed on its Chromium 156 and Firefox 157 engines.
+
+Current ChromeDriver requires explicit extension-target discovery and two additional globals in the existing test-only automation allowance. A regression test verifies `self` and `Window` remain scuttled in production; both browser lockdown checks still pass. Production security settings were not relaxed. CI YAML and job wiring pass Actionlint. Changes are committed locally; they have not been pushed or tested on GitHub-hosted runners.

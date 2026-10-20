@@ -75,6 +75,8 @@ yarn playwright test --project=chrome-e2e --shard=2/2
 
 Locally (no `GITHUB_ACTION` env) the runner runs every discovered spec — or the positional filters you pass — in a single Playwright invocation; matrix-splitting only kicks in under GitHub Actions (see [Test runner](#test-runner-run-all-pwmts)).
 
+The Yarn runners set `SELENIUM_BROWSER` for shared fixtures. When invoking Playwright directly for Firefox, also set `SELENIUM_BROWSER=firefox`; choosing `--project=firefox-e2e` alone does not select the fixture manifest directory.
+
 Install the corresponding engine with `yarn playwright install chromium` or `yarn playwright install firefox`. CI installs it explicitly in the testing workflow.
 
 ### Test runner (`run-all-pw.mts`)
