@@ -146,16 +146,15 @@ describe('Error utils Tests', function () {
       expect(result.enLocaleMessages).toBe(result.currentLocaleMessages);
     });
 
-    it.each(['es_419', 'ar', undefined])(
-      'uses English for legacy locale %s',
-      async (locale: string | undefined) => {
+    for (const locale of ['es_419', 'ar', undefined]) {
+      it(`uses English for legacy locale ${locale}`, async () => {
         jest.mocked(fetchLocale).mockResolvedValue(enMessages);
         const result = await setupLocale(locale);
         expect(fetchLocale).toHaveBeenCalledTimes(1);
         expect(fetchLocale).toHaveBeenCalledWith('en');
         expect(result.currentLocaleMessages).toBe(result.enLocaleMessages);
-      },
-    );
+      });
+    }
   });
 
   describe('maybeGetLocaleContext', () => {

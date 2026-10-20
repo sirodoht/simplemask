@@ -34,7 +34,6 @@ export const TRANSACTIONS_ROUTE = '/settings/transactions';
 export const PREFERENCES_AND_DISPLAY_ROUTE =
   '/settings/preferences-and-display';
 export const THEME_ROUTE = '/settings/preferences-and-display/theme';
-export const LANGUAGE_ROUTE = '/settings/preferences-and-display/language';
 export const ACCOUNT_IDENTICON_ROUTE =
   '/settings/preferences-and-display/account-identicon';
 export const PRIVACY_ROUTE = '/settings/privacy';
@@ -280,11 +279,6 @@ export const ROUTES = [
   {
     path: THEME_ROUTE,
     label: 'Theme Settings Page',
-    trackInAnalytics: true,
-  },
-  {
-    path: LANGUAGE_ROUTE,
-    label: 'Language Settings Page',
     trackInAnalytics: true,
   },
   {

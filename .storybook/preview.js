@@ -7,8 +7,7 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import configureStore from '../ui/store/store';
 import '../ui/css/index.scss';
-import localeList from '../app/_locales/index.json';
-import * as allLocales from './locales';
+import enMessages from '../app/_locales/en/messages.json';
 import { I18nProvider } from './i18n';
 import testData from './test-data.js';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
@@ -49,17 +48,6 @@ export const parameters = {
 };
 
 export const globalTypes = {
-  locale: {
-    name: 'Locale',
-    description: 'internationalization locale',
-    defaultValue: 'en',
-    toolbar: {
-      icon: 'globe',
-      items: localeList.map(({ code, name }) => {
-        return { value: code, right: code, title: name };
-      }),
-    },
-  },
   theme: {
     name: 'Color Theme',
     description: 'The color theme for the component',
@@ -101,8 +89,6 @@ const metamaskDecorator = (story, context) => {
 
   const isDark = theme === 'dark' || (theme === 'both' && systemPrefersDark);
 
-  const currentLocale = context.globals.locale;
-  const current = allLocales[currentLocale];
 
   useEffect(() => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -136,9 +122,9 @@ const metamaskDecorator = (story, context) => {
             }}
           >
             <I18nProvider
-              currentLocale={currentLocale}
-              current={current}
-              en={allLocales.en}
+              currentLocale="en"
+              current={enMessages}
+              en={enMessages}
             >
               <Routes>
                 <Route path={path} element={<StoryComponent />} />

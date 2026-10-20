@@ -124,24 +124,6 @@ exports[`OnboardingAppHeader should match snapshot 1`] = `
           src="./images/logo/metamask-fox.svg"
         />
       </div>
-      <div
-        class="dropdown onboarding-app-header__dropdown"
-      >
-        <select
-          class="dropdown__select"
-          data-testid="select-locale"
-        >
-          <option
-            value="en"
-          >
-            English
-          </option>
-        </select>
-        <span
-          class="mm-box dropdown__icon-caret-down mm-icon mm-icon--size-sm mm-box--display-inline-block mm-box--color-inherit"
-          style="mask-image: url('./images/icons/arrow-down.svg');"
-        />
-      </div>
     </div>
   </div>
 </div>

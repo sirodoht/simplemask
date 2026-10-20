@@ -1,4 +1,3 @@
-import { fireEvent } from '@testing-library/react';
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -7,16 +6,6 @@ import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate
 import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
 import { ONBOARDING_COMPLETION_ROUTE } from '../../../helpers/constants/routes';
 import OnboardingAppHeader from './onboarding-app-header';
-
-const mockUpdateCurrentLocale = jest.fn();
-
-jest.mock('../../../../app/_locales/index.json', () => {
-  return [{ code: 'en', name: 'English' }];
-});
-
-jest.mock('../../../store/actions.ts', () => ({
-  updateCurrentLocale: () => mockUpdateCurrentLocale,
-}));
 
 const mockLocation = {
   pathname: '/test',
@@ -43,16 +32,12 @@ describe('OnboardingAppHeader', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should call updateCurrentLocale action', () => {
-    const { getByRole } = renderWithProvider(
+  it('does not offer a language selector', () => {
+    const { queryByRole } = renderWithProvider(
       <OnboardingAppHeader isWelcomePage={false} location={mockLocation} />,
       store,
     );
-
-    const selectCombobox = getByRole('combobox');
-    fireEvent.change(selectCombobox);
-
-    expect(mockUpdateCurrentLocale).toHaveBeenCalled();
+    expect(queryByRole('combobox')).not.toBeInTheDocument();
   });
 
   it('shoul match snapshot on onboarding completion page', () => {

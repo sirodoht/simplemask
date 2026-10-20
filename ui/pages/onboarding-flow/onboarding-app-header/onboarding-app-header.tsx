@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import type { Location as RouterLocation } from 'react-router-dom';
 import classnames from 'clsx';
 import {
@@ -21,12 +20,6 @@ import {
 } from '../../../helpers/constants/design-system';
 import MetaFoxLogo from '../../../components/ui/metafox-logo';
 import { useI18nContext } from '../../../hooks/useI18nContext';
-import Dropdown from '../../../components/ui/dropdown';
-import { getCurrentLocale } from '../../../ducks/locale/locale';
-import { updateCurrentLocale } from '../../../store/actions';
-// TODO: Remove restricted import
-// eslint-disable-next-line import-x/no-restricted-paths
-import locales from '../../../../app/_locales/index.json';
 import { BannerTip } from '../../../components/component-library';
 import {
   ONBOARDING_COMPLETION_ROUTE,
@@ -35,7 +28,6 @@ import {
 import { getEnvironmentType } from '../../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_SIDEPANEL } from '../../../../shared/constants/app';
 import { useOnboardingSearchParams } from '../hooks/useOnboardingSearchParams';
-import { useDispatch } from '../../../store/hooks';
 
 type OnboardingAppHeaderProps = {
   isWelcomePage: boolean;
@@ -46,23 +38,14 @@ export default function OnboardingAppHeader({
   isWelcomePage = false,
   location,
 }: OnboardingAppHeaderProps) {
-  const dispatch = useDispatch();
   const { pathname } = location;
   const t = useI18nContext();
-  const currentLocale = useSelector(getCurrentLocale);
-  const localeOptions = locales.map((locale) => {
-    return {
-      name: locale.name,
-      value: locale.code,
-    };
-  });
-
   const { isFromReminder, isFromSettingsSecurity } =
     useOnboardingSearchParams();
   const isFromSettingsSRPBackup = isFromReminder || isFromSettingsSecurity;
 
-  // We don't wanna show the logo and locale dropdown in the sidepanel view
-  const showLogoAndLocaleDropdown = useMemo(() => {
+  // We don't wanna show the logo in the sidepanel view
+  const showLogo = useMemo(() => {
     const windowType = getEnvironmentType();
     return windowType !== ENVIRONMENT_TYPE_SIDEPANEL;
   }, []);
@@ -75,7 +58,7 @@ export default function OnboardingAppHeader({
         'onboarding-app-header--welcome': isWelcomePage,
       })}
     >
-      {showLogoAndLocaleDropdown ? (
+      {showLogo ? (
         <Box
           flexDirection={BoxFlexDirection.Row}
           justifyContent={
@@ -126,20 +109,7 @@ export default function OnboardingAppHeader({
                 </Text>
               </BannerTip>
             </Box>
-          ) : (
-            <Dropdown
-              data-testid="select-locale"
-              className={classnames('onboarding-app-header__dropdown', {
-                'onboarding-app-header__dropdown--welcome--login':
-                  isWelcomePage,
-              })}
-              options={localeOptions}
-              selectedOption={currentLocale}
-              onChange={async (newLocale) =>
-                dispatch(updateCurrentLocale(newLocale))
-              }
-            />
-          )}
+          ) : null}
         </Box>
       ) : (
         <></>

@@ -1,17 +1,13 @@
 import { Driver } from '../../../webdriver/driver';
-import {
-  ACCOUNT_IDENTICON_ROUTE,
-  LANGUAGE_ROUTE,
-} from '../../../../../ui/helpers/constants/routes';
+import { ACCOUNT_IDENTICON_ROUTE } from '../../../../../ui/helpers/constants/routes';
 
 /**
  * Settings → Preferences and display (plus shared assets-tab helpers).
  *
  * Screen: `#/settings/preferences-and-display` and sub-routes
- * (`#/settings/preferences-and-display/language`,
- * `#/settings/preferences-and-display/account-identicon`); also used on
+ * (`#/settings/preferences-and-display/account-identicon`); also used on
  * `#/settings/assets` via `checkAssetsPageIsLoaded` / `goToAssetsSettings`.
- * Owns: language change, identicon options, show-default-address and
+ * Owns: identicon options, show-default-address and
  * native-token balance toggles, and assets helpers (hide zero balance,
  * token/NFT autodetect) reused by the assets tab.
  * Boundaries: not the Settings hub. Theme/currency-only surfaces without
@@ -19,7 +15,6 @@ import {
  * Related: `SettingsPage`, `flows/settings.flow.ts`.
  *
  * @see ui/pages/settings/preferences-and-display-tab/preferences-and-display-tab.tsx
- * @see ui/pages/settings/preferences-and-display-tab/language-sub-page.tsx
  * @see ui/pages/settings/preferences-and-display-tab/account-identicon-sub-page.tsx
  * @see ui/pages/settings/assets-tab/assets-tab.tsx
  */
@@ -51,13 +46,9 @@ class PreferencesAndDisplaySettings {
     jazzicon: '[data-testid="account-identicon-option-jazzicon"]',
   };
 
-  private readonly languageSubpageLink = `a[href="#${LANGUAGE_ROUTE}"]`;
-
   private readonly loadingOverlay = '.loading-overlay';
 
   private readonly loadingOverlaySpinner = '.loading-overlay__spinner';
-
-  private readonly localeSelectList = '[data-testid="locale-select-list"]';
 
   private readonly preferencesTabButton =
     '[data-testid="settings-tab-item-preferences-and-display"]';
@@ -87,21 +78,6 @@ class PreferencesAndDisplaySettings {
     await this.driver.assertElementNotPresent(this.loadingOverlay);
   }
 
-  async changeLanguage(languageToSelect: string): Promise<void> {
-    console.log(
-      'Changing language to ',
-      languageToSelect,
-      'on preferences and display settings page',
-    );
-    await this.driver.clickElement(this.preferencesTabButton);
-    await this.checkNoLoadingOverlaySpinner();
-    await this.driver.clickElement(this.languageSubpageLink);
-    await this.checkNoLoadingOverlaySpinner();
-    await this.driver.waitForSelector(this.localeSelectList);
-    await this.driver.clickElement({ text: languageToSelect });
-    await this.checkNoLoadingOverlaySpinner();
-  }
-
   async checkAssetsPageIsLoaded(): Promise<void> {
     try {
       await this.driver.clickElement(this.assetsTabButton);
@@ -116,6 +92,19 @@ class PreferencesAndDisplaySettings {
       throw e;
     }
     console.log('Assets settings page is loaded');
+  }
+
+  async checkEnglishOnly(): Promise<void> {
+    await this.driver.assertElementNotPresent(
+      'a[href="#/settings/preferences-and-display/language"]',
+    );
+    await this.driver.assertElementNotPresent(
+      '[data-testid="locale-select-list"]',
+    );
+    await this.driver.waitForSelector({
+      text: 'Preferences and display',
+      tag: 'p',
+    });
   }
 
   async checkIdenticonIsActive(
@@ -157,7 +146,7 @@ class PreferencesAndDisplaySettings {
       await this.driver.clickElement(this.preferencesTabButton);
       await this.checkNoLoadingOverlaySpinner();
       await this.driver.waitForMultipleSelectors([
-        this.languageSubpageLink,
+        this.accountIdenticonSubpageLink,
         this.settingsPage,
       ]);
     } catch (e) {

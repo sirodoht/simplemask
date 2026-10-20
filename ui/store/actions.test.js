@@ -3293,13 +3293,14 @@ describe('Actions', () => {
         { type: 'SHOW_LOADING_INDICATION', payload: undefined },
         {
           type: 'SET_CURRENT_LOCALE',
-          payload: { locale: 'test', messages: enLocale },
+          payload: { locale: 'en', messages: enLocale },
         },
         { type: 'HIDE_LOADING_INDICATION' },
       ];
 
       await store.dispatch(actions.updateCurrentLocale('test'));
       expect(setCurrentLocaleStub.callCount).toStrictEqual(1);
+      expect(setCurrentLocaleStub.firstCall.args[0]).toBe('en');
       expect(store.getActions()).toStrictEqual(expectedActions);
     });
 

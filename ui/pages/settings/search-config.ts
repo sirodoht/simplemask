@@ -48,7 +48,6 @@ export const TRANSACTION_ITEMS = {
 
 export const PREFERENCES_ITEMS = {
   theme: 'theme',
-  language: 'language',
   'local-currency': 'localCurrency',
   'account-identicon': 'accountIdenticon',
   'show-default-address': 'showDefaultAddress',

@@ -15,7 +15,6 @@ import {
   MANAGE_WALLET_RECOVERY_ROUTE,
   MFA_SETTINGS_ROUTE,
   EXPERIMENTAL_ROUTE,
-  LANGUAGE_ROUTE,
   NOTIFICATIONS_SETTINGS_ROUTE,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
   NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
@@ -134,13 +133,6 @@ export const SETTINGS_ROUTES: Record<string, SettingsRouteMeta> = {
     parentPath: PREFERENCES_AND_DISPLAY_ROUTE,
     component: mmLazy(
       () => import('./preferences-and-display-tab/theme-sub-page.tsx'),
-    ),
-  },
-  [LANGUAGE_ROUTE]: {
-    labelKey: 'language',
-    parentPath: PREFERENCES_AND_DISPLAY_ROUTE,
-    component: mmLazy(
-      () => import('./preferences-and-display-tab/language-sub-page.tsx'),
     ),
   },
   [ACCOUNT_IDENTICON_ROUTE]: {

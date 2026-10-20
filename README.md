@@ -106,7 +106,7 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 ## English-only interface
 
 - [x] Default to English regardless of browser language and migrate saved locale preferences to English. Wallet data and other preferences are preserved.
-- [ ] Remove other language catalogs and language selectors from onboarding and settings.
+- [x] Remove 55 redundant/translated catalogs, leaving only `app/_locales/en/messages.json`, and remove language selectors from onboarding and settings.
 - [ ] Validate the English-only Chrome and Firefox builds and restoration flow.
 
 The English message catalog remains the source of UI copy and parameterized messages.

@@ -1,3 +1,4 @@
+import { describe, it, expect } from '@jest/globals';
 import { migrate, version } from './247';
 import type { Migrate } from './types';
 

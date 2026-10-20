@@ -12,18 +12,12 @@ import {
 } from '../../../store/actions';
 import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { ThemeType } from '../../../../shared/constants/preferences';
-import { THEME_ROUTE, LANGUAGE_ROUTE } from '../../../helpers/constants/routes';
-import type { MetaMaskReduxState } from '../../../store/store';
-// TODO: Remove restricted import
-// eslint-disable-next-line import-x/no-restricted-paths
-import locales from '../../../../app/_locales/index.json';
+import { THEME_ROUTE } from '../../../helpers/constants/routes';
 import { PREFERENCES_ITEMS } from '../search-config';
 import { AccountIdenticonItem } from './account-identicon-item';
 import { LocalCurrencyItem } from './local-currency-item';
 import { ShowDefaultAddressItem } from './show-default-address-item';
 import { THEME_LABEL_MAP } from './theme-utils';
-
-const localeMap = new Map(locales.map(({ code, name }) => [code, name]));
 
 const ThemeItem = createSelectItem({
   name: 'ThemeItem',
@@ -32,14 +26,6 @@ const ThemeItem = createSelectItem({
   formatValue: (theme, t) =>
     t(THEME_LABEL_MAP[theme as ThemeType] ?? THEME_LABEL_MAP[ThemeType.os]),
   route: THEME_ROUTE,
-});
-
-const LanguageItem = createSelectItem({
-  name: 'LanguageItem',
-  titleKey: PREFERENCES_ITEMS.language,
-  valueSelector: (state: MetaMaskReduxState) => state.metamask.currentLocale,
-  formatValue: (locale) => localeMap.get(locale) ?? locale,
-  route: LANGUAGE_ROUTE,
 });
 
 const ShowExtensionItem = createToggleItem({
@@ -79,7 +65,6 @@ const PreferencesAndDisplayTab = () => {
   const items = useMemo<SettingItemConfig[]>(
     () => [
       { id: 'theme', component: ThemeItem },
-      { id: 'language', component: LanguageItem },
       { id: 'local-currency', component: LocalCurrencyItem },
       { id: 'account-identicon', component: AccountIdenticonItem },
       { id: 'show-default-address', component: ShowDefaultAddressItem },
