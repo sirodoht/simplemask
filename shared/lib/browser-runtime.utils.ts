@@ -7,12 +7,6 @@ import browser from 'webextension-polyfill';
 import type { Runtime } from 'webextension-polyfill';
 import log from 'loglevel';
 import { PLATFORM_FIREFOX } from '../constants/app';
-import {
-  BROKEN_PRERENDER_BROWSER_VERSIONS,
-  FIXED_PRERENDER_BROWSER_VERSIONS,
-  // TODO: Remove restricted import
-  // eslint-disable-next-line import-x/no-restricted-paths
-} from '../../ui/helpers/constants/common';
 
 /**
  * Returns an Error if extension.runtime.lastError is present
@@ -37,7 +31,7 @@ export function checkForLastError(): Error | undefined {
   if ('stack' in lastError && lastError.stack && lastError.message) {
     return lastError as Error;
   }
-  // repair incomplete error object (eg chromium v77)
+  // Normalize the plain error objects returned by runtime.lastError.
   return new Error(lastError.message);
 }
 
@@ -52,24 +46,6 @@ export function checkForLastErrorAndLog(): Error | undefined {
   }
 
   return error;
-}
-
-/**
- * Returns true if the browser is affected by a regression that causes the
- * extension port stream established between the contentscript and background
- * to be broken when a prerendered (eagerly rendered, hidden) page becomes active (visible to the user).
- *
- * @param bowser - optional Bowser instance to check against
- * @returns Whether the browser is affected by the prerender regression
- */
-export function getIsBrowserPrerenderBroken(
-  bowser: Bowser.Parser.Parser = Bowser.getParser(window.navigator.userAgent),
-): boolean {
-  return (
-    (bowser.satisfies(BROKEN_PRERENDER_BROWSER_VERSIONS) &&
-      !bowser.satisfies(FIXED_PRERENDER_BROWSER_VERSIONS)) ??
-    false
-  );
 }
 
 /**

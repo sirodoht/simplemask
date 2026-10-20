@@ -1,4 +1,5 @@
 import merge from 'lodash/merge';
+import { getBrowserMinimumVersions } from '../../browser-targets';
 import {
   CHROME_MANIFEST_KEY_NON_PRODUCTION,
   CHROME_MANIFEST_KEY_RELEASE_CANDIDATE,
@@ -55,6 +56,19 @@ export function transformManifest(
     manifest: chrome.runtime.Manifest,
     browser: Browser,
   ) => chrome.runtime.Manifest | void)[] = [];
+
+  const minimumVersions = getBrowserMinimumVersions();
+  transforms.push((manifest, browser) => {
+    if (browser === 'chrome') {
+      manifest.minimum_chrome_version = minimumVersions.chrome;
+    } else {
+      merge(manifest, {
+        applications: {
+          gecko: { strict_min_version: minimumVersions.firefox },
+        },
+      });
+    }
+  });
 
   const manifestKey = getManifestKey(args.env);
 

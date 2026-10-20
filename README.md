@@ -8,7 +8,7 @@ This fork will have its own identity and does not retain compatibility with lega
 
 ## Supported browsers and networks
 
-- Support and test Chrome and Firefox.
+- Support and test only the latest stable desktop Chrome and Firefox. Older releases, Firefox ESR, and other browsers are not supported.
 - Remove dedicated support, packaging, and documentation for other browser targets. Safari is out of scope.
 - Shared Chromium implementation may still work in other Chromium browsers; those browsers are not supported targets.
 - Support Ethereum and EVM-compatible networks, including custom networks and custom RPC endpoints.
@@ -92,3 +92,5 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 - Removed `.cursor`, `.devcontainer`, `.husky`, and `.vscode`, their hook/download commands, and automatic agent-skill downloads during installation. Build and test commands remain available directly through Yarn.
 - Replaced upstream GitHub automation with testing only: static checks, unit/integration/build-tool/component tests, LavaMoat builds, and sharded Chrome/Firefox E2E tests. Removed release/deployment jobs, schedules, Slack/Sentry alerts, issue/PR bots, Dependabot, issue forms, funding, and CODEOWNERS. Workflows use read-only permissions and no organization secrets.
 - Removed orphaned release publishing, Slack announcements, AI release planning, benchmark telemetry uploads, Crowdin/Codecov configuration, and bot scripts. `yarn audit` now runs the standard dependency audit directly, without downloading a MetaMask baseline or opening issues. Retained E2E splitting/result helpers and the read-only diff helper used by local code-quality checks.
+
+- Replaced broad browser targets and Chrome 126/Firefox-driver pins with latest stable targets. Build manifests and the outdated-browser warning now use the same locked Browserslist data as compilation. Removed the obsolete Chrome 113–120 prerender workaround; kept current back/forward-cache handling. Browser database updates remain manual (`yarn dlx update-browserslist-db@latest`), followed by policy regeneration and both browser tests.

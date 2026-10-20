@@ -22,6 +22,7 @@ import {
   CHROME_MANIFEST_KEY_RELEASE_CANDIDATE,
   ENVIRONMENTS,
 } from '../utils/constants';
+import { getBrowserMinimumVersions } from '../utils/browser-targets';
 import { transformManifest } from '../utils/plugins/ManifestPlugin/helpers';
 import { getLatestCommit } from '../utils/git';
 import { generateCases, type Combination, mockWebpack } from './helpers';
@@ -1042,6 +1043,7 @@ describe('ManifestPlugin', () => {
         {
           ...mockFlags,
           key: CHROME_MANIFEST_KEY_NON_PRODUCTION,
+          minimum_chrome_version: getBrowserMinimumVersions().chrome,
         },
         'manifest should have flags in development mode',
       );
@@ -1075,6 +1077,7 @@ describe('ManifestPlugin', () => {
             },
           },
           key: CHROME_MANIFEST_KEY_NON_PRODUCTION,
+          minimum_chrome_version: getBrowserMinimumVersions().chrome,
         },
         'manifest should merge original properties with overrides, with overrides taking precedence',
       );
@@ -1177,17 +1180,27 @@ describe('ManifestPlugin', () => {
       );
     });
 
-    it('returns undefined for production builds with no other manifest transforms', () => {
+    it('applies current browser minimums to production builds without adding a key', () => {
       const transform = transformManifest(
         { env: ENVIRONMENTS.PRODUCTION, test: false },
         false,
       );
-
+      assert(transform);
+      const chromeManifest = transform({} as chrome.runtime.Manifest, 'chrome');
       assert.strictEqual(
-        transform,
-        undefined,
-        'should preserve the conditional transform return for production builds',
+        chromeManifest.minimum_chrome_version,
+        getBrowserMinimumVersions().chrome,
       );
+      assert.strictEqual(chromeManifest.key, undefined);
+      const firefoxManifest = transform(
+        {} as chrome.runtime.Manifest,
+        'firefox',
+      );
+      assert.deepStrictEqual(firefoxManifest, {
+        applications: {
+          gecko: { strict_min_version: getBrowserMinimumVersions().firefox },
+        },
+      });
     });
 
     it('does not add the manifest key for firefox builds based on the browser argument', () => {

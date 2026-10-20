@@ -1,4 +1,5 @@
 import Bowser from 'bowser';
+import extension from 'webextension-polyfill';
 import { toChecksumAddress } from 'ethereumjs-util';
 import { KeyringTypes } from '@metamask/keyring-controller';
 import { addHexPrefixToObjectValues } from '../../../shared/lib/swaps-utils';
@@ -231,73 +232,29 @@ describe('util', () => {
   });
 
   describe('#getIsBrowserDeprecated', () => {
-    it('should call Bowser.getParser when no parameter is passed', () => {
-      const spy = jest.spyOn(Bowser, 'getParser');
-      util.getIsBrowserDeprecated();
-      expect(spy).toHaveBeenCalled();
-    });
-    it('should return false when given a modern chrome browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.122 Safari/537.36',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(false);
-    });
-    it('should return true when given an outdated chrome browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.128 Safari/537.36',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(true);
-    });
-    it('should return false when given a modern firefox browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(false);
-    });
-    it('should return true when given an outdated firefox browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(true);
-    });
-    it('should return false when given a modern opera browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_16_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.122 Safari/537.36 OPR/109.0.0.0',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(false);
-    });
-    it('should return true when given an outdated opera browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_16_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.128 Safari/537.36 OPR/108.0.0.0',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(true);
-    });
-    it('should return false when given a modern edge browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.2420.81 Safari/537.36 Edg/123.0.2420.81',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(false);
-    });
-    it('should return true when given an outdated edge browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.2365.92 Safari/537.36 Edg/122.0.2365.92',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(true);
-    });
-    it('should return false when given an unknown browser', () => {
-      const browser = Bowser.getParser(
-        'Mozilla/5.0 (Nintendo Switch; WebApplet) AppleWebKit/609.4 (KHTML, like Gecko) NF/6.0.2.21.3 NintendoBrowser/5.1.0.22474',
-      );
-      const result = util.getIsBrowserDeprecated(browser);
-      expect(result).toStrictEqual(false);
+    afterEach(() => jest.restoreAllMocks());
+
+    it.each([
+      ['Chrome', 'chrome', 'minimum_chrome_version'],
+      ['Firefox', 'firefox', 'applications'],
+    ])('uses the built manifest minimum for %s', (_name, key, field) => {
+      jest.spyOn(extension.runtime, 'getManifest').mockReturnValue({
+        [field]:
+          key === 'chrome' ? '200' : { gecko: { strict_min_version: '200' } },
+      });
+      const userAgent = (version) =>
+        key === 'chrome'
+          ? `Mozilla/5.0 Chrome/${version}.0.0.0 Safari/537.36`
+          : `Mozilla/5.0 Gecko/20100101 Firefox/${version}.0`;
+      expect(
+        util.getIsBrowserDeprecated(Bowser.getParser(userAgent(199))),
+      ).toBe(true);
+      expect(
+        util.getIsBrowserDeprecated(Bowser.getParser(userAgent(200))),
+      ).toBe(false);
+      expect(
+        util.getIsBrowserDeprecated(Bowser.getParser(userAgent(201))),
+      ).toBe(false);
     });
   });
 

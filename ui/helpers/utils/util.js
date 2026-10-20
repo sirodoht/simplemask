@@ -15,6 +15,7 @@ import { isObject, isStrictHexString } from '@metamask/utils';
 import { Web3Provider } from '@ethersproject/providers';
 import { Contract } from '@ethersproject/contracts';
 import { KeyringTypes } from '@metamask/keyring-controller';
+import extension from 'webextension-polyfill';
 import { logErrorWithMessage } from '../../../shared/lib/error';
 import {
   toChecksumHexAddress,
@@ -26,7 +27,6 @@ import {
   TRUNCATED_ADDRESS_END_CHARS,
 } from '../../../shared/constants/labels';
 import { Numeric } from '../../../shared/lib/Numeric';
-import { OUTDATED_BROWSER_VERSIONS } from '../constants/common';
 // formatData :: ( date: <Unix Timestamp> ) -> String
 import { isEqualCaseInsensitive } from '../../../shared/lib/string-utils';
 import { hexToDecimal } from '../../../shared/lib/conversion.utils';
@@ -447,7 +447,15 @@ export function getURL(url) {
 export function getIsBrowserDeprecated(
   browser = bowser.getParser(window.navigator.userAgent),
 ) {
-  return browser.satisfies(OUTDATED_BROWSER_VERSIONS) ?? false;
+  const manifest = extension.runtime.getManifest();
+  const firefoxMinimum = manifest.applications?.gecko?.strict_min_version;
+  const chromeMinimum = manifest.minimum_chrome_version;
+  return (
+    browser.satisfies({
+      ...(chromeMinimum && { chrome: `<${chromeMinimum}` }),
+      ...(firefoxMinimum && { firefox: `<${firefoxMinimum}` }),
+    }) ?? false
+  );
 }
 
 export function getURLHost(url) {

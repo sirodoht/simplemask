@@ -1,9 +1,7 @@
-import { getIsBrowserPrerenderBroken } from '../../shared/lib/browser-runtime.utils';
 import shouldInjectProvider from '../../shared/lib/provider-injection';
 import {
   destroyStreams,
   initStreams,
-  onDisconnectDestroyStreams,
   setupExtensionStreams,
 } from './streams/provider-stream';
 import {
@@ -19,14 +17,6 @@ const start = () => {
 
   if (shouldInjectProvider()) {
     initStreams();
-
-    if (document.prerendering && getIsBrowserPrerenderBroken()) {
-      document.addEventListener('prerenderingchange', () => {
-        onDisconnectDestroyStreams(
-          new Error('Prerendered page has become active.'),
-        );
-      });
-    }
 
     window.addEventListener('pageshow', (event) => {
       if (event.persisted) {
