@@ -12,6 +12,7 @@ import {
   WebpackPluginInstance,
   RuleSetRule,
 } from 'webpack';
+import { getBrowserMinimumVersions } from '../utils/browser-targets';
 import { noop, type Manifest } from '../utils/helpers';
 import { ManifestPlugin } from '../utils/plugins/ManifestPlugin';
 import { getLatestCommit } from '../utils/git';
@@ -306,6 +307,7 @@ ${Object.entries(env)
         },
       ],
       key: CHROME_MANIFEST_KEY_NON_PRODUCTION,
+      minimum_chrome_version: getBrowserMinimumVersions().chrome,
     });
     assert.strictEqual(manifestPlugin.options.setBuildId, false);
     assert.strictEqual(manifestPlugin.options.zip, false);
@@ -469,7 +471,16 @@ ${Object.entries(env)
       manifestPlugin.options.zipOptions.mtime,
       getExpectedDefaultZipMtime(),
     );
-    assert.deepStrictEqual(manifestPlugin.options.transform, undefined);
+    assert(manifestPlugin.options.transform);
+    const productionManifest = manifestPlugin.options.transform(
+      { manifest_version: 3, name: 'name', version: '1.2.3' },
+      'chrome',
+    );
+    assert.strictEqual(
+      productionManifest.minimum_chrome_version,
+      getBrowserMinimumVersions().chrome,
+    );
+    assert.strictEqual(productionManifest.key, undefined);
     assert(manifestPlugin.options.stats, 'Stats options should be present');
     assert.strictEqual(
       manifestPlugin.options.stats.outFile,

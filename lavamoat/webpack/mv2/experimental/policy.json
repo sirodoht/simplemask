@@ -3242,20 +3242,20 @@
         "navigator.userAgentData": true
       }
     },
-    "@google/genai>protobufjs>@protobufjs/codegen": {
+    "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/codegen": {
       "globals": {
         "console.log": true
       }
     },
-    "@google/genai>protobufjs>@protobufjs/fetch": {
+    "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/fetch": {
       "globals": {
         "XMLHttpRequest": true
       },
       "packages": {
-        "@google/genai>protobufjs>@protobufjs/aspromise": true
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/aspromise": true
       }
     },
-    "@google/genai>protobufjs>@protobufjs/float": {
+    "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/float": {
       "globals": {
         "Float32Array": true,
         "Float64Array": true
@@ -3856,7 +3856,7 @@
         "@trezor/connect-web>@trezor/connect>@trezor/schema-utils": true,
         "buffer": true,
         "@trezor/connect-web>@trezor/connect>@trezor/protobuf>long": true,
-        "@google/genai>protobufjs": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs": true,
         "tslib": true
       }
     },
@@ -3943,7 +3943,7 @@
         "@zxing/library>ts-custom-error": true
       }
     },
-    "openai>abort-controller": {
+    "readable-stream>abort-controller": {
       "globals": {
         "AbortController": true
       }
@@ -5080,7 +5080,7 @@
         "eth-lattice-keyring>gridplus-sdk>secp256k1": true,
         "uuid": true,
         "viem": true,
-        "openai>zod": true
+        "@metamask/client-mcp-core>zod": true
       }
     },
     "eslint-plugin-react>es-iterator-helpers>has-property-descriptors": {
@@ -5422,7 +5422,7 @@
         "define": true
       }
     },
-    "@google/genai>protobufjs>long": {
+    "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>long": {
       "globals": {
         "WebAssembly.Instance": true,
         "WebAssembly.Module": true,
@@ -5726,22 +5726,22 @@
         "browserify>xtend": true
       }
     },
-    "@google/genai>protobufjs": {
+    "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs": {
       "globals": {
         "process": true,
         "setTimeout": true
       },
       "packages": {
-        "@google/genai>protobufjs>@protobufjs/aspromise": true,
-        "@google/genai>protobufjs>@protobufjs/base64": true,
-        "@google/genai>protobufjs>@protobufjs/codegen": true,
-        "@google/genai>protobufjs>@protobufjs/eventemitter": true,
-        "@google/genai>protobufjs>@protobufjs/fetch": true,
-        "@google/genai>protobufjs>@protobufjs/float": true,
-        "@google/genai>protobufjs>@protobufjs/path": true,
-        "@google/genai>protobufjs>@protobufjs/pool": true,
-        "@google/genai>protobufjs>@protobufjs/utf8": true,
-        "@google/genai>protobufjs>long": true
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/aspromise": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/base64": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/codegen": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/eventemitter": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/fetch": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/float": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/path": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/pool": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>@protobufjs/utf8": true,
+        "@metamask/mobile-wallet-protocol-core>centrifuge>protobufjs>long": true
       }
     },
     "crypto-browserify>public-encrypt": {
@@ -6106,7 +6106,7 @@
         "queueMicrotask": true
       },
       "packages": {
-        "openai>abort-controller": true,
+        "readable-stream>abort-controller": true,
         "buffer": true,
         "webpack>events": true,
         "process": true,
@@ -7120,7 +7120,7 @@
         "jsdom>form-data>es-set-tostringtag>has-tostringtag": true
       }
     },
-    "openai>zod": {
+    "@metamask/client-mcp-core>zod": {
       "globals": {
         "File": true,
         "URL": true,
