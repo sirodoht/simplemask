@@ -7992,7 +7992,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/controller-utils@npm:^11.14.1, @metamask/controller-utils@npm:^11.19.0, @metamask/controller-utils@npm:^11.3.0":
+"@metamask/controller-utils@npm:^11.19.0, @metamask/controller-utils@npm:^11.3.0":
   version: 11.20.0
   resolution: "@metamask/controller-utils@npm:11.20.0"
   dependencies:
@@ -8259,14 +8259,14 @@ __metadata:
   linkType: hard
 
 "@metamask/eip-7702-internal-rpc-middleware@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@metamask/eip-7702-internal-rpc-middleware@npm:0.1.0"
+  version: 0.1.1
+  resolution: "@metamask/eip-7702-internal-rpc-middleware@npm:0.1.1"
   dependencies:
-    "@metamask/controller-utils": "npm:^11.14.1"
+    "@metamask/controller-utils": "npm:^12.0.0"
     "@metamask/rpc-errors": "npm:^7.0.2"
     "@metamask/superstruct": "npm:^3.1.0"
-    "@metamask/utils": "npm:^11.8.1"
-  checksum: 10/c80e67e2603ded5c25449131bf1a993c12f761594dd224888a8e251f3977dc33b4e95874a8647ac9da7f0760fba6922cea1df229a3e99e30b21f38ee2fb9b368
+    "@metamask/utils": "npm:^11.9.0"
+  checksum: 10/72190d7e53c44fbf21a448ba94bcd498d4956cb68f216f87ecafdd93e09ee665e1901dadb1681f118fb85b0e7557db1d85ae5c4fae2735c97aec9a53ebe32c03
   languageName: node
   linkType: hard
 
