@@ -9581,15 +9581,15 @@ __metadata:
   linkType: hard
 
 "@metamask/multichain-api-middleware@npm:^3.1.4":
-  version: 3.1.4
-  resolution: "@metamask/multichain-api-middleware@npm:3.1.4"
+  version: 3.1.5
+  resolution: "@metamask/multichain-api-middleware@npm:3.1.5"
   dependencies:
-    "@metamask/accounts-controller": "npm:^39.0.1"
+    "@metamask/accounts-controller": "npm:^39.0.2"
     "@metamask/api-specs": "npm:^0.15.0"
     "@metamask/chain-agnostic-permission": "npm:^1.6.2"
-    "@metamask/controller-utils": "npm:^12.2.0"
+    "@metamask/controller-utils": "npm:^12.3.0"
     "@metamask/json-rpc-engine": "npm:^10.5.0"
-    "@metamask/network-controller": "npm:^32.0.0"
+    "@metamask/network-controller": "npm:^33.0.0"
     "@metamask/permission-controller": "npm:^13.1.1"
     "@metamask/rpc-errors": "npm:^7.0.2"
     "@metamask/snaps-controllers": "npm:^19.0.0"
@@ -9597,7 +9597,7 @@ __metadata:
     "@open-rpc/meta-schema": "npm:^1.14.6"
     "@open-rpc/schema-utils-js": "npm:^2.0.5"
     jsonschema: "npm:^1.4.1"
-  checksum: 10/c69888c66ac6b48cdecedbcbd52dc0208c905d2a8f3d0e0fcb92db7daefd3ffa8308006a33f29a97899186096dffc11f872f5cf9d48e39179f4781ef1e104851
+  checksum: 10/4a7b9844c4de553612367f34f80828a146323f848e9d4c53d3f9d19a0112a87a52d36f1bdebcb66e279e9c29b04cdec106056170a39eccb01b3cb61c31b01c5d
   languageName: node
   linkType: hard
 
