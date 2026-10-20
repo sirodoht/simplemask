@@ -12,7 +12,7 @@ import {
   TextField,
   TextFieldSize,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { isWebUrl } from '../../../../../shared/lib/url-utils';
 
 const AddBlockExplorerModal = ({
@@ -20,7 +20,7 @@ const AddBlockExplorerModal = ({
 }: {
   onAdded: (url: string) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const [url, setUrl] = useState('');
   const error = url.length > 0 && !isWebUrl(url) ? t('urlErrorMsg') : undefined;
 

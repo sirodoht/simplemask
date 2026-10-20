@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { SuccessPill } from '../../component-library';
 import CurrencyDisplay from '../../ui/currency-display';
 import UserPreferencedCurrencyDisplay from '../user-preferenced-currency-display';
@@ -34,7 +34,7 @@ function TransactionBreakdown({
   gasPaidByAddress,
   chainId,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <div className={classnames('transaction-breakdown', className)}>

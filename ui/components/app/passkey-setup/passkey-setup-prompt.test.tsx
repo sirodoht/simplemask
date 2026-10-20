@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   en as messages,
   renderWithProvider,
@@ -33,13 +34,11 @@ describe('PasskeySetupPrompt', () => {
     const { getByRole, getByText, queryByRole, queryByTestId } = renderPrompt();
 
     expect(
-      getByText(
-        messages.unlockWithPasskey.message.replace('$1', PASSKEY_METHOD_LABEL),
-      ),
+      getByText(messages.unlockWithPasskey.replace('$1', PASSKEY_METHOD_LABEL)),
     ).toBeInTheDocument();
     expect(
       getByText(
-        messages.passkeyDescription.message.replace(
+        messages.passkeyDescription.replace(
           '$1',
           PASSKEY_METHOD_SPECIFIC_LABEL,
         ),
@@ -47,14 +46,14 @@ describe('PasskeySetupPrompt', () => {
     ).toBeInTheDocument();
     expect(
       getByRole('button', {
-        name: messages.setUpPasskey.message.replace('$1', PASSKEY_METHOD_LABEL),
+        name: messages.setUpPasskey.replace('$1', PASSKEY_METHOD_LABEL),
       }),
     ).toBeInTheDocument();
-    expect(getByText(messages.maybeLater.message)).toBeInTheDocument();
+    expect(getByText(messages.maybeLater)).toBeInTheDocument();
     expect(queryByTestId('passkey-enrollment-error')).not.toBeInTheDocument();
     expect(
       queryByRole('link', {
-        name: messages.passkeyMigrationSupportedProviders.message,
+        name: messages.passkeyMigrationSupportedProviders,
       }),
     ).not.toBeInTheDocument();
   });
@@ -64,13 +63,11 @@ describe('PasskeySetupPrompt', () => {
     const { getByTestId, getByText } = renderPrompt({ enrollmentError });
 
     expect(
-      getByText(
-        messages.unlockWithPasskey.message.replace('$1', PASSKEY_METHOD_LABEL),
-      ),
+      getByText(messages.unlockWithPasskey.replace('$1', PASSKEY_METHOD_LABEL)),
     ).toBeInTheDocument();
     expect(
       getByText(
-        messages.passkeyDescription.message.replace(
+        messages.passkeyDescription.replace(
           '$1',
           PASSKEY_METHOD_SPECIFIC_LABEL,
         ),
@@ -87,26 +84,26 @@ describe('PasskeySetupPrompt', () => {
     });
 
     expect(
-      getByText(messages.passkeyMigrationReplacementTitle.message),
+      getByText(messages.passkeyMigrationReplacementTitle),
     ).toBeInTheDocument();
     expect(container.querySelector('p')).toHaveTextContent(
-      messages.passkeyMigrationReplacementDescription.message.replace(
+      messages.passkeyMigrationReplacementDescription.replace(
         '$1',
-        messages.passkeyMigrationSupportedProviders.message,
+        messages.passkeyMigrationSupportedProviders,
       ),
     );
     expect(
       getByRole('link', {
-        name: messages.passkeyMigrationSupportedProviders.message,
+        name: messages.passkeyMigrationSupportedProviders,
       }),
     ).toHaveAttribute('href', BaseUrl.MetaMask);
     expect(
       getByRole('button', {
-        name: messages.passkeyMigrationReplacementTryAgain.message,
+        name: messages.passkeyMigrationReplacementTryAgain,
       }),
     ).toBeInTheDocument();
     expect(
-      getByText(messages.passkeyMigrationReplacementKeepCurrent.message),
+      getByText(messages.passkeyMigrationReplacementKeepCurrent),
     ).toBeInTheDocument();
     expect(queryByTestId('passkey-enrollment-error')).not.toBeInTheDocument();
   });

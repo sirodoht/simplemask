@@ -1,5 +1,6 @@
-import { TransactionMeta } from '@metamask/transaction-controller';
 import React from 'react';
+import { TransactionMeta } from '@metamask/transaction-controller';
+
 import { Box, Text } from '../../../../../components/component-library';
 import {
   AlignItems,
@@ -10,13 +11,13 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { SEND_TRANSACTION_TYPES } from '../../../constants/send';
 import { AdvancedDetailsButton } from './advanced-details-button';
 
 export const DAppInitiatedHeader = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   const isSendTransaction =

@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { EstimatesModal } from './estimates-modal';
 
 jest.mock('../../../hooks/gas/useGasOptions', () => ({
@@ -61,9 +62,7 @@ describe('EstimatesModal', () => {
       />,
     );
 
-    expect(
-      getByText(messages.editGasFeeModalTitle.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.editGasFeeModalTitle)).toBeInTheDocument();
     expect(getByTestId('gas-option-low')).toBeInTheDocument();
     expect(getByTestId('gas-option-medium')).toBeInTheDocument();
     expect(getByTestId('gas-option-high')).toBeInTheDocument();
@@ -88,6 +87,6 @@ describe('EstimatesModal', () => {
       />,
     );
 
-    expect(getByText(messages.learnMore.message)).toBeInTheDocument();
+    expect(getByText(messages.learnMore)).toBeInTheDocument();
   });
 });

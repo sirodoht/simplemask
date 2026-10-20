@@ -8,7 +8,7 @@ import {
   BoxJustifyContent,
 } from '@metamask/design-system-react';
 import LoadingScreen from '../../../../../components/ui/loading-screen';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { Asset } from '../../../types/send';
 import { useAmountSelectionMetrics } from '../../../hooks/send/metrics/useAmountSelectionMetrics';
 import { useSendActions } from '../../../hooks/send/useSendActions';
@@ -26,7 +26,7 @@ import { SendAlertModal } from '../send-alert-modal';
 import { SendAlerts } from '../send-alerts';
 
 export const AmountRecipient = () => {
-  const t = useI18nContext();
+  const t = getText;
   const [hexDataError, setHexDataError] = useState<string>();
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [shouldSubmitOnAcknowledge, setShouldSubmitOnAcknowledge] =

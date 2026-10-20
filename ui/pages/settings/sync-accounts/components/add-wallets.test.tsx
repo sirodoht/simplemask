@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import { AccountWalletType, toAccountWalletId } from '@metamask/account-api';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../../store/store';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import AddWallets from './add-wallets';
 
 const mockWalletId = toAccountWalletId(AccountWalletType.Entropy, 'entropy1');
@@ -49,10 +50,8 @@ describe('AddWallets', () => {
   it('renders the heading and description', () => {
     render();
 
-    expect(screen.getByText(messages.add_wallets.message)).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.add_wallets_desc.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.add_wallets)).toBeInTheDocument();
+    expect(screen.getByText(messages.add_wallets_desc)).toBeInTheDocument();
   });
 
   it('renders the wallet selection list', () => {
@@ -65,7 +64,7 @@ describe('AddWallets', () => {
     const onAddWallets = jest.fn();
     render(onAddWallets);
 
-    fireEvent.click(screen.getByText(messages.continue.message));
+    fireEvent.click(screen.getByText(messages.continue));
 
     expect(onAddWallets).toHaveBeenCalledWith({
       selectedAccountGroupIds: [mockGroupId],

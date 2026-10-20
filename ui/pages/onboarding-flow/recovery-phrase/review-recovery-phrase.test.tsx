@@ -1,5 +1,6 @@
-import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
@@ -10,7 +11,7 @@ import {
   ONBOARDING_REVEAL_SRP_ROUTE,
   MANAGE_WALLET_RECOVERY_ROUTE,
 } from '../../../helpers/constants/routes';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import * as Actions from '../../../store/actions';
 import RecoveryPhrase from './review-recovery-phrase';
@@ -135,7 +136,7 @@ describe('Review Recovery Phrase Component', () => {
     );
 
     const revealRecoveryPhraseButton = queryByTestId('recovery-phrase-reveal');
-    const revealButton = queryByText(messages.tapToReveal.message);
+    const revealButton = queryByText(messages.tapToReveal);
 
     fireEvent.click(revealRecoveryPhraseButton as HTMLElement);
 
@@ -227,7 +228,7 @@ describe('Review Recovery Phrase Component', () => {
     );
 
     // The link appears as interpolated text inside seedPhraseReviewDetails
-    const srpDetailsLinks = getAllByText(messages.secretRecoveryPhrase.message);
+    const srpDetailsLinks = getAllByText(messages.secretRecoveryPhrase);
     fireEvent.click(srpDetailsLinks[0]);
 
     expect(queryByTestId('srp-details-modal')).toBeInTheDocument();

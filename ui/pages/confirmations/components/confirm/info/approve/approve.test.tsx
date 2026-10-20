@@ -1,12 +1,13 @@
-import { screen, waitFor } from '@testing-library/dom';
 import React from 'react';
+import { screen, waitFor } from '@testing-library/dom';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { getMockConfirmStateForTransaction } from '../../../../../../../test/data/confirmations/helper';
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
 import { useAssetDetails } from '../../../../hooks/useAssetDetails';
 import { genUnapprovedApproveConfirmation } from '../../../../../../../test/data/confirmations/token-approve';
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import ApproveInfo from './approve';
 
 jest.mock('../../../simulation-details/useBalanceChanges', () => ({
@@ -116,7 +117,7 @@ describe('<ApproveInfo />', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(messages.speed.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.speed)).toBeInTheDocument();
     });
 
     expect(container).toMatchSnapshot();

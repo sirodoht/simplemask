@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import {
   QR_SYNC_TIMEOUT_MS,
   QrSyncErrorCode,
@@ -69,10 +70,10 @@ describe('EnterVerificationCode', () => {
     renderComponent();
 
     expect(
-      screen.getByText(messages.enter_verification_code.message),
+      screen.getByText(messages.enter_verification_code),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.enter_verification_code_desc.message),
+      screen.getByText(messages.enter_verification_code_desc),
     ).toBeInTheDocument();
     expect(getInputs()).toHaveLength(6);
   });
@@ -97,7 +98,7 @@ describe('EnterVerificationCode', () => {
     typeCode('123456');
 
     expect(
-      await screen.findByText(messages.enter_verification_code_error.message),
+      await screen.findByText(messages.enter_verification_code_error),
     ).toBeInTheDocument();
     expect(
       screen.getByTestId('qr-sync-start-with-new-qr-code'),
@@ -111,7 +112,7 @@ describe('EnterVerificationCode', () => {
 
     typeCode('111111');
 
-    await screen.findByText(messages.enter_verification_code_error.message);
+    await screen.findByText(messages.enter_verification_code_error);
 
     fireEvent.click(screen.getByTestId('qr-sync-start-with-new-qr-code'));
 
@@ -125,7 +126,7 @@ describe('EnterVerificationCode', () => {
     });
 
     expect(
-      screen.getByText(messages.enter_verification_code_max_attempts.message),
+      screen.getByText(messages.enter_verification_code_max_attempts),
     ).toBeInTheDocument();
     expect(
       screen.getByTestId('qr-sync-start-with-new-qr-code'),
@@ -144,7 +145,7 @@ describe('EnterVerificationCode', () => {
     });
 
     expect(
-      screen.getByText(messages.enter_verification_code_expired.message),
+      screen.getByText(messages.enter_verification_code_expired),
     ).toBeInTheDocument();
     expect(
       screen.getByTestId('qr-sync-start-with-new-qr-code'),

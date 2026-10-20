@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -20,7 +19,7 @@ import {
 import { SubjectType } from '@metamask/permission-controller';
 import { Box } from '@metamask/design-system-react';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 import PermissionsConnectFooter from '../permissions-connect-footer';
 import { RestrictedMethods } from '../../../../shared/constants/permissions';
@@ -272,7 +271,7 @@ PermissionPageContainerBase.propTypes = {
 };
 
 function PermissionPageContainer(props) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const trackEventForPermissionPage = useCallback(
     (payload) => {

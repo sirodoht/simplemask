@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, waitFor, act } from '@testing-library/react';
 import type { Dispatch, Store } from 'redux';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { ONBOARDING_COMPLETION_ROUTE } from '../../../helpers/constants/routes';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { setParticipateInMetaMetrics } from '../../../store/actions';
 import configureStore from '../../../store/store';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
@@ -97,11 +98,9 @@ describe('Onboarding Metametrics Component', () => {
       store,
     );
 
-    const title = queryByText(
-      messages.onboardingMetametricCheckboxTitleOne.message,
-    );
+    const title = queryByText(messages.onboardingMetametricCheckboxTitleOne);
     const description = queryByText(
-      messages.onboardingMetametricCheckboxDescriptionOneUpdated.message,
+      messages.onboardingMetametricCheckboxDescriptionOneUpdated,
     );
 
     expect(title).toBeInTheDocument();
@@ -132,18 +131,16 @@ describe('Onboarding Metametrics Component', () => {
       store,
     );
 
-    const title = queryByText(
-      messages.onboardingMetametricCheckboxTitleOne.message,
-    );
+    const title = queryByText(messages.onboardingMetametricCheckboxTitleOne);
     const description = queryByText(
-      messages.onboardingMetametricCheckboxDescriptionOneUpdated.message,
+      messages.onboardingMetametricCheckboxDescriptionOneUpdated,
     );
 
     expect(title).toBeInTheDocument();
     expect(description).toBeInTheDocument();
 
     const checkboxLabel = queryByText(
-      messages.onboardingMetametricCheckboxTitleOne.message,
+      messages.onboardingMetametricCheckboxTitleOne,
     );
     expect(checkboxLabel).toBeInTheDocument();
 

@@ -10,13 +10,13 @@ import { hasTransactionType } from '../../../../../shared/lib/transactions.utils
 import { Alert } from '../../../../ducks/confirm-alerts/confirm-alerts';
 import { RowAlertKey } from '../../../../components/app/confirm/info/row/constants';
 import { Severity } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { SignatureRequestType } from '../../types/confirm';
 import { useConfirmContext } from '../../context/confirm';
 import { PAY_TRANSACTION_TYPES } from '../../constants/pay';
 
 export const useSelectedAccountAlerts = (): Alert[] => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { currentConfirmation } = useConfirmContext();
   const selectedAccountGroupId = useSelector(getSelectedAccountGroup);

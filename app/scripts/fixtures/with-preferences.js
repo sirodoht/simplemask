@@ -17,7 +17,6 @@ export const FIXTURES_PREFERENCES = {
   },
   firstTimeFlowType: 'import',
   completedOnboarding: true,
-  currentLocale: 'en',
   knownMethodData: {},
   use4ByteResolution: true,
   consentDecisionMade: true,

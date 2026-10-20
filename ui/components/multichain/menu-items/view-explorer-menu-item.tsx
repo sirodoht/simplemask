@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ import {
 } from '../../../helpers/utils/multichain/blockExplorer';
 
 import { MenuItem } from '../../ui/menu';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventLinkType,
@@ -89,7 +90,7 @@ export const ViewExplorerMenuItem = ({
   textProps,
   account,
 }: ViewExplorerMenuItemProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const navigate = useNavigate();
 

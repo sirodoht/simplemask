@@ -3,7 +3,7 @@ import { NameType } from '@metamask/name-controller';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import type { Hex } from '@metamask/utils';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useConfirmContext } from '../../context/confirm';
 import {
   isEip712PrimaryTypeField,
@@ -115,7 +115,7 @@ function getAlertSkipReason(
  * @returns Array of alerts for spender addresses
  */
 export function useSpenderAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
 
   const { alertSkipReason, tokenAddressOverride } = useMemo(() => {

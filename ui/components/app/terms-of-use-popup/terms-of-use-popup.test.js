@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import TermsOfUsePopup from './terms-of-use-popup';
 
 const mockIntersectionObserver = jest.fn();
@@ -31,9 +32,7 @@ const render = () => {
 describe('TermsOfUsePopup', () => {
   it('renders TermsOfUse component and shows Terms of Use text', () => {
     render();
-    expect(
-      screen.getByText(messages.termsOfUseTitle.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.termsOfUseTitle)).toBeInTheDocument();
 
     const agreeButton = screen.getByTestId('terms-of-use-agree-button');
     expect(agreeButton).toBeInTheDocument();

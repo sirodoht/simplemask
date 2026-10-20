@@ -7,10 +7,10 @@ import { TransactionStatus } from '@metamask/transaction-controller';
 import { MULTICHAIN_NETWORK_DECIMAL_PLACES } from '@metamask/multichain-network-controller';
 import { useSelector } from 'react-redux';
 import { formatWithThreshold } from '../components/app/assets/util/formatWithThreshold';
-import { getIntlLocale } from '../ducks/locale/locale';
+
 import { TransactionGroupStatus } from '../../shared/constants/transaction';
 import { getAssetsMetadata } from '../selectors/assets';
-import { useI18nContext } from './useI18nContext';
+import { getText } from '../helpers/utils/text';
 
 export const KEYRING_TRANSACTION_STATUS_KEY = {
   [KeyringTransactionStatus.Failed]: TransactionStatus.failed,
@@ -38,9 +38,9 @@ type AggregatedMovement = {
 };
 
 export function useMultichainTransactionDisplay(transaction: Transaction) {
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const decimalPlaces = MULTICHAIN_NETWORK_DECIMAL_PLACES[transaction.chain];
-  const t = useI18nContext();
+  const t = getText;
   const assetsMetadata = useSelector(getAssetsMetadata);
 
   const from = aggregateAmount(

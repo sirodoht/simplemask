@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -15,7 +16,7 @@ import {
 } from '../../component-library';
 import { ModalContent } from '../../component-library/modal-content/deprecated';
 import { ModalHeader } from '../../component-library/modal-header/deprecated';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   TextAlign,
   TextVariant,
@@ -37,7 +38,7 @@ export default function ConfigureSnapPopup({
   onClose: () => void;
   link: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

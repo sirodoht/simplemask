@@ -11,13 +11,13 @@ import {
   TrustSignalDisplayState,
 } from '../../../../hooks/useTrustSignals';
 import { SignatureRequestType } from '../../types/confirm';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { isSecurityAlertsAPIEnabled } from '../../../../../app/scripts/lib/ppom/security-alerts-api';
 
 export function useAddressTrustSignalAlerts(): Alert[] {
   const { currentConfirmation } = useConfirmContext();
-  const t = useI18nContext();
+  const t = getText;
 
   const addressToCheck = useMemo(() => {
     if (!currentConfirmation) {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import {
   AvatarIconSize,
@@ -30,7 +31,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 const SnapLinkDisplay = ({ url }) => {
   const parsedUrl = new URL(url);
@@ -68,7 +69,7 @@ SnapLinkDisplay.propTypes = {
 };
 
 export default function SnapLinkWarning({ isOpen, onClose, url }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

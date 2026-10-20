@@ -6,7 +6,7 @@ import {
   NETWORK_TO_NAME_MAP,
 } from '../../../../shared/constants/network';
 
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useConfirmContext } from '../context/confirm';
 import {
   selectNetworkConfigurationByChainId,
@@ -14,7 +14,7 @@ import {
 } from '../../../../shared/lib/selectors/networks';
 
 function useConfirmationNetworkInfo() {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
   const chainId = currentConfirmation?.chainId as Hex;
 

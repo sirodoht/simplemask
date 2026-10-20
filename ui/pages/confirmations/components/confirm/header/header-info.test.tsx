@@ -1,5 +1,6 @@
-import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
+
 import { TransactionType } from '@metamask/transaction-controller';
 
 import {
@@ -14,7 +15,7 @@ import {
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
 import { createEventBuilder } from '../../../../../../shared/lib/analytics/create-event-builder';
 import configureStore from '../../../../../store/store';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import HeaderInfo from './header-info';
 
 const mockTrackEvent = jest.fn();
@@ -84,13 +85,13 @@ describe('Header', () => {
   });
   it('shows account info icon', async () => {
     const { getByLabelText } = render();
-    expect(getByLabelText(messages.accountDetails.message)).toBeInTheDocument();
+    expect(getByLabelText(messages.accountDetails)).toBeInTheDocument();
   });
 
   describe('when account info icon is clicked', () => {
     it('shows account info modal with address', async () => {
       const { getByLabelText, getByText, queryByTestId } = render();
-      const accountInfoIcon = getByLabelText(messages.accountDetails.message);
+      const accountInfoIcon = getByLabelText(messages.accountDetails);
       fireEvent.click(accountInfoIcon);
       await waitFor(() => {
         expect(queryByTestId('account-details-modal')).toBeInTheDocument();
@@ -105,7 +106,7 @@ describe('Header', () => {
           <HeaderInfo />,
           configureStore(store),
         );
-        const accountInfoIcon = getByLabelText(messages.accountDetails.message);
+        const accountInfoIcon = getByLabelText(messages.accountDetails);
         fireEvent.click(accountInfoIcon);
 
         expect(mockTrackEvent).toHaveBeenNthCalledWith(

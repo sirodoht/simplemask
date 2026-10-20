@@ -1,5 +1,6 @@
-import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
@@ -7,7 +8,7 @@ import {
   SETTING_ANCHORS,
 } from '../../../../shared/lib/deep-links/routes/privacy';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import PrivacyTab, {
@@ -76,9 +77,7 @@ describe('PrivacyTab', () => {
       screen.getByTestId('basic-functionality-toggle'),
     ).toBeInTheDocument();
     expect(screen.getByTestId('ipfs-gateway-toggle')).toBeInTheDocument();
-    expect(
-      screen.queryByText(messages.thirdPartyApis.message),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.thirdPartyApis)).not.toBeInTheDocument();
     expect(
       screen.queryByTestId('batch-account-balance-requests-toggle'),
     ).not.toBeInTheDocument();
@@ -90,9 +89,7 @@ describe('PrivacyTab', () => {
       createStore({ extensionBasicFunctionalityToggle: true }, false),
     );
 
-    expect(
-      screen.getByText(messages.thirdPartyApis.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.thirdPartyApis)).toBeInTheDocument();
     expect(
       screen.getByTestId('batch-account-balance-requests-toggle'),
     ).toBeInTheDocument();
@@ -105,8 +102,6 @@ describe('PrivacyTab', () => {
       target: { value: 'ipfs.infura.io' },
     });
 
-    expect(
-      screen.getByText(messages.forbiddenIpfsGateway.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.forbiddenIpfsGateway)).toBeInTheDocument();
   });
 });

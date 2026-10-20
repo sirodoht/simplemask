@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { render, fireEvent } from '@testing-library/react';
 
 import { useSendAssets } from '../../../hooks/send/useSendAssets';
 import { useSendAssetFilter } from '../../../hooks/send/useSendAssetFilter';
 import { useAssetSelectionMetrics } from '../../../hooks/send/metrics/useAssetSelectionMetrics';
 import { AssetFilterMethod } from '../../../context/send-metrics';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { Asset } from './asset';
 
 // Jest hoists jest.mock() above imports, so only `mock`-prefixed vars are allowed.
@@ -45,7 +46,7 @@ jest.mock('../network-filter', () => ({
       onChange={(e) => onChainIdChange(e.target.value || null)}
     >
       <option value="">All Networks</option>
-      <option value="1">{mockMessages.networkNameEthereum.message}</option>
+      <option value="1">{mockMessages.networkNameEthereum}</option>
     </select>
   ),
 }));
@@ -63,7 +64,7 @@ describe('Asset', () => {
   const mockUseSendAssetFilter = jest.mocked(useSendAssetFilter);
   const mockUseAssetSelectionMetrics = jest.mocked(useAssetSelectionMetrics);
   const mockTokens = [
-    { name: messages.networkNameEthereum.message, symbol: 'ETH', chainId: '1' },
+    { name: messages.networkNameEthereum, symbol: 'ETH', chainId: '1' },
     { name: 'USDC', symbol: 'USDC', chainId: '1' },
   ];
   const mockFilteredTokens = [mockTokens[0]];

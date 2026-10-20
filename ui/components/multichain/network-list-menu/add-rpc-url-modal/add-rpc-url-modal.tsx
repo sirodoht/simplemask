@@ -20,7 +20,7 @@ import {
   JustifyContent,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { isWebUrl } from '../../../../../shared/lib/url-utils';
 
 const AddRpcUrlModal = ({
@@ -28,7 +28,7 @@ const AddRpcUrlModal = ({
 }: {
   onAdded: (url: string, name?: string) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const [url, setUrl] = useState<string>();
   const nameRef = useRef<HTMLInputElement>(null);

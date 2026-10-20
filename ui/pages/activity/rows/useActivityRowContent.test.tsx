@@ -8,8 +8,8 @@ import { renderHookWithProvider } from '../../../../test/lib/render-helpers-navi
 import { useGetDisplayName } from '../../../hooks/useGetDisplayName';
 import { useActivityRowContent } from './useActivityRowContent';
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string, substitutions?: string[]) =>
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string, substitutions?: string[]) =>
     substitutions ? `${key}|${substitutions.join(',')}` : key,
 }));
 

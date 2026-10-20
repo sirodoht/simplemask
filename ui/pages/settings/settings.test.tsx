@@ -1,9 +1,10 @@
-import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../store/background-connection';
 import {
@@ -65,14 +66,12 @@ describe('Settings', () => {
       expect(
         screen.getByTestId('settings-tab-bar-grouped'),
       ).toBeInTheDocument();
-      expect(screen.getByText(messages.general.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.general)).toBeInTheDocument();
       expect(screen.queryByTestId('settings-root')).not.toBeInTheDocument();
       await screen.findByTestId('settings-tab-item-preferences-and-display');
+      expect(screen.getByText(messages.securityAndPrivacy)).toBeInTheDocument();
       expect(
-        screen.getByText(messages.securityAndPrivacy.message),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText(messages.transactionsAndAssets.message),
+        screen.getByText(messages.transactionsAndAssets),
       ).toBeInTheDocument();
     });
 

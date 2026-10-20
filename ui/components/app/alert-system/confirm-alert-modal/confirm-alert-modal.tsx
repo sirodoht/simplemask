@@ -17,7 +17,7 @@ import {
   Severity,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import useAlerts from '../../../../hooks/useAlerts';
 import { AlertModal } from '../alert-modal';
 import { AcknowledgeCheckboxBase } from '../alert-modal/alert-modal';
@@ -48,7 +48,7 @@ function ConfirmButtons({
   onSubmit: () => void;
   isConfirmed: boolean;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const onAlertCancel = useCallback(() => {
     onCancel({ location: MetaMetricsEventLocation.AlertFrictionModal });
   }, [onCancel]);
@@ -86,7 +86,7 @@ function ConfirmDetails({
 }: {
   onAlertLinkClick?: () => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <>
       <Box alignItems={BoxAlignItems.Center} className="text-center">
@@ -120,7 +120,7 @@ export function ConfirmAlertModal({
   onSubmit,
   ownerId,
 }: ConfirmAlertModalProps) {
-  const t = useI18nContext();
+  const t = getText;
   const { fieldAlerts, alerts, hasUnconfirmedFieldDangerAlerts } =
     useAlerts(ownerId);
 

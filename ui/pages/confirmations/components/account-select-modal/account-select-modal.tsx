@@ -22,7 +22,7 @@ import { getSelectedInternalAccount } from '../../../../../shared/lib/selectors/
 import { toChecksumHexAddress } from '../../../../../shared/lib/hexstring-utils';
 import { shortenAddress } from '../../../../helpers/utils/util';
 import { getEvmAccountsGroupedByWallet } from '../../utils/evm-accounts-grouped-by-wallet';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export type AccountSelectModalProps = {
   /**
@@ -82,7 +82,7 @@ export function AccountSelectModal({
   selectedAddress = '',
   title,
 }: AccountSelectModalProps) {
-  const t = useI18nContext();
+  const t = getText;
   const wallets = useSelector(getWalletsWithAccounts);
   const selectedAccount = useSelector(getSelectedInternalAccount);
 

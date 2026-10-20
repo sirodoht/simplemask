@@ -26,12 +26,11 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useGasFeeToken } from '../../hooks/useGasFeeToken';
 import { getCurrentCurrency } from '../../../../../../../ducks/metamask/metamask';
 import { GasFeeTokenIcon, GasFeeTokenIconSize } from '../gas-fee-token-icon';
 import { formatAmount } from '../../../../../../../../shared/lib/format-amount';
-import { getIntlLocale } from '../../../../../../../ducks/locale/locale';
 
 export type GasFeeTokenListItemProps = {
   isSelected?: boolean;
@@ -46,10 +45,10 @@ export function GasFeeTokenListItem({
   tokenAddress,
   warning,
 }: GasFeeTokenListItemProps) {
-  const t = useI18nContext();
+  const t = getText;
   const gasFeeToken = useGasFeeToken({ tokenAddress });
   const currentCurrency = useSelector(getCurrentCurrency);
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
 
   if (!gasFeeToken) {
     return null;

@@ -23,7 +23,7 @@ import { TEST_CHAINS } from '../../../../../../../../shared/constants/network';
 import { ConfirmInfoAlertRow } from '../../../../../../../components/app/confirm/info/row/alert-row/alert-row';
 import { RowAlertKey } from '../../../../../../../components/app/confirm/info/row/constants';
 import Tooltip from '../../../../../../../components/ui/tooltip';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useFiatFormatter } from '../../../../../../../hooks/useFiatFormatter';
 import { getPreferences } from '../../../../../../../../shared/lib/selectors/preferences';
 import { useConfirmContext } from '../../../../../context/confirm';
@@ -53,7 +53,7 @@ export const EditGasFeesRow = ({
   nativeFee: string;
   disableUpdate?: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const fiatFormatter = useFiatFormatter();
 
   const { currentConfirmation: transactionMeta } =
@@ -277,7 +277,7 @@ function FiatValue({
 // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function GasFeeSponsoredByMetaMask() {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

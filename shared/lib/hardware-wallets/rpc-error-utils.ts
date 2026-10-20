@@ -478,7 +478,7 @@ export function extractTrezorCodeFromMessage(message: string): string | null {
 
 /**
  * Check whether an error indicates Trezor Suite Desktop is unavailable.
- * Used to map background Trezor SDK errors to localized UI copy.
+ * Used to map background Trezor SDK errors to English UI copy.
  *
  * @param error - The error to inspect.
  * @returns True when the Trezor SDK reports Desktop_ConnectionMissing.
@@ -979,7 +979,7 @@ function tryFromLedgerErrorMessage(
   const normalizedMessage = errorMessage.toLowerCase();
 
   // Chrome runtime / offscreen bridge unavailable (DMK or legacy path).
-  // Map to ErrorCode only; user-facing copy is localized in the UI via
+  // Map to ErrorCode only; user-facing copy is English in the UI via
   // buildErrorContent(ErrorCode.ConnectionTransportMissing).
   if (
     normalizedMessage.includes('receiving end does not exist') ||

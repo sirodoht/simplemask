@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { fireEvent } from '@testing-library/react';
 import {
@@ -6,7 +7,7 @@ import {
   TransactionType,
 } from '@metamask/transaction-controller';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { TransactionDetailsModal } from './transaction-details-modal';
 
 const CHAIN_ID = '0x1';
@@ -78,7 +79,7 @@ describe('TransactionDetailsModal', () => {
   it('renders default title for simple send transactions', () => {
     const { getByRole } = render(TransactionType.simpleSend);
     expect(
-      getByRole('heading', { name: messages.transaction.message }),
+      getByRole('heading', { name: messages.transaction }),
     ).toBeInTheDocument();
   });
 
@@ -86,7 +87,7 @@ describe('TransactionDetailsModal', () => {
     const { getByRole } = render(TransactionType.musdConversion);
     expect(
       getByRole('heading', {
-        name: messages.musdConversionTitle.message,
+        name: messages.musdConversionTitle,
       }),
     ).toBeInTheDocument();
   });
@@ -95,7 +96,7 @@ describe('TransactionDetailsModal', () => {
     const { getByRole } = render(TransactionType.musdClaim);
     expect(
       getByRole('heading', {
-        name: messages.musdClaimTitle.message,
+        name: messages.musdClaimTitle,
       }),
     ).toBeInTheDocument();
   });
@@ -103,7 +104,7 @@ describe('TransactionDetailsModal', () => {
   it('renders Funded Perps title for perpsDeposit transactions', () => {
     const { getByRole } = render(TransactionType.perpsDeposit);
     expect(
-      getByRole('heading', { name: messages.perpsDepositTitle.message }),
+      getByRole('heading', { name: messages.perpsDepositTitle }),
     ).toBeInTheDocument();
   });
 
@@ -111,7 +112,7 @@ describe('TransactionDetailsModal', () => {
     const { getByRole } = render(TransactionType.perpsWithdraw);
     expect(
       getByRole('heading', {
-        name: messages.perpsWithdrawFundsTitle.message,
+        name: messages.perpsWithdrawFundsTitle,
       }),
     ).toBeInTheDocument();
   });
@@ -123,7 +124,7 @@ describe('TransactionDetailsModal', () => {
 
   it('calls onClose when close button is clicked', () => {
     const { getByLabelText, onClose } = render();
-    fireEvent.click(getByLabelText(messages.close.message));
+    fireEvent.click(getByLabelText(messages.close));
     expect(onClose).toHaveBeenCalled();
   });
 });

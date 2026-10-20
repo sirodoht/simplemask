@@ -1969,7 +1969,6 @@
     "PreferencesController": {
       "addSnapAccountEnabled": false,
       "advancedGasFee": {},
-      "currentLocale": "en",
       "dismissSeedBackUpReminder": false,
       "featureFlags": {},
       "forgottenPassword": false,

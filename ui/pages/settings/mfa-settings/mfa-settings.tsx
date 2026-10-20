@@ -15,7 +15,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import type { EnrolledCredential } from '@metamask/profile-sync-controller/sdk';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { isMfaKitEnabled, useMfa } from '../../../hooks/identity/mfa';
 import { extensionMfaControllerAdapter } from '../../../hooks/identity/mfa/bindings';
 import { maskEmail } from '../../../hooks/identity/mfa/mask-email';
@@ -26,7 +26,7 @@ import MfaQaPresets from './mfa-qa-presets';
  * The profile's verification methods, and the QA presets outside production.
  */
 const MfaSettings = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { credentials, enroll } = useMfa();
   const email = credentials.find(({ type }) => type === 'email_otp');
   const isEmailActive = email?.status === 'active';

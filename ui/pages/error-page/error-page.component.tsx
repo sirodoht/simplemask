@@ -9,7 +9,7 @@ import {
   BoxJustifyContent,
 } from '@metamask/design-system-react';
 import { getConsentDecisionMade, getOptedIn } from '../../selectors';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   BannerAlert,
   Icon,
@@ -52,7 +52,7 @@ type ErrorPageProps = {
 };
 
 const ErrorPage = ({ error }: ErrorPageProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const consentDecisionMade = useSelector(getConsentDecisionMade);
   const isOptedIn = useSelector(getOptedIn);
   const isMetaMetricsEnabled = consentDecisionMade && isOptedIn;

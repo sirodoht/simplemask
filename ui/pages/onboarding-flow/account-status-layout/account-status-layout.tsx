@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Button,
   ButtonSize,
@@ -10,7 +11,7 @@ import {
   BoxFlexDirection,
   BoxJustifyContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { AccountStatusLayoutProps } from './account-status-layout.types';
 
 export function AccountStatusLayout({
@@ -23,7 +24,7 @@ export function AccountStatusLayout({
   secondaryButtonTextKey,
   onSecondaryButtonClick,
 }: Readonly<AccountStatusLayoutProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const title = t(titleKey);
   const description = t(descriptionKey, descriptionInterpolation);
 

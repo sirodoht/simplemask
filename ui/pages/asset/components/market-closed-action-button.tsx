@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { Button, ButtonVariant, IconName } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { JustifyContent } from '../../../helpers/constants/design-system';
 
 type MarketClosedActionButtonProps = {
@@ -10,7 +11,7 @@ type MarketClosedActionButtonProps = {
 export const MarketClosedActionButton = ({
   onClick,
 }: MarketClosedActionButtonProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Button

@@ -12,8 +12,8 @@ import { useGasPriceEstimateOption } from './useGasPriceEstimateOption';
 const MOCK_GAS_PRICE = '0x2540be400';
 const mockPersistGasFeePreference = jest.fn();
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../context/confirm', () => ({

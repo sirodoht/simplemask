@@ -15,7 +15,7 @@ The exception is onboarding. Settings-like screens that are part of onboarding p
 - `ui/pages/settings/shared/`: reusable Settings building blocks such as `SettingsTab`, `createToggleItem`, `createSelectItem`, and shared row components.
 - `ui/pages/settings/<tab-name>/`: tab and sub-page implementations.
 - `ui/helpers/constants/routes.ts`: Settings route constants.
-- `app/_locales/en/messages.json`: user-facing Settings copy.
+- `shared/constants/english-text.ts`: user-facing Settings copy.
 
 ## Adding a New Setting Item
 
@@ -25,7 +25,7 @@ The exception is onboarding. Settings-like screens that are part of onboarding p
    - Use `createSelectItem` for a setting that links to a sub-page list and shows the selected value.
    - Use a custom component only when the setting needs richer layout, async state, nested navigation, or custom side effects.
 3. Add or reuse selectors and actions for the setting state. Keep persisted controller state changes covered by the relevant controller migration and tests when the state shape changes.
-4. Add title and description strings to `app/_locales/en/messages.json`.
+4. Add English title and description strings to `shared/constants/english-text.ts`.
 5. Add the setting ID and title key to `ui/pages/settings/search-config.ts` so Settings search can find it.
 6. Add or update colocated tests for the tab or item.
 

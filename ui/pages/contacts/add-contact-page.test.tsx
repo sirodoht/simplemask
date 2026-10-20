@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import mockState from '../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import configureStore from '../../store/store';
 import { AddContactPage } from './add-contact-page';
 
@@ -30,12 +31,12 @@ describe('AddContactPage', () => {
 
   it('renders header with "Add contact" title', () => {
     const { getByText } = renderPage();
-    expect(getByText(messages.addContact.message)).toBeInTheDocument();
+    expect(getByText(messages.addContact)).toBeInTheDocument();
   });
 
   it('renders the add contact form', () => {
     const { getByPlaceholderText } = renderPage();
-    expect(getByPlaceholderText(messages.addAlias.message)).toBeInTheDocument();
+    expect(getByPlaceholderText(messages.addAlias)).toBeInTheDocument();
   });
 
   it('navigates to contacts list when back button is clicked', () => {

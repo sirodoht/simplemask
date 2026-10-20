@@ -24,7 +24,7 @@ import {
   TextField,
   TextFieldType,
 } from '../../../components/component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { BackgroundColor } from '../../../helpers/constants/design-system';
 
 type RecoveryPhraseChipsProps = {
@@ -61,7 +61,7 @@ export default function RecoveryPhraseChips({
   setInputValue,
   recoveryPhraseChipsContainerClassName = '',
 }: RecoveryPhraseChipsProps) {
-  const t = useI18nContext();
+  const t = getText;
   const indicesToCheck = useMemo(
     () => quizWords.map((word) => word.index),
     [quizWords],

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   BannerAlert,
   BannerAlertSeverity,
@@ -17,7 +18,7 @@ import {
   TextAlign,
   TextVariant,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import SnapAccountRedirectMessage from './snap-account-redirect-message';
 
@@ -28,7 +29,7 @@ const SnapAccountRedirectContent = ({
   message,
   onSubmit,
 }: SnapAccountRedirectProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const learnMoreAboutBlockedUrls = ZENDESK_URLS.DECEPTIVE_SITE;
 
   return (

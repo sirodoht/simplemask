@@ -7,7 +7,7 @@ import {
 } from '@metamask/transaction-controller';
 import { type GasFeeEstimates } from '@metamask/gas-fee-controller';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { updateTransactionGasFees } from '../../../../store/actions/update-transaction-gas-fees';
 import { useConfirmContext } from '../../context/confirm';
 import { useGasFeeEstimates } from '../../../../hooks/useGasFeeEstimates';
@@ -29,7 +29,7 @@ export const useGasPriceEstimateOption = ({
 }): GasOption[] => {
   const dispatch = useDispatch();
   const persistGasFeePreference = usePersistGasFeePreference();
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
   const { calculateGasEstimate } = useFeeCalculations(transactionMeta);

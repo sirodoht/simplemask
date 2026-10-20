@@ -28,7 +28,7 @@ import {
   BorderRadius,
 } from '../../helpers/constants/design-system';
 import ZENDESK_URLS from '../../helpers/constants/zendesk-url';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { getImageForChainId } from '../../selectors/multichain';
 import { Content } from '../../components/multichain/pages/page';
 import {
@@ -72,7 +72,7 @@ type SubmitBarProps = Pick<CustomTokenImportFormProps, 'onSubmit'> & {
 const CustomTokenWarningBanner = ({
   onSecurityLinkClick,
 }: Pick<CustomTokenImportFormProps, 'onSecurityLinkClick'>) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <BannerAlert
@@ -108,7 +108,7 @@ const NetworkPickerField = ({
 }: Pick<CustomTokenImportFormProps, 'networkName' | 'selectedNetwork'> & {
   onClick: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box>
@@ -167,7 +167,7 @@ const TokenFormFields = ({
   | 'onSymbolChange'
   | 'onDecimalsChange'
 >) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <>
@@ -240,7 +240,7 @@ const TokenFormFields = ({
 };
 
 const SubmitBar = ({ isDisabled, isLoading, onSubmit }: SubmitBarProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

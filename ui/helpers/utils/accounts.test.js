@@ -10,18 +10,17 @@ import { BackgroundColor } from '../constants/design-system';
 import { KeyringType } from '../../../shared/constants/keyring';
 import { HardwareKeyringNames } from '../../../shared/constants/hardware-wallets';
 import mockState from '../../../test/data/mock-state.json';
-import { SOLANA_WALLET_SNAP_ID } from '../../../shared/lib/accounts/solana-wallet-snap';
 import {
   getAccountLabels,
   getAccountNameErrorMessage,
   getAvatarNetworkColor,
 } from './accounts';
 
+const PREINSTALLED_SNAP_ID = 'npm:@metamask/preinstalled-example-snap';
+
 const mockAccounts = Object.values(
   mockState.metamask.internalAccounts.accounts,
 );
-
-const mockLocalization = { t: jest.fn().mockReturnValue('Account') };
 
 const keyringsWithMetadata = [
   {
@@ -39,7 +38,6 @@ describe('Accounts', () => {
     it('does not allow duplicate names', () => {
       const { isValidAccountName } = getAccountNameErrorMessage(
         mockAccounts,
-        mockLocalization,
         'Account 2',
         'Account 3',
       );
@@ -49,7 +47,6 @@ describe('Accounts', () => {
     it('does not allow reserved name patterns', () => {
       const { isValidAccountName } = getAccountNameErrorMessage(
         mockAccounts,
-        mockLocalization,
         'Account 7',
         'Account 3',
       );
@@ -59,7 +56,6 @@ describe('Accounts', () => {
     it('does not allow reserved name patterns in lowercase', () => {
       const { isValidAccountName } = getAccountNameErrorMessage(
         mockAccounts,
-        mockLocalization,
         'account 7',
         'Account 3',
       );
@@ -69,7 +65,6 @@ describe('Accounts', () => {
     it('allows proposed name in lowercase', () => {
       const { isValidAccountName } = getAccountNameErrorMessage(
         mockAccounts,
-        mockLocalization,
         'account 3',
         'Account 3',
       );
@@ -115,7 +110,7 @@ describe('Accounts', () => {
           type: KeyringType.hdKeyTree,
         },
         snap: {
-          id: SOLANA_WALLET_SNAP_ID,
+          id: PREINSTALLED_SNAP_ID,
         },
       },
       options: {},
@@ -207,7 +202,7 @@ describe('Accounts', () => {
           type: KeyringType.snap,
           snap: {
             name: mockSnapName,
-            id: SOLANA_WALLET_SNAP_ID,
+            id: PREINSTALLED_SNAP_ID,
           },
         },
       };
@@ -263,7 +258,7 @@ describe('Accounts', () => {
           metadata: {
             keyring: { type: KeyringType.hdKeyTree },
             snap: {
-              id: SOLANA_WALLET_SNAP_ID,
+              id: PREINSTALLED_SNAP_ID,
             },
           },
         };
@@ -295,7 +290,7 @@ describe('Accounts', () => {
           metadata: {
             keyring: { type: KeyringType.hdKeyTree },
             snap: {
-              id: SOLANA_WALLET_SNAP_ID,
+              id: PREINSTALLED_SNAP_ID,
             },
           },
         };
@@ -326,7 +321,7 @@ describe('Accounts', () => {
           metadata: {
             keyring: { type: KeyringType.snap },
             snap: {
-              id: SOLANA_WALLET_SNAP_ID,
+              id: PREINSTALLED_SNAP_ID,
             },
           },
         };

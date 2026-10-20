@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import configureStore from '../../../store/store';
 import mockDefaultState from '../../../../test/data/mock-state.json';
 import { setAccountGroupName } from '../../../store/actions';
@@ -31,15 +32,15 @@ describe('MultichainAccountEditModal', () => {
     const store = configureStore(mockDefaultState);
     renderWithProvider(<MultichainAccountEditModal {...mockProps} />, store);
 
-    expect(screen.getByText(messages.rename.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.accountName.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.rename)).toBeInTheDocument();
+    expect(screen.getByText(messages.accountName)).toBeInTheDocument();
 
     const inputField = screen.getByPlaceholderText('Account 1');
     expect(inputField).toBeInTheDocument();
 
     // Check confirm button exists and is disabled initially
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
     expect(confirmButton).toBeInTheDocument();
     expect(confirmButton).toBeDisabled();
@@ -53,12 +54,10 @@ describe('MultichainAccountEditModal', () => {
     );
 
     // Should not find modal elements when closed
-    expect(screen.queryByText(messages.rename.message)).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.rename)).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.accountName)).not.toBeInTheDocument();
     expect(
-      screen.queryByText(messages.accountName.message),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: messages.confirm.message }),
+      screen.queryByRole('button', { name: messages.confirm }),
     ).not.toBeInTheDocument();
   });
 
@@ -68,7 +67,7 @@ describe('MultichainAccountEditModal', () => {
 
     const input = screen.getByPlaceholderText('Account 1');
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
 
     // Initially disabled
@@ -97,7 +96,7 @@ describe('MultichainAccountEditModal', () => {
     const store = configureStore(mockDefaultState);
     renderWithProvider(<MultichainAccountEditModal {...mockProps} />, store);
 
-    const closeButton = screen.getByLabelText(messages.close.message);
+    const closeButton = screen.getByLabelText(messages.close);
     fireEvent.click(closeButton);
 
     expect(mockProps.onClose).toHaveBeenCalledTimes(1);
@@ -123,7 +122,7 @@ describe('MultichainAccountEditModal', () => {
     fireEvent.change(input, { target: { value: 'New Account Name' } });
 
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
     fireEvent.click(confirmButton);
 
@@ -151,7 +150,7 @@ describe('MultichainAccountEditModal', () => {
 
     // Click the confirm button
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
     fireEvent.click(confirmButton);
 
@@ -174,7 +173,7 @@ describe('MultichainAccountEditModal', () => {
 
     // Click the confirm button
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
     fireEvent.click(confirmButton);
 
@@ -202,7 +201,7 @@ describe('MultichainAccountEditModal', () => {
 
     const input = screen.getByPlaceholderText('Account 1');
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
 
     // Type something first to enable the button
@@ -227,7 +226,7 @@ describe('MultichainAccountEditModal', () => {
     fireEvent.change(input, { target: { value: differentName } });
 
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
     fireEvent.click(confirmButton);
 
@@ -254,7 +253,7 @@ describe('MultichainAccountEditModal', () => {
     fireEvent.change(input, { target: { value: 'Duplicate Account Name' } });
 
     const confirmButton = screen.getByRole('button', {
-      name: messages.confirm.message,
+      name: messages.confirm,
     });
     fireEvent.click(confirmButton);
 
@@ -262,7 +261,7 @@ describe('MultichainAccountEditModal', () => {
     await waitFor(() => {
       // Check that the error message is displayed
       expect(
-        screen.getByText(messages.accountNameAlreadyInUse.message),
+        screen.getByText(messages.accountNameAlreadyInUse),
       ).toBeInTheDocument();
 
       // Check that the input field is still present

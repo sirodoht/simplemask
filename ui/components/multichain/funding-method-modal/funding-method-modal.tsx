@@ -12,7 +12,7 @@ import {
   TextVariant,
   TextAlign,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import FundingMethodItem from './funding-method-item';
 
 type FundingMethodModalProps = Omit<
@@ -32,7 +32,7 @@ export const FundingMethodModal = ({
   onClickReceive,
   ...props
 }: FundingMethodModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>

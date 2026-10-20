@@ -7,8 +7,8 @@ jest.mock('../../../hooks/useCopyToClipboard', () => ({
   useCopyToClipboard: jest.fn(),
 }));
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 const mockHandleCopy = jest.fn();

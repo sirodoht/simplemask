@@ -1,5 +1,6 @@
-import { TransactionMeta } from '@metamask/transaction-controller';
 import React from 'react';
+import { TransactionMeta } from '@metamask/transaction-controller';
+
 import { useSelector } from 'react-redux';
 import { Skeleton } from '@metamask/design-system-react';
 import { TEST_CHAINS } from '../../../../../../../../shared/constants/network';
@@ -17,7 +18,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { getPreferences } from '../../../../../../../../shared/lib/selectors/preferences';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { useTokenValues } from '../../hooks/use-token-values';
@@ -26,7 +27,7 @@ import { useTokenDetails } from '../../hooks/useTokenDetails';
 import SendHeadingLayout from '../send-heading-layout/send-heading-layout';
 
 const SendHeading = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
   const { tokenImage, tokenSymbol } = useTokenDetails(transactionMeta);

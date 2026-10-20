@@ -1,18 +1,19 @@
 import React from 'react';
+
 import { FontWeight } from '../../../../../helpers/constants/design-system';
 import { Text } from '../../../../component-library';
 import {
   TranslateFunction,
   networkTitleOverrides,
 } from '../../util/networkTitleOverrides';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 type AssetCellTitleProps = {
   title: string;
 };
 
 export const AssetCellTitle = ({ title }: AssetCellTitleProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   // non-ellipsized title
   return (

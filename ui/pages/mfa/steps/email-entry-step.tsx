@@ -10,7 +10,7 @@ import {
   IconName,
   TextField,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MfaFlowTestIds } from '../test-ids';
 import StepLayout, {
   StepMessage,
@@ -22,7 +22,7 @@ import StepLayout, {
 const EMAIL_PATTERN = /^[^\s@.]+(?:\.[^\s@.]+)*@[^\s@.]+(?:\.[^\s@.]+)+$/u;
 
 const EmailEntryStep = ({ step, state, onAction }: StepProps<'emailEntry'>) => {
-  const t = useI18nContext();
+  const t = getText;
   const [email, setEmail] = useState(step.prefillEmail ?? '');
   const [showInvalid, setShowInvalid] = useState(false);
   const trimmed = email.trim();

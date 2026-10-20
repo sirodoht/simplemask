@@ -20,7 +20,7 @@ import {
   TextVariant as DSTextVariant,
 } from '@metamask/design-system-react';
 import { useBoolean } from '../../../../hooks/useBoolean';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 import {
   BackgroundColor,
@@ -82,7 +82,7 @@ export const MultichainEditAccountsPage = ({
   siteMetadata,
   onDisconnect,
 }: MultichainEditAccountsPageProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [selectedAccountGroups, setSelectedAccountGroups] = useState(
     defaultSelectedAccountGroups,

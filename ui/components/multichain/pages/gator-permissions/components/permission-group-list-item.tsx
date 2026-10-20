@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Hex } from '@metamask/utils';
 import { useSelector } from 'react-redux';
 import {
@@ -18,7 +19,7 @@ import {
   Text,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getImageForChainId } from '../../../../../selectors/multichain';
 import { getMultichainNetworkConfigurationsByChainId } from '../../../../../selectors';
 import { extractNetworkName } from '../helper';
@@ -44,7 +45,7 @@ export const PermissionGroupListItem = ({
   text,
   onClick,
 }: PermissionGroupListItemProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const networkImageUrl = getImageForChainId(chainId);
   const [, evmNetworks] = useSelector(
     getMultichainNetworkConfigurationsByChainId,
@@ -54,7 +55,7 @@ export const PermissionGroupListItem = ({
     const networkNameKey = extractNetworkName(evmNetworks, chainId);
     const networkName = t(networkNameKey);
 
-    // If the translation key doesn't exist (returns the same key), fall back to the full network name
+    // If the text key doesn't exist (returns the same key), fall back to the full network name
     if (!networkName || networkName === networkNameKey) {
       return extractNetworkName(evmNetworks, chainId, true);
     }

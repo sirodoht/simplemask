@@ -9,7 +9,7 @@ import { Hex } from '@metamask/utils';
 import { TokenStandard } from '../../../../../../../../../shared/constants/transaction';
 import { ConfirmInfoRow } from '../../../../../../../../components/app/confirm/info/row';
 import { Text } from '../../../../../../../../components/component-library';
-import { useI18nContext } from '../../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../../helpers/utils/text';
 import { SignatureRequestType } from '../../../../../../types/confirm';
 import { useConfirmContext } from '../../../../../../context/confirm';
 import StaticSimulation from '../../../shared/static-simulation/static-simulation';
@@ -49,7 +49,7 @@ export const getStateChangeType = (
 
 export const getStateChangeToolip = (
   nftTransactionType: StateChangeType | undefined,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
 ): string | undefined => {
   if (nftTransactionType === StateChangeType.NFTListingReceive) {
     return t('signature_decoding_list_nft_tooltip');
@@ -69,7 +69,7 @@ const stateChangeOrder = {
 };
 
 const getStateChangeLabelMap = (
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   changeType: string,
   stateChangeType?: StateChangeType,
 ) => {
@@ -97,7 +97,7 @@ const StateChangeRow = ({
   chainId: Hex;
   shouldDisplayLabel: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { assetType, changeType, amount, contractAddress, tokenID } =
     stateChange;
   const nftTransactionType = getStateChangeType(stateChangeList, stateChange);
@@ -147,7 +147,7 @@ const StateChangeRow = ({
 };
 
 const DecodedSimulation = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<SignatureRequestType>();
   const chainId = currentConfirmation.chainId as Hex;
   const { decodingLoading, decodingData } = currentConfirmation;

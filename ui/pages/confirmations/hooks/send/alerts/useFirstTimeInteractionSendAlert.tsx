@@ -9,7 +9,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { isValidHexAddress } from '../../../../../../shared/lib/hexstring-utils';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useAsyncResult } from '../../../../../hooks/useAsync';
 import {
   useTrustSignal,
@@ -22,7 +22,7 @@ import { useSendContext } from '../../../context/send';
 import type { SendAlert } from './types';
 
 export function useFirstTimeInteractionSendAlert(): SendAlert | null {
-  const t = useI18nContext();
+  const t = getText;
   const { to, toResolved, from, chainId } = useSendContext();
   const internalAccounts = useSelector(getInternalAccounts);
 

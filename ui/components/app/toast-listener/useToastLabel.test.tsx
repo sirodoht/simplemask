@@ -6,8 +6,8 @@ const mockT = jest.fn((key: string, args?: string[]) =>
   args ? `${key}:${args.join(',')}` : key,
 );
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => mockT,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (...args: Parameters<typeof mockT>) => mockT(...args),
 }));
 
 const mockItems = new Map<string, ActivityListItem>();

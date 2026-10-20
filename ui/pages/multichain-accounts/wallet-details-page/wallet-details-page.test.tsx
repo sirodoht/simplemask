@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import configureStore from '../../../store/store';
 import { WalletDetailsPage } from './wallet-details-page';
@@ -47,20 +48,18 @@ describe('WalletDetailsPage', () => {
     expect(
       screen.getByRole('heading', { name: 'Wallet 1 / Accounts' }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText(messages.back.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.walletName.message)).toBeInTheDocument();
+    expect(screen.getByLabelText(messages.back)).toBeInTheDocument();
+    expect(screen.getByText(messages.walletName)).toBeInTheDocument();
     expect(screen.getAllByText('Wallet 1')[0]).toBeInTheDocument();
-    expect(screen.getByText(messages.balance.message)).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.secretRecoveryPhrase.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.balance)).toBeInTheDocument();
+    expect(screen.getByText(messages.secretRecoveryPhrase)).toBeInTheDocument();
     expect(screen.getByText('Account 1')).toBeInTheDocument();
   });
 
   it('calls navigate when back button is clicked', () => {
     renderComponent();
 
-    const backButton = screen.getByLabelText(messages.back.message);
+    const backButton = screen.getByLabelText(messages.back);
     fireEvent.click(backButton);
 
     expect(mockUseNavigate).toHaveBeenCalledWith(-1);
@@ -71,7 +70,7 @@ describe('WalletDetailsPage', () => {
       seedPhraseBackedUp: true,
     });
 
-    expect(screen.queryByText(messages.backup.message)).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.backup)).not.toBeInTheDocument();
   });
 
   it('does not render SRP button for non-entropy wallets', () => {
@@ -80,13 +79,13 @@ describe('WalletDetailsPage', () => {
     renderComponent({}, ledgerWalletId);
 
     expect(
-      screen.queryByText(messages.secretRecoveryPhrase.message),
+      screen.queryByText(messages.secretRecoveryPhrase),
     ).not.toBeInTheDocument();
   });
 
   it('renders AddMultichainAccount component for entropy wallets', () => {
     renderComponent();
 
-    expect(screen.getByText(messages.addAccount.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.addAccount)).toBeInTheDocument();
   });
 });

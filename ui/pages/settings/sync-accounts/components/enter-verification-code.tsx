@@ -13,7 +13,7 @@ import {
 } from '@metamask/design-system-react';
 import { useSelector } from 'react-redux';
 import { submitRequestToBackground } from '../../../../store/background-connection';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   QR_SYNC_TIMEOUT_MS,
   QrSyncErrorCodes,
@@ -34,7 +34,7 @@ type EnterVerificationCodeProps = {
 };
 
 const EnterVerificationCode = ({ onRestart }: EnterVerificationCodeProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const qrSyncError = useSelector(selectQrSyncError);
   const hasMaxedOutAttempts =
     qrSyncError?.code === QrSyncErrorCodes.OTP_ATTEMPTS_EXCEEDED;

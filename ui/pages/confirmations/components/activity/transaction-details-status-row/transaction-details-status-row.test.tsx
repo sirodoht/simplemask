@@ -1,8 +1,9 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { TransactionStatus } from '@metamask/transaction-controller';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { TransactionDetailsProvider } from '../transaction-details-context';
 import { TransactionDetailsStatusRow } from './transaction-details-status-row';
 
@@ -39,17 +40,17 @@ function render(status: TransactionStatus) {
 describe('TransactionDetailsStatusRow', () => {
   it('renders confirmed status', () => {
     const { getByText } = render(TransactionStatus.confirmed);
-    expect(getByText(messages.confirmed.message)).toBeInTheDocument();
+    expect(getByText(messages.confirmed)).toBeInTheDocument();
   });
 
   it('renders failed status', () => {
     const { getByText } = render(TransactionStatus.failed);
-    expect(getByText(messages.failed.message)).toBeInTheDocument();
+    expect(getByText(messages.failed)).toBeInTheDocument();
   });
 
   it('renders pending status for submitted transactions', () => {
     const { getByText } = render(TransactionStatus.submitted);
-    expect(getByText(messages.pending.message)).toBeInTheDocument();
+    expect(getByText(messages.pending)).toBeInTheDocument();
   });
 
   it('renders with correct test id', () => {

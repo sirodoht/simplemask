@@ -20,7 +20,7 @@ import {
 import { ThemeType } from '../../../shared/constants/preferences';
 import {
   displayCriticalErrorMessage,
-  CriticalErrorTranslationKey,
+  CriticalErrorTextKey,
 } from './display-critical-error';
 
 // This should be long enough that it doesn't trigger when the popup is opened soon after startup.
@@ -165,7 +165,7 @@ export class CriticalStartupErrorHandler {
 
       await displayCriticalErrorMessage(
         this.#container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         livenessError as ErrorLike,
         {
           port: this.#port,
@@ -217,7 +217,7 @@ export class CriticalStartupErrorHandler {
 
       await displayCriticalErrorMessage(
         this.#container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         initError as ErrorLike,
         {
           port: this.#port,
@@ -260,7 +260,7 @@ export class CriticalStartupErrorHandler {
 
       await displayCriticalErrorMessage(
         this.#container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         stateSyncError as ErrorLike,
         {
           port: this.#port,
@@ -301,7 +301,7 @@ export class CriticalStartupErrorHandler {
         this.#criticalErrorAlreadyDisplayed = true;
         await displayCriticalErrorMessage(
           this.#container,
-          CriticalErrorTranslationKey.TroubleStarting,
+          CriticalErrorTextKey.TroubleStarting,
           new Error('Unreachable error, liveness check not initialized'),
           {
             port: this.#port,
@@ -318,7 +318,7 @@ export class CriticalStartupErrorHandler {
         this.#criticalErrorAlreadyDisplayed = true;
         await displayCriticalErrorMessage(
           this.#container,
-          CriticalErrorTranslationKey.TroubleStarting,
+          CriticalErrorTextKey.TroubleStarting,
           new Error('Unreachable error, initialization check not initialized'),
           {
             port: this.#port,
@@ -343,14 +343,14 @@ export class CriticalStartupErrorHandler {
         error,
         repairAction,
         criticalErrorType,
-        currentLocale,
+
         theme,
       } = data.params as {
         analyticsConsent?: boolean;
         error: ErrorLike;
         repairAction?: CriticalErrorRepairAction;
         criticalErrorType?: CriticalErrorType;
-        currentLocale?: string;
+
         theme?: ThemeType;
       };
       if (
@@ -369,10 +369,9 @@ export class CriticalStartupErrorHandler {
         this.#criticalErrorAlreadyDisplayed = true;
         await displayCriticalErrorMessage(
           this.#container,
-          CriticalErrorTranslationKey.TroubleStarting,
+          CriticalErrorTextKey.TroubleStarting,
           error,
           {
-            currentLocale,
             theme,
             port: this.#port,
             criticalErrorType,
@@ -391,19 +390,18 @@ export class CriticalStartupErrorHandler {
         return;
       }
 
-      const { error, currentLocale, theme } = data.params as {
+      const { error, theme } = data.params as {
         error: ErrorLike;
-        currentLocale?: string;
+
         theme?: ThemeType;
       };
       if (!this.#criticalErrorAlreadyDisplayed) {
         this.#criticalErrorAlreadyDisplayed = true;
         await displayCriticalErrorMessage(
           this.#container,
-          CriticalErrorTranslationKey.TroubleStarting,
+          CriticalErrorTextKey.TroubleStarting,
           error as ErrorLike,
           {
-            currentLocale,
             theme,
             port: this.#port,
             criticalErrorType: CriticalErrorType.GeneralStartupError,

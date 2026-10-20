@@ -74,7 +74,7 @@ const REPAIR_LINK_ERROR_CODES = new Set([
  *
  * @param error - The hardware wallet error object
  * @param walletType - The type of hardware wallet
- * @param t - The translation function
+ * @param t - The English text function
  * @returns The formatted error content with icon, title, description, and recovery instructions
  */
 export function buildErrorContent(

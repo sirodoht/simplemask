@@ -4,13 +4,13 @@ import { render, fireEvent } from '@testing-library/react';
 import { useNavigateSendPage } from '../../../hooks/send/useNavigateSendPage';
 import { useAssetSelectionMetrics } from '../../../hooks/send/metrics/useAssetSelectionMetrics';
 import { useTokenAssetSecurityResults } from '../../../../../hooks/token-asset/useTokenAssetSecurityResults';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { AssetList } from './asset-list';
 
 const mockUpdateAsset = jest.fn();
 
-jest.mock('../../../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 jest.mock('../../../../../components/component-library', () => ({
   Box: ({ children }: { children: React.ReactNode }) => (
@@ -140,7 +140,7 @@ describe('AssetList', () => {
 
     const assetComponents = getAllByTestId('asset-component');
     expect(assetComponents).toHaveLength(2);
-    expect(queryByText(messages.nfts.message)).not.toBeInTheDocument();
+    expect(queryByText(messages.nfts)).not.toBeInTheDocument();
   });
 
   it('renders custom emptyStateMessage when filters hide all assets', () => {
@@ -148,11 +148,11 @@ describe('AssetList', () => {
       <AssetList
         tokens={[]}
         allTokens={mockTokens}
-        emptyStateMessage={messages.noTokensMatchSearch.message}
+        emptyStateMessage={messages.noTokensMatchSearch}
       />,
     );
 
-    expect(getByText(messages.noTokensMatchSearch.message)).toBeInTheDocument();
+    expect(getByText(messages.noTokensMatchSearch)).toBeInTheDocument();
   });
 
   it('renders no results message when no filtered assets but has all assets', () => {

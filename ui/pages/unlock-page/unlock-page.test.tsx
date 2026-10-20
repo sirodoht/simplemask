@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import thunk from 'redux-thunk';
 import { SeedlessOnboardingControllerErrorMessage } from '@metamask/seedless-onboarding-controller';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { captureException } from '../../../shared/lib/sentry';
 import { ONBOARDING_WELCOME_ROUTE } from '../../helpers/constants/routes';
 import { FirstTimeFlowType } from '../../../shared/constants/onboarding';
@@ -190,7 +190,7 @@ describe('Unlock Page', () => {
 
     await findByTestId('unlock-password');
 
-    fireEvent.click(getByText(messages.forgotPassword.message));
+    fireEvent.click(getByText(messages.forgotPassword));
 
     const resetPasswordButton = await findByTestId(
       'reset-password-modal-button',
@@ -229,7 +229,7 @@ describe('Unlock Page', () => {
     await findByTestId('unlock-password');
 
     fireEvent.click(
-      queryByText(messages.useDifferentLoginMethod.message) as HTMLElement,
+      queryByText(messages.useDifferentLoginMethod) as HTMLElement,
     );
 
     await waitFor(() => {

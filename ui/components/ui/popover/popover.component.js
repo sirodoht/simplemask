@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import Box from '../box';
 import {
   AlignItems,
@@ -80,7 +80,7 @@ const Popover = ({
   contentProps = defaultContentProps,
   footerProps = defaultFooterProps,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const showHeader = title || onBack || subtitle || onClose;
   const Header = () => (
     <Box

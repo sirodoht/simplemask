@@ -5,7 +5,7 @@ import { providerErrors, serializeError } from '@metamask/rpc-errors';
 import { QrScanRequestType } from '@metamask/eth-qr-keyring';
 import { ErrorCode } from '@metamask/hw-wallet-sdk';
 import { getActiveQrCodeScanRequest } from '../../../selectors';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Modal,
   ModalOverlay,
@@ -45,7 +45,7 @@ const EMPTY_HEADER_PLACEHOLDER = '\u00A0';
  * because they are always handled in a fullscreen tab.
  */
 const QRHardwarePopover = () => {
-  const t = useI18nContext();
+  const t = getText;
   const activeScanRequest = useSelector(getActiveQrCodeScanRequest);
   const { pathname } = useLocation();
   const isHardwareWalletSigningPage =

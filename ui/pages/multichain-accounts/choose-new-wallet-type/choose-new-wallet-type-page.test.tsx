@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import {
   CONNECT_HARDWARE_ROUTE,
@@ -79,7 +80,7 @@ describe('ChooseNewWalletTypePage', () => {
     it('renders the page with header title', () => {
       renderComponent();
 
-      expect(screen.getByText(messages.addAWallet.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.addAWallet)).toBeInTheDocument();
     });
 
     it('renders the back button', () => {
@@ -94,11 +95,9 @@ describe('ChooseNewWalletTypePage', () => {
       expect(
         screen.getByTestId('choose-wallet-type-import-wallet'),
       ).toBeInTheDocument();
+      expect(screen.getByText(messages.importAWallet)).toBeInTheDocument();
       expect(
-        screen.getByText(messages.importAWallet.message),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText(messages.importAWalletDescription.message),
+        screen.getByText(messages.importAWalletDescription),
       ).toBeInTheDocument();
     });
 
@@ -108,11 +107,9 @@ describe('ChooseNewWalletTypePage', () => {
       expect(
         screen.getByTestId('choose-wallet-type-import-account'),
       ).toBeInTheDocument();
+      expect(screen.getByText(messages.importAnAccount)).toBeInTheDocument();
       expect(
-        screen.getByText(messages.importAnAccount.message),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText(messages.importAnAccountDescription.message),
+        screen.getByText(messages.importAnAccountDescription),
       ).toBeInTheDocument();
     });
 
@@ -123,10 +120,10 @@ describe('ChooseNewWalletTypePage', () => {
         screen.getByTestId('choose-wallet-type-hardware-wallet'),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.connectAHardwareWallet.message),
+        screen.getByText(messages.connectAHardwareWallet),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.connectAHardwareWalletDescription.message),
+        screen.getByText(messages.connectAHardwareWalletDescription),
       ).toBeInTheDocument();
     });
 

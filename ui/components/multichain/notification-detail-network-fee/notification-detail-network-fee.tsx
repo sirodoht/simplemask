@@ -12,7 +12,7 @@ import {
   type OnChainRawNotificationsWithNetworkFields,
 } from '@metamask/notification-services-controller/notification-services';
 
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
   getNetworkDetailsFromNotifPayload,
@@ -90,7 +90,7 @@ const FeeDetail = ({ label, value }: { label: string; value: string }) => (
 const NotificationDetailNetworkFee_ = ({
   notification,
 }: NotificationDetailNetworkFeeProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { value: isOpen, toggle } = useBoolean();
   const [networkFees, setNetworkFees] = useState<NetworkFees>(null);

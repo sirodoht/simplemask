@@ -5,7 +5,7 @@ import {
   PopoverPosition,
   PopoverRole,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { Box, IconName, ModalFocus, Text } from '../../component-library';
 import { MenuItem } from '../../ui/menu';
 
@@ -19,7 +19,7 @@ export const NetworkListItemMenu = ({
   finalFocusRef,
   isClosing: isClosingProp,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const editRef = useRef(null);
   const deleteRef = useRef(null);
 

@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import {
   MetaMetricsEventCategory,
@@ -6,7 +7,7 @@ import {
 } from '../../../../shared/constants/metametrics';
 import configureStore from '../../../store/store';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import * as Actions from '../../../store/actions';
 import { DELETE_METAMETRICS_DATA_MODAL_CLOSE } from '../../../store/actionConstants';
 import ClearMetaMetricsData from './clear-metametrics-data';
@@ -56,18 +57,18 @@ describe('ClearMetaMetricsData', () => {
     const { getByText } = renderWithProvider(<ClearMetaMetricsData />, store);
 
     expect(
-      getByText(messages.deleteMetaMetricsDataModalTitle.message),
+      getByText(messages.deleteMetaMetricsDataModalTitle),
     ).toBeInTheDocument();
     expect(
-      getByText(messages.deleteMetaMetricsDataModalDesc.message),
+      getByText(messages.deleteMetaMetricsDataModalDesc),
     ).toBeInTheDocument();
   });
 
   it('tracks the deletion request when Clear is clicked', async () => {
     const store = configureStore({});
     const { getByText } = renderWithProvider(<ClearMetaMetricsData />, store);
-    expect(getByText(messages.delete.message)).toBeEnabled();
-    fireEvent.click(getByText(messages.delete.message));
+    expect(getByText(messages.delete)).toBeEnabled();
+    fireEvent.click(getByText(messages.delete));
     expect(Actions.createMetaMetricsDataDeletionTask).toHaveBeenCalledTimes(1);
     await waitFor(() => {
       expect(mockTrackEvent).toHaveBeenCalledWith({
@@ -90,7 +91,7 @@ describe('ClearMetaMetricsData', () => {
     const store = configureStore({});
     const { getByText } = renderWithProvider(<ClearMetaMetricsData />, store);
 
-    fireEvent.click(getByText(messages.delete.message));
+    fireEvent.click(getByText(messages.delete));
 
     await waitFor(() => {
       expect(mockTrackEvent).toHaveBeenCalledWith({
@@ -109,8 +110,8 @@ describe('ClearMetaMetricsData', () => {
   it('should call hideDeleteMetaMetricsDataModal when Cancel button is clicked', () => {
     const store = configureStore({});
     const { getByText } = renderWithProvider(<ClearMetaMetricsData />, store);
-    expect(getByText(messages.cancel.message)).toBeEnabled();
-    fireEvent.click(getByText(messages.cancel.message));
+    expect(getByText(messages.cancel)).toBeEnabled();
+    fireEvent.click(getByText(messages.cancel));
     expect(mockCloseDeleteMetaMetricsDataModal).toHaveBeenCalledTimes(1);
   });
 });

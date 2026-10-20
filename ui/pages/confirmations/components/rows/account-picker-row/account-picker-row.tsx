@@ -27,7 +27,7 @@ import {
 import { PreferredAvatar } from '../../../../../components/app/preferred-avatar';
 import { toChecksumHexAddress } from '../../../../../../shared/lib/hexstring-utils';
 import { shortenAddress } from '../../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 export type SubAccountBase = {
   id: string;
@@ -76,7 +76,7 @@ export function AccountPickerRowContent<AccountType extends SubAccountBase>({
   searchPlaceholder,
   testIds,
 }: AccountPickerRowContentProps<AccountType>) {
-  const t = useI18nContext();
+  const t = getText;
   const [isPickerVisible, setIsPickerVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 

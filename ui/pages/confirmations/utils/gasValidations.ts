@@ -1,7 +1,7 @@
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MIN_GAS_LIMIT_DEC } from '../send-utils/send.constants';
 
-type TranslateFunction = ReturnType<typeof useI18nContext>;
+type TranslateFunction = typeof getText;
 
 function normalizeGasInput(value: string) {
   return value.replace(',', '.');

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Text, TextVariant } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getNewTokensImported,
   getNewTokensImportedError,
@@ -22,7 +22,7 @@ import { useDispatch } from '../../../store/hooks';
 const AUTO_HIDE_DELAY = 5 * SECOND;
 
 export function ImportedTokensNotificationContainer() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const newTokensImported = useSelector(getNewTokensImported);
   const newTokensImportedError = useSelector(getNewTokensImportedError);

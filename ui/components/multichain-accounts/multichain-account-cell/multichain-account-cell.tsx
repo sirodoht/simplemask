@@ -19,7 +19,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getIconSeedAddressByAccountGroupId } from '../../../selectors/multichain-accounts/account-tree';
 import { ConnectedStatus } from '../../multichain/connected-status/connected-status';
 import {
@@ -228,7 +228,7 @@ export const MultichainAccountCell = ({
   onVisibilityIconClick,
   onDeleteIconClick,
 }: MultichainAccountCellProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   // Delete mode and hidden mode are mutually exclusive; delete mode takes
   // precedence when both are incorrectly set.

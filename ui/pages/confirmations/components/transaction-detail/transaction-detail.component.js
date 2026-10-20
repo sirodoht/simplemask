@@ -1,7 +1,8 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 import TransactionDetailItem from '../transaction-detail-item/transaction-detail-item.component';
 
@@ -11,7 +12,7 @@ export default function TransactionDetail({
   userAcknowledgedGasMissing: _userAcknowledgedGasMissing = false,
   disableEditGasFeeButton: _disableEditGasFeeButton = false,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <div className="transaction-detail">

@@ -12,9 +12,9 @@ const PENDING_TX_DROP_NOTICE = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'switchingNetworksCancelsPendingConfirmations',
+        textKey: 'switchingNetworksCancelsPendingConfirmations',
       },
     },
   },

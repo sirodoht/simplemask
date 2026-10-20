@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/dom';
 
 import mockState from '../../../../../../test/data/mock-state.json';
@@ -8,7 +9,7 @@ import {
   MOCK_NFT1155,
 } from '../../../../../../test/data/send/assets';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import configureStore from '../../../../../store/store';
 import * as SendContext from '../../../context/send';
 import { HexData } from './hex-data';
@@ -45,7 +46,7 @@ describe('HexData', () => {
 
     const { getByText } = render();
 
-    expect(getByText(messages.hexData.message)).toBeInTheDocument();
+    expect(getByText(messages.hexData)).toBeInTheDocument();
   });
 
   it('call updateHexData when hex data is changed', () => {
@@ -75,7 +76,7 @@ describe('HexData', () => {
     fireEvent.change(getByRole('textbox'), {
       target: { value: '###' },
     });
-    expect(getByText(messages.invalidHexData.message)).toBeInTheDocument();
+    expect(getByText(messages.invalidHexData)).toBeInTheDocument();
   });
 
   it('return null for ERC20 send', () => {
@@ -87,7 +88,7 @@ describe('HexData', () => {
 
     const { queryByText } = render();
 
-    expect(queryByText(messages.hexData.message)).not.toBeInTheDocument();
+    expect(queryByText(messages.hexData)).not.toBeInTheDocument();
   });
 
   it('return null for NFT send', () => {
@@ -99,7 +100,7 @@ describe('HexData', () => {
 
     const { queryByText } = render();
 
-    expect(queryByText(messages.hexData.message)).not.toBeInTheDocument();
+    expect(queryByText(messages.hexData)).not.toBeInTheDocument();
   });
 
   it('return null if flag sendHexData is not set', () => {
@@ -120,6 +121,6 @@ describe('HexData', () => {
       },
     });
 
-    expect(queryByText(messages.hexData.message)).not.toBeInTheDocument();
+    expect(queryByText(messages.hexData)).not.toBeInTheDocument();
   });
 });

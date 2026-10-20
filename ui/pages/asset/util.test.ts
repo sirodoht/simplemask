@@ -5,10 +5,25 @@ import {
   findAssetByAddress,
   fromIso8601DurationToPriceApiTimePeriod,
   getDynamicShortDate,
+  getShortDateFormatter,
+  getShortDateFormatterV2,
   processAssetParams,
 } from './util';
 
 describe('utils', () => {
+  it('formats dates in English even when the browser uses another language', () => {
+    const language = jest
+      .spyOn(navigator, 'language', 'get')
+      .mockReturnValue('fr-FR');
+    try {
+      const date = new Date(2030, 0, 15, 12, 30);
+      expect(getShortDateFormatter().format(date)).toContain('Jan');
+      expect(getShortDateFormatterV2().format(date)).toBe('Jan 15, 2030');
+    } finally {
+      language.mockRestore();
+    }
+  });
+
   describe('findAssetByAddress', () => {
     const mockTokens: Record<string, Token[]> = {
       '0x1': [

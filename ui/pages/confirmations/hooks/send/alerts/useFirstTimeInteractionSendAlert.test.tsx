@@ -2,7 +2,7 @@ import React from 'react';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import { NameType } from '@metamask/name-controller';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   useTrustSignal,
   TrustSignalDisplayState,
@@ -23,7 +23,7 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 jest.mock('../../../../../hooks/useTrustSignals');
 jest.mock('../../../../../../shared/constants/verification');
 jest.mock('../../../context/send');
@@ -48,7 +48,7 @@ describe('useFirstTimeInteractionSendAlert', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.mocked(useI18nContext).mockReturnValue(mockT);
+    jest.mocked(getText).mockImplementation(mockT);
     mockUseSendContext.mockReturnValue({
       to: MOCK_TO,
       toResolved: MOCK_TO,

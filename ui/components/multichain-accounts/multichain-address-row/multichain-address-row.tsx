@@ -22,7 +22,7 @@ import { AccountTypeLabel } from '../account-type-label/account-type-label';
 import { shortenAddress } from '../../../helpers/utils/util';
 import { getImageForChainId } from '../../../selectors/multichain';
 import { convertCaipToHexChainId } from '../../../../shared/lib/network.utils';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export type CopyParams = {
   /**
@@ -87,7 +87,7 @@ export const MultichainAddressRow = ({
   qrActionParams,
   className = '',
 }: MultichainAddressRowProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const networkImageSrc = getImageForChainId(
     chainId.startsWith(KnownCaipNamespace.Eip155)
       ? convertCaipToHexChainId(chainId as CaipChainId)

@@ -5,14 +5,14 @@ import {
   IconColor,
   IconName,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PRIVACY_ITEMS } from '../search-config';
 import { Toast, ToastContainer } from '../../../components/multichain/toast';
 import { BorderRadius } from '../../../helpers/constants/design-system';
 import DownloadStateLogsModal from './download-state-logs-modal';
 
 export const DownloadStateLogsItem = () => {
-  const t = useI18nContext();
+  const t = getText;
   const [showModal, setShowModal] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
 

@@ -23,7 +23,7 @@ import {
 } from '@metamask/design-system-react';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import ToggleButton from '../../ui/toggle-button';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { NetworkListItem } from '../network-list-item';
 import {
   getAllDomains,
@@ -83,7 +83,7 @@ export const DappBarEVMNetworkSelectorPopover: React.FC<
   DappBarNetworkSelectorPopoverProps
 > = ({ referenceElement, isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const selectedTabOrigin = useSelector(getOriginOfCurrentTab);

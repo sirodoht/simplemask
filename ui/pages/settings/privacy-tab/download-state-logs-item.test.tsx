@@ -1,9 +1,10 @@
-import { fireEvent, screen, waitFor, act } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen, waitFor, act } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import * as exportUtils from '../../../helpers/utils/export-utils';
 import { DownloadStateLogsItem } from './download-state-logs-item';
@@ -42,9 +43,7 @@ describe('DownloadStateLogsItem', () => {
     expect(
       screen.getByTestId('advanced-setting-state-logs-button'),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.downloadStateLogs.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.downloadStateLogs)).toBeInTheDocument();
   });
 
   it('opens modal when button is clicked', async () => {
@@ -54,7 +53,7 @@ describe('DownloadStateLogsItem', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(messages.stateLogsModalDescription.message),
+        screen.getByText(messages.stateLogsModalDescription),
       ).toBeInTheDocument();
     });
   });
@@ -68,17 +67,17 @@ describe('DownloadStateLogsItem', () => {
     fireEvent.click(screen.getByTestId('advanced-setting-state-logs-button'));
 
     await waitFor(() => {
-      expect(screen.getByText(messages.download.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.download)).toBeInTheDocument();
     });
 
     await act(async () => {
-      fireEvent.click(screen.getByText(messages.download.message));
+      fireEvent.click(screen.getByText(messages.download));
     });
 
     expect(mockLogStateString).toHaveBeenCalled();
     await waitFor(() => {
       expect(mockExportAsFile).toHaveBeenCalledWith(
-        `${messages.stateLogFileName.message}.json`,
+        `${messages.stateLogFileName}.json`,
         '{"state": "data"}',
         exportUtils.ExportableContentType.JSON,
       );
@@ -93,20 +92,18 @@ describe('DownloadStateLogsItem', () => {
     fireEvent.click(screen.getByTestId('advanced-setting-state-logs-button'));
 
     await waitFor(() => {
-      expect(screen.getByText(messages.download.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.download)).toBeInTheDocument();
     });
 
     await act(async () => {
-      fireEvent.click(screen.getByText(messages.download.message));
+      fireEvent.click(screen.getByText(messages.download));
     });
 
     await waitFor(() => {
       expect(
         screen.getByTestId('download-state-logs-error-toast'),
       ).toBeInTheDocument();
-      expect(
-        screen.getByText(messages.stateLogError.message),
-      ).toBeInTheDocument();
+      expect(screen.getByText(messages.stateLogError)).toBeInTheDocument();
     });
   });
 
@@ -119,11 +116,11 @@ describe('DownloadStateLogsItem', () => {
     fireEvent.click(screen.getByTestId('advanced-setting-state-logs-button'));
 
     await waitFor(() => {
-      expect(screen.getByText(messages.download.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.download)).toBeInTheDocument();
     });
 
     await act(async () => {
-      fireEvent.click(screen.getByText(messages.download.message));
+      fireEvent.click(screen.getByText(messages.download));
     });
 
     await waitFor(() => {

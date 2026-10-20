@@ -1,8 +1,9 @@
+import React from 'react';
 import {
   TransactionMeta,
   TransactionType,
 } from '@metamask/transaction-controller';
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { getConfirmationTransactionType } from '../../../utils/confirm';
 import {
@@ -17,14 +18,14 @@ import {
   BorderRadius,
   IconColor,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { setConfirmationAdvancedDetailsOpen } from '../../../../../store/actions';
 import { useConfirmContext } from '../../../context/confirm';
 import { selectConfirmationAdvancedDetailsOpen } from '../../../selectors/preferences';
 import { useDispatch } from '../../../../../store/hooks';
 
 export const AdvancedDetailsButton = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 

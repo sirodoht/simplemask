@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { Severity } from '../../../../helpers/constants/design-system';
 import { SecurityProvider } from '../../../../../shared/constants/security-provider';
 import { Text } from '../../../component-library';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import GeneralAlert, { GeneralAlertProps } from './general-alert';
 
 describe('GeneralAlert', () => {
@@ -30,7 +31,7 @@ describe('GeneralAlert', () => {
         details={details}
       />,
     );
-    expect(getByText(messages.seeDetails.message)).toBeInTheDocument();
+    expect(getByText(messages.seeDetails)).toBeInTheDocument();
   });
 
   it('renders the security provider information when provided', () => {

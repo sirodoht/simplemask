@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import type { CaipChainId } from '@metamask/utils';
 import { useSelector } from 'react-redux';
 import type { ActivityListItem } from '../../../../../shared/lib/activity/types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useFormatters } from '../../../../hooks/useFormatters';
 import { getAccountGroupsByAddress } from '../../../../selectors/multichain-accounts/account-tree';
 import type { MultichainAccountsState } from '../../../../selectors/multichain-accounts/account-tree.types';
@@ -35,7 +35,7 @@ export function BridgeDetails({
     }
   >;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { formatDateTime } = useFormatters();
 
   const sourceChainId = item.chainId;

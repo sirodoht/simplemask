@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getUseExternalServices } from '../../../selectors';
 import {
   toggleBasicFunctionality,
@@ -20,7 +21,7 @@ import { PRIVACY_ITEMS } from '../search-config';
 import { useDispatch } from '../../../store/hooks';
 
 export const BasicFunctionalityToggleItem = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const useExternalServices = useSelector(getUseExternalServices);

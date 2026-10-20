@@ -25,7 +25,7 @@ import {
 import { TextVariant } from '../../../helpers/constants/design-system';
 
 import { transitionBack } from '../../../components/ui/transition';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MultichainAccountList } from '../../../components/multichain-accounts/multichain-account-list';
 import { useAccountListSearch } from '../../../components/multichain-accounts/hooks/useAccountListSearch';
 import {
@@ -60,7 +60,7 @@ import {
 import { useAnalytics } from '../../../hooks/useAnalytics';
 
 export const AccountList = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const location = useLocation();
   const accountTree = useSelector(getAccountTree);

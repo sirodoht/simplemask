@@ -4,14 +4,14 @@ import { TransactionMeta } from '@metamask/transaction-controller';
 import { Alert } from '../../../../ducks/confirm-alerts/confirm-alerts';
 import { RowAlertKey } from '../../../../components/app/confirm/info/row/constants';
 import { Severity } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { SignatureRequestType } from '../../types/confirm';
 import { isValidASCIIURL, toPunycodeURL } from '../../utils/confirm';
 import { isSignatureTransactionType } from '../../utils';
 import { useConfirmContext } from '../../context/confirm';
 
 const useConfirmationOriginAlerts = (): Alert[] => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { currentConfirmation } = useConfirmContext();
 

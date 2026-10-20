@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import configureStore, { MetaMaskReduxDispatch } from '../../../store/store';
 import { createNextMultichainAccountGroup } from '../../../store/actions';
 import { useAccountsOperationsLoadingStates } from '../../../hooks/accounts/useAccountsOperationsLoadingStates';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { AddMultichainAccount } from './add-multichain-account';
 
 jest.mock('../../../../shared/lib/trace', () => {
@@ -43,16 +44,7 @@ describe('AddMultichainAccount', () => {
   const mockWalletId = 'entropy:01JKAF3DSGM3AB87EM9N0K41AJ';
 
   const initialState = {
-    metamask: {
-      localeMessages: {
-        current: {
-          createMultichainAccountButton: messages.createMultichainAccountButton,
-          createMultichainAccountButtonLoading:
-            messages.createMultichainAccountButtonLoading,
-        },
-        currentLocale: 'en',
-      },
-    },
+    metamask: {},
   };
 
   mockUseAccountsOperationsLoadingStates.mockReturnValue({
@@ -76,7 +68,7 @@ describe('AddMultichainAccount', () => {
       screen.getByTestId(addMultichainAccountButtonTestId),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.createMultichainAccountButton.message),
+      screen.getByText(messages.createMultichainAccountButton),
     ).toBeInTheDocument();
     expect(
       container.querySelector(addMultichainAccountIconClass),
@@ -105,7 +97,7 @@ describe('AddMultichainAccount', () => {
     fireEvent.click(screen.getByTestId(addMultichainAccountButtonTestId));
 
     expect(
-      screen.getByText(messages.createMultichainAccountButtonLoading.message),
+      screen.getByText(messages.createMultichainAccountButtonLoading),
     ).toBeInTheDocument();
     expect(
       container.querySelector(addMultichainAccountIconClass),
@@ -147,12 +139,12 @@ describe('AddMultichainAccount', () => {
 
     // Verify we're in the loading state first
     expect(
-      screen.getByText(messages.createMultichainAccountButtonLoading.message),
+      screen.getByText(messages.createMultichainAccountButtonLoading),
     ).toBeInTheDocument();
 
     await waitFor(() => {
       expect(
-        screen.getByText(messages.createMultichainAccountButton.message),
+        screen.getByText(messages.createMultichainAccountButton),
       ).toBeInTheDocument();
     });
 
@@ -202,7 +194,7 @@ describe('AddMultichainAccount', () => {
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       const { getByText } = renderWithProvider(
@@ -210,7 +202,7 @@ describe('AddMultichainAccount', () => {
         store,
       );
 
-      expect(getByText(messages.syncing.message)).toBeInTheDocument();
+      expect(getByText(messages.syncing)).toBeInTheDocument();
     });
 
     it('shows creating account message when local loading is active', async () => {
@@ -226,13 +218,11 @@ describe('AddMultichainAccount', () => {
         store,
       );
 
-      fireEvent.click(
-        getByText(messages.createMultichainAccountButton.message),
-      );
+      fireEvent.click(getByText(messages.createMultichainAccountButton));
 
       await waitFor(() => {
         expect(
-          getByText(messages.createMultichainAccountButtonLoading.message),
+          getByText(messages.createMultichainAccountButtonLoading),
         ).toBeInTheDocument();
       });
     });
@@ -242,7 +232,7 @@ describe('AddMultichainAccount', () => {
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       const { getByText } = renderWithProvider(
@@ -250,10 +240,10 @@ describe('AddMultichainAccount', () => {
         store,
       );
 
-      fireEvent.click(getByText(messages.syncing.message));
+      fireEvent.click(getByText(messages.syncing));
 
       // Should still show syncing message, not creating account message
-      expect(getByText(messages.syncing.message)).toBeInTheDocument();
+      expect(getByText(messages.syncing)).toBeInTheDocument();
     });
 
     it('shows spinner when any loading state is active', async () => {
@@ -261,7 +251,7 @@ describe('AddMultichainAccount', () => {
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       const { getByText } = renderWithProvider(
@@ -270,7 +260,7 @@ describe('AddMultichainAccount', () => {
       );
 
       // When account syncing is in progress, should show spinner
-      expect(getByText(messages.syncing.message)).toBeInTheDocument();
+      expect(getByText(messages.syncing)).toBeInTheDocument();
     });
 
     it('shows default Add account text when no loading states are active', () => {
@@ -286,7 +276,7 @@ describe('AddMultichainAccount', () => {
       );
 
       expect(
-        getByText(messages.createMultichainAccountButton.message),
+        getByText(messages.createMultichainAccountButton),
       ).toBeInTheDocument();
     });
 
@@ -305,19 +295,19 @@ describe('AddMultichainAccount', () => {
       );
 
       expect(
-        getByText(messages.createMultichainAccountButton.message),
+        getByText(messages.createMultichainAccountButton),
       ).toBeInTheDocument();
 
       // Simulate account syncing starting
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       rerender(<AddMultichainAccount walletId={mockWalletId} />);
 
-      expect(getByText(messages.syncing.message)).toBeInTheDocument();
+      expect(getByText(messages.syncing)).toBeInTheDocument();
 
       // Simulate syncing completing
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
@@ -329,7 +319,7 @@ describe('AddMultichainAccount', () => {
       rerender(<AddMultichainAccount walletId={mockWalletId} />);
 
       expect(
-        getByText(messages.createMultichainAccountButton.message),
+        getByText(messages.createMultichainAccountButton),
       ).toBeInTheDocument();
     });
   });

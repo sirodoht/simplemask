@@ -1,10 +1,14 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages, tEn } from '../../../../test/lib/i18n-helpers';
+import {
+  englishText as messages,
+  getText as tEn,
+} from '../../../../shared/lib/text';
 import type { SettingsSearchResult } from '../useSettingsSearch';
 import { SettingsSearchResults } from './settings-search-results';
 
@@ -40,13 +44,11 @@ describe('SettingsSearchResults', () => {
 
     expect(
       screen.getByText(
-        `${messages.preferencesAndDisplay.message} > ${messages.localCurrency.message}`,
+        `${messages.preferencesAndDisplay} > ${messages.localCurrency}`,
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(
-        `${messages.preferencesAndDisplay.message} > ${messages.theme.message}`,
-      ),
+      screen.getByText(`${messages.preferencesAndDisplay} > ${messages.theme}`),
     ).toBeInTheDocument();
   });
 
@@ -70,7 +72,7 @@ describe('SettingsSearchResults', () => {
 
     expect(
       screen.getByText(
-        `${messages.notifications.message} > ${messages.notificationsSettingsWalletActivityTitle.message}`,
+        `${messages.notifications} > ${messages.notificationsSettingsWalletActivityTitle}`,
       ),
     ).toBeInTheDocument();
   });
@@ -92,9 +94,7 @@ describe('SettingsSearchResults', () => {
       createMockStore(),
     );
 
-    expect(
-      screen.getByText(messages.notifications.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.notifications)).toBeInTheDocument();
   });
 
   it('resolves passkey title keys with auth-method substitution', () => {
@@ -116,7 +116,7 @@ describe('SettingsSearchResults', () => {
 
     expect(
       screen.getByText(
-        `${messages.securityAndPassword.message} > ${tEn('unlockWithPasskey', [tEn('passkeyAuthMethodBiometrics')])}`,
+        `${messages.securityAndPassword} > ${tEn('unlockWithPasskey', [tEn('passkeyAuthMethodBiometrics')])}`,
       ),
     ).toBeInTheDocument();
   });
@@ -144,13 +144,13 @@ describe('SettingsSearchResults', () => {
     );
 
     expect(
-      screen.getByText(messages.settingsSearchMatchingNotFound.message),
+      screen.getByText(messages.settingsSearchMatchingNotFound),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.settingsSearchRequestHere.message),
+      screen.getByText(messages.settingsSearchRequestHere),
     ).toBeInTheDocument();
 
-    const link = screen.getByText(messages.settingsSearchRequestHere.message);
+    const link = screen.getByText(messages.settingsSearchRequestHere);
     expect(link.tagName).toBe('A');
     expect(link).toHaveAttribute('target', '_blank');
   });

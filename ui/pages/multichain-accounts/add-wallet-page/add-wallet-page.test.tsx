@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
@@ -67,8 +68,8 @@ describe('AddWalletPage', () => {
   it('renders the page with correct title and components', () => {
     renderComponent();
 
-    expect(screen.getByText(messages.addWallet.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.privateKey.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.addWallet)).toBeInTheDocument();
+    expect(screen.getByText(messages.privateKey)).toBeInTheDocument();
     expect(screen.getByTestId(backButtonTestId)).toBeInTheDocument();
   });
 
@@ -91,7 +92,7 @@ describe('AddWalletPage', () => {
 
     expect(toast.success).toHaveBeenCalledWith(
       <ToastContent
-        title={messages.accountImported.message}
+        title={messages.accountImported}
         dataTestId="account-imported-toast"
       />,
       { id: 'account-imported-toast', duration: 5000 },

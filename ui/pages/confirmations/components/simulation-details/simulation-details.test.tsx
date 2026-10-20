@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   SimulationData,
   SimulationErrorCode,
@@ -8,13 +9,13 @@ import {
 import { ApprovalType } from '@metamask/controller-utils';
 import { screen } from '@testing-library/react';
 import { BigNumber } from 'bignumber.js';
-import React from 'react';
+
 import configureStore from 'redux-mock-store';
 import { cloneDeep } from 'lodash';
 import { TokenStandard } from '../../../../../shared/constants/transaction';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { AlertMetricsProvider } from '../../../../components/app/alert-system/contexts/alertMetricsContext';
 import { BalanceChangeList } from './balance-change-list';
 import { SimulationDetails, StaticRow } from './simulation-details';
@@ -524,7 +525,7 @@ describe('SimulationDetails', () => {
     });
 
     expect(
-      getByText(messages.simulationDetailsTitleEnforced.message),
+      getByText(messages.simulationDetailsTitleEnforced),
     ).toBeInTheDocument();
   });
 });

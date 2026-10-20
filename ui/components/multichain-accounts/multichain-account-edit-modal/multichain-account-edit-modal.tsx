@@ -12,7 +12,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { setAccountGroupName } from '../../../store/actions';
 import { getMultichainAccountGroupById } from '../../../selectors/multichain-accounts/account-tree';
 import { useDispatch } from '../../../store/hooks';
@@ -28,7 +28,7 @@ export const MultichainAccountEditModal = ({
   onClose,
   accountGroupId,
 }: MultichainAccountEditModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const accountGroup = useSelector((state) =>
     getMultichainAccountGroupById(state, accountGroupId),

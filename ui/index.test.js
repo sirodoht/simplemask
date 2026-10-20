@@ -1,6 +1,5 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { setupLocale } from '../shared/lib/error-utils';
 import { FirstTimeFlowType } from '../shared/constants/onboarding';
 import * as browserRuntimeUtils from '../shared/lib/browser-runtime.utils';
 import * as actions from './store/actions';
@@ -8,24 +7,6 @@ import * as selectors from './selectors';
 import * as metamaskBaseSelectors from './ducks/metamask/base-selectors';
 import { SEEDLESS_PASSWORD_OUTDATED_CHECK_INTERVAL_MS } from './constants';
 import { getCleanAppState, runInitialActions } from '.';
-
-const enMessages = {
-  troubleStarting: {
-    message:
-      'MetaMask had trouble starting. This error could be intermittent, so try restarting the extension.',
-  },
-  restartMetamask: {
-    message: 'Restart MetaMask',
-  },
-  stillGettingMessage: {
-    message: 'Still getting this message?',
-  },
-};
-
-jest.mock('../shared/lib/i18n', () => ({
-  fetchLocale: jest.fn(() => enMessages),
-  loadRelativeTimeFormatLocaleData: jest.fn(),
-}));
 
 jest.mock('./store/actions', () => ({
   ...jest.requireActual('./store/actions'),
@@ -50,37 +31,6 @@ describe('Index Tests', () => {
     jest.restoreAllMocks();
   });
 
-  it('should get locale messages by calling setupLocale', async () => {
-    let result = await setupLocale('en');
-    const { currentLocaleMessages: clm, enLocaleMessages: elm } = result;
-    expect(clm).toBeDefined();
-    expect(elm).toBeDefined();
-    expect(clm.troubleStarting).toStrictEqual(enMessages.troubleStarting);
-
-    expect(clm.restartMetamask).toStrictEqual(enMessages.restartMetamask);
-
-    expect(clm.stillGettingMessage).toStrictEqual(
-      enMessages.stillGettingMessage,
-    );
-
-    result = await setupLocale('es_419');
-
-    const { currentLocaleMessages: clm2, enLocaleMessages: elm2 } = result;
-    expect(clm2).toBeDefined();
-    expect(elm2).toBeDefined();
-
-    expect(clm2.troubleStarting).toStrictEqual(enMessages.troubleStarting);
-
-    expect(clm2.restartMetamask).toStrictEqual(enMessages.restartMetamask);
-
-    expect(clm2.stillGettingMessage).toStrictEqual(
-      enMessages.stillGettingMessage,
-    );
-    expect(elm2.stillGettingMessage).toStrictEqual(
-      enMessages.stillGettingMessage,
-    );
-  });
-
   it('should get clean app state with socialLoginEmail undefined', async () => {
     const mockVersion = '1.0.0';
     const mockUserAgent = 'test-user-agent';
@@ -92,7 +42,6 @@ describe('Index Tests', () => {
 
     const mockState = {
       metamask: {
-        currentLocale: 'en',
         completedOnboarding: true,
         socialLoginEmail: 'test@test.com',
       },
@@ -123,7 +72,6 @@ describe('Index Tests', () => {
 
     const mockState = {
       metamask: {
-        currentLocale: 'en',
         qrSyncPhase: 'displaying-qr',
         qrSyncConnectionStatus: 'connected',
         qrSyncSessionId: 'session-123',
@@ -142,7 +90,6 @@ describe('Index Tests', () => {
     const cleanAppState = await getCleanAppState(store);
     expect(cleanAppState).toStrictEqual({
       metamask: {
-        currentLocale: 'en',
         socialLoginEmail: undefined,
       },
       version: mockVersion,

@@ -1,19 +1,20 @@
 import React from 'react';
+
 import { render, fireEvent } from '@testing-library/react';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../shared/lib/text';
 import { TrustSignalModal } from '../../../components/app/trust-signal-modal/trust-signal-modal';
 
 const MOCK_I18N: Record<string, string> = {
-  continueAtYourOwnRisk: messages.continueAtYourOwnRisk.message,
-  trustSignalPhishingWarning: messages.trustSignalPhishingWarning.message,
-  connectAnyway: messages.connectAnyway.message,
-  cancel: messages.cancel.message,
-  close: messages.close.message,
+  continueAtYourOwnRisk: messages.continueAtYourOwnRisk,
+  trustSignalPhishingWarning: messages.trustSignalPhishingWarning,
+  connectAnyway: messages.connectAnyway,
+  cancel: messages.cancel,
+  close: messages.close,
 };
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => MOCK_I18N[key] ?? key,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => MOCK_I18N[key] ?? key,
 }));
 
 describe('TrustSignalModal', () => {
@@ -35,9 +36,7 @@ describe('TrustSignalModal', () => {
   it('shows "Continue at your own risk" title', () => {
     const { getByText } = render(<TrustSignalModal {...defaultProps} />);
 
-    expect(
-      getByText(messages.continueAtYourOwnRisk.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.continueAtYourOwnRisk)).toBeInTheDocument();
   });
 
   it('calls onContinue when "Connect anyway" is clicked', () => {

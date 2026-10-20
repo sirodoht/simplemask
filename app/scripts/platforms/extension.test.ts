@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { TransactionStatus } from '@metamask/transaction-controller';
 import { getBlockExplorerLink } from '@metamask/etherscan-link';
-import { t } from '../../../shared/lib/translate';
+import { getText as t } from '../../../shared/lib/text';
 import ExtensionPlatform from './extension';
 
 const TEST_URL =

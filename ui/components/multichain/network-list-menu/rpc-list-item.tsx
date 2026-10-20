@@ -1,6 +1,7 @@
+import React from 'react';
 import { RpcEndpointType } from '@metamask/network-controller';
 import { Tag } from '@metamask/design-system-react';
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { infuraProjectId } from '../../../../shared/constants/network';
 import { Box, Text } from '../../component-library';
@@ -15,7 +16,7 @@ import {
   BlockSize,
   AlignItems,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getIsRpcFailoverEnabled } from '../../../selectors';
 
 export const stripKeyFromInfuraUrl = (endpoint: string) => {
@@ -47,7 +48,7 @@ const RpcListItem = ({
     type: RpcEndpointType;
   };
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const isRpcFailoverEnabled = useSelector(getIsRpcFailoverEnabled);
 
   const { url, type } = rpcEndpoint;

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import { GasOption } from '../../types/gas';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { GasEstimateListItem } from './gas-estimate-list-item';
 
 const mockOption: GasOption = {
@@ -22,7 +23,7 @@ describe('GasEstimateListItem', () => {
     );
 
     expect(getByTestId('gas-option-fast')).toBeInTheDocument();
-    expect(getByText(messages.fast.message)).toBeInTheDocument();
+    expect(getByText(messages.fast)).toBeInTheDocument();
     expect(getByText('15 sec')).toBeInTheDocument();
     expect(getByText('0.0001 ETH')).toBeInTheDocument();
     expect(getByText('$0.25')).toBeInTheDocument();

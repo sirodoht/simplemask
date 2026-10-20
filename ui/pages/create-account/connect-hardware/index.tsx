@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import React, {
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -57,7 +56,7 @@ import {
   toHardwareWalletError,
   HardwareWalletType,
 } from '../../../contexts/hardware-wallets';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { MetaMaskReduxDispatch } from '../../../store/store';
 import { useDispatch } from '../../../store/hooks';
 import AccountList from './account-list';
@@ -117,7 +116,7 @@ const getErrorMessage = (
 };
 
 const ConnectHardwareForm = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const dispatch: MetaMaskReduxDispatch = useDispatch();
   const navigate = useNavigate();

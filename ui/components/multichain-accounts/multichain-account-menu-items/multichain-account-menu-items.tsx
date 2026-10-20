@@ -11,13 +11,13 @@ import {
   Text,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MultichainAccountMenuItemsProps } from './multichain-account-menu-items.types';
 
 export const MultichainAccountMenuItems = ({
   menuConfig,
 }: MultichainAccountMenuItemsProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const menuItems = useMemo(() => {
     return menuConfig.map((item, index, menuConfigurations) => {

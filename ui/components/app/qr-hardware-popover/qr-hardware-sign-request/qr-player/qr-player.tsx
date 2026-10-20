@@ -10,7 +10,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import PageContainerFooter from '../../../../ui/page-container/page-container-footer/page-container-footer.component';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { CBOR_ENCODING } from '../../base-qr-reader';
 import { QR_PLAYER_CONFIG, type QrPlayerProps } from './qr-player.types';
 
@@ -33,7 +33,7 @@ const QrPlayer = ({
   cancelQRHardwareSignRequest,
   toRead,
 }: QrPlayerProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const urEncoder = useMemo(

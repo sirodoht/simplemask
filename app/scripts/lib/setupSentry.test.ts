@@ -487,19 +487,6 @@ describe('Setup Sentry', () => {
       ).toStrictEqual(false);
     });
 
-    it('should return false for locale file fetches', () => {
-      expect(
-        shouldCreateSpanForRequest(
-          'chrome-extension://abcdefg/_locales/en/messages.json',
-        ),
-      ).toStrictEqual(false);
-      expect(
-        shouldCreateSpanForRequest(
-          'moz-extension://abcdefg/_locales/es/messages.json',
-        ),
-      ).toStrictEqual(false);
-    });
-
     it('should return false for root content-hashed json fetches (preinstalled snap bundles)', () => {
       // These are the webpack `asset/resource` preinstalled-snap bundles that
       // sit at the extension root and slipped past the old `/snaps/` regex.

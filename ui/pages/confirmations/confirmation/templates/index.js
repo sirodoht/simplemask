@@ -107,7 +107,7 @@ function getAttenuatedDispatch(dispatch) {
  * Returns the templated values to be consumed in the confirmation page
  *
  * @param {object} pendingApproval - The pending confirmation object.
- * @param {Function} t - Translation function.
+ * @param {Function} t - English text function.
  * @param {Function} dispatch - Redux dispatch function.
  * @param {object} history - The application's history object.
  * @param {object} data - The data object passed into the template from the confirmation page.

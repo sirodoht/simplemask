@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   AvatarIcon,
@@ -7,7 +7,7 @@ import {
   IconColor,
   IconName,
 } from '@metamask/design-system-react';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import Confusable from '../../ui/confusable';
 import { Box, BadgeWrapper, Text } from '../../component-library';
 import {
@@ -35,7 +35,7 @@ export const DomainInputResolutionCell = ({
   onClick,
   protocol,
 }: DomainInputResolutionCellArgs) => {
-  const t: (key: string, params: unknown[]) => string = useContext(I18nContext);
+  const t: (key: string, params: unknown[]) => string = getText;
   const titleRef = useRef<null | HTMLDivElement>(null);
   const breakpointRef = useRef<null | number>(null);
   const [isTitleOverflowing, setIsTitleOverflowing] = useState(false);

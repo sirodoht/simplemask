@@ -6,7 +6,7 @@ import type {
   TokenAmount,
 } from '../../../../shared/lib/activity/types';
 import { parseValueTransfers } from '../../../../shared/lib/activity/adapters/helpers';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useFormatters } from '../../../hooks/useFormatters';
 import { useApiTransaction } from '../../../hooks/activity/useApiTransaction';
 import { useLocalTransactionMeta } from '../../../hooks/activity/useLocalTransactionMeta';
@@ -64,7 +64,7 @@ type Props = {
 };
 
 export function ConvertDetails({ item }: Props) {
-  const t = useI18nContext();
+  const t = getText;
   const { formatCurrencyWithMinThreshold: format } = useFormatters();
   const transactionMeta = useLocalTransactionMeta(item.hash);
   const { networkFeeFiat, totalFiat } = transactionMeta?.metamaskPay ?? {};

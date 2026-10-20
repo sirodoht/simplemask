@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import {
   CHAIN_IDS,
@@ -11,7 +12,7 @@ import { renderWithConfirmContextProvider } from '../../../../../../test/lib/con
 import { getMockConfirmStateForTransaction } from '../../../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
 import { GasModalType } from '../../../constants/gas';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { updateTransactionGasFees } from '../../../../../store/actions/update-transaction-gas-fees';
 import { AdvancedEIP1559Modal } from './advanced-eip1559-modal';
 
@@ -127,9 +128,7 @@ describe('AdvancedEIP1559Modal', () => {
 
   it('renders the modal with header', () => {
     const { getByText } = render();
-    expect(
-      getByText(messages.advancedEIP1559ModalTitle.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.advancedEIP1559ModalTitle)).toBeInTheDocument();
   });
 
   it('renders all gas input components', () => {
@@ -143,8 +142,8 @@ describe('AdvancedEIP1559Modal', () => {
   it('renders Cancel and Save buttons', () => {
     const { getByText } = render();
 
-    expect(getByText(messages.cancel.message)).toBeInTheDocument();
-    expect(getByText(messages.save.message)).toBeInTheDocument();
+    expect(getByText(messages.cancel)).toBeInTheDocument();
+    expect(getByText(messages.save)).toBeInTheDocument();
   });
 
   it('displays the transaction gas estimate without a universal fallback', () => {
@@ -169,7 +168,7 @@ describe('AdvancedEIP1559Modal', () => {
       'true',
     );
     expect(getByTestId('gas-input-help-text')).toHaveTextContent(
-      messages.gasLimitEditingUnavailable.message,
+      messages.gasLimitEditingUnavailable,
     );
   });
 
@@ -232,13 +231,13 @@ describe('AdvancedEIP1559Modal', () => {
     expect(getByTestId('gas-input')).toBeEmptyDOMElement();
     expect(getByTestId('gas-input')).toBeEnabled();
     expect(getByTestId('gas-input-help-text')).toHaveTextContent(
-      messages.alertMessageGasEstimateFailed.message,
+      messages.alertMessageGasEstimateFailed,
     );
     expect(getByTestId('gas-fee-modal-save-button')).toBeDisabled();
 
     fireEvent.click(getByTestId('gas-input'));
     expect(getByTestId('gas-fee-modal-save-button')).toBeEnabled();
-    fireEvent.click(getByText(messages.save.message));
+    fireEvent.click(getByText(messages.save));
 
     await waitFor(() =>
       expect(updateTransactionGasFees).toHaveBeenCalledWith(
@@ -256,7 +255,7 @@ describe('AdvancedEIP1559Modal', () => {
   it('navigates to EstimatesModal when Cancel is clicked', () => {
     const { getByText, mockSetActiveModal } = render();
 
-    fireEvent.click(getByText(messages.cancel.message));
+    fireEvent.click(getByText(messages.cancel));
 
     expect(mockSetActiveModal).toHaveBeenCalledWith(
       GasModalType.EstimatesModal,
@@ -284,7 +283,7 @@ describe('AdvancedEIP1559Modal', () => {
         },
       });
     });
-    fireEvent.click(getByText(messages.save.message));
+    fireEvent.click(getByText(messages.save));
 
     await waitFor(() =>
       expect(updateTransactionGasFees).toHaveBeenCalledWith(
@@ -302,7 +301,7 @@ describe('AdvancedEIP1559Modal', () => {
   it('persists custom EIP-1559 gas fee preferences when Save is clicked', async () => {
     const { contractInteraction, getByText, mockHandleCloseModals } = render();
 
-    fireEvent.click(getByText(messages.save.message));
+    fireEvent.click(getByText(messages.save));
 
     await waitFor(() => {
       expect(mockPersistGasFeePreference).toHaveBeenCalledWith(

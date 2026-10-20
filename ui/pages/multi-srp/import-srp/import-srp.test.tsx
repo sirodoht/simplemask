@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
@@ -58,9 +59,7 @@ describe('ImportSrp', () => {
 
   it('renders header with correct title', () => {
     const { getByText } = renderWithProvider(<ImportSrp />, store);
-    expect(
-      getByText(messages.importSecretRecoveryPhrase.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.importSecretRecoveryPhrase)).toBeInTheDocument();
   });
 
   it('renders import srp and disable confirm srp button', () => {
@@ -100,7 +99,7 @@ describe('ImportSrp', () => {
       expect(importMnemonicToVault).toHaveBeenCalledWith(VALID_SEED);
       expect(toast.success).toHaveBeenCalledWith(
         <ToastContent
-          title={messages.importWalletSuccess.message.replace('$1', '2')}
+          title={messages.importWalletSuccess.replace('$1', '2')}
           dataTestId="new-srp-added-toast"
         />,
         { id: 'new-srp-added-toast', duration: 5000 },
@@ -131,7 +130,7 @@ describe('ImportSrp', () => {
       // SrpInputImport validates checksum and shows error message
       await waitFor(() => {
         expect(
-          getByText(messages.invalidSeedPhraseNotFound.message),
+          getByText(messages.invalidSeedPhraseNotFound),
         ).toBeInTheDocument();
       });
 
@@ -195,14 +194,14 @@ describe('ImportSrp', () => {
     it('displays duplicate account error when trying to import a duplicate account', async () => {
       await testImportError(
         'KeyringController - The account you are trying to import is a duplicate',
-        messages.srpImportDuplicateAccountError.message,
+        messages.srpImportDuplicateAccountError,
       );
     });
 
     it('displays already imported error for any other import error', async () => {
       await testImportError(
         'Some other error',
-        messages.srpAlreadyImportedError.message,
+        messages.srpAlreadyImportedError,
       );
     });
   });

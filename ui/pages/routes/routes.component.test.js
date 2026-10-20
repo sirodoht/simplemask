@@ -242,9 +242,6 @@ describe('Routes Component', () => {
             },
           },
         },
-        localeMessages: {
-          currentLocale: 'en',
-        },
       };
       const { container } = render(undefined, state);
       expect(container.querySelector('.app')).toBeInTheDocument();

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { useModalProps } from '../../../../../hooks/useModalProps';
-import { I18nContext } from '../../../../../contexts/i18n';
+
 import {
   ConfirmTurnOnBackupAndSyncModal,
   confirmTurnOnBackupAndSyncModalTestIds,
@@ -31,9 +32,9 @@ describe('ConfirmTurnOnBackupAndSyncModal', () => {
 
   it('renders correctly', () => {
     const { getByTestId } = render(
-      <I18nContext.Provider value={(key) => key}>
+      <>
         <ConfirmTurnOnBackupAndSyncModal />
-      </I18nContext.Provider>,
+      </>,
     );
     expect(
       getByTestId(confirmTurnOnBackupAndSyncModalTestIds.modal),
@@ -42,9 +43,9 @@ describe('ConfirmTurnOnBackupAndSyncModal', () => {
 
   it('closes the modal on cancel', () => {
     const { getByTestId } = render(
-      <I18nContext.Provider value={(key) => key}>
+      <>
         <ConfirmTurnOnBackupAndSyncModal />
-      </I18nContext.Provider>,
+      </>,
     );
     fireEvent.click(
       getByTestId(confirmTurnOnBackupAndSyncModalTestIds.cancelButton),
@@ -54,9 +55,9 @@ describe('ConfirmTurnOnBackupAndSyncModal', () => {
 
   it('calls the enableBackupAndSync callback from props and hides the modal', async () => {
     const { getByTestId } = render(
-      <I18nContext.Provider value={(key) => key}>
+      <>
         <ConfirmTurnOnBackupAndSyncModal />
-      </I18nContext.Provider>,
+      </>,
     );
     fireEvent.click(
       getByTestId(confirmTurnOnBackupAndSyncModalTestIds.toggleButton),

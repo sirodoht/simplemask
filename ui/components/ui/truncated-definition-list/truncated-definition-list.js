@@ -5,7 +5,7 @@ import { BorderColor, Size } from '../../../helpers/constants/design-system';
 import Box from '../box';
 import Button from '../button';
 import DefinitionList from '../definition-list/definition-list';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export default function TruncatedDefinitionList({
   dictionary,
@@ -14,7 +14,7 @@ export default function TruncatedDefinitionList({
   prefaceKeys,
 }) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const t = useI18nContext();
+  const t = getText;
 
   const renderDefinitionList = (isFullList) => (
     <DefinitionList

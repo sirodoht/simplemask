@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, Text } from '../../../../../components/component-library';
 import {
   Display,
@@ -6,13 +7,13 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { TransactionDetailsRow } from '../transaction-details-row';
 import { useTransactionDetails } from '../transaction-details-context';
 import { formatTransactionDateTime } from '../utils';
 
 export function TransactionDetailsDateRow() {
-  const t = useI18nContext();
+  const t = getText;
   const { transactionMeta } = useTransactionDetails();
 
   const { time, date } = formatTransactionDateTime(transactionMeta.time);

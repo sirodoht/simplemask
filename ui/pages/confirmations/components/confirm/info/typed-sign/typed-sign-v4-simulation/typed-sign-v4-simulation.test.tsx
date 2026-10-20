@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   DecodingData,
@@ -13,7 +14,7 @@ import {
   seaportSignatureMsg,
 } from '../../../../../../../../test/data/confirmations/typed_sign';
 import { memoizedGetTokenStandardAndDetails } from '../../../../../utils/token';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import TypedSignV4Simulation from './typed-sign-v4-simulation';
 
 jest.mock('../../../../../../../store/actions', () => {
@@ -68,10 +69,10 @@ describe('PermitSimulation', () => {
 
     expect(await findByText('30')).toBeInTheDocument();
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationDetailInfo.message),
+      await findByText(messages.permitSimulationDetailInfo),
     ).toBeInTheDocument();
   });
 
@@ -101,10 +102,10 @@ describe('PermitSimulation', () => {
 
     expect(await findByText('30')).toBeInTheDocument();
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationDetailInfo.message),
+      await findByText(messages.permitSimulationDetailInfo),
     ).toBeInTheDocument();
   });
 
@@ -147,10 +148,10 @@ describe('PermitSimulation', () => {
     );
 
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_approve.message),
+      await findByText(messages.permitSimulationChange_approve),
     ).toBeInTheDocument();
   });
 
@@ -166,10 +167,10 @@ describe('PermitSimulation', () => {
     );
 
     expect(
-      await findByText(messages.permitSimulationChange_nft_listing.message),
+      await findByText(messages.permitSimulationChange_nft_listing),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_listing.message),
+      await findByText(messages.permitSimulationChange_listing),
     ).toBeInTheDocument();
   });
 });

@@ -49,7 +49,7 @@ import {
  * Route definition for a Settings page.
  */
 export type SettingsRouteMeta = {
-  /** i18n key for the route label (used in header, breadcrumbs, TabBar) */
+  /** English text key for the route label (used in header, breadcrumbs, TabBar) */
   labelKey: string;
   /** Parent path for back navigation; undefined = settings root */
   parentPath?: string;

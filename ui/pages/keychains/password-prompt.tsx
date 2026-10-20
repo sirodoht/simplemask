@@ -16,7 +16,7 @@ import {
   HelpTextSeverity,
 } from '../../components/component-library';
 import { BlockSize } from '../../helpers/constants/design-system';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 
 type PasswordPromptProps = {
   password: string;
@@ -37,7 +37,7 @@ export function PasswordPrompt({
   onSubmit,
   onContinueClick,
 }: Readonly<PasswordPromptProps>) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <>
       <form

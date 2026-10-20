@@ -1,6 +1,7 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 import {
   Display,
@@ -28,7 +29,7 @@ import { ModalContent } from '../../../../components/component-library/modal-con
 import { ModalHeader } from '../../../../components/component-library/modal-header/deprecated';
 
 const ConfirmationWarningModal = ({ onSubmit, onCancel }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Modal
       isOpen

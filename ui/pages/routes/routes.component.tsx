@@ -86,7 +86,7 @@ import {
 import { pageChanged } from '../../ducks/history/history';
 import { getCompletedOnboarding } from '../../ducks/metamask/metamask';
 import { getIsUnlocked } from '../../ducks/metamask/base-selectors';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import Home from '../home/home.tsx';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../shared/constants/preferences';
 import {
@@ -537,7 +537,6 @@ export default function Routes() {
     useAppSelector(getPreferences);
   const completedOnboarding = useAppSelector(getCompletedOnboarding);
 
-  const textDirection = useAppSelector((state) => state.metamask.textDirection);
   const isUnlocked = useAppSelector(getIsUnlocked);
   const currentCurrency = useAppSelector(
     getCurrencyRateControllerCurrentCurrency,
@@ -657,7 +656,7 @@ export default function Routes() {
     </Suspense>
   );
 
-  const t = useI18nContext();
+  const t = getText;
 
   const loadMessage = loadingMessage
     ? getConnectingLabel(loadingMessage, { providerType, providerId }, { t })
@@ -690,7 +689,7 @@ export default function Routes() {
         [`browser-${browser}`]: Boolean(browser),
         'group app--sidepanel': isSidepanel,
       })}
-      dir={textDirection}
+      dir="ltr"
     >
       <ConfirmationRouter />
       <NetworkHandler />

@@ -1,6 +1,6 @@
 import { AvatarAccountVariant } from '@metamask/design-system-react';
 
-// Avatar variants with their corresponding translation keys.
+// Avatar variants with their corresponding text keys.
 export const AVATAR_OPTIONS: {
   value: AvatarAccountVariant;
   labelKey: string;
@@ -10,7 +10,7 @@ export const AVATAR_OPTIONS: {
   { value: AvatarAccountVariant.Blockies, labelKey: 'blockies' },
 ];
 
-// Map of avatar variants to their translation keys.
+// Map of avatar variants to their text keys.
 export const AVATAR_LABEL_MAP: Record<AvatarAccountVariant, string> =
   Object.fromEntries(
     AVATAR_OPTIONS.map(({ value, labelKey }) => [value, labelKey]),

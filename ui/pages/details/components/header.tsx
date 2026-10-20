@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   ButtonIcon,
   ButtonIconSize,
@@ -9,7 +10,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type Props = {
   item: ActivityListItem | undefined;
@@ -92,7 +93,7 @@ function getTitleConfig(item: ActivityListItem | undefined) {
 }
 
 export function Header({ item, onBack }: Props) {
-  const t = useI18nContext();
+  const t = getText;
   const titleConfig = getTitleConfig(item);
 
   return (

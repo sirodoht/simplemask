@@ -14,7 +14,7 @@ import {
   Page,
 } from '../../../components/multichain/pages/page';
 import { TextVariant as LegacyTextVariant } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { ImportAccount } from '../../../components/multichain/import-account/import-account';
 import { toast, ToastContent } from '../../../components/ui/toast/toast';
 import {
@@ -32,7 +32,7 @@ const autoHideToastDelay = 5 * SECOND;
  * For now, it only handles Private Key account imports
  */
 export const AddWalletPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   const onActionComplete = useCallback(

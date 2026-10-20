@@ -1,10 +1,10 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { NetworkConfiguration } from '@metamask/network-controller';
 import {
   Box,
   BoxAlignItems,
-  BoxFlexDirection,
   BoxJustifyContent,
 } from '@metamask/design-system-react';
 import {
@@ -15,7 +15,7 @@ import {
   ModalFooter,
   Text,
 } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Display,
   FlexDirection,
@@ -30,7 +30,7 @@ import { useDispatch } from '../../../store/hooks';
 import NetworkListItem from './network-list-item/network-list-item';
 
 function MultiRpcEditModal() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const isPopUp = getEnvironmentType() === ENVIRONMENT_TYPE_POPUP;
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);

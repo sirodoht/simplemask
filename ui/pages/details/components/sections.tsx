@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type {
   ActivityListItem,
   TokenAmount,
@@ -9,7 +10,7 @@ import { NetworkName } from '../../../components/app/transaction/network-name';
 import { TransactionId } from '../../../components/app/transaction/transaction-id';
 import { TransactionStatus } from '../../../components/app/transaction/transaction-status';
 import { useFormatters } from '../../../hooks/useFormatters';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { Row, Section } from './shared';
 import { TokenRow } from './token-row';
 
@@ -47,7 +48,7 @@ export function MetadataSection({
   item: ActivityListItem;
   addressRows?: { from?: string; to?: string };
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { formatDateTime } = useFormatters();
   const accountAddress = item.data.from;
   const showAddressRows = Boolean(addressRows?.from && addressRows?.to);

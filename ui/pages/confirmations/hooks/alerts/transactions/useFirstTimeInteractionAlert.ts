@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Hex } from '@metamask/utils';
 import { hasTransactionType } from '../../../../../../shared/lib/transactions.utils';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { Severity } from '../../../../../helpers/constants/design-system';
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { useConfirmContext } from '../../../context/confirm';
@@ -20,7 +20,7 @@ import {
 import { getExperience } from '../../../../../../shared/constants/verification';
 
 export function useFirstTimeInteractionAlert(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const internalAccounts = useSelector(getInternalAccounts);
   const to = useTransferRecipient();

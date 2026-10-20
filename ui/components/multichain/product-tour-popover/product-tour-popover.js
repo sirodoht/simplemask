@@ -1,4 +1,5 @@
 import React from 'react';
+
 import classnames from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -22,7 +23,7 @@ import {
   TextVariant,
 } from '../../../helpers/constants/design-system';
 import { Box, Text } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { Menu } from '../../ui/menu';
 
 export const ProductTour = ({
@@ -40,7 +41,7 @@ export const ProductTour = ({
   productTourDirection = 'ltr',
   ...props
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Menu
       className={classnames(

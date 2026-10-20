@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+
 import { createFormatters } from '@metamask/client-utils';
-import { getIntlLocale } from '../ducks/locale/locale';
 
 const dateTimeFormatCache: Record<string, Intl.DateTimeFormat> = {};
 
@@ -16,7 +15,7 @@ function getCachedDateTimeFormat(
   return dateTimeFormatCache[key];
 }
 
-// Format a timestamp as a localized medium date string (e.g. "Mar 15, 2024").
+// Format a timestamp as a English medium date string (e.g. "Mar 15, 2024").
 function formatMediumDate(
   locale: string,
   timestamp: string | number,
@@ -32,14 +31,14 @@ function formatMediumDate(
 }
 
 export function useFormatters() {
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
 
   return useMemo(() => {
     const base = createFormatters({ locale });
     return {
       ...base,
       /**
-       * Format a timestamp as a localized medium date string (e.g. "Mar 15, 2024").
+       * Format a timestamp as a English medium date string (e.g. "Mar 15, 2024").
        */
       formatMediumDate: formatMediumDate.bind(null, locale),
     };

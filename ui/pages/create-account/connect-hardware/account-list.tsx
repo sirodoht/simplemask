@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { getAccountLink } from '@metamask/etherscan-link';
 import { upperFirst } from 'lodash';
 
@@ -34,7 +28,7 @@ import {
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type HardwareAccount = {
   address: string;
@@ -82,7 +76,7 @@ const AccountList = ({
   onAccountRestriction,
   hdPaths,
 }: AccountListProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [pathValue, setPathValue] = useState<string | null>(null);
   const trackEventRef = useRef(trackEvent);

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -12,7 +13,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { LedgerConnectionStatusDeviceSelector } from '../ledger-connection-status-device-selector';
 import { LedgerConnectionStatusIllustration } from '../ledger-connection-status-illustration';
 import { LedgerConnectionStatusInstructions } from '../ledger-connection-status-instructions';
@@ -40,7 +41,7 @@ export const LedgerConnectionStatus = ({
   onBack,
   onDeviceSelectorClick,
 }: Readonly<LedgerConnectionStatusProps>) => {
-  const t = useI18nContext();
+  const t = getText;
   const contentConfig = LEDGER_CONNECTION_STATUS_CONTENT[status];
   const title = t(contentConfig.titleKey);
   const description = contentConfig.descriptionKey

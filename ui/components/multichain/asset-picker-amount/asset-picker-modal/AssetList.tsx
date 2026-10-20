@@ -19,7 +19,7 @@ import {
 } from '../../../../helpers/constants/design-system';
 import { TokenListItem } from '../../token-list-item';
 import LoadingScreen from '../../../ui/loading-screen';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   getMultichainCurrentCurrency,
   getMultichainCurrentChainId,
@@ -75,7 +75,7 @@ export default function AssetList({
   assetItemProps = {},
   isDestinationToken = false,
 }: AssetListProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   const currentNetwork = useMultichainSelector(getMultichainCurrentNetwork);
   // If a network is provided, display tokens in that network

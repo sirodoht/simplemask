@@ -21,7 +21,7 @@ import {
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
 import useAlerts from '../../../../../hooks/useAlerts';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { TypedSignSignaturePrimaryTypes } from '../../../constants';
 import { useConfirmContext } from '../../../context/confirm';
 import { useTypedSignSignatureInfo } from '../../../hooks/useTypedSignSignatureInfo';
@@ -231,10 +231,7 @@ const getDescription = (
         const permissionType = (confirmation as SignatureRequestType)
           .decodedPermission?.permission?.type;
 
-        return getPermissionDescription(
-          t as ReturnType<typeof useI18nContext>,
-          permissionType,
-        );
+        return getPermissionDescription(t as typeof getText, permissionType);
       }
 
       return t('confirmTitleDescSign');
@@ -278,7 +275,7 @@ export function TitleSkeleton() {
 }
 
 const ConfirmTitle = memo(() => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
   const { isUpgradeOnly } = useIsUpgradeTransaction();
   const { loader } = useConfirmationNavigationOptions();

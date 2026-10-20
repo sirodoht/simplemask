@@ -22,7 +22,7 @@ import {
   BoxJustifyContent,
   BoxAlignItems,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { setSeedPhraseBackedUp } from '../../../store/actions';
 import { MetaMetricsContext } from '../../../contexts/metametrics';
 import { useAnalytics } from '../../../hooks/useAnalytics';
@@ -78,7 +78,7 @@ export default function ConfirmRecoveryPhrase({ secretRecoveryPhrase = '' }) {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const isFirefox = useIsFirefox();
   const { isFromReminder, isFromSettingsSecurity, nextRouteQueryString } =
     useOnboardingSearchParams();

@@ -1,8 +1,8 @@
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { getNotificationsSettingsSectionConfigs } from './notifications-settings-types';
 
 describe('getNotificationsSettingsSectionConfigs', () => {
-  const t = ((key: string) => key) as ReturnType<typeof useI18nContext>;
+  const t = ((key: string) => key) as typeof getText;
 
   it('does not offer marketing notifications', () => {
     const sections = getNotificationsSettingsSectionConfigs(t);

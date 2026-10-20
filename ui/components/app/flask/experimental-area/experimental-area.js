@@ -1,7 +1,7 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { I18nContext } from '../../../../contexts/i18n';
+import { getText } from '../../../../helpers/utils/text';
 import { Button, ButtonVariant } from '../../../component-library';
 
 function lineBreaksToBr(source) {
@@ -67,7 +67,7 @@ const EXPERIMENTAL_AREA = lineBreaksToBr(`█▀▀ ▄▀█ █░█ ▀█�
   ▄█ █▄█ █▀░ ░█░ ▀▄▀▄▀ █▀█ █▀▄ ██▄`);
 
 export default function ExperimentalArea({ redirectTo }) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const navigate = useNavigate();
 
   const onClick = () => {

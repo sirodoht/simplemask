@@ -39,7 +39,7 @@ import ZENDESK_URLS from '../../helpers/constants/zendesk-url';
 import HomeNotification from '../../components/app/home-notification';
 import MultipleNotifications from '../../components/app/multiple-notifications';
 import { SeedPhraseBackupNotificationContainer } from '../../components/app/recovery-phrase-reminder';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import type { MetaMaskReduxState } from '../../store/store';
 import { useDispatch } from '../../store/hooks';
 
@@ -62,7 +62,7 @@ export function resetActivatedNewNetworkConfigurationIdsForTesting(): void {
  * longer needs any notification-specific props.
  */
 export const HomeNotificationsContainer = memo(function () {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const [canShowBlockageNotification, setCanShowBlockageNotification] =

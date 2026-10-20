@@ -1,5 +1,6 @@
 import React from 'react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+
+import { getText } from '../../../helpers/utils/text';
 import { useTemplateAlertContext } from '../../../pages/confirmations/confirmation/alerts/TemplateAlertContext';
 import { IconName } from '../../component-library';
 import { PageContainerFooter } from '../../ui/page-container';
@@ -15,7 +16,7 @@ export const PermissionPageContainerFooter = ({
   onCancel: () => void;
   onSubmit: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { hasAlerts, showAlertsModal } = useTemplateAlertContext();
 
   return (

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { SnapUIRenderer } from '../../../../../../components/app/snaps/snap-ui-renderer';
 import { Delineator } from '../../../../../../components/ui/delineator';
@@ -9,7 +10,7 @@ import {
   FontWeight,
   BackgroundColor,
 } from '../../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { getSnapMetadata } from '../../../../../../selectors';
 import Tooltip from '../../../../../../components/ui/tooltip';
 
@@ -26,7 +27,7 @@ export const SnapInsight = ({
   loading,
   isExpanded,
 }: SnapInsightProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { name: snapName } = useSelector((state) =>
     getSnapMetadata(state, snapId),
   );

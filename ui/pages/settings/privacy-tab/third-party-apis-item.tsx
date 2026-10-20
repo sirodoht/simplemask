@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -14,11 +15,11 @@ import {
   IconSize,
 } from '@metamask/design-system-react';
 import { THIRD_PARTY_APIS_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PRIVACY_ITEMS } from '../search-config';
 
 export const ThirdPartyApisItem = () => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Link to={THIRD_PARTY_APIS_ROUTE}>

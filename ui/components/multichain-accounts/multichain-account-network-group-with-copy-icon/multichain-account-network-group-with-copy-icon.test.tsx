@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import configureStore from '../../../store/store';
 import mockDefaultState from '../../../../test/data/mock-state.json';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
@@ -83,7 +84,7 @@ describe('MultichainAccountNetworkGroupWithCopyIcon', () => {
 
     expect(
       screen.getByText(
-        `${messages.networkNameEthereum.message} ${messages.addressCopied.message.toLowerCase()}`,
+        `${messages.networkNameEthereum} ${messages.addressCopied.toLowerCase()}`,
       ),
     ).toBeInTheDocument();
   });

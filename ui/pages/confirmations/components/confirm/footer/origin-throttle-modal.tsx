@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useModalProps } from '../../../../../hooks/useModalProps';
 import {
   Box,
@@ -23,7 +23,7 @@ import {
   IconColor,
   JustifyContent,
 } from '../../../../../helpers/constants/design-system';
-import { I18nContext } from '../../../../../contexts/i18n';
+import { getText } from '../../../../../helpers/utils/text';
 import { useOriginThrottling } from '../../../hooks/useOriginThrottling';
 import OriginPill from '../../../../../components/ui/origin-pill/origin-pill';
 import { MetaMetricsEventLocation } from '../../../../../../shared/constants/metametrics';
@@ -39,7 +39,7 @@ const MultipleRequestContent = ({
   }) => void;
   setIsTemporaryBlock: (isTemporaryBlock: boolean) => void;
 }) => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const { origin, resetOrigin } = useOriginThrottling();
 
   return (
@@ -108,7 +108,7 @@ const OriginBlockedContent = ({
     location?: MetaMetricsEventLocation;
   }) => void;
 }) => {
-  const t = useContext(I18nContext);
+  const t = getText;
 
   return (
     <ModalContent size={ModalContentSize.Md}>

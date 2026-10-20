@@ -10,7 +10,7 @@ import {
   ButtonIconSize,
   IconName,
 } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export type SecurityCheckHeaderProps = {
   /** Zero-based index of the current step. Pass `null` to hide progress (e.g. on the terminal warning screen). */
@@ -24,7 +24,7 @@ export const SecurityCheckHeader: React.FC<SecurityCheckHeaderProps> = ({
   totalSteps,
   onBack,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   // Start the fill at 1/N so the first step doesn't read as 0%.
   const fillPercent =

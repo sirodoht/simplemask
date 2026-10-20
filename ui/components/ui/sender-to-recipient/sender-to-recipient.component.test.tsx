@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import SenderToRecipient from './sender-to-recipient.component';
 import { CARDS_VARIANT } from './sender-to-recipient.constants';
 
@@ -54,6 +55,6 @@ describe('SenderToRecipient', () => {
       'sender-to-recipient--cards',
     );
     expect(queryByTestId('account-mismatch-warning')).not.toBeInTheDocument();
-    expect(getByText(messages.newContract.message)).toBeInTheDocument();
+    expect(getByText(messages.newContract)).toBeInTheDocument();
   });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { getIntlLocale } from '../../../ducks/locale/locale';
+
 import {
   getSelectedAccount,
   getShouldHideZeroBalanceTokens,
@@ -24,10 +24,6 @@ const mockUseGetFormattedTokensPerChain = jest.fn().mockReturnValue({
 });
 jest.mock('../../../hooks/useGetFormattedTokensPerChain', () => ({
   useGetFormattedTokensPerChain: () => mockUseGetFormattedTokensPerChain(),
-}));
-
-jest.mock('../../../ducks/locale/locale', () => ({
-  getIntlLocale: jest.fn(),
 }));
 
 jest.mock('../../../selectors', () => ({
@@ -56,7 +52,6 @@ jest.mock('../../../hooks/useAccountTotalCrossChainFiatBalance', () => ({
   useAccountTotalCrossChainFiatBalance: jest.fn(),
 }));
 
-const mockGetIntlLocale = getIntlLocale as unknown as jest.Mock;
 const mockGetCurrentCurrency = getCurrentCurrency as jest.Mock;
 const mockGetPreferences = getPreferences as jest.Mock;
 const mockGetSelectedAccount = getSelectedAccount as unknown as jest.Mock;
@@ -380,7 +375,6 @@ const positiveCrossChainMarketDataMock = {
 };
 describe('AggregatedPercentageOverviewCrossChains', () => {
   beforeEach(() => {
-    mockGetIntlLocale.mockReturnValue('en-US');
     mockGetCurrentCurrency.mockReturnValue('USD');
     mockGetPreferences.mockReturnValue({ privacyMode: false });
     mockGetSelectedAccount.mockReturnValue(selectedAccountMock);

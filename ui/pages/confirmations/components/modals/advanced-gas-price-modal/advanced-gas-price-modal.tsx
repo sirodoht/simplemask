@@ -8,7 +8,7 @@ import { pickBy } from 'lodash';
 
 import { GasPriceInput } from '../../gas-price-input/gas-price-input';
 import { useConfirmContext } from '../../../context/confirm';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { updateTransactionGasFees } from '../../../../../store/actions/update-transaction-gas-fees';
 import { hexWEIToDecGWEI } from '../../../../../../shared/lib/conversion.utils';
 import { usePersistGasFeePreference } from '../../../hooks/gas/usePersistGasFeePreference';
@@ -40,7 +40,7 @@ const AdvancedGasPriceModalContent = ({
   isGasLimitEditable: boolean;
   setGasLimit: (gasLimit: Hex) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const persistGasFeePreference = usePersistGasFeePreference();
 

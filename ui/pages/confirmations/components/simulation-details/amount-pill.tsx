@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { BigNumber } from 'bignumber.js';
-import { useSelector } from 'react-redux';
+
 import { Box, Text } from '../../../../components/component-library';
 import {
   AlignItems,
@@ -13,9 +14,9 @@ import {
 import { hexToDecimal } from '../../../../../shared/lib/conversion.utils';
 import { TokenStandard } from '../../../../../shared/constants/transaction';
 import Tooltip from '../../../../components/ui/tooltip';
-import { getIntlLocale } from '../../../../ducks/locale/locale';
+
 import { shortenString as shortenAssetId } from '../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   formatAmount,
   formatAmountMaxPrecision,
@@ -46,8 +47,8 @@ export const AmountPill = ({
   isAllApproval?: boolean;
   isUnlimitedApproval?: boolean;
 }) => {
-  const t = useI18nContext();
-  const locale = useSelector(getIntlLocale);
+  const t = getText;
+  const locale = 'en';
   const color = getColor({ amount, isApproval });
 
   const amountParts: string[] = [];

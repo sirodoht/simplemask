@@ -61,7 +61,7 @@ import {
   jsonRpcRequest,
 } from '../../../../shared/lib/rpc.utils';
 import { submitRequestToBackground } from '../../../store/background-connection';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getNetworkConfigurationsByChainId,
   getSelectedNetworkClientId,
@@ -128,7 +128,7 @@ export const NetworksForm = ({
   onAddFromChainlist?: () => void;
   chainlist?: NetworksFormChainlist;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const scrollableRef = useRef<HTMLDivElement>(null);

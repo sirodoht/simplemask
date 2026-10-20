@@ -86,10 +86,7 @@ export function createEnrichmentContext(
   };
 
   return {
-    getLocale: () =>
-      messenger
-        .call('PreferencesController:getState')
-        .currentLocale.replace('_', '-'),
+    getLocale: () => 'en',
     getDefaultChainId,
     getPageChainProperties: (): AnalyticsEventProperties => {
       const { isEvmSelected, selectedMultichainNetworkChainId } =

@@ -1,6 +1,7 @@
+import React from 'react';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import { Hex } from '@metamask/utils';
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { getNetworkConfigurationsByChainId } from '../../../../../../shared/lib/selectors/networks';
 import { Text } from '../../../../../components/component-library';
@@ -8,12 +9,12 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { ellipsify } from '../../../send-utils/send.utils';
 
 export const NonContractAddressAlertMessage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 

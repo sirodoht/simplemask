@@ -19,7 +19,7 @@ import { type CaipChainId, type Hex } from '@metamask/utils';
 import { isValidHexAddress } from '../../../shared/lib/hexstring-utils';
 import { addHexPrefix } from '../../../shared/lib/add-hex-prefix';
 
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { Header, Page } from '../../components/multichain/pages/page';
 import {
   addImportedTokens,
@@ -119,7 +119,7 @@ export function mergeCustomTokenMetadataForImport(
  * Full-screen "Add a custom token" page.
  */
 export const CustomTokenImportPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { trackEvent, createEventBuilder } = useAnalytics();

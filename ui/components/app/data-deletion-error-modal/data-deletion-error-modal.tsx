@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -11,7 +12,7 @@ import {
   IconColor,
   TextAlign,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ModalOverlay,
   ModalContent,
@@ -30,7 +31,7 @@ import { hideDataDeletionErrorModal } from '../../../ducks/app/app';
 import { useDispatch } from '../../../store/hooks';
 
 export default function DataDeletionErrorModal() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   function closeModal() {

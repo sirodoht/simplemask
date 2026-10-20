@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { act, fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { QR_SYNC_TIMEOUT_MS } from '../../../../../shared/constants/qr-sync';
 import { selectQrSyncQrPayload } from '../../../../selectors/qr-sync/qr-sync';
 import QrCodeScan from './qr-code-scan';
@@ -57,10 +58,8 @@ describe('QrCodeScan', () => {
     const mockStore = createMockStore();
     renderQrCodeScan(mockStore);
 
-    expect(screen.getByText(messages.scanQrCode.message)).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.scan_qr_code_desc.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.scanQrCode)).toBeInTheDocument();
+    expect(screen.getByText(messages.scan_qr_code_desc)).toBeInTheDocument();
     expect(screen.getByTestId('qr-code-image')).toBeInTheDocument();
   });
 
@@ -84,9 +83,7 @@ describe('QrCodeScan', () => {
       jest.advanceTimersByTime(QR_SYNC_TIMEOUT_MS.MWP_SESSION_TIMEOUT);
     });
 
-    expect(
-      screen.getByText(messages.qrCodeExpired.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.qrCodeExpired)).toBeInTheDocument();
     expect(
       screen.getByTestId('qr-sync-generate-new-qr-code'),
     ).toBeInTheDocument();

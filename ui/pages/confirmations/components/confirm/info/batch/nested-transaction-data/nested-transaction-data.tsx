@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   BatchTransactionParams,
   TransactionMeta,
@@ -14,7 +15,7 @@ import {
   ConfirmInfoRowText,
 } from '../../../../../../../components/app/confirm/info/row';
 import { ConfirmInfoRowCurrency } from '../../../../../../../components/app/confirm/info/row/currency';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useNestedTransactionLabels } from '../../hooks/useNestedTransactionLabels';
 
 export function NestedTransactionData() {
@@ -49,7 +50,7 @@ function NestedTransaction({
   nestedTransaction: BatchTransactionParams;
   chainId: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { data, to, value } = nestedTransaction;
 
   const label = useNestedTransactionLabels({

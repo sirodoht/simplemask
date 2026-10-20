@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { RpcEndpointType } from '@metamask/network-controller';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import configureStore from '../../store/store';
 import mockState from '../../../test/data/mock-state.json';
 import { NETWORKS_ROUTE } from '../../helpers/constants/routes';
@@ -281,17 +282,13 @@ describe('NetworksPage', () => {
       showTestNetworks: false,
     });
 
-    const defaultNetworksHeader = screen.getByText(
-      messages.defaultNetworks.message,
-    );
-    const customNetworksHeader = screen.getByText(
-      messages.customNetworks.message,
-    );
+    const defaultNetworksHeader = screen.getByText(messages.defaultNetworks);
+    const customNetworksHeader = screen.getByText(messages.customNetworks);
     const showTestNetworksHeader = screen.getByText(
-      messages.showTestnetNetworks.message,
+      messages.showTestnetNetworks,
     );
     const additionalNetworksHeader = screen.getByText(
-      messages.additionalNetworks.message,
+      messages.additionalNetworks,
     );
 
     expect(screen.getByText('Custom network 1')).toBeInTheDocument();
@@ -305,9 +302,7 @@ describe('NetworksPage', () => {
     expect(
       showTestNetworksHeader.compareDocumentPosition(additionalNetworksHeader),
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(
-      screen.getByText(messages.addACustomNetwork.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.addACustomNetwork)).toBeInTheDocument();
 
     const testnetToggle = screen.getByTestId(
       'networks-page-show-test-networks',
@@ -326,10 +321,10 @@ describe('NetworksPage', () => {
       ).toBeInTheDocument();
     });
     expect(
-      screen.getByText(messages.settingsSearchMatchingNotFound.message),
+      screen.getByText(messages.settingsSearchMatchingNotFound),
     ).toBeInTheDocument();
     expect(
-      screen.getByAltText(messages.settingsSearchMatchingNotFound.message),
+      screen.getByAltText(messages.settingsSearchMatchingNotFound),
     ).toHaveAttribute('src', './images/empty-state-activity-light.png');
     expect(screen.queryByText('Custom network 1')).not.toBeInTheDocument();
     expect(screen.queryByText('Sepolia')).not.toBeInTheDocument();
@@ -338,7 +333,7 @@ describe('NetworksPage', () => {
   it('renders the add network flow from the query param', () => {
     renderNetworksPage({ pathname: `${NETWORKS_ROUTE}?view=add` });
 
-    expect(screen.getByText(messages.addNetwork.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.addNetwork)).toBeInTheDocument();
     expect(
       screen.queryByTestId('network-form-add-from-chainlist'),
     ).not.toBeInTheDocument();
@@ -351,9 +346,7 @@ describe('NetworksPage', () => {
       screen.getByTestId('networks-page-add-custom-network-button'),
     );
 
-    expect(
-      await screen.findByText(messages.addNetwork.message),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(messages.addNetwork)).toBeInTheDocument();
   });
 
   it('keeps the add from Chainlist button when chainlist v2 is off', () => {
@@ -381,7 +374,7 @@ describe('NetworksPage', () => {
 
     expect(
       screen.queryByRole('button', {
-        name: messages.addFromChainlist.message,
+        name: messages.addFromChainlist,
       }),
     ).not.toBeInTheDocument();
 
@@ -496,12 +489,10 @@ describe('NetworksPage', () => {
       });
     });
 
-    expect(
-      screen.getByText(messages.chainlistNoMatches.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.chainlistNoMatches)).toBeInTheDocument();
     expect(screen.getByText('Use "sasdf" as network name')).toBeInTheDocument();
     expect(
-      screen.getByText(messages.chainlistEnterNetworkDetailsManually.message),
+      screen.getByText(messages.chainlistEnterNetworkDetailsManually),
     ).toBeInTheDocument();
     expect(
       screen.queryByTestId('networks-page-chainlist-source-banner'),
@@ -528,13 +519,9 @@ describe('NetworksPage', () => {
       pathname: `${NETWORKS_ROUTE}?view=add-from-chainlist`,
     });
 
+    expect(await screen.findByText(messages.addNetwork)).toBeInTheDocument();
     expect(
-      await screen.findByText(messages.addNetwork.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByPlaceholderText(
-        messages.searchNetworkNameOrChainId.message,
-      ),
+      screen.queryByPlaceholderText(messages.searchNetworkNameOrChainId),
     ).not.toBeInTheDocument();
   });
 
@@ -545,9 +532,7 @@ describe('NetworksPage', () => {
     });
 
     expect(
-      await screen.findByPlaceholderText(
-        messages.searchNetworkNameOrChainId.message,
-      ),
+      await screen.findByPlaceholderText(messages.searchNetworkNameOrChainId),
     ).toBeInTheDocument();
     expect(
       screen
@@ -563,7 +548,7 @@ describe('NetworksPage', () => {
     expect(screen.queryByText('HTTP Only Network')).not.toBeInTheDocument();
     expect(
       screen.getByText(
-        messages.chainlistNetworkDetails.message
+        messages.chainlistNetworkDetails
           .replace('$1', 'xDAI')
           .replace('$2', '100'),
       ),
@@ -582,9 +567,7 @@ describe('NetworksPage', () => {
 
     fireEvent.click(gnosisButton as HTMLButtonElement);
 
-    expect(
-      await screen.findByText(messages.addNetwork.message),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(messages.addNetwork)).toBeInTheDocument();
     expect(screen.getByTestId('network-form-network-name')).toHaveValue(
       'Gnosis',
     );
@@ -604,9 +587,7 @@ describe('NetworksPage', () => {
     });
 
     fireEvent.change(
-      await screen.findByPlaceholderText(
-        messages.searchNetworkNameOrChainId.message,
-      ),
+      await screen.findByPlaceholderText(messages.searchNetworkNameOrChainId),
       { target: { value: 'Sepolia' } },
     );
     await waitFor(() => {
@@ -629,15 +610,13 @@ describe('NetworksPage', () => {
     });
 
     fireEvent.change(
-      await screen.findByPlaceholderText(
-        messages.searchNetworkNameOrChainId.message,
-      ),
+      await screen.findByPlaceholderText(messages.searchNetworkNameOrChainId),
       { target: { value: 'Sepolia' } },
     );
     expect(await screen.findByText('Sepolia')).toBeInTheDocument();
     expect(
       screen.getByTestId('networks-page-chainlist-added-pill'),
-    ).toHaveTextContent(messages.added.message);
+    ).toHaveTextContent(messages.added);
   });
 
   it('prefills only the top Chainlist RPC URL in the add network form', async () => {
@@ -647,9 +626,7 @@ describe('NetworksPage', () => {
     });
 
     fireEvent.change(
-      await screen.findByPlaceholderText(
-        messages.searchNetworkNameOrChainId.message,
-      ),
+      await screen.findByPlaceholderText(messages.searchNetworkNameOrChainId),
       { target: { value: 'Multi RPC' } },
     );
 
@@ -660,9 +637,7 @@ describe('NetworksPage', () => {
 
     fireEvent.click(multiRpcButton as HTMLButtonElement);
 
-    expect(
-      await screen.findByText(messages.addNetwork.message),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(messages.addNetwork)).toBeInTheDocument();
     expect(screen.getByText('rpc-primary.example.com')).toBeInTheDocument();
     expect(
       screen.queryByText('rpc-secondary.example.com'),
@@ -709,7 +684,7 @@ describe('NetworksPage', () => {
     });
 
     expect(
-      await screen.findByText(messages.chainlistNoMatches.message),
+      await screen.findByText(messages.chainlistNoMatches),
     ).toBeInTheDocument();
     expect(
       screen.queryByTestId('networks-page-chainlist-use-typed-name'),
@@ -735,7 +710,7 @@ describe('NetworksPage', () => {
     );
 
     fireEvent.click(screen.getByTestId('test-add-rpc-drop-down'));
-    fireEvent.click(screen.getByText(messages.addRpcUrl.message));
+    fireEvent.click(screen.getByText(messages.addRpcUrl));
 
     expect(await screen.findByTestId('rpc-url-input-test')).toBeInTheDocument();
     expect(screen.getByTestId('add-rpc-network-name')).toHaveTextContent(
@@ -771,7 +746,7 @@ describe('NetworksPage', () => {
       ) as HTMLButtonElement,
     );
     fireEvent.click(screen.getByTestId('test-add-rpc-drop-down'));
-    fireEvent.click(screen.getByText(messages.addRpcUrl.message));
+    fireEvent.click(screen.getByText(messages.addRpcUrl));
     fireEvent.click(
       await screen.findByTestId('networks-page-form-back-button'),
     );
@@ -804,10 +779,10 @@ describe('NetworksPage', () => {
     );
 
     fireEvent.click(screen.getByTestId('test-explorer-drop-down'));
-    fireEvent.click(screen.getByText(messages.addBlockExplorerUrl.message));
+    fireEvent.click(screen.getByText(messages.addBlockExplorerUrl));
 
     expect(
-      await screen.findByText(messages.addBlockExplorerUrl.message),
+      await screen.findByText(messages.addBlockExplorerUrl),
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId('networks-page-form-back-button'));
@@ -828,21 +803,21 @@ describe('NetworksPage', () => {
       editedNetwork: { chainId: '0x1', nickname: 'Ethereum' },
     });
 
-    expect(screen.getByText(messages.editNetwork.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.editNetwork)).toBeInTheDocument();
     expect(screen.getByTestId('network-form-network-name')).toHaveValue(
       'Ethereum',
     );
 
     fireEvent.click(screen.getByTestId('test-explorer-drop-down'));
-    fireEvent.click(screen.getByText(messages.addBlockExplorerUrl.message));
+    fireEvent.click(screen.getByText(messages.addBlockExplorerUrl));
 
     expect(
-      await screen.findByText(messages.addBlockExplorerUrl.message),
+      await screen.findByText(messages.addBlockExplorerUrl),
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId('networks-page-form-back-button'));
 
-    expect(screen.getByText(messages.editNetwork.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.editNetwork)).toBeInTheDocument();
     expect(screen.getByTestId('network-form-network-name')).toHaveValue(
       'Ethereum',
     );
@@ -883,9 +858,7 @@ describe('NetworksPage', () => {
     });
 
     fireEvent.change(
-      await screen.findByPlaceholderText(
-        messages.searchNetworkNameOrChainId.message,
-      ),
+      await screen.findByPlaceholderText(messages.searchNetworkNameOrChainId),
       { target: { value: 'Multi RPC' } },
     );
     fireEvent.click(
@@ -901,7 +874,7 @@ describe('NetworksPage', () => {
       screen.queryByText('rpc-primary.example.com'),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(messages.failedToFetchChainId.message),
+      screen.queryByText(messages.failedToFetchChainId),
     ).not.toBeInTheDocument();
   });
 
@@ -941,7 +914,7 @@ describe('NetworksPage', () => {
         '[data-testid="delete-item-0"]',
       ) as HTMLElement,
     );
-    fireEvent.click(screen.getByText(messages.addRpcUrl.message));
+    fireEvent.click(screen.getByText(messages.addRpcUrl));
 
     fireEvent.change(await screen.findByTestId('rpc-url-input-test'), {
       target: { value: 'https://custom.example.com' },
@@ -970,7 +943,7 @@ describe('NetworksPage', () => {
     );
 
     expect(
-      await screen.findByText(messages.failedToFetchChainId.message),
+      await screen.findByText(messages.failedToFetchChainId),
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId('test-add-rpc-drop-down'));
@@ -983,7 +956,7 @@ describe('NetworksPage', () => {
 
     expect(screen.queryByText('rpc.gnosischain.com')).not.toBeInTheDocument();
     expect(
-      screen.queryByText(messages.failedToFetchChainId.message),
+      screen.queryByText(messages.failedToFetchChainId),
     ).not.toBeInTheDocument();
   });
 
@@ -1000,9 +973,7 @@ describe('NetworksPage', () => {
 
     fireEvent.click(cronosButton as HTMLButtonElement);
 
-    expect(
-      await screen.findByText(messages.addNetwork.message),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(messages.addNetwork)).toBeInTheDocument();
     expect(screen.getByTestId('network-form-network-name')).toHaveValue(
       'Cronos',
     );
@@ -1016,9 +987,7 @@ describe('NetworksPage', () => {
     });
 
     fireEvent.change(
-      await screen.findByPlaceholderText(
-        messages.searchNetworkNameOrChainId.message,
-      ),
+      await screen.findByPlaceholderText(messages.searchNetworkNameOrChainId),
       { target: { value: 'ugtfvh' } },
     );
     await waitFor(() => {
@@ -1027,10 +996,10 @@ describe('NetworksPage', () => {
       ).toBeInTheDocument();
     });
     expect(
-      screen.getByText(messages.settingsSearchMatchingNotFound.message),
+      screen.getByText(messages.settingsSearchMatchingNotFound),
     ).toBeInTheDocument();
     expect(
-      screen.getByAltText(messages.settingsSearchMatchingNotFound.message),
+      screen.getByAltText(messages.settingsSearchMatchingNotFound),
     ).toHaveAttribute('src', './images/empty-state-activity-light.png');
     expect(screen.queryByText('Gnosis')).not.toBeInTheDocument();
   });
@@ -1080,13 +1049,11 @@ describe('NetworksPage', () => {
     const gnosisButton = screen.getByText('Gnosis Custom').closest('button');
     expect(
       screen.getByTestId('networks-page-chainlist-added-pill'),
-    ).toHaveTextContent(messages.added.message);
+    ).toHaveTextContent(messages.added);
 
     fireEvent.click(gnosisButton as HTMLButtonElement);
 
-    expect(
-      await screen.findByText(messages.editNetwork.message),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(messages.editNetwork)).toBeInTheDocument();
   });
 
   it('renders the custom rpc page with footer actions and adds the rpc', async () => {
@@ -1104,9 +1071,7 @@ describe('NetworksPage', () => {
     );
     fireEvent.click(screen.getByTestId('page-container-footer-next'));
 
-    expect(
-      await screen.findByText(messages.editNetwork.message),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(messages.editNetwork)).toBeInTheDocument();
   });
 
   it('tracks a Chainlist RPC added to the network being edited', async () => {

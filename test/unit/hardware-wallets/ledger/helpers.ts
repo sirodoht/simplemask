@@ -1,4 +1,4 @@
-import { enLocale as messages } from '../../../lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import {
   LEDGER_CONNECTION_STATUS,
   LEDGER_CONNECTION_STATUS_CONTENT,
@@ -81,7 +81,7 @@ export const getIllustrationImage = (
   );
 
 export const getLocalizedMessage = (messageKey: LocaleMessageKey): string =>
-  messages[messageKey].message;
+  messages[messageKey];
 
 export const getConfiguredLocaleMessageKeys = (): LocaleMessageKey[] => {
   const messageKeys = new Set<LocaleMessageKey>();

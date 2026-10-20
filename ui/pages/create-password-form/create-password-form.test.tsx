@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { CreatePasswordForm } from '.';
 
 const mockTrackEvent = jest.fn();
@@ -85,7 +86,7 @@ describe('CreatePasswordForm', () => {
     );
 
     expect(getByTestId('create-password-error')).toHaveTextContent(
-      messages.notificationsSettingsBoxError.message,
+      messages.notificationsSettingsBoxError,
     );
   });
 

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { confusables } from 'unicode-confusables';
 import { v4 as uuidv4 } from 'uuid';
 import Tooltip from '../tooltip';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { Text } from '../../component-library';
 
 const Confusable = ({ input, asText, confusableWrapperName = '' }) => {
-  const t = useI18nContext();
+  const t = getText;
   const confusableData = useMemo(() => {
     return confusables(input);
   }, [input]);

@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import { CHAIN_IDS } from '../../../../../shared/constants/network';
 import { mockNetworkState } from '../../../../../test/stub/networks';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../../store/store';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import SnapPermissionsList from './snap-permissions-list';
 
 describe('Snap Permission List', () => {
@@ -62,9 +63,7 @@ describe('Snap Permission List', () => {
       />,
       store,
     );
-    expect(
-      screen.getByText(messages.permission_dialog.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.permission_dialog)).toBeInTheDocument();
     expect(screen.getByText('Approved on 2023-04-05')).toBeInTheDocument();
   });
 });

@@ -2,19 +2,19 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getImageForChainId } from '../../../utils/network';
 import { useChainNetworkNameAndImageMap } from '../../../hooks/useChainNetworkNameAndImage';
 import { useAssetSelectionMetrics } from '../../../hooks/send/metrics/useAssetSelectionMetrics';
 import { AssetFilterMethod } from '../../../context/send-metrics';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { ARBITRUM_DISPLAY_NAME } from '../../../../../../shared/constants/network';
 import { NetworkFilter } from './network-filter';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 jest.mock('../../../hooks/send/metrics/useAssetSelectionMetrics');
 jest.mock('../../../hooks/useChainNetworkNameAndImage');
 jest.mock(
@@ -157,7 +157,7 @@ jest.mock('../../../utils/network');
 
 describe('NetworkFilter', () => {
   const mockUseSelector = jest.mocked(useSelector);
-  const mockUseI18nContext = jest.mocked(useI18nContext);
+  const mockGetText = jest.mocked(getText);
   const mockGetImageForChainId = jest.mocked(getImageForChainId);
   const mockOnChainIdChange = jest.fn();
   const mockUseAssetSelectionMetrics = jest.mocked(useAssetSelectionMetrics);
@@ -175,11 +175,7 @@ describe('NetworkFilter', () => {
 
   beforeEach(() => {
     mockUseSelector.mockReturnValue(true);
-    mockUseI18nContext.mockReturnValue(
-      (key: string) =>
-        (messages as Record<string, { message: string } | undefined>)[key]
-          ?.message ?? key,
-    );
+    mockGetText.mockImplementation((key: string) => messages[key] ?? key);
     mockGetImageForChainId.mockReturnValue('mock-image-url');
     mockUseAssetSelectionMetrics.mockReturnValue({
       addAssetFilterMethod: mockAddAssetFilterMethod,
@@ -190,14 +186,14 @@ describe('NetworkFilter', () => {
         [
           '1',
           {
-            networkName: messages.networkNameEthereum.message,
+            networkName: messages.networkNameEthereum,
             networkImage: 'eth.svg',
           },
         ],
         [
           '137',
           {
-            networkName: messages.networkNamePolygon.message,
+            networkName: messages.networkNamePolygon,
             networkImage: 'polygon.svg',
           },
         ],
@@ -225,7 +221,7 @@ describe('NetworkFilter', () => {
     );
 
     expect(getByTestId('send-network-filter-toggle')).toBeInTheDocument();
-    expect(getByText(messages.allNetworks.message)).toBeInTheDocument();
+    expect(getByText(messages.allNetworks)).toBeInTheDocument();
     expect(getByTestId('icon-filter')).toBeInTheDocument();
   });
 
@@ -240,9 +236,7 @@ describe('NetworkFilter', () => {
 
     expect(getByTestId('send-network-filter-toggle')).toBeInTheDocument();
     expect(
-      getByText(
-        `${messages.network.message}: ${messages.networkNameEthereum.message}`,
-      ),
+      getByText(`${messages.network}: ${messages.networkNameEthereum}`),
     ).toBeInTheDocument();
     expect(getByTestId('icon-filter')).toBeInTheDocument();
   });
@@ -275,15 +269,11 @@ describe('NetworkFilter', () => {
 
     const networkItems = getAllByTestId('shared-network-selection-item');
     expect(networkItems).toHaveLength(3);
-    expect(networkItems[0]).toHaveTextContent(
-      messages.networkNameEthereum.message,
-    );
+    expect(networkItems[0]).toHaveTextContent(messages.networkNameEthereum);
     expect(networkItems[1]).toHaveTextContent(ARBITRUM_DISPLAY_NAME);
-    expect(networkItems[2]).toHaveTextContent(
-      messages.networkNamePolygon.message,
-    );
+    expect(networkItems[2]).toHaveTextContent(messages.networkNamePolygon);
     expect(getByTestId('shared-network-selection-top-item')).toHaveTextContent(
-      messages.allNetworks.message,
+      messages.allNetworks,
     );
   });
 
@@ -329,13 +319,9 @@ describe('NetworkFilter', () => {
     fireEvent.click(getByTestId('send-network-filter-toggle'));
     const networkItems = getAllByTestId('shared-network-selection-item');
 
-    expect(networkItems[0]).toHaveTextContent(
-      messages.networkNameEthereum.message,
-    );
+    expect(networkItems[0]).toHaveTextContent(messages.networkNameEthereum);
     expect(networkItems[1]).toHaveTextContent(ARBITRUM_DISPLAY_NAME);
-    expect(networkItems[2]).toHaveTextContent(
-      messages.networkNamePolygon.message,
-    );
+    expect(networkItems[2]).toHaveTextContent(messages.networkNamePolygon);
   });
 
   describe('metrics', () => {
@@ -396,7 +382,7 @@ describe('NetworkFilter', () => {
       );
 
       expect(
-        getByText(`${messages.network.message}: Custom Catalog Network`),
+        getByText(`${messages.network}: Custom Catalog Network`),
       ).toBeInTheDocument();
 
       fireEvent.click(getByTestId('send-network-filter-toggle'));
@@ -425,9 +411,7 @@ describe('NetworkFilter', () => {
       );
 
       expect(
-        getByText(
-          `${messages.network.message}: ${messages.networkNameEthereum.message}`,
-        ),
+        getByText(`${messages.network}: ${messages.networkNameEthereum}`),
       ).toBeInTheDocument();
       expect(queryByText('Token Supplied Name')).not.toBeInTheDocument();
     });

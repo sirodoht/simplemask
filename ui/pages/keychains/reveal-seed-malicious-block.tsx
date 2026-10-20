@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -14,7 +15,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 
 type RevealSeedMaliciousBlockProps = {
   onDismiss: () => void;
@@ -25,7 +26,7 @@ export function RevealSeedMaliciousBlock({
   onDismiss,
   hostname,
 }: Readonly<RevealSeedMaliciousBlockProps>) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

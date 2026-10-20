@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BatchTransactionParams } from '@metamask/transaction-controller';
 import { waitFor } from '@testing-library/react';
 
@@ -15,7 +16,7 @@ import { genUnapprovedContractInteractionConfirmation } from '../../../../../../
 import { useFourByte } from '../../hooks/useFourByte';
 import { useDecodedTransactionData } from '../../hooks/useDecodedTransactionData';
 import { AsyncResult, RESULT_IDLE } from '../../../../../../../hooks/useAsync';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { NestedTransactionData } from './nested-transaction-data';
 
 jest.mock('../../../../../../../store/actions', () => ({
@@ -98,7 +99,7 @@ describe('NestedTransaction', () => {
     });
 
     expect(getByText('0x12345...67890')).toBeInTheDocument();
-    expect(getByText(messages.amount.message)).toBeInTheDocument();
+    expect(getByText(messages.amount)).toBeInTheDocument();
     expect(getByText('<0.000001')).toBeInTheDocument();
     expect(getByText('GoerliETH')).toBeInTheDocument();
   });
@@ -153,8 +154,8 @@ describe('NestedTransaction', () => {
 
     await waitFor(() => {
       expect(getByText('approve')).toBeInTheDocument();
-      expect(getByText(messages.spender.message)).toBeInTheDocument();
-      expect(getByText(messages.amount.message)).toBeInTheDocument();
+      expect(getByText(messages.spender)).toBeInTheDocument();
+      expect(getByText(messages.amount)).toBeInTheDocument();
       expect(getByText('10000000 ETH')).toBeInTheDocument();
     });
   });

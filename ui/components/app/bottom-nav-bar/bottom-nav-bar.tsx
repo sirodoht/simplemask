@@ -11,7 +11,7 @@ import {
   TextColor,
   FontWeight,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ACTIVITY_ROUTE,
   DEFAULT_ROUTE,
@@ -63,7 +63,7 @@ const NavTab = ({
 };
 
 export function BottomNavBar() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const lastActiveTab = useSelector(getDefaultHomeActiveTabName);

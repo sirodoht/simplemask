@@ -10,11 +10,10 @@ import {
   IconSize,
   Text,
   TextButton,
-  TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
 import { SUPPORT_LINK } from '../../../../../shared/lib/ui-utils';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { PROCEED_DELAY_SECONDS } from './scam-questionnaire.constants';
 
 const INVESTMENT_SCAM_QUESTIONNAIRE_SUPPORT_CAMPAIGN =
@@ -31,7 +30,7 @@ export const ScamWarning: React.FC<ScamWarningProps> = ({
   onContactSupport,
   onProceed,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   // Gate the bypass link for a few seconds so the warning can't be dismissed
   // instantly.

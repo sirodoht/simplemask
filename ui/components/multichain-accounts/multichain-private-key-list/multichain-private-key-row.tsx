@@ -22,7 +22,7 @@ import {
 } from '@metamask/design-system-react';
 import { shortenAddress } from '../../../helpers/utils/util';
 import { getImageForChainId } from '../../../selectors/multichain';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { SensitiveClipboardCleanup } from '../../ui/sensitive-clipboard-cleanup/sensitive-clipboard-cleanup';
 import type { SensitiveClipboardState } from '../../../hooks/useCopyToClipboard';
 
@@ -53,7 +53,7 @@ const PrivateKeyContent = ({
   privateKey,
   sensitiveClipboardState,
 }: PrivateKeyContentProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const [isCopied, setIsCopied] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
   const copyFeedbackTimeoutRef = useRef<number | null>(null);

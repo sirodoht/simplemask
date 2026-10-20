@@ -18,7 +18,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '../../../../../components/component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { GAS_INPUT_HELP_TEXT_ID, GasInput } from '../../gas-input/gas-input';
 
 type AdvancedGasFeeModalProps = {
@@ -52,7 +52,7 @@ export const AdvancedGasFeeModal = ({
   onSave,
   title,
 }: AdvancedGasFeeModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   let gasLimitHelpText: string | undefined;
   if (!isGasLimitAvailable) {
     gasLimitHelpText = isGasEstimationFailed

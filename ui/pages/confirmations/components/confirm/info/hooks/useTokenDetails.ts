@@ -1,10 +1,10 @@
 import { TransactionMeta } from '@metamask/transaction-controller';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { getAllTokens } from '../../../../../../selectors';
 
 export const useTokenDetails = (transactionMeta: TransactionMeta) => {
-  const t = useI18nContext();
+  const t = getText;
   const { chainId, txParams, txParamsOriginal } = transactionMeta;
   const tokenAddress = txParamsOriginal?.to ?? txParams.to;
   const userAddress = txParamsOriginal?.from ?? txParams.from;

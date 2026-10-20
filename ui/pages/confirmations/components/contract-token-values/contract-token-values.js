@@ -1,10 +1,11 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { getAccountLink } from '@metamask/etherscan-link';
 import { AvatarAccountSize } from '@metamask/design-system-react';
 import Box from '../../../../components/ui/box/box';
 import Tooltip from '../../../../components/ui/tooltip/tooltip';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { PreferredAvatar } from '../../../../components/app/preferred-avatar';
 import {
   Text,
@@ -28,7 +29,7 @@ export default function ContractTokenValues({
   chainId,
   blockExplorerUrl,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   // useCopyToClipboard analysis: Copies a public address
   const [copied, handleCopy] = useCopyToClipboard();

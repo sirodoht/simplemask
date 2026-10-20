@@ -11,7 +11,7 @@ import {
   Tag,
 } from '@metamask/design-system-react';
 
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { useSegmentContext } from '../../../hooks/useSegmentContext';
 import { SUPPORT_LINK } from '../../../helpers/constants/common';
@@ -26,7 +26,7 @@ import { Divider } from '../shared';
 import { useBoolean } from '../../../hooks/useBoolean';
 
 export default function AboutInfo(): React.ReactElement {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
 

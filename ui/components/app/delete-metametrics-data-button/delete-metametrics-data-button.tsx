@@ -16,7 +16,7 @@ import {
   BlockSize,
   TextVariant,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getMetaMetricsDataDeletionTimestamp,
   getMetaMetricsDataDeletionStatus,
@@ -55,7 +55,7 @@ const DeleteMetaMetricsDataButton: DeleteMetaMetricsDataButtonComponent =
       { defaultPrivacySettings, ...props }: DeleteMetaMetricsDataButtonProps<C>,
       ref: PolymorphicRef<C>,
     ) => {
-      const t = useI18nContext();
+      const t = getText;
       const dispatch = useDispatch();
       const [deletionRequestedThisSession, setDeletionRequestedThisSession] =
         useState(false);

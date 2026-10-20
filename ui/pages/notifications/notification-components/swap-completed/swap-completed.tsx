@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { NotificationServicesController } from '@metamask/notification-services-controller';
 import { AvatarIconSeverity, IconName } from '@metamask/design-system-react';
 import { type ExtractedNotification, isOfTypeNodeGuard } from '../node-guard';
@@ -6,7 +7,7 @@ import {
   NotificationComponentType,
   type NotificationComponent,
 } from '../types/notifications/notifications';
-import { t } from '../../../../../shared/lib/translate';
+import { getText as t } from '../../../../../shared/lib/text';
 
 import {
   NotificationListItem,

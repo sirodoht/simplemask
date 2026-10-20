@@ -1,12 +1,12 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
-import { BtcAccountType } from '@metamask/keyring-api';
+
 import createMockStore from 'redux-mock-store';
 
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import { useNftImageUrl } from '../../../hooks/useNftImageUrl';
 import { AssetStandard } from '../../../types/send';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { Asset } from './asset';
 
 const mockTokenAsset = {
@@ -111,7 +111,7 @@ describe('TokenAsset', () => {
 
     expect(getByTestId('token-asset-undefined-TEST')).toBeInTheDocument();
     expect(
-      queryByRole('img', { name: messages.networkNameEthereum.message }),
+      queryByRole('img', { name: messages.networkNameEthereum }),
     ).not.toBeInTheDocument();
   });
 
@@ -197,9 +197,7 @@ describe('TokenAsset', () => {
     );
 
     expect(getByTestId('security-badge')).toBeInTheDocument();
-    expect(
-      getByText(messages.securityTrustMalicious.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.securityTrustMalicious)).toBeInTheDocument();
   });
 
   it('renders a security badge for a verified token', () => {
@@ -292,7 +290,7 @@ describe('NFTAsset', () => {
 
     expect(getByTestId('nft-asset')).toBeInTheDocument();
     expect(
-      queryByRole('img', { name: messages.networkNameEthereum.message }),
+      queryByRole('img', { name: messages.networkNameEthereum }),
     ).not.toBeInTheDocument();
   });
 

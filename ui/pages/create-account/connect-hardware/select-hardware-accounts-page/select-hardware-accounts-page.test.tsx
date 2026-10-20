@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { tEn } from '../../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../../shared/lib/text';
 import {
   createMockHardwareAccounts,
   MOCK_HARDWARE_ACCOUNTS,

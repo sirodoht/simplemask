@@ -62,9 +62,7 @@ describe('TokenManagementCell', () => {
       onToggle: jest.fn(),
     });
 
-    expect(
-      screen.getByText(messages.networkNameEthereum.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.networkNameEthereum)).toBeInTheDocument();
     expect(screen.queryByText('200.23 mUSD')).not.toBeInTheDocument();
   });
 
@@ -122,7 +120,7 @@ describe('TokenManagementCell', () => {
     });
 
     expect(
-      screen.getByLabelText(messages.securityTrustVerified.message),
+      screen.getByLabelText(messages.securityTrustVerified),
     ).toBeInTheDocument();
   });
 
@@ -136,9 +134,7 @@ describe('TokenManagementCell', () => {
       testIdSuffix: 'musd',
     });
 
-    expect(
-      screen.getByText(messages.securityTrustRisky.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.securityTrustRisky)).toBeInTheDocument();
   });
 
   it('renders the malicious badge for a Malicious safety result', () => {
@@ -152,7 +148,7 @@ describe('TokenManagementCell', () => {
     });
 
     expect(
-      screen.getByText(messages.securityTrustMalicious.message),
+      screen.getByText(messages.securityTrustMalicious),
     ).toBeInTheDocument();
   });
 

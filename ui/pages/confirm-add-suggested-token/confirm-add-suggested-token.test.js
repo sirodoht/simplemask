@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { act } from 'react-dom/test-utils';
 import { fireEvent, screen } from '@testing-library/react';
 import { ApprovalType } from '@metamask/controller-utils';
@@ -12,7 +13,7 @@ import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import { ETH_EOA_METHODS } from '../../../shared/constants/eth-methods';
 import { mockNetworkState } from '../../../test/stub/networks';
 import { CHAIN_IDS } from '../../../shared/constants/network';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import ConfirmAddSuggestedToken from '.';
 
 const mockTrackEvent = jest.fn();
@@ -148,19 +149,15 @@ describe('ConfirmAddSuggestedToken Component', () => {
   it('should render', () => {
     renderComponent();
 
+    expect(screen.getByText(messages.addSuggestedTokens)).toBeInTheDocument();
+    expect(screen.getByText(messages.likeToImportTokens)).toBeInTheDocument();
+    expect(screen.getByText(messages.token)).toBeInTheDocument();
+    expect(screen.getByText(messages.balance)).toBeInTheDocument();
     expect(
-      screen.getByText(messages.addSuggestedTokens.message),
+      screen.getByRole('button', { name: messages.cancel }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.likeToImportTokens.message),
-    ).toBeInTheDocument();
-    expect(screen.getByText(messages.token.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.balance.message)).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: messages.cancel.message }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: messages.addToken.message }),
+      screen.getByRole('button', { name: messages.addToken }),
     ).toBeInTheDocument();
   });
 
@@ -180,7 +177,7 @@ describe('ConfirmAddSuggestedToken Component', () => {
   it('should dispatch resolvePendingApproval when clicking the "Add token" button', async () => {
     renderComponent();
     const addTokenBtn = screen.getByRole('button', {
-      name: messages.addToken.message,
+      name: messages.addToken,
     });
 
     await act(async () => {
@@ -199,7 +196,7 @@ describe('ConfirmAddSuggestedToken Component', () => {
   it('should dispatch rejectPendingApproval when clicking the "Cancel" button', async () => {
     renderComponent();
     const cancelBtn = screen.getByRole('button', {
-      name: messages.cancel.message,
+      name: messages.cancel,
     });
 
     await act(async () => {
@@ -241,7 +238,7 @@ describe('ConfirmAddSuggestedToken Component', () => {
         ),
       ).toBeInTheDocument();
       expect(
-        screen.getByRole('link', { name: messages.learnScamRisk.message }),
+        screen.getByRole('link', { name: messages.learnScamRisk }),
       ).toBeInTheDocument();
     });
   });
@@ -257,7 +254,7 @@ describe('ConfirmAddSuggestedToken Component', () => {
       renderComponent(mockTokens);
 
       expect(
-        screen.getByText(messages.reusedTokenNameWarning.message),
+        screen.getByText(messages.reusedTokenNameWarning),
       ).toBeInTheDocument();
     });
   });

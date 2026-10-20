@@ -21,7 +21,7 @@ import {
   IconName,
   Icon,
 } from '../../components/component-library';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard';
 import { useScrollRequired } from '../../hooks/useScrollRequired';
 import { useAnalytics } from '../../hooks/useAnalytics';
@@ -46,7 +46,7 @@ import { Nav } from '../confirmations/components/confirm/nav';
 import { useDispatch } from '../../store/hooks';
 
 const Header = ({ approvalId }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <>
       <Nav confirmationId={approvalId} />
@@ -64,7 +64,7 @@ const Header = ({ approvalId }) => {
 };
 
 const Account = ({ fromAccount, nativeCurrency }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const nativeCurrencyBalance = new Numeric(
     fromAccount.balance,
@@ -139,7 +139,7 @@ const ScrollToBottomButton = ({
   hasError,
   scrollToBottom,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const isScrollToBottomVisible =
     hasDecrypted && !hasError && isScrollable && !isScrolledToBottom;
@@ -187,7 +187,7 @@ const MessageBody = forwardRef(
   ) => {
     const dispatch = useDispatch();
     const { trackEvent, createEventBuilder } = useAnalytics();
-    const t = useI18nContext();
+    const t = getText;
 
     const [copyToClipboardPressed, setCopyToClipboardPressed] = useState(false);
     const [hasDecrypted, setHasDecrypted] = useState(false);
@@ -327,7 +327,7 @@ const Footer = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const onCancelClick = async (event) => {
@@ -392,7 +392,7 @@ Footer.propTypes = {
 };
 
 const ConfirmDecryptMessage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const [rawMessage, setRawMessage] = useState('');
   const mostRecentOverviewPage = useSelector(getMostRecentOverviewPage);
   const nativeCurrency = useSelector(getNativeCurrency);

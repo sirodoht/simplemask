@@ -1,5 +1,5 @@
 import { Driver } from '../../../webdriver/driver';
-import { tEn } from '../../../../lib/i18n-helpers';
+import { getText as tEn } from '../../../../../shared/lib/text';
 import { THIRD_PARTY_APIS_ROUTE } from '../../../../../ui/helpers/constants/routes';
 
 /**

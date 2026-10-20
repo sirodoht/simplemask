@@ -7,7 +7,7 @@ import {
   TextAlign,
   TextColor,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { HeaderBase } from '../header-base';
 import { ButtonIcon, ButtonIconSize } from '../button-icon';
 import { IconName } from '../icon';
@@ -40,7 +40,7 @@ export const PopoverHeader = ({
   backButtonProps,
   ...props
 }: React.PropsWithChildren<PopoverHeaderProps>) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <HeaderBase
       className={classnames('mm-popover-header', className)}

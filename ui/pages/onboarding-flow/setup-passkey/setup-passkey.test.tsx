@@ -1,8 +1,12 @@
 import React from 'react';
+
 import { fireEvent, waitFor, screen, render } from '@testing-library/react';
 import { PasskeyControllerErrorCode } from '@metamask/passkey-controller';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages, tEn } from '../../../../test/lib/i18n-helpers';
+import {
+  englishText as messages,
+  getText as tEn,
+} from '../../../../shared/lib/text';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import { PLATFORM_FIREFOX } from '../../../../shared/constants/app';
 import * as BrowserRuntimeUtils from '../../../../shared/lib/browser-runtime.utils';
@@ -16,7 +20,6 @@ import { UPDATE_METAMASK_STATE } from '../../../store/actionConstants';
 import { forceUpdateMetamaskState } from '../../../store/actions';
 import SetupPasskeyContent from '../../../components/app/passkey-setup/setup-passkey-content';
 import SetupPasskey from './setup-passkey';
-import { PASSKEY_SETUP_ROUTE_CAPABILITIES } from './messenger';
 
 const mockTrackEvent = jest.fn();
 const mockEnrollWithPasskey = jest.fn();
@@ -214,7 +217,7 @@ describe('SetupPasskey', () => {
     const mockStore = buildMockStore(FirstTimeFlowType.create);
     const { getByText } = renderSetupPasskey(mockStore);
 
-    expect(getByText(messages.maybeLater.message)).toBeInTheDocument();
+    expect(getByText(messages.maybeLater)).toBeInTheDocument();
   });
 
   it('renders the biometrics image', () => {
@@ -233,7 +236,7 @@ describe('SetupPasskey', () => {
       const mockStore = buildMockStore(FirstTimeFlowType.create);
       const { getByText } = renderSetupPasskey(mockStore);
 
-      fireEvent.click(getByText(messages.maybeLater.message));
+      fireEvent.click(getByText(messages.maybeLater));
 
       expect(mockUseNavigate).toHaveBeenCalledWith(
         ONBOARDING_REVIEW_SRP_ROUTE,
@@ -250,7 +253,7 @@ describe('SetupPasskey', () => {
       const mockStore = buildMockStore(FirstTimeFlowType.import);
       const { getByText } = renderSetupPasskey(mockStore);
 
-      fireEvent.click(getByText(messages.maybeLater.message));
+      fireEvent.click(getByText(messages.maybeLater));
 
       expect(mockUseNavigate).toHaveBeenCalledWith(ONBOARDING_METAMETRICS, {
         replace: true,
@@ -264,7 +267,7 @@ describe('SetupPasskey', () => {
       const mockStore = buildMockStore(FirstTimeFlowType.import);
       const { getByText } = renderSetupPasskey(mockStore);
 
-      fireEvent.click(getByText(messages.maybeLater.message));
+      fireEvent.click(getByText(messages.maybeLater));
 
       expect(mockUseNavigate).toHaveBeenCalledWith(
         ONBOARDING_COMPLETION_ROUTE,
@@ -284,7 +287,7 @@ describe('SetupPasskey', () => {
       });
       const { getByText } = renderSetupPasskey(mockStore);
 
-      fireEvent.click(getByText(messages.maybeLater.message));
+      fireEvent.click(getByText(messages.maybeLater));
 
       expect(mockUseNavigate).toHaveBeenCalledWith(
         ONBOARDING_COMPLETION_ROUTE,
@@ -298,7 +301,7 @@ describe('SetupPasskey', () => {
       const mockStore = buildMockStore(FirstTimeFlowType.socialCreate);
       const { getByText } = renderSetupPasskey(mockStore);
 
-      fireEvent.click(getByText(messages.maybeLater.message));
+      fireEvent.click(getByText(messages.maybeLater));
 
       expect(mockUseNavigate).toHaveBeenCalledWith(
         ONBOARDING_COMPLETION_ROUTE,
@@ -312,7 +315,7 @@ describe('SetupPasskey', () => {
       const mockStore = buildMockStore(FirstTimeFlowType.restore);
       const { getByText, onNext } = renderSetupPasskeyContent(mockStore);
 
-      fireEvent.click(getByText(messages.maybeLater.message));
+      fireEvent.click(getByText(messages.maybeLater));
 
       expect(onNext).toHaveBeenCalledTimes(1);
     });

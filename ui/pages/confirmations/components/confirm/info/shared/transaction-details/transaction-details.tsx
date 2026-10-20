@@ -12,7 +12,7 @@ import {
 import { ConfirmInfoAlertRow } from '../../../../../../../components/app/confirm/info/row/alert-row/alert-row';
 import { RowAlertKey } from '../../../../../../../components/app/confirm/info/row/constants';
 import { ConfirmInfoSection } from '../../../../../../../components/app/confirm/info/row/section';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { selectPaymasterAddress } from '../../../../../../../selectors/account-abstraction';
 import { selectConfirmationAdvancedDetailsOpen } from '../../../../../selectors/preferences';
 import { useConfirmContext } from '../../../../../context/confirm';
@@ -31,7 +31,7 @@ import { SigningInWithRow } from '../sign-in-with-row/sign-in-with-row';
 import { isBatchTransaction } from '../../../../../../../../shared/lib/transactions.utils';
 
 export const OriginRow = () => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
@@ -55,7 +55,7 @@ export const OriginRow = () => {
 };
 
 export const RecipientRow = ({ recipient }: { recipient?: Hex } = {}) => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { isUpgrade } = useIsUpgradeTransaction();
   const isDowngrade = useIsDowngradeTransaction();
@@ -89,7 +89,7 @@ export const RecipientRow = ({ recipient }: { recipient?: Hex } = {}) => {
 };
 
 export const MethodDataRow = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { txParams } = currentConfirmation ?? {};
   const to = txParams?.to as Hex | undefined;
@@ -112,7 +112,7 @@ export const MethodDataRow = () => {
 };
 
 const AmountRow = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { currency } = useUserPreferencedCurrency(
     PRIMARY,
@@ -147,7 +147,7 @@ const AmountRow = () => {
 };
 
 const PaymasterRow = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   const { id: userOperationId, chainId } = currentConfirmation ?? {};

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { screen, fireEvent, waitFor, act } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { InternalAccount } from '@metamask/keyring-internal-api';
@@ -17,7 +18,7 @@ import {
 } from '../../../selectors/multichain-accounts/account-tree';
 import { getNetworksByScopes } from '../../../../shared/lib/selectors/networks';
 import { selectBalanceForAllWallets } from '../../../selectors/assets';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { MultichainTriggeredAddressRowsList } from './multichain-triggered-address-rows-list';
 
 jest.mock('../../../hooks/useAnalytics', () => {
@@ -66,8 +67,8 @@ jest.mock('../../../hooks/useFormatters', () => ({
   }),
 }));
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 const mockHandleCopy = jest.fn();
@@ -390,28 +391,28 @@ describe('MultichainTriggeredAddressRowsList', () => {
     mockedGetNetworksByScopes.mockImplementation((_, scopes) => {
       const networkMap: Record<string, { name: string; chainId: string }> = {
         'bip122:000000000019d6689c085ae165831e93': {
-          name: messages.networkNameBitcoin.message,
+          name: messages.networkNameBitcoin,
           chainId: 'bip122:000000000019d6689c085ae165831e93',
         },
         'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp': {
-          name: messages.networkNameSolana.message,
+          name: messages.networkNameSolana,
           chainId: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
         },
         'tron:0x2b6653dc': {
-          name: messages.networkNameTron.message,
+          name: messages.networkNameTron,
           chainId: 'tron:0x2b6653dc',
         },
         'eip155:1': {
-          name: messages.networkNameEthereum.message,
+          name: messages.networkNameEthereum,
           chainId: 'eip155:1',
         },
         'eip155:137': {
-          name: messages.networkNamePolygon.message,
+          name: messages.networkNamePolygon,
           chainId: 'eip155:137',
         },
         'eip155:42161': { name: 'Arbitrum', chainId: 'eip155:42161' },
         'eip155:59144': {
-          name: messages.lineaMainnet.message,
+          name: messages.lineaMainnet,
           chainId: 'eip155:59144',
         },
       };

@@ -1,6 +1,6 @@
 import React, { useId } from 'react';
 import { useLocalTransactionMeta } from '../../../hooks/activity/useLocalTransactionMeta';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 const statusConfig: Record<
   string,
@@ -38,7 +38,7 @@ export function TransactionStatus({
   status: string;
   hash?: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const id = useId();
   const config = statusConfig[status];
   const localError = useLocalTransactionMeta(hash)?.error;

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Hex } from '@metamask/utils';
 
 import mockState from '../../../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../../../store/store';
 import { SmartAccountTab } from './smart-account-tab';
@@ -35,18 +36,18 @@ describe('SmartAccountTab', () => {
     const { getByText } = renderComponent();
 
     expect(
-      getByText(messages.smartAccountUpgradeBannerTitle.message),
+      getByText(messages.smartAccountUpgradeBannerTitle),
     ).toBeInTheDocument();
     expect(
-      getByText(messages.smartAccountUpgradeBannerDescription.message),
+      getByText(messages.smartAccountUpgradeBannerDescription),
     ).toBeInTheDocument();
-    expect(getByText(messages.learnMoreUpperCase.message)).toBeInTheDocument();
+    expect(getByText(messages.learnMoreUpperCase)).toBeInTheDocument();
   });
 
   it('renders list of networks', async () => {
     const { getAllByText } = renderComponent();
 
-    expect(getAllByText(messages.smartAccountLabel.message)).toHaveLength(2);
-    expect(getAllByText(messages.standardAccountLabel.message)).toHaveLength(2);
+    expect(getAllByText(messages.smartAccountLabel)).toHaveLength(2);
+    expect(getAllByText(messages.standardAccountLabel)).toHaveLength(2);
   });
 });

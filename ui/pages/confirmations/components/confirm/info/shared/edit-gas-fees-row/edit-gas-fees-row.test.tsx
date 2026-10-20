@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 
 import {
@@ -11,7 +12,7 @@ import { getMockConfirmStateForTransaction } from '../../../../../../../../test/
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
 import { GAS_FEE_TOKEN_MOCK } from '../../../../../../../../test/data/confirmations/gas';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { useEstimationFailed } from '../../../../../hooks/gas/useEstimationFailed';
 import { useIsGaslessSupported } from '../../../../../hooks/gas/useIsGaslessSupported';
 import { EditGasFeesRow } from './edit-gas-fees-row';
@@ -130,10 +131,7 @@ describe('<EditGasFeesRow />', () => {
     expect(getByTestId('native-currency')).toHaveTextContent('$1');
     expect(
       getByText(
-        messages.addedProtectionIncludesNetworkFee.message.replace(
-          '$1',
-          '$0.07',
-        ),
+        messages.addedProtectionIncludesNetworkFee.replace('$1', '$0.07'),
       ),
     ).toBeInTheDocument();
   });
@@ -150,18 +148,12 @@ describe('<EditGasFeesRow />', () => {
     expect(getByTestId('edit-gas-fee-icon')).toBeInTheDocument();
     expect(
       getByText(
-        messages.addedProtectionIncludesNetworkFee.message.replace(
-          '$1',
-          '$0.00',
-        ),
+        messages.addedProtectionIncludesNetworkFee.replace('$1', '$0.00'),
       ),
     ).toBeInTheDocument();
     expect(() =>
       getByText(
-        messages.addedProtectionIncludesNetworkFee.message.replace(
-          '$1',
-          '$12.34',
-        ),
+        messages.addedProtectionIncludesNetworkFee.replace('$1', '$12.34'),
       ),
     ).toThrow();
   });
@@ -172,7 +164,7 @@ describe('<EditGasFeesRow />', () => {
         estimationFailed: true,
       });
 
-      expect(getByText(messages.unavailable.message)).toBeInTheDocument();
+      expect(getByText(messages.unavailable)).toBeInTheDocument();
       expect(queryByTestId('native-currency')).toBeNull();
       expect(queryByTestId('first-gas-field')).toBeNull();
     });
@@ -182,7 +174,7 @@ describe('<EditGasFeesRow />', () => {
         estimationFailed: false,
       });
 
-      expect(queryByText(messages.unavailable.message)).toBeNull();
+      expect(queryByText(messages.unavailable)).toBeNull();
     });
 
     it('does not render "Unavailable" when gas fee is sponsored even if estimation failed', () => {
@@ -191,7 +183,7 @@ describe('<EditGasFeesRow />', () => {
         isGaslessSupported: true,
       });
 
-      expect(queryByText(messages.unavailable.message)).toBeNull();
+      expect(queryByText(messages.unavailable)).toBeNull();
       expect(getByTestId('paid-by-meta-mask')).toBeInTheDocument();
     });
   });

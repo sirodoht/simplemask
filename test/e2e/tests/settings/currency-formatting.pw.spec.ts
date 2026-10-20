@@ -92,7 +92,7 @@ async function mockPhpConversion(mockServer: Mockttp) {
   ];
 }
 
-pwTest.describe('Localization', () => {
+pwTest.describe('English currency formatting', () => {
   pwTest(
     'can correctly display Philippine peso symbol and code',
     async (
@@ -121,7 +121,7 @@ pwTest.describe('Localization', () => {
         async ({ driver }) => {
           await login(driver, { validateBalance: false });
 
-          // After the removal of displaying secondary currency in coin-overview.tsx, we will test localization on main balance with showNativeTokenAsMainBalance = false
+          // Keep the selected currency while using English number formatting.
           await new HomePage(driver).checkExpectedBalanceIsDisplayed(
             '₱2,500,000.00',
           );

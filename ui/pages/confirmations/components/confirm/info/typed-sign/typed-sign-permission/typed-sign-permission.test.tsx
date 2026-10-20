@@ -1,5 +1,6 @@
-import { DecodedPermission } from '@metamask/gator-permissions-controller';
 import React from 'react';
+import { DecodedPermission } from '@metamask/gator-permissions-controller';
+
 import configureMockStore from 'redux-mock-store';
 
 import { getMockTypedSignPermissionConfirmState } from '../../../../../../../../test/data/confirmations/helper';
@@ -7,7 +8,7 @@ import {
   renderWithConfirmContextProvider,
   renderWithConfirmContext,
 } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import TypedSignPermissionInfo from './typed-sign-permission';
 
 jest.mock(
@@ -75,7 +76,7 @@ describe('TypedSignPermissionInfo', () => {
 
       const permissionSection = getByTestId('confirmation_permission-section');
       expect(permissionSection).toBeInTheDocument();
-      expect(getByText(messages.recipient.message)).toBeInTheDocument();
+      expect(getByText(messages.recipient)).toBeInTheDocument();
     });
   });
 

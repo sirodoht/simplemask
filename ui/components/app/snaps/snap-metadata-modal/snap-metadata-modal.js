@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
@@ -37,7 +38,7 @@ import {
   TextVariant,
 } from '../../../../helpers/constants/design-system';
 import { formatDate } from '../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useOriginMetadata } from '../../../../hooks/useOriginMetadata';
 import { ShowMore } from '../show-more';
 import SnapExternalPill from '../snap-version/snap-external-pill';
@@ -46,7 +47,7 @@ import Tooltip from '../../../ui/tooltip';
 import { SnapIcon } from '../snap-icon';
 
 export const SnapMetadataModal = ({ snapId, isOpen, onClose }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const subjectMetadata = useSelector((state) =>
     getTargetSubjectMetadata(state, snapId),

@@ -201,7 +201,6 @@ const plugins: WebpackPluginInstance[] = [
   }),
   new CopyPlugin({
     patterns: [
-      { from: join(context, '_locales'), to: '_locales' }, // translations
       // misc images
       // TODO: fix overlap between this folder and automatically bundled assets
       { from: join(context, 'images'), to: 'images' },

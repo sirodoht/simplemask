@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Icon, IconName, IconSize } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getIsPrimarySeedPhraseBackedUp } from '../../../ducks/metamask/metamask';
 import { getShouldShowSeedPhraseReminder } from '../../../selectors/multi-srp/multi-srp';
 import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/accounts';
@@ -15,7 +15,7 @@ import type { MetaMaskReduxState } from '../../../store/store';
 const toastId = 'backup-srp-toast';
 
 export function SeedPhraseBackupNotificationContainer() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const [dismissed, setDismissed] = useState(false);
   const isPrimarySeedPhraseBackedUp = useSelector(

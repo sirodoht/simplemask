@@ -5,7 +5,7 @@ import {
   DeleteRegulationStatus,
   DATA_DELETION_REQUESTED_STATUSES,
 } from '../../../../shared/constants/metametrics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getMetaMetricsDataDeletionStatus,
   getAnalyticsId,
@@ -18,7 +18,7 @@ import DeleteMetametricsModal from './delete-metametrics-modal';
 import DeletionInProgressModal from './deletion-in-progress-modal';
 
 export const DeleteMetametricsDataItem = () => {
-  const t = useI18nContext();
+  const t = getText;
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDeletionInProgressModal, setShowDeletionInProgressModal] =

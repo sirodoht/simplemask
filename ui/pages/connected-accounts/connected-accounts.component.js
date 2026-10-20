@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { useSelector } from 'react-redux';
 import { WALLET_SNAP_PERMISSION_KEY } from '@metamask/snaps-utils';
 import { Box } from '@metamask/design-system-react';
@@ -7,7 +8,7 @@ import Popover from '../../components/ui/popover';
 import ConnectedAccountsList from '../../components/app/connected-accounts-list';
 import ConnectedAccountsPermissions from '../../components/app/connected-accounts-permissions';
 import { getURLHost } from '../../helpers/utils/util';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import ConnectedSnaps from '../../components/app/connected-sites-list/connected-snaps';
 import { TextColor, TextVariant } from '../../helpers/constants/design-system';
 import { Text } from '../../components/component-library';
@@ -29,7 +30,7 @@ export default function ConnectedAccounts({
   originOfActiveTab,
   permissionSubjects,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const internalAccounts = useSelector(getInternalAccounts);
   const connectedSubjectsMetadata = subjectMetadata[originOfActiveTab];
   const subjectHasSnaps =

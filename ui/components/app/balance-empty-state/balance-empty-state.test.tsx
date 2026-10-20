@@ -31,7 +31,6 @@ const store = configureStore({
   metamask: {
     ...mockState.metamask,
   },
-  localeMessages: mockState.localeMessages,
 });
 
 const renderComponent = (props: Partial<BalanceEmptyStateProps> = {}) => {

@@ -17,8 +17,8 @@ jest.mock('../../../../hooks/useOriginTrustSignals', () => ({
   useOriginTrustSignals: jest.fn(),
 }));
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(() => (key: string) => key),
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: jest.fn((key: string) => key),
 }));
 
 const mockUseOriginTrustSignals = jest.mocked(useOriginTrustSignals);

@@ -1,5 +1,6 @@
-import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
+
 import {
   TransactionMeta,
   TransactionType,
@@ -13,7 +14,7 @@ import {
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
 import configureStore from '../../../../../store/store';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import Header from './header';
 
 jest.mock('react-router-dom', () => ({
@@ -69,13 +70,13 @@ describe('Header', () => {
 
   it('contains account info icon', async () => {
     const { getByLabelText } = render();
-    expect(getByLabelText(messages.accountDetails.message)).toBeInTheDocument();
+    expect(getByLabelText(messages.accountDetails)).toBeInTheDocument();
   });
 
   it('shows modal when account info icon is clicked', async () => {
     const { getByLabelText, queryByTestId } = render();
     expect(queryByTestId('account-details-modal')).not.toBeInTheDocument();
-    const accountInfoIcon = getByLabelText(messages.accountDetails.message);
+    const accountInfoIcon = getByLabelText(messages.accountDetails);
     fireEvent.click(accountInfoIcon);
     await waitFor(() => {
       expect(queryByTestId('account-details-modal')).toBeInTheDocument();

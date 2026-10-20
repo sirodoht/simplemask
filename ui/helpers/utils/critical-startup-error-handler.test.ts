@@ -21,7 +21,7 @@ const mockDisplayCriticalErrorMessage = jest.fn();
 jest.mock('./display-critical-error', () => ({
   displayCriticalErrorMessage: (...args: unknown[]) =>
     mockDisplayCriticalErrorMessage(...args),
-  CriticalErrorTranslationKey: {
+  CriticalErrorTextKey: {
     TroubleStarting: 'troubleStarting',
     SomethingIsWrong: 'somethingIsWrong',
   },
@@ -374,7 +374,7 @@ describe('CriticalStartupErrorHandler', () => {
             analyticsConsent: true,
             error,
             criticalErrorType: CriticalErrorType.InaccessibleDatabase,
-            currentLocale: 'en',
+
             theme: 'light',
             repairAction: CriticalErrorRepairAction.Recover,
           },
@@ -387,7 +387,6 @@ describe('CriticalStartupErrorHandler', () => {
         'troubleStarting',
         error,
         {
-          currentLocale: 'en',
           theme: 'light',
           port,
           criticalErrorType: CriticalErrorType.InaccessibleDatabase,
@@ -409,7 +408,7 @@ describe('CriticalStartupErrorHandler', () => {
           method: DISPLAY_GENERAL_STARTUP_ERROR,
           params: {
             error: { message: 'startup error', name: 'Error', stack: '' },
-            currentLocale: 'en',
+
             theme: 'dark',
           },
         },
@@ -421,7 +420,6 @@ describe('CriticalStartupErrorHandler', () => {
         'troubleStarting',
         { message: 'startup error', name: 'Error', stack: '' },
         {
-          currentLocale: 'en',
           theme: 'dark',
           port,
           criticalErrorType: CriticalErrorType.GeneralStartupError,
@@ -495,7 +493,6 @@ describe('CriticalStartupErrorHandler', () => {
               name: 'PersistenceError',
               stack: '',
             },
-            currentLocale: 'en',
           },
         },
       });

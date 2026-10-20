@@ -24,7 +24,7 @@ import {
 } from '@metamask/design-system-react';
 import { TextField, TextFieldType } from '../../component-library';
 import { BackgroundColor } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ENVIRONMENT_TYPE_SIDEPANEL,
   PLATFORM_FIREFOX,
@@ -59,7 +59,7 @@ export default function SrpInputImport({
   onClearClipboardRetry,
   onClipboardClearFailed,
 }: SrpInputImportProps) {
-  const t = useI18nContext();
+  const t = getText;
   const [draftSrp, setDraftSrp] = useState<DraftSrp[]>([]);
   const [firstWord, setFirstWord] = useState('');
   const [misSpelledWords, setMisSpelledWords] = useState<DraftSrp[]>([]);

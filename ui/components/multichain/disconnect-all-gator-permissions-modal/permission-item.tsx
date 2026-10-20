@@ -13,7 +13,7 @@ import {
   BoxBackgroundColor,
   BoxFlexDirection,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getAllNetworkConfigurationsByCaipChainId } from '../../../../shared/lib/selectors/networks';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../shared/constants/network';
 import {
@@ -21,7 +21,7 @@ import {
   getGatorPermissionDisplayMetadata,
   GatorPermissionData,
 } from '../../../../shared/lib/gator-permissions';
-import { getIntlLocale } from '../../../ducks/locale/locale';
+
 import { shortenAddress } from '../../../helpers/utils/util';
 import { useDisplayName } from '../../../hooks/snaps/useDisplayName';
 import { useGatorPermissionTokenInfo } from '../../../hooks/gator-permissions/useGatorPermissionTokenInfo';
@@ -31,8 +31,8 @@ export const PermissionItem = ({ permission }: PermissionItemProps) => {
   const networkConfigurationsByCaipChainId = useSelector(
     getAllNetworkConfigurationsByCaipChainId,
   );
-  const locale = useSelector(getIntlLocale);
-  const t = useI18nContext();
+  const locale = 'en';
+  const t = getText;
 
   const permissionData = permission.permission.permissionResponse.permission
     .data as GatorPermissionData;
@@ -86,7 +86,7 @@ export const PermissionItem = ({ permission }: PermissionItemProps) => {
     CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP[permission.chainId] || '';
   const networkName = networkConfig?.name || permission.chainId;
 
-  // Get permission display metadata (returns translation keys)
+  // Get permission display metadata (returns text keys)
   const { displayNameKey, amount, frequencyKey } =
     getGatorPermissionDisplayMetadata(
       permission.permissionType,

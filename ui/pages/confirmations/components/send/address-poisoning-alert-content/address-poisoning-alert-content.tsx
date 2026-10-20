@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxBackgroundColor,
@@ -6,7 +7,7 @@ import {
 } from '@metamask/design-system-react';
 import Disclosure from '../../../../../components/ui/disclosure';
 import { DisclosureVariant } from '../../../../../components/ui/disclosure/disclosure.constants';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { DiffHighlightedAddress } from '../diff-highlighted-address/diff-highlighted-address';
 
 type AddressPoisoningAlertContentProps = Readonly<{
@@ -20,7 +21,7 @@ export function AddressPoisoningAlertContent({
   knownAddress,
   diffIndices,
 }: AddressPoisoningAlertContentProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Disclosure title={t('compareAddresses')} variant={DisclosureVariant.Arrow}>

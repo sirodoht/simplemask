@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 
 import { ModalFooter } from './modal-footer';
 
@@ -32,7 +33,7 @@ describe('ModalFooter', () => {
         }}
       />,
     );
-    getByText(messages.confirm.message).click();
+    getByText(messages.confirm).click();
     expect(onSubmit).toHaveBeenCalled();
     expect(getByTestId('confirm-button')).toBeDefined();
   });
@@ -46,7 +47,7 @@ describe('ModalFooter', () => {
         }}
       />,
     );
-    expect(getByText(messages.confirm.message)).toHaveClass(
+    expect(getByText(messages.confirm)).toHaveClass(
       'mm-modal-footer__button test-class',
     );
   });
@@ -60,7 +61,7 @@ describe('ModalFooter', () => {
         }}
       />,
     );
-    getByText(messages.cancel.message).click();
+    getByText(messages.cancel).click();
     expect(onCancel).toHaveBeenCalled();
     expect(getByTestId('cancel-button')).toBeDefined();
   });
@@ -74,7 +75,7 @@ describe('ModalFooter', () => {
         }}
       />,
     );
-    expect(getByText(messages.cancel.message)).toHaveClass(
+    expect(getByText(messages.cancel)).toHaveClass(
       'mm-modal-footer__button test-class',
     );
   });

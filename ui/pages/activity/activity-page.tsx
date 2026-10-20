@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FontWeight, Text, TextVariant } from '@metamask/design-system-react';
 import { ScreenViewedEntryPoint } from '../../../shared/constants/metametrics';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { ActivityList } from './activity-list';
 
 // Page shown when the Activity tab in the bottom navigation bar is clicked
 // Bottom navigation bar is shown in the A/B test coreExtensionUxCeux1141AbtestBottomNav
 export const ActivityPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const location = useLocation();
   const [entryPoint] = useState(() =>
     location.state?.entryPoint === ScreenViewedEntryPoint.BottomNavClick

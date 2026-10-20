@@ -7,14 +7,14 @@ import {
 } from '../../../../../helpers/constants/design-system';
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { AddressPoisoningAlertContent } from '../../../components/send/address-poisoning-alert-content/address-poisoning-alert-content';
 import { useTransactionMetadataRequestOptional } from '../../transactions/useTransactionMetadataRequest';
 import { useAddressPoisoningDetection } from '../../send/useAddressPoisoningDetection';
 import { AlertsName } from '../constants';
 
 export function useAddressPoisoningAlert(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const transactionMeta = useTransactionMetadataRequestOptional();
 
   // Only the first payee is checked, because the detector takes a single

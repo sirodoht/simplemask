@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import { PasskeyControllerErrorCode } from '@metamask/passkey-controller';
@@ -10,7 +11,7 @@ import { toast } from '../../ui/toast/toast';
 import { getEnvironmentType } from '../../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_SIDEPANEL } from '../../../../shared/constants/app';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { tEn } from '../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import {
   SECURITY_AND_PASSWORD_ROUTE,

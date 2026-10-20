@@ -19,7 +19,7 @@ export const DEFAULT_ADDRESS_OPTIONS: {
 ];
 
 /**
- * Scope → i18n message key for the "Default: X" display label for default address.
+ * Scope → English text key for the "Default: X" display label for default address.
  * For eip155 uses "Ethereum"; other scopes match the Settings keys.
  */
 export const DEFAULT_ADDRESS_DISPLAY_KEY_BY_SCOPE = Object.fromEntries(

@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 
 import configureStore from '../../../store/store';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { AccountDeleteConfirmModal } from './account-delete-confirm-modal';
 
 describe('AccountDeleteConfirmModal', () => {
@@ -34,17 +35,14 @@ describe('AccountDeleteConfirmModal', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        messages.removeAccountConfirmTitle.message.replace(
-          '$1',
-          'Imported Account 1',
-        ),
+        messages.removeAccountConfirmTitle.replace('$1', 'Imported Account 1'),
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.removeAccountConfirmDescription.message),
+      screen.getByText(messages.removeAccountConfirmDescription),
     ).toBeInTheDocument();
-    expect(screen.getByText(messages.cancel.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.remove.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.cancel)).toBeInTheDocument();
+    expect(screen.getByText(messages.remove)).toBeInTheDocument();
   });
 
   it('renders remove above cancel', () => {

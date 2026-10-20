@@ -22,7 +22,7 @@ import {
 } from '../../../../shared/lib/passkey';
 import { getEnvironmentType } from '../../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_SIDEPANEL } from '../../../../shared/constants/app';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { usePasskeyAuthentication } from '../../../hooks/passkey/usePasskeyAuthentication';
 import Spinner from '../../ui/spinner';
 import { toast, ToastContent } from '../../ui/toast/toast';
@@ -35,7 +35,7 @@ function getPasskeyVerificationSentryContext(flow: string): string {
 export type RunPasskeyVerificationCeremonyOptions = {
   sentryContext: string;
   passkeyMethodLabel: string;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
   showErrorToast?: boolean;
   toastDurationMs?: number;
   authenticateWithPasskey: () => Promise<PasskeyAuthenticationResponse>;
@@ -114,7 +114,7 @@ export function PasskeyVerification({
   showErrorToast = true,
   toastDurationMs,
 }: PasskeyVerificationProps) {
-  const t = useI18nContext();
+  const t = getText;
   const authenticateWithPasskey = usePasskeyAuthentication();
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const isSidePanel = getEnvironmentType() === ENVIRONMENT_TYPE_SIDEPANEL;

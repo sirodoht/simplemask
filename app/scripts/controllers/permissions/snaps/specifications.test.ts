@@ -14,7 +14,6 @@ jest.mock('@metamask/snaps-rpc-methods', () => ({
 }));
 
 const BASE_PREFERENCES_STATE = {
-  currentLocale: 'en',
   openSeaEnabled: false,
   preferences: { privacyMode: false, showTestNetworks: false },
   securityAlertsEnabled: false,

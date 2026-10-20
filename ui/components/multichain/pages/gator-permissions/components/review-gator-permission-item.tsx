@@ -23,7 +23,7 @@ import {
 import { BackgroundColor } from '../../../../../helpers/constants/design-system';
 import { getURLHost } from '../../../../../helpers/utils/util';
 import Card from '../../../../ui/card';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getPendingRevocations } from '../../../../../selectors/gator-permissions/gator-permissions';
 import { useGatorPermissionTokenInfo } from '../../../../../hooks/gator-permissions/useGatorPermissionTokenInfo';
 import { useBoolean } from '../../../../../hooks/useBoolean';
@@ -56,7 +56,7 @@ type InactivePermissionStatusTag = {
 
 function getInactivePermissionStatusTag(
   permissionStatus: GatorPermissionStatus,
-  translate: ReturnType<typeof useI18nContext>,
+  translate: typeof getText,
 ): InactivePermissionStatusTag | null {
   switch (permissionStatus) {
     case 'Active':
@@ -107,7 +107,7 @@ export const ReviewGatorPermissionItem = ({
   onRevokeClick,
   hasRevokeBeenClicked = false,
 }: ReviewGatorPermissionItemProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { permissionResponse, siteOrigin, status } = gatorPermission;
   const {

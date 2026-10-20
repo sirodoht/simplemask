@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { getMockTokenTransferConfirmState } from '../../../../../../../test/data/confirmations/helper';
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
 import { useDisplayName } from '../../../../../../hooks/useDisplayName';
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import { TrustSignalDisplayState } from '../../../../../../hooks/useTrustSignals';
 import { useTransferRecipient } from '../hooks/useTransferRecipient';
 import { TransactionFlowSection } from './transaction-flow-section';
@@ -58,8 +59,8 @@ describe('<TransactionFlowSection />', () => {
       mockStore,
     );
 
-    expect(getByText(messages.from.message)).toBeInTheDocument();
-    expect(getByText(messages.to.message)).toBeInTheDocument();
+    expect(getByText(messages.from)).toBeInTheDocument();
+    expect(getByText(messages.to)).toBeInTheDocument();
   });
 
   it('renders sender and recipient address sections', () => {
@@ -133,8 +134,8 @@ describe('<TransactionFlowSection />', () => {
       mockStore,
     );
 
-    expect(getByText(messages.from.message)).toBeInTheDocument();
-    expect(getByText(messages.to.message)).toBeInTheDocument();
+    expect(getByText(messages.from)).toBeInTheDocument();
+    expect(getByText(messages.to)).toBeInTheDocument();
     expect(queryByText(/Wallet/u)).not.toBeInTheDocument();
   });
 });

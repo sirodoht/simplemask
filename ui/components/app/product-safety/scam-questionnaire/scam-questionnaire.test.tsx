@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureStore from '../../../../store/store';
 import { getMockConfirmState } from '../../../../../test/data/confirmations/helper';
 import { renderWithConfirmContextProvider } from '../../../../../test/lib/confirmations/render-helpers';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { SUPPORT_LINK } from '../../../../../shared/lib/ui-utils';
 import { ScamQuestionnaire } from './scam-questionnaire';
 import { ScamQuestionnaireTrigger } from './scam-questionnaire.constants';
@@ -41,9 +42,7 @@ function answer(getByTestId: (id: string) => HTMLElement, optionKey: string) {
 describe('ScamQuestionnaire', () => {
   it('renders the first question', () => {
     const { getByText } = render();
-    expect(
-      getByText(messages.scamQuestionnaireQ1Title.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.scamQuestionnaireQ1Title)).toBeInTheDocument();
   });
 
   it('keeps Continue disabled until an option is selected', () => {

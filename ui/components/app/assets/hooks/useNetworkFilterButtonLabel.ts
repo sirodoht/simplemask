@@ -9,10 +9,10 @@ import {
   getUseExternalServices,
 } from '../../../../selectors';
 import { useNetworkManagerState } from '../../../multichain/network-manager/hooks/useNetworkManagerState';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export function useNetworkFilterButtonLabel(): string {
-  const t = useI18nContext();
+  const t = getText;
   const allEnabledNetworksForAllNamespaces = useSelector(
     getAllEnabledNetworksForAllNamespaces,
   );

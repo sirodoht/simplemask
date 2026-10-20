@@ -1,14 +1,15 @@
 import React from 'react';
+
 import { ButtonLink, Text } from '../../../../../components/component-library';
 import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
 import ZENDESK_URLS from '../../../../../helpers/constants/zendesk-url';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 export function AccountTypeMessage() {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Text variant={TextVariant.bodyMd} color={TextColor.textDefault}>

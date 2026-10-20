@@ -1,10 +1,11 @@
-import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { AvatarAccountVariant } from '@metamask/design-system-react';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import AccountIdenticonSubPage from './account-identicon-sub-page';
@@ -40,9 +41,9 @@ describe('AccountIdenticonSubPage', () => {
   it('renders identicon options', () => {
     renderWithProvider(<AccountIdenticonSubPage />, mockStore);
 
-    expect(screen.getByText(messages.maskicons.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.jazzicons.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.blockies.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.maskicons)).toBeInTheDocument();
+    expect(screen.getByText(messages.jazzicons)).toBeInTheDocument();
+    expect(screen.getByText(messages.blockies)).toBeInTheDocument();
   });
 
   it('calls setAvatarType and navigates when an identicon is clicked', () => {
@@ -58,7 +59,7 @@ describe('AccountIdenticonSubPage', () => {
     });
     renderWithProvider(<AccountIdenticonSubPage />, storeWithBlockies);
 
-    fireEvent.click(screen.getByText(messages.maskicons.message));
+    fireEvent.click(screen.getByText(messages.maskicons));
 
     expect(mockSetAvatarType).toHaveBeenCalledWith(
       AvatarAccountVariant.Maskicon,

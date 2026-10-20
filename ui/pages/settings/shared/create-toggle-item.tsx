@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import type { Json } from '@metamask/utils';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import type {
   MetaMaskReduxDispatch,
@@ -22,14 +22,14 @@ export type ToggleEventConfig = {
   properties: (newValue: boolean) => Record<string, Json>;
 };
 
-type TranslateFunction = ReturnType<typeof useI18nContext>;
+type TranslateFunction = typeof getText;
 
 export type ToggleItemConfig = {
   name: string;
   titleKey: string;
-  /** Simple description via i18n key */
+  /** Simple description via English text key */
   descriptionKey?: string;
-  /** Custom description formatter. Receives translation function for i18n. Takes precedence over descriptionKey. */
+  /** Custom description formatter. Receives English text function. Takes precedence over descriptionKey. */
   formatDescription?: (t: TranslateFunction) => string | React.ReactNode;
   selector: (state: MetaMaskReduxState) => boolean;
   action: (value: boolean) => unknown;
@@ -50,7 +50,7 @@ export const createToggleItem = (
   config: ToggleItemConfig,
 ): React.ComponentType<SettingItemProps> => {
   const ToggleItem = () => {
-    const t = useI18nContext();
+    const t = getText;
     const dispatch = useDispatch();
     const { trackEvent, createEventBuilder } = useAnalytics();
     const value = useSelector(config.selector);

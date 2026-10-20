@@ -112,7 +112,7 @@ const MemoizedRenderer = memo(
 );
 
 /**
- * Wraps the renderer in a Provider so descendants like `MetaMaskTranslation`
+ * Wraps the renderer in a Provider so descendants like `TemplateText`
  * can render sub-templates without forming a static import cycle. The Provider
  * value is the memo'd component, so sub-template renders via context get the
  * same memoization as the top-level callers.

@@ -16,7 +16,7 @@ import {
 } from '@metamask/design-system-react';
 import { Header, Page } from '../../components/multichain/pages/page';
 import { toast } from '../../components/ui/toast/toast';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   CONTACTS_ADD_ROUTE,
   CONTACTS_VIEW_ROUTE,
@@ -41,7 +41,7 @@ import { ContactListItem } from './components/contact-list-item';
 import { ContactsEmptyState } from './components/contacts-empty-state';
 
 export function ContactsListPage() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const runCloseTransition = useGlobalMenuRouteTransition();
   const location = useLocation();

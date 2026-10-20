@@ -13,7 +13,7 @@ import {
   FlexWrap,
   JustifyContent,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 const PERCENTAGE_OPTIONS = [10, 25, 50, 90];
 const MAX_PERCENTAGE = 100;
@@ -33,7 +33,7 @@ export const PercentageButtons = ({
   disabled = false,
   onPercentageClick,
 }: PercentageButtonsProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const percentages = useMemo(
     () =>

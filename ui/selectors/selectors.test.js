@@ -4505,7 +4505,6 @@ describe('getLastQrScanCompletedSuccessfully', () => {
 describe('snap selectors', () => {
   const snapState = {
     metamask: {
-      currentLocale: 'en',
       snaps: {
         'npm:foo': {
           id: 'npm:foo',

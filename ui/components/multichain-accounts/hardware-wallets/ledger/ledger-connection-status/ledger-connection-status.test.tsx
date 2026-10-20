@@ -1,7 +1,7 @@
+import { render as renderComponent, screen } from '@testing-library/react';
 import React from 'react';
-import { screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { renderWithLocalization } from '../../../../../../test/lib/render-helpers';
+
 import {
   ALL_LEDGER_CONNECTION_STATUSES,
   getConfiguredLocaleMessageKeys,
@@ -20,7 +20,7 @@ import {
 } from '.';
 
 const renderLedgerConnectionStatus = (props: LedgerConnectionStatusProps) =>
-  renderWithLocalization(<LedgerConnectionStatus {...props} />);
+  renderComponent(<LedgerConnectionStatus {...props} />);
 
 describe('LedgerConnectionStatus', () => {
   describe('status content', () => {

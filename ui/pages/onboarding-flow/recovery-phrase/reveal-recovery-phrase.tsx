@@ -29,7 +29,7 @@ import {
   MetaMetricsEventVerificationMethod,
 } from '../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   FormTextFieldSize,
   FormTextField,
@@ -53,7 +53,7 @@ import {
 } from '../../../hooks/usePasskeyAvailability';
 import { getHDEntropyIndex } from '../../../selectors';
 import { PasskeyVerification } from '../../../components/app/passkey-verification';
-import type { MetaMaskReduxDispatch } from '../../../store/store';
+
 import { useOnboardingSearchParams } from '../hooks/useOnboardingSearchParams';
 import { usePasskeySeedPhraseExport } from '../../../hooks/passkey/usePasskeySeedPhraseExport';
 
@@ -89,7 +89,7 @@ export default function RevealRecoveryPhrase({
 }) {
   const exportSeedPhraseWithPasskey = usePasskeySeedPhraseExport();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const isFirefox = useIsFirefox();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const hdEntropyIndex = useSelector(getHDEntropyIndex);

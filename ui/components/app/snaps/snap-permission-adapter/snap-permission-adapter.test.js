@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../../store/store';
 import { mockNetworkState } from '../../../../../test/stub/networks';
 import { CHAIN_IDS } from '../../../../../shared/constants/network';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import SnapPermissionAdapter from './snap-permission-adapter';
 
 describe('Snap Permission Adapter', () => {
@@ -59,7 +60,7 @@ describe('Snap Permission Adapter', () => {
       },
     },
     {
-      label: messages.permission_dialog.message,
+      label: messages.permission_dialog,
       description: {},
       leftIcon: 'messages',
       weight: 4,
@@ -80,9 +81,7 @@ describe('Snap Permission Adapter', () => {
       />,
       store,
     );
-    expect(
-      screen.queryByText(messages.permission_dialog.message),
-    ).toBeInTheDocument();
+    expect(screen.queryByText(messages.permission_dialog)).toBeInTheDocument();
     expect(
       screen.queryByText(
         'Allow websites to communicate directly with Dialog Example Snap.',

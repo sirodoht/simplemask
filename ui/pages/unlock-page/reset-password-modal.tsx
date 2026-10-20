@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,7 +21,7 @@ import {
 } from '@metamask/design-system-react';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import { useSegmentContext } from '../../hooks/useSegmentContext';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   Modal,
   ModalContent,
@@ -51,7 +52,7 @@ export default function ResetPasswordModal({
 }: {
   onClose: () => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
   const isSocialLoginFlow = useSelector(getIsSocialLoginFlow);

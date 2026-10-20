@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { Box, Button, ButtonSize } from '@metamask/design-system-react';
 import CancelButton from '../cancel-button';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { PendingTransactionSpeedUpAction } from '../../../hooks/usePendingTransactionActions';
 
 type PendingTransactionActionButtonsProps = {
@@ -18,7 +18,7 @@ export const PendingTransactionActionButtons = ({
   speedUp,
   className,
 }: Readonly<PendingTransactionActionButtonsProps>) => {
-  const t = useI18nContext();
+  const t = getText;
 
   if (!showCancel && !speedUp.show) {
     return null;

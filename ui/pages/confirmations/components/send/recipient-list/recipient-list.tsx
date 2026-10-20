@@ -10,7 +10,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useDeferredSearchQuery } from '../../../../../hooks/useDeferredSearchQuery';
 import { useSendRecipientFilter } from '../../../hooks/send/useSendRecipientFilter';
 import { RecipientFilterInput } from '../recipient-filter-input';
@@ -69,7 +69,7 @@ const ContactsList = ({
   recipients: RecipientType[];
   handleSelectRecipient: (recipient: RecipientType) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   if (recipients.length === 0) {
     return null;

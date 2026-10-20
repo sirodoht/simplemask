@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import { CaipChainId, Hex } from '@metamask/utils';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { getIntlLocale } from '../../../../ducks/locale/locale';
+
 import { getCurrentCurrency } from '../../../../ducks/metamask/metamask';
 import {
   getEnabledNetworksByNamespace,
@@ -32,7 +32,7 @@ const SOLANA_CHAIN_ID = 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp';
 
 jest.mock('../../../../selectors/assets');
 jest.mock('../../../../selectors');
-jest.mock('../../../../ducks/locale/locale');
+
 jest.mock('../../../../ducks/metamask/metamask');
 jest.mock('../../../../../shared/lib/selectors/preferences');
 
@@ -84,8 +84,6 @@ describe('AccountGroupBalance', () => {
       .mocked(getEnabledNetworksByNamespace)
       .mockReturnValue(enabledNetworksByNamespace);
 
-    const mockGetIntlLocale = jest.mocked(getIntlLocale).mockReturnValue('en');
-
     const mockGetCurrentCurrency = jest
       .mocked(getCurrentCurrency)
       .mockReturnValue('usd');
@@ -106,7 +104,6 @@ describe('AccountGroupBalance', () => {
 
     return {
       mockGetPreferences,
-      mockGetIntlLocale,
       mockGetCurrentCurrency,
       mockGetEnabledNetworksByNamespace,
       mockGetShowFiatInTestnets,

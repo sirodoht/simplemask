@@ -3,9 +3,9 @@ import configureMockStore from 'redux-mock-store';
 import { fireEvent } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
-import { getIntlLocale } from '../../../ducks/locale/locale';
+
 import { mockNetworkState } from '../../../../test/stub/networks';
 import {
   getCurrencyRates,
@@ -57,10 +57,6 @@ const state = {
 
 let openTabSpy: jest.SpyInstance<void, [opts: { url: string }], unknown>;
 
-jest.mock('../../../ducks/locale/locale', () => ({
-  getIntlLocale: jest.fn(),
-}));
-
 jest.mock('react-redux', () => {
   const actual = jest.requireActual('react-redux');
   return {
@@ -68,8 +64,6 @@ jest.mock('react-redux', () => {
     useSelector: jest.fn(),
   };
 });
-
-const mockGetIntlLocale = getIntlLocale;
 
 describe('TokenListItem', () => {
   const buildRWAMarketWindow = ({
@@ -93,7 +87,6 @@ describe('TokenListItem', () => {
     global.platform = { openTab: jest.fn(), closeCurrentWindow: jest.fn() };
     // @ts-expect-error mocking platform
     openTabSpy = jest.spyOn(global.platform, 'openTab');
-    (mockGetIntlLocale as unknown as jest.Mock).mockReturnValue('en-US');
   });
   const props = {
     onClick: jest.fn(),
@@ -269,7 +262,7 @@ describe('TokenListItem', () => {
       store,
     );
 
-    expect(getByText(messages.tokenStock.message)).toBeInTheDocument();
+    expect(getByText(messages.tokenStock)).toBeInTheDocument();
   });
 
   it('opens the market closed modal instead of calling onClick when the market is closed', () => {
@@ -302,7 +295,7 @@ describe('TokenListItem', () => {
     expect(onClick).not.toHaveBeenCalled();
     expect(getByTestId('market-closed-modal')).toBeInTheDocument();
     expect(
-      getByText(messages.bridgeMarketClosedModalTitle.message),
+      getByText(messages.bridgeMarketClosedModalTitle),
     ).toBeInTheDocument();
   });
 });

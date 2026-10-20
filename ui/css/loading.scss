@@ -33,7 +33,7 @@
 @keyframes showTimeoutContent {
   to {
     // `\A` is a newline character.
-    content: "__MSG_CSS_loadingTakingTooLongMessageText__\A__MSG_CSS_loadingTakingTooLongActionText__";
+    content: "Loading is taking longer than usual.\ARelaunch MetaMask if the problem persists.";
   }
 }
 

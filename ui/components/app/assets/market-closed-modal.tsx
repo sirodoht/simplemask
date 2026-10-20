@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxFlexDirection,
@@ -21,7 +22,7 @@ import {
 } from '../../component-library';
 
 import { AlignItems } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 const MARKET_CLOSED_LEARN_MORE_URL = 'https://status.ondo.finance/market';
 
@@ -34,7 +35,7 @@ export const MarketClosedModal = ({
   isOpen,
   onClose,
 }: MarketClosedModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} data-testid="market-closed-modal">

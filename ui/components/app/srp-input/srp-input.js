@@ -1,7 +1,7 @@
 import { isValidMnemonic } from '@ethersproject/hdnode';
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import TextField from '../../ui/text-field';
 import { clearClipboard } from '../../../helpers/utils/util';
 import { BannerAlert, Text } from '../../component-library';
@@ -31,7 +31,7 @@ export default function SrpInput({ onChange, srpText }) {
   );
   const [numberOfWords, setNumberOfWords] = useState(defaultNumberOfWords);
 
-  const t = useI18nContext();
+  const t = getText;
 
   const onSrpChange = useCallback(
     (newDraftSrp) => {

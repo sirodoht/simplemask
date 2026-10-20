@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -7,7 +8,7 @@ import {
   ONBOARDING_WELCOME_ROUTE,
 } from '../../../helpers/constants/routes';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import initializedMockState from '../../../../test/data/mock-state.json';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import * as Actions from '../../../store/actions';
@@ -54,11 +55,9 @@ describe('Account Not Found Seedless Onboarding View', () => {
       customMockStore,
     );
 
-    expect(
-      getByText(messages.accountNotFoundTitle.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.accountNotFoundTitle)).toBeInTheDocument();
     // should show the correct button
-    const loginButton = getByText(messages.accountNotFoundCreateOne.message);
+    const loginButton = getByText(messages.accountNotFoundCreateOne);
     expect(loginButton).toBeInTheDocument();
   });
 
@@ -68,7 +67,7 @@ describe('Account Not Found Seedless Onboarding View', () => {
       customMockStore,
     );
 
-    const loginButton = getByText(messages.accountNotFoundCreateOne.message);
+    const loginButton = getByText(messages.accountNotFoundCreateOne);
     fireEvent.click(loginButton);
 
     await waitFor(() => {

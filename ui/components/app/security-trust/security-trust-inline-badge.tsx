@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -13,7 +14,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import type { TokenTrustConfig } from '#shared/lib/token-search/types';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export type SecurityTrustTranslate = (
   key: string,
@@ -136,7 +137,7 @@ export const SecurityTrustInlineBadge = ({
 };
 
 export const SecurityBadge = ({ value }: { value?: string }) => {
-  const t = useI18nContext() as SecurityTrustTranslate;
+  const t = getText as SecurityTrustTranslate;
   const badge = getSecurityTrustBadgeConfig(value, t);
 
   if (!badge) {

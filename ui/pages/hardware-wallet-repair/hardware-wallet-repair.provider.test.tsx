@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom';
 import { KeyringTypes } from '@metamask/keyring-controller';
 import configureStore from '../../store/store';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { HardwareWalletErrorProvider } from '../../contexts/hardware-wallets';
 import { HardwareWalletType } from '../../contexts/hardware-wallets/types';
 import { HardwareWalletRepair } from './hardware-wallet-repair';
@@ -18,8 +19,8 @@ const memoryRouterFuture = {
     true,
 } as NonNullable<MemoryRouterProps['future']>;
 
-jest.mock('../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 jest.mock(
@@ -96,6 +97,7 @@ function renderRepairPageWithProvider(
         accounts: {
           'account-1': {
             id: 'account-1',
+            type: 'eip155:eoa',
             address: '0x123',
             metadata: {
               keyring: {
@@ -130,7 +132,7 @@ function renderRepairPageWithProvider(
 describe('HardwareWalletRepair provider integration', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (useI18nContext as jest.Mock).mockReturnValue((key: string) => key);
+    (getText as jest.Mock).mockImplementation((key: string) => key);
   });
 
   it('renders through the app-level hardware wallet provider boundary', () => {

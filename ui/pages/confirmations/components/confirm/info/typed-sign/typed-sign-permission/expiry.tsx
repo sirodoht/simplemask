@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Text, TextVariant } from '@metamask/design-system-react';
 import { ConfirmInfoRow } from '../../../../../../../components/app/confirm/info/row';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { DateAndTimeRow } from './date-and-time-row';
 
 /**
@@ -14,7 +14,7 @@ import { DateAndTimeRow } from './date-and-time-row';
  * @returns JSX element containing the expiration information
  */
 export const Expiry = ({ expiry }: { expiry: number | null }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   if (expiry) {
     return (

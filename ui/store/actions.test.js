@@ -12,8 +12,8 @@ import { TransactionStatus } from '@metamask/transaction-controller';
 import { NotificationServicesController } from '@metamask/notification-services-controller';
 import { BACKUPANDSYNC_FEATURES } from '@metamask/profile-sync-controller/user-storage';
 // TODO: Remove restricted import
-// eslint-disable-next-line import-x/no-restricted-paths
-import enLocale from '../../app/_locales/en/messages.json';
+
+import { englishText as enLocale } from '../../shared/lib/text';
 // TODO: Remove restricted import
 // eslint-disable-next-line import-x/no-restricted-paths
 import MetaMaskController from '../../app/scripts/metamask-controller';
@@ -59,7 +59,6 @@ const defaultState = {
     },
   },
   metamask: {
-    currentLocale: 'test',
     networkConfigurationsByChainId: {
       [CHAIN_IDS.MAINNET]: {
         chainId: CHAIN_IDS.MAINNET,
@@ -1150,7 +1149,7 @@ describe('Actions', () => {
   describe('#connectHardware', () => {
     const translateHardwareMessage = (key, substitutions = []) =>
       key === 'hardwareWalletLookingForDevice'
-        ? enLocale.hardwareWalletLookingForDevice.message.replace(
+        ? enLocale.hardwareWalletLookingForDevice.replace(
             '$1',
             substitutions[0],
           )
@@ -1727,6 +1726,7 @@ describe('Actions', () => {
               'ledger-account': {
                 address: LEDGER_ADDRESS,
                 id: 'ledger-account',
+                type: EthAccountType.Eoa,
                 metadata: { keyring: { type: KeyringTypes.ledger } },
               },
             },
@@ -3267,57 +3267,6 @@ describe('Actions', () => {
       ];
 
       await store.dispatch(actions.setUseSafeChainsListValidation());
-      expect(store.getActions()).toStrictEqual(expectedActions);
-    });
-  });
-
-  describe('#updateCurrentLocale', () => {
-    beforeEach(() => {
-      sinon.stub(window, 'fetch').resolves({
-        json: async () => enLocale,
-      });
-    });
-
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls expected actions', async () => {
-      const store = mockStore();
-      const setCurrentLocaleStub = sinon.stub().resolves();
-      setBackgroundConnection({
-        setCurrentLocale: setCurrentLocaleStub,
-      });
-
-      const expectedActions = [
-        { type: 'SHOW_LOADING_INDICATION', payload: undefined },
-        {
-          type: 'SET_CURRENT_LOCALE',
-          payload: { locale: 'en', messages: enLocale },
-        },
-        { type: 'HIDE_LOADING_INDICATION' },
-      ];
-
-      await store.dispatch(actions.updateCurrentLocale('test'));
-      expect(setCurrentLocaleStub.callCount).toStrictEqual(1);
-      expect(setCurrentLocaleStub.firstCall.args[0]).toBe('en');
-      expect(store.getActions()).toStrictEqual(expectedActions);
-    });
-
-    it('errors when setCurrentLocale throws', async () => {
-      const store = mockStore();
-      const setCurrentLocaleStub = sinon.stub().rejects(new Error('error'));
-      setBackgroundConnection({
-        setCurrentLocale: setCurrentLocaleStub,
-      });
-
-      const expectedActions = [
-        { type: 'SHOW_LOADING_INDICATION', payload: undefined },
-        { type: 'HIDE_LOADING_INDICATION' },
-      ];
-
-      await store.dispatch(actions.updateCurrentLocale('test'));
-
       expect(store.getActions()).toStrictEqual(expectedActions);
     });
   });

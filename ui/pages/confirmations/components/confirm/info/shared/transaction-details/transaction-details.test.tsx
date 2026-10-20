@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Hex } from '@metamask/utils';
@@ -10,7 +11,7 @@ import {
   getMockContractInteractionConfirmState,
 } from '../../../../../../../../test/data/confirmations/helper';
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { CHAIN_IDS } from '../../../../../../../../shared/constants/network';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
 import {
@@ -305,8 +306,8 @@ describe('Transaction Details', () => {
         <TransactionDetails />,
         mockStore,
       );
-      expect(getByText(messages.network.message)).toBeInTheDocument();
-      expect(getByText(messages.networkNameGoerli.message)).toBeInTheDocument();
+      expect(getByText(messages.network)).toBeInTheDocument();
+      expect(getByText(messages.networkNameGoerli)).toBeInTheDocument();
     });
 
     describe('RecipientRow', () => {

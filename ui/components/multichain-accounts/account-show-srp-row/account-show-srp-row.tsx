@@ -16,7 +16,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { AccountDetailsRow } from '../account-details-row/account-details-row';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getIsPrimarySeedPhraseBackedUp } from '../../../ducks/metamask/metamask';
 import { getMetaMaskHdKeyrings } from '../../../selectors';
 import { ONBOARDING_REVIEW_SRP_ROUTE } from '../../../helpers/constants/routes';
@@ -27,7 +27,7 @@ type AccountShowSrpRowProps = {
 };
 
 export const AccountShowSrpRow = ({ account }: AccountShowSrpRowProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const [srpQuizModalVisible, setSrpQuizModalVisible] = useState(false);
   const seedPhraseBackedUp = useSelector(getIsPrimarySeedPhraseBackedUp);

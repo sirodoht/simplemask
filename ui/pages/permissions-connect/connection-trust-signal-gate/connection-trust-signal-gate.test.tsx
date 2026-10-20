@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, fireEvent } from '@testing-library/react';
 import { TrustSignalDisplayState } from '../../../hooks/useTrustSignals';
 import { useOriginTrustSignals } from '../../../hooks/useOriginTrustSignals';
@@ -8,8 +9,8 @@ jest.mock('../../../hooks/useOriginTrustSignals', () => ({
   useOriginTrustSignals: jest.fn(),
 }));
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 const mockUseOriginTrustSignals = useOriginTrustSignals as jest.Mock;

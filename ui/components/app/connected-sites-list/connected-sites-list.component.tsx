@@ -9,7 +9,7 @@ import {
 import { stripHttpsSchemeWithoutPort } from '../../../helpers/utils/util';
 import SiteOrigin from '../../ui/site-origin';
 import { SnapIcon } from '../snaps/snap-icon';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type ConnectedSubject = {
   name?: string;
@@ -29,7 +29,7 @@ export default function ConnectedSitesList({
   onDisconnect,
   getSnapName,
 }: ConnectedSitesListProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   const getSubjectDisplayName = useCallback(
     (subject: ConnectedSubject) => {

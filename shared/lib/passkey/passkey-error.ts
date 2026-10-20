@@ -8,7 +8,7 @@ export type TranslateFn = (key: string, substitutions?: string[]) => string;
 /**
  * Maps passkey error `code` strings (controller + extension) to extension `messages.json` keys.
  */
-const PASSKEY_ERROR_CODE_TO_I18N_KEY: Record<string, string> = {
+const PASSKEY_ERROR_CODE_TO_TEXT_KEY: Record<string, string> = {
   [PasskeyControllerErrorCode.NotEnrolled]: 'passkeyErrorNotEnrolled',
   [PasskeyControllerErrorCode.AlreadyEnrolled]: 'passkeyErrorAlreadyEnrolled',
   [PasskeyControllerErrorCode.NoRegistrationCeremony]:
@@ -80,8 +80,8 @@ function translatePasskeyCode(
   t: TranslateFn,
   authMethodLabel: string,
 ): string | null {
-  const i18nKey = PASSKEY_ERROR_CODE_TO_I18N_KEY[code];
-  return i18nKey === undefined ? null : t(i18nKey, [authMethodLabel]);
+  const textKey = PASSKEY_ERROR_CODE_TO_TEXT_KEY[code];
+  return textKey === undefined ? null : t(textKey, [authMethodLabel]);
 }
 
 function getCauseCode(data: unknown): unknown {
@@ -98,7 +98,7 @@ function getCauseCode(data: unknown): unknown {
 }
 
 /**
- * Translate a passkey error to a user-facing string using the extension i18n system.
+ * Translate a passkey error to a user-facing string using the English product copy.
  *
  * **Controller:** `PasskeyController` throws `PasskeyControllerError` with a stable
  * string `code` (see `@metamask/passkey-controller`).
@@ -112,7 +112,7 @@ function getCauseCode(data: unknown): unknown {
  * 3. Otherwise `null` — callers typically use `?? t('passkeyUnlockFailed', [authMethodLabel])`.
  *
  * @param error - Thrown value from background or in-page passkey flows.
- * @param t - The extension i18n translation function from `useI18nContext()`.
+ * @param t - The extension English text function from `getText`.
  * @param authMethodLabel - OS-specific passkey auth-method noun ("Biometrics" /
  * "Touch ID" / "Windows Hello"); UI typically passes
  * `t(getPasskeyAuthMethodKey())` (same noun as buttons / toasts, not the `{ specific: true }` variant).

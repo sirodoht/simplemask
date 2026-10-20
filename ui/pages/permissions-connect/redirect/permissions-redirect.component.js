@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -13,7 +13,7 @@ import {
   TextVariant,
   IconColor,
 } from '../../../helpers/constants/design-system';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import {
   AvatarToken,
   AvatarTokenSize,
@@ -28,7 +28,7 @@ import {
 import PermissionsConnectFooter from '../../../components/app/permissions-connect-footer';
 
 export default function PermissionsRedirect({ subjectMetadata }) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const [lastValidSubjectMetadata, setLastValidSubjectMetadata] = useState(() =>
     subjectMetadata?.origin ? subjectMetadata : null,
   );

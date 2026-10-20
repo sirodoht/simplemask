@@ -1,8 +1,9 @@
+import React from 'react';
 import {
   TransactionMeta,
   TransactionType,
 } from '@metamask/transaction-controller';
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { ORIGIN_METAMASK } from '../../../../../../../shared/constants/app';
 import {
@@ -11,14 +12,14 @@ import {
   ConfirmInfoRowDivider,
 } from '../../../../../../components/app/confirm/info/row';
 import { ConfirmInfoSection } from '../../../../../../components/app/confirm/info/row/section';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../../context/confirm';
 import { selectConfirmationAdvancedDetailsOpen } from '../../../../selectors/preferences';
 import { OriginRow } from '../shared/transaction-details/transaction-details';
 import { NetworkRow } from '../shared/network-row/network-row';
 
 export const TokenDetailsSection = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
 

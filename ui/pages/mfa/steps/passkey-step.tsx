@@ -1,15 +1,16 @@
 import React from 'react';
+
 import {
   Button,
   ButtonSize,
   ButtonVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MfaFlowTestIds } from '../test-ids';
 import StepLayout, { type StepProps } from './step-layout';
 
 const PasskeyStep = ({ step, state, onAction }: StepProps<'passkey'>) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <StepLayout
       title={t(

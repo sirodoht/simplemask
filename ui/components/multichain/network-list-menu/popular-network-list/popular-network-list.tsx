@@ -13,7 +13,7 @@ import {
   TextButton,
   TextButtonSize,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Box, Text } from '../../../component-library';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../../../shared/constants/app';
 import {
@@ -41,7 +41,7 @@ const PopularNetworkList = ({
 }: {
   searchAddNetworkResults: FeaturedNetwork[];
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const isPopUp = getEnvironmentType() === ENVIRONMENT_TYPE_POPUP;
   const dispatch = useDispatch();
   const { value: isOpen, setTrue: open, setFalse: close } = useBoolean();

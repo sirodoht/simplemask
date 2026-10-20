@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import {
   AlertActionKey,
@@ -16,7 +16,7 @@ import { isNativeAddress } from '../../../../../helpers/utils/token-insights';
 const DAPP_GAS_FEE_HIGH_THRESHOLD = 0.2; // 20% higher than market estimation
 
 export function useSuggestedGasFeeHighAlert(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   const selectedGasFeeToken = currentConfirmation?.selectedGasFeeToken;

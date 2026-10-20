@@ -4,7 +4,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useBlockExplorerUrl } from './shared';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export function BlockExplorerButton({ chainId, txHash }: Props) {
-  const t = useI18nContext();
+  const t = getText;
   const explorerTxUrl = useBlockExplorerUrl(chainId ?? '', txHash);
 
   const handleClick = useCallback(() => {

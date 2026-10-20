@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { getIntlLocale } from '../ducks/locale/locale';
+
 import { getCurrentCurrency } from '../ducks/metamask/metamask';
 import { useFiatFormatter } from './useFiatFormatter';
 
@@ -7,15 +7,10 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn((selector) => selector()),
 }));
 
-jest.mock('../ducks/locale/locale', () => ({
-  getIntlLocale: jest.fn(),
-}));
-
 jest.mock('../ducks/metamask/metamask', () => ({
   getCurrentCurrency: jest.fn(),
 }));
 
-const mockGetIntlLocale = getIntlLocale as unknown as jest.Mock;
 const mockGetCurrentCurrency = getCurrentCurrency as jest.Mock;
 
 describe('useFiatFormatter', () => {
@@ -24,7 +19,6 @@ describe('useFiatFormatter', () => {
   });
 
   it('should return a function that formats fiat amount correctly', () => {
-    mockGetIntlLocale.mockReturnValue('en-US');
     mockGetCurrentCurrency.mockReturnValue('USD');
 
     const { result } = renderHook(() => useFiatFormatter());
@@ -36,8 +30,7 @@ describe('useFiatFormatter', () => {
   });
 
   describe('shorten the fiat', () => {
-    it('when currency symbol on the left for given locale', () => {
-      mockGetIntlLocale.mockReturnValue('en-US');
+    it('formats dollars with English separators', () => {
       mockGetCurrentCurrency.mockReturnValue('USD');
 
       const { result } = renderHook(() => useFiatFormatter());
@@ -49,7 +42,6 @@ describe('useFiatFormatter', () => {
     });
 
     it('when truncate limits are passed to the formatter', () => {
-      mockGetIntlLocale.mockReturnValue('en-US');
       mockGetCurrentCurrency.mockReturnValue('USD');
       const { result } = renderHook(() => useFiatFormatter());
       const formatFiat = result.current;
@@ -62,21 +54,19 @@ describe('useFiatFormatter', () => {
       ).toBe('$100,000,000,000,0...');
     });
 
-    it('when currency symbol on the right for given locale', () => {
-      mockGetIntlLocale.mockReturnValue('es-ES');
+    it('formats euros with English separators', () => {
       mockGetCurrentCurrency.mockReturnValue('EUR');
 
       const { result } = renderHook(() => useFiatFormatter());
       const formatFiat = result.current;
 
       expect(formatFiat(100000000000000000, { shorten: true })).toBe(
-        '100.000.000....€',
+        '€100,000,000,...',
       );
     });
 
     it('handle unknown currencies by returning amount followed by currency code', () => {
       mockGetCurrentCurrency.mockReturnValue('storj');
-      mockGetIntlLocale.mockReturnValue('en-US');
 
       const { result } = renderHook(() => useFiatFormatter());
       const formatFiat = result.current;
@@ -87,18 +77,15 @@ describe('useFiatFormatter', () => {
     });
   });
 
-  it('should use the current locale and currency from the mocked functions', () => {
-    mockGetIntlLocale.mockReturnValue('fr-FR');
+  it('uses the selected currency', () => {
     mockGetCurrentCurrency.mockReturnValue('EUR');
 
     renderHook(() => useFiatFormatter());
 
-    expect(getIntlLocale).toHaveBeenCalledTimes(1);
     expect(getCurrentCurrency).toHaveBeenCalledTimes(1);
   });
 
   it('uses overrideCurrency instead of Redux currency when provided', () => {
-    mockGetIntlLocale.mockReturnValue('en-US');
     mockGetCurrentCurrency.mockReturnValue('EUR');
 
     const { result } = renderHook(() =>
@@ -112,7 +99,6 @@ describe('useFiatFormatter', () => {
 
   it('should gracefully handle unknown currencies by returning amount followed by currency code', () => {
     mockGetCurrentCurrency.mockReturnValue('storj');
-    mockGetIntlLocale.mockReturnValue('en-US');
 
     const { result } = renderHook(() => useFiatFormatter());
     const formatFiat = result.current;

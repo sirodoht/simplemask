@@ -47,7 +47,6 @@ const getFixtureIgnoredKeys = (): string[] => [
   // Subject Metadata
   'data.SubjectMetadataController.subjectMetadata',
   // Locale-related keys
-  'localeMessages',
   // Timestamps and dates that change on every run
   'data.AddressBookController.addressBook.*.0x5CfE73b6021E818B776b421B1c4Db2474086a7e1.lastUpdatedAt',
   'data.AppMetadataController.firstTimeInfo.date',

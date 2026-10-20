@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { selectLocalActivityItemsByIdentifier } from '../../../selectors/activity';
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
 import type { ToastStatus } from './shared';
@@ -11,7 +11,7 @@ const genericToastLabels: Record<ToastStatus, string> = {
 };
 
 type ToastLabel = { title: string; description?: string };
-type TranslateFn = ReturnType<typeof useI18nContext>;
+type TranslateFn = typeof getText;
 
 function getPerpsWithdrawToastContent(
   status: ToastStatus,
@@ -53,7 +53,7 @@ function useGetToastContent(
   status: ToastStatus,
   item?: ActivityListItem,
 ): ToastLabel {
-  const t = useI18nContext();
+  const t = getText;
 
   switch (item?.type) {
     case 'convert': {

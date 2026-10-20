@@ -8,7 +8,7 @@ import {
   ButtonIconSize,
   IconName,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getEnvironmentType } from '../../../../shared/lib/environment-type';
 import {
   ENVIRONMENT_TYPE_FULLSCREEN,
@@ -87,7 +87,7 @@ export const GlobalMenuDrawer = ({
   showCloseButton = true,
   'data-testid': dataTestId,
 }: GlobalMenuDrawerProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const environmentType = getEnvironmentType();
   const isFullscreen = environmentType === ENVIRONMENT_TYPE_FULLSCREEN;
   const isSidepanel = environmentType === ENVIRONMENT_TYPE_SIDEPANEL;

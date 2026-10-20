@@ -33,7 +33,7 @@ import {
   toggleDefaultView,
 } from '../../../store/actions';
 import { isGatorPermissionsRevocationFeatureEnabled } from '../../../../shared/lib/environment';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useSidePanelEnabled } from '../../../hooks/useSidePanelEnabled';
 import { useBrowserSupportsSidePanel } from '../../../hooks/useBrowserSupportsSidePanel';
 import { selectIsMetamaskNotificationsFeatureSeen } from '../../../selectors/metamask-notifications/metamask-notifications';
@@ -70,7 +70,7 @@ const METRICS_LOCATION = 'Global Menu';
 export function useGlobalMenuSections(
   onClose: () => void,
 ): GlobalMenuSection[] {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();

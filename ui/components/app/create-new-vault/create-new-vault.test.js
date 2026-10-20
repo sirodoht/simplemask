@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
 import CreateNewVault from './create-new-vault';
@@ -28,9 +29,7 @@ describe('CreateNewVault', () => {
       <CreateNewVault submitText="Import" onSubmit={jest.fn()} />,
       store,
     );
-    expect(
-      screen.getByText(messages.secretRecoveryPhrase.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.secretRecoveryPhrase)).toBeInTheDocument();
   });
 
   it('renders CreateNewVault component and shows You can paste... text', () => {
@@ -38,7 +37,7 @@ describe('CreateNewVault', () => {
       <CreateNewVault submitText="Import" onSubmit={jest.fn()} includeTerms />,
       store,
     );
-    expect(screen.getByText(messages.srpPasteTip.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.srpPasteTip)).toBeInTheDocument();
   });
 
   it('should check terms', () => {
@@ -79,7 +78,7 @@ describe('CreateNewVault', () => {
 
     fireEvent.change(passwordInput, passwordEvent);
 
-    const passwordError = queryByText(messages.passwordNotLongEnough.message);
+    const passwordError = queryByText(messages.passwordNotLongEnough);
 
     expect(passwordError).toBeInTheDocument();
 
@@ -117,7 +116,7 @@ describe('CreateNewVault', () => {
     fireEvent.change(passwordInput, passwordEvent);
     fireEvent.change(confirmPasswordInput, confirmPasswordEvent);
 
-    const passwordError = queryByText(messages.passwordsDontMatch.message);
+    const passwordError = queryByText(messages.passwordsDontMatch);
 
     expect(passwordError).toBeInTheDocument();
 

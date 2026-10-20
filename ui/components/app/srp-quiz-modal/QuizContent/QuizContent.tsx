@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -9,7 +10,7 @@ import {
   TextAlign,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Button, Text } from '../../../component-library';
 import { IQuizInformationProps } from '../types';
 
@@ -20,7 +21,7 @@ export default function QuizContent({
   moreContent,
   buttons,
 }: IQuizInformationProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <>

@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import { getIntlLocale } from '../ducks/locale/locale';
+
 import { useFormatters } from './useFormatters';
 
 const relativeTimeFormatCache: Record<string, Intl.RelativeTimeFormat> = {};
@@ -45,7 +44,7 @@ export function formatRelativeMediumDate(
 }
 
 export function useRelativeMediumDate() {
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const { formatMediumDate } = useFormatters();
 
   return useCallback(

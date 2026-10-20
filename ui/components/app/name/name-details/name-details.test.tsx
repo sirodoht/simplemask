@@ -1,6 +1,7 @@
+import React from 'react';
 import { NameType } from '@metamask/name-controller';
 import { fireEvent } from '@testing-library/react';
-import React from 'react';
+
 import { act } from 'react-dom/test-utils';
 import { useSelector } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -16,7 +17,7 @@ import { getNames, getNameSources } from '../../../../selectors';
 import { setName, updateProposedNames } from '../../../../store/actions';
 import { TrustSignalDisplayState } from '../../../../hooks/useTrustSignals';
 import { useDisplayName } from '../../../../hooks/useDisplayName';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { useDispatch } from '../../../../store/hooks';
 import NameDetails from './name-details';
 
@@ -136,7 +137,7 @@ async function saveNameUsingDropdown(
 ) {
   const { getByPlaceholderText, getByText } = component;
   const nameInput = getByPlaceholderText(placeholder);
-  const saveButton = getByText(messages.save.message);
+  const saveButton = getByText(messages.save);
 
   await act(async () => {
     fireEvent.click(nameInput);
@@ -160,7 +161,7 @@ async function saveNameUsingTextField(
 ) {
   const { getByPlaceholderText, getByText } = component;
   const nameInput = getByPlaceholderText(placeholder);
-  const saveButton = getByText(messages.save.message);
+  const saveButton = getByText(messages.save);
 
   await act(async () => {
     fireEvent.click(nameInput);
@@ -365,7 +366,7 @@ describe('NameDetails', () => {
     );
 
     const { getByPlaceholderText, baseElement } = component;
-    const nameInput = getByPlaceholderText(messages.nameSetPlaceholder.message);
+    const nameInput = getByPlaceholderText(messages.nameSetPlaceholder);
 
     await act(async () => {
       fireEvent.click(nameInput);
@@ -929,10 +930,10 @@ describe('NameDetails', () => {
       );
 
       expect(
-        getByText(messages.alertReasonAddressTrustSignalMalicious.message),
+        getByText(messages.alertReasonAddressTrustSignalMalicious),
       ).toBeInTheDocument();
       expect(
-        getByText(messages.alertMessageAddressTrustSignalMalicious.message),
+        getByText(messages.alertMessageAddressTrustSignalMalicious),
       ).toBeInTheDocument();
     });
 
@@ -955,10 +956,10 @@ describe('NameDetails', () => {
       );
 
       expect(
-        getByText(messages.alertReasonAddressTrustSignalWarning.message),
+        getByText(messages.alertReasonAddressTrustSignalWarning),
       ).toBeInTheDocument();
       expect(
-        getByText(messages.alertMessageAddressTrustSignal.message),
+        getByText(messages.alertMessageAddressTrustSignal),
       ).toBeInTheDocument();
     });
 
@@ -980,9 +981,7 @@ describe('NameDetails', () => {
         store,
       );
 
-      expect(
-        getByText(messages.nameModalTitleVerified.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.nameModalTitleVerified)).toBeInTheDocument();
     });
 
     it('shows footer warning for malicious state', () => {
@@ -1003,9 +1002,7 @@ describe('NameDetails', () => {
         store,
       );
 
-      expect(
-        getByText(messages.nameFooterTrustWarning.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.nameFooterTrustWarning)).toBeInTheDocument();
     });
 
     it('shows footer warning for warning state', () => {
@@ -1026,9 +1023,7 @@ describe('NameDetails', () => {
         store,
       );
 
-      expect(
-        getByText(messages.nameFooterTrustWarning.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.nameFooterTrustWarning)).toBeInTheDocument();
     });
   });
 });

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { FailedNetwork } from '@metamask/network-connection-banner-controller';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   BannerBase,
   ButtonLink,
@@ -35,7 +35,7 @@ const PrimaryMessage = ({
   primaryMessageKey,
   network,
 }: {
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
   primaryMessageKey: string;
   network: FailedNetwork;
 }) => {
@@ -69,7 +69,7 @@ const UpdateRpcButton = ({
   isLowerCase,
   updateRpc,
 }: {
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
   isLowerCase: boolean;
   updateRpc: () => void;
 }) => {
@@ -97,7 +97,7 @@ const SwitchToInfuraButton = ({
   isLowerCase,
   switchToInfura,
 }: {
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
   isLowerCase: boolean;
   switchToInfura: () => Promise<void>;
 }) => {
@@ -123,7 +123,7 @@ const SwitchToInfuraButton = ({
 const getBannerContent = (
   status: 'degraded' | 'unavailable',
   network: FailedNetwork,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   updateRpc: () => void,
   switchToInfura: () => Promise<void>,
 ): {
@@ -226,7 +226,7 @@ const getBannerContent = (
 };
 
 export const NetworkConnectionBanner = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { status, network, trackNetworkBannerEvent, switchToInfura } =

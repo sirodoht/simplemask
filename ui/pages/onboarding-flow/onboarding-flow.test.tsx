@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Routes, Route } from 'react-router-dom';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { createMockUIMessenger } from '../../../test/lib/mock-ui-messenger';
 import {
   ONBOARDING_EXPERIMENTAL_AREA,
@@ -265,9 +265,7 @@ describe('Onboarding Flow', () => {
       ),
       preferences: {},
     },
-    localeMessages: {
-      currentLocale: 'en',
-    },
+
     appState: {
       externalServicesOnboardingToggleState: true,
     },
@@ -376,9 +374,6 @@ describe('Onboarding Flow', () => {
           },
         ],
       },
-      localeMessages: {
-        currentLocale: 'en',
-      },
     };
 
     const completedOnboardingStore = configureMockStore([thunk])(
@@ -426,7 +421,7 @@ describe('Onboarding Flow', () => {
         ONBOARDING_CREATE_PASSWORD_ROUTE,
       );
 
-      const createPasswordText = queryByText(messages.createPassword.message);
+      const createPasswordText = queryByText(messages.createPassword);
       expect(createPasswordText).toBeInTheDocument();
 
       const password = 'a-new-password';

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   FontWeight,
   Text,
@@ -12,7 +13,7 @@ import {
   ModalContent,
 } from '@metamask/design-system-react';
 import { Button } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getURLHost } from '../../../helpers/utils/util';
 
 type DisconnectAllModalProps = {
@@ -26,7 +27,7 @@ export const DisconnectAllModal = ({
   onClose,
   origin,
 }: DisconnectAllModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const host = getURLHost(origin);
 
   return (

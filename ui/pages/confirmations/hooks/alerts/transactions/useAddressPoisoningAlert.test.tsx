@@ -6,7 +6,7 @@ import {
 } from '@metamask/transaction-controller';
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { AddressPoisoningAlertContent } from '../../../components/send/address-poisoning-alert-content/address-poisoning-alert-content';
 import { useTransactionMetadataRequestOptional } from '../../transactions/useTransactionMetadataRequest';
 import {
@@ -16,7 +16,7 @@ import {
 import { AlertsName } from '../constants';
 import { useAddressPoisoningAlert } from './useAddressPoisoningAlert';
 
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 jest.mock('@metamask/transaction-controller', () => {
   const actual = jest.requireActual('@metamask/transaction-controller');
   return Object.defineProperty(Object.create(actual), 'getSendRecipients', {
@@ -31,7 +31,7 @@ jest.mock('../../send/useAddressPoisoningDetection', () => ({
   useAddressPoisoningDetection: jest.fn(),
 }));
 
-const mockUseI18nContext = jest.mocked(useI18nContext);
+const mockGetText = jest.mocked(getText);
 const mockGetSendRecipients = jest.mocked(getSendRecipients);
 const mockUseTransactionMetadataRequestOptional = jest.mocked(
   useTransactionMetadataRequestOptional,
@@ -54,7 +54,7 @@ describe('useAddressPoisoningAlert', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseI18nContext.mockReturnValue((key: string) => key);
+    mockGetText.mockImplementation((key: string) => key);
     mockUseTransactionMetadataRequestOptional.mockReturnValue(
       {} as TransactionMeta,
     );

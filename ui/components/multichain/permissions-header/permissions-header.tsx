@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import {
   AvatarFavicon,
@@ -20,7 +21,7 @@ import {
 } from '../../../helpers/constants/design-system';
 import { Header } from '../pages/page';
 import { getURLHost } from '../../../helpers/utils/util';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PREVIOUS_ROUTE } from '../../../helpers/constants/routes';
 
 export const PermissionsHeader = ({
@@ -30,7 +31,7 @@ export const PermissionsHeader = ({
   securedOrigin: string;
   connectedSubjectsMetadata?: { name: string; iconUrl: string };
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   return (

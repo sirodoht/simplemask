@@ -5,7 +5,7 @@ import { useConfirmContext } from '../../context/confirm';
 import type { Alert } from '../../../../ducks/confirm-alerts/confirm-alerts';
 import { DEPRECATED_NETWORKS } from '../../../../../shared/constants/network';
 import { AddEthereumChainContext } from '../../external/add-ethereum-chain/types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useSafeChains } from '../../../../components/multichain/networks-form/use-safe-chains';
 import {
   isRpcRateLimitError,
@@ -30,7 +30,7 @@ const isRouteMeshRpcForChain = (rpcUrl: URL, chainId: string) => {
 // Ported from templates/add-ethereum-chain.js
 export function useAddEthereumChainAlerts() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
-  const t = useI18nContext();
+  const t = getText;
   const { safeChains } = useSafeChains();
   const { currentConfirmation } = useConfirmContext<AddEthereumChainContext>();
   const pendingApproval = currentConfirmation;

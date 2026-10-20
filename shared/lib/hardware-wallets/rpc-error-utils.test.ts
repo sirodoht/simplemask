@@ -908,7 +908,7 @@ describe('rpc-error-utils', () => {
 
         expect(result).toBeInstanceOf(HardwareWalletError);
         expect(result.code).toBe(ErrorCode.ConnectionTransportMissing);
-        // Preserve the original diagnostic message; localized UX is driven by
+        // Preserve the original diagnostic message; English UX is driven by
         // ErrorCode in the UI (buildErrorContent), not this shared string.
         expect(result.message).toBe(message);
       }

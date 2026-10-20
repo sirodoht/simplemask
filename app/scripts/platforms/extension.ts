@@ -11,7 +11,7 @@ import { ENVIRONMENT_TYPE_BACKGROUND } from '../../../shared/constants/app';
 // TODO: Remove restricted import
 // eslint-disable-next-line import-x/no-restricted-paths
 import { getURLHostName } from '../../../ui/helpers/utils/util';
-import { t } from '../../../shared/lib/translate';
+import { getText as t } from '../../../shared/lib/text';
 
 type RpcPrefs = Parameters<typeof getBlockExplorerLink>[1];
 type BlockExplorerTransaction = Parameters<typeof getBlockExplorerLink>[0];
@@ -237,10 +237,10 @@ export default class ExtensionPlatform {
     const title = t('notificationTransactionSuccessTitle');
     let message = Number.isNaN(nonce)
       ? t('notificationTransactionWithoutNonceSuccessMessage')
-      : t('notificationTransactionSuccessMessage', String(nonce));
+      : t('notificationTransactionSuccessMessage', [String(nonce)]);
 
     if (url.length) {
-      message += ` ${t('notificationTransactionSuccessView', view)}`;
+      message += ` ${t('notificationTransactionSuccessView', [view])}`;
     }
 
     await this._showNotification(title ?? '', message ?? '', url ?? undefined);
@@ -254,12 +254,13 @@ export default class ExtensionPlatform {
     const title = t('notificationTransactionFailedTitle');
     const errorMessageText = errorMessage ?? txMeta.error?.message ?? '';
     const message = Number.isNaN(nonce)
-      ? t('notificationTransactionWithoutNonceFailedMessage', errorMessageText)
-      : t(
-          'notificationTransactionFailedMessage',
+      ? t('notificationTransactionWithoutNonceFailedMessage', [
+          errorMessageText,
+        ])
+      : t('notificationTransactionFailedMessage', [
           String(nonce),
           errorMessageText,
-        );
+        ]);
     await this._showNotification(title ?? '', message ?? '');
   }
 

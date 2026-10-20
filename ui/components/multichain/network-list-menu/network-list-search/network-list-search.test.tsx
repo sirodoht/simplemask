@@ -1,20 +1,21 @@
 import React from 'react';
+
 import { render, fireEvent } from '@testing-library/react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import NetworkListSearch from './network-list-search';
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 describe('NetworkListSearch', () => {
   const mockSetSearchQuery = jest.fn();
   const mockSetFocusSearch = jest.fn();
-  const useI18nContextMock = useI18nContext as jest.Mock;
+  const getTextMock = getText as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    useI18nContextMock.mockReturnValue((key: string) => key);
+    getTextMock.mockImplementation((key: string) => key);
   });
 
   it('renders search list component', () => {

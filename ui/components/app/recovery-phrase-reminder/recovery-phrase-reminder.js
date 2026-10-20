@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -6,7 +7,7 @@ import {
   BoxAlignItems,
   BoxJustifyContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 // Helpers
 import {
   AlignItems,
@@ -30,7 +31,7 @@ import {
 } from '../../component-library';
 
 export default function RecoveryPhraseReminder({ onConfirm }) {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   const handleBackUp = () => {

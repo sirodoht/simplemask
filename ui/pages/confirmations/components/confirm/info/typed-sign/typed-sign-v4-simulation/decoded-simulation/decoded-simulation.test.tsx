@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   DecodingDataChangeType,
@@ -11,7 +12,7 @@ import {
   permitSignatureMsg,
   signatureMsgPermitRevokeDAI,
 } from '../../../../../../../../../test/data/confirmations/typed_sign';
-import { enLocale as messages } from '../../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../../shared/lib/text';
 import PermitSimulation, {
   getStateChangeType,
   getStateChangeToolip,
@@ -148,10 +149,10 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_approve.message),
+      await findByText(messages.permitSimulationChange_approve),
     ).toBeInTheDocument();
     expect(await findByText('12,345')).toBeInTheDocument();
   });
@@ -170,12 +171,12 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_approve.message),
+      await findByText(messages.permitSimulationChange_approve),
     ).toBeInTheDocument();
-    expect(await findByText(messages.unlimited.message)).toBeInTheDocument();
+    expect(await findByText(messages.unlimited)).toBeInTheDocument();
   });
 
   it('renders "Unlimited" for backwards compatibility approve DAI', () => {
@@ -193,10 +194,8 @@ describe('DecodedSimulation', () => {
       mockStore,
     );
 
-    expect(
-      queryByText(messages.permitSimulationChange_approve.message),
-    ).toBeTruthy();
-    expect(queryByText(messages.unlimited.message)).toBeTruthy();
+    expect(queryByText(messages.permitSimulationChange_approve)).toBeTruthy();
+    expect(queryByText(messages.unlimited)).toBeTruthy();
   });
 
   it('renders backwards compatibility revoke DAI', () => {
@@ -214,8 +213,8 @@ describe('DecodedSimulation', () => {
       mockStore,
     );
 
-    expect(queryByText(messages.gatorPermissionsRevoke.message)).toBeTruthy();
-    expect(queryByText(messages.unlimited.message)).toBeNull();
+    expect(queryByText(messages.gatorPermissionsRevoke)).toBeTruthy();
+    expect(queryByText(messages.unlimited)).toBeNull();
   });
 
   it('render correctly for ERC712 token', async () => {
@@ -232,13 +231,13 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_nft_listing.message),
+      await findByText(messages.permitSimulationChange_nft_listing),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_listing.message),
+      await findByText(messages.permitSimulationChange_listing),
     ).toBeInTheDocument();
     expect(await findByText('#2101')).toBeInTheDocument();
   });
@@ -257,13 +256,13 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_receive.message),
+      await findByText(messages.permitSimulationChange_receive),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.permitSimulationChange_listing.message),
+      await findByText(messages.permitSimulationChange_listing),
     ).toBeInTheDocument();
     expect(await findByText('#2233')).toBeInTheDocument();
   });
@@ -278,10 +277,10 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.simulationDetailsTitle.message),
+      await findByText(messages.simulationDetailsTitle),
     ).toBeInTheDocument();
     expect(
-      await findByText(messages.simulationDetailsUnavailable.message),
+      await findByText(messages.simulationDetailsUnavailable),
     ).toBeInTheDocument();
   });
 
@@ -305,7 +304,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findAllByText(messages.permitSimulationChange_approve.message),
+      await findAllByText(messages.permitSimulationChange_approve),
     ).toHaveLength(1);
   });
 
@@ -325,7 +324,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findAllByText(messages.permitSimulationChange_nft_listing.message),
+      await findAllByText(messages.permitSimulationChange_nft_listing),
     ).toHaveLength(1);
   });
 
@@ -379,7 +378,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findAllByText(messages.permitSimulationChange_approve.message),
+      await findAllByText(messages.permitSimulationChange_approve),
     ).toHaveLength(1);
   });
 });

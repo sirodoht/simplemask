@@ -1,7 +1,7 @@
 import { BalanceChangeResult } from '@metamask/assets-controllers';
 import { renderHook } from '@testing-library/react';
 import { useSelector } from 'react-redux';
-import { getIntlLocale } from '../../../../ducks/locale/locale';
+
 import { getCurrentCurrency } from '../../../../ducks/metamask/metamask';
 import { TextColor } from '../../../../helpers/constants/design-system';
 import {
@@ -13,7 +13,7 @@ import { determineBalanceColor } from './get-display-balance';
 import { useAccountGroupBalanceDisplay } from './useAccountGroupBalanceDisplay';
 
 jest.mock('react-redux');
-jest.mock('../../../../ducks/locale/locale');
+
 jest.mock('../../../../ducks/metamask/metamask');
 jest.mock('../../../../selectors');
 jest.mock('../../../../selectors/assets');
@@ -52,10 +52,6 @@ describe('useAccountGroupBalanceDisplay', () => {
     mockUseSelector.mockImplementation((selector) => {
       if (selector === getCurrentCurrency) {
         return 'USD';
-      }
-
-      if (selector === getIntlLocale) {
-        return 'en-US';
       }
 
       if (selector === getPrivacyMode) {

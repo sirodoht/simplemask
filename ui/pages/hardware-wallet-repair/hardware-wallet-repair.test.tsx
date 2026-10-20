@@ -1,18 +1,19 @@
 import React from 'react';
+
 import { render, fireEvent, act } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter, type MemoryRouterProps } from 'react-router-dom';
 import configureStore from '../../store/store';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useHardwareWalletConfig } from '../../contexts/hardware-wallets';
 import { HardwareWalletType } from '../../contexts/hardware-wallets/types';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { HardwareWalletRepair } from './hardware-wallet-repair';
 import * as hardwareWalletRepairUtils from './hardware-wallet-repair-utils';
 import * as hardwareWalletRepairPageModule from '.';
 
-jest.mock('../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 const mockEnsureDeviceReady = jest.fn();
@@ -69,7 +70,7 @@ function renderRepairPage(
 describe('HardwareWalletRepair', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (useI18nContext as jest.Mock).mockReturnValue((key: string) => {
+    (getText as jest.Mock).mockImplementation((key: string) => {
       const translations: Record<string, string> = {
         close: 'Close',
         connect: 'Connect',
@@ -161,9 +162,7 @@ describe('HardwareWalletRepair', () => {
 
   it('renders the connect button', () => {
     const { getByRole } = renderRepairPage();
-    expect(
-      getByRole('button', { name: messages.connect.message }),
-    ).toBeInTheDocument();
+    expect(getByRole('button', { name: messages.connect })).toBeInTheDocument();
   });
 
   it('closes the repair page when the header close button is clicked', () => {

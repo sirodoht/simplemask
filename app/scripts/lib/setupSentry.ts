@@ -445,12 +445,12 @@ export function shouldCreateSpanForRequest(url: string): boolean {
     return false;
   }
   // Skip spans for high-volume local extension reads with no diagnostic value:
-  // snap manifests and locale files (under `/snaps/` and `/_locales/`, read on
-  // every SW restart / popup open) and the content-hashed preinstalled-snap
+  // snap manifests (under `/snaps/`, read on every SW restart / popup open)
+  // and the content-hashed preinstalled-snap
   // bundles webpack emits at the extension root (`<hash>.json`, see
   // app/scripts/constants/snaps.ts). Other local fetches keep their spans.
   if (
-    /^(?:chrome|moz)-extension:\/\/[^/]+\/(?:(?:snaps|_locales)\/|[0-9a-f]{8,}\.json$)/u.test(
+    /^(?:chrome|moz)-extension:\/\/[^/]+\/(?:snaps\/|[0-9a-f]{8,}\.json$)/u.test(
       url,
     )
   ) {

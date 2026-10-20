@@ -1,9 +1,10 @@
-import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import { ThemeType } from '../../../../shared/constants/preferences';
@@ -52,9 +53,9 @@ describe('ThemeSubPage', () => {
   it('renders theme options', () => {
     renderWithProvider(<ThemeSubPage />, mockStore);
 
-    expect(screen.getByText(messages.lightTheme.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.darkTheme.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.osTheme.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.lightTheme)).toBeInTheDocument();
+    expect(screen.getByText(messages.darkTheme)).toBeInTheDocument();
+    expect(screen.getByText(messages.osTheme)).toBeInTheDocument();
   });
 
   it('calls setTheme and navigates when a theme is clicked', () => {
@@ -70,7 +71,7 @@ describe('ThemeSubPage', () => {
     });
     renderWithProvider(<ThemeSubPage />, storeWithDarkTheme);
 
-    fireEvent.click(screen.getByText(messages.lightTheme.message));
+    fireEvent.click(screen.getByText(messages.lightTheme));
 
     expect(mockSetTheme).toHaveBeenCalledWith(ThemeType.light);
     expect(trackAnalyticsEventMock).toHaveBeenCalledWith(

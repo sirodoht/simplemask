@@ -461,7 +461,7 @@ Summary for PMs:
 
 ### Locale strings
 
-`app/_locales/en/messages.json` — `syncAccounts`, `add_device_*`, `add_wallets_*`, `enter_verification_code_*`, `qrCode*`
+`shared/constants/english-text.ts` — `syncAccounts`, `add_device_*`, `add_wallets_*`, `enter_verification_code_*`, `qrCode*`
 
 ---
 

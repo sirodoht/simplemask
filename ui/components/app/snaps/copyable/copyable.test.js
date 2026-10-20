@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import { useCopyToClipboard } from '../../../../hooks/useCopyToClipboard';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { Copyable } from './copyable';
 
 jest.mock('../../../../hooks/useCopyToClipboard');
@@ -49,9 +50,7 @@ describe('Copyable', () => {
       <Copyable text={value} sensitive />,
     );
 
-    expect(
-      getByText(messages.revealSensitiveContent.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.revealSensitiveContent)).toBeInTheDocument();
     expect(queryByTestId('copy-icon')).not.toBeInTheDocument();
   });
 

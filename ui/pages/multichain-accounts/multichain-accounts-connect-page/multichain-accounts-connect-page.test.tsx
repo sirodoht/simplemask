@@ -1,11 +1,11 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import {
   Caip25CaveatType,
   Caip25EndowmentPermissionName,
   getAllNamespacesFromCaip25CaveatValue,
   getAllScopesFromCaip25CaveatValue,
-  KnownSessionProperties,
 } from '@metamask/chain-agnostic-permission';
 import {
   AccountWalletType,
@@ -15,15 +15,11 @@ import {
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../test/data/mock-state.json';
 import configureStore from '../../../store/store';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { createMockMultichainAccountsState } from '../../../selectors/multichain-accounts/test-utils';
-import {
-  getAllNetworkConfigurationsByCaipChainId,
-  type EvmAndMultichainNetworkConfigurationsWithCaipChainId,
-} from '../../../../shared/lib/selectors/networks';
+import { getAllNetworkConfigurationsByCaipChainId } from '../../../../shared/lib/selectors/networks';
 import { getMultichainNetwork } from '../../../selectors/multichain';
 
-import { MultichainNetworks } from '../../../../shared/constants/multichain/networks';
 import {
   MultichainAccountsConnectPage,
   MultichainConnectPageProps,
@@ -521,7 +517,7 @@ describe('MultichainConnectPage', () => {
 
   it('renders subtitle correctly', () => {
     const { getByText } = render();
-    expect(getByText(messages.connectionDescription.message)).toBeDefined();
+    expect(getByText(messages.connectionDescription)).toBeDefined();
   });
 
   it('renders account list correctly', () => {
@@ -558,8 +554,8 @@ describe('MultichainConnectPage', () => {
   it('renders confirm and cancel buttons', () => {
     const { getByText } = render();
 
-    const confirmButton = getByText(messages.connect.message);
-    const cancelButton = getByText(messages.cancel.message);
+    const confirmButton = getByText(messages.connect);
+    const cancelButton = getByText(messages.cancel);
 
     expect(confirmButton).toBeDefined();
     expect(cancelButton).toBeDefined();
@@ -573,7 +569,7 @@ describe('MultichainConnectPage', () => {
       },
     });
 
-    const cancelButton = getByText(messages.cancel.message);
+    const cancelButton = getByText(messages.cancel);
     fireEvent.click(cancelButton);
 
     expect(mockRejectPermissionsRequest).toHaveBeenCalledWith('1');
@@ -587,7 +583,7 @@ describe('MultichainConnectPage', () => {
       },
     });
 
-    const connectButton = getByText(messages.connect.message);
+    const connectButton = getByText(messages.connect);
     fireEvent.click(connectButton);
 
     expect(mockApproveConnection).toHaveBeenCalled();

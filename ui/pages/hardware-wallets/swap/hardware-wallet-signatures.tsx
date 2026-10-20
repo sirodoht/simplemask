@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -10,7 +11,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { Header } from '../../../components/multichain/pages/page';
 import GenericHardwareWalletAnimation from './generic-hardware-wallet-animation';
 import QrHardwareSigningPage, {
@@ -34,7 +35,7 @@ import { useHardwareWalletSignatures } from './hooks/useHardwareWalletSignatures
  * @returns JSX for the signing-progress screen.
  */
 export default function HardwareWalletSignatures() {
-  const t = useI18nContext();
+  const t = getText;
   const {
     signatureStatus,
     title,

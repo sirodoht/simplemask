@@ -9,7 +9,7 @@ import {
   BoxJustifyContent,
 } from '@metamask/design-system-react';
 import { IconName, IconSize, Text } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MenuItem } from '../../ui/menu';
 import {
   BlockSize,
@@ -24,7 +24,7 @@ import { useDispatch } from '../../../store/hooks';
 
 export default function ConnectedSnaps({ connectedSubjects }) {
   const [showOptions, setShowOptions] = useState();
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const connectedOrigin = useSelector(getOriginOfCurrentTab);

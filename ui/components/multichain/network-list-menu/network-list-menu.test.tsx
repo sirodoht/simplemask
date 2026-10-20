@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { RpcEndpointType } from '@metamask/network-controller';
 import { fireEvent, waitFor } from '@testing-library/react';
 import configureStore from '../../../store/store';
@@ -16,7 +17,7 @@ import {
 } from '../../../../shared/constants/network';
 import { hexToDecimal } from '../../../../shared/lib/conversion.utils';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { NetworkListMenu } from '.';
 
 const mockSetShowTestNetworksPreference = jest.fn();
@@ -256,9 +257,9 @@ describe('NetworkListMenu', () => {
   it('displays important controls', () => {
     const { getByText, getByPlaceholderText } = render();
 
-    expect(getByText(messages.addACustomNetwork.message)).toBeInTheDocument();
-    expect(getByText(messages.showTestnetNetworks.message)).toBeInTheDocument();
-    expect(getByPlaceholderText(messages.search.message)).toBeInTheDocument();
+    expect(getByText(messages.addACustomNetwork)).toBeInTheDocument();
+    expect(getByText(messages.showTestnetNetworks)).toBeInTheDocument();
+    expect(getByPlaceholderText(messages.search)).toBeInTheDocument();
   });
 
   it('renders mainnet item', () => {
@@ -269,9 +270,7 @@ describe('NetworkListMenu', () => {
   it('does not render the custom networks section when there are no custom networks', () => {
     const { queryByText } = render({ includeCustomNetworks: false });
 
-    expect(
-      queryByText(messages.customNetworks.message),
-    ).not.toBeInTheDocument();
+    expect(queryByText(messages.customNetworks)).not.toBeInTheDocument();
   });
 
   it('renders custom networks in a separate section when custom networks are available', () => {
@@ -293,14 +292,10 @@ describe('NetworkListMenu', () => {
       },
     });
 
-    const defaultNetworksHeader = getByText(messages.defaultNetworks.message);
-    const customNetworksHeader = getByText(messages.customNetworks.message);
-    const showTestNetworksHeader = getByText(
-      messages.showTestnetNetworks.message,
-    );
-    const additionalNetworksHeader = getByText(
-      messages.additionalNetworks.message,
-    );
+    const defaultNetworksHeader = getByText(messages.defaultNetworks);
+    const customNetworksHeader = getByText(messages.customNetworks);
+    const showTestNetworksHeader = getByText(messages.showTestnetNetworks);
+    const additionalNetworksHeader = getByText(messages.additionalNetworks);
 
     expect(getByText(CUSTOM_NETWORK_NAME)).toBeInTheDocument();
     expect(
@@ -366,9 +361,7 @@ describe('NetworkListMenu', () => {
     );
     expect(selectedNodes).toHaveLength(1);
 
-    expect(
-      queryByText(messages.networkNameEthereum.message),
-    ).toBeInTheDocument();
+    expect(queryByText(messages.networkNameEthereum)).toBeInTheDocument();
   });
 
   it('narrows down search results', async () => {
@@ -376,7 +369,7 @@ describe('NetworkListMenu', () => {
 
     expect(queryByText('Chain 5')).toBeInTheDocument();
 
-    const searchBox = getByPlaceholderText(messages.search.message);
+    const searchBox = getByPlaceholderText(messages.search);
     fireEvent.focus(searchBox);
     fireEvent.change(searchBox, { target: { value: 'Main' } });
 
@@ -390,12 +383,12 @@ describe('NetworkListMenu', () => {
 
   it('enables the "Add a custom network" button when MetaMask is locked', () => {
     const { queryByText } = render({ isUnlocked: false });
-    expect(queryByText(messages.addACustomNetwork.message)).toBeEnabled();
+    expect(queryByText(messages.addACustomNetwork)).toBeEnabled();
   });
 
   it('enables the "Add a custom network" button when MetaMask is true', () => {
     const { queryByText } = render({ isUnlocked: true });
-    expect(queryByText(messages.addACustomNetwork.message)).toBeEnabled();
+    expect(queryByText(messages.addACustomNetwork)).toBeEnabled();
   });
 
   it('does not allow deleting networks when locked', () => {
@@ -611,7 +604,7 @@ describe('NetworkListMenu', () => {
       expect(queryByText('Arbitrum')).toBeInTheDocument();
 
       // Simulate typing "Optimism" into the search box
-      const searchBox = getByPlaceholderText(messages.search.message);
+      const searchBox = getByPlaceholderText(messages.search);
       fireEvent.focus(searchBox);
       fireEvent.change(searchBox, { target: { value: 'OP' } });
 
@@ -630,7 +623,7 @@ describe('NetworkListMenu', () => {
       expect(queryByText('Sepolia')).toBeInTheDocument();
 
       // Simulate typing "Linea Sepolia" into the search box
-      const searchBox = getByPlaceholderText(messages.search.message);
+      const searchBox = getByPlaceholderText(messages.search);
       fireEvent.focus(searchBox);
       fireEvent.change(searchBox, { target: { value: 'Linea Sepolia' } });
 
@@ -662,7 +655,7 @@ describe('NetworkListMenu', () => {
     it('should still allow searching networks even when switching is disabled', () => {
       const { getByPlaceholderText, queryByText } = render();
 
-      const searchBox = getByPlaceholderText(messages.search.message);
+      const searchBox = getByPlaceholderText(messages.search);
       fireEvent.focus(searchBox);
       fireEvent.change(searchBox, { target: { value: 'Ethereum' } });
 

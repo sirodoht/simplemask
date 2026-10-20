@@ -1,10 +1,11 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { TransactionType } from '@metamask/transaction-controller';
 
 import { isSnapId } from '@metamask/snaps-utils';
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import { getMockTypedSignConfirmStateForRequest } from '../../../../../../../test/data/confirmations/helper';
 import { unapprovedTypedSignMsgV1 } from '../../../../../../../test/data/confirmations/typed_sign';
 import { RowAlertKey } from '../../../../../../components/app/confirm/info/row/constants';
@@ -72,12 +73,12 @@ describe('TypedSignInfo', () => {
       mockStore,
     );
 
-    const requestFromLabel = queryByText(messages.requestFrom.message);
+    const requestFromLabel = queryByText(messages.requestFrom);
 
     await requestFromLabel?.dispatchEvent(
       new MouseEvent('mouseenter', { bubbles: true }),
     );
-    expect(queryByText(messages.requestFromInfoSnap.message)).toBeDefined();
+    expect(queryByText(messages.requestFromInfoSnap)).toBeDefined();
   });
 
   it('displays "requestFromInfo" tooltip when origin is not a snap', async () => {
@@ -93,12 +94,12 @@ describe('TypedSignInfo', () => {
       mockStore,
     );
 
-    const requestFromLabel = queryByText(messages.requestFrom.message);
+    const requestFromLabel = queryByText(messages.requestFrom);
 
     await requestFromLabel?.dispatchEvent(
       new MouseEvent('mouseenter', { bubbles: true }),
     );
-    expect(queryByText(messages.requestFromInfo.message)).toBeDefined();
+    expect(queryByText(messages.requestFromInfo)).toBeDefined();
   });
 
   it('display network info if there is an alert on that field', () => {
@@ -124,7 +125,7 @@ describe('TypedSignInfo', () => {
       <TypedSignInfoV1 />,
       mockStore,
     );
-    expect(getByText(messages.network.message)).toBeInTheDocument();
-    expect(getByText(messages.networkNameGoerli.message)).toBeInTheDocument();
+    expect(getByText(messages.network)).toBeInTheDocument();
+    expect(getByText(messages.networkNameGoerli)).toBeInTheDocument();
   });
 });

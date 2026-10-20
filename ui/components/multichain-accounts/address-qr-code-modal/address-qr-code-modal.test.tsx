@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { openBlockExplorer } from '../../multichain/menu-items/view-explorer-menu-item';
 import { getBlockExplorerInfo } from '../../../helpers/utils/multichain/getBlockExplorerInfo';
@@ -107,9 +108,7 @@ describe('AddressQRCodeModal', () => {
 
     // The address is displayed in segments, so we check for the last 5 characters
     expect(screen.getByText('3e7bc')).toBeInTheDocument(); // Last 5 chars
-    expect(
-      screen.getByText(messages.copyAddressShort.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.copyAddressShort)).toBeInTheDocument();
   });
 
   it('should render the view on explorer button for Ethereum', () => {
@@ -118,7 +117,7 @@ describe('AddressQRCodeModal', () => {
       addressUrl:
         'https://etherscan.io/address/0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
       name: 'Etherscan',
-      buttonText: messages.etherscanViewOn.message,
+      buttonText: messages.etherscanViewOn,
     });
 
     renderWithProvider(
@@ -133,9 +132,7 @@ describe('AddressQRCodeModal', () => {
       />,
     );
 
-    expect(
-      screen.getByText(messages.etherscanViewOn.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.etherscanViewOn)).toBeInTheDocument();
   });
 
   it('should handle copy functionality when copy button is clicked', async () => {
@@ -154,7 +151,7 @@ describe('AddressQRCodeModal', () => {
       />,
     );
 
-    const copyButton = screen.getByText(messages.copyAddressShort.message);
+    const copyButton = screen.getByText(messages.copyAddressShort);
     fireEvent.click(copyButton);
 
     expect(mockHandleCopy).toHaveBeenCalledTimes(1);
@@ -188,7 +185,7 @@ describe('AddressQRCodeModal', () => {
     mockGetBlockExplorerInfo.mockReturnValue({
       addressUrl: `https://etherscan.io/address/${address}`,
       name: 'Etherscan',
-      buttonText: messages.etherscanViewOn.message,
+      buttonText: messages.etherscanViewOn,
     });
 
     renderWithProvider(
@@ -204,7 +201,7 @@ describe('AddressQRCodeModal', () => {
     );
 
     const explorerButton = screen.getByRole('button', {
-      name: messages.etherscanViewOn.message,
+      name: messages.etherscanViewOn,
     });
 
     fireEvent.click(explorerButton);
@@ -229,7 +226,7 @@ describe('AddressQRCodeModal', () => {
       />,
     );
 
-    const closeButton = screen.getByLabelText(messages.close.message);
+    const closeButton = screen.getByLabelText(messages.close);
     fireEvent.click(closeButton);
 
     expect(onClose).toHaveBeenCalledTimes(1);

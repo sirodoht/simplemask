@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../test/data/mock-state.json';
 import configureStore from '../../../../store/store';
 
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import TransactionDetail from './transaction-detail.component';
 
 const render = ({ componentProps } = {}) => {
@@ -31,11 +32,11 @@ const render = ({ componentProps } = {}) => {
 describe('TransactionDetail', () => {
   it('should render edit link when onEdit is provided', () => {
     render();
-    expect(screen.queryByText(messages.edit.message)).toBeInTheDocument();
+    expect(screen.queryByText(messages.edit)).toBeInTheDocument();
   });
 
   it('should not render edit link when onEdit is not provided', () => {
     render({ componentProps: { onEdit: undefined } });
-    expect(screen.queryByText(messages.edit.message)).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.edit)).not.toBeInTheDocument();
   });
 });

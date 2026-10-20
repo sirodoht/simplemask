@@ -18,7 +18,7 @@ import {
   createSpeedUpTransaction,
 } from '../../../store/actions';
 import { MetaMaskReduxState } from '../../../selectors';
-import { tEn } from '../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import { CancelSpeedup } from './cancel-speedup';
 
 jest.mock('../../../store/actions', () => ({

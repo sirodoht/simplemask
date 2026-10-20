@@ -8,7 +8,7 @@ import {
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { DeeplinkQRCode } from '../../components/app/deeplink-qr-code';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   getHomeDeepLinkQrCode,
   selectCanShowLowPriorityModal,
@@ -17,7 +17,7 @@ import { clearHomeDeepLinkQrCode } from '../../ducks/app/app';
 import { useDispatch } from '../../store/hooks';
 
 export function DeeplinkQrCodeModalContainer() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const deepLinkQrCode = useSelector(getHomeDeepLinkQrCode);
   const canShow = useSelector(selectCanShowLowPriorityModal);

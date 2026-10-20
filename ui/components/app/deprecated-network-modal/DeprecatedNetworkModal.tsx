@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { Box } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ButtonLink,
   ButtonPrimary,
@@ -26,7 +27,7 @@ type DeprecatedNetworkModalProps = {
 export const DeprecatedNetworkModal = ({
   onClose,
 }: DeprecatedNetworkModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal isOpen isClosedOnOutsideClick={false} onClose={onClose}>

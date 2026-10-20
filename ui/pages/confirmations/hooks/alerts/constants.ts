@@ -56,7 +56,7 @@ function createReasonMap<Value extends string>(
   );
 }
 
-/** Reason to description translation key mapping. Grouped by translations. */
+/** Reason to description text key mapping. Grouped by translations. */
 export const REASON_TO_DESCRIPTION_TKEY = createReasonMap([
   [APPROVAL_REASONS, 'blockaidDescriptionApproveFarming'],
   [MARKETPLACE_REASONS, 'blockaidDescriptionMarketplaceFarming'],
@@ -86,14 +86,14 @@ export const REASON_TO_DESCRIPTION_WITH_AMOUNT_TKEY = Object.freeze({
 /**
  * Marketplace display names injected into
  * blockaidDescriptionMarketplaceFarming as $1. Product names are not
- * localized.
+ * English.
  */
 export const REASON_TO_MARKETPLACE_NAME = Object.freeze({
   [BlockaidReason.blurFarming]: 'Blur',
   [BlockaidReason.seaportFarming]: 'OpenSea',
 });
 
-/** Reason to title translation key mapping. */
+/** Reason to title text key mapping. */
 export const REASON_TO_TITLE_TKEY = createReasonMap([
   [
     [...APPROVAL_REASONS, ...MARKETPLACE_REASONS],
@@ -107,7 +107,7 @@ export const REASON_TO_TITLE_TKEY = createReasonMap([
 ]);
 
 /**
- * Reason to request-type noun translation key mapping. The noun is composed
+ * Reason to request-type noun text key mapping. The noun is composed
  * into the confirm-anyway modal message ("...high-risk signals in this
  * approval").
  */

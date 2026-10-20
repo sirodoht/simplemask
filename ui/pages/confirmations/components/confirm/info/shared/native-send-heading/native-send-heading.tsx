@@ -1,3 +1,4 @@
+import React from 'react';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import {
   AvatarToken,
@@ -8,7 +9,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { BigNumber } from 'bignumber.js';
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   CHAIN_ID_TOKEN_IMAGE_MAP,
@@ -17,7 +18,7 @@ import {
 import { calcTokenAmount } from '../../../../../../../../shared/lib/transactions-controller-utils';
 import { getNetworkConfigurationsByChainId } from '../../../../../../../../shared/lib/selectors/networks';
 import Tooltip from '../../../../../../../components/ui/tooltip';
-import { getIntlLocale } from '../../../../../../../ducks/locale/locale';
+
 import { useFiatFormatter } from '../../../../../../../hooks/useFiatFormatter';
 import { selectConversionRateByChainId } from '../../../../../../../selectors';
 import { getPreferences } from '../../../../../../../../shared/lib/selectors/preferences';
@@ -64,7 +65,7 @@ const NativeSendHeading = () => {
   const network = networkConfigurationsByChainId?.[transactionMeta.chainId];
   const { nativeCurrency } = network;
 
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const roundedTransferValue = formatAmount(locale, nativeAssetTransferValue);
 
   const transferValue = nativeAssetTransferValue.toFixed();

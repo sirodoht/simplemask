@@ -54,7 +54,7 @@ import {
   getAllEnabledNetworksForAllNamespaces,
   getSelectedMultichainNetworkConfiguration,
 } from '../../../../../selectors/multichain/networks';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   getOrderedNetworksList,
   getMultichainNetworkConfigurationsByChainId,
@@ -67,7 +67,7 @@ import { useIsNetworkGasSponsored } from '../../../../../hooks/useIsNetworkGasSp
 import { useDispatch } from '../../../../../store/hooks';
 
 const AdditionalNetwork = ({ network }: { network: FeaturedNetwork }) => {
-  const t = useI18nContext();
+  const t = getText;
   const networkImageUrl =
     network.imageUrl ||
     CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP[
@@ -123,7 +123,7 @@ const AdditionalNetwork = ({ network }: { network: FeaturedNetwork }) => {
 };
 
 const DefaultNetworks = memo(() => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const orderedNetworksList = useSelector(getOrderedNetworksList);
   const [, evmNetworks] = useSelector(

@@ -4,14 +4,14 @@ import { userEvent } from '@testing-library/user-event';
 import configureStore from '../../../../../store/store';
 import mockState from '../../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useRecipientSelectionMetrics } from '../../../hooks/send/metrics/useRecipientSelectionMetrics';
 import { useSendContext } from '../../../context/send';
 import { useRecipients } from '../../../hooks/send/useRecipients';
 import { useRecipientValidation } from '../../../hooks/send/useRecipientValidation';
 import { RecipientInput } from './recipient-input';
 
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 jest.mock('../../../hooks/send/metrics/useRecipientSelectionMetrics');
 jest.mock('../../../context/send');
 jest.mock('../../../hooks/send/useRecipients');
@@ -22,7 +22,7 @@ jest.mock('../../../hooks/send/useAccountAddressSeedIconMap', () => ({
 }));
 
 describe('RecipientInput', () => {
-  const mockUseI18nContext = jest.mocked(useI18nContext);
+  const mockGetText = jest.mocked(getText);
   const mockUseRecipientSelectionMetrics = jest.mocked(
     useRecipientSelectionMetrics,
   );
@@ -70,7 +70,7 @@ describe('RecipientInput', () => {
   };
 
   beforeEach(() => {
-    mockUseI18nContext.mockReturnValue((key: string) => key.toUpperCase());
+    mockGetText.mockImplementation((key: string) => key.toUpperCase());
     mockUseRecipientSelectionMetrics.mockReturnValue({
       captureRecipientSelected: mockCaptureRecipientSelected,
       setRecipientInputMethodManual: mockSetRecipientInputMethodManual,

@@ -6,7 +6,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { HardwareWalletSignatureStatus } from '../hardware-wallet-signatures-state-machine';
 import { getQrScanButtonLabelKey } from '../hardware-wallet-signatures.utils';
 import type { SignatureFooterProps } from './signature-footer.types';
@@ -15,8 +15,8 @@ import type { SignatureFooterProps } from './signature-footer.types';
  * Pure presentational footer for the hardware wallet signing-progress screen.
  *
  * Renders retry / resend / scan / cancel buttons based on the supplied
- * visibility flags. Calls `useI18nContext()` directly for button labels so
- * the parent does not need to thread a translation function through.
+ * visibility flags. Calls `getText` directly for button labels so
+ * the parent does not need to thread a English text function through.
  *
  * @param props - The footer props (see {@link SignatureFooterProps}).
  * @param props.isRetryable - Whether the retry button should be shown. True when the state machine is in Rejected / Failed / Disconnected state.
@@ -40,7 +40,7 @@ const SignatureFooter = ({
   handleCancel,
   handleOpenQrSigningPage,
 }: SignatureFooterProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

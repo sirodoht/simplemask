@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { upperFirst } from 'lodash';
 import {
@@ -29,7 +29,7 @@ import {
 } from '../../../../shared/constants/hardware-wallets';
 import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   PREVIOUS_ROUTE,
   CHOOSE_NEW_WALLET_TYPE_PAGE_ROUTE,
@@ -133,7 +133,7 @@ const SelectHardware = ({
   browserSupported,
   isFirefox,
 }: SelectHardwareProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const location = useLocation();
   const { trackEvent, createEventBuilder } = useAnalytics();

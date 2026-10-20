@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { isValidHexAddress } from '../../../../../shared/lib/hexstring-utils';
 import { isResolvableName } from '../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { RecipientValidationResult } from '../../types/send';
 import { validateEvmHexAddress } from '../../utils/sendValidations';
 import { useSendContext } from '../../context/send';
@@ -12,7 +12,7 @@ import { useSendAlerts } from './alerts/useSendAlerts';
 const VALIDATION_DEBOUNCE_MS = 500;
 
 export const useRecipientValidation = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { asset, chainId, to } = useSendContext();
   const { isEvmSendType } = useSendType();
   const { validateName } = useNameValidation();

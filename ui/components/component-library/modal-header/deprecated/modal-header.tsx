@@ -5,7 +5,7 @@ import {
   TextVariant,
   TextAlign,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { ModalHeaderProps } from '../modal-header.types';
 import { HeaderBase } from '../../header-base';
 import { ButtonIcon, ButtonIconSize } from '../../button-icon';
@@ -35,7 +35,7 @@ export const ModalHeader = ({
   backButtonProps,
   ...props
 }: React.PropsWithChildren<ModalHeaderProps>) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <HeaderBase
       className={classnames('mm-modal-header', className)}

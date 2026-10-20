@@ -39,7 +39,7 @@ import { getIsBasicFunctionalityConsolidationEnabledInBuild } from '../../../../
 
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { ONBOARDING_COMPLETION_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getUseExternalNameSources,
   getExternalServicesOnboardingToggleState,
@@ -78,7 +78,7 @@ import { Setting } from './setting';
 const ANIMATION_TIME = 500;
 
 export default function PrivacySettings() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

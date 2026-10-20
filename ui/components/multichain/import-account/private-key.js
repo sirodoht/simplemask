@@ -6,7 +6,7 @@ import {
   TextFieldType,
 } from '../../component-library';
 
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import ShowHideToggle from '../../ui/show-hide-toggle';
 import BottomButtons from './bottom-buttons';
 
@@ -15,7 +15,7 @@ export default function PrivateKeyImportView({
   onActionComplete,
   importErrorMessage,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const [privateKey, setPrivateKey] = useState('');
   const [showPrivateKey, setShowPrivateKey] = useState(false);
 

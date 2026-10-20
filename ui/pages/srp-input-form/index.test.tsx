@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import { userEvent } from '@testing-library/user-event';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import mockState from '../../../test/data/mock-state.json';
 import SrpInputForm from '.';
 
@@ -39,7 +40,7 @@ describe('SrpInputForm', () => {
       store,
     );
 
-    expect(getByText(messages.typeYourSRP.message)).toBeInTheDocument();
+    expect(getByText(messages.typeYourSRP)).toBeInTheDocument();
 
     const infoButton = getByLabelText('info');
     expect(infoButton).toBeInTheDocument();
@@ -87,9 +88,7 @@ describe('SrpInputForm', () => {
 
     // Wait for the clear button to appear
     await waitFor(() => {
-      const clearButton = getByText(
-        messages.onboardingSrpInputClearAll.message,
-      );
+      const clearButton = getByText(messages.onboardingSrpInputClearAll);
       expect(clearButton).toBeInTheDocument();
 
       // Click the clear button

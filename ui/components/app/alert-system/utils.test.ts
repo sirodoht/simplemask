@@ -1,7 +1,7 @@
 import { Severity } from '../../../helpers/constants/design-system';
 import { getBannerAlertSeverity } from './utils';
 
-jest.mock('../../../hooks/useI18nContext');
+jest.mock('../../../helpers/utils/text');
 
 describe('Utils', () => {
   describe('getBannerAlertSeverity', () => {

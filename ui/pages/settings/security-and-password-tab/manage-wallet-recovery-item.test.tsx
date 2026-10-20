@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { MANAGE_WALLET_RECOVERY_ROUTE } from '../../../helpers/constants/routes';
 import ManageWalletRecoveryItem from './manage-wallet-recovery-item';
@@ -25,9 +26,7 @@ describe('ManageWalletRecoveryItem', () => {
       store,
     );
 
-    expect(
-      screen.getByText(messages.manageWalletRecovery.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.manageWalletRecovery)).toBeInTheDocument();
   });
 
   it('renders the arrow link to reveal SRP page', () => {
@@ -52,9 +51,7 @@ describe('ManageWalletRecoveryItem', () => {
     );
 
     expect(screen.getByTestId('backup-incomplete-tag')).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.backUpIncomplete.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.backUpIncomplete)).toBeInTheDocument();
   });
 
   it('hides "Back up incomplete" tag when SRP is backed up', () => {

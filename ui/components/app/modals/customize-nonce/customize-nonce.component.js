@@ -8,7 +8,7 @@ import {
   BlockSize,
 } from '../../../../helpers/constants/design-system';
 import withModalProps from '../../../../helpers/higher-order-components/with-modal-props';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
 import {
   ButtonIcon,
@@ -28,7 +28,7 @@ const CustomizeNonce = ({
   const defaultNonce =
     customNonceValue || (typeof nextNonce === 'number' && nextNonce.toString());
   const [customNonce, setCustomNonce] = useState(defaultNonce);
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal

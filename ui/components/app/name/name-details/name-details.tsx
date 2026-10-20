@@ -55,7 +55,7 @@ import {
 import { useCopyToClipboard } from '../../../../hooks/useCopyToClipboard';
 import { useName } from '../../../../hooks/useName';
 import { useDisplayName } from '../../../../hooks/useDisplayName';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { TrustSignalDisplayState } from '../../../../hooks/useTrustSignals';
 import { useDispatch } from '../../../../store/hooks';
 import NameDisplay from './name-display';
@@ -88,22 +88,15 @@ function formatValue(value: string, type: NameType): string {
   }
 }
 
-// Provider source ids that have a localized name:
-const LOCALIZED_PROVIDERS = ['ens', 'etherscan', 'lens', 'token'];
-// The following lines avoid i18n "unused messages" lint error.
-// t('nameProvider_ens');
-// t('nameProvider_etherscan');
-// t('nameProvider_lens');
-// t('nameProvider_token');
+// Provider source ids that have a English name:
+const NAMED_PROVIDERS = ['ens', 'etherscan', 'lens', 'token'];
 
 function getProviderLabel(
   sourceId: string,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   nameSources: NameControllerState['nameSources'],
 ) {
-  if (LOCALIZED_PROVIDERS.includes(sourceId)) {
-    // Use intermediate variable to avoid "Forbidden use of template strings
-    // in 't' function" error.
+  if (NAMED_PROVIDERS.includes(sourceId)) {
     const messageKey = `nameProvider_${sourceId}`;
     return t(messageKey);
   }
@@ -112,7 +105,7 @@ function getProviderLabel(
 
 function generateComboOptions(
   proposedNameEntries: NameEntry['proposedNames'],
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   nameSources: NameControllerState['nameSources'],
 ): ProposedNameOption[] {
   const sourceIds = Object.keys(proposedNameEntries);
@@ -250,7 +243,7 @@ export default function NameDetails({
   const [prevSavedPetname, setPrevSavedPetname] = useState(savedPetname);
   const [prevSavedSourceId, setPrevSavedSourceId] = useState(savedSourceId);
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
 
   if (
     savedPetname !== prevSavedPetname ||

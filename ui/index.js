@@ -1,5 +1,6 @@
-import log from 'loglevel';
 import React from 'react';
+import log from 'loglevel';
+
 import { createRoot } from 'react-dom/client';
 import browser from 'webextension-polyfill';
 import { isInternalAccountInPermittedAccountIds } from '@metamask/chain-agnostic-permission';
@@ -21,8 +22,6 @@ import {
 } from '../shared/constants/app';
 import { getBrowserName } from '../shared/lib/browser-runtime.utils';
 import { START_UI_SYNC } from '../shared/constants/ui-initialization';
-import { switchDirection } from '../shared/lib/switch-direction';
-import { setupLocale } from '../shared/lib/error-utils';
 import { trace, TraceName } from '../shared/lib/trace';
 import { getCurrentChainId } from '../shared/lib/selectors/networks';
 import { MESSENGER_SUBSCRIPTION_NOTIFICATION } from '../shared/constants/messages';
@@ -61,7 +60,7 @@ import { createUIMessenger } from './messengers/ui-messenger';
 export { CriticalStartupErrorHandler } from './helpers/utils/critical-startup-error-handler';
 export {
   displayCriticalErrorMessage,
-  CriticalErrorTranslationKey,
+  CriticalErrorTextKey,
 } from './helpers/utils/display-critical-error';
 
 log.setLevel(global.METAMASK_DEBUG ? 'debug' : 'warn', false);
@@ -133,14 +132,6 @@ export async function setupInitialStore(metamaskState, activeTab) {
     metamaskState.featureFlags = {};
   }
 
-  const { currentLocaleMessages, enLocaleMessages } = await setupLocale(
-    metamaskState.currentLocale,
-  );
-
-  if (metamaskState.textDirection === 'rtl') {
-    switchDirection('rtl');
-  }
-
   const draftInitialState = {
     activeTab,
 
@@ -149,12 +140,6 @@ export async function setupInitialStore(metamaskState, activeTab) {
 
     // appState represents the current tab's popup state
     appState: {},
-
-    localeMessages: {
-      currentLocale: metamaskState.currentLocale,
-      current: currentLocaleMessages,
-      en: enLocaleMessages,
-    },
   };
   if (
     getEnvironmentType() === ENVIRONMENT_TYPE_POPUP ||
@@ -238,9 +223,6 @@ async function startApp(metamaskState, opts) {
 
   // global metamask api - used by tooling
   global.metamask = {
-    updateCurrentLocale: (code) => {
-      store.dispatch(actions.updateCurrentLocale(code));
-    },
     setFeatureFlag: (key, value) => {
       store.dispatch(actions.setFeatureFlag(key, value));
     },

@@ -1,17 +1,17 @@
 import { TransactionMeta } from '@metamask/transaction-controller';
 import { BigNumber } from 'bignumber.js';
-import { useSelector } from 'react-redux';
+
 import { Hex } from '@metamask/utils';
 import { calcTokenAmount } from '../../../../../../../shared/lib/transactions-controller-utils';
 import useTokenExchangeRate from '../../../../../../components/app/currency-input/hooks/useTokenExchangeRate';
-import { getIntlLocale } from '../../../../../../ducks/locale/locale';
+
 import { useFiatFormatter } from '../../../../../../hooks/useFiatFormatter';
 import { useAssetDetails } from '../../../../hooks/useAssetDetails';
 import { formatAmount } from '../../../../../../../shared/lib/format-amount';
 import { useTokenTransactionData } from './useTokenTransactionData';
 
 export const useTokenValues = (transactionMeta: TransactionMeta) => {
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const parsedTransactionData = useTokenTransactionData();
   const { txParams, txParamsOriginal } = transactionMeta;
   const tokenAddress = txParamsOriginal?.to ?? txParams.to;

@@ -1942,9 +1942,6 @@ export default class MetamaskController extends EventEmitter {
           preferencesController,
         ),
       setParticipateInMetaMetrics,
-      setCurrentLocale: preferencesController.setCurrentLocale.bind(
-        preferencesController,
-      ),
       markPasswordForgotten: this.controllerMessenger.call.bind(
         this.controllerMessenger,
         'LegacyBackgroundApiService:markPasswordForgotten',
@@ -5646,7 +5643,6 @@ export default class MetamaskController extends EventEmitter {
         this.getTransactionMetricsRequest.bind(this),
       getUIState: this.getState.bind(this),
       infuraProjectId: this.opts.infuraProjectId,
-      initLangCode: this.opts.initLangCode,
       requestSafeReload: this.requestSafeReload.bind(this),
       sendUpdate: this.sendUpdate.bind(this),
       offscreenPromise: this.offscreenPromise,

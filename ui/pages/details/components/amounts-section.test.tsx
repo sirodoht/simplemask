@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, screen, within } from '@testing-library/react';
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
 import { useIsGasFeeSponsored } from '../../../hooks/activity/useIsGasFeeSponsored';
@@ -8,8 +9,8 @@ jest.mock('../../../hooks/activity/useIsGasFeeSponsored', () => ({
   useIsGasFeeSponsored: jest.fn(),
 }));
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) =>
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) =>
     ({
       networkFee: 'Network fee',
       paidByMetaMask: 'Paid by MetaMask',

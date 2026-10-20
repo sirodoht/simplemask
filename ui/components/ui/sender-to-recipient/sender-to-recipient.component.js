@@ -1,11 +1,12 @@
+import React from 'react';
 import { NameType } from '@metamask/name-controller';
 import classnames from 'clsx';
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import { AvatarAccountSize, TextVariant } from '@metamask/design-system-react';
 import { toChecksumHexAddress } from '../../../../shared/lib/hexstring-utils';
 import { shortenAddress } from '../../../helpers/utils/util';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import Name from '../../app/name/name';
 import { Icon, IconName } from '../../component-library';
 import AccountMismatchWarning from '../account-mismatch-warning/account-mismatch-warning.component';
@@ -116,7 +117,7 @@ export default function SenderToRecipient({
   warnUserOnAccountMismatch = true,
   chainId,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const checksummedSenderAddress = toChecksumHexAddress(senderAddress);
   const checksummedRecipientAddress = toChecksumHexAddress(recipientAddress);
 

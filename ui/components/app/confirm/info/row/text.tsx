@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
-import { I18nContext } from '../../../../../contexts/i18n';
+import React from 'react';
+
+import { getText } from '../../../../../helpers/utils/text';
 import {
   AlignItems,
   BlockSize,
@@ -40,7 +41,7 @@ export const ConfirmInfoRowText = ({
   'data-testid': dataTestId,
   editIconDataTestId,
 }: ConfirmInfoRowTextProps) => {
-  const t = useContext(I18nContext);
+  const t = getText;
 
   const isEditable = Boolean(onEditClick);
 

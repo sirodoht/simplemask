@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
 import { PageHeaderWithSearch } from './page-header-with-search';
@@ -24,20 +25,17 @@ describe('PageHeaderWithSearch', () => {
 
   it('renders the title and search button by default', () => {
     renderWithProvider(
-      <PageHeaderWithSearch title={messages.settings.message} />,
+      <PageHeaderWithSearch title={messages.settings} />,
       createMockStore(),
     );
 
-    expect(screen.getByText(messages.settings.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.settings)).toBeInTheDocument();
     expect(screen.getByTestId('page-header-search-button')).toBeVisible();
   });
 
   it('renders the close button instead of the search button when endAction is close', () => {
     renderWithProvider(
-      <PageHeaderWithSearch
-        title={messages.settings.message}
-        endAction="close"
-      />,
+      <PageHeaderWithSearch title={messages.settings} endAction="close" />,
       createMockStore(),
     );
 
@@ -49,10 +47,7 @@ describe('PageHeaderWithSearch', () => {
 
   it('navigates to the default route when the close button is clicked', () => {
     renderWithProvider(
-      <PageHeaderWithSearch
-        title={messages.settings.message}
-        endAction="close"
-      />,
+      <PageHeaderWithSearch title={messages.settings} endAction="close" />,
       createMockStore(),
     );
 
@@ -64,10 +59,7 @@ describe('PageHeaderWithSearch', () => {
   it('calls onBack when back button is clicked', () => {
     const onBack = jest.fn();
     renderWithProvider(
-      <PageHeaderWithSearch
-        title={messages.settings.message}
-        onBack={onBack}
-      />,
+      <PageHeaderWithSearch title={messages.settings} onBack={onBack} />,
       createMockStore(),
     );
 
@@ -80,7 +72,7 @@ describe('PageHeaderWithSearch', () => {
     const onOpenSearch = jest.fn();
     renderWithProvider(
       <PageHeaderWithSearch
-        title={messages.settings.message}
+        title={messages.settings}
         onOpenSearch={onOpenSearch}
       />,
       createMockStore(),
@@ -94,7 +86,7 @@ describe('PageHeaderWithSearch', () => {
   it('renders search input when isSearchOpen is true', () => {
     renderWithProvider(
       <PageHeaderWithSearch
-        title={messages.settings.message}
+        title={messages.settings}
         isSearchOpen
         searchValue=""
         onSearchChange={jest.fn()}
@@ -104,9 +96,7 @@ describe('PageHeaderWithSearch', () => {
     );
 
     expect(screen.getByTestId('page-header-search-input')).toBeVisible();
-    expect(
-      screen.queryByText(messages.settings.message),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(messages.settings)).not.toBeInTheDocument();
   });
 
   it('calls onCloseSearch and onSearchClear when close is clicked in search mode', () => {
@@ -114,7 +104,7 @@ describe('PageHeaderWithSearch', () => {
     const onSearchClear = jest.fn();
     renderWithProvider(
       <PageHeaderWithSearch
-        title={messages.settings.message}
+        title={messages.settings}
         isSearchOpen
         searchValue="test"
         onCloseSearch={onCloseSearch}
@@ -123,7 +113,7 @@ describe('PageHeaderWithSearch', () => {
       createMockStore(),
     );
 
-    fireEvent.click(screen.getByLabelText(messages.close.message));
+    fireEvent.click(screen.getByLabelText(messages.close));
 
     expect(onCloseSearch).toHaveBeenCalledTimes(1);
     expect(onSearchClear).toHaveBeenCalledTimes(1);

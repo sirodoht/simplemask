@@ -29,7 +29,7 @@ import { isBeta, isFlask } from '../../../../shared/lib/build-types';
 import Mascot from '../../ui/mascot';
 import Spinner from '../../ui/spinner';
 import ToggleButton from '../../ui/toggle-button';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { createSentryError } from '../../../../shared/lib/error';
 import {
   getPasskeyAuthMethodKey,
@@ -94,7 +94,7 @@ type ChangePasswordProps = {
 const ChangePassword = ({
   redirectRoute = SECURITY_AND_PASSWORD_ROUTE,
 }: ChangePasswordProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const dispatch = useDispatch();
   const changePasswordWithPasskey = usePasskeyPasswordChange();

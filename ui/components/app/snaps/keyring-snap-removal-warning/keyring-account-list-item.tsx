@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ButtonIcon, IconName, Text, Box } from '../../../component-library';
 import {
   BlockSize,
@@ -13,7 +14,7 @@ import {
 } from '../../../../helpers/constants/design-system';
 // import { toChecksumHexAddress } from '../../../../../../../shared/lib/hexstring-utils';
 import { toChecksumHexAddress } from '../../../../../shared/lib/hexstring-utils';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export const KeyringAccountListItem = ({
   account,
@@ -22,7 +23,7 @@ export const KeyringAccountListItem = ({
   account: { name: string; address: string };
   snapUrl: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box
       display={Display.Flex}

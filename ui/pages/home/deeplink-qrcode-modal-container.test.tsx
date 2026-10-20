@@ -1,16 +1,17 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { clearHomeDeepLinkQrCode } from '../../ducks/app/app';
 import { DeeplinkQrCodeModalContainer } from './deeplink-qrcode-modal-container';
 import type { HomeDeepLinkQrCode } from './HomeDeepLinkActions';
 
 jest.mock('../../components/app/deeplink-qr-code', () => {
-  const { enLocale: mockMessages } = jest.requireActual(
-    '../../../test/lib/i18n-helpers',
+  const { englishText: mockMessages } = jest.requireActual(
+    '../../../shared/lib/text',
   );
   return {
     DeeplinkQRCode: ({
@@ -27,7 +28,7 @@ jest.mock('../../components/app/deeplink-qr-code', () => {
       <div data-testid={testId}>
         <span>{title}</span>
         <span>{description}</span>
-        <button onClick={onDone}>{mockMessages.done.message}</button>
+        <button onClick={onDone}>{mockMessages.done}</button>
       </div>
     ),
   };
@@ -109,7 +110,7 @@ describe('DeeplinkQrCodeModalContainer', () => {
       store,
     );
 
-    fireEvent.click(getByText(messages.done.message));
+    fireEvent.click(getByText(messages.done));
 
     expect(store.getActions()).toContainEqual(clearHomeDeepLinkQrCode());
   });

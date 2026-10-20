@@ -1,4 +1,5 @@
 import React from 'react';
+
 import classnames from 'clsx';
 import {
   Box,
@@ -15,7 +16,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { type GasOption, type GasOptionTooltipProps } from '../../types/gas';
 import Tooltip from '../../../../components/ui/tooltip';
 import EditGasToolTip from '../edit-gas-fee-popover/edit-gas-tooltip/edit-gas-tooltip';
@@ -48,7 +49,7 @@ const ListItem = ({
   onClick?: () => void;
   tooltipProps?: GasOptionTooltipProps;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

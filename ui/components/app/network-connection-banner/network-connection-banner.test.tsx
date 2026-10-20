@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 
@@ -6,7 +7,7 @@ import { useNetworkConnectionBanner } from '../../../hooks/useNetworkConnectionB
 import { setEditedNetwork } from '../../../store/actions';
 import configureStore from '../../../store/store';
 import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { NETWORKS_ROUTE } from '../../../helpers/constants/routes';
 import { NetworkConnectionBanner } from './network-connection-banner';
 
@@ -61,11 +62,9 @@ describe('NetworkConnectionBanner', () => {
       );
 
       expect(
-        getByText(
-          messages.stillConnectingTo.message.replace('$1', 'Ethereum Mainnet'),
-        ),
+        getByText(messages.stillConnectingTo.replace('$1', 'Ethereum Mainnet')),
       ).toBeInTheDocument();
-      expect(getByText(messages.updateRpc.message)).toBeInTheDocument();
+      expect(getByText(messages.updateRpc)).toBeInTheDocument();
     });
 
     it('renders the banner with a "Still connecting" message, excluding a "Update RPC" link if the network is an Infura endpoint', () => {
@@ -90,11 +89,9 @@ describe('NetworkConnectionBanner', () => {
       );
 
       expect(
-        getByText(
-          messages.stillConnectingTo.message.replace('$1', 'Ethereum Mainnet'),
-        ),
+        getByText(messages.stillConnectingTo.replace('$1', 'Ethereum Mainnet')),
       ).toBeInTheDocument();
-      expect(queryByText(messages.updateRpc.message)).not.toBeInTheDocument();
+      expect(queryByText(messages.updateRpc)).not.toBeInTheDocument();
     });
 
     describe('when the "Update RPC" link is clicked', () => {
@@ -118,7 +115,7 @@ describe('NetworkConnectionBanner', () => {
           <NetworkConnectionBanner />,
           store,
         );
-        fireEvent.click(getByText(messages.updateRpc.message));
+        fireEvent.click(getByText(messages.updateRpc));
 
         expect(mockSetEditedNetwork).toHaveBeenCalledWith({
           chainId: '0x1',
@@ -148,7 +145,7 @@ describe('NetworkConnectionBanner', () => {
           <NetworkConnectionBanner />,
           store,
         );
-        fireEvent.click(getByText(messages.updateRpc.message));
+        fireEvent.click(getByText(messages.updateRpc));
 
         expect(trackNetworkBannerEventMock).toHaveBeenCalledWith({
           bannerType: 'degraded',
@@ -182,9 +179,7 @@ describe('NetworkConnectionBanner', () => {
       );
 
       expect(
-        getByText(
-          messages.unableToConnectTo.message.replace('$1', 'Ethereum Mainnet'),
-        ),
+        getByText(messages.unableToConnectTo.replace('$1', 'Ethereum Mainnet')),
       ).toBeInTheDocument();
       expect(
         getByText('Check network connectivity', { exact: false }),
@@ -216,9 +211,7 @@ describe('NetworkConnectionBanner', () => {
       );
 
       expect(
-        getByText(
-          messages.unableToConnectTo.message.replace('$1', 'Ethereum Mainnet'),
-        ),
+        getByText(messages.unableToConnectTo.replace('$1', 'Ethereum Mainnet')),
       ).toBeInTheDocument();
       expect(
         getByText('Check network connectivity', { exact: false }),
@@ -333,9 +326,9 @@ describe('NetworkConnectionBanner', () => {
       );
 
       expect(
-        getByText(messages.switchToMetaMaskDefaultRpc.message),
+        getByText(messages.switchToMetaMaskDefaultRpc),
       ).toBeInTheDocument();
-      expect(queryByText(messages.updateRpc.message)).not.toBeInTheDocument();
+      expect(queryByText(messages.updateRpc)).not.toBeInTheDocument();
     });
 
     it('renders "switch to MetaMask default RPC" button instead of "update RPC" for unavailable status', () => {
@@ -390,7 +383,7 @@ describe('NetworkConnectionBanner', () => {
         <NetworkConnectionBanner />,
         store,
       );
-      fireEvent.click(getByText(messages.switchToMetaMaskDefaultRpc.message));
+      fireEvent.click(getByText(messages.switchToMetaMaskDefaultRpc));
 
       expect(switchToInfuraMock).toHaveBeenCalled();
       expect(trackNetworkBannerEventMock).toHaveBeenCalledWith({

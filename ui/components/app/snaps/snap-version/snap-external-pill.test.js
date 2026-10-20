@@ -1,5 +1,6 @@
+import { render as renderComponent } from '@testing-library/react';
 import * as React from 'react';
-import { renderWithLocalization } from '../../../../../test/lib/render-helpers';
+
 import SnapExternalPill from './snap-external-pill';
 
 describe('SnapExternalPill', () => {
@@ -9,7 +10,7 @@ describe('SnapExternalPill', () => {
   };
 
   it('should render the content without crashing and display it', () => {
-    const { getByText, container } = renderWithLocalization(
+    const { getByText, container } = renderComponent(
       <SnapExternalPill {...args} />,
     );
     expect(getByText(args.value)).toBeDefined();
@@ -19,9 +20,7 @@ describe('SnapExternalPill', () => {
   it('should have a loading state if no value is passed', () => {
     args.value = undefined;
 
-    const { container } = renderWithLocalization(
-      <SnapExternalPill {...args} />,
-    );
+    const { container } = renderComponent(<SnapExternalPill {...args} />);
 
     expect(container.getElementsByClassName('preloader__icon')).toHaveLength(1);
     expect(container.firstChild).toHaveAttribute('href', args.url);

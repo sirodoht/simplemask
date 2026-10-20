@@ -10,7 +10,7 @@ import {
   TextColor,
   FontWeight,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import {
   MetaMetricsEventCategory,
@@ -45,7 +45,7 @@ export function NotificationsSettingsAllowNotifications({
   dataTestId: string;
   refetchPreferences?: () => Promise<unknown>;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { listNotifications } = useMetamaskNotificationsContext();
   const isMetamaskNotificationsEnabled = useSelector(

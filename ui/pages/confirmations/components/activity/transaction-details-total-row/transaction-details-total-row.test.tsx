@@ -1,10 +1,11 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   TransactionStatus,
   TransactionType,
 } from '@metamask/transaction-controller';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import { TransactionDetailsProvider } from '../transaction-details-context';
 import { TransactionDetailsTotalRow } from './transaction-details-total-row';
@@ -84,8 +85,8 @@ describe('TransactionDetailsTotalRow', () => {
       targetFiat: '100',
       type: TransactionType.perpsDeposit,
     });
-    expect(getByText(messages.total.message)).toBeInTheDocument();
-    expect(queryByText(messages.receivedTotal.message)).not.toBeInTheDocument();
+    expect(getByText(messages.total)).toBeInTheDocument();
+    expect(queryByText(messages.receivedTotal)).not.toBeInTheDocument();
     expect(getByText('$150.75')).toBeInTheDocument();
   });
 
@@ -95,8 +96,8 @@ describe('TransactionDetailsTotalRow', () => {
       targetFiat: '100',
       type: TransactionType.perpsWithdraw,
     });
-    expect(getByText(messages.receivedTotal.message)).toBeInTheDocument();
-    expect(queryByText(messages.total.message)).not.toBeInTheDocument();
+    expect(getByText(messages.receivedTotal)).toBeInTheDocument();
+    expect(queryByText(messages.total)).not.toBeInTheDocument();
     expect(getByText('$100.00')).toBeInTheDocument();
     expect(queryByText('$150.75')).not.toBeInTheDocument();
   });

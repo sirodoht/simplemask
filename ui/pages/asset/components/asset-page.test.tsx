@@ -171,9 +171,6 @@ jest.mock('../../../selectors/assets', () => ({
 
 describe('AssetPage', () => {
   const mockStore = {
-    localeMessages: {
-      currentLocale: 'en',
-    },
     appState: {
       confirmationExchangeRates: {},
     },

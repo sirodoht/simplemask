@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -11,7 +11,7 @@ import Popover from '../popover';
 import Button from '../button';
 import TextField from '../text-field';
 
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 
 import { getTokenList } from '../../../selectors';
 import { PreferredAvatar } from '../../app/preferred-avatar';
@@ -23,7 +23,7 @@ export default function UpdateNicknamePopover({
   onAdd,
   onClose,
 }) {
-  const t = useContext(I18nContext);
+  const t = getText;
 
   const [nicknameInput, setNicknameInput] = useState(
     nickname === null ? '' : nickname,

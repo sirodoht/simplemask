@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
 import PropTypes from 'prop-types';
 import {
   FontWeight,
@@ -7,7 +8,7 @@ import {
 } from '../../../../../helpers/constants/design-system';
 import { isNullish } from '../../../../../helpers/utils/util';
 import { formatGasFeeOrFeeRange } from '../../../../../helpers/utils/gas';
-import { I18nContext } from '../../../../../contexts/i18n';
+import { getText } from '../../../../../helpers/utils/text';
 import { useGasFeeEstimates } from '../../../../../hooks/useGasFeeEstimates';
 import { Text } from '../../../../../components/component-library';
 import { useConfirmContext } from '../../../context/confirm';
@@ -15,7 +16,7 @@ import { BaseFeeTooltip, PriorityFeeTooltip } from './tooltips';
 import StatusSlider from './status-slider';
 
 const NetworkStatistics = ({ useRedesigned }) => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const { networkClientId } = useConfirmContext()?.currentConfirmation ?? {};
   const { gasFeeEstimates } = useGasFeeEstimates(networkClientId);
 

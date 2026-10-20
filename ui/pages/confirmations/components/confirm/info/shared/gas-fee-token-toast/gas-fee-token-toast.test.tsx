@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { getMockConfirmStateForTransaction } from '../../../../../../../../test/data/confirmations/helper';
 import configureStore from '../../../../../../../store/store';
 
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
 import { GAS_FEE_TOKEN_MOCK } from '../../../../../../../../test/data/confirmations/gas';
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { toast } from '../../../../../../../components/ui/toast/toast';
 import { GasFeeTokenToast } from './gas-fee-token-toast';
 
@@ -67,7 +68,7 @@ describe('GasFeeTokenToast', () => {
     expect(jest.mocked(toast.success)).toHaveBeenCalledWith(
       expect.objectContaining({
         props: expect.objectContaining({
-          title: messages.confirmGasFeeTokenToast.message.replace(
+          title: messages.confirmGasFeeTokenToast.replace(
             '$1',
             GAS_FEE_TOKEN_MOCK.symbol,
           ),

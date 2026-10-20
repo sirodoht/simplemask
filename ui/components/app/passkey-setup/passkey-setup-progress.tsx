@@ -1,11 +1,12 @@
 import React from 'react';
+
 import {
   FontWeight,
   Text,
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   PasskeyEnrollmentSteps,
   type PasskeyEnrollmentStepStatus,
@@ -33,10 +34,7 @@ export function PasskeySetupProgress({
   registerStatus,
   verifyStatus,
 }: PasskeySetupProgressProps) {
-  const t = useI18nContext() as (
-    key: string,
-    substitutions?: string[],
-  ) => string;
+  const t = getText as (key: string, substitutions?: string[]) => string;
 
   return (
     <>

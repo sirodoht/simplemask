@@ -54,8 +54,7 @@
       "js": ["vendor/trezor/content-script.js"]
     }
   ],
-  "default_locale": "en",
-  "description": "__MSG_appDescription__",
+  "description": "The world's most trusted crypto wallet",
   "host_permissions": [
     "http://localhost:8545/",
     "file://*/*",
@@ -75,7 +74,7 @@
     "512": "images/icon-512.png"
   },
   "manifest_version": 3,
-  "name": "__MSG_appName__",
+  "name": "MetaMask",
   "optional_permissions": ["clipboardRead"],
   "permissions": [
     "activeTab",
@@ -92,5 +91,5 @@
   "sandbox": {
     "pages": ["snaps/index.html"]
   },
-  "short_name": "__MSG_appName__"
+  "short_name": "MetaMask"
 }

@@ -16,7 +16,7 @@ import {
 import { useSelector } from 'react-redux';
 import { shortenAddress } from '../../../helpers/utils/util';
 
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { CopyParams } from '../multichain-address-row/multichain-address-row';
 import { getNetworksByScopes } from '../../../../shared/lib/selectors/networks';
 import { MultichainAccountNetworkGroup } from '../multichain-account-network-group';
@@ -47,7 +47,7 @@ export const MultichainAggregatedAddressListRow = ({
   copyActionParams,
   className = '',
 }: MultichainAggregatedAddressListRowProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const truncatedAddress = shortenAddress(normalizeSafeAddress(address)); // Shorten address for display
   const [displayText, setDisplayText] = useState(truncatedAddress); // Text to display (address or copy message)

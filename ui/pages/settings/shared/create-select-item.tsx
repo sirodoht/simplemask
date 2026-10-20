@@ -1,17 +1,17 @@
 import React, { type ReactNode } from 'react';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { MetaMaskReduxState } from '../../../store/store';
 import type { SettingItemProps } from '../types';
 import { SettingsSelectItem } from './settings-select-item';
 
-type TranslateFunction = ReturnType<typeof useI18nContext>;
+type TranslateFunction = typeof getText;
 
 export type SelectItemConfig = {
   name: string;
   titleKey: string;
   valueSelector: (state: MetaMaskReduxState) => string;
-  /** Optional formatter to transform the value. Receives translation function for i18n. */
+  /** Optional formatter to transform the value. Receives English text function. */
   formatValue?: (value: string, t: TranslateFunction) => string | ReactNode;
   route: string;
   dataTestId?: string;
@@ -25,7 +25,7 @@ export const createSelectItem = (
   config: SelectItemConfig,
 ): React.ComponentType<SettingItemProps> => {
   const SelectItem = () => {
-    const t = useI18nContext();
+    const t = getText;
     const value = useSelector(config.valueSelector);
 
     const displayValue = config.formatValue

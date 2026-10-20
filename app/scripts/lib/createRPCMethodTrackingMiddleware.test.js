@@ -55,7 +55,6 @@ const messenger = new Messenger({ namespace: MOCK_ANY_NAMESPACE });
 
 messenger.registerActionHandler('PreferencesController:getState', () => ({
   ...getDefaultPreferencesControllerState(),
-  currentLocale: 'en_US',
 }));
 
 messenger.registerActionHandler('NetworkController:getState', () => ({

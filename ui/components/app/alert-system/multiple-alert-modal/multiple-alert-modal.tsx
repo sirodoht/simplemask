@@ -9,7 +9,7 @@ import {
   TextVariant,
 } from '../../../../helpers/constants/design-system';
 import useAlerts from '../../../../hooks/useAlerts';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   ButtonIcon,
   ButtonIconSize,
@@ -44,7 +44,7 @@ function PreviousButton({
   selectedIndex: number;
   onBackButtonClick: () => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const showPreviousButton = selectedIndex + 1 > 1;
   if (!showPreviousButton) {
     return null;
@@ -76,7 +76,7 @@ function NextButton({
   alertsLength: number;
   onNextButtonClick: () => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const showNextButton = selectedIndex + 1 < alertsLength;
   if (!showNextButton) {
     return null;
@@ -106,7 +106,7 @@ function PageNumber({
   selectedIndex: number;
   alertsLength: number;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Text
       variant={TextVariant.bodySm}

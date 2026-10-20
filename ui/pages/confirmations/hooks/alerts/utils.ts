@@ -8,7 +8,7 @@ import {
   Alert,
   AlertSeverity,
 } from '../../../../ducks/confirm-alerts/confirm-alerts';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { SecurityAlertResponse } from '../../types/confirm';
 import {
   REASON_TO_DESCRIPTION_TKEY,
@@ -37,17 +37,17 @@ export function getProviderAlertSeverity(
 }
 
 /**
- * Returns the localized banner description for a security alert reason.
+ * Returns the English banner description for a security alert reason.
  *
  * @param reason - The Blockaid reason.
- * @param t - The translation function.
+ * @param t - The English text function.
  * @param sendingFiatTotal - Formatted fiat total of outgoing assets, or null
  * when unavailable. When present, amount-bearing copy variants are used.
- * @returns The localized description.
+ * @returns The English description.
  */
 export function getProviderAlertMessage(
   reason: BlockaidReason,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   sendingFiatTotal?: string | null,
 ): string {
   const withAmountKey =
@@ -71,7 +71,7 @@ export function getProviderAlertMessage(
   return t(
     REASON_TO_DESCRIPTION_TKEY[
       reason as keyof typeof REASON_TO_DESCRIPTION_TKEY
-    ] || REASON_TO_DESCRIPTION_TKEY.other,
+    ] || 'blockaidDescriptionRiskSignals',
   );
 }
 
@@ -79,7 +79,7 @@ export function getProviderAlertMessage(
  * Normalizes a security alert response into an Alert object.
  *
  * @param securityAlertResponse - The security alert response to normalize.
- * @param t - The translation function.
+ * @param t - The English text function.
  * @param reportUrl - URL to report.
  * @param sendingFiatTotal - Formatted fiat total of outgoing assets, or null
  * when unavailable.
@@ -87,7 +87,7 @@ export function getProviderAlertMessage(
  */
 export function normalizeProviderAlert(
   securityAlertResponse: SecurityAlertResponse,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   reportUrl?: string,
   sendingFiatTotal?: string | null,
 ): Alert {

@@ -13,7 +13,7 @@ import {
   Text,
   ModalHeader,
 } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Display,
   FlexDirection,
@@ -31,7 +31,7 @@ import {
 } from '../../../../shared/constants/metametrics';
 
 function UpdateModal() {
-  const t = useI18nContext();
+  const t = getText;
   const [isLoading, setIsLoading] = useState(false);
   const { trackEvent, createEventBuilder } = useAnalytics();
   const hasTrackedView = useRef(false);

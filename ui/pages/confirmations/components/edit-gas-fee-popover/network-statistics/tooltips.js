@@ -1,7 +1,8 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import Box from '../../../../../components/ui/box';
 import Tooltip from '../../../../../components/ui/tooltip';
 
@@ -25,7 +26,7 @@ NetworkStatusTooltip.propTypes = {
 };
 
 export const BaseFeeTooltip = ({ children }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <NetworkStatusTooltip
       html={t('networkStatusBaseFeeTooltip', [
@@ -53,7 +54,7 @@ BaseFeeTooltip.propTypes = {
 };
 
 export const PriorityFeeTooltip = ({ children }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <NetworkStatusTooltip title={t('networkStatusPriorityFeeTooltip')}>
       {children}
@@ -66,7 +67,7 @@ PriorityFeeTooltip.propTypes = {
 };
 
 export const NetworkStabilityTooltip = ({ children, tooltipLabel }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <NetworkStatusTooltip

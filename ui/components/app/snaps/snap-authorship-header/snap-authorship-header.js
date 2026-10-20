@@ -24,7 +24,7 @@ import {
   ButtonIcon,
 } from '../../../component-library';
 import { SnapMetadataModal } from '../snap-metadata-modal';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { SnapIcon } from '../snap-icon';
 
 const SnapAuthorshipHeader = ({
@@ -36,7 +36,7 @@ const SnapAuthorshipHeader = ({
   endAccessory,
   onCancel,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { name: snapName, hidden } = useSelector((state) =>

@@ -1,11 +1,12 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { waitFor } from '@testing-library/react';
 
 import Confirmation from '../confirmation';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES } from '../../../../../shared/constants/app';
 
 const mockTrackEvent = jest.fn();
@@ -73,7 +74,7 @@ describe('snap-account-redirect confirmation', () => {
     );
     await waitFor(() => {
       expect(
-        getByText(messages.snapAccountRedirectFinishSigningTitle.message),
+        getByText(messages.snapAccountRedirectFinishSigningTitle),
       ).toBeInTheDocument();
       expect(
         getByText(`Follow the instructions from ${mockSnapName}`),

@@ -19,7 +19,7 @@ import {
 } from '../../../../../../shared/constants/metametrics';
 import { getTokenSortConfig } from '../../../../../selectors';
 import { getCurrentCurrency } from '../../../../../ducks/metamask/metamask';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getCurrencySymbol } from '../../../../../helpers/utils/common.util';
 import { useDispatch } from '../../../../../store/hooks';
 
@@ -76,7 +76,7 @@ type SortControlProps = {
 };
 
 const SortControl = ({ handleClose }: SortControlProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const tokenSortConfig = useSelector(getTokenSortConfig);
   const currentCurrency = useSelector(getCurrentCurrency);

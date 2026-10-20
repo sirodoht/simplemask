@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import { createHardwareWalletAccount } from '../../../../test/data/hardware-wallet-accounts';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import type { HardwareAccountCardProps } from './hardware-account-card.types';
 import { HardwareAccountCard } from './hardware-account-card';
@@ -124,7 +125,7 @@ describe('HardwareAccountCard', () => {
         screen.getByRole('checkbox', { name: 'Account 1' }),
       ).toBeDisabled();
       expect(
-        screen.getByTitle(messages.selectAnAccountAlreadyConnected.message),
+        screen.getByTitle(messages.selectAnAccountAlreadyConnected),
       ).toBeInTheDocument();
 
       fireEvent.click(screen.getByRole('checkbox', { name: 'Account 1' }));

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { formatChainIdToHex } from '@metamask/bridge-controller';
 import {
   Box,
@@ -16,7 +17,7 @@ import { type CaipChainId } from '@metamask/utils';
 
 import { NetworkListItem } from '../../components/multichain/network-list-item';
 import { isEvmChainId } from '../../../shared/lib/asset-utils';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { getImageForChainId } from '../../selectors/multichain';
 import { getNetworkSections } from '../../helpers/utils/network-sections';
 
@@ -42,7 +43,7 @@ export const CustomTokenImportNetworkSelector = ({
   onClose,
   onSelectNetwork,
 }: CustomTokenImportNetworkSelectorProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const networkSections = getNetworkSections(networks);
 
   return (

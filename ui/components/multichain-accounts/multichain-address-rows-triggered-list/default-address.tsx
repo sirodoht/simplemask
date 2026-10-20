@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -14,7 +14,7 @@ import {
 } from '@metamask/design-system-react';
 import { useNavigate } from 'react-router-dom';
 import ToggleButton from '../../ui/toggle-button';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PREFERENCES_AND_DISPLAY_ROUTE } from '../../../helpers/constants/routes';
 import {
   DEFAULT_ADDRESS_DISPLAY_KEY_BY_SCOPE,
@@ -35,7 +35,7 @@ import { useDispatch } from '../../../store/hooks';
 const METRICS_LOCATION = 'Account Hover Menu';
 
 export const DefaultAddress = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const navigate = useNavigate();

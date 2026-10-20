@@ -64,7 +64,7 @@ import {
 } from './settings-registry';
 import { SettingsRoot, SettingsSearchResults } from './shared';
 import { useSettingsSearch, MIN_SEARCH_LENGTH } from './useSettingsSearch';
-import { useSettingsI18n } from './useSettingsI18n';
+import { useSettingsText } from './useSettingsText';
 
 const firstTab = SETTINGS_TABS.find((tab) => tab.index) ?? SETTINGS_TABS[0];
 const FIRST_TAB_PATH = firstTab?.path;
@@ -130,7 +130,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const runCloseTransition = useGlobalMenuRouteTransition();
-  const t = useSettingsI18n();
+  const t = useSettingsText();
   const normalizedPathname = normalizeSettingsPath(location.pathname);
   const meta = getSettingsRouteMeta(normalizedPathname);
   const environmentType = getEnvironmentType();

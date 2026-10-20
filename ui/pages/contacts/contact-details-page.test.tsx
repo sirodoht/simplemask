@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import mockState from '../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import configureStore from '../../store/store';
 import {
   CONTACTS_ROUTE,
@@ -52,7 +53,7 @@ describe('ContactDetailsPage', () => {
 
   it('renders header with "Contact details" title', () => {
     const { getByText } = renderPage();
-    expect(getByText(messages.contactDetails.message)).toBeInTheDocument();
+    expect(getByText(messages.contactDetails)).toBeInTheDocument();
   });
 
   it('displays the contact name', () => {

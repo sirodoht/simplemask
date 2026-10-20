@@ -10,7 +10,7 @@ import {
 } from '@metamask/design-system-react';
 import Spinner from '../../components/ui/spinner';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useActiveMfaFlow } from '../../hooks/identity/mfa/engine/useActiveMfaFlow';
 import { MfaFlowTestIds } from './test-ids';
 import IntroStep from './steps/intro-step';
@@ -25,7 +25,7 @@ import FailureStep from './steps/failure-step';
  * flow; it goes back once the flow settles.
  */
 const MfaFlowHost = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const location = useLocation();
   const active = useActiveMfaFlow();

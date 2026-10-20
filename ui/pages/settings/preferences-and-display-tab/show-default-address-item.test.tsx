@@ -1,9 +1,10 @@
-import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import { ShowDefaultAddressItem } from './show-default-address-item';
@@ -52,9 +53,7 @@ describe('ShowDefaultAddressItem', () => {
     const mockStore = createMockStore();
     renderWithProvider(<ShowDefaultAddressItem />, mockStore);
 
-    expect(
-      screen.getByText(messages.showDefaultAddress.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.showDefaultAddress)).toBeInTheDocument();
   });
 
   it('renders description', () => {
@@ -62,7 +61,7 @@ describe('ShowDefaultAddressItem', () => {
     renderWithProvider(<ShowDefaultAddressItem />, mockStore);
 
     expect(
-      screen.getByText(messages.showDefaultAddressDescription.message),
+      screen.getByText(messages.showDefaultAddressDescription),
     ).toBeInTheDocument();
   });
 

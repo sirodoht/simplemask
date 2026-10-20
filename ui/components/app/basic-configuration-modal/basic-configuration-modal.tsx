@@ -18,7 +18,7 @@ import {
   TextColor,
   Checkbox,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   setParticipateInMetaMetrics,
   toggleBasicFunctionality,
@@ -51,7 +51,7 @@ import { useBoolean } from '../../../hooks/useBoolean';
 import { useDispatch } from '../../../store/hooks';
 
 export function BasicConfigurationModal() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
 

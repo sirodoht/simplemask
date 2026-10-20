@@ -8,7 +8,7 @@ import {
   Button,
   BoxFlexDirection,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   FormTextField,
   FormTextFieldSize,
@@ -24,7 +24,7 @@ const EnterPassword = ({ onPasswordChange }: EnterPasswordProps) => {
   const [password, setPassword] = useState('');
   const [isIncorrectPasswordError, setIsIncorrectPasswordError] =
     useState(false);
-  const t = useI18nContext();
+  const t = getText;
 
   const onSubmit = useCallback(async () => {
     try {

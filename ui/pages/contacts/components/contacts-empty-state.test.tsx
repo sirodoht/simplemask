@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { ThemeType } from '../../../../shared/constants/preferences';
 import { ContactsEmptyState } from './contacts-empty-state';
 
@@ -49,9 +50,7 @@ describe('ContactsEmptyState', () => {
     const { getByText } = renderWithProvider(
       <ContactsEmptyState {...defaultProps} />,
     );
-    expect(
-      getByText(messages.addFriendsAndAddresses.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.addFriendsAndAddresses)).toBeInTheDocument();
   });
 
   it('calls onAddContact when Add contact button is clicked', () => {

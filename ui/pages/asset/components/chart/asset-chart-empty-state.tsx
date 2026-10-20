@@ -1,12 +1,13 @@
-import * as React from 'react';
+import React from 'react';
+
 import { Box } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useTheme } from '../../../../hooks/useTheme';
 import { TabEmptyState } from '../../../../components/ui/tab-empty-state';
 import { ThemeType } from '../../../../../shared/constants/preferences';
 
 export const AssetChartEmptyState = () => {
-  const t = useI18nContext();
+  const t = getText;
   const theme = useTheme();
 
   const assetDetailsIcon =

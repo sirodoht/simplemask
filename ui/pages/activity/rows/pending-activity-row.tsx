@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Icon, IconName, IconSize, Text } from '@metamask/design-system-react';
 import { usePendingTransactionGasModal } from '../../../components/app/pending-transaction-action-buttons/pending-transaction-cancel-speed-up-provider';
 import { StatusIcon } from '../../../components/ui/status-icon/status-icon';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { ActivityRowProps } from '../types';
 import { useActivityCellStatus } from '../helpers';
 import { ActivityRowLayout } from './activity-row-layout';
@@ -13,7 +14,7 @@ export function PendingActivityRow({
   data,
   onClick,
 }: Readonly<ActivityRowProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const { avatar, title, subtitle, primaryAmount, secondaryAmount } =
     useActivityRowContent(data);
   const { pendingSubtitleKey, transactionGroup, txStatus } =

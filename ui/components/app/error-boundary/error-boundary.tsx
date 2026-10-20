@@ -1,12 +1,12 @@
 import React, { Component, ReactNode, ErrorInfo } from 'react';
 import { captureException } from '../../../../shared/lib/sentry';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type ErrorBoundaryProps = { children: ReactNode };
 type ErrorBoundaryState = { hasError: boolean };
 
 export function ErrorFallback() {
-  const t = useI18nContext();
+  const t = getText;
   return <p className="p-4 text-center">{t('somethingWentWrong')}</p>;
 }
 

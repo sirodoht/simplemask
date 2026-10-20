@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { zeroAddress } from 'ethereumjs-util';
 import { MarketDataDetails } from '@metamask/assets-controllers';
-import { getIntlLocale } from '../../../../../ducks/locale/locale';
+
 import {
   getSelectedAccountCachedBalance,
   getTokensMarketData,
@@ -18,10 +18,6 @@ import { PercentageAndAmountChange } from './percentage-and-amount-change';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn((selector) => selector()),
-}));
-
-jest.mock('../../../../../ducks/locale/locale', () => ({
-  getIntlLocale: jest.fn(),
 }));
 
 jest.mock('../../../../../selectors', () => ({
@@ -42,7 +38,6 @@ jest.mock('../../../../../ducks/metamask/base-selectors', () => ({
   getConversionRate: jest.fn(),
 }));
 
-const mockGetIntlLocale = jest.mocked(getIntlLocale);
 const mockGetCurrentCurrency = jest.mocked(getCurrentCurrency);
 const mockGetSelectedAccountCachedBalance = jest.mocked(
   getSelectedAccountCachedBalance,
@@ -54,7 +49,6 @@ const mockGetCurrentChainId = jest.mocked(getCurrentChainId);
 
 describe('PercentageChange Component', () => {
   beforeEach(() => {
-    mockGetIntlLocale.mockReturnValue('en-US');
     mockGetCurrentCurrency.mockReturnValue('USD');
     mockGetSelectedAccountCachedBalance.mockReturnValue('0x02e8ac1ede6ade83');
     mockGetConversionRate.mockReturnValue(2913.15);

@@ -1,11 +1,12 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { merge } from 'lodash';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import mockState from '../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import { flushPromises } from '../../../test/lib/timer-helpers';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import {
   decryptMsg,
   decryptMsgInline,
@@ -193,7 +194,7 @@ describe('ConfirmDecryptMessage Component', () => {
   it('decrypt button calls decrypt action and calls metric event', async () => {
     const { getByText } = renderWithProvider(<ConfirmDecryptMessage />, store);
 
-    const confirmButton = getByText(messages.decrypt.message);
+    const confirmButton = getByText(messages.decrypt);
     await act(async () => {
       fireEvent.click(confirmButton);
       await flushPromises();
@@ -206,7 +207,7 @@ describe('ConfirmDecryptMessage Component', () => {
   it('cancel button calls cancel action and calls metric event', async () => {
     const { getByText } = renderWithProvider(<ConfirmDecryptMessage />, store);
 
-    const confirmButton = getByText(messages.cancel.message);
+    const confirmButton = getByText(messages.cancel);
     await act(async () => {
       fireEvent.click(confirmButton);
       await flushPromises();
@@ -265,7 +266,7 @@ describe('ConfirmDecryptMessage Component', () => {
 
       const { getByText } = await renderAndUnlockMessage();
 
-      const confirmButton = getByText(messages.decrypt.message);
+      const confirmButton = getByText(messages.decrypt);
       expect(confirmButton).toBeDisabled();
     });
 
@@ -299,7 +300,7 @@ describe('ConfirmDecryptMessage Component', () => {
 
       const { getByText } = await renderAndUnlockMessage();
 
-      const confirmButton = getByText(messages.decrypt.message);
+      const confirmButton = getByText(messages.decrypt);
       expect(confirmButton).not.toBeDisabled();
     });
   });

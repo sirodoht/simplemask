@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { act, fireEvent, render, screen } from '@testing-library/react';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../shared/lib/text';
 import { MultichainPrivateKeyRow } from './multichain-private-key-row';
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 const CHAIN_ID = 'eip155:1';
@@ -22,7 +23,7 @@ const renderComponent = ({
     <MultichainPrivateKeyRow
       address="0x1234567890abcdef1234567890abcdef12345678"
       chainId={CHAIN_ID}
-      networkName={messages.ethereumAndEvms.message}
+      networkName={messages.ethereumAndEvms}
       onCopy={mockOnCopy}
       onClearClipboard={mockOnClearClipboard}
       privateKey={PRIVATE_KEY}
@@ -43,9 +44,7 @@ describe('MultichainPrivateKeyRow', () => {
   it('renders the network and shortened address', () => {
     renderComponent();
 
-    expect(
-      screen.getByText(messages.ethereumAndEvms.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.ethereumAndEvms)).toBeInTheDocument();
     expect(screen.getByText('0x12345...45678')).toBeInTheDocument();
   });
 

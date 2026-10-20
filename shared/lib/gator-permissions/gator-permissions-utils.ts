@@ -7,7 +7,7 @@ import {
 import log from 'loglevel';
 import { CHAIN_ID_TO_CURRENCY_SYMBOL_MAP } from '../../constants/network';
 import { fetchAssetMetadata } from '../asset-utils';
-import { getPeriodFrequencyValueTranslationKey } from './time-utils';
+import { getPeriodFrequencyValueTextKey } from './time-utils';
 import {
   MINIMUM_DISPLAYABLE_TOKEN_AMOUNT,
   DEFAULT_TOKEN_AMOUNT_FORMAT_OPTIONS,
@@ -420,11 +420,11 @@ export function formatGatorAmountLabel(params: {
 
 /**
  * Derive display metadata from a gator permission type and data.
- * Returns translation keys that should be translated at the UI layer.
+ * Returns text keys that should be translated at the UI layer.
  *
  * @param permissionType - The type of permission
  * @param permissionDataParam - The permission data containing amount and frequency information
- * @returns Object containing translation keys for display name and frequency, plus the amount value
+ * @returns Object containing text keys for display name and frequency, plus the amount value
  */
 export function getGatorPermissionDisplayMetadata(
   permissionType: string,
@@ -453,7 +453,7 @@ export function getGatorPermissionDisplayMetadata(
     return {
       displayNameKey: 'tokenSubscription',
       amount: permissionDataParam.periodAmount as string,
-      frequencyKey: getPeriodFrequencyValueTranslationKey(periodDuration),
+      frequencyKey: getPeriodFrequencyValueTextKey(periodDuration),
     };
   }
 

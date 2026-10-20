@@ -12,7 +12,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import { useEIP7702Networks } from '../../../pages/confirmations/hooks/useEIP7702Networks';
 import { SmartContractAccountToggle } from '../smart-contract-account-toggle';
@@ -27,7 +27,7 @@ export const SmartContractAccountToggleSection = ({
   address,
   returnToPage,
 }: SmartContractAccountToggleSectionProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { network7702List, pending } = useEIP7702Networks(address);
 
   const networkList = useMemo(() => {

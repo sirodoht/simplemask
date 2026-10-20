@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useMemo, useEffect } from 'react';
 import { AccountTreeController } from '@metamask/account-tree-controller';
-import { useI18nContext } from '../useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { forceUpdateMetamaskState } from '../../store/actions';
 import { useDispatch } from '../../store/hooks';
 
@@ -10,7 +10,7 @@ type AppState = {
 };
 
 export const useAccountsOperationsLoadingStates = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const isAccountTreeSyncingInProgress = useSelector(
     (state: AppState) => state.metamask.isAccountTreeSyncingInProgress,

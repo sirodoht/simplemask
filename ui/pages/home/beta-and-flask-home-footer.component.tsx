@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   MetaMetricsContextProp,
   MetaMetricsEventCategory,
@@ -6,12 +7,12 @@ import {
 } from '../../../shared/constants/metametrics';
 import { SUPPORT_LINK } from '../../helpers/constants/common';
 import { isFlask } from '../../../shared/lib/build-types';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import { useSegmentContext } from '../../hooks/useSegmentContext';
 
 export default function BetaAndFlaskHomeFooter() {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
 

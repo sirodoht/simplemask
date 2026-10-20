@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -53,9 +54,9 @@ jest.mock('../../../../shared/lib/trace', () => ({
 const mockTrace = trace as jest.MockedFunction<typeof trace>;
 const mockEndTrace = endTrace as jest.MockedFunction<typeof endTrace>;
 
-const mockUseI18nContext = jest.fn(() => (key: string) => key);
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => mockUseI18nContext(),
+const mockGetText = jest.fn((key: string) => key);
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (...args: Parameters<typeof mockGetText>) => mockGetText(...args),
 }));
 
 const mockHandleCopy = jest.fn().mockResolvedValue(true);
@@ -356,7 +357,7 @@ const renderComponent = (
 describe('MultichainPrivateKeyList', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseI18nContext.mockReturnValue((key: string) => key);
+    mockGetText.mockImplementation((key: string) => key);
     mockUseIsPasskeyActive.mockReturnValue(false);
     mockUseIsPasskeyIncompatibleInSidepanel.mockReturnValue(false);
     mockStartPasskeyAuthentication.mockResolvedValue(

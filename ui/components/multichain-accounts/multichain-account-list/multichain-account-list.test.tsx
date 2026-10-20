@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   screen,
   fireEvent,
@@ -25,7 +26,7 @@ import {
   DEFAULT_ROUTE,
   PREVIOUS_ROUTE,
 } from '../../../helpers/constants/routes';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import {
   MultichainAccountList,
@@ -602,7 +603,7 @@ describe('MultichainAccountList', () => {
     expect(modalHeader).toBeInTheDocument();
 
     // Find the header text inside the modal
-    const headerText = within(modalHeader).getByText(messages.rename.message);
+    const headerText = within(modalHeader).getByText(messages.rename);
     expect(headerText).toBeInTheDocument();
 
     // Find the actual input element directly
@@ -620,7 +621,7 @@ describe('MultichainAccountList', () => {
     });
 
     // Find and click the confirmation button
-    const confirmButton = screen.getByText(messages.confirm.message);
+    const confirmButton = screen.getByText(messages.confirm);
     expect(confirmButton).toBeInTheDocument();
 
     // The button should no longer be disabled after entering text
@@ -681,7 +682,7 @@ describe('MultichainAccountList', () => {
     expect(modalHeader).toBeInTheDocument();
 
     // Find the close button by aria-label
-    const closeButton = screen.getByLabelText(messages.close.message);
+    const closeButton = screen.getByLabelText(messages.close);
     expect(closeButton).toBeInTheDocument();
 
     await act(async () => {
@@ -1109,7 +1110,7 @@ describe('MultichainAccountList', () => {
       renderComponent({ wallets: walletsWithPinnedAccounts });
 
       // Pinned section header should be present
-      expect(screen.getByText(messages.pinned.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.pinned)).toBeInTheDocument();
 
       // Pinned accounts should be rendered
       expect(screen.getByText('Account 1 from wallet 1')).toBeInTheDocument();
@@ -1136,7 +1137,7 @@ describe('MultichainAccountList', () => {
       renderComponent({ wallets: walletsWithOnePinnedAccount });
 
       // Pinned section header should be present even with just 1 pinned account
-      expect(screen.getByText(messages.pinned.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.pinned)).toBeInTheDocument();
       expect(screen.getByText('Account 1 from wallet 1')).toBeInTheDocument();
     });
 
@@ -1184,7 +1185,7 @@ describe('MultichainAccountList', () => {
       );
 
       // Pinned section should exist
-      expect(screen.getByText(messages.pinned.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.pinned)).toBeInTheDocument();
 
       // Wallet headers should still be present
       const walletHeaders = screen.getAllByTestId(walletHeaderTestId);
@@ -1242,7 +1243,7 @@ describe('MultichainAccountList', () => {
       expect(walletHeader).toBeInTheDocument();
       // Wallet name should be in the header
       expect(within(walletHeader).getByText('Wallet 1')).toBeInTheDocument();
-      expect(screen.getByText(messages.pinned.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.pinned)).toBeInTheDocument();
     });
   });
 
@@ -1300,9 +1301,7 @@ describe('MultichainAccountList', () => {
 
       renderComponent({ wallets: walletsWithPinnedHiddenAccount });
 
-      expect(
-        screen.queryByText(messages.pinned.message),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText(messages.pinned)).not.toBeInTheDocument();
       expect(
         screen.queryByTestId(`multichain-account-cell-${walletOneGroupId}`),
       ).not.toBeInTheDocument();
@@ -1698,7 +1697,7 @@ describe('MultichainAccountList', () => {
     it('unpins a pinned account when it is hidden', async () => {
       renderComponent({ wallets: walletsWithPinnedAccount, isEditMode: true });
 
-      expect(screen.getByText(messages.pinned.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.pinned)).toBeInTheDocument();
 
       fireEvent.click(
         within(
@@ -1731,9 +1730,7 @@ describe('MultichainAccountList', () => {
       );
 
       // The only pinned account left the section, so the section is gone.
-      expect(
-        screen.queryByText(messages.pinned.message),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText(messages.pinned)).not.toBeInTheDocument();
 
       const hiddenCell = screen.getByTestId(
         `multichain-account-cell-${walletOneGroupId}`,
@@ -1876,7 +1873,7 @@ describe('MultichainAccountList', () => {
       ).toBeInTheDocument();
       expect(screen.getByText('Remove Imported Account 1')).toBeInTheDocument();
       expect(
-        screen.getByText(messages.removeAccountConfirmDescription.message),
+        screen.getByText(messages.removeAccountConfirmDescription),
       ).toBeInTheDocument();
 
       fireEvent.click(

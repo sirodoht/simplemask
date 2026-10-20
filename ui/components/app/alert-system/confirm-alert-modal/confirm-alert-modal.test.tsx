@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { fireEvent } from '@testing-library/react';
 import { Severity } from '../../../../helpers/constants/design-system';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import {
   ConfirmAlertModalProps,
   ConfirmAlertModal,
@@ -70,7 +71,7 @@ describe('ConfirmAlertModal', () => {
     );
 
     expect(
-      getByText(messages.confirmationAlertModalTitleDescription.message),
+      getByText(messages.confirmationAlertModalTitleDescription),
     ).toBeInTheDocument();
   });
 

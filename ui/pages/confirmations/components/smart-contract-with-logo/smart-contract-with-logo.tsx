@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AlignItems,
   BorderRadius,
@@ -7,10 +8,10 @@ import {
   TextColor,
 } from '../../../../helpers/constants/design-system';
 import { Box, Text } from '../../../../components/component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 function SmartContractWithLogo() {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box
       display={Display.Flex}

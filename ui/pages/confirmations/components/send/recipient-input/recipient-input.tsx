@@ -26,7 +26,7 @@ import {
   isResolvableName,
   shortenAddress,
 } from '../../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useRecipientValidation } from '../../../hooks/send/useRecipientValidation';
 import { useRecipients } from '../../../hooks/send/useRecipients';
 import { useAccountAddressSeedIconMap } from '../../../hooks/send/useAccountAddressSeedIconMap';
@@ -46,7 +46,7 @@ export const RecipientInput = ({
   const { setRecipientInputMethodManual, setRecipientInputMethodPasted } =
     useRecipientSelectionMetrics();
   const recipients = useRecipients();
-  const t = useI18nContext();
+  const t = getText;
   const { to, updateTo } = useSendContext();
   const { accountAddressSeedIconMap } = useAccountAddressSeedIconMap();
   const {

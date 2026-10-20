@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import qrCode from 'qrcode-generator';
 import { isHexPrefixed } from 'ethereumjs-util';
 import { Box, BoxAlignItems } from '@metamask/design-system-react';
@@ -12,7 +13,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -36,7 +37,7 @@ function QrCodeView({
 
   // useCopyToClipboard analysis: As of writing this, this is only used for public addresses
   const [copied, handleCopy] = useCopyToClipboard();
-  const t = useI18nContext();
+  const t = getText;
   const { message, data } = Qr;
   const checksummedAddress = normalizeSafeAddress(data);
   const address = `${

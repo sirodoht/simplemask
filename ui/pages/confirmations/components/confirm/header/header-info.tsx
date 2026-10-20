@@ -32,7 +32,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useAnalytics } from '../../../../../hooks/useAnalytics';
 import { useConfirmContext } from '../../../context/confirm';
 import { useBalance } from '../../../hooks/useBalance';
@@ -59,7 +59,7 @@ const HeaderInfo = () => {
     hasMoreThanOneWallet,
   } = useConfirmationRecipientInfo();
 
-  const t = useI18nContext();
+  const t = getText;
 
   const { balance: balanceToUse } = useBalance(fromAddress);
 

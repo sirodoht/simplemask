@@ -8,9 +8,9 @@ import { calcTokenAmount } from '../../../shared/lib/transactions-controller-uti
 import { getNetworkConfigurationsByChainId } from '../../../shared/lib/selectors/networks';
 import { parseStandardTokenTransactionData } from '../../../shared/lib/transaction.utils';
 import { formatAmount } from '../../../shared/lib/format-amount';
-import { getIntlLocale } from '../../ducks/locale/locale';
+
 import { getAllTokens } from '../../selectors';
-import { useI18nContext } from '../useI18nContext';
+import { getText } from '../../helpers/utils/text';
 
 export type SendBundleAmountSymbol = {
   sendAmount?: string;
@@ -39,8 +39,8 @@ export type SendBundleAmountSymbol = {
 export function useSendBundleAmountSymbol(
   transactionMeta: TransactionMeta | undefined,
 ): SendBundleAmountSymbol {
-  const t = useI18nContext();
-  const locale = useSelector(getIntlLocale);
+  const t = getText;
+  const locale = 'en';
   const networkConfigurationsByChainId = useSelector(
     getNetworkConfigurationsByChainId,
   );

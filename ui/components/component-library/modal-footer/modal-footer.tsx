@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'clsx';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   AlignItems,
   Display,
@@ -34,7 +34,7 @@ export const ModalFooter: ModalFooterComponent = React.forwardRef(
     }: ModalFooterProps<C>,
     ref?: PolymorphicRef<C>,
   ) => {
-    const t = useI18nContext();
+    const t = getText;
     return (
       <Box
         className={classnames('mm-modal-footer', className)}

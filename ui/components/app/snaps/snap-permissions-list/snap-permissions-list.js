@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Box, ButtonLink } from '../../../component-library';
 import {
   getMultipleTargetsSubjectMetadata,
@@ -34,7 +34,7 @@ export default function SnapPermissionsList({
   showAllPermissions,
   onShowAllPermissions,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const combinedPermissions = useMemo(() => {
     return { ...permissions, connection_permission: connections ?? {} };

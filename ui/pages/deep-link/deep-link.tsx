@@ -10,7 +10,7 @@ import {
 } from '../../components/component-library/button';
 import { parse } from '../../../shared/lib/deep-links/parse';
 import { CANONICAL_DEEP_LINK_HOST } from '../../../shared/lib/deep-links/common';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   AlignItems,
   BackgroundColor,
@@ -52,7 +52,7 @@ const { getExtensionURL } = globalThis.platform;
  *
  * @param setDescription - The function to call to set the description state.
  * @param setTitle - The function to call to set the title state.
- * @param t - The translation function.
+ * @param t - The English text function.
  * @param setPageNotFoundError - The function to call to set the error 404 state.
  */
 function set404(
@@ -77,7 +77,7 @@ function set404(
  * @param setRoute - The function to call to set the route state.
  * @param setTitle - The function to call to set the title state.
  * @param setCta - The function to call to set the call-to-action state.
- * @param t - The translation function.
+ * @param t - The English text function.
  * @param abortController
  * @param setPageNotFoundError - The function to call to set the error 404 state.
  */
@@ -164,7 +164,7 @@ async function updateStateFromUrl(
 
 export const DeepLink = () => {
   const location = useLocation();
-  const t = useI18nContext() as TranslateFunction;
+  const t = getText as TranslateFunction;
   const dispatch = useDispatch();
   // it's technically not possible for a natural flow to reach this page
   // when `skipDeepLinkInterstitial` is true, but if a user manually navigates

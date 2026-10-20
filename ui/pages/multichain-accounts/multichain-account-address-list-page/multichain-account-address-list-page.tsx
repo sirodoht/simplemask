@@ -21,7 +21,7 @@ import {
   Page,
 } from '../../../components/multichain/pages/page';
 import { TextVariant } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MultichainAddressRowsList } from '../../../components/multichain-accounts/multichain-address-rows-list';
 import { getMultichainAccountGroupById } from '../../../selectors/multichain-accounts/account-tree';
 import { AddressQRCodeModal } from '../../../components/multichain-accounts/address-qr-code-modal/address-qr-code-modal';
@@ -40,7 +40,7 @@ type MultichainAccountAddressListPageProps = {
 export const MultichainAccountAddressListPage = ({
   location: propsLocation,
 }: MultichainAccountAddressListPageProps = {}) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const hookLocation = useLocation();
 

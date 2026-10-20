@@ -15,14 +15,14 @@ import {
   Page,
 } from '../../../components/multichain/pages/page';
 import { TextVariant } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { SmartContractAccountToggleSection } from '../../../components/multichain-accounts/smart-contract-account-toggle-section';
 import { PREVIOUS_ROUTE } from '../../../helpers/constants/routes';
 import { KEYRING_TYPES_SUPPORTING_7702 } from '../../../../shared/constants/keyring';
 import { getInternalAccountByAddress } from '../../../selectors';
 
 export const SmartAccountPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const { address } = useParams<{ address: string }>();
 

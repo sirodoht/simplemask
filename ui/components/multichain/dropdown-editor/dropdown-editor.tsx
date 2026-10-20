@@ -24,7 +24,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import Tooltip from '../../ui/tooltip';
 
 export enum DropdownEditorStyle {
@@ -72,7 +72,7 @@ export const DropdownEditor = <Item,>({
   renderTooltip: (item: Item, isList: boolean) => string | undefined;
   buttonDataTestId: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dropdownRef = useRef<HTMLButtonElement>(null);
   // Captured on open (rather than via a callback ref on mount) so the popover
   // has a positioned reference without triggering a state update on mount.

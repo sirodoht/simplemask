@@ -36,7 +36,7 @@ import {
   ModalBody,
 } from '../../component-library';
 import type { ModalProps } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { openBlockExplorer } from '../../multichain/menu-items/view-explorer-menu-item';
@@ -74,7 +74,7 @@ export const AddressQRCodeModal = ({
   chainId,
   networkImageSrc,
 }: AddressQRCodeModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   // useCopyToClipboard analysis: Copies one of your public addresses
   const [, handleCopy] = useCopyToClipboard();

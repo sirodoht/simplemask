@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
+
 import { Box, BoxBackgroundColor } from '@metamask/design-system-react';
 import {
   CameraAccessErrorContent,
@@ -21,7 +22,7 @@ const meta = {
     docs: {
       description: {
         component: `
-Locale copy lives inside the component (\`useI18nContext\`).
+Locale copy lives inside the component (\`getText\`).
 
 **Variants**
 - **needed** — User dismissed the permission prompt (Chromium-style flow); primary action retries the prompt.

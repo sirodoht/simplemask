@@ -1,5 +1,6 @@
-import { waitFor } from '@testing-library/react';
 import React from 'react';
+import { waitFor } from '@testing-library/react';
+
 import { TransactionType } from '@metamask/transaction-controller';
 import { BigNumber } from 'bignumber.js';
 import configureMockStore from 'redux-mock-store';
@@ -21,7 +22,7 @@ import {
 } from '../../../../../../test/data/confirmations/typed_sign';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
-import { tEn } from '../../../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../../../shared/lib/text';
 import { upgradeAccountConfirmationOnly } from '../../../../../../test/data/confirmations/batch-transaction';
 import {
   Alert,

@@ -1,9 +1,10 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Box } from '@metamask/design-system-react';
 import { getWeightedPermissions } from '../../../helpers/utils/permission';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getSnapsMetadata } from '../../../selectors';
 import { getSnapName } from '../../../helpers/utils/util';
 import PermissionCell from '../permission-cell';
@@ -49,7 +50,7 @@ export default function PermissionsConnectPermissionList({
   requestedChainIds,
   caipChainIds,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const snapsMetadata = useSelector(getSnapsMetadata);
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Box, ButtonLink } from '../../../component-library';
 import {
   getMultipleTargetsSubjectMetadata,
@@ -34,7 +34,7 @@ export default function UpdateSnapPermissionList({
   targetSubjectMetadata,
   showAllPermissions,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const snapId = targetSubjectMetadata.origin;
 
   const { name: snapName } = useSelector((state) =>

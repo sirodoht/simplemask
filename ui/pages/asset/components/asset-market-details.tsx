@@ -15,7 +15,7 @@ import {
 import { formatCurrency } from '../../../helpers/utils/confirm-tx.util';
 
 import { getPricePrecision } from '../util';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getCurrentCurrency } from '../../../ducks/metamask/metamask';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
 import {
@@ -45,7 +45,7 @@ export const AssetMarketDetails = ({
    */
   fallbackMarketData?: AssetMarketData;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const currency = useSelector(getCurrentCurrency);
   const conversionRate = useMultichainSelector(getMultichainConversionRate);
   const evmMarketData = useSelector(getMarketData);

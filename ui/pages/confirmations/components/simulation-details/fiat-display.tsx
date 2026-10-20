@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { BigNumber } from 'bignumber.js';
 import {
@@ -6,7 +7,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Text } from '../../../../components/component-library';
 import Tooltip from '../../../../components/ui/tooltip';
 import { useFiatFormatter } from '../../../../hooks/useFiatFormatter';
@@ -20,7 +21,7 @@ const textStyle = {
 } as const;
 
 const FiatNotAvailableDisplay = () => {
-  const t = useI18nContext();
+  const t = getText;
   return <Text {...textStyle}>{t('simulationDetailsFiatNotAvailable')}</Text>;
 };
 
@@ -88,7 +89,7 @@ export const TotalFiatDisplay = ({
   fiatAmounts: FiatAmount[];
 }) => {
   const shouldShowFiat = useSelector(getShouldShowFiat);
-  const t = useI18nContext();
+  const t = getText;
   const fiatFormatter = useFiatFormatter();
   const totalFiat = calculateTotalFiat(fiatAmounts);
 

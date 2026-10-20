@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { screen, waitFor } from '@testing-library/react';
 import type { UR } from '@ngraveio/bc-ur';
 import configureStore from '../../../../store/store';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { tEn } from '../../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../../shared/lib/text';
 import mockState from '../../../../../test/data/mock-state.json';
 import * as Actions from '../../../../store/actions';
 import {

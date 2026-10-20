@@ -5,8 +5,8 @@ import { useConfirmContext } from '../../context/confirm';
 import { useFeeCalculations } from '../../components/confirm/info/hooks/useFeeCalculations';
 import { useDappSuggestedGasFeeOption } from './useDappSuggestedGasFeeOption';
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../context/confirm', () => ({

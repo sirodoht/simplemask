@@ -7,8 +7,8 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import configureStore from '../ui/store/store';
 import '../ui/css/index.scss';
-import enMessages from '../app/_locales/en/messages.json';
-import { I18nProvider } from './i18n';
+
+
 import testData from './test-data.js';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { setBackgroundConnection } from '../ui/store/background-connection';
@@ -121,15 +121,11 @@ const metamaskDecorator = (story, context) => {
               trackInlineAlertClicked: () => undefined,
             }}
           >
-            <I18nProvider
-              currentLocale="en"
-              current={enMessages}
-              en={enMessages}
-            >
+            <>
               <Routes>
                 <Route path={path} element={<StoryComponent />} />
               </Routes>
-            </I18nProvider>
+            </>
           </AlertMetricsProvider>
         </MemoryRouter>
       </QueryClientProvider>

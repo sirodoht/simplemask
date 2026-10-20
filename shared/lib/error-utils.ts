@@ -1,19 +1,15 @@
-import { memoize, escape as lodashEscape } from 'lodash';
+import { escape as lodashEscape } from 'lodash';
 import { MISSING_VAULT_ERROR, type ErrorLike } from '../constants/errors';
 import {
   CriticalErrorRepairAction,
   isStateCorruptionErrorType,
   type CriticalErrorType,
 } from '../constants/critical-error';
-import type { I18NMessageDict } from './i18n';
-import { fetchLocale, getMessage } from './i18n';
-import { switchDirectionForPreferredLocale } from './switch-direction';
+import { getText } from './text';
 import {
   REINSTALL_METAMASK_RECOVERY_LINK,
   VAULT_RECOVERY_LINK,
 } from './ui-utils';
-
-const defaultLocale = 'en';
 
 // Dark mode keeps the original brand greys. `light:` reapplies semantic tokens
 // only when PreferencesController resolves to a light theme.
@@ -37,44 +33,6 @@ const criticalErrorCheckboxClass =
 const criticalErrorDividerClass =
   "critical-error__divider m-0 flex items-center gap-3 text-s-body-sm font-normal leading-s-body-sm text-[var(--brand-colors-grey-grey400)] before:h-px before:flex-1 before:bg-[color-mix(in_srgb,var(--brand-colors-grey-grey400)_20%,transparent)] before:content-[''] after:h-px after:flex-1 after:bg-[color-mix(in_srgb,var(--brand-colors-grey-grey400)_20%,transparent)] after:content-[''] light:text-alternative light:before:bg-border-muted light:after:bg-border-muted [&>span]:shrink-0";
 
-/**
- * The context returned by {@link maybeGetLocaleContext} and accepted by
- * {@link getErrorHtml}.
- */
-export type LocaleContext = {
-  preferredLocale: string;
-  t: (key: string) => string | undefined;
-  /** Current locale messages; used with {@link getMessage} for substituted strings. */
-  localeMessages: I18NMessageDict;
-  /** English fallback messages; used with {@link getMessage} for substituted strings. */
-  enLocaleMessages: I18NMessageDict;
-};
-
-const _setupLocale = async (
-  _currentLocale: string | undefined,
-): Promise<{
-  currentLocaleMessages: I18NMessageDict;
-  enLocaleMessages: I18NMessageDict;
-}> => {
-  const enLocaleMessages = await fetchLocale(defaultLocale);
-  return { currentLocaleMessages: enLocaleMessages, enLocaleMessages };
-};
-
-export const setupLocale = memoize(_setupLocale);
-
-export const getLocaleContext = (
-  currentLocaleMessages: I18NMessageDict,
-  enLocaleMessages: I18NMessageDict,
-): ((key: string) => string | undefined) => {
-  return (key: string) => {
-    let message = currentLocaleMessages[key]?.message;
-    if (!message && enLocaleMessages[key]) {
-      message = enLocaleMessages[key].message;
-    }
-    return message;
-  };
-};
-
 export function criticalErrorWarningIconMarkup(): string {
   return `<div class="critical-error__icon shrink-0 leading-none text-warning-default" aria-hidden="true">
           <svg class="block fill-current" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
@@ -96,51 +54,10 @@ export function getErrorHtmlBase(errorBody: string): string {
 }
 
 /**
- * Tries really hard to get the locale context function from the given locale.
- *
- * It falls back to the default browser locale, or 'en' if that fails.
- * If we can't get the locale context from some reason (the `messages.json`
- * file for the locale), we return a function that just returns the value passed
- * to it, which isn't ideal... but at least it is something (the alternative
- * is to hard-code the English locale in this file, which would be very hard
- * to maintain).
- *
- * Does not throw.
- *
- * @param _currentLocale - Legacy locale; errors always render in English.
- * @returns A promise that resolves to an object containing the preferred locale, translation function, and message dicts for getMessage when needed.
- */
-export async function maybeGetLocaleContext(
-  _currentLocale?: string,
-): Promise<LocaleContext> {
-  const preferredLocale = defaultLocale;
-  try {
-    const response = await setupLocale(preferredLocale);
-    const { currentLocaleMessages, enLocaleMessages } = response;
-    const t = getLocaleContext(currentLocaleMessages, enLocaleMessages);
-    return {
-      preferredLocale,
-      t,
-      localeMessages: currentLocaleMessages,
-      enLocaleMessages,
-    };
-  } catch (error) {
-    console.error('Error setting up locale:', error);
-    return {
-      preferredLocale: preferredLocale ?? 'en',
-      t: (value) => value,
-      localeMessages: {},
-      enLocaleMessages: {},
-    };
-  }
-}
-
-/**
  * Get the HTML for a critical error message.
  *
  * @param errorKey - The key for the error message.
  * @param error - The error object to log.
- * @param localeContext - The MetaMask state containing the current locale and translation function.
  * @param supportLink - The support link to include in the footer.
  * @param repairAction - The repair action to render.
  * @param criticalErrorType - The type of critical error to render.
@@ -150,15 +67,12 @@ export async function maybeGetLocaleContext(
 export function getErrorHtml(
   errorKey: string,
   error: ErrorLike | undefined,
-  localeContext: LocaleContext,
   supportLink?: string,
   repairAction: CriticalErrorRepairAction = CriticalErrorRepairAction.None,
   criticalErrorType?: CriticalErrorType,
   showReportCheckbox: boolean = true,
 ): string {
-  switchDirectionForPreferredLocale(localeContext.preferredLocale);
-  const { t, preferredLocale, localeMessages, enLocaleMessages } =
-    localeContext;
+  const t = getText;
   const isStateCorruptionError = isStateCorruptionErrorType(criticalErrorType);
 
   const legalText = `
@@ -239,19 +153,9 @@ export function getErrorHtml(
 
     let footerContent: string | null | undefined;
     try {
-      footerContent =
-        (getMessage(
-          preferredLocale,
-          localeMessages,
-          'criticalErrorFooterContactSupport',
-          [supportLinkAnchor],
-        ) as string | null) ||
-        (getMessage(
-          'en',
-          enLocaleMessages,
-          'criticalErrorFooterContactSupport',
-          [supportLinkAnchor],
-        ) as string | null);
+      footerContent = getText('criticalErrorFooterContactSupport', [
+        supportLinkAnchor,
+      ]);
     } catch {
       footerContent = null;
     }
@@ -294,19 +198,9 @@ export function getErrorHtml(
         rel="noopener noreferrer">${lodashEscape(t('stateCorruptionTheseInstructions') ?? '')}</a>`;
       try {
         salvageGuidance =
-          (getMessage(
-            preferredLocale,
-            localeMessages,
-            'stateCorruptionCopyAndRestoreBeforeReset',
-            [instructionsLink],
-          ) as string | null) ||
-          (getMessage(
-            'en',
-            enLocaleMessages,
-            'stateCorruptionCopyAndRestoreBeforeReset',
-            [instructionsLink],
-          ) as string | null) ||
-          '';
+          getText('stateCorruptionCopyAndRestoreBeforeReset', [
+            instructionsLink,
+          ]) || '';
       } catch {
         salvageGuidance = '';
       }
@@ -316,12 +210,6 @@ export function getErrorHtml(
     }
   }
 
-  /**
-   * The pattern ${errorKey === 'somethingIsWrong' ? t('somethingIsWrong') : ''}
-   * is necessary because we need linter to see the string
-   * of the locale keys. If we use the variable directly, the linter will not
-   * see the string and will not be able to check if the locale key exists.
-   */
   return getErrorHtmlBase(`
       <div class="critical-error__header box-border flex w-full items-center justify-center gap-2 px-4 pb-2 pt-4">
         ${criticalErrorWarningIconMarkup()}

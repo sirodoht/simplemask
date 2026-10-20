@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -18,7 +19,7 @@ import { setAutoLockTimeLimit } from '../../../store/actions';
 import { SECURITY_AND_PASSWORD_ROUTE } from '../../../helpers/constants/routes';
 import { getPreferences } from '../../../../shared/lib/selectors/preferences';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../../shared/constants/preferences';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
   MetaMetricsEventCategory,
@@ -31,7 +32,7 @@ import { AUTO_LOCK_OPTIONS } from './auto-lock-utils';
 const AutoLockSubPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { autoLockTimeLimit = DEFAULT_AUTO_LOCK_TIME_LIMIT } =
     useSelector(getPreferences);

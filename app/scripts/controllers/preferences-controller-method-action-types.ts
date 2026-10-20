@@ -202,16 +202,6 @@ export type PreferencesControllerAddKnownMethodDataAction = {
 };
 
 /**
- * Setter for the `currentLocale` property
- *
- * @param key - he preferred language locale key
- */
-export type PreferencesControllerSetCurrentLocaleAction = {
-  type: `PreferencesController:setCurrentLocale`;
-  handler: PreferencesController['setCurrentLocale'];
-};
-
-/**
  * Sets a custom label for an account
  *
  * @deprecated - Use setAccountName from the AccountsController
@@ -404,7 +394,6 @@ export type PreferencesControllerMethodActions =
   | PreferencesControllerSetAdvancedGasFeeAction
   | PreferencesControllerSetThemeAction
   | PreferencesControllerAddKnownMethodDataAction
-  | PreferencesControllerSetCurrentLocaleAction
   | PreferencesControllerSetAccountLabelAction
   | PreferencesControllerSetFeatureFlagAction
   | PreferencesControllerSetPreferenceAction

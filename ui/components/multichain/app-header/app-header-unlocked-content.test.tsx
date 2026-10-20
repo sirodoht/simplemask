@@ -5,7 +5,7 @@ import { openWindow } from '#ui/helpers/utils/window';
 import configureStore from '../../../store/store';
 import mockDefaultState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { AppHeaderUnlockedContent } from './app-header-unlocked-content';
 
 jest.mock('../../../../shared/lib/trace', () => {
@@ -82,9 +82,7 @@ describe('AppHeaderUnlockedContent trace', () => {
       ).toBeInTheDocument();
     });
 
-    const viewAllButton = screen.getByText(
-      messages.multichainAddressViewAll.message,
-    );
+    const viewAllButton = screen.getByText(messages.multichainAddressViewAll);
     fireEvent.click(viewAllButton);
 
     const traceLib = jest.requireMock('../../../../shared/lib/trace');

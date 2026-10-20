@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import thunk from 'redux-thunk';
@@ -12,7 +13,7 @@ import {
   MetaMetricsEventVerificationMethod,
 } from '../../../shared/constants/metametrics';
 import configureStore from '../../store/store';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { flushPromises } from '../../../test/lib/timer-helpers';
 import { ENVIRONMENT_TYPE_SIDEPANEL } from '../../../shared/constants/app';
 import RevealSeedPage from './reveal-seed';
@@ -144,7 +145,7 @@ async function navigateQuizToPasswordScreen({
   fireEvent: fireEventFn,
   landingTestId = 'input-password',
 }: NavigateQuizToPasswordScreenArgs) {
-  fireEventFn.click(getByText(messages.srpSecurityQuizGetStarted.message));
+  fireEventFn.click(getByText(messages.srpSecurityQuizGetStarted));
 
   // Q1: click the correct-answer button (data-testid avoids i18n/apostrophe issues)
   await waitFor(() => {
@@ -176,7 +177,7 @@ async function navigateQuizForPasskeyReveal({
   queryByTestId,
   fireEvent: fireEventFn,
 }: Omit<NavigateQuizToPasswordScreenArgs, 'landingTestId'>) {
-  fireEventFn.click(getByText(messages.srpSecurityQuizGetStarted.message));
+  fireEventFn.click(getByText(messages.srpSecurityQuizGetStarted));
 
   // Q1: click the correct-answer button (data-testid avoids i18n/apostrophe issues)
   await waitFor(() => {
@@ -228,9 +229,7 @@ describe('Reveal Seed Page', () => {
       expect(mockScanUrlForPhishing).toHaveBeenCalled();
     });
 
-    expect(
-      getByText(messages.srpSecurityQuizGetStarted.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.srpSecurityQuizGetStarted)).toBeInTheDocument();
   });
 
   it('navigates to password screen after completing quiz', async () => {
@@ -264,7 +263,7 @@ describe('Reveal Seed Page', () => {
       target: { value: password },
     });
 
-    fireEvent.click(getByText(messages.continue.message));
+    fireEvent.click(getByText(messages.continue));
 
     await waitFor(() => {
       expect(mockRequestRevealSeedWords).toHaveBeenCalled();
@@ -319,7 +318,7 @@ describe('Reveal Seed Page', () => {
       target: { value: 'bad password' },
     });
 
-    fireEvent.click(getByText(messages.continue.message));
+    fireEvent.click(getByText(messages.continue));
 
     await waitFor(() => {
       expect(queryByText('bad password')).toBeInTheDocument();
@@ -346,11 +345,11 @@ describe('Reveal Seed Page', () => {
       target: { value: password },
     });
 
-    fireEvent.click(getByText(messages.continue.message));
+    fireEvent.click(getByText(messages.continue));
 
     await waitFor(() => {
       expect(mockRequestRevealSeedWords).toHaveBeenCalled();
-      expect(getByText(messages.copyToClipboard.message)).toBeInTheDocument();
+      expect(getByText(messages.copyToClipboard)).toBeInTheDocument();
     });
     expect(queryByTestId('recovery-phrase-chips')).toBeInTheDocument();
   });
@@ -384,7 +383,7 @@ describe('Reveal Seed Page', () => {
       target: { value: 'bad-password' },
     });
 
-    fireEvent.click(getByText(messages.continue.message));
+    fireEvent.click(getByText(messages.continue));
 
     await waitFor(() => {
       expect(mockRequestRevealSeedWords).toHaveBeenCalled();
@@ -443,7 +442,7 @@ describe('Reveal Seed Page', () => {
       target: { value: password },
     });
 
-    fireEvent.click(getByText(messages.continue.message));
+    fireEvent.click(getByText(messages.continue));
 
     await waitFor(() => {
       expect(mockTrackEvent).toHaveBeenNthCalledWith(1, {
@@ -481,7 +480,7 @@ describe('Reveal Seed Page', () => {
         },
         sensitiveProperties: {},
       });
-      expect(getByText(messages.copyToClipboard.message)).toBeInTheDocument();
+      expect(getByText(messages.copyToClipboard)).toBeInTheDocument();
     });
 
     await waitFor(() => {
@@ -499,10 +498,10 @@ describe('Reveal Seed Page', () => {
     mockTrackEvent.mockClear();
 
     const qrTab = getByRole('tab', {
-      name: messages.revealSeedWordsQR.message,
+      name: messages.revealSeedWordsQR,
     });
     const textTab = getByRole('tab', {
-      name: messages.revealSeedWordsText.message,
+      name: messages.revealSeedWordsText,
     });
 
     fireEvent.click(qrTab);
@@ -594,7 +593,7 @@ describe('Reveal Seed Page', () => {
       mockStore,
     );
 
-    const backButton = getByLabelText(messages.back.message);
+    const backButton = getByLabelText(messages.back);
     fireEvent.click(backButton);
 
     await waitFor(() => {
@@ -667,15 +666,15 @@ describe('Reveal Seed Page', () => {
 
       expect(
         queryByTestId('reveal-seed-malicious-block-heading'),
-      ).toHaveTextContent(messages.srpRevealMaliciousBlockHeading.message);
+      ).toHaveTextContent(messages.srpRevealMaliciousBlockHeading);
       expect(
         queryByTestId('reveal-seed-malicious-block-body'),
       ).toHaveTextContent(
-        messages.srpRevealMaliciousBlockBody.message.replace('$1', 'evil.com'),
+        messages.srpRevealMaliciousBlockBody.replace('$1', 'evil.com'),
       );
       expect(
         queryByTestId('reveal-seed-malicious-block-dismiss'),
-      ).toHaveTextContent(messages.srpRevealMaliciousBlockDismiss.message);
+      ).toHaveTextContent(messages.srpRevealMaliciousBlockDismiss);
 
       expect(queryByTestId('input-password')).not.toBeInTheDocument();
       expect(
@@ -787,7 +786,7 @@ describe('Reveal Seed Page', () => {
         target: { value: password },
       });
 
-      fireEvent.click(getByText(messages.continue.message));
+      fireEvent.click(getByText(messages.continue));
 
       await waitFor(() => {
         expect(mockRequestRevealSeedWords).toHaveBeenCalledWith(
@@ -815,7 +814,7 @@ describe('Reveal Seed Page', () => {
         target: { value: password },
       });
 
-      fireEvent.click(getByText(messages.continue.message));
+      fireEvent.click(getByText(messages.continue));
 
       await waitFor(() => {
         expect(mockRequestRevealSeedWords).toHaveBeenCalledWith(
@@ -868,7 +867,7 @@ describe('Reveal Seed Page', () => {
           mockPasskeyAuthResponse,
           undefined,
         );
-        expect(getByText(messages.copyToClipboard.message)).toBeInTheDocument();
+        expect(getByText(messages.copyToClipboard)).toBeInTheDocument();
       });
       expect(queryByTestId('recovery-phrase-chips')).toBeInTheDocument();
       expect(mockRequestRevealSeedWords).not.toHaveBeenCalled();

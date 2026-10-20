@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BigNumber } from 'bignumber.js';
 import { Hex } from '@metamask/utils';
 import { TransactionMeta } from '@metamask/transaction-controller';
@@ -13,7 +14,7 @@ import {
 } from '../../../../../../../components/app/confirm/info/row';
 import { getTokenStandardAndDetails } from '../../../../../../../store/actions';
 import { useAsyncResult } from '../../../../../../../hooks/useAsync';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { Box } from '../../../../../../../components/component-library';
 import { ERC20_DEFAULT_DECIMALS } from '../../../../../utils/token';
 import { useConfirmContext } from '../../../../../context/confirm';
@@ -96,7 +97,7 @@ export function BatchedApprovalFunction({
   method: DecodedTransactionDataMethod;
   nestedTransactionIndex: number;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   const { chainId } = currentConfirmation;

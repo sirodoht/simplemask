@@ -3,7 +3,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import nock from 'nock';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 import * as backgroundConnection from '../../../../ui/store/background-connection';
-import { tEn } from '../../../lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import { integrationTestRender } from '../../../lib/render-helpers';
 import mockMetaMaskState from '../../data/integration-init-state.json';
 import { createMockImplementation, mock4byte } from '../../helpers';

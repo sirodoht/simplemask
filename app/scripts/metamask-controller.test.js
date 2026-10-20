@@ -501,7 +501,6 @@ describe('MetaMaskController', () => {
       });
 
       const _controller = new MetaMaskController({
-        initLangCode: 'en_US',
         browser: browserPolyfillMock,
         getRequestAccountTabIds: () => ({}),
         getOpenMetamaskTabsIds: () => ({}),
@@ -543,7 +542,6 @@ describe('MetaMaskController', () => {
             useExternalServices: false,
           },
         },
-        initLangCode: 'en_US',
         platform: {
           showTransactionNotification: () => undefined,
           getVersion: () => 'foo',
@@ -840,7 +838,6 @@ describe('MetaMaskController', () => {
         jest.spyOn(LoggingController.prototype, 'add');
 
         const localController = new MetaMaskController({
-          initLangCode: 'en_US',
           browser: browserPolyfillMock,
           getRequestAccountTabIds: () => ({}),
           getOpenMetamaskTabsIds: () => ({}),
@@ -878,7 +875,6 @@ describe('MetaMaskController', () => {
 
         // eslint-disable-next-line no-new
         new MetaMaskController({
-          initLangCode: 'en_US',
           platform: {
             openExtensionInBrowser: openExtensionInBrowserMock,
           },
@@ -2461,7 +2457,6 @@ describe('MetaMaskController', () => {
               useExternalServices: false,
             },
           },
-          initLangCode: 'en_US',
           platform: {
             showTransactionNotification: () => undefined,
             getVersion: () => 'foo',
@@ -2963,7 +2958,6 @@ describe('MetaMaskController', () => {
               useExternalServices: false,
             },
           },
-          initLangCode: 'en_US',
           platform: {
             showTransactionNotification: () => undefined,
             getVersion: () => 'foo',
@@ -3109,7 +3103,6 @@ describe('MetaMaskController', () => {
               selectedNetworkClientId: 'invalid-client-id',
             },
           },
-          initLangCode: 'en_US',
           platform: {
             showTransactionNotification: () => undefined,
             getVersion: () => 'foo',
@@ -3177,7 +3170,6 @@ describe('MetaMaskController', () => {
           showUserConfirmation: noop,
           encryptor: mockEncryptor,
           initState,
-          initLangCode: 'en_US',
           platform: {
             showTransactionNotification: () => undefined,
             getVersion: () => 'foo',
@@ -3247,7 +3239,6 @@ describe('MetaMaskController', () => {
           showUserConfirmation: noop,
           encryptor: mockEncryptor,
           initState,
-          initLangCode: 'en_US',
           platform: {
             showTransactionNotification: () => undefined,
             getVersion: () => 'foo',
@@ -3301,7 +3292,6 @@ describe('MetaMaskController', () => {
           showUserConfirmation: noop,
           encryptor: mockEncryptor,
           initState,
-          initLangCode: 'en_US',
           platform: {
             showTransactionNotification: () => undefined,
             getVersion: () => 'foo',
@@ -3838,7 +3828,6 @@ describe('MetaMaskController', () => {
         showUserConfirmation: noop,
         encryptor: mockEncryptor,
         initState: cloneDeep(firstTimeState),
-        initLangCode: 'en_US',
         platform: {
           showTransactionNotification: () => undefined,
           getVersion: () => 'foo',
@@ -3874,7 +3863,6 @@ describe('MetaMaskController', () => {
         showUserConfirmation: noop,
         encryptor: mockEncryptor,
         initState: cloneDeep(firstTimeState),
-        initLangCode: 'en_US',
         platform: {
           showTransactionNotification: () => undefined,
           getVersion: () => 'foo',
@@ -3917,7 +3905,6 @@ describe('MetaMaskController', () => {
         showUserConfirmation: noop,
         encryptor: mockEncryptor,
         initState: cloneDeep(firstTimeState),
-        initLangCode: 'en_US',
         platform: {
           showTransactionNotification: () => undefined,
           getVersion: () => 'foo',
@@ -4106,7 +4093,6 @@ describe('MetaMaskController', () => {
         showUserConfirmation: noop,
         encryptor: mockEncryptor,
         initState: cloneDeep(firstTimeState),
-        initLangCode: 'en_US',
         platform: {
           showTransactionNotification: () => undefined,
           getVersion: () => 'foo',
@@ -4238,7 +4224,6 @@ describe('MetaMaskController', () => {
         showUserConfirmation: noop,
         encryptor: mockEncryptor,
         initState: cloneDeep(firstTimeState),
-        initLangCode: 'en_US',
         platform: {
           showTransactionNotification: () => undefined,
           getVersion: () => 'foo',

@@ -19,7 +19,7 @@ import {
 } from '@metamask/design-system-react';
 import { useAnalytics } from '../../../../hooks/useAnalytics';
 import { useWalletInfo } from '../../../../hooks/multichain-accounts/useWalletInfo';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useSingleWalletAccountsBalanceCallback } from '../../../../hooks/multichain-accounts/useWalletBalance';
 import {
   MetaMetricsEventCategory,
@@ -49,7 +49,7 @@ export const SrpCard = ({
   isSettingsPage = false,
   hideShowAccounts = false,
 }: SrpCardProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { multichainAccounts, keyringId } = useWalletInfo(walletId);
   const [showAccounts, setShowAccounts] = useState<boolean>(false);

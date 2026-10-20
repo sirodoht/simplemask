@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { screen, fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import {
   DEFAULT_ROUTE,
   MULTICHAIN_WALLET_DETAILS_PAGE_ROUTE,
@@ -178,7 +179,7 @@ describe('MultichainAccountDetailsPage', () => {
 
     expect(screen.getByText(/rename/iu)).toBeInTheDocument();
 
-    const closeButton = screen.getByLabelText(messages.close.message);
+    const closeButton = screen.getByLabelText(messages.close);
     fireEvent.click(closeButton);
 
     expect(screen.queryByText(/rename/iu)).not.toBeInTheDocument();
@@ -208,7 +209,7 @@ describe('MultichainAccountDetailsPage', () => {
 
     expect(screen.getByText(/will be removed/iu)).toBeInTheDocument();
 
-    const closeButton = screen.getByLabelText(messages.close.message);
+    const closeButton = screen.getByLabelText(messages.close);
     fireEvent.click(closeButton);
 
     expect(screen.queryByText(/will be removed/iu)).not.toBeInTheDocument();
@@ -223,7 +224,7 @@ describe('MultichainAccountDetailsPage', () => {
     );
     fireEvent.click(removeAccountActionButton);
 
-    const removeButton = screen.getByText(messages.remove.message);
+    const removeButton = screen.getByText(messages.remove);
     fireEvent.click(removeButton);
 
     // Verify that dispatch was called with removeAccount action

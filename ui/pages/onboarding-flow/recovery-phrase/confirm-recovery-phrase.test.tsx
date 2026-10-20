@@ -1,9 +1,10 @@
-import { fireEvent } from '@testing-library/react';
 import React from 'react';
+import { fireEvent } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { setSeedPhraseBackedUp } from '../../../store/actions';
 import {
   ONBOARDING_COMPLETION_ROUTE,
@@ -164,7 +165,7 @@ describe('Confirm Recovery Phrase Component', () => {
     expect(queryByTestId('confirm-srp-modal')).toBeInTheDocument();
     expect(queryByTestId('recovery-phrase-confirm')).not.toBeInTheDocument();
 
-    const gotItButton = getByText(messages.gotIt.message);
+    const gotItButton = getByText(messages.gotIt);
     expect(gotItButton).toBeInTheDocument();
     fireEvent.click(gotItButton);
 
@@ -191,7 +192,7 @@ describe('Confirm Recovery Phrase Component', () => {
 
     clickAndAnswerSrpQuiz(quizUnansweredChips);
 
-    fireEvent.click(getByText(messages.gotIt.message));
+    fireEvent.click(getByText(messages.gotIt));
 
     expect(setSeedPhraseBackedUp).toHaveBeenCalledWith(true);
     expect(mockUseNavigate).toHaveBeenCalledWith(ONBOARDING_COMPLETION_ROUTE, {

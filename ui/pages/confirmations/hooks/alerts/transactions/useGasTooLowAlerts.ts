@@ -4,7 +4,7 @@ import { MIN_GAS_LIMIT_DEC } from '../../../send-utils/send.constants';
 import { hexToDecimal } from '../../../../../../shared/lib/conversion.utils';
 import { Severity } from '../../../../../helpers/constants/design-system';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   AlertActionKey,
   RowAlertKey,
@@ -12,7 +12,7 @@ import {
 import { useConfirmContext } from '../../../context/confirm';
 
 export function useGasTooLowAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   const gas = currentConfirmation?.txParams?.gas;

@@ -31,7 +31,7 @@ import {
 import MetaMaskTemplateRenderer from '../../../components/app/metamask-template-renderer';
 import ConfirmationWarningModal from '../components/confirmation-warning-modal';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useHideToasts } from '../../../hooks/useHideToasts';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
@@ -238,7 +238,7 @@ export default function ConfirmationPage({
 }) {
   useHideToasts();
 
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const dispatch = useDispatch();
   const navigate = useNavigate();

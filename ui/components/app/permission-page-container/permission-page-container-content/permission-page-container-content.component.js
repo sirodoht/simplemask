@@ -12,7 +12,7 @@ import {
   BoxJustifyContent,
   BoxBackgroundColor,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import PermissionsConnectPermissionList from '../../permissions-connect-permission-list';
 import {
   FontWeight,
@@ -30,7 +30,7 @@ function PermissionPageContainerContent({
   requestedChainIds = [],
   selectedCaipChainIds = null,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const accounts = selectedAccounts.reduce((accumulator, account) => {
     accumulator.push({

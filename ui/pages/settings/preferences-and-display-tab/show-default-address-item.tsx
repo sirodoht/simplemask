@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { Box, BoxFlexDirection } from '@metamask/design-system-react';
 import Dropdown from '../../../components/ui/dropdown';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getShowDefaultAddressPreference,
   getDefaultAddressScope,
@@ -25,7 +26,7 @@ import { PREFERENCES_ITEMS } from '../search-config';
 import { useDispatch } from '../../../store/hooks';
 
 export const ShowDefaultAddressItem = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
 

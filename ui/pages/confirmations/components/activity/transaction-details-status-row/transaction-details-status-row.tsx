@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { TransactionStatus } from '@metamask/transaction-controller';
 import { Box, Text } from '../../../../../components/component-library';
 import {
@@ -8,7 +9,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { TransactionDetailsRow } from '../transaction-details-row';
 import { useTransactionDetails } from '../transaction-details-context';
 import { TransactionStatusIcon } from '../transaction-status-icon';
@@ -26,7 +27,7 @@ function getStatusTextColor(status: TransactionStatus): TextColor {
 }
 
 export function TransactionDetailsStatusRow() {
-  const t = useI18nContext();
+  const t = getText;
   const { transactionMeta } = useTransactionDetails();
   const { status } = transactionMeta;
 

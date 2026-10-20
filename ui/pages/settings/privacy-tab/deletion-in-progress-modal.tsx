@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxFlexDirection,
@@ -17,7 +18,7 @@ import {
   ModalContent,
 } from '@metamask/design-system-react';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getMetaMetricsDataDeletionTimestamp } from '../../../selectors';
 import { formatDate } from '../../../helpers/utils/util';
 import { PrivacyPolicyLink } from '../shared';
@@ -29,7 +30,7 @@ type DeletionInProgressModalProps = {
 export default function DeletionInProgressModal({
   onClose,
 }: Readonly<DeletionInProgressModalProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const metaMetricsDataDeletionTimestamp = useSelector(
     getMetaMetricsDataDeletionTimestamp,
   );

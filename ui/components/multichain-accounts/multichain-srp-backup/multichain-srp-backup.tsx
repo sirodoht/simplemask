@@ -16,7 +16,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ONBOARDING_REVIEW_SRP_ROUTE,
   REVEAL_SEED_ROUTE,
@@ -35,7 +35,7 @@ export const MultichainSrpBackup = ({
   keyringId,
   backupFlowReturnRoute,
 }: MultichainSrpBackupProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   const handleSrpBackupClick = useCallback(() => {

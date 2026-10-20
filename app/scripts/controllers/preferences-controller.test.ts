@@ -18,7 +18,7 @@ import {
   DEFAULT_AUTO_LOCK_TIME_LIMIT,
   ThemeType,
 } from '../../../shared/constants/preferences';
-import { FALLBACK_LOCALE } from '../../../shared/lib/i18n';
+
 import { BFT_CHILD_PREFERENCES } from '../../../shared/lib/basic-functionality-consolidation';
 import {
   MetaMetricsEventCategory,
@@ -153,21 +153,6 @@ describe('preferences controller', () => {
       });
 
       expect(mergedController.state.preferences.avatarType).toBe('jazzicon');
-    });
-  });
-
-  describe('setCurrentLocale', () => {
-    it('checks the default currentLocale', () => {
-      const { controller } = setupController({});
-      const { currentLocale } = controller.state;
-      expect(currentLocale).toStrictEqual('en');
-    });
-
-    it('sets current locale in preferences controller', () => {
-      const { controller } = setupController({});
-      controller.setCurrentLocale('ja');
-      const { currentLocale } = controller.state;
-      expect(currentLocale).toStrictEqual('en');
     });
   });
 
@@ -944,7 +929,7 @@ describe('preferences controller', () => {
     it('includes expected state in debug snapshots', () => {
       const { controller } = setupController({
         // Set optional props that have no default value, so they show up in snapshot
-        state: { textDirection: 'auto' },
+        state: {},
       });
 
       expect(
@@ -956,7 +941,6 @@ describe('preferences controller', () => {
       ).toMatchInlineSnapshot(`
         {
           "advancedGasFee": {},
-          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1010,7 +994,7 @@ describe('preferences controller', () => {
     it('includes expected state in state logs', () => {
       const { controller } = setupController({
         // Set optional props that have no default value, so they show up in snapshot
-        state: { textDirection: 'auto' },
+        state: {},
       });
 
       expect(
@@ -1023,7 +1007,6 @@ describe('preferences controller', () => {
         {
           "addSnapAccountEnabled": false,
           "advancedGasFee": {},
-          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1069,7 +1052,6 @@ describe('preferences controller', () => {
           "securityAlertsEnabled": true,
           "snapRegistryList": {},
           "snapsAddSnapAccountModalDismissed": false,
-          "textDirection": "auto",
           "theme": "os",
           "use4ByteResolution": true,
           "useAddressBarEnsResolution": true,
@@ -1089,7 +1071,7 @@ describe('preferences controller', () => {
     it('persists expected state', () => {
       const { controller } = setupController({
         // Set optional props that have no default value, so they show up in snapshot
-        state: { textDirection: 'auto' },
+        state: {},
       });
 
       expect(
@@ -1102,7 +1084,6 @@ describe('preferences controller', () => {
         {
           "addSnapAccountEnabled": false,
           "advancedGasFee": {},
-          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1149,7 +1130,6 @@ describe('preferences controller', () => {
           "showSidePanelMigrationToast": false,
           "snapRegistryList": {},
           "snapsAddSnapAccountModalDismissed": false,
-          "textDirection": "auto",
           "theme": "os",
           "use4ByteResolution": true,
           "useAddressBarEnsResolution": true,
@@ -1169,7 +1149,7 @@ describe('preferences controller', () => {
     it('exposes expected state to UI', () => {
       const { controller } = setupController({
         // Set optional props that have no default value, so they show up in snapshot
-        state: { textDirection: 'auto' },
+        state: {},
       });
 
       expect(
@@ -1182,7 +1162,6 @@ describe('preferences controller', () => {
         {
           "addSnapAccountEnabled": false,
           "advancedGasFee": {},
-          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1229,7 +1208,6 @@ describe('preferences controller', () => {
           "showSidePanelMigrationToast": false,
           "snapRegistryList": {},
           "snapsAddSnapAccountModalDismissed": false,
-          "textDirection": "auto",
           "theme": "os",
           "use4ByteResolution": true,
           "useAddressBarEnsResolution": true,
@@ -1251,7 +1229,6 @@ describe('preferences controller', () => {
     it('resets the preferences state to the default values', () => {
       const { controller } = setupController({
         state: {
-          currentLocale: 'ja',
           theme: ThemeType.dark,
           knownMethodData: { '0x12345678': 'transfer' },
           advancedGasFee: {
@@ -1299,13 +1276,11 @@ describe('preferences controller', () => {
       });
 
       // Verify state was customized
-      expect(controller.state.currentLocale).toBe('en');
       expect(controller.state.theme).toBe(ThemeType.dark);
 
       controller.resetState();
 
       // Verify state was reset to defaults
-      expect(controller.state.currentLocale).toBe(FALLBACK_LOCALE);
       expect(controller.state.theme).toBe(ThemeType.os);
       expect(controller.state.knownMethodData).toStrictEqual({});
       expect(controller.state.advancedGasFee).toStrictEqual({});

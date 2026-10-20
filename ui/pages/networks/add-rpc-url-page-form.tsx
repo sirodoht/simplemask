@@ -18,7 +18,7 @@ import {
   TextFieldSize,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { isWebUrl } from '../../../shared/lib/url-utils';
 import {
   CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP,
@@ -92,7 +92,7 @@ export const AddRpcUrlPageForm = ({
   existingRpcUrls = EMPTY_RPC_URLS,
   chainlistEnabled = false,
 }: AddRpcUrlPageFormProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { safeChains } = useSafeChains({ enabled: chainlistEnabled });
   const [url, setUrl] = useState('');
   const [name, setName] = useState('');

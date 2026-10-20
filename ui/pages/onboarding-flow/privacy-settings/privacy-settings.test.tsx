@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -8,7 +9,7 @@ import { CHAIN_IDS } from '../../../../shared/constants/network';
 import { SHOW_BASIC_FUNCTIONALITY_MODAL_OPEN } from '../../../store/actionConstants';
 import { mockNetworkState } from '../../../../test/stub/networks';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import PrivacySettings from './privacy-settings';
 
 const mockGetIsBasicFunctionalityConsolidationEnabledInBuild = jest.fn(
@@ -214,15 +215,11 @@ describe('Privacy Settings Onboarding View', () => {
 
       fireEvent.click(queryByTestId('category-item-Assets') as HTMLElement);
 
-      expect(queryByText(messages.turnOnTokenDetection.message)).toBeNull();
-      expect(
-        queryByText(messages.simulationsSettingSubHeader.message),
-      ).toBeNull();
-      expect(queryByText(messages.currencyRateCheckToggle.message)).toBeNull();
-      expect(queryByText(messages.ensDomainsSettingTitle.message)).toBeNull();
-      expect(
-        queryByText(messages.useMultiAccountBalanceChecker.message),
-      ).toBeNull();
+      expect(queryByText(messages.turnOnTokenDetection)).toBeNull();
+      expect(queryByText(messages.simulationsSettingSubHeader)).toBeNull();
+      expect(queryByText(messages.currencyRateCheckToggle)).toBeNull();
+      expect(queryByText(messages.ensDomainsSettingTitle)).toBeNull();
+      expect(queryByText(messages.useMultiAccountBalanceChecker)).toBeNull();
       expect(queryByTestId('ipfs-input')).toBeInTheDocument();
       expect(container.querySelectorAll('input[type=checkbox]')).toHaveLength(
         0,
@@ -254,7 +251,7 @@ describe('Privacy Settings Onboarding View', () => {
       );
 
       expect(
-        queryByText(messages.securityDefaultSettingsSocialLogin.message),
+        queryByText(messages.securityDefaultSettingsSocialLogin),
       ).toBeInTheDocument();
     });
   });
@@ -262,14 +259,10 @@ describe('Privacy Settings Onboarding View', () => {
   it('renders category rows as keyboard-operable buttons', () => {
     const { getByRole } = renderWithProvider(<PrivacySettings />, store);
 
+    expect(getByRole('button', { name: messages.general })).toBeInTheDocument();
+    expect(getByRole('button', { name: messages.assets })).toBeInTheDocument();
     expect(
-      getByRole('button', { name: messages.general.message }),
-    ).toBeInTheDocument();
-    expect(
-      getByRole('button', { name: messages.assets.message }),
-    ).toBeInTheDocument();
-    expect(
-      getByRole('button', { name: messages.security.message }),
+      getByRole('button', { name: messages.security }),
     ).toBeInTheDocument();
   });
 
@@ -289,7 +282,7 @@ describe('Privacy Settings Onboarding View', () => {
 
       // Default Settings - Security & privacy category (social login copy)
       const itemCategorySecurityPrivacy = getByText(
-        messages.securityDefaultSettingsSocialLogin.message,
+        messages.securityDefaultSettingsSocialLogin,
       );
       expect(itemCategorySecurityPrivacy).toBeInTheDocument();
     });
@@ -315,7 +308,7 @@ describe('Privacy Settings Onboarding View', () => {
       fireEvent.change(ipfsInput as HTMLElement, ipfsEvent);
 
       const validIpfsUrl = queryByText(
-        messages.onboardingAdvancedPrivacyIPFSValid.message,
+        messages.onboardingAdvancedPrivacyIPFSValid,
       );
       expect(validIpfsUrl).toBeInTheDocument();
 
@@ -344,7 +337,7 @@ describe('Privacy Settings Onboarding View', () => {
       fireEvent.change(ipfsInput as HTMLElement, ipfsEvent);
 
       const invalidErrorMsg = queryByText(
-        messages.onboardingAdvancedPrivacyIPFSInvalid.message,
+        messages.onboardingAdvancedPrivacyIPFSInvalid,
       );
 
       expect(invalidErrorMsg).toBeInTheDocument();
@@ -369,7 +362,7 @@ describe('Privacy Settings Onboarding View', () => {
       fireEvent.change(ipfsInput as HTMLElement, ipfsEvent);
 
       const invalidErrorMsg = queryByText(
-        messages.onboardingAdvancedPrivacyIPFSInvalid.message,
+        messages.onboardingAdvancedPrivacyIPFSInvalid,
       );
 
       expect(invalidErrorMsg).toBeInTheDocument();
@@ -394,7 +387,7 @@ describe('Privacy Settings Onboarding View', () => {
       fireEvent.change(ipfsInput as HTMLElement, ipfsEvent);
 
       const invalidErrorMsg = queryByText(
-        messages.onboardingAdvancedPrivacyIPFSInvalid.message,
+        messages.onboardingAdvancedPrivacyIPFSInvalid,
       );
 
       expect(invalidErrorMsg).toBeInTheDocument();

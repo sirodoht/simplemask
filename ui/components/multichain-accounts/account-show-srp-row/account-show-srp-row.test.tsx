@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -18,8 +19,8 @@ jest.mock('react-router-dom', () => {
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../app/srp-quiz-modal', () => ({

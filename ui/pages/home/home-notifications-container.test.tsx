@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
@@ -9,8 +10,8 @@ import {
   resetActivatedNewNetworkConfigurationIdsForTesting,
 } from './home-notifications-container';
 
-jest.mock('../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../selectors', () => ({

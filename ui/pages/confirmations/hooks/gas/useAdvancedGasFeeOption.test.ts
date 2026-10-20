@@ -11,8 +11,8 @@ import { useFeeCalculations } from '../../components/confirm/info/hooks/useFeeCa
 import { useTransactionGasLimit } from './useTransactionGasLimit';
 import { useAdvancedGasFeeOption } from './useAdvancedGasFeeOption';
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../context/confirm', () => ({

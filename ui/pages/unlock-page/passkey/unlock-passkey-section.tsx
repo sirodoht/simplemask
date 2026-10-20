@@ -36,7 +36,7 @@ import {
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
 import { UNLOCK_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getPasskeyAuthenticatorId,
   getPasskeyDerivationMethod,
@@ -72,7 +72,7 @@ export const UnlockPasskeySection = ({
   onUnlockSuccess,
   onUsePassword,
 }: UnlockPasskeySectionProps) => {
-  const t = useI18nContext() as (key: string, ...args: unknown[]) => string;
+  const t = getText as (key: string, ...args: unknown[]) => string;
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const { trackEvent, createEventBuilder } = useAnalytics();
   const unlockWithPasskey = usePasskeyUnlock();

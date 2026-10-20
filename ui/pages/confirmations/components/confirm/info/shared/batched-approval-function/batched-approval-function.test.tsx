@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { Hex } from '@metamask/utils';
 import {
@@ -15,7 +16,7 @@ import { renderWithConfirmContextProvider } from '../../../../../../../../test/l
 import { DecodedTransactionDataMethod } from '../../../../../../../../shared/types/transaction-decode';
 import { getTokenStandardAndDetails } from '../../../../../../../store/actions';
 import { Confirmation } from '../../../../../types/confirm';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { BatchedApprovalFunction } from './batched-approval-function';
 
 const DATA_MOCK = '0x123456';
@@ -96,9 +97,9 @@ describe('BatchedApprovalFunction', () => {
 
     await waitFor(() => {
       expect(getByText('approve')).toBeInTheDocument();
-      expect(getByText(messages.spender.message)).toBeInTheDocument();
+      expect(getByText(messages.spender)).toBeInTheDocument();
       expect(getByText('0x1231D...F4EaE')).toBeInTheDocument();
-      expect(getByText(messages.amount.message)).toBeInTheDocument();
+      expect(getByText(messages.amount)).toBeInTheDocument();
       expect(getByText('10000000 ETH')).toBeInTheDocument();
     });
   });
@@ -131,9 +132,9 @@ describe('BatchedApprovalFunction', () => {
 
     await waitFor(() => {
       expect(getByText('approve')).toBeInTheDocument();
-      expect(getByText(messages.spender.message)).toBeInTheDocument();
+      expect(getByText(messages.spender)).toBeInTheDocument();
       expect(getByText('0x12345...67891')).toBeInTheDocument();
-      expect(getByText(messages.amount.message)).toBeInTheDocument();
+      expect(getByText(messages.amount)).toBeInTheDocument();
       expect(getByText('0.000123 ETH')).toBeInTheDocument();
     });
   });
@@ -161,10 +162,10 @@ describe('BatchedApprovalFunction', () => {
 
     await waitFor(() => {
       expect(getByText('approve')).toBeInTheDocument();
-      expect(getByText(messages.spender.message)).toBeInTheDocument();
+      expect(getByText(messages.spender)).toBeInTheDocument();
       expect(getByText('0x12345...67890')).toBeInTheDocument();
-      expect(getByText(messages.amount.message)).toBeInTheDocument();
-      expect(getByText(messages.all.message)).toBeInTheDocument();
+      expect(getByText(messages.amount)).toBeInTheDocument();
+      expect(getByText(messages.all)).toBeInTheDocument();
     });
   });
 });

@@ -13,14 +13,14 @@ import {
 } from '@metamask/design-system-react';
 import { getEnvironmentType } from '../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../shared/constants/app';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { setConnectedStatusPopoverHasBeenShown } from '../../store/actions';
 import ZENDESK_URLS from '../../helpers/constants/zendesk-url';
 import type { MetaMaskReduxState } from '../../store/store';
 import { useDispatch } from '../../store/hooks';
 
 export function ConnectedStatusPopoverContainer() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const isPopup = getEnvironmentType() === ENVIRONMENT_TYPE_POPUP;

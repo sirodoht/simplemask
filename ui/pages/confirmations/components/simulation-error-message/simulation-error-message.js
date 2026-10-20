@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BannerAlert } from '../../../../components/component-library';
 import { Severity } from '../../../../helpers/constants/design-system';
 
-import { I18nContext } from '../../../../../.storybook/i18n';
+import { getText } from '../../../../helpers/utils/text';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -15,7 +15,7 @@ export default function SimulationErrorMessage({
   userAcknowledgedGasMissing = false,
   setUserAcknowledgedGasMissing,
 }) {
-  const t = React.useContext(I18nContext);
+  const t = getText;
 
   const { trackEvent, createEventBuilder } = useAnalytics();
   const hasTrackedSimulationFails = useRef(false);

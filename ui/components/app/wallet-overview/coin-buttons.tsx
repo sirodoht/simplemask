@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toHex } from '@metamask/controller-utils';
@@ -23,7 +23,7 @@ import { useAnalytics } from '../../../hooks/useAnalytics';
 import { useDispatch } from '../../../store/hooks';
 import { transitionForward } from '../../ui/transition';
 
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 
 import { getMultichainAccountAddressListReceivePagePath } from '../../../pages/multichain-accounts/multichain-account-address-list-page';
 import {
@@ -73,7 +73,7 @@ export const MoreButtonsGroup = ({
   onClick,
   modalIsOpen,
 }: MoreButtonsGroupProps) => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const enabledActions = actions.filter(({ enabled }) => enabled);
   const [onlyEnabledAction] = enabledActions;
 
@@ -174,7 +174,7 @@ const CoinButtons = ({
   hasBalance = true,
   disableSendForNonEvm = false,
 }: CoinButtonsProps) => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const dispatch = useDispatch();
 
   const { trackEvent, createEventBuilder } = useAnalytics();

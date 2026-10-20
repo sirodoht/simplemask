@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { submitRequestToBackground } from '../../../store/background-connection';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   QR_SYNC_ERROR_PHASE_OVERRIDES,
   QR_SYNC_PHASES,
@@ -25,7 +25,7 @@ import type { AddDeviceSyncRequest } from './types';
 
 const SyncAccountsSettings = () => {
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const qrSyncPhase = useSelector(selectQrSyncPhase);
   const qrSyncError = useSelector(selectQrSyncError);
   const [isExiting, setIsExiting] = useState(false);

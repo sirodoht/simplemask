@@ -13,11 +13,11 @@ import {
   RowAlertKey,
 } from '../../../../../components/app/confirm/info/row/constants';
 import { getNoGasPriceFetched } from '../../../../../selectors';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 
 export function useNoGasPriceAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const isNoGasPriceFetched = useSelector(getNoGasPriceFetched);
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 

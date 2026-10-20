@@ -78,7 +78,7 @@ const describeResult = ({ credentials, token }: MfaFlowResult) =>
     token
       ? `token amr=${token.claims.amr.join(',')}, obtained ${new Date(
           token.obtainedAt,
-        ).toLocaleTimeString()}`
+        ).toLocaleTimeString('en')}`
       : 'no token',
   ].join('\n');
 

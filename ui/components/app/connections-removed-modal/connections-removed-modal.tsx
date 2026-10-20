@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { Box, BoxJustifyContent } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   AlignItems,
   IconColor,
@@ -28,7 +29,7 @@ import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
 import { useDispatch } from '../../../store/hooks';
 
 export default function ConnectionsRemovedModal() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

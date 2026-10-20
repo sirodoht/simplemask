@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import ConnectedAccountsPermissions from './connected-accounts-permissions';
 
 jest.mock('../../../helpers/utils/permission', () => ({
@@ -40,7 +41,7 @@ describe('ConnectedAccountsPermissions', () => {
       <ConnectedAccountsPermissions permissions={permissions} />,
       mockStore,
     );
-    expect(getByText(messages.permissions.message)).toBeInTheDocument();
+    expect(getByText(messages.permissions)).toBeInTheDocument();
   });
 
   it('does not show permission list when collapsed (default state)', () => {
@@ -59,7 +60,7 @@ describe('ConnectedAccountsPermissions', () => {
       mockStore,
     );
 
-    const header = getByText(messages.permissions.message).closest('button');
+    const header = getByText(messages.permissions).closest('button');
     fireEvent.click(header as HTMLElement);
 
     expect(getByTestId(permissionsListTestId)).toBeInTheDocument();
@@ -72,7 +73,7 @@ describe('ConnectedAccountsPermissions', () => {
       mockStore,
     );
 
-    const header = getByText(messages.permissions.message).closest('button');
+    const header = getByText(messages.permissions).closest('button');
     fireEvent.click(header as HTMLElement);
 
     expect(getByText('Permission: eth_accounts')).toBeInTheDocument();
@@ -85,7 +86,7 @@ describe('ConnectedAccountsPermissions', () => {
       mockStore,
     );
 
-    const header = getByText(messages.permissions.message).closest('button');
+    const header = getByText(messages.permissions).closest('button');
     fireEvent.click(header as HTMLElement);
     expect(getByTestId(permissionsListTestId)).toBeInTheDocument();
 
@@ -103,7 +104,7 @@ describe('ConnectedAccountsPermissions', () => {
       mockStore,
     );
 
-    const header = getByText(messages.permissions.message).closest('button');
+    const header = getByText(messages.permissions).closest('button');
     fireEvent.click(header as HTMLElement);
 
     expect(getByText('Permission: eth_accounts')).toBeInTheDocument();

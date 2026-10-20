@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { BasicFunctionalityOff } from './basic-functionality-required';
 
 const mockNavigate = jest.fn();
@@ -51,8 +51,8 @@ const I18N_KEYS = {
 const DESCRIPTION_TEXT =
   "This feature isn't available while basic functionality is turned off. Use the toggle below to turn it on.";
 
-jest.mock('../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => {
+jest.mock('../../helpers/utils/text', () => ({
+  getText: (key: string) => {
     const mockT: Record<string, string> = {
       [I18N_KEYS.title]: 'Basic functionality is off',
       [I18N_KEYS.description]: DESCRIPTION_TEXT,
@@ -100,7 +100,7 @@ describe('BasicFunctionalityOff', () => {
     renderWithStore(<BasicFunctionalityOff />);
 
     expect(
-      screen.getByText(messages.basicFunctionalityRequired_title.message),
+      screen.getByText(messages.basicFunctionalityRequired_title),
     ).toBeInTheDocument();
     expect(screen.getByText(DESCRIPTION_TEXT)).toBeInTheDocument();
   });
@@ -112,7 +112,7 @@ describe('BasicFunctionalityOff', () => {
       screen.getByTestId('basic-functionality-off-toggle-row'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.basicFunctionalityRequired_toggleLabel.message),
+      screen.getByText(messages.basicFunctionalityRequired_toggleLabel),
     ).toBeInTheDocument();
   });
 

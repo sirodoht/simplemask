@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { getIntlLocale } from '../../../ducks/locale/locale';
+
 import { getCurrentCurrency } from '../../../ducks/metamask/metamask';
 import {
   getSelectedAccount,
@@ -20,10 +20,6 @@ import {
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn((selector) => selector()),
-}));
-
-jest.mock('../../../ducks/locale/locale', () => ({
-  getIntlLocale: jest.fn(),
 }));
 
 jest.mock('../../../ducks/metamask/metamask', () => ({
@@ -57,7 +53,6 @@ jest.mock('../../../../shared/lib/selectors/preferences', () => ({
   getPreferences: jest.fn(),
 }));
 
-const mockGetIntlLocale = jest.mocked(getIntlLocale);
 const mockGetCurrentCurrency = jest.mocked(getCurrentCurrency);
 const mockGetPreferences = jest.mocked(getPreferences);
 const mockGetSelectedAccount = jest.mocked(getSelectedAccount);
@@ -190,7 +185,6 @@ const mixedMarketDataMock = {
 
 describe('AggregatedPercentageOverview', () => {
   beforeEach(() => {
-    mockGetIntlLocale.mockReturnValue('en-US');
     mockGetCurrentCurrency.mockReturnValue('USD');
     mockGetPreferences.mockReturnValue({
       privacyMode: false,
@@ -658,7 +652,6 @@ describe('AggregatedPercentageOverview', () => {
 
 describe('AggregatedMultichainPercentageOverview', () => {
   beforeEach(() => {
-    mockGetIntlLocale.mockReturnValue('en-US');
     mockGetCurrentCurrency.mockReturnValue('USD');
     mockGetSelectedInternalAccount.mockReturnValue({
       id: 'd51c0116-de36-4e77-b35b-408d4ea82d01',

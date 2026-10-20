@@ -1,6 +1,7 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   BorderStyle,
   BorderColor,
@@ -40,7 +41,7 @@ export const SnapDelineator = ({
   boxProps,
   disablePadding = false,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const isError =
     type === DelineatorType.Error || type === DelineatorType.Warning;
 

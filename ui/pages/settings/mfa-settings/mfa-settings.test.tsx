@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { it } from '@jest/globals';
 import { act, fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
@@ -6,8 +7,8 @@ import thunk from 'redux-thunk';
 import type { EnrolledCredential } from '@metamask/profile-sync-controller/sdk';
 import mockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../shared/lib/text';
 import { MfaFlowError } from '../../../hooks/identity/mfa/engine/errors';
 import { startMfaFlow } from '../../../hooks/identity/mfa/engine/activeFlow';
 import { extensionMfaControllerAdapter } from '../../../hooks/identity/mfa/bindings';
@@ -79,10 +80,10 @@ describe('MfaSettings', () => {
     ]);
 
     expect(
-      screen.getByText(messages.mfaSettingsEmailPending.message),
+      screen.getByText(messages.mfaSettingsEmailPending),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.mfaSettingsFinishSetup.message),
+      screen.getByText(messages.mfaSettingsFinishSetup),
     ).toBeInTheDocument();
   });
 
@@ -127,7 +128,7 @@ describe('MfaSettings', () => {
     renderSettings([{ type: 'email_otp', status: 'active', verified: true }]);
 
     expect(
-      screen.getByText(messages.mfaSettingsEmailLinked.message),
+      screen.getByText(messages.mfaSettingsEmailLinked),
     ).toBeInTheDocument();
   });
 

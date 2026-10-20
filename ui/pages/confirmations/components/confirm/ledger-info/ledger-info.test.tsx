@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 
@@ -24,7 +25,7 @@ import {
 import { unapprovedPersonalSignMsg } from '../../../../../../test/data/confirmations/personal_sign';
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
 import { SignatureRequestType } from '../../../types/confirm';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import LedgerInfo from './ledger-info';
 
 jest.mock('../../../../../contexts/hardware-wallets/webConnectionUtils');
@@ -119,7 +120,7 @@ describe('LedgerInfo', () => {
       mockStore,
     );
     expect(
-      getByText(messages.ledgerConnectionInstructionCloseOtherApps.message),
+      getByText(messages.ledgerConnectionInstructionCloseOtherApps),
     ).toBeInTheDocument();
   });
 
@@ -149,7 +150,7 @@ describe('LedgerInfo', () => {
       mockStore,
     );
     expect(
-      getByText(messages.openFullScreenForLedgerWebHid.message),
+      getByText(messages.openFullScreenForLedgerWebHid),
     ).toBeInTheDocument();
   });
 
@@ -172,9 +173,7 @@ describe('LedgerInfo', () => {
         mockStore,
       );
 
-      fireEvent.click(
-        getByText(messages.clickToConnectLedgerViaWebHID.message),
-      );
+      fireEvent.click(getByText(messages.clickToConnectLedgerViaWebHID));
 
       await waitFor(() => {
         expect(mockedRequestWebHidDevices).toHaveBeenCalledWith(
@@ -197,9 +196,7 @@ describe('LedgerInfo', () => {
         mockStore,
       );
 
-      fireEvent.click(
-        getByText(messages.clickToConnectLedgerViaWebHID.message),
-      );
+      fireEvent.click(getByText(messages.clickToConnectLedgerViaWebHID));
 
       await waitFor(() => {
         expect(mockStore.getActions()).toContainEqual({
@@ -224,9 +221,7 @@ describe('LedgerInfo', () => {
         mockStore,
       );
 
-      fireEvent.click(
-        getByText(messages.openFullScreenForLedgerWebHid.message),
-      );
+      fireEvent.click(getByText(messages.openFullScreenForLedgerWebHid));
 
       expect(openExtensionInBrowser).toHaveBeenCalledWith(null, null, true);
       expect(mockedRequestWebHidDevices).not.toHaveBeenCalled();

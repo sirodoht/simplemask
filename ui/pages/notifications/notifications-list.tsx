@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { INotification } from '@metamask/notification-services-controller/notification-services';
 import { Box } from '../../components/component-library';
@@ -11,7 +12,7 @@ import {
 } from '../../helpers/constants/design-system';
 import Preloader from '../../components/ui/icon/preloader/preloader-icon.component';
 import { selectIsMetamaskNotificationsEnabled } from '../../selectors/metamask-notifications/metamask-notifications';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { NotificationsPlaceholder } from './notifications-list-placeholder';
 import { NotificationsListDisabledNotifications } from './notifications-list-disabled-notifications';
 import { NotificationsListItem } from './notifications-list-item';
@@ -61,7 +62,7 @@ const LoadingContent = () => {
 };
 
 const EmptyContent = () => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <NotificationsPlaceholder
       title={t('notificationsPageEmptyTitle')}
@@ -71,7 +72,7 @@ const EmptyContent = () => {
 };
 
 const ErrorContent = () => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <NotificationsPlaceholder
       title={t('notificationsPageErrorTitle')}

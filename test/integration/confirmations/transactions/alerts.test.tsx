@@ -856,7 +856,7 @@ describe('Contract Interaction Confirmation Alerts', () => {
     expect(
       await screen.findByTestId('alert-modal__selected-alert'),
     ).toHaveTextContent(
-      // This should match the i18n key 'alertMessageTokenTrustSignalMalicious'
+      // This should match the English text key 'alertMessageTokenTrustSignalMalicious'
       /token.*malicious|malicious.*token/iu,
     );
   });
@@ -899,7 +899,7 @@ describe('Contract Interaction Confirmation Alerts', () => {
     expect(
       await screen.findByTestId('alert-modal__selected-alert'),
     ).toHaveTextContent(
-      // This should match the i18n key 'alertMessageTokenTrustSignalWarning'
+      // This should match the English text key 'alertMessageTokenTrustSignalWarning'
       'This token shows strong signs of malicious behavior. Continuing may result in loss of funds.',
     );
   });

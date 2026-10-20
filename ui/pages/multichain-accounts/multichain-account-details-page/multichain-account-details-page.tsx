@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   createSearchParams,
   useNavigate,
@@ -30,7 +30,7 @@ import {
   Page,
 } from '../../../components/multichain/pages/page';
 import { TextVariant } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { AccountDetailsRow } from '../../../components/multichain-accounts/account-details-row';
 import {
   getMultichainAccountGroupById,
@@ -64,7 +64,7 @@ import { trace, TraceName, TraceOperation } from '../../../../shared/lib/trace';
 import { useDispatch } from '../../../store/hooks';
 
 export const MultichainAccountDetailsPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { waitFor, fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import { Snap } from '@metamask/snaps-utils';
@@ -6,7 +7,7 @@ import { userEvent } from '@testing-library/user-event';
 import mockStore from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import { toChecksumHexAddress } from '../../../../../shared/lib/hexstring-utils';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import KeyringSnapRemovalWarning from './keyring-snap-removal-warning';
 
 const mockOnClose = jest.fn();
@@ -56,10 +57,8 @@ describe('Keyring Snap Remove Warning', () => {
       <KeyringSnapRemovalWarning {...defaultArgs} />,
       store,
     );
-    expect(
-      getByText(messages.backupKeyringSnapReminder.message),
-    ).toBeInTheDocument();
-    expect(getByText(messages.removeKeyringSnap.message)).toBeInTheDocument();
+    expect(getByText(messages.backupKeyringSnapReminder)).toBeInTheDocument();
+    expect(getByText(messages.removeKeyringSnap)).toBeInTheDocument();
 
     for (const account of defaultArgs.keyringAccounts) {
       expect(getByText(account.name)).toBeInTheDocument();
@@ -75,7 +74,7 @@ describe('Keyring Snap Remove Warning', () => {
       store,
     );
 
-    const nextButton = getByText(messages.continue.message);
+    const nextButton = getByText(messages.continue);
 
     fireEvent.click(nextButton);
 
@@ -97,7 +96,7 @@ describe('Keyring Snap Remove Warning', () => {
     });
 
     await waitFor(() => {
-      const removeSnapButton = getAllByText(messages.removeSnap.message)[1];
+      const removeSnapButton = getAllByText(messages.removeSnap)[1];
       expect(removeSnapButton).not.toBeDisabled();
       fireEvent.click(removeSnapButton);
       expect(mockOnSubmit).toBeCalled();
@@ -110,7 +109,7 @@ describe('Keyring Snap Remove Warning', () => {
       store,
     );
 
-    const nextButton = getByText(messages.continue.message);
+    const nextButton = getByText(messages.continue);
 
     fireEvent.click(nextButton);
     const confirmationInput = getByTestId('remove-snap-confirmation-input');
@@ -153,7 +152,7 @@ describe('Keyring Snap Remove Warning', () => {
         store,
       );
 
-      const backButton = getByLabelText(messages.back.message);
+      const backButton = getByLabelText(messages.back);
 
       fireEvent.click(backButton);
 
@@ -168,11 +167,11 @@ describe('Keyring Snap Remove Warning', () => {
         store,
       );
 
-      const continueButton = getByText(messages.continue.message);
+      const continueButton = getByText(messages.continue);
 
       fireEvent.click(continueButton);
 
-      const backButton = getByLabelText(messages.back.message);
+      const backButton = getByLabelText(messages.back);
 
       fireEvent.click(backButton);
 

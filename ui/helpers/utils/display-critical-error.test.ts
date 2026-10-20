@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import { act } from 'react-dom/test-utils';
+import { englishText } from '../../../shared/lib/text';
 import {
   CriticalErrorRepairAction,
   CriticalErrorType,
@@ -14,7 +15,7 @@ import type { Backup } from '../../../shared/lib/stores/persistence-manager';
 import {
   displayCriticalErrorMessage,
   displayCriticalErrorPage,
-  CriticalErrorTranslationKey,
+  CriticalErrorTextKey,
   extractEnvelopeUrlFromDsn,
 } from './display-critical-error';
 
@@ -63,7 +64,6 @@ function mockGetErrorHtmlWithOptionalRestoreLink() {
   return (
     _errorKey: unknown,
     error: unknown,
-    _localeContext: unknown,
     _supportLink: unknown,
     repairAction?: CriticalErrorRepairAction,
     criticalErrorType?: CriticalErrorType,
@@ -184,13 +184,6 @@ describe('displayCriticalError', () => {
       ok: true,
     } as Response);
 
-    jest.spyOn(errorUtils, 'maybeGetLocaleContext').mockResolvedValue({
-      preferredLocale: 'en',
-      t: (key: string) => key,
-      localeMessages: {},
-      enLocaleMessages: {},
-    });
-
     jest
       .spyOn(errorUtils, 'getErrorHtml')
       .mockImplementation(mockGetErrorHtmlWithOptionalRestoreLink());
@@ -208,10 +201,9 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.Other,
         },
@@ -219,14 +211,8 @@ describe('displayCriticalError', () => {
     ).rejects.toThrow(error);
 
     expect(errorUtils.getErrorHtml).toHaveBeenCalledWith(
-      CriticalErrorTranslationKey.TroubleStarting,
+      CriticalErrorTextKey.TroubleStarting,
       error,
-      {
-        preferredLocale: 'en',
-        t: expect.any(Function),
-        localeMessages: {},
-        enLocaleMessages: {},
-      },
       expect.any(String),
       CriticalErrorRepairAction.None,
       CriticalErrorType.Other,
@@ -246,7 +232,7 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
           theme: ThemeType.light,
@@ -271,7 +257,7 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
       ),
     ).rejects.toThrow(error);
@@ -296,7 +282,7 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
           theme: ThemeType.os,
@@ -333,7 +319,7 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
           theme: ThemeType.os,
@@ -360,7 +346,7 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
       ),
     ).rejects.toThrow(error);
@@ -376,10 +362,9 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.Other,
         },
@@ -489,10 +474,9 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.SomethingIsWrong,
+        CriticalErrorTextKey.SomethingIsWrong,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.Other,
         },
@@ -533,10 +517,9 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.Other,
         },
@@ -582,10 +565,9 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.Other,
         },
@@ -634,10 +616,9 @@ describe('displayCriticalError', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port,
           criticalErrorType: CriticalErrorType.BackgroundInitTimeout,
         },
@@ -686,12 +667,6 @@ describe('repair button', () => {
       disconnect: jest.fn(),
     } as unknown as browser.Runtime.Port;
 
-    jest.spyOn(errorUtils, 'maybeGetLocaleContext').mockResolvedValue({
-      preferredLocale: 'en',
-      t: (key: string) => key,
-      localeMessages: {},
-      enLocaleMessages: {},
-    });
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
     } as Response);
@@ -726,10 +701,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.MissingVaultInDatabase,
         },
@@ -738,9 +712,8 @@ describe('repair button', () => {
 
     // getErrorHtml should have been called with the recover action.
     expect(errorUtils.getErrorHtml).toHaveBeenCalledWith(
-      CriticalErrorTranslationKey.TroubleStarting,
+      CriticalErrorTextKey.TroubleStarting,
       error,
-      expect.any(Object),
       expect.any(String),
       CriticalErrorRepairAction.Recover,
       CriticalErrorType.MissingVaultInDatabase,
@@ -758,7 +731,7 @@ describe('repair button', () => {
     expect(repairButton).toBeTruthy();
     expect(repairButton?.disabled).toBe(true);
     expect(repairButton?.textContent?.trim()).toBe(
-      'criticalErrorRecoverAccounts',
+      englishText.criticalErrorRecoverAccounts,
     );
 
     repairButton?.click();
@@ -777,7 +750,9 @@ describe('repair button', () => {
 
     expect(window.confirm).toHaveBeenCalled();
     expect(repairButton?.disabled).toBe(true);
-    expect(repairButton?.textContent).toBe('stateCorruptionRestoringDatabase');
+    expect(repairButton?.textContent).toBe(
+      englishText.stateCorruptionRestoringDatabase,
+    );
     repairButton?.click();
     expect(window.confirm).toHaveBeenCalledTimes(1);
     expect(mockPort.postMessage).toHaveBeenCalledWith(
@@ -816,10 +791,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.BackgroundInitTimeout,
         },
@@ -851,7 +825,9 @@ describe('repair button', () => {
     });
 
     expect(repairButton?.disabled).toBe(true);
-    expect(repairButton?.textContent).toBe('stateCorruptionRestoringDatabase');
+    expect(repairButton?.textContent).toBe(
+      englishText.stateCorruptionRestoringDatabase,
+    );
     expect(postMessage).toHaveBeenCalledWith(
       expect.objectContaining({
         data: expect.objectContaining({
@@ -875,10 +851,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.BackgroundInitTimeout,
         },
@@ -941,10 +916,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.MissingVaultInDatabase,
           repairActionFromBackground: CriticalErrorRepairAction.Recover,
@@ -955,9 +929,8 @@ describe('repair button', () => {
 
     expect(getBackupState).not.toHaveBeenCalled();
     expect(errorUtils.getErrorHtml).toHaveBeenCalledWith(
-      CriticalErrorTranslationKey.TroubleStarting,
+      CriticalErrorTextKey.TroubleStarting,
       error,
-      expect.any(Object),
       expect.any(String),
       CriticalErrorRepairAction.Recover,
       CriticalErrorType.MissingVaultInDatabase,
@@ -985,10 +958,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.MissingVaultInDatabase,
           repairActionFromBackground: CriticalErrorRepairAction.Recover,
@@ -1000,9 +972,8 @@ describe('repair button', () => {
 
     expect(rootContainer.querySelector('#critical-error-checkbox')).toBeNull();
     expect(errorUtils.getErrorHtml).toHaveBeenCalledWith(
-      CriticalErrorTranslationKey.TroubleStarting,
+      CriticalErrorTextKey.TroubleStarting,
       error,
-      expect.any(Object),
       expect.any(String),
       CriticalErrorRepairAction.Recover,
       CriticalErrorType.MissingVaultInDatabase,
@@ -1045,10 +1016,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.BackgroundInitTimeout,
         },
@@ -1095,10 +1065,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.BackgroundInitTimeout,
         },
@@ -1151,10 +1120,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.MissingVaultInDatabase,
         },
@@ -1182,10 +1150,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.MissingVaultInDatabase,
         },
@@ -1240,10 +1207,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.MissingVaultInDatabase,
         },
@@ -1291,10 +1257,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
           criticalErrorType: CriticalErrorType.MissingVaultInDatabase,
           backgroundCaptureAttempted: true,
@@ -1303,9 +1268,8 @@ describe('repair button', () => {
     ).rejects.toThrow(error);
 
     expect(errorUtils.getErrorHtml).toHaveBeenCalledWith(
-      CriticalErrorTranslationKey.TroubleStarting,
+      CriticalErrorTextKey.TroubleStarting,
       error,
-      expect.any(Object),
       expect.any(String),
       CriticalErrorRepairAction.Reset,
       CriticalErrorType.MissingVaultInDatabase,
@@ -1322,7 +1286,7 @@ describe('repair button', () => {
     expect(repairButton).toBeTruthy();
     expect(repairButton?.disabled).toBe(true);
     expect(repairButton?.textContent?.trim()).toBe(
-      'criticalErrorResetMetaMaskState',
+      englishText.criticalErrorResetMetaMaskState,
     );
 
     repairButton?.click();
@@ -1340,7 +1304,9 @@ describe('repair button', () => {
     });
 
     expect(repairButton?.disabled).toBe(true);
-    expect(repairButton?.textContent).toBe('stateCorruptionResettingDatabase');
+    expect(repairButton?.textContent).toBe(
+      englishText.stateCorruptionResettingDatabase,
+    );
     expect(fetch).toHaveBeenCalled();
     expect(mockPort.postMessage).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -1367,10 +1333,9 @@ describe('repair button', () => {
     await expect(
       displayCriticalErrorMessage(
         container,
-        CriticalErrorTranslationKey.TroubleStarting,
+        CriticalErrorTextKey.TroubleStarting,
         error,
         {
-          currentLocale: 'en',
           port: mockPort,
         },
       ),
@@ -1378,9 +1343,8 @@ describe('repair button', () => {
 
     // getErrorHtml should have been called with no repair action.
     expect(errorUtils.getErrorHtml).toHaveBeenCalledWith(
-      CriticalErrorTranslationKey.TroubleStarting,
+      CriticalErrorTextKey.TroubleStarting,
       error,
-      expect.any(Object),
       expect.any(String),
       CriticalErrorRepairAction.None,
       undefined,

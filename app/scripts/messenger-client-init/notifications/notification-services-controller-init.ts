@@ -6,9 +6,6 @@ import { isRetainedNotification } from '../../../../shared/lib/retained-notifica
 
 const APP_VERSION = packageJson.version;
 
-const getNormalisedLocale = (locale: string): string =>
-  locale.replace('_', '-');
-
 export const NotificationServicesControllerInit: MessengerClientInitFunction<
   NotificationServicesController,
   NotificationServicesControllerMessenger
@@ -32,10 +29,7 @@ export const NotificationServicesControllerInit: MessengerClientInitFunction<
         accessToken: '',
         platformVersion: APP_VERSION,
       },
-      locale: () =>
-        getNormalisedLocale(
-          getMessengerClient('PreferencesController').state.currentLocale,
-        ),
+      locale: () => 'en',
     },
   });
 

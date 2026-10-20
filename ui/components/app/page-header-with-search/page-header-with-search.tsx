@@ -8,7 +8,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { useNavigate } from 'react-router-dom';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { Header } from '../../multichain/pages/page';
 import { HeaderSearch, HeaderSearchVariant } from '../../component-library';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
@@ -45,7 +45,7 @@ export const PageHeaderWithSearch = ({
   onSearchClear,
   showSearchBorder = true,
 }: PageHeaderWithSearchProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   if (isSearchOpen) {

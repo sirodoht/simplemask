@@ -7,7 +7,7 @@ import {
   ConfirmInfoRowUrl,
 } from '../../../../../../components/app/confirm/info/row';
 import { RowAlertKey } from '../../../../../../components/app/confirm/info/row/constants';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import {
   SignatureRequestType,
   TypedSignDataV1Type,
@@ -19,7 +19,7 @@ import { NetworkRow } from '../shared/network-row/network-row';
 import { SigningInWithRow } from '../shared/sign-in-with-row/sign-in-with-row';
 
 const TypedSignV1Info = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<SignatureRequestType>();
   if (!(currentConfirmation as SignatureRequestType)?.msgParams) {
     return null;

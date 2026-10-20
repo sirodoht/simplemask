@@ -15,7 +15,7 @@ import { lightTheme } from '@metamask/design-tokens';
 import { Tab, Tabs } from '../../components/ui/tabs';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import RecoveryPhraseChips from '../onboarding-flow/recovery-phrase/recovery-phrase-chips';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 
 type TabKey = 'text-seed' | 'qr-srp';
 
@@ -109,7 +109,7 @@ export function RevealSeedContent({
   copied,
   onTabClick,
 }: Readonly<RevealSeedContentProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const [activeTab, setActiveTab] = useState<TabKey>('text-seed');
 
   const qrDataUrl = React.useMemo(

@@ -20,7 +20,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { getEnvironmentType } from '../../../../../shared/lib/environment-type';
 import {
   ENVIRONMENT_TYPE_POPUP,
@@ -54,7 +54,7 @@ export const SecurityTrustInfoModal = ({
   onProceed,
   sheetParams,
 }: SecurityTrustInfoModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const hasTrackedOpen = useRef(false);
 

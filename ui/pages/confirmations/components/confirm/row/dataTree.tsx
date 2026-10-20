@@ -11,7 +11,7 @@ import { isValidHexAddress } from '../../../../../../shared/lib/hexstring-utils'
 import { sanitizeString } from '../../../../../helpers/utils/util';
 import { Box } from '../../../../../components/component-library';
 import { BlockSize } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   ConfirmInfoRow,
   ConfirmInfoRowAddress,
@@ -166,7 +166,7 @@ const DataField = memo(
     tokenDecimals?: number;
     chainId: string;
   }) => {
-    const t = useI18nContext();
+    const t = getText;
 
     if (typeof value === 'object' && value !== null) {
       return (

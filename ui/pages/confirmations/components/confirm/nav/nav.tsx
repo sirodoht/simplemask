@@ -21,7 +21,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { rejectAllApprovals } from '../../../../../store/actions';
 import { useConfirmationNavigation } from '../../../hooks/useConfirmationNavigation';
 import { useConfirmContext } from '../../../context/confirm';
@@ -32,7 +32,7 @@ export type NavProps = {
 };
 
 export const Nav = ({ confirmationId }: NavProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const { count, getIndex, navigateToIndex } = useConfirmationNavigation();

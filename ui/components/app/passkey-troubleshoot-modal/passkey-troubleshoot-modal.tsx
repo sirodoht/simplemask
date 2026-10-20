@@ -17,7 +17,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import {
   MetaMetricsContextProp,
@@ -42,7 +42,7 @@ export default function PasskeyTroubleshootModal({
   onClose,
   onOpenFullScreen,
 }: PasskeyTroubleshootModalProps) {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
 

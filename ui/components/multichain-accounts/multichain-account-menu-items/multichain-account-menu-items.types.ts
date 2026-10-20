@@ -10,7 +10,7 @@ export type MultichainAccountMenuItemsProps = {
 
 export type MenuItemConfig = {
   /**
-   * Translation key for the menu item text.
+   * Text key for the menu item text.
    */
   textKey: string;
 

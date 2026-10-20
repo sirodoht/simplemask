@@ -10,7 +10,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useAssetSelectionMetrics } from '../../../hooks/send/metrics/useAssetSelectionMetrics';
 import { useChainNetworkNameAndImageMap } from '../../../hooks/useChainNetworkNameAndImage';
 import { AssetFilterMethod } from '../../../context/send-metrics';
@@ -83,7 +83,7 @@ export const NetworkFilter = ({
   onChainIdChange,
   disableMetrics = false,
 }: NetworkFilterProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const [isNetworkFilterPopoverOpen, setIsNetworkFilterPopoverOpen] =
     useState(false);
   const {

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -53,9 +54,7 @@ describe('DefaultAddress', () => {
     const store = mockStore(createMockState());
     renderWithProvider(<DefaultAddress />, store);
 
-    expect(
-      screen.getByText(messages.showDefaultAddress.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.showDefaultAddress)).toBeInTheDocument();
   });
 
   it('renders the Change in Settings link', () => {
@@ -63,9 +62,7 @@ describe('DefaultAddress', () => {
     renderWithProvider(<DefaultAddress />, store);
 
     expect(screen.getByTestId('change-in-settings-link')).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.changeInSettings.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.changeInSettings)).toBeInTheDocument();
   });
 
   it('renders the show default address toggle', () => {

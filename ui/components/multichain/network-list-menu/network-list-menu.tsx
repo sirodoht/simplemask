@@ -33,7 +33,7 @@ import {
   ModalContent,
 } from '@metamask/design-system-react';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAccountNetworkAvailability } from '../../../hooks/accounts/useAccountNetworkAvailability';
 import { NetworkListItem } from '../network-list-item';
 import {
@@ -158,7 +158,7 @@ const isCustomNetworkConfiguration = (
 };
 
 export const NetworkListMenu = ({ onClose }: NetworkListMenuProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { hasAnyAccountsInNetwork } = useAccountNetworkAvailability();

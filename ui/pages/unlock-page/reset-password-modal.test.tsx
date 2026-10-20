@@ -3,7 +3,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { SUPPORT_LINK } from '../../helpers/constants/common';
 import {
   DEFAULT_ROUTE,
@@ -96,13 +96,13 @@ describe('ResetPasswordModal', () => {
       renderModal();
 
       expect(
-        screen.getByText(messages.forgotPasswordModalTitle.message),
+        screen.getByText(messages.forgotPasswordModalTitle),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.forgotPasswordModalDescription1.message),
+        screen.getByText(messages.forgotPasswordModalDescription1),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.forgotPasswordModalDescription2.message),
+        screen.getByText(messages.forgotPasswordModalDescription2),
       ).toBeInTheDocument();
     });
 
@@ -112,10 +112,10 @@ describe('ResetPasswordModal', () => {
       renderModal();
 
       expect(
-        screen.getByText(messages.forgotPasswordSocialStep1Biometrics.message),
+        screen.getByText(messages.forgotPasswordSocialStep1Biometrics),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.secretRecoveryPhrase.message),
+        screen.getByText(messages.secretRecoveryPhrase),
       ).toBeInTheDocument();
     });
   });
@@ -210,14 +210,12 @@ describe('ResetPasswordModal', () => {
     it('switches to the reset wallet confirmation view and back', () => {
       openResetWalletView();
 
-      expect(
-        screen.getByText(messages.resetWalletTitle.message),
-      ).toBeInTheDocument();
+      expect(screen.getByText(messages.resetWalletTitle)).toBeInTheDocument();
 
-      fireEvent.click(screen.getByLabelText(messages.back.message));
+      fireEvent.click(screen.getByLabelText(messages.back));
 
       expect(
-        screen.getByText(messages.forgotPasswordModalTitle.message),
+        screen.getByText(messages.forgotPasswordModalTitle),
       ).toBeInTheDocument();
     });
 
@@ -282,9 +280,7 @@ describe('ResetPasswordModal', () => {
       renderModal();
 
       fireEvent.click(
-        screen.getByText(
-          messages.forgotPasswordModalContactSupportLink.message,
-        ),
+        screen.getByText(messages.forgotPasswordModalContactSupportLink),
       );
 
       expect(mockTrackEvent).toHaveBeenCalledWith({
@@ -305,7 +301,7 @@ describe('ResetPasswordModal', () => {
 
       renderModal({ onClose });
 
-      fireEvent.click(screen.getByLabelText(messages.close.message));
+      fireEvent.click(screen.getByLabelText(messages.close));
 
       expect(onClose).toHaveBeenCalledTimes(1);
     });

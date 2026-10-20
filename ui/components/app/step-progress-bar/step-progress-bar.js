@@ -1,8 +1,9 @@
 import React from 'react';
+
 import classnames from 'clsx';
 import PropTypes from 'prop-types';
 import { capitalize } from 'lodash';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import Box from '../../ui/box';
 import { BLOCK_SIZES } from '../../../helpers/constants/design-system';
 
@@ -20,7 +21,7 @@ export const twoStepStages = {
 };
 
 export function ThreeStepProgressBar({ stage, ...boxProps }) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box {...boxProps}>
       <ul className="progressbar">
@@ -54,7 +55,7 @@ export function ThreeStepProgressBar({ stage, ...boxProps }) {
 }
 
 export function TwoStepProgressBar({ stage, ...boxProps }) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box width={BLOCK_SIZES.FULL} {...boxProps}>
       <ul className="progressbar two-steps">

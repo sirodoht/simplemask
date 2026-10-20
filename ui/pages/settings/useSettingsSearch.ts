@@ -5,7 +5,7 @@ import { getIsBasicFunctionalityConsolidationEnabled } from '../../selectors/mul
 import { isMfaKitEnabled } from '../../hooks/identity/mfa/isMfaKitEnabled';
 import { SETTINGS_TABS, SETTINGS_ROUTES } from './settings-registry';
 import { SETTINGS_SEARCH_CONFIG, type TabSearchConfig } from './search-config';
-import { useSettingsI18n } from './useSettingsI18n';
+import { useSettingsText } from './useSettingsText';
 
 export const MIN_SEARCH_LENGTH = 3;
 
@@ -145,7 +145,7 @@ function buildSearchableItems(
  * @returns Matching search results (empty if query is shorter than 3 characters)
  */
 export function useSettingsSearch(searchValue: string): SettingsSearchResult[] {
-  const t = useSettingsI18n();
+  const t = useSettingsText();
   const isBasicFunctionalityConsolidationEnabled = useSelector(
     getIsBasicFunctionalityConsolidationEnabled,
   );

@@ -29,7 +29,7 @@ import {
   ButtonBase,
   ButtonBaseSize,
 } from '../../../../components/component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { usePrevious } from '../../../../hooks/usePrevious';
 import { useHistoricalPrices } from '../../hooks/useHistoricalPrices';
 import { finiteFallback, loadingOpacity } from '../../util';
@@ -130,7 +130,7 @@ const AssetChart = ({
   currentPrice?: number;
   currency: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const [selectedTimeRange, setSelectedTimeRange] = useState<string>(
     TIME_RANGES[0],
   );

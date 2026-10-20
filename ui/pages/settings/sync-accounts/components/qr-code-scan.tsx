@@ -12,7 +12,7 @@ import {
   TextButton,
 } from '@metamask/design-system-react';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Skeleton } from '../../../../components/component-library/skeleton';
 import { selectQrSyncQrPayload } from '../../../../selectors/qr-sync/qr-sync';
 import { QR_SYNC_TIMEOUT_MS } from '../../../../../shared/constants/qr-sync';
@@ -36,7 +36,7 @@ type QrCodeScanProps = {
 };
 
 const QrCodeScan = ({ onRestart }: QrCodeScanProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const qrPayload = useSelector(selectQrSyncQrPayload);
   const [lastQrPayload, setLastQrPayload] = useState<string | null>(null);
 

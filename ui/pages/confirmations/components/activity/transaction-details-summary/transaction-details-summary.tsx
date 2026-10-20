@@ -17,7 +17,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useTransactionDetails } from '../transaction-details-context';
 import { formatTransactionDateTime } from '../utils';
 import { getTransactions } from '../../../../../selectors/transactions';
@@ -40,7 +40,7 @@ const RELAY_DEPOSIT_TYPES = [
 type TranslateFunction = (key: string, args?: string[]) => string;
 
 export function TransactionDetailsSummary() {
-  const t = useI18nContext() as TranslateFunction;
+  const t = getText as TranslateFunction;
   const { transactionMeta } = useTransactionDetails();
   const allTransactions = useSelector(getTransactions);
   const { requiredTransactionIds, metamaskPay } = transactionMeta;
@@ -155,7 +155,7 @@ function RelayDepositSummaryLine({
   tokenAddress: Hex | undefined;
   tokenChainId: Hex | undefined;
 }) {
-  const t = useI18nContext() as TranslateFunction;
+  const t = getText as TranslateFunction;
   const { chainId } = transactionMeta;
 
   const token = useTokenWithBalance(
@@ -195,7 +195,7 @@ function ApprovalSummaryLine({
   transactionMeta: TransactionMeta;
   isLast: boolean;
 }) {
-  const t = useI18nContext() as TranslateFunction;
+  const t = getText as TranslateFunction;
   const { chainId, txParams } = transactionMeta;
 
   const tokenAddress = txParams?.to as Hex | undefined;
@@ -231,7 +231,7 @@ function ReceiveSummaryLine({
   relatedTransactions: TransactionMeta[];
   isLast: boolean;
 }) {
-  const t = useI18nContext() as TranslateFunction;
+  const t = getText as TranslateFunction;
   const { type, chainId, txParams } = transactionMeta;
   const isPerpsDeposit = type === TransactionType.perpsDeposit;
   const isMusdConversion = type === TransactionType.musdConversion;
@@ -304,7 +304,7 @@ function DefaultSummaryLine({
   transactionMeta: TransactionMeta;
   isLast: boolean;
 }) {
-  const t = useI18nContext() as TranslateFunction;
+  const t = getText as TranslateFunction;
   const { type, chainId } = transactionMeta;
 
   let title: string;

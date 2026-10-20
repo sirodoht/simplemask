@@ -1,9 +1,9 @@
-import { translateI18nValue } from './translate-i18n-value';
+import { formatPermissionText } from './format-permission-text';
 
-describe('translateI18nValue', () => {
+describe('formatPermissionText', () => {
   it('passes key and args to the i18n function', () => {
     const t = jest.fn().mockReturnValue('translated');
-    const result = translateI18nValue(t, {
+    const result = formatPermissionText(t, {
       key: 'someKey',
       args: [1, 'two'],
     });
@@ -13,7 +13,7 @@ describe('translateI18nValue', () => {
 
   it('omits args when undefined', () => {
     const t = jest.fn().mockReturnValue('ok');
-    translateI18nValue(t, { key: 'plain' });
+    formatPermissionText(t, { key: 'plain' });
     expect(t).toHaveBeenCalledWith('plain', undefined);
   });
 });

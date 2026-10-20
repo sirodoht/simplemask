@@ -6,7 +6,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { getMultichainIsEvm } from '../../../../../selectors/multichain';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 type ImportControlProps = {
   showTokensLinks?: boolean;
@@ -15,7 +15,7 @@ type ImportControlProps = {
 
 const ImportControl = forwardRef<HTMLButtonElement, ImportControlProps>(
   ({ showTokensLinks, onClick }, ref) => {
-    const t = useI18nContext();
+    const t = getText;
     const isEvm = useSelector(getMultichainIsEvm);
     // NOTE: Since we can parametrize it now, we keep the original behavior
     // for EVM assets

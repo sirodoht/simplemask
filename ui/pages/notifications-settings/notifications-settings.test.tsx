@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import {
   NOTIFICATIONS_SETTINGS_ROUTE,
   NOTIFICATIONS_SETTINGS_SECTION_ROUTES,
@@ -188,12 +189,12 @@ describe('NotificationsSettingsContent', () => {
       screen.getByTestId('notifications-settings-per-types'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.notificationsSettingsAgenticCliTitle.message),
+      screen.getByText(messages.notificationsSettingsAgenticCliTitle),
     ).toBeInTheDocument();
     expect(
       screen.getByTestId('notifications-settings-section-walletActivity'),
     ).not.toHaveTextContent(
-      `${messages.notificationsSettingsStatusPush.message}, ${messages.notificationsSettingsStatusInApp.message}`,
+      `${messages.notificationsSettingsStatusPush}, ${messages.notificationsSettingsStatusInApp}`,
     );
     expect(
       screen.queryByTestId('notifications-settings-section-marketing'),

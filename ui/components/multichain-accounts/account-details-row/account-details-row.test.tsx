@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, screen, fireEvent } from '@testing-library/react';
 import {
   ButtonIcon,
@@ -6,7 +7,7 @@ import {
   IconColor,
   IconName,
 } from '@metamask/design-system-react';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { AccountDetailsRow } from './account-details-row';
 
 describe('AccountDetailsRow', () => {
@@ -30,7 +31,7 @@ describe('AccountDetailsRow', () => {
           iconName={IconName.Edit}
           color={IconColor.IconAlternative}
           size={ButtonIconSize.Md}
-          ariaLabel={messages.edit.message}
+          ariaLabel={messages.edit}
           data-testid="end-accessory-button"
         />
       );
@@ -42,7 +43,7 @@ describe('AccountDetailsRow', () => {
       expect(screen.getByText('Test Label')).toBeInTheDocument();
       expect(screen.getByText('Test Value')).toBeInTheDocument();
       expect(screen.getByTestId('end-accessory-button')).toBeInTheDocument();
-      expect(screen.getByLabelText(messages.edit.message)).toBeInTheDocument();
+      expect(screen.getByLabelText(messages.edit)).toBeInTheDocument();
     });
 
     it('should render without endAccessory', () => {
@@ -120,7 +121,7 @@ describe('AccountDetailsRow', () => {
           iconName={IconName.Edit}
           color={IconColor.IconAlternative}
           size={ButtonIconSize.Md}
-          ariaLabel={messages.edit.message}
+          ariaLabel={messages.edit}
           data-testid="end-accessory-button"
           onClick={mockButtonClick}
         />

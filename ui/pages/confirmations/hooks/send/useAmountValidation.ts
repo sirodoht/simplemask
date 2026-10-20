@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { Numeric } from '../../../../../shared/lib/Numeric';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   fromTokenMinUnitsNumeric,
   isValidPositiveNumericString,
@@ -12,7 +12,7 @@ import { Asset, AssetStandard } from '../../types/send';
 import { useBalance } from './useBalance';
 
 export const useAmountValidation = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { asset, value } = useSendContext();
   const { rawBalanceNumeric } = useBalance();
   const amountError = useMemo(() => {
@@ -37,7 +37,7 @@ export const useAmountValidation = () => {
 export function validateERC1155Balance(
   asset: Asset,
   value: string | undefined,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
 ): string | undefined {
   if (asset?.standard !== AssetStandard.ERC1155) {
     return undefined;
@@ -58,7 +58,7 @@ export function validateTokenBalance(
   amount: string,
   rawBalanceNumeric: Numeric,
   decimals: number | undefined,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
 ): string | undefined {
   const amountInputNumeric = fromTokenMinUnitsNumeric(amount, 10, decimals);
   if (rawBalanceNumeric.lessThan(amountInputNumeric)) {
@@ -69,7 +69,7 @@ export function validateTokenBalance(
 
 export function validatePositiveNumericString(
   value: string,
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
 ): string | undefined {
   if (!isValidPositiveNumericString(value)) {
     return t('invalidValue');

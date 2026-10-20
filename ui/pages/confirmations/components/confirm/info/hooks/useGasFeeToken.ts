@@ -12,7 +12,7 @@ import { abiERC20 } from '@metamask/metamask-eth-abis';
 import { NATIVE_TOKEN_ADDRESS } from '../../../../../../../shared/constants/transaction';
 import { getNetworkConfigurationsByChainId } from '../../../../../../../shared/lib/selectors/networks';
 import { getCurrencyRates } from '../../../../../../ducks/metamask/metamask';
-import { getIntlLocale } from '../../../../../../ducks/locale/locale';
+
 import { useFiatFormatter } from '../../../../../../hooks/useFiatFormatter';
 import { useEthFiatAmount } from '../../../../../../hooks/useEthFiatAmount';
 import {
@@ -30,7 +30,7 @@ export function useGasFeeToken({ tokenAddress }: { tokenAddress?: Hex }) {
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
 
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const nativeFeeToken = useNativeGasFeeToken();
   const { gasFeeTokens, chainId, excludeNativeTokenForFee } =
     transactionMeta ?? {};

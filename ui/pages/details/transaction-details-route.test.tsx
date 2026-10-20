@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { describe, expect, it, jest, beforeEach } from '@jest/globals';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import { ACTIVITY_TAB_ROUTE } from '../../hooks/useActivityHomeRoute';
 import { PREVIOUS_ROUTE } from '../../helpers/constants/routes';
 import TransactionDetailsRoute from './transaction-details-route';
@@ -31,10 +32,10 @@ jest.mock('../../hooks/useActivityHomeRoute', () => {
 
 jest.mock('./transaction-details', () => ({
   TransactionDetails: ({ onBack }: { onBack: () => void }) => {
-    const { enLocale } = jest.requireActual(
-      '../../../test/lib/i18n-helpers',
-    ) as typeof import('../../../test/lib/i18n-helpers');
-    return <button onClick={onBack}>{enLocale.back.message}</button>;
+    const { englishText: enLocale } = jest.requireActual(
+      '../../../shared/lib/text',
+    ) as typeof import('../../../shared/lib/text');
+    return <button onClick={onBack}>{enLocale.back}</button>;
   },
 }));
 
@@ -47,9 +48,7 @@ describe('TransactionDetailsRoute', () => {
     mockUseLocation.mockReturnValue({ key: 'in-app-entry' });
     render(<TransactionDetailsRoute />);
 
-    fireEvent.click(
-      screen.getByRole('button', { name: messages.back.message }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: messages.back }));
 
     expect(mockNavigate).toHaveBeenCalledWith(PREVIOUS_ROUTE);
   });
@@ -58,9 +57,7 @@ describe('TransactionDetailsRoute', () => {
     mockUseLocation.mockReturnValue({ key: 'default' });
     render(<TransactionDetailsRoute />);
 
-    fireEvent.click(
-      screen.getByRole('button', { name: messages.back.message }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: messages.back }));
 
     expect(mockNavigate).toHaveBeenCalledWith(ACTIVITY_TAB_ROUTE, {
       replace: true,

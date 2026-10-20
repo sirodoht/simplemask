@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import { ThemeType } from '../../../../shared/constants/preferences';
 import { selectAccountGroupBalanceForEmptyState } from '../../../selectors/assets';
@@ -134,10 +135,10 @@ describe('TransactionActivityEmptyState', () => {
     mockSelectAccountGroupBalanceForEmptyState.mockReturnValue(true);
     renderComponent();
     expect(
-      screen.getByText(messages.activityEmptyDescription.message),
+      screen.getByText(messages.activityEmptyDescription),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(messages.activityEmptyNoFundsDescription.message),
+      screen.queryByText(messages.activityEmptyNoFundsDescription),
     ).not.toBeInTheDocument();
   });
 
@@ -145,10 +146,10 @@ describe('TransactionActivityEmptyState', () => {
     mockSelectAccountGroupBalanceForEmptyState.mockReturnValue(false);
     renderComponent();
     expect(
-      screen.getByText(messages.activityEmptyNoFundsDescription.message),
+      screen.getByText(messages.activityEmptyNoFundsDescription),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(messages.activityEmptyDescription.message),
+      screen.queryByText(messages.activityEmptyDescription),
     ).not.toBeInTheDocument();
   });
 
@@ -188,15 +189,13 @@ describe('TransactionActivityEmptyState', () => {
     it('renders add funds button when the account has no tokens', () => {
       renderComponent();
       expect(
-        screen.getByRole('button', { name: messages.addFunds.message }),
+        screen.getByRole('button', { name: messages.addFunds }),
       ).toBeInTheDocument();
     });
 
     it('opens funding modal when add funds button is clicked', () => {
       renderComponent();
-      fireEvent.click(
-        screen.getByRole('button', { name: messages.addFunds.message }),
-      );
+      fireEvent.click(screen.getByRole('button', { name: messages.addFunds }));
 
       expect(
         screen.getByTestId('activity-tab-empty-state-funding-modal'),

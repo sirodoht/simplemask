@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import ConfirmDeleteNetwork from '.';
 
 describe('Confirm Delete Network', () => {
@@ -44,7 +45,7 @@ describe('Confirm Delete Network', () => {
       <ConfirmDeleteNetwork.WrappedComponent {...props} />,
     );
 
-    fireEvent.click(queryByText(messages.cancel.message));
+    fireEvent.click(queryByText(messages.cancel));
 
     expect(props.removeNetwork).not.toHaveBeenCalled();
     expect(props.onConfirm).not.toHaveBeenCalled();
@@ -57,7 +58,7 @@ describe('Confirm Delete Network', () => {
       <ConfirmDeleteNetwork.WrappedComponent {...props} />,
     );
 
-    fireEvent.click(queryByText(messages.delete.message));
+    fireEvent.click(queryByText(messages.delete));
 
     await waitFor(() => {
       expect(props.removeNetwork).toHaveBeenCalled();

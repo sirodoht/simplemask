@@ -4,7 +4,7 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import browser from 'webextension-polyfill';
 import configureMockStore from 'redux-mock-store';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import type {
   MfaFlowState,
@@ -66,7 +66,7 @@ describe('IntroStep', () => {
       screen.getByTestId(`${MfaFlowTestIds.INTRO_METHOD}-passkey`),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.mfaIntroPasskeyDescription.message),
+      screen.getByText(messages.mfaIntroPasskeyDescription),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByTestId(MfaFlowTestIds.PRIMARY_BUTTON));
     expect(onAction).toHaveBeenCalledWith({ type: 'continue' });
@@ -86,7 +86,7 @@ describe('IntroStep', () => {
     );
 
     expect(
-      screen.getByText(messages.mfaIntroEmailDescription.message),
+      screen.getByText(messages.mfaIntroEmailDescription),
     ).toBeInTheDocument();
   });
 
@@ -103,9 +103,7 @@ describe('IntroStep', () => {
       />,
     );
 
-    expect(
-      screen.getByText(messages.mfaIntroPasskeyDone.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.mfaIntroPasskeyDone)).toBeInTheDocument();
     expect(
       screen.getByTestId(`${MfaFlowTestIds.INTRO_METHOD}-email_otp-done`),
     ).toBeInTheDocument();
@@ -124,9 +122,7 @@ describe('IntroStep', () => {
       />,
     );
 
-    expect(
-      screen.getByText(messages.mfaIntroDescription.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.mfaIntroDescription)).toBeInTheDocument();
   });
 });
 
@@ -150,15 +146,15 @@ describe('PickerStep', () => {
       screen
         .getAllByText(
           new RegExp(
-            `^(${messages.mfaPickerPasskey.message}|${messages.mfaPickerOr.message}|${messages.mfaPickerEmailOtp.message})$`,
+            `^(${messages.mfaPickerPasskey}|${messages.mfaPickerOr}|${messages.mfaPickerEmailOtp})$`,
             'u',
           ),
         )
         .map((node) => node.textContent),
     ).toStrictEqual([
-      messages.mfaPickerPasskey.message,
-      messages.mfaPickerOr.message,
-      messages.mfaPickerEmailOtp.message,
+      messages.mfaPickerPasskey,
+      messages.mfaPickerOr,
+      messages.mfaPickerEmailOtp,
     ]);
     fireEvent.click(
       screen.getByTestId(`${MfaFlowTestIds.PICKER_OPTION}-passkey`),
@@ -236,7 +232,7 @@ describe('EmailEntryStep', () => {
     );
 
     const input = screen.getByRole('textbox', {
-      name: messages.mfaEmailEntryTitle.message,
+      name: messages.mfaEmailEntryTitle,
     }) as HTMLInputElement;
     expect(input.value).toBe(' a@b.co ');
     fireEvent.click(screen.getByTestId(MfaFlowTestIds.PRIMARY_BUTTON));
@@ -293,7 +289,7 @@ describe('EmailEntryStep', () => {
     fireEvent.click(screen.getByTestId(MfaFlowTestIds.PRIMARY_BUTTON));
 
     expect(screen.getByRole('alert')).toHaveTextContent(
-      messages.mfaEmailEntryInvalid.message,
+      messages.mfaEmailEntryInvalid,
     );
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(onAction).not.toHaveBeenCalled();
@@ -329,7 +325,7 @@ describe('EmailEntryStep', () => {
     );
 
     expect(screen.getByRole('textbox')).toHaveAccessibleDescription(
-      expect.stringContaining(messages.mfaErrorEmailTaken.message),
+      expect.stringContaining(messages.mfaErrorEmailTaken),
     );
   });
 });
@@ -372,9 +368,7 @@ describe('CodeStep', () => {
   it('does not submit before the code is sent', () => {
     const { onAction } = renderCode(otp(false), { busy: true });
 
-    expect(
-      screen.getByText(messages.mfaOtpSending.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.mfaOtpSending)).toBeInTheDocument();
     fireEvent.change(screen.getByRole('textbox'), {
       target: { value: '123456' },
     });
@@ -401,11 +395,11 @@ describe('CodeStep', () => {
   it('submits once six digits are entered', () => {
     const { onAction } = renderCode(otp(true));
     const input = screen.getByRole('textbox', {
-      name: messages.mfaOtpTitle.message,
+      name: messages.mfaOtpTitle,
     });
 
     expect(input).toHaveAccessibleDescription(
-      messages.mfaOtpDescriptionWithEmail.message.replace('$1', 'a•••@b.co'),
+      messages.mfaOtpDescriptionWithEmail.replace('$1', 'a•••@b.co'),
     );
     expect(input).toHaveAttribute('maxlength', '6');
     fireEvent.change(input, { target: { value: '12a3' } });
@@ -516,9 +510,9 @@ describe('CodeStep', () => {
     const { onAction } = renderCode(otp(true), { error: 'flow_expired' });
 
     expect(screen.getByRole('alert')).toHaveTextContent(
-      messages.mfaErrorCodeExpired.message,
+      messages.mfaErrorCodeExpired,
     );
-    fireEvent.click(screen.getByText(messages.mfaOtpGetNewCode.message));
+    fireEvent.click(screen.getByText(messages.mfaOtpGetNewCode));
     expect(onAction).toHaveBeenCalledWith({ type: 'resend' });
   });
 
@@ -526,7 +520,7 @@ describe('CodeStep', () => {
     const { onAction } = renderCode(otp(true), { error: 'invalid_code' });
 
     expect(screen.getByRole('alert')).toHaveTextContent(
-      messages.mfaErrorInvalidCode.message,
+      messages.mfaErrorInvalidCode,
     );
     expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
     fireEvent.click(screen.getByTestId(MfaFlowTestIds.RESEND_BUTTON));
@@ -540,7 +534,7 @@ describe('CodeStep', () => {
     });
 
     expect(
-      screen.getByText(messages.mfaOtpResendIn.message.replace('$1', '30')),
+      screen.getByText(messages.mfaOtpResendIn.replace('$1', '30')),
     ).toBeInTheDocument();
     expect(screen.queryByTestId(MfaFlowTestIds.ERROR)).toBeNull();
     expect(screen.getByTestId(MfaFlowTestIds.RESEND_BUTTON)).toBeDisabled();
@@ -567,7 +561,7 @@ describe('CodeStep', () => {
     renderCode(otp(true), { error: 'rate_limited' });
 
     expect(screen.getByRole('alert')).toHaveTextContent(
-      messages.mfaErrorCooldown.message,
+      messages.mfaErrorCooldown,
     );
   });
 
@@ -578,7 +572,7 @@ describe('CodeStep', () => {
     });
 
     expect(
-      screen.getByText(messages.mfaOtpSendIn.message.replace('$1', '2')),
+      screen.getByText(messages.mfaOtpSendIn.replace('$1', '2')),
     ).toBeInTheDocument();
     expect(onAction).not.toHaveBeenCalled();
     act(() => {
@@ -617,9 +611,7 @@ describe('CodeStep', () => {
 
     rerender(ui(props.step, { ...props.state, codeResent: true }, onAction));
 
-    expect(screen.getByRole('status')).toHaveTextContent(
-      messages.mfaOtpResent.message,
-    );
+    expect(screen.getByRole('status')).toHaveTextContent(messages.mfaOtpResent);
     expect(screen.getByRole('textbox')).toHaveValue('');
   });
 });
@@ -639,10 +631,10 @@ describe('PasskeyStep', () => {
     );
 
     expect(
-      screen.getByText(messages.mfaPasskeyTitleVerify.message),
+      screen.getByText(messages.mfaPasskeyTitleVerify),
     ).toBeInTheDocument();
     expect(screen.getByRole('alert')).toHaveTextContent(
-      messages.mfaErrorPasskeyCancelled.message,
+      messages.mfaErrorPasskeyCancelled,
     );
     fireEvent.click(screen.getByTestId(MfaFlowTestIds.PRIMARY_BUTTON));
     expect(onAction).toHaveBeenCalledWith({ type: 'continue' });
@@ -664,10 +656,8 @@ describe('FailureStep', () => {
       />,
     );
 
-    expect(
-      screen.getByText(messages.mfaFailureTitle.message),
-    ).toBeInTheDocument();
-    expect(screen.queryByText(messages.mfaErrorGeneric.message)).toBeNull();
+    expect(screen.getByText(messages.mfaFailureTitle)).toBeInTheDocument();
+    expect(screen.queryByText(messages.mfaErrorGeneric)).toBeNull();
     fireEvent.click(screen.getByTestId(MfaFlowTestIds.PRIMARY_BUTTON));
     expect(onAction).toHaveBeenCalledWith({ type: 'retry' });
     fireEvent.click(screen.getByTestId(MfaFlowTestIds.SECONDARY_BUTTON));
@@ -687,9 +677,7 @@ describe('FailureStep', () => {
       />,
     );
 
-    expect(
-      screen.getByText(messages.mfaErrorLimitReached.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.mfaErrorLimitReached)).toBeInTheDocument();
     expect(screen.queryByTestId(MfaFlowTestIds.PRIMARY_BUTTON)).toBeNull();
   });
 });

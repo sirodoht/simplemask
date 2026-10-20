@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -19,7 +20,7 @@ import {
   ModalHeader,
   ModalFooter,
 } from '../../../../component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 export const CONFIRM_TURN_ON_BACKUP_AND_SYNC_MODAL_NAME =
   'CONFIRM_TURN_ON_BACKUP_AND_SYNC';
@@ -32,7 +33,7 @@ export const confirmTurnOnBackupAndSyncModalTestIds = {
 export function ConfirmTurnOnBackupAndSyncModal() {
   const { props, hideModal } = useModalProps();
   const { enableBackupAndSync } = props;
-  const t = useI18nContext();
+  const t = getText;
 
   const handleHideModal = () => {
     hideModal();

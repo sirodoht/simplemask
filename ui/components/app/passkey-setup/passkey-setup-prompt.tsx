@@ -13,7 +13,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { BaseUrl } from '../../../../shared/constants/urls';
 
 type PasskeySetupPromptProps = Readonly<{
@@ -45,9 +45,8 @@ export function PasskeySetupPrompt({
   onSetup,
   onSkip,
 }: PasskeySetupPromptProps) {
-  const i18n = useI18nContext();
-  const t = i18n as (key: string, substitutions?: string[]) => string;
-  const tWithRichSubstitutions = i18n as (
+  const t = getText as (key: string, substitutions?: string[]) => string;
+  const tWithRichSubstitutions = getText as (
     key: string,
     substitutions?: (string | React.ReactNode)[],
   ) => React.ReactNode;

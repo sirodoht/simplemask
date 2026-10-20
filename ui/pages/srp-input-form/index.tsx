@@ -11,7 +11,7 @@ import {
   TextColor,
   IconColor,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import SrpInputImport from '../../components/app/srp-input-import';
 import SRPDetailsModal from '../../components/app/srp-details-modal';
 import {
@@ -50,7 +50,7 @@ const SrpInputForm = ({
   toggleSrpDetailsModal = false,
   onSrpDetailsModalClose,
 }: SrpInputFormProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [showSrpDetailsModal, setShowSrpDetailsModal] = useState(false);
 

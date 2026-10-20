@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getConfirmationSender } from '../../../components/confirm/utils';
 import { SignatureRequestType } from '../../../types/confirm';
 import { isSIWESignatureRequest } from '../../../utils';
@@ -13,7 +13,7 @@ import { useConfirmContext } from '../../../context/confirm';
  * does not match the selected account's address.
  */
 export default function useAccountMismatchAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<SignatureRequestType>();
 
   const { from: fromAddress } = getConfirmationSender(currentConfirmation);

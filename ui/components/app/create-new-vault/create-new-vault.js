@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import TextField from '../../ui/text-field';
 import { ButtonVariant, Button } from '../../component-library';
 import SrpInput from '../srp-input';
@@ -23,7 +23,7 @@ export default function CreateNewVault({
 
   const { signOut } = useSignOut();
 
-  const t = useI18nContext();
+  const t = getText;
 
   const onPasswordChange = useCallback(
     (newPassword) => {

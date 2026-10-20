@@ -22,7 +22,7 @@ import { SnapMetadataModal } from '../../../snaps/snap-metadata-modal';
 import { useOriginTrustSignals } from '../../../../../hooks/useOriginTrustSignals';
 import { TrustSignalDisplayState } from '../../../../../hooks/useTrustSignals';
 import Tooltip from '../../../../ui/tooltip';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 export type ConfirmInfoRowUrlProps = {
   url: string;
@@ -50,7 +50,7 @@ const HttpWarning = () => (
 );
 
 export const ConfirmInfoRowUrl = ({ url }: ConfirmInfoRowUrlProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handlePillClick = useCallback(
     () => setIsModalOpen(true),

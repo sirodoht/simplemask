@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { KeyringTypes } from '@metamask/keyring-controller';
 import type { AccountGroupId, AccountWalletId } from '@metamask/account-api';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import mockState from '../../../../../test/data/mock-state.json';
 import { FirstTimeFlowType } from '../../../../../shared/constants/onboarding';
 import { SrpList } from './srp-list';
@@ -122,10 +123,10 @@ describe('SrpList', () => {
   it('renders list of secret recovery phrases', () => {
     const { getByText } = render();
     expect(
-      getByText(messages.srpListName.message.replace('$1', '1')),
+      getByText(messages.srpListName.replace('$1', '1')),
     ).toBeInTheDocument();
     expect(
-      getByText(messages.srpListName.message.replace('$1', '2')),
+      getByText(messages.srpListName.replace('$1', '2')),
     ).toBeInTheDocument();
   });
 

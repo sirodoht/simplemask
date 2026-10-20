@@ -7,7 +7,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type {
   MfaFlowAction,
   MfaFlowErrorCode,
@@ -130,7 +130,7 @@ export const StepHeader = ({
 );
 
 export const StepError = ({ code }: { code: MfaFlowErrorCode }) => {
-  const t = useI18nContext();
+  const t = getText;
   return <StepMessage isError>{t(getErrorMessageKey(code))}</StepMessage>;
 };
 

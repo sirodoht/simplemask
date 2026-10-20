@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,7 +21,7 @@ import {
 import { setAvatarType } from '../../../store/actions';
 import { getPreferences } from '../../../../shared/lib/selectors/preferences';
 import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/accounts';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { transitionBack } from '../../../components/ui/transition';
 import { useDispatch } from '../../../store/hooks';
 import { AVATAR_OPTIONS } from './account-identicon-utils';
@@ -28,7 +29,7 @@ import { AVATAR_OPTIONS } from './account-identicon-utils';
 const AccountIdenticonSubPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const { avatarType } = useSelector(getPreferences);
   const selectedAccount = useSelector(getSelectedInternalAccount);
 

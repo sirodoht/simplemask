@@ -12,7 +12,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { HardwareAccountAddressRow } from '../hardware-account-address-row';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { HardwareAccountCardProps } from './hardware-account-card.types';
 
 /**
@@ -27,7 +27,7 @@ export const HardwareAccountCard = ({
   isSelected,
   onToggleSelection,
 }: HardwareAccountCardProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const isDisabled = Boolean(account.isAlreadyConnected);
 
   const handleToggleSelection = useCallback(() => {

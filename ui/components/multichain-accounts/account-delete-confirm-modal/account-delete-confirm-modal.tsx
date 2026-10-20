@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -20,7 +21,7 @@ import {
   TextAlign,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export type AccountDeleteConfirmModalProps = {
   isOpen: boolean;
@@ -45,7 +46,7 @@ export const AccountDeleteConfirmModal = ({
   onClose,
   onConfirm,
 }: AccountDeleteConfirmModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal

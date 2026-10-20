@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { screen, waitFor } from '@testing-library/react';
 
@@ -10,7 +11,7 @@ import {
   permitSignatureMsgWithUnsignedFields,
 } from '../../../../../../../../../test/data/confirmations/typed_sign';
 import { memoizedGetTokenStandardAndDetails } from '../../../../../../utils/token';
-import { enLocale as messages } from '../../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../../shared/lib/text';
 import PermitSimulation from './permit-simulation';
 
 jest.mock('../../../../../../../../store/actions', () => {
@@ -55,18 +56,16 @@ describe('PermitSimulation', () => {
 
     renderWithConfirmContextProvider(<PermitSimulation />, mockStore);
 
+    expect(await screen.findByText(messages.unlimited)).toBeInTheDocument();
+    expect(screen.getByText(messages.spendingCap)).toBeInTheDocument();
     expect(
-      await screen.findByText(messages.unlimited.message),
-    ).toBeInTheDocument();
-    expect(screen.getByText(messages.spendingCap.message)).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.permitSimulationDetailInfo.message),
+      screen.getByText(messages.permitSimulationDetailInfo),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(messages.permitSimulationChange_revoke2.message),
+      screen.queryByText(messages.permitSimulationChange_revoke2),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(messages.revokeSimulationDetailsDesc.message),
+      screen.queryByText(messages.revokeSimulationDetailsDesc),
     ).not.toBeInTheDocument();
     expect(screen.queryByText('#0')).not.toBeInTheDocument();
   });
@@ -81,9 +80,7 @@ describe('PermitSimulation', () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByText(messages.perpsWithdraw.message),
-      ).toBeInTheDocument();
+      expect(screen.getByText(messages.perpsWithdraw)).toBeInTheDocument();
       expect(screen.getByText('#3606393')).toBeInTheDocument();
     });
     expect(container).toMatchSnapshot();

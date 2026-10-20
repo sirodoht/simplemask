@@ -8,7 +8,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { PageContainerFooter } from '../../../../components/ui/page-container';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 import Box from '../../../../components/ui/box/box';
 import {
@@ -35,7 +35,7 @@ export default function SnapResult({
   approveSnapResult,
   targetSubjectMetadata,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const onSubmit = useCallback(
     () => approveSnapResult(request?.metadata?.id),

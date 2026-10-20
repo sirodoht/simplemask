@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-} from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { type PasskeyAuthenticationResponse } from '@metamask/passkey-controller';
@@ -31,7 +25,7 @@ import {
 } from '../../../shared/constants/metametrics';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import ZENDESK_URLS from '../../helpers/constants/zendesk-url';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard';
 import { SensitiveClipboardCleanup } from '../../components/ui/sensitive-clipboard-cleanup/sensitive-clipboard-cleanup';
 import {
@@ -72,7 +66,7 @@ function RevealSeedPage() {
   const dispatch = useDispatch();
   const exportSeedPhraseWithPasskey = usePasskeySeedPhraseExport();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const hdEntropyIndex = useSelector(getHDEntropyIndex);
   const { keyringId } = useParams<Record<string, string | undefined>>();

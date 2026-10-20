@@ -19,7 +19,7 @@ import type { CaipAssetType } from '@metamask/utils';
 import { buildAssetSecurityTrustRoutePath } from '../../../../../shared/lib/asset-route';
 import { MetaMetricsEventName } from '../../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   getFeatureTags,
   getResultTypeConfig,
@@ -50,7 +50,7 @@ export const SecurityTrustEntryCard = ({
   isLoading,
   token,
 }: SecurityTrustEntryCardProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const hasTrackedView = useRef(false);

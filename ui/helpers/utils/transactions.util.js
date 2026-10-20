@@ -103,7 +103,7 @@ export function getStatusKey(transaction) {
  *
  * This will throw an error if the transaction category is unrecognized and no default is provided.
  *
- * @param {Function} t - The translation function
+ * @param {Function} t - The English text function
  * @param {TRANSACTION_TYPES[keyof TRANSACTION_TYPES]} type - The transaction type constant
  * @param {string} nativeCurrency - The native currency of the currently selected network
  * @returns {string} The transaction category title

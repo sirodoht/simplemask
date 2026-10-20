@@ -1,30 +1,31 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureStore from '../../../../../store/store';
 import mockState from '../../../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import type { SendAlert } from '../../../hooks/send/alerts/types';
 import { SendAlertModal } from './send-alert-modal';
 
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 
 const TOKEN_ALERT: SendAlert = {
   key: 'tokenContract',
-  title: messages.smartContractAddress.message,
+  title: messages.smartContractAddress,
   message: 'This may result in fund loss.',
 };
 
 const FIRST_TIME_ALERT: SendAlert = {
   key: 'firstTimeInteraction',
-  title: messages.sendAlertNewAddressTitle.message,
+  title: messages.sendAlertNewAddressTitle,
   message: 'You are sending for the first time.',
   acknowledgeButtonLabel: 'Continue',
 };
 
 describe('SendAlertModal', () => {
-  const mockUseI18nContext = jest.mocked(useI18nContext);
+  const mockGetText = jest.mocked(getText);
   const mockStore = configureStore(mockState);
 
   const mockOnAcknowledge = jest.fn();
@@ -45,7 +46,7 @@ describe('SendAlertModal', () => {
   };
 
   beforeEach(() => {
-    mockUseI18nContext.mockReturnValue((key: string) => {
+    mockGetText.mockImplementation((key: string) => {
       if (key === 'ofTextNofM') {
         return 'of';
       }
@@ -60,9 +61,7 @@ describe('SendAlertModal', () => {
   it('renders modal with title and message when open', () => {
     const { getByText, getByTestId } = renderComponent();
 
-    expect(
-      getByText(messages.smartContractAddress.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.smartContractAddress)).toBeInTheDocument();
     expect(getByTestId('send-alert-modal-message')).toHaveTextContent(
       'This may result in fund loss.',
     );
@@ -71,9 +70,7 @@ describe('SendAlertModal', () => {
   it('does not render modal content when closed', () => {
     const { queryByText } = renderComponent({ isOpen: false });
 
-    expect(
-      queryByText(messages.smartContractAddress.message),
-    ).not.toBeInTheDocument();
+    expect(queryByText(messages.smartContractAddress)).not.toBeInTheDocument();
   });
 
   it('returns null when alerts array is empty', () => {
@@ -176,9 +173,7 @@ describe('SendAlertModal', () => {
         alerts: [TOKEN_ALERT, FIRST_TIME_ALERT],
       });
 
-      expect(
-        getByText(messages.smartContractAddress.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.smartContractAddress)).toBeInTheDocument();
       expect(getByTestId('send-alert-modal-message')).toHaveTextContent(
         'This may result in fund loss.',
       );
@@ -191,9 +186,7 @@ describe('SendAlertModal', () => {
 
       fireEvent.click(getByTestId('send-alert-modal-next-button'));
 
-      expect(
-        getByText(messages.sendAlertNewAddressTitle.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.sendAlertNewAddressTitle)).toBeInTheDocument();
       expect(getByTestId('send-alert-modal-message')).toHaveTextContent(
         'You are sending for the first time.',
       );
@@ -210,9 +203,7 @@ describe('SendAlertModal', () => {
       fireEvent.click(getByTestId('send-alert-modal-next-button'));
       fireEvent.click(getByTestId('send-alert-modal-prev-button'));
 
-      expect(
-        getByText(messages.smartContractAddress.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.smartContractAddress)).toBeInTheDocument();
       expect(getByTestId('send-alert-modal-page-counter')).toHaveTextContent(
         '1 of 2',
       );
@@ -262,9 +253,7 @@ describe('SendAlertModal', () => {
 
       fireEvent.click(getByTestId('send-alert-modal-acknowledge-button'));
       expect(mockOnAcknowledge).not.toHaveBeenCalled();
-      expect(
-        getByText(messages.sendAlertNewAddressTitle.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.sendAlertNewAddressTitle)).toBeInTheDocument();
 
       fireEvent.click(getByTestId('send-alert-modal-acknowledge-button'));
       expect(mockOnAcknowledge).toHaveBeenCalledTimes(1);

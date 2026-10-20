@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, render } from '@testing-library/react';
 import { IconColor, IconName } from '@metamask/design-system-react';
 import { MetaMetricsEventName } from '../../../../../shared/constants/metametrics';
@@ -7,8 +8,8 @@ import { SecurityTrustInfoModal } from './security-trust-info-modal';
 
 const mockTrackEvent = jest.fn();
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../../../../shared/lib/environment-type', () => ({

@@ -2,7 +2,7 @@ import { ApprovalType, ERC721 } from '@metamask/controller-utils';
 import { act, screen, within } from '@testing-library/react';
 import nock from 'nock';
 import * as backgroundConnection from '../../../../ui/store/background-connection';
-import { tEn } from '../../../lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import { integrationTestRender } from '../../../lib/render-helpers';
 import mockMetaMaskState from '../../data/integration-init-state.json';
 import { createMockImplementation, mock4byte } from '../../helpers';

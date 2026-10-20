@@ -36,7 +36,6 @@ const initialState = {
   networkConfigurations: {},
   addressBook: [],
   featureFlags: {},
-  currentLocale: '',
   preferences: {
     autoLockTimeLimit: DEFAULT_AUTO_LOCK_TIME_LIMIT,
     showExtensionInFullSizeView: false,

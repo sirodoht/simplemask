@@ -1,6 +1,7 @@
 import React from 'react';
+
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { FeesRows, TotalAmountRow } from '../components/amounts-section';
 import { Footer, Section } from '../components/shared';
 import { BlockExplorerButton } from '../components/block-explorer-button';
@@ -11,7 +12,7 @@ export function NftDetails({
 }: {
   item: Extract<ActivityListItem, { type: 'nftBuy' | 'nftMint' | 'nftSell' }>;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const isMint = item.type === 'nftMint';
   const amountToken = isMint ? item.data.token : item.data.paymentToken;

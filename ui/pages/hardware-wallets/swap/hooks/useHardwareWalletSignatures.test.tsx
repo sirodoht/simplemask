@@ -10,10 +10,7 @@ import {
   createBridgeMockStore,
   MOCK_LEDGER_ACCOUNT,
 } from '../../../../../test/data/bridge/mock-bridge-store';
-import {
-  I18nProvider,
-  en,
-} from '../../../../../test/lib/render-helpers-navigate';
+
 import { ConnectionStatus } from '../../../../contexts/hardware-wallets';
 import {
   addTransaction,
@@ -234,7 +231,7 @@ function renderUseHardwareWalletSignatures({
 
     return (
       <MetaMaskTestReduxProvider store={store}>
-        <I18nProvider currentLocale="en" current={en} en={en}>
+        <>
           <RouterProvider
             router={router}
             future={{
@@ -242,7 +239,7 @@ function renderUseHardwareWalletSignatures({
               v7_startTransition: true,
             }}
           />
-        </I18nProvider>
+        </>
       </MetaMaskTestReduxProvider>
     );
   };

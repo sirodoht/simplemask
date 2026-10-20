@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import log from 'loglevel';
 import { AvatarAccountSize } from '@metamask/design-system-react';
@@ -12,7 +12,7 @@ import { Numeric } from '../../../shared/lib/Numeric';
 import { EtherDenomination } from '../../../shared/constants/common';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { Nav } from '../confirmations/components/confirm/nav';
-import { I18nContext } from '../../contexts/i18n';
+import { getText } from '../../helpers/utils/text';
 import { useAnalytics } from '../../hooks/useAnalytics';
 
 class ConfirmEncryptionPublicKeyBase extends Component {
@@ -227,7 +227,7 @@ class ConfirmEncryptionPublicKeyBase extends Component {
 }
 
 function ConfirmEncryptionPublicKey(props) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   return (
     <ConfirmEncryptionPublicKeyBase

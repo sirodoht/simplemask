@@ -22,8 +22,8 @@ async function flushAsyncUpdates() {
   });
 }
 
-jest.mock('../../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 jest.mock('../../../../../store/actions', () => ({
@@ -31,9 +31,7 @@ jest.mock('../../../../../store/actions', () => ({
   getTokenStandardAndDetailsByChain: jest.fn(),
 }));
 
-const { useI18nContext } = jest.requireMock(
-  '../../../../../hooks/useI18nContext',
-);
+const { getText } = jest.requireMock('../../../../../helpers/utils/text');
 
 const mockGetTokenStandardAndDetailsByChain = jest.mocked(
   getTokenStandardAndDetailsByChain,
@@ -74,7 +72,7 @@ function runHook({
     },
   });
 
-  useI18nContext.mockReturnValue(mockT);
+  getText.mockImplementation(mockT);
 
   return renderHookWithConfirmContextProvider(useTokenContractAlert, state);
 }

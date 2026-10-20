@@ -15,7 +15,7 @@ import {
 } from '../../../../selectors/assets';
 import { useFormatters } from '../../../../hooks/useFormatters';
 import { getCurrentCurrency } from '../../../../ducks/metamask/metamask';
-import { getIntlLocale } from '../../../../ducks/locale/locale';
+
 import { formatWithThreshold } from '../../assets/util/formatWithThreshold';
 import { getImageForChainId } from '../../../../selectors/multichain';
 import { getNetworkConfigurationsByChainId } from '../../../../../shared/lib/selectors/networks';
@@ -51,7 +51,7 @@ export const useSnapAssetSelectorData = ({
   chainIds,
 }: UseSnapAssetSelectorDataParams): SnapUIAsset[] => {
   const currency = useSelector(getCurrentCurrency);
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const { formatTokenQuantity } = useFormatters();
   const parsed = addresses.map(parseCaipAccountId);
   const account = useSelector((state) =>

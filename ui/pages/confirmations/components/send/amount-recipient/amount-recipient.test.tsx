@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { act, waitFor } from '@testing-library/react';
 import { fireEvent } from '@testing-library/dom';
 
@@ -8,7 +9,7 @@ import {
   EVM_NATIVE_ASSET,
 } from '../../../../../../test/data/send/assets';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import configureStore from '../../../../../store/store';
 import * as AmountSelectionMetrics from '../../../hooks/send/metrics/useAmountSelectionMetrics';
 import * as AmountValidation from '../../../hooks/send/useAmountValidation';
@@ -89,9 +90,9 @@ describe('AmountRecipient', () => {
 
     const { getByText } = render();
 
-    expect(getByText(messages.amount.message)).toBeInTheDocument();
+    expect(getByText(messages.amount)).toBeInTheDocument();
     expect(getByText('SendHero')).toBeInTheDocument();
-    expect(getByText(messages.continue.message)).toBeInTheDocument();
+    expect(getByText(messages.continue)).toBeInTheDocument();
   });
 
   it('submit transaction when continue button is clicked', async () => {
@@ -154,7 +155,7 @@ describe('AmountRecipient', () => {
     });
 
     await act(async () => {
-      fireEvent.click(getByText(messages.continue.message));
+      fireEvent.click(getByText(messages.continue));
     });
     expect(mockHandleSubmit).toHaveBeenCalled();
     expect(mockCaptureAmountSelected).toHaveBeenCalled();
@@ -175,7 +176,7 @@ describe('AmountRecipient', () => {
         typeof AmountSelectionMetrics.useAmountSelectionMetrics
       >);
     jest.spyOn(AmountValidation, 'useAmountValidation').mockReturnValue({
-      amountError: messages.insufficientFundsSend.message,
+      amountError: messages.insufficientFundsSend,
     } as unknown as ReturnType<typeof AmountValidation.useAmountValidation>);
     jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
       toResolved: MOCK_ADDRESS,
@@ -200,7 +201,7 @@ describe('AmountRecipient', () => {
 
     await act(async () => {
       fireEvent.click(
-        getByRole('button', { name: messages.insufficientFundsSend.message }),
+        getByRole('button', { name: messages.insufficientFundsSend }),
       );
     });
     expect(mockHandleSubmit).not.toHaveBeenCalled();
@@ -258,9 +259,7 @@ describe('AmountRecipient', () => {
     });
 
     await act(async () => {
-      fireEvent.click(
-        getByRole('button', { name: messages.invalidHexData.message }),
-      );
+      fireEvent.click(getByRole('button', { name: messages.invalidHexData }));
     });
     expect(mockHandleSubmit).not.toHaveBeenCalled();
   });
@@ -302,7 +301,7 @@ describe('AmountRecipient', () => {
     const { getByRole } = render();
 
     const continueButton = getByRole('button', {
-      name: messages.continue.message,
+      name: messages.continue,
     });
     expect(continueButton).toBeDisabled();
 
@@ -385,7 +384,7 @@ describe('AmountRecipient', () => {
 
     expect(mockUseAddressPoisoningDetection).toHaveBeenCalledWith(MOCK_ADDRESS);
     const continueButton = getByRole('button', {
-      name: messages.continue.message,
+      name: messages.continue,
     });
     expect(continueButton).not.toBeDisabled();
 
@@ -440,9 +439,7 @@ describe('AmountRecipient', () => {
     });
 
     expect(mockUseAddressPoisoningDetection).toHaveBeenCalledWith(MOCK_ADDRESS);
-    expect(
-      getByRole('button', { name: messages.continue.message }),
-    ).toBeDisabled();
+    expect(getByRole('button', { name: messages.continue })).toBeDisabled();
   });
 
   describe('send alert modal', () => {
@@ -488,7 +485,7 @@ describe('AmountRecipient', () => {
 
       const { getByText, getByTestId } = render();
 
-      const continueButton = getByText(messages.continue.message);
+      const continueButton = getByText(messages.continue);
       expect(continueButton).not.toBeDisabled();
 
       await act(async () => {
@@ -556,7 +553,7 @@ describe('AmountRecipient', () => {
       const { getByText, getByTestId } = render();
 
       await act(async () => {
-        fireEvent.click(getByText(messages.continue.message));
+        fireEvent.click(getByText(messages.continue));
       });
       await act(async () => {
         fireEvent.click(getByTestId('send-alert-modal-acknowledge-button'));
@@ -597,7 +594,7 @@ describe('AmountRecipient', () => {
       const { findByRole } = render();
 
       expect(
-        await findByRole('button', { name: messages.continue.message }),
+        await findByRole('button', { name: messages.continue }),
       ).toBeDisabled();
     });
 

@@ -22,7 +22,7 @@ import {
 import { addHexPrefix } from 'ethereumjs-util';
 import { isHexString } from '@metamask/utils';
 import { useDispatch } from '../../../store/hooks';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   FormTextField,
   FormTextFieldSize,
@@ -75,7 +75,7 @@ import {
 import { ContactNetworks } from './contact-networks';
 
 export function AddContactForm({ onSuccess }: AddContactFormProps) {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const addressBook = useSelector(getCompleteAddressBook);

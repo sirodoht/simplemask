@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { Text, TextColor, TextVariant } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
   useEnableMetametrics,
@@ -18,7 +19,7 @@ import { SettingsToggleItem } from '../shared/settings-toggle-item';
 import { PRIVACY_ITEMS } from '../search-config';
 
 export const MetametricsToggleItem = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { enableMetametrics, error: enableMetametricsError } =
     useEnableMetametrics();

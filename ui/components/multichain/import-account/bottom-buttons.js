@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Button,
   ButtonSize,
@@ -7,14 +8,14 @@ import {
 } from '@metamask/design-system-react';
 import { Box } from '../../component-library';
 import { Display } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export default function BottomButtons({
   importAccountFunc,
   isPrimaryDisabled,
   onActionComplete,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box display={Display.Flex} gap={4}>

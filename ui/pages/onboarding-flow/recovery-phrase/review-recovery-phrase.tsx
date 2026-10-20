@@ -21,7 +21,7 @@ import {
   TextButton,
   TextButtonSize,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ONBOARDING_CONFIRM_SRP_ROUTE,
   ONBOARDING_METAMETRICS,
@@ -55,7 +55,7 @@ export default function RecoveryPhrase({
   secretRecoveryPhrase,
 }: RecoveryPhraseProps) {
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const firstTimeFlowType = useSelector(getFirstTimeFlowType);
   const hasSeedPhraseBackedUp = useSelector(getSeedPhraseBackedUp);

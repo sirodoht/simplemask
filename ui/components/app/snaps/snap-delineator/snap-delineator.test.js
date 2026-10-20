@@ -1,6 +1,7 @@
+import { render as renderComponent } from '@testing-library/react';
 import React from 'react';
 import { DelineatorType } from '../../../../helpers/constants/snaps';
-import { renderWithLocalization } from '../../../../../test/lib/render-helpers';
+
 import { SnapDelineator } from './snap-delineator';
 
 describe('SnapDelineator', () => {
@@ -11,7 +12,7 @@ describe('SnapDelineator', () => {
   };
 
   it('should render the SnapDelineator with content inside', () => {
-    const { getByText } = renderWithLocalization(<SnapDelineator {...args} />);
+    const { getByText } = renderComponent(<SnapDelineator {...args} />);
 
     expect(getByText(/Content from Test Snap/u)).toBeDefined();
     expect(getByText(args.children)).toBeDefined();
@@ -20,7 +21,7 @@ describe('SnapDelineator', () => {
   it('should render an insight title', () => {
     args.type = DelineatorType.Insights;
 
-    const { getByText } = renderWithLocalization(<SnapDelineator {...args} />);
+    const { getByText } = renderComponent(<SnapDelineator {...args} />);
 
     expect(getByText(/Insights from Test Snap/u)).toBeDefined();
   });
@@ -28,7 +29,7 @@ describe('SnapDelineator', () => {
   it('should render an error title', () => {
     args.type = DelineatorType.Error;
 
-    const { getByText } = renderWithLocalization(<SnapDelineator {...args} />);
+    const { getByText } = renderComponent(<SnapDelineator {...args} />);
 
     expect(getByText(/Error with Test Snap/u)).toBeDefined();
   });

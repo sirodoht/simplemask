@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -13,7 +14,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { TrustSignalDisplayState } from '../../../hooks/useTrustSignals';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export type TrustSignalPillConfig = {
   icon: IconName;
@@ -62,7 +63,7 @@ export const TrustSignalPill = ({
   state,
   testId = 'trust-signal-pill',
 }: TrustSignalPillProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const config = getTrustSignalPillConfig(state, t as (key: string) => string);
 
   if (!config) {

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { ProductTour } from '../../multichain/product-tour-popover';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { clearProductTour } from '../../../store/actions';
 import type { MetaMaskReduxState } from '../../../store/store';
 import { useDispatch } from '../../../store/hooks';
@@ -34,7 +34,7 @@ const accountIconTour = (state: MetaMaskReduxState) =>
 
 export const AccountIconTour = (props: Props) => {
   const { anchorElement } = props;
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const isVisible = useSelector(accountIconTour);
 

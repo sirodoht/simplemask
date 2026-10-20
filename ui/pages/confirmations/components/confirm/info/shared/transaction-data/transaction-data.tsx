@@ -22,7 +22,7 @@ import {
   JustifyContent,
 } from '../../../../../../../helpers/constants/design-system';
 import { Box } from '../../../../../../../components/component-library';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { ConfirmInfoExpandableRow } from '../../../../../../../components/app/confirm/info/row/expandable-row';
 import Preloader from '../../../../../../../components/ui/icon/preloader';
 import {
@@ -133,7 +133,7 @@ export function Container({
   noPadding?: boolean;
   transactionData?: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <>
@@ -155,7 +155,7 @@ export function Container({
 }
 
 function RawDataRow({ transactionData }: { transactionData: string }) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <ConfirmInfoRow label={t('advancedDetailsHexDesc')}>
       <ConfirmInfoRowText
@@ -177,7 +177,7 @@ function FunctionContainer({
   isExpandable: boolean;
   chainId: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const paramRows = (
     <Box paddingLeft={2} data-testid={`advanced-details-${method.name}-params`}>

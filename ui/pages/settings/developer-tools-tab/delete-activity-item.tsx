@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
   MetaMetricsEventCategory,
@@ -10,7 +10,7 @@ import { DEVELOPER_TOOLS_ITEMS } from '../search-config';
 import DeleteActivityModal from './delete-activity-modal';
 
 export const DeleteActivityItem = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 

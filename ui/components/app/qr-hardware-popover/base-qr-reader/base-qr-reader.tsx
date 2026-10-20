@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {
   Box,
   BoxAlignItems,
@@ -16,7 +16,7 @@ import {
   isFirefoxBrowser,
 } from '../../../../../shared/lib/browser-runtime.utils';
 import PageContainerFooter from '../../../ui/page-container/page-container-footer/page-container-footer.component';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   CameraAccessErrorContent,
   CameraAccessErrorContentVariant,
@@ -81,7 +81,7 @@ const BaseQrReader = ({
   setErrorActive,
   setCameraPermissionErrorCode,
 }: BaseQrReaderProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const {

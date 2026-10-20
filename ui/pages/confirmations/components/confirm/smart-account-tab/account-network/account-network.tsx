@@ -20,7 +20,7 @@ import {
   TextVariant,
 } from '../../../../../../helpers/constants/design-system';
 import { getAvatarNetworkColor } from '../../../../../../helpers/utils/accounts';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { EIP7702NetworkConfiguration } from '../../../../hooks/useEIP7702Networks';
 import { useBatchAuthorizationRequests } from '../../../../hooks/useBatchAuthorizationRequests';
 import { useEIP7702Account } from '../../../../hooks/useEIP7702Account';
@@ -32,7 +32,7 @@ export const AccountNetwork = ({
   address: Hex;
   networkConfiguration: EIP7702NetworkConfiguration;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { name, isSupported, upgradeContractAddress, chainIdHex } =
     networkConfiguration;
   const { downgradeAccount, upgradeAccount } = useEIP7702Account({

@@ -1,10 +1,6 @@
 import { SubjectType } from '@metamask/permission-controller';
 import { ApprovalType } from '@metamask/controller-utils';
-import {
-  stripSnapPrefix,
-  getLocalizedSnapManifest,
-  SnapStatus,
-} from '@metamask/snaps-utils';
+import { stripSnapPrefix, SnapStatus } from '@metamask/snaps-utils';
 import { cloneDeep, memoize } from 'lodash';
 import semver from 'semver';
 import { createSelector, lruMemoize } from 'reselect';
@@ -1967,10 +1963,6 @@ export function getSnaps(state) {
   return state.metamask.snaps;
 }
 
-export function getLocale(state) {
-  return state.metamask.currentLocale;
-}
-
 // Parameterized selector with bounded snap ID cache.
 export const getSnap = createParameterizedSelector(20)(
   getSnaps,
@@ -1988,29 +1980,19 @@ export const getSnap = createParameterizedSelector(20)(
  *
  * Deep-equal memo: reduce builds a fresh metadata map; locale/snaps inputs can be new refs.
  */
-export const getSnapsMetadata = createDeepEqualSelector(
-  getLocale,
-  getSnaps,
-  (locale, snaps) => {
-    return Object.values(snaps).reduce((snapsMetadata, snap) => {
-      const snapId = snap.id;
-      const manifest = snap.localizationFiles
-        ? getLocalizedSnapManifest(
-            snap.manifest,
-            locale,
-            snap.localizationFiles,
-          )
-        : snap.manifest;
+export const getSnapsMetadata = createDeepEqualSelector(getSnaps, (snaps) => {
+  return Object.values(snaps).reduce((snapsMetadata, snap) => {
+    const snapId = snap.id;
+    const { manifest } = snap;
 
-      snapsMetadata[snapId] = {
-        name: manifest.proposedName,
-        description: manifest.description,
-        hidden: snap.hidden,
-      };
-      return snapsMetadata;
-    }, {});
-  },
-);
+    snapsMetadata[snapId] = {
+      name: manifest.proposedName,
+      description: manifest.description,
+      hidden: snap.hidden,
+    };
+    return snapsMetadata;
+  }, {});
+});
 
 /**
  * Get a selector that returns the snap metadata (name and description) for a

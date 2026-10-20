@@ -11,7 +11,7 @@ import {
   FontWeight,
 } from '@metamask/design-system-react';
 import ToggleButton from '../../../components/ui/toggle-button';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type SettingProps = {
   value?: boolean;
@@ -34,7 +34,7 @@ export const Setting = ({
   disabled = false,
   enableMarginBottom = true,
 }: SettingProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

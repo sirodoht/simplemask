@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Button,
   Text,
@@ -11,7 +12,7 @@ import {
   TextColor,
   ButtonVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 
 type QuizIntroductionProps = {
   onGetStarted: () => void;
@@ -22,7 +23,7 @@ export function QuizIntroduction({
   onGetStarted,
   onLearnMore,
 }: Readonly<QuizIntroductionProps>) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <>
       <Box

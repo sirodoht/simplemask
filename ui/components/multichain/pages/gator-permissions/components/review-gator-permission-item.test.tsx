@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { TokenApprovalRevocationPermission } from '@metamask/7715-permission-types';
 import { Hex } from '@metamask/utils';
 import {
@@ -281,7 +282,7 @@ describe('Permission List Item', () => {
           );
           expect(
             getByRole('button', {
-              name: messages.gatorPermissionsRevoke.message,
+              name: messages.gatorPermissionsRevoke,
             }),
           ).toBeInTheDocument();
         });
@@ -300,7 +301,7 @@ describe('Permission List Item', () => {
           );
           expect(
             getByRole('button', {
-              name: messages.gatorPermissionsRevoke.message,
+              name: messages.gatorPermissionsRevoke,
             }),
           ).toBeInTheDocument();
         });
@@ -318,7 +319,7 @@ describe('Permission List Item', () => {
             store,
           );
           expect(
-            getByRole('button', { name: messages.remove.message }),
+            getByRole('button', { name: messages.remove }),
           ).toBeInTheDocument();
         });
 
@@ -337,7 +338,7 @@ describe('Permission List Item', () => {
           );
           expect(
             getByRole('button', {
-              name: messages.gatorPermissionsRevocationPending.message,
+              name: messages.gatorPermissionsRevocationPending,
             }),
           ).toBeInTheDocument();
         });
@@ -365,7 +366,7 @@ describe('Permission List Item', () => {
           );
           expect(
             getByRole('button', {
-              name: messages.gatorPermissionsRevocationPending.message,
+              name: messages.gatorPermissionsRevocationPending,
             }),
           ).toBeInTheDocument();
         });

@@ -24,7 +24,7 @@ import {
   TextVariant,
   TextAlign,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { setEditedNetwork, toggleNetworkMenu } from '../../../../store/actions';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../../shared/constants/network';
 import { useDispatch } from '../../../../store/hooks';
@@ -39,7 +39,7 @@ const NetworkListItem = ({
       networkConfiguration.defaultRpcEndpointIndex
     ];
 
-  const t = useI18nContext();
+  const t = getText;
   const [isOpenTooltip, setIsOpenTooltip] = useState(false);
   const dispatch = useDispatch();
 

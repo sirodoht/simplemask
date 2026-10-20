@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { TransactionType } from '@metamask/transaction-controller';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   BannerAlert,
   ButtonLink,
@@ -38,7 +38,7 @@ const selectAlertEnabled = (state: {
 
 export const SmartTransactionsBannerAlert = React.memo(
   ({ marginType = 'default' }: SmartTransactionsBannerAlertProps) => {
-    const t = useI18nContext();
+    const t = getText;
 
     let currentConfirmation;
     try {

@@ -13,7 +13,7 @@ import {
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
 import { SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES } from '../../../../shared/constants/app';
-import { t } from '../../../../shared/lib/translate';
+import { getText as t } from '../../../../shared/lib/text';
 // TODO: Remove restricted import
 // eslint-disable-next-line import-x/no-restricted-paths
 import { IconName } from '../../../../ui/components/component-library/icon';
@@ -275,10 +275,9 @@ export class SnapKeyringImpl implements SnapKeyringCallbacks {
             title: t('snapAccountCreationFailed'),
           },
           {
-            message: t(
-              'snapAccountCreationFailedDescription',
+            message: t('snapAccountCreationFailedDescription', [
               snapName,
-            ) as string,
+            ]) as string,
             learnMoreLink,
             error,
           },
@@ -441,10 +440,9 @@ export class SnapKeyringImpl implements SnapKeyringCallbacks {
               title: t('snapAccountRemovalFailed'),
             },
             {
-              message: t(
-                'snapAccountRemovalFailedDescription',
+              message: t('snapAccountRemovalFailedDescription', [
                 snapName,
-              ) as string,
+              ]) as string,
               learnMoreLink,
               error,
             },

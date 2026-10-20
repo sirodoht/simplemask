@@ -25,7 +25,7 @@ import {
   MetaMetricsEventName,
   MetaMetricsEventCategory,
 } from '../../../../shared/constants/metametrics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { setShowSupportDataConsentModal } from '../../../store/actions';
 import { AccountPicker } from '../account-picker';
 import { GlobalMenuDrawerWithList } from '../global-menu-drawer';
@@ -55,7 +55,7 @@ export const AppHeaderUnlockedContent = ({
   menuRef,
 }: AppHeaderUnlockedContentProps) => {
   const { trackEvent, createEventBuilder } = useAnalytics();
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();

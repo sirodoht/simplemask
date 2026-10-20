@@ -1,21 +1,22 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import '@testing-library/jest-dom';
 import { fireEvent } from '@testing-library/react';
 import thunk from 'redux-thunk';
 import configureMockState from 'redux-mock-store';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { MetaMetricsContext } from '../../contexts/metametrics';
 import { getConsentDecisionMade, getOptedIn } from '../../selectors';
-import { getMessage } from '../../helpers/utils/i18n-helper';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { getText as formatText } from '../../../shared/lib/text';
+
 import mockState from '../../../test/data/mock-state.json';
 import { reloadExtensionFromUi } from '../../helpers/utils/reload-extension-from-ui';
 import ErrorPage from './error-page.component';
 
-jest.mock('../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 jest.mock('../../helpers/utils/reload-extension-from-ui', () => ({
@@ -41,12 +42,6 @@ describe('ErrorPage', () => {
   ) as Error & { code?: string };
   MockError.code = '500';
 
-  const mockI18nContext = jest
-    .fn()
-    .mockReturnValue((key: string, variables: string[]) =>
-      getMessage('en', messages, key, variables),
-    );
-
   beforeEach(() => {
     useSelectorMock.mockImplementation((selector) => {
       if (selector === getConsentDecisionMade) {
@@ -57,7 +52,7 @@ describe('ErrorPage', () => {
       }
       return undefined;
     });
-    (useI18nContext as jest.Mock).mockImplementation(mockI18nContext);
+    (getText as jest.Mock).mockImplementation(formatText);
     jest.useFakeTimers();
   });
 

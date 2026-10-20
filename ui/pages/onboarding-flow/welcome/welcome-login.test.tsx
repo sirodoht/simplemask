@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { fireEvent, waitFor, act } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import * as Environment from '../../../../shared/lib/environment';
 import configureStore from '../../../store/store';
 import WelcomeLogin from './welcome-login';
@@ -25,10 +26,10 @@ describe('Welcome login', () => {
     );
     expect(getByTestId('get-started')).toBeInTheDocument();
 
-    const importButton = getByText(messages.onboardingImportWallet.message);
+    const importButton = getByText(messages.onboardingImportWallet);
     expect(importButton).toBeInTheDocument();
 
-    const createButton = getByText(messages.onboardingCreateWallet.message);
+    const createButton = getByText(messages.onboardingCreateWallet);
     expect(createButton).toBeInTheDocument();
   });
 
@@ -46,7 +47,7 @@ describe('Welcome login', () => {
     );
     expect(getByTestId('get-started')).toBeInTheDocument();
 
-    const importButton = getByText(messages.onboardingImportWallet.message);
+    const importButton = getByText(messages.onboardingImportWallet);
     expect(importButton).toBeInTheDocument();
 
     await act(async () => {
@@ -74,7 +75,7 @@ describe('Welcome login', () => {
       store,
     );
 
-    const importButton = getByText(messages.onboardingSrpImport.message);
+    const importButton = getByText(messages.onboardingSrpImport);
     expect(importButton).toBeInTheDocument();
 
     await act(async () => {

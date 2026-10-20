@@ -16,7 +16,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   Box,
   Button,
@@ -41,7 +41,7 @@ import { hideModal } from '../../../../../store/actions';
 import { useDispatch } from '../../../../../store/hooks';
 
 export const CustomNetworks = React.memo(() => {
-  const t = useI18nContext();
+  const t = getText;
   const [, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const orderedNetworksList = useSelector(getOrderedNetworksList);

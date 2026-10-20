@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 
 import { getApprovedAndSignedTransactions } from '../../../../../selectors';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { useConfirmContext } from '../../../context/confirm';
 import { isCorrectDeveloperTransactionType } from '../../../../../../shared/lib/confirmation.utils';
 import { AlertsName } from '../constants';
 
 export function useSigningOrSubmittingAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
   const { type, chainId, txParams } = (currentConfirmation ?? {}) as
     | TransactionMeta

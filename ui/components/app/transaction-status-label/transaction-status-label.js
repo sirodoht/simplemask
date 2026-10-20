@@ -1,9 +1,10 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import { TransactionStatus } from '@metamask/transaction-controller';
 import Tooltip from '../../ui/tooltip';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { TransactionGroupStatus } from '../../../../shared/constants/transaction';
 
 export const QUEUED_PSEUDO_STATUS = 'queued';
@@ -54,7 +55,7 @@ export default function TransactionStatusLabel({
   label,
   tooltip,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const statusKey = getStatusKey(status, isEarliestNonce);
   const tooltipText = tooltip || error?.rpc?.message || error?.message;
   const statusText = label ?? (statusKey && t(statusKey));

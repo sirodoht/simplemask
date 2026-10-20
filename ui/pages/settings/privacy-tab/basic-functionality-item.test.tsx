@@ -1,9 +1,10 @@
-import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import { CONSENSYS_PRIVACY_LINK } from '../../../../shared/lib/ui-utils';
@@ -50,7 +51,7 @@ describe('BasicFunctionalityToggleItem', () => {
     renderWithProvider(<BasicFunctionalityToggleItem />, mockStore);
 
     expect(
-      screen.getByText(messages.basicConfigurationLabel.message),
+      screen.getByText(messages.basicConfigurationLabel),
     ).toBeInTheDocument();
   });
 
@@ -59,7 +60,7 @@ describe('BasicFunctionalityToggleItem', () => {
     renderWithProvider(<BasicFunctionalityToggleItem />, mockStore);
 
     const link = screen.getByRole('link', {
-      name: messages.privacyMsg.message,
+      name: messages.privacyMsg,
     });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('href', CONSENSYS_PRIVACY_LINK);

@@ -8,7 +8,7 @@ import {
 } from '../../../component-library';
 import Disclosure from '../../../ui/disclosure';
 import { DisclosureVariant } from '../../../ui/disclosure/disclosure.constants';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   Display,
   FontWeight,
@@ -42,7 +42,7 @@ function ReportLink({
   provider?: SecurityProvider;
   onClickSupportLink?: () => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Text marginTop={1} display={Display.Flex}>
       {t('somethingDoesntLookRight', [
@@ -74,7 +74,7 @@ function AlertDetails({
   onClickSupportLink?: () => void;
   provider?: SecurityProvider;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   if (!details) {
     return null;
   }

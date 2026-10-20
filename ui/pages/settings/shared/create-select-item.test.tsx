@@ -1,9 +1,10 @@
-import { screen } from '@testing-library/react';
 import React from 'react';
+import { screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import type { MetaMaskReduxState } from '../../../store/store';
 import { createSelectItem, SelectItemConfig } from './create-select-item';
@@ -33,7 +34,7 @@ describe('createSelectItem', () => {
     const mockStore = createMockStore();
     renderWithProvider(<TestSelectItem />, mockStore);
 
-    expect(screen.getByText(messages.theme.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.theme)).toBeInTheDocument();
   });
 
   it('renders value from selector', () => {
@@ -76,7 +77,7 @@ describe('createSelectItem', () => {
 
     renderWithProvider(<TestSelectWithTranslation />, mockStore);
 
-    expect(screen.getByText(messages.darkTheme.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.darkTheme)).toBeInTheDocument();
   });
 
   it('sets displayName from config name', () => {

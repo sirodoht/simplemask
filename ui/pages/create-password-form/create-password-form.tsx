@@ -17,7 +17,7 @@ import {
   IconColor,
 } from '@metamask/design-system-react';
 import PasswordForm from '../../components/app/password-form/password-form';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import {
   MetaMetricsEventCategory,
@@ -41,7 +41,7 @@ const CreatePasswordForm = ({
   error = false,
   loading = false,
 }: CreatePasswordFormProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const [password, setPassword] = useState('');
   const { value: termsChecked, toggle } = useBoolean();
 

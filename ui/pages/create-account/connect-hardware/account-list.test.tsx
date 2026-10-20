@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import AccountList from './account-list';
 import { LATTICE_HD_PATHS, LEDGER_HD_PATHS, TREZOR_HD_PATHS } from '.';
 
@@ -75,7 +76,7 @@ const render = () => {
 describe('AccountList', () => {
   it('renders AccountList component and shows Select HD path text', () => {
     render();
-    expect(screen.getByText(messages.selectHdPath.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.selectHdPath)).toBeInTheDocument();
   });
 
   it('renders AccountList component and has two accounts selected', () => {

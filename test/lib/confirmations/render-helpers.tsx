@@ -11,8 +11,6 @@ import {
 } from '../../../ui/pages/confirmations/context/confirm';
 import {
   createProviderWrapper,
-  I18nProvider,
-  en,
   renderHookWithProvider,
 } from '../render-helpers-navigate';
 import { DEFAULT_ROUTE } from '../../../ui/helpers/constants/routes';
@@ -71,13 +69,13 @@ function renderWithContext(
 ) {
   const wrapper = ({ children }: { children: React.ReactNode }) => (
     <MetaMaskTestReduxProvider store={store}>
-      <I18nProvider currentLocale="en" current={en} en={en}>
+      <>
         <ConfirmContext.Provider value={contextValue}>
           <>
             <GasFeeModalContextProvider>{children}</GasFeeModalContextProvider>
           </>
         </ConfirmContext.Provider>
-      </I18nProvider>
+      </>
     </MetaMaskTestReduxProvider>
   );
 

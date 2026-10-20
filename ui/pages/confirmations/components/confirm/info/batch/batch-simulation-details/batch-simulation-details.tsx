@@ -16,12 +16,12 @@ import {
 import { useConfirmContext } from '../../../../../context/confirm';
 import { EditSpendingCapModal } from '../../approve/edit-spending-cap-modal/edit-spending-cap-modal';
 import { TokenStandard } from '../../../../../../../../shared/constants/transaction';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { updateAtomicBatchData } from '../../../../../../../store/controller-actions/transaction-controller';
 import { useIsUpgradeTransaction } from '../../hooks/useIsUpgradeTransaction';
 
 export function BatchSimulationDetails() {
-  const t = useI18nContext();
+  const t = getText;
   const { isUpgradeOnly } = useIsUpgradeTransaction();
 
   const { currentConfirmation: transactionMeta } =

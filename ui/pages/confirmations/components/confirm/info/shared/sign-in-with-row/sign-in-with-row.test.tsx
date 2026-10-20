@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { getMockContractInteractionConfirmState } from '../../../../../../../../test/data/confirmations/helper';
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import * as utils from '../../../../../utils';
 import { SigningInWithRow } from './sign-in-with-row';
 
@@ -46,7 +47,7 @@ describe('<TransactionDetails />', () => {
       <SigningInWithRow />,
       mockStore,
     );
-    expect(getByText(messages.signingInWith.message)).toBeInTheDocument();
+    expect(getByText(messages.signingInWith)).toBeInTheDocument();
     expect(getByText('Account 1')).toBeInTheDocument();
     expect(getByText('Wallet 1')).toBeInTheDocument();
   });

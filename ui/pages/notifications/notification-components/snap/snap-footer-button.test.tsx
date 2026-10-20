@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { processNotification } from '@metamask/notification-services-controller/notification-services';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { createMockSnapNotification } from '@metamask/notification-services-controller/notification-services/mocks';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import configureStore from '../../../../store/store';
 import mockState from '../../../../../test/data/mock-state.json';
 import { DEFAULT_ROUTE } from '../../../../helpers/constants/routes';
@@ -88,8 +89,8 @@ describe('SnapFooterButton', () => {
 
     // Confirm Leave
     await waitFor(() => {
-      const leaveModalTitle = getByText(messages.leaveMetaMask.message);
-      const leaveModalButton = getByText(messages.visitSite.message);
+      const leaveModalTitle = getByText(messages.leaveMetaMask);
+      const leaveModalButton = getByText(messages.visitSite);
       expect(leaveModalTitle).toBeInTheDocument();
       expect(leaveModalButton).toBeInTheDocument();
     });

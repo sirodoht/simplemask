@@ -30,7 +30,7 @@ const mockT = ((key: string, args?: string | string[]) => {
   }
 
   return translations[key] || key;
-}) as ReturnType<typeof import('../../../hooks/useI18nContext').useI18nContext>;
+}) as ReturnType<typeof import('../../../helpers/utils/text').getText>;
 
 describe('gas-validations', () => {
   describe('validateGas', () => {

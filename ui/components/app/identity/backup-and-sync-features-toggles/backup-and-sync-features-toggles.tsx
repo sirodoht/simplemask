@@ -15,7 +15,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   selectIsAccountSyncingEnabled,
   selectIsContactSyncingEnabled,
@@ -73,7 +73,7 @@ const FeatureToggle = ({
   isBackupAndSyncUpdateLoading: boolean;
   isBackupAndSyncEnabled: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { setIsBackupAndSyncFeatureEnabled } = useBackupAndSync();
 
@@ -157,7 +157,7 @@ const FeatureToggle = ({
 };
 
 export const BackupAndSyncFeaturesToggles = () => {
-  const t = useI18nContext();
+  const t = getText;
 
   const isBackupAndSyncEnabled = useSelector(selectIsBackupAndSyncEnabled);
   const isBackupAndSyncUpdateLoading = useSelector(

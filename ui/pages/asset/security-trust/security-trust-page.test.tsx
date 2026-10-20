@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import type { TokenSecurityData } from '@metamask/assets-controllers';
 import type { CaipAssetType } from '@metamask/utils';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { SecurityTrustAnalyticsProperty } from '../components/security-trust/security-trust-analytics-properties';
 import { MOCK_ACCOUNT_EOA } from '../../../../test/data/mock-accounts';
@@ -243,7 +244,7 @@ describe('SecurityTrustPage', () => {
     renderWithProvider(<SecurityTrustPage />, createStore());
 
     expect(screen.getByTestId('security-trust-screen')).toBeInTheDocument();
-    expect(screen.getByText(messages.loading.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.loading)).toBeInTheDocument();
   });
 
   it('does not track page viewed while security data is loading', () => {
@@ -354,31 +355,27 @@ describe('SecurityTrustPage', () => {
     renderPage();
 
     expect(
-      screen.getByText(messages.securityTrustVerified.message),
+      screen.getByText(messages.securityTrustVerified),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.securityTrustSubtitleKnown.message),
+      screen.getByText(messages.securityTrustSubtitleKnown),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.securityTrustFeatureVerifiedContract.message),
+      screen.getByText(messages.securityTrustFeatureVerifiedContract),
     ).toBeInTheDocument();
   });
 
   it('renders buy and sell tax with no hidden fees banner', () => {
     renderPage();
 
+    expect(screen.getByText(messages.securityTrustBuyTax)).toBeInTheDocument();
+    expect(screen.getByText(messages.securityTrustSellTax)).toBeInTheDocument();
     expect(
-      screen.getByText(messages.securityTrustBuyTax.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.securityTrustSellTax.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.securityTrustTransfer.message),
+      screen.getByText(messages.securityTrustTransfer),
     ).toBeInTheDocument();
     expect(screen.getAllByText('0.0%').length).toBeGreaterThanOrEqual(2);
     expect(
-      screen.getByText(messages.securityTrustNoHiddenFeesDetected.message),
+      screen.getByText(messages.securityTrustNoHiddenFeesDetected),
     ).toBeInTheDocument();
   });
 
@@ -396,7 +393,7 @@ describe('SecurityTrustPage', () => {
     });
 
     expect(
-      screen.queryByText(messages.securityTrustNoHiddenFeesDetected.message),
+      screen.queryByText(messages.securityTrustNoHiddenFeesDetected),
     ).not.toBeInTheDocument();
   });
 
@@ -415,12 +412,10 @@ describe('SecurityTrustPage', () => {
     expect(
       screen.getByTestId('security-trust-link-explorer'),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.securityTrustWebsite.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.securityTrustWebsite)).toBeInTheDocument();
     expect(screen.getByText('@exampletoken')).toBeInTheDocument();
     expect(
-      screen.getByText(messages.securityTrustTelegram.message),
+      screen.getByText(messages.securityTrustTelegram),
     ).toBeInTheDocument();
   });
 
@@ -460,11 +455,9 @@ describe('SecurityTrustPage', () => {
 
     renderWithProvider(<SecurityTrustPage />, createStore());
 
+    expect(screen.queryByText(messages.loading)).not.toBeInTheDocument();
     expect(
-      screen.queryByText(messages.loading.message),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByText(messages.securityTrustVerified.message),
+      screen.getByText(messages.securityTrustVerified),
     ).toBeInTheDocument();
     expect(useTokenSecurityData).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -478,19 +471,19 @@ describe('SecurityTrustPage', () => {
     renderPage();
 
     expect(
-      screen.getByText(messages.securityTrustTokenDistribution.message),
+      screen.getByText(messages.securityTrustTokenDistribution),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.securityTrustTotalSupply.message),
+      screen.getByText(messages.securityTrustTotalSupply),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.securityTrustTop10Holders.message),
+      screen.getByText(messages.securityTrustTop10Holders),
     ).toBeInTheDocument();
     expect(screen.getByText('35.0%')).toBeInTheDocument();
     expect(
-      screen.getByText(messages.securityTrustTokenInfo.message),
+      screen.getByText(messages.securityTrustTokenInfo),
     ).toBeInTheDocument();
-    expect(screen.getByText(messages.network.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.network)).toBeInTheDocument();
     expect(screen.getByText('ERC-20')).toBeInTheDocument();
   });
 });

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { fireEvent } from '@testing-library/react';
@@ -7,7 +8,7 @@ import { KeyringTypes } from '@metamask/keyring-controller';
 import type { AccountGroupId, AccountWalletId } from '@metamask/account-api';
 
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import mockState from '../../../../../test/data/mock-state.json';
 import { FirstTimeFlowType } from '../../../../../shared/constants/onboarding';
 import { SrpCard } from './srp-card';
@@ -83,19 +84,15 @@ describe('SrpCard', () => {
   it('renders the secret recovery phrases card', () => {
     const { getByText } = render(false);
     expect(
-      getByText(messages.srpListName.message.replace('$1', '1')),
+      getByText(messages.srpListName.replace('$1', '1')),
     ).toBeInTheDocument();
   });
 
   it('shows/hides accounts when clicking show/hide text', () => {
     const { getByText } = render(false);
-    const showAccountsButton = getByText(
-      messages.SrpListShowSingleAccount.message,
-    );
+    const showAccountsButton = getByText(messages.SrpListShowSingleAccount);
     fireEvent.click(showAccountsButton);
-    expect(
-      getByText(messages.SrpListHideSingleAccount.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.SrpListHideSingleAccount)).toBeInTheDocument();
   });
 
   it('calls onActionComplete when clicking a keyring', () => {
@@ -111,7 +108,7 @@ describe('SrpCard', () => {
   it('renders expanded account rows on settings page', () => {
     const { getByText } = render(false, { isSettingsPage: true });
 
-    fireEvent.click(getByText(messages.SrpListShowSingleAccount.message));
+    fireEvent.click(getByText(messages.SrpListShowSingleAccount));
 
     expect(getByText('Mock Account 1')).toBeInTheDocument();
   });

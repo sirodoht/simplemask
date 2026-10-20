@@ -105,11 +105,14 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 
 ## English-only interface
 
-- [x] Default to English regardless of browser language and migrate saved locale preferences to English. Wallet data and other preferences are preserved.
-- [x] Remove 55 redundant/translated catalogs, leaving only `app/_locales/en/messages.json`, and remove language selectors from onboarding and settings.
-- [ ] Validate the English-only Chrome and Firefox builds and restoration flow.
+- [x] Remove all language catalogs and language selectors from onboarding, settings, and Storybook.
+- [x] Remove locale detection, preference state and APIs, Redux locale state, React translation providers/hooks, runtime message fetching, and translation validation/setup.
+- [x] Remove browser `__MSG_` tokens, `default_locale`, locale copying, and startup message-file preloads. Extension manifests and loading CSS contain English directly.
+- [x] Migrate saved language preferences away while preserving wallet data and other settings.
+- [x] Remove the obsolete translation-check dependency, test wrappers, fixture locale fields, and validation-only text calls. Remove the unused non-EVM aggregate-balance component found during the audit.
+- [ ] Validate the final Chrome and Firefox builds, restoration flow, and affected tests after removing the infrastructure.
 
-The English message catalog remains the source of UI copy and parameterized messages. Storybook uses the same catalog. `yarn verify-locales` checks English keys and substitutions and rejects any additional locale folders; translation comparison tools and the translation guide have been removed.
+English product copy lives in `shared/constants/english-text.ts` as plain strings. Small text-formatting functions insert values and React content into that copy; they have no language selection, locale catalogs, fallback language, fetch, provider, or setup. Native `Intl` APIs still format English numbers and dates. External service APIs that require a language receive the fixed value `en`.
 
 ## Repository cleanup and legacy audit
 

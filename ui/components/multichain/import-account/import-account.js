@@ -19,7 +19,7 @@ import {
   TextVariant,
 } from '../../../helpers/constants/design-system';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import * as actions from '../../../store/actions';
 import { useDispatch } from '../../../store/hooks';
 import { getHDEntropyIndex } from '../../../selectors/selectors';
@@ -30,7 +30,7 @@ import JsonImportView from './json';
 import PrivateKeyImportView from './private-key';
 
 export const ImportAccount = ({ onActionComplete }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const hdEntropyIndex = useSelector(getHDEntropyIndex);
@@ -128,7 +128,7 @@ export const ImportAccount = ({ onActionComplete }) => {
    * `t('importAccountErrorNotHexadecimal')`
    * `t('importAccountErrorIsSRP')`
    * `t('importAccountErrorNotAValidPrivateKey')`
-   * and feeds it through useI18nContext
+   * and feeds it through getText
    */
   function translateWarning(message) {
     if (message && !message.startsWith('t(')) {
@@ -144,7 +144,7 @@ export const ImportAccount = ({ onActionComplete }) => {
 
   function handleKeyringControllerError(error) {
     // This is not the best way to handle error messages coming from the KeyringController.
-    // We should have a mapping that allows us to map error codes to i18n messages.
+    // We should have a mapping that allows us to map error codes to English texts.
     // However, for now, we will just check if the error message starts with
     // 'KeyringController -' and if so, we will trim that part and translate
     // the rest of the message.

@@ -1,9 +1,10 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
@@ -77,7 +78,7 @@ describe('MetametricsToggleItem', () => {
     renderWithProvider(<MetametricsToggleItem />, mockStore);
 
     expect(
-      screen.getByText(messages.participateInMetaMetrics.message),
+      screen.getByText(messages.participateInMetaMetrics),
     ).toBeInTheDocument();
   });
 
@@ -86,7 +87,7 @@ describe('MetametricsToggleItem', () => {
     renderWithProvider(<MetametricsToggleItem />, mockStore);
 
     expect(
-      screen.getByText(messages.participateInMetaMetricsDescription.message),
+      screen.getByText(messages.participateInMetaMetricsDescription),
     ).toBeInTheDocument();
   });
 

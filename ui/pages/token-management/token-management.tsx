@@ -38,7 +38,7 @@ import {
 import { getNativeTokenAddress } from '@metamask/assets-controllers';
 import { ERC20 } from '@metamask/controller-utils';
 import { TokenManagementCell } from '../../components/multichain/token-management-cell';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   getNativeCurrencyForChain,
   getShouldHideZeroBalanceTokens,
@@ -389,7 +389,7 @@ const getImportedTokensWithoutBalances = ({
 };
 
 export const TokenManagementPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const runCloseTransition = useGlobalMenuRouteTransition();

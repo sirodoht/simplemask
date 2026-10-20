@@ -23,7 +23,7 @@ import {
   Page,
 } from '../../../components/multichain/pages/page';
 import { TextVariant } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MultichainPrivateKeyList } from '../../../components/multichain-accounts/multichain-private-key-list';
 import { getMultichainAccountGroupById } from '../../../selectors/multichain-accounts/account-tree';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
@@ -36,7 +36,7 @@ type MultichainAccountPrivateKeyListPageProps = {
 export const MultichainAccountPrivateKeyListPage = ({
   location: propsLocation,
 }: MultichainAccountPrivateKeyListPageProps = {}) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const hookLocation = useLocation();
 

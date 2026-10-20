@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { TransactionStatus } from '@metamask/transaction-controller';
 import { TransactionGroupStatus } from '../../../../shared/constants/transaction';
 import TransactionStatusLabel, { getStatusKey } from '.';
 
-// Mock the useI18nContext hook
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key) => key,
+// Mock the getText hook
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key) => key,
 }));
 
 // Mock the Tooltip component

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import * as browserRuntime from '../../../../shared/lib/browser-runtime.utils';
@@ -7,7 +8,7 @@ import {
   PLATFORM_FIREFOX,
 } from '../../../../shared/constants/app';
 import { TEST_SEED_PHRASE } from '../../../../test/e2e/constants';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import SrpInputImport from './srp-input-import';
 
 const mockPermissionsRequest = jest.fn().mockResolvedValue(true);
@@ -237,13 +238,13 @@ describe('SrpInputImport', () => {
 
     await waitFor(() => {
       expect(
-        getByText(messages.onboardingSrpInputClearAll.message),
+        getByText(messages.onboardingSrpInputClearAll),
       ).toBeInTheDocument();
     });
 
     expect(onClearClipboardRetry).not.toHaveBeenCalled();
 
-    fireEvent.click(getByText(messages.onboardingSrpInputClearAll.message));
+    fireEvent.click(getByText(messages.onboardingSrpInputClearAll));
 
     expect(onClearClipboardRetry).toHaveBeenCalledTimes(1);
   });

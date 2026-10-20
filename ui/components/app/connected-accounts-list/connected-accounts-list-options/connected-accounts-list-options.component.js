@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useCallback, useState } from 'react';
 import { Menu } from '../../../ui/menu';
 import { IconName, ButtonIcon } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 const ConnectedAccountsListOptions = ({
   children,
@@ -14,7 +14,7 @@ const ConnectedAccountsListOptions = ({
   const setAnchorRef = useCallback((node) => {
     setAnchorElement(node);
   }, []);
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <div ref={setAnchorRef}>

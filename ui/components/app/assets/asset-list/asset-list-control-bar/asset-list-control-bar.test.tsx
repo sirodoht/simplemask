@@ -3,8 +3,8 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import type { NetworkConfiguration } from '@metamask/network-controller';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../../test/data/mock-state.json';
 import * as actions from '../../../../../store/actions';
@@ -154,7 +154,7 @@ describe('AssetListControlBar', () => {
 
     const manageTokensButton = await findByTestId('manageTokens__button');
 
-    expect(manageTokensButton).toHaveTextContent(messages.manageTokens.message);
+    expect(manageTokensButton).toHaveTextContent(messages.manageTokens);
     expect(queryByTestId('importTokens__button')).not.toBeInTheDocument();
 
     fireEvent.click(manageTokensButton);
@@ -193,12 +193,12 @@ describe('AssetListControlBar', () => {
     const { findByTestId } = renderWithProvider(<AssetListControlBar />, store);
 
     const networkFilterButton = await findByTestId('sort-by-networks');
-    expect(networkFilterButton).toHaveTextContent(messages.allNetworks.message);
+    expect(networkFilterButton).toHaveTextContent(messages.allNetworks);
 
     fireEvent.click(networkFilterButton);
     expect(
       await findByTestId('home-network-filter-all-default'),
-    ).toHaveTextContent(messages.allNetworks.message);
+    ).toHaveTextContent(messages.allNetworks);
   });
 
   it('labels selected default networks as All default networks when custom networks exist', async () => {
@@ -232,14 +232,12 @@ describe('AssetListControlBar', () => {
     const { findByTestId } = renderWithProvider(<AssetListControlBar />, store);
 
     const networkFilterButton = await findByTestId('sort-by-networks');
-    expect(networkFilterButton).toHaveTextContent(
-      messages.allDefaultNetworks.message,
-    );
+    expect(networkFilterButton).toHaveTextContent(messages.allDefaultNetworks);
 
     fireEvent.click(networkFilterButton);
     expect(
       await findByTestId('home-network-filter-all-default'),
-    ).toHaveTextContent(messages.allDefaultNetworks.message);
+    ).toHaveTextContent(messages.allDefaultNetworks);
   });
 
   it('calls onNetworkSelect with CAIP IDs when one network is enabled', async () => {
@@ -262,7 +260,7 @@ describe('AssetListControlBar', () => {
     );
   });
 
-  it('falls back to all popular networks when a hardware wallet has an unsupported network filter', async () => {
+  it('ignores a retired non-EVM filter for a hardware wallet', async () => {
     setBackgroundConnection(backgroundConnectionMock as never);
     const enableAllPopularNetworksSpy = jest.spyOn(
       actions,
@@ -279,10 +277,12 @@ describe('AssetListControlBar', () => {
 
     renderWithProvider(<AssetListControlBar />, store);
 
-    await waitFor(() => expect(enableAllPopularNetworksSpy).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(enableAllPopularNetworksSpy).not.toHaveBeenCalled(),
+    );
   });
 
-  it('falls back to all popular networks when a non-hardware EVM-only account has an unsupported network filter', async () => {
+  it('ignores a retired non-EVM filter for an EVM account', async () => {
     const enableAllPopularNetworksSpy = jest.spyOn(
       actions,
       'setEnabledAllPopularNetworks',
@@ -297,7 +297,9 @@ describe('AssetListControlBar', () => {
 
     renderWithProvider(<AssetListControlBar />, store);
 
-    await waitFor(() => expect(enableAllPopularNetworksSpy).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(enableAllPopularNetworksSpy).not.toHaveBeenCalled(),
+    );
   });
 
   it('does not broaden an unsupported network filter when the selected account group supports that network', async () => {
@@ -340,7 +342,7 @@ describe('AssetListControlBar', () => {
       (
         await findByTestId(`home-network-filter-network-${SOLANA_CHAIN_ID}`)
       ).querySelector(
-        `[data-title="${messages.networkNotSupportedByThisAccount.message}"]`,
+        `[data-title="${messages.networkNotSupportedByThisAccount}"]`,
       ),
     ).toBeInTheDocument();
   });
@@ -386,7 +388,7 @@ describe('AssetListControlBar', () => {
     fireEvent.click(await findByTestId('asset-list-control-bar-action-button'));
 
     const refreshListButton = await findByTestId('refreshList__button');
-    expect(refreshListButton).toHaveTextContent(messages.refreshList.message);
+    expect(refreshListButton).toHaveTextContent(messages.refreshList);
     expect(await findByTestId('manageTokens__button')).toBeInTheDocument();
   });
 
@@ -441,7 +443,7 @@ describe('AssetListControlBar', () => {
     fireEvent.click(actionButton);
 
     const refreshListButton = await findByTestId('refreshList__button');
-    expect(refreshListButton).toHaveTextContent(messages.refreshList.message);
+    expect(refreshListButton).toHaveTextContent(messages.refreshList);
     expect(queryByTestId('manageTokens__button')).not.toBeInTheDocument();
 
     fireEvent.click(refreshListButton);

@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Box, BoxJustifyContent } from '@metamask/design-system-react';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import { getUseExternalServices } from '../../../selectors';
 import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/accounts';
 import { getSelectedAccountGroup } from '../../../selectors/multichain-accounts/account-tree';
@@ -46,7 +46,7 @@ const TokenButtons = ({
   isMarketClosed?: boolean;
 }) => {
   const dispatch = useDispatch();
-  const t = useContext(I18nContext);
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const navigate = useNavigate();
   const isExternalServicesEnabled = useSelector(getUseExternalServices);

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { IconName } from '@metamask/design-system-react';
 import { MenuItem } from '../../ui/menu';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
   MetaMetricsEventCategory,
@@ -20,7 +20,7 @@ export const AccountDetailsMenuItem = ({
   closeMenu,
   textProps,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const accountGroupId = useSelector(getSelectedAccountGroup);
   const hdEntropyIndex = useSelector(getHDEntropyIndex);

@@ -11,7 +11,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useGasFeeEstimates } from '../../../../hooks/useGasFeeEstimates';
 import { useConfirmContext } from '../../context/confirm';
 import {
@@ -31,7 +31,7 @@ export const MaxBaseFeeInput = ({
   onChange: (value: Hex) => void;
   onErrorChange: (error: string | undefined) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   const initialMaxBaseFee = hexWEIToDecGWEI(

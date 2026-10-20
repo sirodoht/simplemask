@@ -13,7 +13,7 @@ import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
 } from '../../../shared/constants/metametrics';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useMetamaskNotificationsContext } from '../../contexts/metamask-notifications/metamask-notifications';
 import {
   NotificationsSettingsBox,
@@ -71,7 +71,7 @@ const WalletActivitySectionContent = ({
   notificationAccountGroups,
   accountSettingsProps,
 }: SectionContentProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { listNotifications } = useMetamaskNotificationsContext();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { onChange: switchAccountNotifications, error: accountToggleError } =
@@ -373,7 +373,7 @@ export function NotificationSettingsSection({
   accountSettingsProps,
   updatePreference,
 }: NotificationSettingsSectionProps) {
-  const t = useI18nContext();
+  const t = getText;
   const { listNotifications } = useMetamaskNotificationsContext();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [preferenceError, setPreferenceError] = useSafeState<string | null>(

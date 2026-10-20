@@ -1,13 +1,13 @@
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { QrErrorType, QrErrorFlowContext } from './qr-error-content.types';
 
 /**
- * Translate function returned by `useI18nContext`.
+ * Translate function returned by `getText`.
  */
-type TranslateFn = ReturnType<typeof useI18nContext>;
+type TranslateFn = typeof getText;
 
 /**
- * Resolves the localized title and body for the given error and flow combination.
+ * Resolves the English title and body for the given error and flow combination.
  *
  * `UrDecodeError` ignores `flowContext` because its copy is universal.
  *

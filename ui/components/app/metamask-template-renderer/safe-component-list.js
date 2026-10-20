@@ -59,7 +59,7 @@ import {
 } from '../../../pages/remove-snap-account';
 import { SnapAccountRedirect } from '../../../pages/snap-account-redirect';
 import SnapAuthorshipHeader from '../snaps/snap-authorship-header';
-import MetaMaskTranslation from '../metamask-translation/metamask-translation';
+import TemplateText from '../template-text/template-text';
 import { Skeleton } from '../../component-library/skeleton';
 import { Delineator } from '../../ui/delineator';
 
@@ -126,6 +126,6 @@ export const safeComponentList = {
   SnapAccountRedirect,
   SnapAccountSuccessMessage,
   SnapAuthorshipHeader,
-  MetaMaskTranslation,
+  TemplateText,
   Delineator,
 };

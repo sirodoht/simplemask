@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import { RpcEndpointType } from '@metamask/network-controller';
 import { SolScope } from '@metamask/keyring-api';
 import { NetworkEnablementControllerState } from '@metamask/network-enablement-controller';
 import { useLocation } from 'react-router-dom';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
 import { SOLANA_WALLET_SNAP_ID } from '../../../../shared/lib/accounts';
@@ -253,17 +254,11 @@ describe('NetworkManager Component', () => {
     renderNetworkManager();
 
     // Verify tabs are rendered
-    expect(
-      screen.getByText(messages.networkTabPopular.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.networkTabCustom.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.networkTabPopular)).toBeInTheDocument();
+    expect(screen.getByText(messages.networkTabCustom)).toBeInTheDocument();
 
     // Verify default tab content is rendered
-    expect(
-      screen.getByText(messages.allPopularNetworks.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.allPopularNetworks)).toBeInTheDocument();
     expect(screen.getByText('Arbitrum')).toBeInTheDocument();
     expect(screen.getByText('Optimism')).toBeInTheDocument();
     expect(screen.getByText('Avalanche')).toBeInTheDocument();
@@ -272,9 +267,7 @@ describe('NetworkManager Component', () => {
 
   it('should render popular networks tab when non-EVM popular network is selected', () => {
     renderNetworkManagerWithNonEvmNetworkSelected();
-    expect(
-      screen.queryByText(messages.allPopularNetworks.message),
-    ).toBeInTheDocument();
+    expect(screen.queryByText(messages.allPopularNetworks)).toBeInTheDocument();
   });
   it('keeps EVM popular networks when stale non-EVM devnet state exists', () => {
     renderNetworkManagerWithNonEvmNetworkSelected({
@@ -285,9 +278,7 @@ describe('NetworkManager Component', () => {
       },
     });
 
-    expect(
-      screen.queryByText(messages.allPopularNetworks.message),
-    ).toBeInTheDocument();
+    expect(screen.queryByText(messages.allPopularNetworks)).toBeInTheDocument();
     expect(screen.getByText('Arbitrum')).toBeInTheDocument();
   });
 
@@ -295,20 +286,14 @@ describe('NetworkManager Component', () => {
     renderNetworkManager();
 
     // Verify that Default tab is active by default
-    expect(
-      screen.getByText(messages.networkTabPopular.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.allPopularNetworks.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.networkTabPopular)).toBeInTheDocument();
+    expect(screen.getByText(messages.allPopularNetworks)).toBeInTheDocument();
 
     // Click on Custom tab
-    fireEvent.click(screen.getByText(messages.networkTabCustom.message));
+    fireEvent.click(screen.getByText(messages.networkTabCustom));
 
     // Verify Custom tab content is rendered
-    expect(
-      screen.getByText(messages.addCustomNetwork.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.addCustomNetwork)).toBeInTheDocument();
   });
 
   it('keeps the current route when dismissed outside from token management', () => {
@@ -330,8 +315,8 @@ describe('NetworkManager Component', () => {
     fireEvent.change(screen.getByTestId('rpc-url-input-test'), {
       target: { value: 'https://new-rpc.example.com' },
     });
-    fireEvent.click(screen.getByText(messages.addUrl.message));
-    expect(screen.getByText(messages.addNetwork.message)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(messages.addUrl));
+    expect(screen.getByText(messages.addNetwork)).toBeInTheDocument();
   });
 
   it('submitting a new RPC URL from edit-rpc view switches to edit view', async () => {
@@ -339,8 +324,8 @@ describe('NetworkManager Component', () => {
     fireEvent.change(screen.getByTestId('rpc-url-input-test'), {
       target: { value: 'https://new-rpc.example.com' },
     });
-    fireEvent.click(screen.getByText(messages.addUrl.message));
-    expect(screen.getByText(messages.editNetwork.message)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(messages.addUrl));
+    expect(screen.getByText(messages.editNetwork)).toBeInTheDocument();
   });
 
   it('submitting a block explorer URL from add-explorer-url view switches to add view', async () => {
@@ -348,8 +333,8 @@ describe('NetworkManager Component', () => {
     fireEvent.change(screen.getByTestId('explorer-url-input'), {
       target: { value: 'https://explorer.example.com' },
     });
-    fireEvent.click(screen.getByText(messages.addUrl.message));
-    expect(screen.getByText(messages.addNetwork.message)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(messages.addUrl));
+    expect(screen.getByText(messages.addNetwork)).toBeInTheDocument();
   });
 
   it('submitting a block explorer URL from edit-explorer-url view switches to edit view', async () => {
@@ -357,7 +342,7 @@ describe('NetworkManager Component', () => {
     fireEvent.change(screen.getByTestId('explorer-url-input'), {
       target: { value: 'https://explorer.example.com' },
     });
-    fireEvent.click(screen.getByText(messages.addUrl.message));
-    expect(screen.getByText(messages.editNetwork.message)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(messages.addUrl));
+    expect(screen.getByText(messages.editNetwork)).toBeInTheDocument();
   });
 });

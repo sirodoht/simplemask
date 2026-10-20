@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -13,7 +14,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getIsPrimarySeedPhraseBackedUp } from '../../../ducks/metamask/metamask';
 import { transitionForward } from '../../../components/ui/transition';
 import { SECURITY_ITEMS } from '../search-config';
@@ -23,7 +24,7 @@ type ManageWalletRecoveryItemProps = {
 };
 
 const ManageWalletRecoveryItem = ({ route }: ManageWalletRecoveryItemProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const isSRPBackedUp = useSelector(getIsPrimarySeedPhraseBackedUp);
 

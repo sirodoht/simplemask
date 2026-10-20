@@ -1,10 +1,11 @@
-import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
+
 import configureMockState from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { MetaMetricsContext } from '../../../../contexts/metametrics';
 import HoldToRevealModal from '.';
 
@@ -41,28 +42,28 @@ describe('Hold to Reveal Modal', () => {
   it('should render the srp warning text and button', () => {
     const { getByText } = render();
 
-    const holdButton = getByText(messages.holdToRevealSRP.message);
+    const holdButton = getByText(messages.holdToRevealSRP);
     expect(holdButton).toBeInTheDocument();
 
-    const warningTitle = getByText(messages.holdToRevealSRPTitle.message);
+    const warningTitle = getByText(messages.holdToRevealSRPTitle);
     expect(warningTitle).toBeInTheDocument();
     const warningText1 = getByText(
-      messages.holdToRevealContent1.message.replace(' $1', ''),
+      messages.holdToRevealContent1.replace(' $1', ''),
     );
     expect(warningText1).toBeInTheDocument();
 
-    const warningText2 = getByText(messages.holdToRevealContent2.message);
+    const warningText2 = getByText(messages.holdToRevealContent2);
     expect(warningText2).toBeInTheDocument();
 
     const warningText3 = getByText(
-      messages.holdToRevealContent3.message.replace(' $1 $2', ''),
+      messages.holdToRevealContent3.replace(' $1 $2', ''),
     );
     expect(warningText3).toBeInTheDocument();
 
-    const warningText4 = getByText(messages.holdToRevealContent4.message);
+    const warningText4 = getByText(messages.holdToRevealContent4);
     expect(warningText4).toBeInTheDocument();
 
-    const warningText5 = getByText(messages.holdToRevealContent5.message);
+    const warningText5 = getByText(messages.holdToRevealContent5);
     expect(warningText5).toBeInTheDocument();
 
     fireEvent.click(holdButton);
@@ -77,17 +78,13 @@ describe('Hold to Reveal Modal', () => {
   it('should should execute onLongPressed after long press', async () => {
     const { getByText, queryByLabelText } = render();
 
-    const holdButton = getByText(messages.holdToRevealSRP.message);
-    const circleLocked = queryByLabelText(
-      messages.holdToRevealLockedLabel.message,
-    );
+    const holdButton = getByText(messages.holdToRevealSRP);
+    const circleLocked = queryByLabelText(messages.holdToRevealLockedLabel);
 
     fireEvent.pointerDown(holdButton);
     fireEvent.transitionEnd(circleLocked);
 
-    const circleUnlocked = queryByLabelText(
-      messages.holdToRevealUnlockedLabel.message,
-    );
+    const circleUnlocked = queryByLabelText(messages.holdToRevealUnlockedLabel);
     fireEvent.animationEnd(circleUnlocked);
 
     await waitFor(() => {
@@ -101,16 +98,12 @@ describe('Hold to Reveal Modal', () => {
   it('should remain open if long pressed was not complete', async () => {
     const { getByText, queryByLabelText } = render();
 
-    const holdButton = getByText(messages.holdToRevealSRP.message);
+    const holdButton = getByText(messages.holdToRevealSRP);
 
     fireEvent.click(holdButton);
 
-    const circleLocked = queryByLabelText(
-      messages.holdToRevealLockedLabel.message,
-    );
-    const circleUnlocked = queryByLabelText(
-      messages.holdToRevealUnlockedLabel.message,
-    );
+    const circleLocked = queryByLabelText(messages.holdToRevealLockedLabel);
+    const circleUnlocked = queryByLabelText(messages.holdToRevealUnlockedLabel);
 
     await waitFor(() => {
       expect(circleLocked).toBeInTheDocument();
@@ -123,7 +116,7 @@ describe('Hold to Reveal Modal', () => {
   it('should render in Private Key mode', async () => {
     const { getByText } = render('PrivateKey');
 
-    const holdButton = getByText(messages.holdToRevealPrivateKey.message);
+    const holdButton = getByText(messages.holdToRevealPrivateKey);
     expect(holdButton).toBeInTheDocument();
   });
 });

@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { Box, BoxFlexDirection } from '@metamask/design-system-react';
 import {
   Display,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   Button,
   ButtonSize,
@@ -32,7 +33,7 @@ export default function HoldToRevealModal({
   onLongPressed,
   holdToRevealType,
 }: HoldToRevealModalProps) {
-  const t = useI18nContext();
+  const t = getText;
   const holdToRevealTitle =
     holdToRevealType === 'SRP'
       ? 'holdToRevealSRPTitle'
@@ -46,15 +47,8 @@ export default function HoldToRevealModal({
       ? 'holdToRevealContent'
       : 'holdToRevealContentPrivateKey';
 
-  // If this is done inline, verify-locales will output `Forbidden use of template strings in 't' function`
   const holdToRevealContent1 = `${holdToRevealContent}1`;
   const holdToRevealContent2 = `${holdToRevealContent}2`;
-
-  // This is here to stop yarn verify-locales from removing these strings
-  t('holdToRevealContentPrivateKey1');
-  t('holdToRevealContentPrivateKey2');
-  t('holdToRevealContent1');
-  t('holdToRevealContent2');
 
   const MainContent = () => {
     return (

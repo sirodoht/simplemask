@@ -4,7 +4,7 @@ import {
   type TransactionMeta,
 } from '@metamask/transaction-controller';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { updateTransactionGasFees } from '../../../../store/actions/update-transaction-gas-fees';
 import { type GasOption } from '../../types/gas';
 import { EMPTY_VALUE_STRING } from '../../constants/gas';
@@ -23,7 +23,7 @@ export const useDappSuggestedGasFeeOption = ({
 }: {
   handleCloseModals: () => void;
 }): GasOption[] => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
   const nativeTicker = useTransactionNativeTicker();

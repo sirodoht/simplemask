@@ -33,7 +33,7 @@ import {
   getSelectedAccount,
   getShouldShowFiat,
 } from '../../../selectors';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useTransactionModalContext } from '../../../contexts/transaction-modal';
 import { isBalanceSufficient } from '../send-utils/send.utils';
 import {
@@ -61,7 +61,7 @@ type EditGasButtonProps = {
 };
 
 const EditGasButton = ({ onClick }: EditGasButtonProps) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <ButtonIcon
       size={ButtonIconSize.Sm}
@@ -89,7 +89,7 @@ const NetworkFeeRow = ({
   onEdit,
   chainId,
 }: NetworkFeeRowProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const networkConfiguration = useSelector(
     (state: NetworkConfigurationsByChainIdState) =>
@@ -164,7 +164,7 @@ const SpeedRow = ({
   maxPriorityFeePerGas,
   userFeeLevelOverride,
 }: SpeedRowProps) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <ConfirmInfoRow label={t('speed')} data-testid="gas-fee-details-speed">
       <Box alignItems={BoxAlignItems.Center} className="flex">
@@ -216,7 +216,7 @@ const GasFeesSection = ({ transaction }: GasFeesSectionProps) => {
 };
 
 const DescriptionSection = ({ isCancel }: { isCancel: boolean }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box marginTop={4}>
       <Text
@@ -241,7 +241,7 @@ const ConfirmButton = ({
   disabled?: boolean;
   hasInsufficientBalance?: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Button
       variant={ButtonVariant.Primary}
@@ -291,7 +291,7 @@ const CancelSpeedupModal = ({
   speedUpTransaction,
   submitTransaction,
 }: CancelSpeedupModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const isCancel = mode === EditGasModes.cancel;
 
   const selectedAccount = useSelector(getSelectedAccount);

@@ -14,7 +14,7 @@ import {
 import { useCopyToClipboard } from '../../../../hooks/useCopyToClipboard';
 import { SensitiveClipboardCleanup } from '../../../ui/sensitive-clipboard-cleanup/sensitive-clipboard-cleanup';
 import { Icon, IconName, Box, Text } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import Tooltip from '../../../ui/tooltip';
 import { ShowMore } from '../show-more';
 import { SECOND } from '../../../../../shared/constants/time';
@@ -26,7 +26,7 @@ export const Copyable = ({
   marginTop,
   marginBottom,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   // useCopyToClipboard analysis: Could be sensitive or non-sensitive, so the param decides
   const [, handleCopy, , sensitiveClipboard] = useCopyToClipboard(

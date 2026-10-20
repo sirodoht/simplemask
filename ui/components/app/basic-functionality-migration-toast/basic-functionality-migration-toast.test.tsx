@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -103,7 +104,7 @@ describe('BasicFunctionalityMigrationToast', () => {
     ).toHaveTextContent("It's turned on based on your previous settings.");
     expect(
       getByRole('link', {
-        name: messages.basicFunctionalityMigrationToastLearnMore.message,
+        name: messages.basicFunctionalityMigrationToastLearnMore,
       }),
     ).toHaveAttribute('href', BASIC_FUNCTIONALITY_MIGRATION_BLOG_POST_LINK);
   });
@@ -237,7 +238,7 @@ describe('BasicFunctionalityMigrationToast', () => {
 
     fireEvent.click(
       getByRole('button', {
-        name: messages.close.message,
+        name: messages.close,
       }),
     );
 

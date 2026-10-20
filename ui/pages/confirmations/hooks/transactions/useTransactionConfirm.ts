@@ -20,12 +20,12 @@ import {
 import { useSendBundleHwNavigation } from '../../../../hooks/hardware-wallets/useSendBundleHwNavigation';
 import { useDispatch } from '../../../../store/hooks';
 import { useIsHardwareWalletAccount } from '../../../../hooks/useIsHardwareWalletAccount';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useTransactionPayingAccount } from './useTransactionPayingAccount';
 
 export function useTransactionConfirm() {
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
   const { showErrorModal } = useHardwareWalletError();
   const customNonceValue = useSelector(getCustomNonceValue);
   const selectedGasFeeToken = useSelectedGasFeeToken();

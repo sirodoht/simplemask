@@ -7,7 +7,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getIsSeedlessOnboardingFeatureEnabled } from '../../../../shared/lib/environment';
 import { ThemeType } from '../../../../shared/constants/preferences';
 import { setTermsOfUseLastAgreed } from '../../../store/actions';
@@ -26,7 +26,7 @@ export default function WelcomeLogin({
   isAnimationComplete: boolean;
   skipTransition?: boolean;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const isSeedlessOnboardingFeatureEnabled =
     getIsSeedlessOnboardingFeatureEnabled();
   const dispatch = useDispatch();

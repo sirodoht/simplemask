@@ -15,7 +15,7 @@ import {
   selectNetworkConfigurationByChainId,
   type NetworkConfigurationsByChainIdState,
 } from '../../../../../shared/lib/selectors/networks';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useConfirmContext } from '../../context/confirm';
 import { PAY_TRANSACTION_TYPES } from '../../constants/pay';
 import { SignatureRequestType } from '../../types/confirm';
@@ -23,7 +23,7 @@ import { SignatureRequestType } from '../../types/confirm';
 const CHANGE_THRESHOLD_MS = 60 * 1000; // 1 Minute
 
 export const useNetworkAndOriginSwitchingAlerts = (): Alert[] => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { currentConfirmation } = useConfirmContext();
   const { chainId: newChainId = '', id: currentConfirmationId } =

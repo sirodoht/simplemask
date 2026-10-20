@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Box, BoxAlignItems, Checkbox } from '@metamask/design-system-react';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import {
   Button,
   ButtonLink,
@@ -33,7 +33,7 @@ import {
 import { useBoolean } from '../../../hooks/useBoolean';
 
 export default function TermsOfUsePopup({ onClose, onAccept }) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const [shouldShowScrollButton, setShouldShowScrollButton] = useState(true);
   const { value: isTermsOfUseChecked, toggle } = useBoolean();
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);

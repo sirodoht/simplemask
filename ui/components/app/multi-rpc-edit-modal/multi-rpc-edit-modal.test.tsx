@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import MultiRpcEditModal from './multi-rpc-edit-modal';
 import '@testing-library/jest-dom';
 
@@ -73,15 +74,15 @@ const setup = (props: any) => {
   );
 };
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 describe('MultiRpcEditModal', () => {
-  const useI18nContextMock = useI18nContext as jest.Mock;
+  const getTextMock = getText as jest.Mock;
 
   beforeEach(() => {
-    useI18nContextMock.mockReturnValue((key: string) => key);
+    getTextMock.mockImplementation((key: string) => key);
   });
 
   afterEach(() => {

@@ -20,7 +20,7 @@ import {
   TextAlign,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 type ConfirmDeleteNetworkProps = {
   hideModal: () => void;
@@ -41,7 +41,7 @@ export default function ConfirmDeleteNetwork({
   isChainToDeleteSelected,
   switchToEthereumNetwork,
 }: ConfirmDeleteNetworkProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   const handleDelete = useCallback(async () => {
     // NOTE: We only support EVM networks removal, so the conversion is safe here.

@@ -14,7 +14,7 @@ import {
   useAdvancedGasLimit,
 } from '../../../hooks/gas/useAdvancedGasLimit';
 import { useConfirmContext } from '../../../context/confirm';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { updateTransactionGasFees } from '../../../../../store/actions/update-transaction-gas-fees';
 import { hexWEIToDecGWEI } from '../../../../../../shared/lib/conversion.utils';
 import { usePersistGasFeePreference } from '../../../hooks/gas/usePersistGasFeePreference';
@@ -42,7 +42,7 @@ const AdvancedEIP1559ModalContent = ({
   isGasLimitEditable: boolean;
   setGasLimit: (gasLimit: Hex) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const persistGasFeePreference = usePersistGasFeePreference();
 

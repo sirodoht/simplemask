@@ -215,7 +215,6 @@ export type MessengerClientInitRequest<
   /**
    * The user's preferred language code, if any.
    */
-  initLangCode: string | null;
 
   /**
    * Gets the record of request account tab IDs.

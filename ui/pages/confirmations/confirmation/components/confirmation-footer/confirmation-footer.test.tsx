@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { fireEvent, render } from '@testing-library/react';
 
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import * as AlertContext from '../../alerts/TemplateAlertContext';
 import ConfirmationFooter from './confirmation-footer';
 
@@ -19,10 +20,10 @@ describe('ConfirmationFooter', () => {
     const { getByText } = render(
       <ConfirmationFooter
         onSubmit={mockSubmit}
-        submitText={messages.confirm.message}
+        submitText={messages.confirm}
       />,
     );
-    fireEvent.click(getByText(messages.confirm.message));
+    fireEvent.click(getByText(messages.confirm));
     expect(mockSubmit).toHaveBeenCalledTimes(1);
   });
 
@@ -36,10 +37,10 @@ describe('ConfirmationFooter', () => {
     const { getByText } = render(
       <ConfirmationFooter
         onSubmit={mockSubmit}
-        submitText={messages.confirm.message}
+        submitText={messages.confirm}
       />,
     );
-    fireEvent.click(getByText(messages.confirm.message));
+    fireEvent.click(getByText(messages.confirm));
     expect(mockShowAlertsModal).toHaveBeenCalledTimes(1);
     expect(mockSubmit).toHaveBeenCalledTimes(0);
   });

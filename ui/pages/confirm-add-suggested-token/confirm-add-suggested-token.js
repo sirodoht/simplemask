@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import classnames from 'clsx';
@@ -19,7 +19,7 @@ import {
 } from '../../helpers/constants/design-system';
 import TokenBalance from '../../components/ui/token-balance';
 import { PageContainerFooter } from '../../components/ui/page-container';
-import { I18nContext } from '../../contexts/i18n';
+import { getText } from '../../helpers/utils/text';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import { getMostRecentOverviewPage } from '../../ducks/history/history';
 import { getTokens } from '../../ducks/metamask/metamask';
@@ -84,7 +84,7 @@ function hasDuplicateSymbolAndDiffAddress(suggestedTokens, tokens) {
 }
 
 const ConfirmAddSuggestedToken = () => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();

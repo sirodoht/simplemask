@@ -1,10 +1,11 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { cancelPasskeyCeremony } from '../../../../shared/lib/passkey';
 import { getEnvironmentType } from '../../../../shared/lib/environment-type';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { tEn } from '../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import {
   PasskeyVerification,

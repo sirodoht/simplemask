@@ -10,7 +10,7 @@ import {
   TextFieldSearch,
   TextFieldSize,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { HeaderSearchProps, HeaderSearchVariant } from './header-search.types';
 
 function adaptTextFieldSearchProps(
@@ -42,7 +42,7 @@ function adaptTextFieldSearchProps(
 }
 
 export const HeaderSearch = (props: HeaderSearchProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { variant, className = '', textFieldSearchProps } = props;
   const searchProps = adaptTextFieldSearchProps(textFieldSearchProps);
 

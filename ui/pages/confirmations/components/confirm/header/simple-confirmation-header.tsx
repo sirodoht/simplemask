@@ -17,7 +17,7 @@ import {
   Display,
   JustifyContent,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { useConfirmActions } from '../../../hooks/useConfirmActions';
 import { AdvancedDetailsButton } from './advanced-details-button';
@@ -29,7 +29,7 @@ const SimpleHeaderLayout = ({
   title: ReactNode;
   endAccessory: ReactNode;
 }>) => {
-  const t = useI18nContext();
+  const t = getText;
   const { onCancel } = useConfirmActions();
 
   const handleBackButtonClick = useCallback(() => {
@@ -79,7 +79,7 @@ const SimpleHeaderLayout = ({
 };
 
 const DefaultSimpleHeader = () => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <SimpleHeaderLayout
       title={t('review')}

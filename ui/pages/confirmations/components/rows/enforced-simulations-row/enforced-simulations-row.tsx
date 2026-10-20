@@ -27,7 +27,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import Tooltip from '../../../../../components/ui/tooltip';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { applyTransactionContainersExisting } from '../../../../../store/actions';
 import { useEnforcedSimulationsEligibility } from '../../../hooks/useEnforcedSimulationsEligibility';
@@ -287,7 +287,7 @@ function getEnforcedSimulationsSlippageMetric(
 function TitleRow({
   onTooltipOpened,
 }: Readonly<{ onTooltipOpened: () => void }>) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box
@@ -346,7 +346,7 @@ function Description({
 }: Readonly<{
   onLearnMoreClicked: () => void;
 }>) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Text variant={TextVariant.BodySm} color={TextColor.TextAlternative}>

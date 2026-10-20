@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   applyDisplaySign,
   getDisplaySignPrefix,
@@ -7,7 +8,7 @@ import type { MoneyAccountActivityItem } from '../../../../shared/lib/activity/t
 import { MONEY_ACCOUNT_FIAT_CURRENCY } from '../../../../shared/lib/money/constants';
 import { useLocalTransactionMeta } from '../../../hooks/activity/useLocalTransactionMeta';
 import { useFormatters } from '../../../hooks/useFormatters';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { BlockExplorerButton } from '../components/block-explorer-button';
 import { MmPayDetailsLayout } from './mm-pay-details-layout';
 
@@ -16,7 +17,7 @@ type Props = {
 };
 
 const MoneyAccountDetailsContent = ({ item }: Readonly<Props>) => {
-  const t = useI18nContext();
+  const t = getText;
   const { formatCurrencyWithMinThreshold } = useFormatters();
   const transactionMeta = useLocalTransactionMeta(item.hash);
   const { metamaskPay } = transactionMeta ?? {};

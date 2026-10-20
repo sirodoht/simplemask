@@ -50,13 +50,7 @@ function baseTransaction(overrides = {}) {
 
 const mockState = {
   metamask: {
-    currentLocale: 'en',
     assetsMetadata: {},
-  },
-  localeMessages: {
-    currentLocale: 'en',
-    current: {},
-    en: {},
   },
 };
 

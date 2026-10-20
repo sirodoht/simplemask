@@ -29,8 +29,8 @@ jest.mock(
     useBatchApproveBalanceChanges: jest.fn(),
   }),
 );
-jest.mock('../../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 jest.mock('../../../../../hooks/useAsync', () => ({
   useAsyncResult: jest.fn(),
@@ -49,9 +49,7 @@ const mockGetTokenStandardAndDetailsByChain =
 const { useBatchApproveBalanceChanges } = jest.requireMock(
   '../../../components/confirm/info/hooks/useBatchApproveBalanceChanges',
 );
-const { useI18nContext } = jest.requireMock(
-  '../../../../../hooks/useI18nContext',
-);
+const { getText } = jest.requireMock('../../../../../helpers/utils/text');
 const { useAsyncResult } = jest.requireMock('../../../../../hooks/useAsync');
 
 const ACCOUNT_ADDRESS = '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc' as Hex;
@@ -158,7 +156,7 @@ function runHook({
   });
 
   // Mock i18n
-  useI18nContext.mockReturnValue(mockT);
+  getText.mockImplementation(mockT);
 
   const response = renderHookWithConfirmContextProvider(
     useMultipleApprovalsAlerts,

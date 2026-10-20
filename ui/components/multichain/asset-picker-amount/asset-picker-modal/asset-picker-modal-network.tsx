@@ -26,14 +26,10 @@ import {
   Display,
   FlexDirection,
   BlockSize,
-  AlignItems,
   TextVariant,
-  IconColor,
-  BackgroundColor,
-  TextColor,
 } from '../../../../helpers/constants/design-system';
 import { Box, Text } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { NetworkListItem } from '../../network-list-item';
 import { getNetworkConfigurationsByChainId } from '../../../../../shared/lib/selectors/networks';
 import { getCurrentCurrency } from '../../../../ducks/metamask/metamask';
@@ -94,7 +90,7 @@ export const AssetPickerModalNetwork = ({
   selectedChainIds?: string[];
   onMultiselectSubmit?: (selectedChainIds: string[]) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { balanceByChainId } = useMultichainBalances();
 

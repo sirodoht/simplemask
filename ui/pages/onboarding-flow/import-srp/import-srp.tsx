@@ -17,7 +17,7 @@ import {
   ButtonVariant,
 } from '@metamask/design-system-react';
 import { ONBOARDING_CREATE_PASSWORD_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getCurrentKeyring } from '../../../../shared/lib/selectors/keyring';
 import {
   MetaMetricsEventCategory,
@@ -47,7 +47,7 @@ export default function ImportSRP({
   const navigate = useNavigate();
   const resetOnboardingAndReturn = useOnboardingReset();
   const hdEntropyIndex = useSelector(getHDEntropyIndex);
-  const t = useI18nContext();
+  const t = getText;
   const currentKeyring = useSelector(getCurrentKeyring);
   const isWalletResetInProgress = useSelector(getIsWalletResetInProgress);
 

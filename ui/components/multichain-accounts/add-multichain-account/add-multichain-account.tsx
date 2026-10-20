@@ -15,7 +15,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { createNextMultichainAccountGroup } from '../../../store/actions';
 import { useAccountsOperationsLoadingStates } from '../../../hooks/accounts/useAccountsOperationsLoadingStates';
 import { useDispatch } from '../../../store/hooks';
@@ -34,7 +34,7 @@ export type AddMultichainAccountProps = {
 export const AddMultichainAccount = ({
   walletId,
 }: AddMultichainAccountProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 

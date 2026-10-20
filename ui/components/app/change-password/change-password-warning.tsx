@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   Text,
@@ -15,7 +16,7 @@ import {
   BoxAlignItems,
   BoxFlexDirection,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { AlignItems } from '../../../helpers/constants/design-system';
 import {
   Modal,
@@ -32,7 +33,7 @@ export default function ChangePasswordWarning({
   onConfirm: () => void;
   onCancel: () => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const changePasswordLearnMore = (
     <a

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import SnapPrivacyWarning from './snap-privacy-warning';
 
 describe('Snap Privacy Warning Popover', () => {
@@ -14,14 +15,12 @@ describe('Snap Privacy Warning Popover', () => {
       />,
     );
 
+    expect(screen.getByText(messages.thirdPartySoftware)).toBeInTheDocument();
     expect(
-      screen.getByText(messages.thirdPartySoftware.message),
+      screen.getByText(messages.snapsPrivacyWarningSecondMessage),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.snapsPrivacyWarningSecondMessage.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.snapsPrivacyWarningThirdMessage.message),
+      screen.getByText(messages.snapsPrivacyWarningThirdMessage),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', {
@@ -46,9 +45,7 @@ describe('Snap Privacy Warning Popover', () => {
       />,
     );
 
-    expect(
-      screen.getByText(messages.thirdPartySoftware.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.thirdPartySoftware)).toBeInTheDocument();
     expect(
       screen.getByRole('button', {
         name: /Cancel/iu,

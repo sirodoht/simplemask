@@ -16,7 +16,7 @@ import {
   IconName,
   Text,
 } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getPermissionDescription } from '../../../helpers/utils/permission';
 import {
   BlockSize,
@@ -26,7 +26,7 @@ import { getSnapName } from '../../../helpers/utils/util';
 import { getSnapsMetadata } from '../../../selectors';
 
 const ConnectedAccountsPermissions = ({ permissions }) => {
-  const t = useI18nContext();
+  const t = getText;
   const [expanded, setExpanded] = useState(false);
   const snapsMetadata = useSelector(getSnapsMetadata);
 

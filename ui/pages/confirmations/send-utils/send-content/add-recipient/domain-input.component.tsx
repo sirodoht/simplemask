@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import classnames from 'clsx';
 import { isHexString } from '@metamask/utils';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { addHexPrefix } from '../../../../../../shared/lib/add-hex-prefix';
 import { shortenAddress } from '../../../../../helpers/utils/util';
 import {
@@ -53,7 +53,7 @@ export default function DomainInput({
   initializeDomainSlice,
   resetDomainResolution,
 }: DomainInputProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   useEffect(() => {
     initializeDomainSlice();

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   fireEvent,
   render as renderComponent,
@@ -11,7 +12,7 @@ import { CaipChainId, Hex } from '@metamask/utils';
 import type { AccountGroupAssets, Asset } from '@metamask/assets-controllers';
 import { useTokenAssetSecurityResults } from '#ui/hooks/token-asset/useTokenAssetSecurityResults';
 import type { RWATokenLike } from '../../../../hooks/rwa/useRWAToken';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -79,12 +80,12 @@ jest.mock('../util/sortAssetsWithPriority', () => ({
   sortAssetsWithPriority: jest.fn((assets) => assets),
 }));
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string, substitutions?: unknown[]) => {
-    const { enLocale } = jest.requireActual(
-      '../../../../../test/lib/i18n-helpers',
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: (key: string, substitutions?: unknown[]) => {
+    const { englishText: enLocale } = jest.requireActual(
+      '../../../../../shared/lib/text',
     );
-    const message = enLocale[key]?.message ?? key;
+    const message = enLocale[key] ?? key;
 
     return (
       substitutions?.reduce<string>(
@@ -146,7 +147,7 @@ const LINEA_CHAIN_ID = '0xe708' as Hex;
 const ACCOUNT_ID = 'account-1';
 
 const lowValueAssetsLabel = (count: number) =>
-  messages.lowValueAssets.message.replace('$1', String(count));
+  messages.lowValueAssets.replace('$1', String(count));
 
 const render = () => {
   const store = configureMockStore([thunk])({});

@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { englishText as messages } from '../../../../shared/lib/text';
+import { getText } from '../../../helpers/utils/text';
 import { DropdownEditor, DropdownEditorStyle } from './dropdown-editor';
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 const ITEMS = ['First endpoint', 'Second endpoint'];
@@ -24,18 +25,18 @@ describe('DropdownEditor', () => {
   const onItemAdd = jest.fn();
 
   beforeEach(() => {
-    jest.mocked(useI18nContext).mockReturnValue((key: string) => key);
+    jest.mocked(getText).mockImplementation((key: string) => key);
     jest.clearAllMocks();
   });
 
   const renderEditor = () =>
     render(
       <DropdownEditor
-        title={messages.defaultRpcUrl.message}
+        title={messages.defaultRpcUrl}
         placeholder="Add a URL"
         items={ITEMS}
         selectedItemIndex={0}
-        addButtonText={messages.addRpcUrl.message}
+        addButtonText={messages.addRpcUrl}
         style={DropdownEditorStyle.PopoverStyle}
         onItemSelected={onItemSelected}
         onItemDeleted={onItemDeleted}
@@ -52,13 +53,13 @@ describe('DropdownEditor', () => {
     renderEditor();
 
     const trigger = screen.getByRole('button', {
-      name: `${messages.defaultRpcUrl.message} First endpoint`,
+      name: `${messages.defaultRpcUrl} First endpoint`,
     });
 
     expect(trigger).toHaveClass('bg-muted', 'border-muted');
     expect(trigger).not.toHaveAttribute('aria-label');
     expect(trigger).toHaveAccessibleName(
-      `${messages.defaultRpcUrl.message} First endpoint`,
+      `${messages.defaultRpcUrl} First endpoint`,
     );
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
     expect(trigger).toHaveAttribute('aria-haspopup', 'listbox');
@@ -109,10 +110,10 @@ describe('DropdownEditor', () => {
 
     await openDropdown(screen.getByTestId('rpc-dropdown'));
     const addButton = screen.getByRole('button', {
-      name: messages.addRpcUrl.message,
+      name: messages.addRpcUrl,
     });
     const xpathMatch = document.evaluate(
-      `//button[contains(text(), "${messages.addRpcUrl.message}")]`,
+      `//button[contains(text(), "${messages.addRpcUrl}")]`,
       document,
       null,
       XPathResult.FIRST_ORDERED_NODE_TYPE,

@@ -18,7 +18,7 @@ export type { Rule };
  * @param periodDurationInSeconds - The period duration in seconds
  * @returns A human-readable frequency description to be used for translation.
  */
-export function getPeriodFrequencyValueTranslationKey(
+export function getPeriodFrequencyValueTextKey(
   periodDurationInSeconds: number,
 ): string {
   const periodDurationMillisecond = periodDurationInSeconds * SECOND;

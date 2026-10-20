@@ -22,7 +22,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '../../../../../components/component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { Display } from '../../../../../helpers/constants/design-system';
 import { SendAlertModalProps } from './send-alert-modal.types';
 
@@ -38,7 +38,7 @@ const PreviousButton = ({
   safeIndex: number;
   onBack: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   if (safeIndex === 0) {
     return null;
   }
@@ -63,7 +63,7 @@ const NextButton = ({
   alertsLength: number;
   onNext: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   if (safeIndex >= alertsLength - 1) {
     return null;
   }
@@ -86,7 +86,7 @@ const PageNumber = ({
   safeIndex: number;
   alertsLength: number;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Text
       variant={TextVariant.BodySm}
@@ -133,7 +133,7 @@ export const SendAlertModal = ({
   onClose,
   acknowledgeLabel,
 }: SendAlertModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const alertKeys = alerts.map((alert) => alert.key).join('|');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [viewedKeys, setViewedKeys] = useState<Set<string>>(() => new Set());

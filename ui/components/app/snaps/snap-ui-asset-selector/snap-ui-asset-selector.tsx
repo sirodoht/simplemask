@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CaipAccountId, CaipChainId } from '@metamask/utils';
 
 import { SnapUISelector } from '../snap-ui-selector';
@@ -22,7 +23,7 @@ import {
   AvatarNetworkSize,
 } from '../../../component-library';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { SnapUIAsset, useSnapAssetSelectorData } from './useSnapAssetDisplay';
 
 /**
@@ -128,7 +129,7 @@ export const SnapUIAssetSelector = ({
   disabled,
   ...props
 }: SnapUIAssetSelectorProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const assets = useSnapAssetSelectorData({ addresses, chainIds });
 
   const options = assets.map(({ address, name, symbol }) => ({

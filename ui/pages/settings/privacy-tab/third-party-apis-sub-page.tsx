@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { SettingItemConfig } from '../types';
@@ -10,7 +11,7 @@ import {
   setUseSafeChainsListValidation,
 } from '../../../store/actions';
 import type { MetaMaskReduxState } from '../../../store/store';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PRIVACY_ROUTE } from '../../../helpers/constants/routes';
 import { getIsBasicFunctionalityConsolidationEnabled } from '../../../selectors/multichain/feature-flags';
 import { THIRD_PARTY_API_ITEMS } from '../search-config';
@@ -89,7 +90,7 @@ const THIRD_PARTY_APIS_ITEMS: SettingItemConfig[] = [
 ];
 
 const ThirdPartyApisSubPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const isBasicFunctionalityConsolidationEnabled = useSelector(
     getIsBasicFunctionalityConsolidationEnabled,
   );

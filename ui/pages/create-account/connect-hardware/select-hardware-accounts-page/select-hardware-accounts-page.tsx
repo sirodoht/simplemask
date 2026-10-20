@@ -18,7 +18,7 @@ import {
   Footer,
   Page,
 } from '../../../../components/multichain/pages/page';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { HardwareAccountCard } from '../../../../components/multichain-accounts/hardware-account-card';
 import type { SelectHardwareAccountsPageProps } from './select-hardware-accounts-page.types';
 
@@ -50,7 +50,7 @@ export const SelectHardwareAccountsPage = ({
   onSettingsClick,
   showSettingsButton = Boolean(onSettingsClick),
 }: SelectHardwareAccountsPageProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const handleToggleSelection = useCallback(
     (accountId: string) => {

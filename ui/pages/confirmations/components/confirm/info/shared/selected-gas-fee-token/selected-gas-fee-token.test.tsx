@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { GasFeeToken } from '@metamask/transaction-controller';
 import { act } from 'react-dom/test-utils';
 
@@ -13,7 +14,7 @@ import configureStore from '../../../../../../../store/store';
 
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { GAS_FEE_TOKEN_MOCK } from '../../../../../../../../test/data/confirmations/gas';
 import { useIsGaslessSupported } from '../../../../../hooks/gas/useIsGaslessSupported';
 import { useInsufficientBalanceAlerts } from '../../../../../hooks/alerts/transactions/useInsufficientBalanceAlerts';
@@ -244,7 +245,7 @@ describe('SelectedGasFeeToken', () => {
     });
 
     expect(
-      result.getByText(messages.confirmGasFeeTokenModalTitle.message),
+      result.getByText(messages.confirmGasFeeTokenModalTitle),
     ).toBeInTheDocument();
   });
 });

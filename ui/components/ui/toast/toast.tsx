@@ -15,7 +15,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { isInteractiveUI } from '../../../../shared/lib/environment-type';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { StatusIcon } from '../status-icon/status-icon';
 
 export { toast } from 'react-hot-toast';
@@ -31,7 +31,7 @@ const statusMap = {
 } as const;
 
 export function Toaster() {
-  const t = useI18nContext();
+  const t = getText;
 
   if (!isInteractiveUI()) {
     return null;

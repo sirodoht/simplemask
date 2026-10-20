@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { act } from '@testing-library/react';
 
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { getMockConfirmStateForTransaction } from '../../../../../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
@@ -97,7 +98,7 @@ describe('GasSponsorshipModal', () => {
     );
 
     expect(
-      result.getByText(messages.gasSponsorshipModalTitle.message),
+      result.getByText(messages.gasSponsorshipModalTitle),
     ).toBeInTheDocument();
   });
 
@@ -107,11 +108,9 @@ describe('GasSponsorshipModal', () => {
       store,
     );
 
+    expect(result.getByText(messages.paidByMetaMask)).toBeInTheDocument();
     expect(
-      result.getByText(messages.paidByMetaMask.message),
-    ).toBeInTheDocument();
-    expect(
-      result.getByText(messages.includesSmartAccountActivation.message),
+      result.getByText(messages.includesSmartAccountActivation),
     ).toBeInTheDocument();
   });
 
@@ -138,9 +137,7 @@ describe('GasSponsorshipModal', () => {
 
     const checkmarks = result.getAllByTestId('gas-sponsorship-selected-check');
     expect(checkmarks).toHaveLength(1);
-    expect(
-      result.getByText(messages.paidByMetaMask.message),
-    ).toBeInTheDocument();
+    expect(result.getByText(messages.paidByMetaMask)).toBeInTheDocument();
   });
 
   it('shows checkmark on native option when opted out', () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -14,7 +15,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { MfaMethod } from '../../../hooks/identity/mfa/engine/types';
 import { maskEmail } from '../../../hooks/identity/mfa/mask-email';
 import { getMethodLabelKey } from '../labels';
@@ -29,7 +30,7 @@ const METHOD_ICONS: Record<MfaMethod, IconName> = {
 /* eslint-enable @typescript-eslint/naming-convention */
 
 const IntroStep = ({ step, state, reason, onAction }: StepProps<'intro'>) => {
-  const t = useI18nContext();
+  const t = getText;
 
   /**
    * What a method's row says: how it works, or what is set up already.

@@ -5,7 +5,7 @@ import {
   ModalContent,
   ModalContentSize,
 } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   Answers,
   Q1_OPTIONS,
@@ -78,7 +78,7 @@ export const ScamQuestionnaire: React.FC<ScamQuestionnaireProps> = ({
   onDismiss,
   trigger,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const metrics = useScamQuestionnaireMetrics(trigger);
 
   const [step, setStep] = useState<Step>(0);

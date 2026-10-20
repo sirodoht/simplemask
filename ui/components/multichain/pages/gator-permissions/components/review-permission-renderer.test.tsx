@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import { Settings } from 'luxon';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import configureStore from '../../../../../store/store';
 import mockState from '../../../../../../test/data/mock-state.json';
 import { ALL_METAMASK_FACILITATOR_ADDRESSES } from '../../../../../../shared/lib/gator-permissions';
@@ -159,8 +159,8 @@ describe('ReviewPermissionRenderer', () => {
     expect(
       screen.getByTestId('review-gator-permission-network-name'),
     ).toHaveTextContent('Ethereum Mainnet');
-    expect(screen.getByText(messages.redeemer.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.payee.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.redeemer)).toBeInTheDocument();
+    expect(screen.getByText(messages.payee)).toBeInTheDocument();
     expect(
       screen.getAllByTestId('review-gator-permission-rule-address'),
     ).toHaveLength(2);
@@ -176,9 +176,9 @@ describe('ReviewPermissionRenderer', () => {
       ],
     });
 
-    expect(screen.getByText(messages.redeemers.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.redeemers)).toBeInTheDocument();
     expect(
-      screen.getByText(messages.gatorPermissionsMetaMaskFacilitator.message),
+      screen.getByText(messages.gatorPermissionsMetaMaskFacilitator),
     ).toBeInTheDocument();
     expect(
       screen.queryByTestId('review-gator-permission-rule-address'),
@@ -246,7 +246,7 @@ describe('ReviewPermissionRenderer', () => {
     ).not.toThrow();
 
     expect(
-      screen.getByText(messages.unknownPermissionType.message),
+      screen.getByText(messages.unknownPermissionType),
     ).toBeInTheDocument();
     expect(screen.getByText('invalid-permission-type')).toBeInTheDocument();
   });

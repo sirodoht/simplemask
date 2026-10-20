@@ -5,7 +5,7 @@ import type { Status } from '../../../../shared/lib/activity/types';
 import { ActivityAvatar } from '../../../components/app/activity-list-item-avatar';
 import { TransactionStatus } from '../../../components/app/transaction/transaction-status';
 import { useFormatters } from '../../../hooks/useFormatters';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { TransactionDetailsProvider } from '../../confirmations/components/activity/transaction-details-context';
 // eslint-disable-next-line import-x/no-restricted-paths
@@ -65,7 +65,7 @@ export function MmPayDetailsLayout({
   metamaskPay,
   transactionMeta,
 }: Readonly<MmPayDetailsLayoutProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const { formatDateTime } = useFormatters();
   const { bridgeFeeFiat, networkFeeFiat, totalFiat } = metamaskPay || {};
   const hasFees = Boolean(bridgeFeeFiat || networkFeeFiat || totalFiat);

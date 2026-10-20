@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 import { AccountGroupType } from '@metamask/account-api';
 import {
@@ -7,7 +8,7 @@ import {
 } from '@metamask/chain-agnostic-permission';
 import { CaipAccountId } from '@metamask/utils';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { createMockInternalAccount } from '../../../../../test/jest/mocks';
 import mockState from '../../../../../test/data/mock-state.json';
 import configureStore from '../../../../store/store';
@@ -196,9 +197,7 @@ describe('MultichainReviewPermissions', () => {
     const { getByTestId, getByText } = render();
 
     expect(getByTestId(TEST_IDS.MODAL_PAGE)).toBeInTheDocument();
-    expect(
-      getByText(messages.manageConnectedAccounts.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.manageConnectedAccounts)).toBeInTheDocument();
   });
 
   it('navigates back when the back button is clicked', () => {

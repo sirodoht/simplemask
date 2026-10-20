@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -15,7 +16,7 @@ import {
   ModalOverlay,
   ModalContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   exportAsFile,
   ExportableContentType,
@@ -37,7 +38,7 @@ type ExportYourDataModalProps = {
 export default function ExportYourDataModal({
   onClose,
 }: Readonly<ExportYourDataModalProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const handleDownload = async () => {

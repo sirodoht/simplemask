@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AvatarIcon,
   AvatarIconSize,
@@ -20,7 +21,7 @@ import {
   TextVariant,
 } from '../../helpers/constants/design-system';
 import SnapAuthorshipHeader from '../../components/app/snaps/snap-authorship-header';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 
 export type CreateSnapAccountProps = {
   snapId: string;
@@ -33,7 +34,7 @@ const CreateSnapAccount = ({
   snapName,
   onCancel,
 }: CreateSnapAccountProps) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box
       className="create-snap-account-page"

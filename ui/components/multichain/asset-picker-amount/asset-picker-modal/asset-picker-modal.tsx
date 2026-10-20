@@ -26,7 +26,7 @@ import {
   AlignItems,
   JustifyContent,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { AssetType } from '../../../../../shared/constants/transaction';
 import {
   getAllTokens,
@@ -123,7 +123,7 @@ export function AssetPickerModal({
   isDestinationToken = false,
   hideSearch = false,
 }: AssetPickerModalProps) {
-  const t = useI18nContext();
+  const t = getText;
   const [searchQuery, setSearchQuery] = useState('');
   const deferredSearchQuery = useDeferredValue(searchQuery);
 

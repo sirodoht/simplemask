@@ -5,7 +5,7 @@ import {
   AlertActionKey,
   RowAlertKey,
 } from '../../../../../components/app/confirm/info/row/constants';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { LOWER_CASED_BURN_ADDRESSES } from '../../../constants/token';
 import {
   useTransferRecipient,
@@ -13,7 +13,7 @@ import {
 } from '../../../components/confirm/info/hooks/useTransferRecipient';
 
 export function useBurnAddressAlert(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const transactionMetaRecipient = useTransferRecipient();
   const nestedTransactionRecipients = useNestedTransactionTransferRecipients();
 

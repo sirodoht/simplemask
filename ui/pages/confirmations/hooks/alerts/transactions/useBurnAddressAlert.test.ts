@@ -16,13 +16,11 @@ import { Severity } from '../../../../../helpers/constants/design-system';
 import { LOWER_CASED_BURN_ADDRESSES } from '../../../constants/token';
 import { useBurnAddressAlert } from './useBurnAddressAlert';
 
-jest.mock('../../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
-const { useI18nContext } = jest.requireMock(
-  '../../../../../hooks/useI18nContext',
-);
+const { getText } = jest.requireMock('../../../../../helpers/utils/text');
 
 const ACCOUNT_ADDRESS = '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc' as Hex;
 const REGULAR_ADDRESS = '0x1234567890123456789012345678901234567890' as Hex;
@@ -75,7 +73,7 @@ function runHook({
   });
 
   // Mock i18n
-  useI18nContext.mockReturnValue(mockT);
+  getText.mockImplementation(mockT);
 
   const response = renderHookWithConfirmContextProvider(
     useBurnAddressAlert,

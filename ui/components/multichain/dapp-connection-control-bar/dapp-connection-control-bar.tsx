@@ -27,7 +27,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getAllPermittedAccountsForCurrentTab,
   getOriginOfCurrentTab,
@@ -68,7 +68,7 @@ import { DappBarEVMNetworkSelectorPopover } from './dapp-bar-network-selector-po
  * [Favicon+grey dot] [Origin / Account · Not connected] ... [Connect]
  */
 export const DappConnectionControlBar = memo(() => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showDisconnectModal, setShowDisconnectModal] = useState(false);

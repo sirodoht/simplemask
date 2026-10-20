@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { AlertTypes } from '../../shared/constants/alerts';
 import metamaskReducer from './metamask/metamask';
-import localeMessagesReducer from './locale/locale';
 import domainReducer from './domains';
 import appStateReducer from './app/app';
 import confirmTransactionReducer from './confirm-transaction/confirm-transaction.duck';
@@ -25,7 +24,6 @@ export default combineReducers({
   sendMaxValue: sendMaxValueReducer,
   confirmTransaction: confirmTransactionReducer,
   gas: gasReducer,
-  localeMessages: localeMessagesReducer,
   smartAccounts: smartAccountsReducer,
   moneyBalance: moneyBalanceReducer,
 });

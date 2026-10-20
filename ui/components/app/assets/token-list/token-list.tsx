@@ -68,7 +68,7 @@ import { useAnalytics } from '../../../../hooks/useAnalytics';
 import { SafeChain } from '../../../multichain/networks-form/use-safe-chains';
 import { sortAssetsWithPriority } from '../util/sortAssetsWithPriority';
 import { VirtualizedList } from '../../../ui/virtualized-list/virtualized-list';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useBoolean } from '../../../../hooks/useBoolean';
 import { useRWAToken } from '../../../../hooks/rwa/useRWAToken';
 
@@ -130,7 +130,7 @@ const LowValueAssetsToggle = ({
   isExpanded: boolean;
   onClick: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <button

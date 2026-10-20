@@ -48,7 +48,7 @@ import { getMarketData, getCurrencyRates } from '../../../selectors';
 
 import { getMultichainIsEvm } from '../../../selectors/multichain';
 import Tooltip from '../../ui/tooltip';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -150,7 +150,7 @@ export const TokenListItemComponent = ({
   currencyRates: currencyRatesProp,
   networkConfigurations: networkConfigurationsProp,
 }: TokenListItemProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const isEvm = useSelector(getMultichainIsEvm);
   const { trackEvent, createEventBuilder } = useAnalytics();
 

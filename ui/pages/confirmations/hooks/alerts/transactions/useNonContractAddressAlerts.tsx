@@ -8,14 +8,14 @@ import { Hex } from '@metamask/utils';
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { useIsUpgradeTransaction } from '../../../components/confirm/info/hooks/useIsUpgradeTransaction';
 import { NonContractAddressAlertMessage } from './NonContractAddressAlertMessage';
 import { useContractCode } from './useContractCode';
 
 export function useNonContractAddressAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { isUpgrade } = useIsUpgradeTransaction();
   const { pending, value } = useContractCode(

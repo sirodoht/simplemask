@@ -1,8 +1,7 @@
+import { render as renderComponent, screen } from '@testing-library/react';
 import React from 'react';
-import { screen } from '@testing-library/react';
-import { renderWithLocalization } from '../../../../test/lib/render-helpers';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../shared/lib/text';
 import { TrustSignalDisplayState } from '../../../hooks/useTrustSignals';
 import { TrustSignalPill, getTrustSignalPillConfig } from './trust-signal-pill';
 
@@ -64,38 +63,38 @@ describe('TrustSignalPill', () => {
 
   describe('component rendering', () => {
     it('renders verified pill with correct content', () => {
-      renderWithLocalization(
+      renderComponent(
         <TrustSignalPill state={TrustSignalDisplayState.Verified} />,
       );
 
       expect(
-        screen.getByText(messages.securityTrustVerified.message),
+        screen.getByText(messages.securityTrustVerified),
       ).toBeInTheDocument();
       expect(screen.getByTestId('trust-signal-pill')).toBeInTheDocument();
     });
 
     it('renders warning pill with correct content', () => {
-      renderWithLocalization(
+      renderComponent(
         <TrustSignalPill state={TrustSignalDisplayState.Warning} />,
       );
 
       expect(
-        screen.getByText(messages.securityTrustSuspicious.message),
+        screen.getByText(messages.securityTrustSuspicious),
       ).toBeInTheDocument();
     });
 
     it('renders malicious pill with correct content', () => {
-      renderWithLocalization(
+      renderComponent(
         <TrustSignalPill state={TrustSignalDisplayState.Malicious} />,
       );
 
       expect(
-        screen.getByText(messages.securityTrustMaliciousDappConnection.message),
+        screen.getByText(messages.securityTrustMaliciousDappConnection),
       ).toBeInTheDocument();
     });
 
     it('renders nothing for unknown state', () => {
-      const { container } = renderWithLocalization(
+      const { container } = renderComponent(
         <TrustSignalPill state={TrustSignalDisplayState.Unknown} />,
       );
 
@@ -103,7 +102,7 @@ describe('TrustSignalPill', () => {
     });
 
     it('uses custom testId when provided', () => {
-      renderWithLocalization(
+      renderComponent(
         <TrustSignalPill
           state={TrustSignalDisplayState.Verified}
           testId="custom-test-id"

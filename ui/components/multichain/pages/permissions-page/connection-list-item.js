@@ -15,7 +15,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   Box,
   Icon,
@@ -29,7 +29,7 @@ import { getAllPermittedChainsForSelectedTab } from '../../../../selectors';
 import { getAccountGroupWithInternalAccounts } from '../../../../selectors/multichain-accounts/account-tree';
 
 export const ConnectionListItem = ({ connection, onClick }) => {
-  const t = useI18nContext();
+  const t = getText;
   const isSnap = connection.subjectType === SubjectType.Snap;
   const permittedChains = useSelector(
     (state) => getAllPermittedChainsForSelectedTab(state, connection.origin),

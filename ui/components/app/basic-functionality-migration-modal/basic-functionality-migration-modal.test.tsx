@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -78,22 +79,20 @@ describe('BasicFunctionalityMigrationModal', () => {
       getByTestId('basic-functionality-migration-modal'),
     ).toBeInTheDocument();
     expect(
-      getByText(messages.basicFunctionalityMigrationSocialModalTitle.message),
+      getByText(messages.basicFunctionalityMigrationSocialModalTitle),
     ).toBeInTheDocument();
     expect(
-      getByText(messages.basicFunctionalityMigrationSocialModalBody1.message),
+      getByText(messages.basicFunctionalityMigrationSocialModalBody1),
     ).toBeInTheDocument();
-    expect(queryByLabelText(messages.close.message)).not.toBeInTheDocument();
+    expect(queryByLabelText(messages.close)).not.toBeInTheDocument();
     expect(
       getByRole('link', {
-        name: messages.basicFunctionalityMigrationSocialModalBlogPostLink
-          .message,
+        name: messages.basicFunctionalityMigrationSocialModalBlogPostLink,
       }),
     ).toHaveAttribute('href', BASIC_FUNCTIONALITY_MIGRATION_BLOG_POST_LINK);
     expect(
       getByRole('link', {
-        name: messages.basicFunctionalityMigrationSocialModalPrivacyNoticeLink
-          .message,
+        name: messages.basicFunctionalityMigrationSocialModalPrivacyNoticeLink,
       }),
     ).toHaveAttribute(
       'href',

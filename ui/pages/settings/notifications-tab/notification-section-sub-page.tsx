@@ -15,7 +15,7 @@ import {
   type NotificationsSettingsSectionType,
 } from '../../../../shared/lib/notifications-settings';
 import { useAccountSettingsProps } from '../../../hooks/metamask-notifications/useSwitchNotifications';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useNotificationPreferences } from '../../../hooks/metamask-notifications/useNotificationPreferences';
 import { selectIsMetamaskNotificationsEnabled } from '../../../selectors/metamask-notifications/metamask-notifications';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
@@ -33,7 +33,7 @@ export const NotificationSectionSubPage = ({
   sectionType,
 }: NotificationSectionSubPageProps) => {
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const isMetamaskNotificationsEnabled = useSelector(
     selectIsMetamaskNotificationsEnabled,
   );

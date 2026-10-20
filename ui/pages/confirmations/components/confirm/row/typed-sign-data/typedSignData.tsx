@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { Box } from '../../../../../../components/component-library';
 import { BlockSize } from '../../../../../../helpers/constants/design-system';
 import {
@@ -19,7 +19,7 @@ export const ConfirmInfoRowTypedSignData = ({
   tokenDecimals?: number;
   chainId: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   if (!data) {
     return null;

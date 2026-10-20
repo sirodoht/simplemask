@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   ButtonVariant,
   Text,
@@ -15,7 +16,7 @@ import {
   ModalFooter,
 } from '../../../components/component-library';
 import type { ButtonProps } from '../../../components/component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export type DeleteContactModalProps = {
   isOpen: boolean;
@@ -28,7 +29,7 @@ export function DeleteContactModal({
   onClose,
   onConfirm,
 }: DeleteContactModalProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} data-testid="delete-contact-modal">

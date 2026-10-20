@@ -81,7 +81,7 @@ import {
 import { requestWebHidDevices } from '../contexts/hardware-wallets/webConnectionUtils';
 import { getIsBasicFunctionalityConsolidationEnabled } from '../selectors/multichain/basic-functionality';
 import { captureException } from '../../shared/lib/sentry';
-import { switchDirection } from '../../shared/lib/switch-direction';
+
 import {
   ENVIRONMENT_TYPE_NOTIFICATION,
   ENVIRONMENT_TYPE_POPUP,
@@ -141,10 +141,7 @@ import {
 import { parseSmartTransactionsError } from '../helpers/utils/smart-transactions';
 import { isEqualCaseInsensitive } from '../../shared/lib/string-utils';
 import { getSmartTransactionsOptInStatusInternal } from '../../shared/lib/selectors';
-import {
-  fetchLocale,
-  loadRelativeTimeFormatLocaleData,
-} from '../../shared/lib/i18n';
+
 import { decimalToHex } from '../../shared/lib/conversion.utils';
 import { type AdvancedGasFeePreferences } from '../../shared/constants/gas';
 import {
@@ -1869,19 +1866,13 @@ export function updateMetamaskState(
     }
 
     const newState = applyPatches(currentState, patches);
-    const { currentLocale } = currentState;
     const currentInternalAccount = getSelectedInternalAccount(state);
     const selectedAddress = currentInternalAccount?.address;
-    const { currentLocale: newLocale } = newState;
     const newProviderConfig = getProviderConfig({ metamask: newState });
     const newInternalAccount = getSelectedInternalAccount({
       metamask: newState,
     });
     const newSelectedAddress = newInternalAccount?.address;
-
-    if (currentLocale && newLocale && currentLocale !== newLocale) {
-      dispatch(updateCurrentLocale(newLocale));
-    }
 
     if (selectedAddress !== newSelectedAddress) {
       dispatch({ type: actionConstants.SELECTED_ADDRESS_CHANGED });
@@ -3882,50 +3873,6 @@ export function setUseAddressBarEnsResolution(
     } catch (err) {
       // TODO: Stop suppressing this error (either log or re-throw)
     }
-  };
-}
-
-export function updateCurrentLocale(
-  _key: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  const key = 'en';
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    dispatch(showLoadingIndication());
-
-    try {
-      await loadRelativeTimeFormatLocaleData(key);
-      const localeMessages = await fetchLocale(key);
-      const textDirection = await submitRequestToBackground<
-        'rtl' | 'ltr' | 'auto'
-      >('setCurrentLocale', [key]);
-      switchDirection(textDirection);
-      dispatch(setCurrentLocale(key, localeMessages));
-    } catch (error) {
-      // TODO: Stop suppressing this error (either log or re-throw)
-      return;
-    } finally {
-      dispatch(hideLoadingIndication());
-    }
-  };
-}
-
-export function setCurrentLocale(
-  locale: string,
-  messages: {
-    [translationKey: string]: { message: string; description?: string };
-  },
-): PayloadAction<{
-  locale: string;
-  messages: {
-    [translationKey: string]: { message: string; description?: string };
-  };
-}> {
-  return {
-    type: actionConstants.SET_CURRENT_LOCALE,
-    payload: {
-      locale,
-      messages,
-    },
   };
 }
 

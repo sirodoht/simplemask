@@ -9,7 +9,7 @@ import {
   BoxAlignItems,
 } from '@metamask/design-system-react';
 import type { NotificationPreferences } from '@metamask/authenticated-user-storage';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { SettingsSelectItem } from '../settings/shared';
 import {
@@ -29,7 +29,7 @@ type NotificationsSettingsTypesProps = {
 };
 
 const getStatusText = (
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   prefs?: NotificationPreferences[NotificationsSettingsSectionType],
 ) => {
   const active = [];
@@ -46,7 +46,7 @@ const getStatusText = (
 };
 
 export const getNotificationsSettingsSectionConfigs = (
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
 ): NotificationsSettingsSectionConfig[] => {
   const nextSections: NotificationsSettingsSectionConfig[] = [
     {
@@ -70,7 +70,7 @@ export const getNotificationsSettingsSectionConfigs = (
 export function NotificationsSettingsTypes({
   preferences,
 }: NotificationsSettingsTypesProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   const sections = useMemo<NotificationsSettingsSectionConfig[]>(
     () => getNotificationsSettingsSectionConfigs(t),

@@ -1,8 +1,9 @@
+import { render as renderComponent, screen } from '@testing-library/react';
 import React from 'react';
-import { screen } from '@testing-library/react';
+
 import { userEvent } from '@testing-library/user-event';
-import { renderWithLocalization } from '../../../../../test/lib/render-helpers';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
 import { QrErrorContent } from './qr-error-content';
 import { QrErrorType, QrErrorFlowContext } from './qr-error-content.types';
@@ -17,7 +18,7 @@ describe('QrErrorContent', () => {
   });
 
   it('renders the root element with the correct test-id', () => {
-    renderWithLocalization(
+    renderComponent(
       <QrErrorContent
         errorType={QrErrorType.NonUrQrCode}
         flowContext={QrErrorFlowContext.Pairing}
@@ -31,7 +32,7 @@ describe('QrErrorContent', () => {
   });
 
   it('renders the resolved title and body text', () => {
-    renderWithLocalization(
+    renderComponent(
       <QrErrorContent
         errorType={QrErrorType.NonUrQrCode}
         flowContext={QrErrorFlowContext.Pairing}
@@ -40,15 +41,15 @@ describe('QrErrorContent', () => {
     );
 
     expect(
-      screen.getByText(messages.qrErrorNonUrPairingTitle.message),
+      screen.getByText(messages.qrErrorNonUrPairingTitle),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.qrErrorNonUrPairingBody.message),
+      screen.getByText(messages.qrErrorNonUrPairingBody),
     ).toBeInTheDocument();
   });
 
   it('renders "Learn more" and "Continue" button labels', () => {
-    renderWithLocalization(
+    renderComponent(
       <QrErrorContent
         errorType={QrErrorType.WrongUrType}
         flowContext={QrErrorFlowContext.Signing}
@@ -56,16 +57,14 @@ describe('QrErrorContent', () => {
       />,
     );
 
-    expect(
-      screen.getByText(messages.learnMoreUpperCase.message),
-    ).toBeInTheDocument();
-    expect(screen.getByText(messages.continue.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.learnMoreUpperCase)).toBeInTheDocument();
+    expect(screen.getByText(messages.continue)).toBeInTheDocument();
   });
 
   it('calls onTryAgain exactly once when "Continue" is clicked', async () => {
     const user = userEvent.setup();
     const onTryAgain = jest.fn();
-    renderWithLocalization(
+    renderComponent(
       <QrErrorContent
         errorType={QrErrorType.NonUrQrCode}
         flowContext={QrErrorFlowContext.Pairing}
@@ -80,7 +79,7 @@ describe('QrErrorContent', () => {
 
   it('opens the learn-more support URL when "Learn more" is clicked', async () => {
     const user = userEvent.setup();
-    renderWithLocalization(
+    renderComponent(
       <QrErrorContent
         errorType={QrErrorType.UrDecodeError}
         flowContext={QrErrorFlowContext.Signing}
@@ -99,7 +98,7 @@ describe('QrErrorContent', () => {
   it('does not call onTryAgain when "Learn more" is clicked', async () => {
     const user = userEvent.setup();
     const onTryAgain = jest.fn();
-    renderWithLocalization(
+    renderComponent(
       <QrErrorContent
         errorType={QrErrorType.UrDecodeError}
         flowContext={QrErrorFlowContext.Pairing}
@@ -113,7 +112,7 @@ describe('QrErrorContent', () => {
   });
 
   it('renders mismatched transaction copy in the signing flow', () => {
-    renderWithLocalization(
+    renderComponent(
       <QrErrorContent
         errorType={QrErrorType.MismatchedTransaction}
         flowContext={QrErrorFlowContext.Signing}
@@ -125,10 +124,10 @@ describe('QrErrorContent', () => {
       screen.getByTestId('qr-error-mismatchedTransaction-signing'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.qrErrorMismatchedTransactionTitle.message),
+      screen.getByText(messages.qrErrorMismatchedTransactionTitle),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.qrErrorMismatchedTransactionBody.message),
+      screen.getByText(messages.qrErrorMismatchedTransactionBody),
     ).toBeInTheDocument();
   });
 });

@@ -26,7 +26,7 @@ import {
   FlexDirection,
   AlignItems,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   useTokenInsightsData,
   TokenInsightsToken,
@@ -76,7 +76,7 @@ export const TokenInsightsModal = ({
   onClose,
   token,
 }: TokenInsightsModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const dialogRef = React.useRef<HTMLElement | null>(null);
   const hasTrackedOpen = React.useRef(false);

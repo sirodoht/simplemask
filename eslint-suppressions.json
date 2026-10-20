@@ -338,9 +338,6 @@
   "ui/pages/confirmations/components/send/amount/amount.tsx": {
     "react-hooks/exhaustive-deps": {
       "count": 1
-    },
-    "react-hooks/preserve-manual-memoization": {
-      "count": 1
     }
   },
   "ui/pages/confirmations/components/send/asset-list/asset-list.tsx": {
@@ -438,11 +435,6 @@
       "count": 1
     }
   },
-  "ui/pages/custom-token-import/custom-token-import.tsx": {
-    "react-hooks/preserve-manual-memoization": {
-      "count": 2
-    }
-  },
   "ui/pages/details/templates/helpers.ts": {
     "react-hooks/exhaustive-deps": {
       "count": 1
@@ -475,7 +467,7 @@
   },
   "ui/pages/permissions-connect/permissions-connect.tsx": {
     "react-hooks/preserve-manual-memoization": {
-      "count": 8
+      "count": 6
     }
   },
   "ui/pages/settings/settings.tsx": {

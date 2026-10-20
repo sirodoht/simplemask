@@ -215,7 +215,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
   PhishingController: {},
   PreferencesController: {
     advancedGasFee: true,
-    currentLocale: true,
     dismissSeedBackUpReminder: true,
     overrideContentSecurityPolicyHeader: true,
     featureFlags: true,

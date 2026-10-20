@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import configureStore from '../../../store/store';
 import { NotificationDetailAddress } from './notification-detail-address';
@@ -17,6 +18,6 @@ describe('NotificationDetailAddress', () => {
       />,
       store,
     );
-    expect(screen.getByText(messages.from.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.from)).toBeInTheDocument();
   });
 });

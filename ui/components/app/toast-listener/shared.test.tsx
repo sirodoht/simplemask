@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import {
   showFailedToast,
   showPendingToast,
@@ -62,7 +63,7 @@ describe('toast-listener/shared', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseToastLabel.mockReturnValue({
-      title: messages.transactionConfirmed.message,
+      title: messages.transactionConfirmed,
     });
   });
 
@@ -101,7 +102,7 @@ describe('toast-listener/shared', () => {
     render(mockToastSuccess.mock.calls[0][0]);
 
     const link = screen.getByRole('link', {
-      name: messages.transactionConfirmed.message,
+      name: messages.transactionConfirmed,
     });
     expect(link).toHaveAttribute('href', '/tx/eip155:1/0xabc');
 

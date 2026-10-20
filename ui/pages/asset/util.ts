@@ -11,7 +11,7 @@ export { processAssetParams, resolveAssetRouteLookup };
 
 /** Formats a datetime in a short human readable format like 'Feb 8, 12:11 PM' */
 export const getShortDateFormatter = () =>
-  Intl.DateTimeFormat(navigator.language, {
+  Intl.DateTimeFormat('en', {
     month: 'short',
     day: 'numeric',
     hour: 'numeric',
@@ -20,7 +20,7 @@ export const getShortDateFormatter = () =>
 
 /** Formats a datetime in a short human readable format like 'Feb 8, 2030' */
 export const getShortDateFormatterV2 = () =>
-  Intl.DateTimeFormat(navigator.language, {
+  Intl.DateTimeFormat('en', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

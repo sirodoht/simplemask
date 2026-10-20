@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import { Header } from '.';
 
 const HEADER_TEXT = 'Connections';
@@ -15,16 +16,14 @@ describe('Header', () => {
   it('renders the startAccessory when provided', () => {
     render(
       <Header
-        startAccessory={
-          <button aria-label={messages.back.message} type="button" />
-        }
+        startAccessory={<button aria-label={messages.back} type="button" />}
       >
         {HEADER_TEXT}
       </Header>,
     );
 
     expect(
-      screen.getByRole('button', { name: messages.back.message }),
+      screen.getByRole('button', { name: messages.back }),
     ).toBeInTheDocument();
   });
 
@@ -33,16 +32,14 @@ describe('Header', () => {
 
     render(
       <Header
-        endAccessory={
-          <button aria-label={messages.back.message} type="button" />
-        }
+        endAccessory={<button aria-label={messages.back} type="button" />}
       >
         {headerText}
       </Header>,
     );
 
     expect(
-      screen.getByRole('button', { name: messages.back.message }),
+      screen.getByRole('button', { name: messages.back }),
     ).toBeInTheDocument();
   });
 
@@ -51,12 +48,8 @@ describe('Header', () => {
 
     const { container } = render(
       <Header
-        startAccessory={
-          <button aria-label={messages.back.message} type="button" />
-        }
-        endAccessory={
-          <button aria-label={messages.close.message} type="button" />
-        }
+        startAccessory={<button aria-label={messages.back} type="button" />}
+        endAccessory={<button aria-label={messages.close} type="button" />}
       >
         {headerText}
       </Header>,

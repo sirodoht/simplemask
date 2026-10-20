@@ -6,7 +6,7 @@ import { MONAD_RESERVE_BALANCE_MON } from '../../../../../../shared/lib/monad-re
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { useIsMonadReserveViolation } from './useIsMonadReserveViolation';
 
@@ -48,7 +48,7 @@ const GAS_SPONSORSHIP_WARNING_RULES: Partial<
  * @returns An array containing a blocking danger alert if reserve would fail
  */
 export function useGasSponsorshipWarningAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const chainId = currentConfirmation?.chainId;
   const hasWarning = useIsMonadReserveViolation();

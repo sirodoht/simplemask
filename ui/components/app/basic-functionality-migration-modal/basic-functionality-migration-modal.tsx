@@ -20,7 +20,7 @@ import {
 } from '@metamask/design-system-react';
 import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getShouldShowBasicFunctionalityMigrationModal } from '../../../selectors/multichain/feature-flags';
 import { hideMigrationModal } from '../../../store/actions';
 import { useAppSelector, useDispatch } from '../../../store/hooks';
@@ -35,7 +35,7 @@ const linkClassName =
   '!text-inherit !font-normal underline underline-offset-2 [text-decoration-skip-ink:none] cursor-pointer hover:!text-inherit hover:!font-normal hover:![text-decoration-color:inherit] hover:!underline-offset-2 hover:!cursor-pointer';
 
 export function BasicFunctionalityMigrationModal() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const isOpen = useAppSelector(getShouldShowBasicFunctionalityMigrationModal);

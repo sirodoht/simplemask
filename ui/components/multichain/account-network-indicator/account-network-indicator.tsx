@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
@@ -17,13 +18,13 @@ import {
 import { AvatarType } from '../avatar-group/avatar-group.types';
 import { AvatarGroup } from '../avatar-group';
 import { Box, Text } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../shared/constants/network';
 import { getNetworksByScopes } from '../../../../shared/lib/selectors/networks';
 import Tooltip from '../../ui/tooltip';
 
 export const AccountNetworkIndicator = ({ scopes }: { scopes: string[] }) => {
-  const t = useI18nContext();
+  const t = getText;
   const AVATAR_GROUP_LIMIT = 4;
   const TOOLTIP_LIMIT = 12;
 

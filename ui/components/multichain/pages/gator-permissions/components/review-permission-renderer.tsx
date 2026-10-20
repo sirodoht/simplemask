@@ -29,10 +29,10 @@ import {
 } from '../../../../../../shared/lib/gator-permissions/compute-total-exposure';
 import { getPermissionSchemaEntry } from '../../../../../../shared/lib/gator-permissions/permission-detail-schemas';
 import { throwUnhandledPermissionSchemaElement } from '../../../../../../shared/lib/gator-permissions/throw-unhandled-permission-schema-element';
-import { translateI18nValue } from '../../../../../../shared/lib/gator-permissions/translate-i18n-value';
+import { formatPermissionText } from '../../../../../../shared/lib/gator-permissions/format-permission-text';
 
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
-import { useAdvancedPermissionTranslationsMap } from '../../../../../hooks/gator-permissions/useAdvancedPermissionTranslationsMap';
+import { getText } from '../../../../../helpers/utils/text';
+import { getPermissionTextMap } from '../../../../../hooks/gator-permissions/getPermissionTextMap';
 import type { GatorTokenInfo } from '../../../../../hooks/gator-permissions/useGatorPermissionTokenInfo';
 import {
   convertTimestampToReadableDate,
@@ -142,7 +142,7 @@ const ReviewAddressDisplay = ({
 };
 
 const ReviewAccountRow = ({ address }: { address: string }) => {
-  const i18nMap = useAdvancedPermissionTranslationsMap();
+  const textMap = getPermissionTextMap();
 
   return (
     <Box
@@ -157,7 +157,7 @@ const ReviewAccountRow = ({ address }: { address: string }) => {
         color={TextColor.TextAlternative}
         variant={TextVariant.BodyMd}
       >
-        {i18nMap.account}
+        {textMap.account}
       </Text>
       <ReviewAddressDisplay
         address={address}
@@ -175,7 +175,7 @@ const ReviewNetworkRow = ({
   chainId: Hex;
   networkName: string;
 }) => {
-  const t = useI18nContext() as I18nFunction;
+  const t = getText as I18nFunction;
 
   return (
     <Box
@@ -266,7 +266,7 @@ type RenderElementOptions = {
   element: SchemaElement;
   ctx: PermissionRenderContext;
   t: I18nFunction;
-  i18nMap: Record<TranslationKeys, string>;
+  textMap: Record<TranslationKeys, string>;
   tokenSymbol: string;
   tokenDecimals: number | undefined;
   isLoading: boolean;
@@ -283,7 +283,7 @@ function renderElement({
   element,
   ctx,
   t,
-  i18nMap,
+  textMap,
   tokenSymbol,
   tokenDecimals,
   isLoading: loading,
@@ -308,7 +308,7 @@ function renderElement({
         rowKey,
         element,
         ctx,
-        i18nMap,
+        textMap,
         tokenSymbol,
         tokenDecimals,
         loading,
@@ -318,8 +318,8 @@ function renderElement({
       return (
         <GatorPermissionDetailRow
           key={rowKey}
-          label={i18nMap[element.labelKey]}
-          value={translateI18nValue(t, element.getValue(ctx))}
+          label={textMap[element.labelKey]}
+          value={formatPermissionText(t, element.getValue(ctx))}
           testId={element.testId}
           tooltip={element.tooltip ? t(element.tooltip) : undefined}
         />
@@ -329,7 +329,7 @@ function renderElement({
       return (
         <GatorPermissionDetailRow
           key={rowKey}
-          label={i18nMap[element.labelKey]}
+          label={textMap[element.labelKey]}
           value={element.getValue(ctx)}
           testId={element.testId}
         />
@@ -339,7 +339,7 @@ function renderElement({
       return (
         <GatorPermissionDetailRow
           key={rowKey}
-          label={i18nMap[element.labelKey]}
+          label={textMap[element.labelKey]}
           value={
             <ul style={{ listStyle: 'disc', paddingLeft: 20 }}>
               {element.getValue(ctx).map((value, valueIndex) => (
@@ -355,25 +355,25 @@ function renderElement({
       return (
         <GatorPermissionDetailRow
           key={rowKey}
-          label={i18nMap[element.labelKey]}
+          label={textMap[element.labelKey]}
           value={convertTimestampToReadableDate(element.getValue(ctx) ?? 0)}
           testId={element.testId}
         />
       );
 
     case 'expiry':
-      return renderExpiryElement(rowKey, element, ctx, t, i18nMap);
+      return renderExpiryElement(rowKey, element, ctx, t, textMap);
 
     case 'justification': {
       const justificationValue = element.getValue(ctx);
       const justificationText =
         typeof justificationValue === 'string'
           ? justificationValue
-          : translateI18nValue(t, justificationValue);
+          : formatPermissionText(t, justificationValue);
       return (
         <GatorPermissionDetailRow
           key={rowKey}
-          label={i18nMap[element.labelKey]}
+          label={textMap[element.labelKey]}
           value={justificationText}
           testId={element.testId}
         />
@@ -402,7 +402,7 @@ function renderElement({
         <ReviewRuleAddressRow
           key={rowKey}
           addresses={addresses}
-          label={i18nMap[element.labelKey]}
+          label={textMap[element.labelKey]}
         />
       );
     }
@@ -424,7 +424,7 @@ function renderAmountElement(
   rowKey: string,
   element: AmountField,
   ctx: PermissionRenderContext,
-  i18nMap: Record<TranslationKeys, string>,
+  textMap: Record<TranslationKeys, string>,
   tokenSymbol: string,
   tokenDecimals: number | undefined,
   loading: boolean,
@@ -440,7 +440,7 @@ function renderAmountElement(
   return (
     <GatorPermissionDetailRow
       key={rowKey}
-      label={i18nMap[element.labelKey]}
+      label={textMap[element.labelKey]}
       value={displayValue}
       testId={element.testId}
       isLoading={loading}
@@ -453,7 +453,7 @@ function renderExpiryElement(
   element: ExpiryField,
   ctx: PermissionRenderContext,
   t: I18nFunction,
-  i18nMap: Record<TranslationKeys, string>,
+  textMap: Record<TranslationKeys, string>,
 ): React.ReactNode {
   const expiry = element.getValue(ctx);
   const displayValue =
@@ -464,7 +464,7 @@ function renderExpiryElement(
   return (
     <GatorPermissionDetailRow
       key={rowKey}
-      label={i18nMap[element.labelKey]}
+      label={textMap[element.labelKey]}
       value={displayValue}
       testId={element.testId}
     />
@@ -479,7 +479,7 @@ type RenderSectionOptions = {
   section: SchemaSection;
   ctx: PermissionRenderContext;
   t: I18nFunction;
-  i18nMap: Record<TranslationKeys, string>;
+  textMap: Record<TranslationKeys, string>;
   tokenSymbol: string;
   tokenDecimals: number | undefined;
   isLoading: boolean;
@@ -494,7 +494,7 @@ function renderSection({
   section,
   ctx,
   t,
-  i18nMap,
+  textMap,
   tokenSymbol,
   tokenDecimals,
   isLoading,
@@ -509,7 +509,7 @@ function renderSection({
           element,
           ctx,
           t,
-          i18nMap,
+          textMap,
           tokenSymbol,
           tokenDecimals,
           isLoading,
@@ -572,8 +572,8 @@ export const ReviewPermissionRenderer = ({
   permissionAccount,
   networkName,
 }: ReviewPermissionRendererProps) => {
-  const t = useI18nContext() as I18nFunction;
-  const i18nMap = useAdvancedPermissionTranslationsMap();
+  const t = getText as I18nFunction;
+  const textMap = getPermissionTextMap();
 
   const schemaEntry = getPermissionSchemaEntry(permissionType);
 
@@ -618,7 +618,7 @@ export const ReviewPermissionRenderer = ({
           section,
           ctx,
           t,
-          i18nMap,
+          textMap,
           tokenSymbol: tokenInfo.symbol,
           tokenDecimals: tokenInfo.decimals,
           isLoading: loading,

@@ -15,7 +15,7 @@ import { RowAlertKey } from '../../../../../components/app/confirm/info/row/cons
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
 import { useAsyncResult } from '../../../../../hooks/useAsync';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getTokenStandardAndDetailsByChain } from '../../../../../store/actions';
 import { useBatchApproveBalanceChanges } from '../../../components/confirm/info/hooks/useBatchApproveBalanceChanges';
 import { PAY_TRANSACTION_TYPES } from '../../../constants/pay';
@@ -233,7 +233,7 @@ async function fetchTokenStandards(
 }
 
 export function useMultipleApprovalsAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { value: approveBalanceChanges } =
     useBatchApproveBalanceChanges() ?? {};

@@ -28,7 +28,7 @@ import {
   TextVariant,
 } from '../../../helpers/constants/design-system';
 import { Box, SuccessPill, Text } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import Tooltip from '../../ui/tooltip/tooltip';
 import { NetworkListItemMenu } from '../network-list-item-menu';
 import { useIsNetworkGasSponsored } from '../../../hooks/useIsNetworkGasSponsored';
@@ -80,7 +80,7 @@ export const NetworkListItem = ({
   variant?: TextVariant;
   notSelectable?: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const networkRef = useRef<HTMLInputElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 

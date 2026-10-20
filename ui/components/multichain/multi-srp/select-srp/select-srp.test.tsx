@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { SelectSrp, SelectSrpProps } from './select-srp';
 
 const mockSrpName = 'Test Srp';
@@ -43,17 +44,13 @@ describe('SelectSrp', () => {
   it('displays correct label text', () => {
     const { getByText } = render();
 
-    expect(
-      getByText(messages.selectSecretRecoveryPhrase.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.selectSecretRecoveryPhrase)).toBeInTheDocument();
   });
 
   it('displays description text', () => {
     const { getByText } = render();
 
-    expect(
-      getByText(messages.srpListSelectionDescription.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.srpListSelectionDescription)).toBeInTheDocument();
   });
 
   it('renders with zero accounts', () => {

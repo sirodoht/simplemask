@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import Json from './json';
 
 const mockImportFunc = jest.fn();
@@ -31,7 +32,7 @@ describe('Json', () => {
       mockStore,
     );
 
-    const fileImportLink = getByText(messages.fileImportFail.message);
+    const fileImportLink = getByText(messages.fileImportFail);
     expect(fileImportLink).toBeInTheDocument();
   });
 
@@ -45,7 +46,7 @@ describe('Json', () => {
     );
 
     const importButton = getByRole('button', {
-      name: messages.import.message,
+      name: messages.import,
     });
     const fileInput = getByTestId('file-input');
 
@@ -79,7 +80,7 @@ describe('Json', () => {
     );
 
     const importButton = getByRole('button', {
-      name: messages.import.message,
+      name: messages.import,
     });
     const fileInput = getByTestId('file-input');
 
@@ -88,9 +89,7 @@ describe('Json', () => {
     expect(importButton).toBeInTheDocument();
     expect(importButton).toBeDisabled();
 
-    const passwordInput = getByPlaceholderText(
-      messages.enterOptionalPassword.message,
-    );
+    const passwordInput = getByPlaceholderText(messages.enterOptionalPassword);
     fireEvent.change(passwordInput, {
       target: { value: 'password' },
     });

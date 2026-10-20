@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BACKUPANDSYNC_FEATURES } from '@metamask/profile-sync-controller/user-storage';
@@ -29,7 +30,7 @@ import {
   ModalFooter,
 } from '../../../../component-library';
 import { useBackupAndSync } from '../../../../../hooks/identity/useBackupAndSync';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getUseExternalServices } from '../../../../../selectors';
 import { showModal } from '../../../../../store/actions';
 import { CONFIRM_TURN_ON_BACKUP_AND_SYNC_MODAL_NAME } from '../confirm-turn-on-backup-and-sync-modal';
@@ -50,7 +51,7 @@ export function TurnOnBackupAndSyncModal() {
   const { hideModal } = useModalProps();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const isBasicFunctionalityEnabled = useSelector(getUseExternalServices);

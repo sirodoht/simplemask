@@ -1,16 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classnames from 'clsx';
 import { ButtonIcon, ButtonIconSize, IconName } from '../../component-library';
 import { FormTextField } from '../../component-library/form-text-field/deprecated';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import { Display, IconColor } from '../../../helpers/constants/design-system';
 
 export type FormComboFieldOption = {
@@ -104,7 +98,7 @@ function Dropdown<Option extends FormComboFieldOption>({
   options: Option[];
   width: number;
 }) {
-  const t = useContext(I18nContext);
+  const t = getText;
 
   // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31973
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -167,7 +161,7 @@ export default function FormComboField<Option extends FormComboFieldOption>({
   // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31973
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inputRef = useRef<any>(null);
-  const t = useContext(I18nContext);
+  const t = getText;
 
   useEffect(() => {
     setValueWidth(valueRef.current?.offsetWidth);

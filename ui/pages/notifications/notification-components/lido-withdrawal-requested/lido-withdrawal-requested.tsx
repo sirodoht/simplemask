@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { NotificationServicesController } from '@metamask/notification-services-controller';
 import { AvatarIconSeverity, IconName } from '@metamask/design-system-react';
 import { type ExtractedNotification, isOfTypeNodeGuard } from '../node-guard';
@@ -22,7 +23,7 @@ import {
   getUsdAmount,
   getNativeCurrencyLogoByChainId,
 } from '../../../../helpers/utils/notification.util';
-import { t } from '../../../../../shared/lib/translate';
+import { getText as t } from '../../../../../shared/lib/text';
 import { TextVariant } from '../../../../helpers/constants/design-system';
 import { OnChainNotificationDetailsTitle } from '../notification-details-title';
 

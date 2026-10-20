@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { QrSyncErrorCodes } from '../../../../../shared/constants/qr-sync';
 import SyncError from './sync-error';
 
@@ -40,26 +41,24 @@ describe('SyncError', () => {
     renderSyncError();
 
     expect(
-      screen.getByText(messages.add_device_error_title.message),
+      screen.getByText(messages.add_device_error_title),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.add_device_try_again.message),
-    ).toBeInTheDocument();
-    expect(screen.getByText(messages.cancel.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.add_device_try_again)).toBeInTheDocument();
+    expect(screen.getByText(messages.cancel)).toBeInTheDocument();
   });
 
   it('falls back to the generic message when there is no error', () => {
     renderSyncError(null);
 
     expect(
-      screen.getByText(messages.add_device_error_generic.message),
+      screen.getByText(messages.add_device_error_generic),
     ).toBeInTheDocument();
   });
 
   it('calls onRetry when the try again button is clicked', () => {
     const { onRetry } = renderSyncError();
 
-    fireEvent.click(screen.getByText(messages.add_device_try_again.message));
+    fireEvent.click(screen.getByText(messages.add_device_try_again));
 
     expect(onRetry).toHaveBeenCalledTimes(1);
   });
@@ -67,7 +66,7 @@ describe('SyncError', () => {
   it('calls onCancel when the cancel button is clicked', () => {
     const { onCancel } = renderSyncError();
 
-    fireEvent.click(screen.getByText(messages.cancel.message));
+    fireEvent.click(screen.getByText(messages.cancel));
 
     expect(onCancel).toHaveBeenCalledTimes(1);
   });

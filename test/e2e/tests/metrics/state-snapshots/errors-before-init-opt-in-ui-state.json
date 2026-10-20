@@ -132,8 +132,12 @@
       "metaMetricsDataDeletionId": null,
       "metaMetricsDataDeletionTimestamp": 0
     },
-    "MoneyAccountController": { "moneyAccounts": "object" },
-    "MoneyAccountUpgradeController": { "upgradedAccounts": "object" },
+    "MoneyAccountController": {
+      "moneyAccounts": "object"
+    },
+    "MoneyAccountUpgradeController": {
+      "upgradedAccounts": "object"
+    },
     "MultichainAssetsController": {},
     "MultichainAssetsRatesController": {},
     "MultichainBalancesController": {},
@@ -220,7 +224,6 @@
     "PreferencesController": {
       "addSnapAccountEnabled": "boolean",
       "advancedGasFee": {},
-      "currentLocale": "en",
       "dismissSeedBackUpReminder": false,
       "featureFlags": {},
       "forgottenPassword": false,

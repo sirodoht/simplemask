@@ -81,7 +81,7 @@ import { supportsChainIds } from '../../hooks/useAccountGroupsForPermissions';
 import { getCaip25AccountIdsFromAccountGroupAndScope } from '../../../shared/lib/multichain/scope-utils';
 import { MultichainEditAccountsPageWrapper } from '../../components/multichain-accounts/permissions/multichain-edit-accounts-page/multichain-edit-account-wrapper';
 import { SnapsPermissionsRequestType } from '../../components/multichain-accounts/permissions/multichain-edit-accounts-page/multichain-edit-accounts-page';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   getCaip25CaveatValueFromPermissions,
   PermissionsRequest,
@@ -197,7 +197,7 @@ function PermissionsConnect() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const t = useI18nContext();
+  const t = getText;
 
   const permissionsRequestId = params.id;
 

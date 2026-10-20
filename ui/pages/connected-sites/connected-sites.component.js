@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ConnectedSitesList from '../../components/app/connected-sites-list';
 import Popover from '../../components/ui/popover/popover.component';
 import { Button, ButtonVariant } from '../../components/component-library';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 
 export default function ConnectedSites({
   accountLabel,
@@ -16,7 +16,7 @@ export default function ConnectedSites({
   tabToConnect = null,
   requestAccountsPermission,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const [sitePendingDisconnect, setSitePendingDisconnect] = useState(null);
 
   useEffect(() => {

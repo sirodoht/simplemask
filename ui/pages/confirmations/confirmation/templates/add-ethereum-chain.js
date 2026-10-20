@@ -26,9 +26,9 @@ const UNRECOGNIZED_CHAIN = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'unrecognizedChain',
+        textKey: 'unrecognizedChain',
       },
     },
   },
@@ -40,9 +40,9 @@ const SAFE_CHAIN_LIST_PROVIDER_ERROR = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'errorGettingSafeChainList',
+        textKey: 'errorGettingSafeChainList',
       },
     },
   },
@@ -54,9 +54,9 @@ const MISMATCHED_CHAIN_RECOMMENDATION = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'mismatchedChainRecommendation',
+        textKey: 'mismatchedChainRecommendation',
         variables: [
           {
             element: 'a',
@@ -67,9 +67,9 @@ const MISMATCHED_CHAIN_RECOMMENDATION = {
               tabIndex: 0,
             },
             children: {
-              element: 'MetaMaskTranslation',
+              element: 'TemplateText',
               props: {
-                translationKey: 'mismatchedChainLinkText',
+                textKey: 'mismatchedChainLinkText',
               },
             },
           },
@@ -85,9 +85,9 @@ const DEPRECATED_CHAIN_ALERT = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'deprecatedNetwork',
+        textKey: 'deprecatedNetwork',
       },
     },
   },
@@ -99,9 +99,9 @@ const MISMATCHED_NETWORK_NAME = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'mismatchedNetworkName',
+        textKey: 'mismatchedNetworkName',
       },
     },
   },
@@ -113,9 +113,9 @@ const MISMATCHED_NETWORK_SYMBOL = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'mismatchedNetworkSymbol',
+        textKey: 'mismatchedNetworkSymbol',
       },
     },
   },
@@ -127,9 +127,9 @@ const MISMATCHED_NETWORK_RPC = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'mismatchedRpcUrl',
+        textKey: 'mismatchedRpcUrl',
       },
     },
   },
@@ -141,9 +141,9 @@ const MISMATCHED_NETWORK_RPC_CHAIN_ID = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'mismatchedRpcChainId',
+        textKey: 'mismatchedRpcChainId',
       },
     },
   },
@@ -155,9 +155,9 @@ const ERROR_CONNECTING_TO_RPC = {
   content: {
     element: 'span',
     children: {
-      element: 'MetaMaskTranslation',
+      element: 'TemplateText',
       props: {
-        translationKey: 'errorWhileConnectingToRPC',
+        textKey: 'errorWhileConnectingToRPC',
       },
     },
   },
@@ -326,10 +326,10 @@ function getValues(pendingApproval, t, actions, navigate, data) {
         key: 'only-add-networks-you-trust',
         children: [
           {
-            element: 'MetaMaskTranslation',
+            element: 'TemplateText',
             key: 'learn-about-risks',
             props: {
-              translationKey: 'watchOutMessage',
+              textKey: 'watchOutMessage',
               variables: [
                 {
                   element: 'a',

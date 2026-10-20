@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { captureException } from '../../shared/lib/sentry';
-import { I18nProvider } from '../contexts/i18n';
+
 import { MetaMetricsProvider } from '../contexts/metametrics';
 import { MetamaskNotificationsProvider } from '../contexts/metamask-notifications';
 import { AssetPollingProvider } from '../contexts/assetPolling';
@@ -41,7 +41,7 @@ function withStrictMode(children) {
 function AppProviders() {
   return (
     <MetaMetricsProvider>
-      <I18nProvider>
+      <>
         <QueryClientProvider client={queryClient}>
           <AssetPollingProvider>
             <MetamaskIdentityProvider>
@@ -55,7 +55,7 @@ function AppProviders() {
             </MetamaskIdentityProvider>
           </AssetPollingProvider>
         </QueryClientProvider>
-      </I18nProvider>
+      </>
     </MetaMetricsProvider>
   );
 }
@@ -63,9 +63,9 @@ function AppProviders() {
 function ErrorPage({ error }) {
   return (
     <MetaMetricsProvider>
-      <I18nProvider>
+      <>
         <ErrorPageBase error={error} />
-      </I18nProvider>
+      </>
     </MetaMetricsProvider>
   );
 }

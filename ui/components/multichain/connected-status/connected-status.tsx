@@ -10,7 +10,7 @@ import {
   STATUS_CONNECTED_TO_ANOTHER_ACCOUNT,
   STATUS_NOT_CONNECTED,
 } from '../../../helpers/constants/connected-sites';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { BadgeStatus } from '../badge-status';
 import { getAllPermittedAccountsForCurrentTab } from '../../../selectors';
 import { getAccountGroupsByAddress } from '../../../selectors/multichain-accounts/account-tree';
@@ -35,7 +35,7 @@ export const ConnectedStatus = ({
   showConnectedStatus = true,
   hideTooltip = false,
 }: ConnectedStatusProps): JSX.Element => {
-  const t = useI18nContext();
+  const t = getText;
 
   const addressArray = useMemo(() => [address], [address]);
   const [accountGroup] = useSelector((state: MultichainAccountsState) =>

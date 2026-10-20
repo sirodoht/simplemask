@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { waitFor, fireEvent, act } from '@testing-library/react';
@@ -15,7 +16,7 @@ import {
 } from '../../../../shared/constants/metametrics';
 import { PLATFORM_FIREFOX } from '../../../../shared/constants/app';
 import { ONBOARDING_CREATE_PASSWORD_ROUTE } from '../../../helpers/constants/routes';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { OAuthErrorMessages } from '../../../../shared/lib/error';
 import Welcome from './welcome';
 
@@ -132,12 +133,8 @@ describe('Welcome Page', () => {
   it('render buttons', async () => {
     const { getByText } = renderWithProvider(<Welcome />, mockStore);
     await waitFor(() => {
-      expect(
-        getByText(messages.onboardingCreateWallet.message),
-      ).toBeInTheDocument();
-      expect(
-        getByText(messages.onboardingImportWallet.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.onboardingCreateWallet)).toBeInTheDocument();
+      expect(getByText(messages.onboardingImportWallet)).toBeInTheDocument();
     });
   });
 
@@ -156,12 +153,10 @@ describe('Welcome Page', () => {
     );
 
     await waitFor(() => {
-      expect(
-        getByText(messages.onboardingCreateWallet.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.onboardingCreateWallet)).toBeInTheDocument();
     });
 
-    const createButton = getByText(messages.onboardingCreateWallet.message);
+    const createButton = getByText(messages.onboardingCreateWallet);
 
     await act(async () => {
       fireEvent.click(createButton);
@@ -199,12 +194,10 @@ describe('Welcome Page', () => {
     );
 
     await waitFor(() => {
-      expect(
-        getByText(messages.onboardingCreateWallet.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.onboardingCreateWallet)).toBeInTheDocument();
     });
 
-    const createButton = getByText(messages.onboardingCreateWallet.message);
+    const createButton = getByText(messages.onboardingCreateWallet);
 
     await act(async () => {
       fireEvent.click(createButton);
@@ -273,12 +266,10 @@ describe('Welcome Page', () => {
     );
 
     await waitFor(() => {
-      expect(
-        getByText(messages.onboardingImportWallet.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.onboardingImportWallet)).toBeInTheDocument();
     });
 
-    const createButton = getByText(messages.onboardingImportWallet.message);
+    const createButton = getByText(messages.onboardingImportWallet);
 
     await act(async () => {
       fireEvent.click(createButton);
@@ -351,12 +342,10 @@ describe('Welcome Page', () => {
     );
 
     await waitFor(() => {
-      expect(
-        getByText(messages.onboardingImportWallet.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.onboardingImportWallet)).toBeInTheDocument();
     });
 
-    const createButton = getByText(messages.onboardingImportWallet.message);
+    const createButton = getByText(messages.onboardingImportWallet);
 
     await act(async () => {
       fireEvent.click(createButton);
@@ -427,12 +416,10 @@ describe('Welcome Page', () => {
     );
 
     await waitFor(() => {
-      expect(
-        getByText(messages.onboardingCreateWallet.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.onboardingCreateWallet)).toBeInTheDocument();
     });
 
-    const createButton = getByText(messages.onboardingCreateWallet.message);
+    const createButton = getByText(messages.onboardingCreateWallet);
 
     await act(async () => {
       fireEvent.click(createButton);
@@ -510,14 +497,12 @@ describe('Welcome Page', () => {
 
       await waitFor(() => {
         expect(
-          utils.getByText(messages.onboardingCreateWallet.message),
+          utils.getByText(messages.onboardingCreateWallet),
         ).toBeInTheDocument();
       });
 
       await act(async () => {
-        fireEvent.click(
-          utils.getByText(messages.onboardingCreateWallet.message),
-        );
+        fireEvent.click(utils.getByText(messages.onboardingCreateWallet));
         await new Promise((resolve) => setTimeout(resolve, 500));
       });
 

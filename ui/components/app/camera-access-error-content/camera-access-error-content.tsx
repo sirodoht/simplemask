@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -19,7 +20,7 @@ import {
   TextVariant,
   type BoxSpacing,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   CameraAccessErrorContentVariant,
   type CameraAccessErrorContentProps,
@@ -27,7 +28,7 @@ import {
 
 const DEFAULT_ROOT_PADDING: BoxSpacing = 4;
 
-type TranslateFn = ReturnType<typeof useI18nContext>;
+type TranslateFn = typeof getText;
 
 type FirefoxInstructionStep = {
   id: string;
@@ -39,8 +40,8 @@ type FirefoxInstructionStep = {
  * Resolves root test id, title, and body copy for the camera access variant.
  *
  * @param variant - Needed vs blocked UI branch.
- * @param t - i18n `t` from `useI18nContext`.
- * @returns Root `data-testid` plus localized title and body.
+ * @param t - i18n `t` from `getText`.
+ * @returns Root `data-testid` plus English title and body.
  */
 function resolveCameraAccessCopy(
   variant: CameraAccessErrorContentVariant,
@@ -63,7 +64,7 @@ function resolveCameraAccessCopy(
 /**
  * Builds numbered Firefox permission instructions with stable row ids for list keys.
  *
- * @param t - i18n `t` from `useI18nContext`.
+ * @param t - i18n `t` from `getText`.
  * @param mozExtensionDisplay - Extension origin string shown in Firefox step 2.
  * @returns Rows for `renderFirefoxCameraInstructions` (`id`, `order`, `text`).
  */
@@ -207,7 +208,7 @@ function renderChromiumCameraHint(params: { hintText: string }) {
 export const CameraAccessErrorContent = (
   props: CameraAccessErrorContentProps,
 ) => {
-  const t = useI18nContext();
+  const t = getText;
   const { variant, onContinue, continueLoading = false } = props;
 
   const rootPaddingHorizontal: BoxSpacing =

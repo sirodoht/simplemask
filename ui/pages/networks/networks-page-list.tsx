@@ -28,7 +28,7 @@ import { AdditionalNetworksInfo } from '../../components/multichain/network-mana
 import { useNetworkItemCallbacks } from '../../components/multichain/network-manager/hooks/useNetworkItemCallbacks';
 import { NetworkListItem } from '../../components/multichain/network-list-item';
 import ToggleButton from '../../components/ui/toggle-button';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import { useIsNetworkGasSponsored } from '../../hooks/useIsNetworkGasSponsored';
 import { selectAdditionalNetworksBlacklistFeatureFlag } from '../../selectors/network-blacklist/network-blacklist';
@@ -86,7 +86,7 @@ const filterNetworks = <
 };
 
 const AdditionalNetworkRow = ({ network }: { network: AddNetworkFields }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { isNetworkGasSponsored } = useIsNetworkGasSponsored(network.chainId);
   const networkImageUrl =
@@ -168,7 +168,7 @@ export const NetworksPageList = ({
   onAddCustomNetwork,
   footerContent,
 }: NetworksPageListProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
 

@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import {
   NOTIFICATIONS_SETTINGS_SECTION_ROUTES,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
@@ -955,8 +956,7 @@ describe('NotificationSectionSubPage', () => {
             pushNotificationsEnabled: true,
           },
         },
-        description:
-          messages.notificationsSettingsAgenticCliDescription.message,
+        description: messages.notificationsSettingsAgenticCliDescription,
       },
     ];
 
@@ -973,7 +973,7 @@ describe('NotificationSectionSubPage', () => {
       ).not.toBeInTheDocument();
       expect(
         screen.queryByText(
-          messages.notificationsSettingsWalletActivityDescription.message,
+          messages.notificationsSettingsWalletActivityDescription,
         ),
       ).not.toBeInTheDocument();
     });

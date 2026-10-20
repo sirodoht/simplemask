@@ -1,9 +1,13 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages, tEn } from '../../../../test/lib/i18n-helpers';
+import {
+  englishText as messages,
+  getText as tEn,
+} from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { AutoLockItem } from './security-and-password-tab';
 
@@ -23,15 +27,13 @@ describe('AutoLockItem', () => {
   it('renders the label', () => {
     renderWithProvider(<AutoLockItem />, createMockStore());
 
-    expect(screen.getByText(messages.autoLock.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.autoLock)).toBeInTheDocument();
   });
 
   it('displays "Never" when autoLockTimeLimit is 0', () => {
     renderWithProvider(<AutoLockItem />, createMockStore(0));
 
-    expect(
-      screen.getByText(messages.autoLockNever.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.autoLockNever)).toBeInTheDocument();
   });
 
   it('displays custom label when autoLockTimeLimit is 0.01', () => {
@@ -46,7 +48,7 @@ describe('AutoLockItem', () => {
     renderWithProvider(<AutoLockItem />, createMockStore(5));
 
     expect(
-      screen.getByText(messages.autoLockAfter5Minutes.message),
+      screen.getByText(messages.autoLockAfter5Minutes),
     ).toBeInTheDocument();
   });
 

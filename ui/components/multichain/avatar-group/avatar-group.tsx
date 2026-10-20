@@ -56,7 +56,7 @@ export const AvatarGroup = ({
   } else {
     marginLeftValue = '-16px';
   }
-  const tagValue = `+${(membersCount - limit).toLocaleString()}`;
+  const tagValue = `+${(membersCount - limit).toLocaleString('en')}`;
   return (
     <Box
       alignItems={AlignItems.center}

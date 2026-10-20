@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   TransactionStatus,
@@ -18,7 +19,7 @@ import {
   unapprovedTypedSignMsgV4,
 } from '../../../../../../../test/data/confirmations/typed_sign';
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import { RowAlertKey } from '../../../../../../components/app/confirm/info/row/constants';
 import { Severity } from '../../../../../../helpers/constants/design-system';
 import TypedSignInfo from './typed-sign';
@@ -112,7 +113,7 @@ describe('TypedSignInfo', () => {
       <TypedSignInfo />,
       mockStore,
     );
-    expect(getByText(messages.simulationDetailsTitle.message)).toBeDefined();
+    expect(getByText(messages.simulationDetailsTitle)).toBeDefined();
   });
 
   it('correctly renders permit sign type', () => {
@@ -160,12 +161,12 @@ describe('TypedSignInfo', () => {
       mockStore,
     );
 
-    const requestFromLabel = queryByText(messages.requestFrom.message);
+    const requestFromLabel = queryByText(messages.requestFrom);
 
     await requestFromLabel?.dispatchEvent(
       new MouseEvent('mouseenter', { bubbles: true }),
     );
-    expect(queryByText(messages.requestFromInfoSnap.message)).toBeDefined();
+    expect(queryByText(messages.requestFromInfoSnap)).toBeDefined();
   });
 
   it('displays "requestFromInfo" tooltip when origin is not a snap', async () => {
@@ -182,12 +183,12 @@ describe('TypedSignInfo', () => {
       mockStore,
     );
 
-    const requestFromLabel = queryByText(messages.requestFrom.message);
+    const requestFromLabel = queryByText(messages.requestFrom);
 
     await requestFromLabel?.dispatchEvent(
       new MouseEvent('mouseenter', { bubbles: true }),
     );
-    expect(queryByText(messages.requestFromInfo.message)).toBeDefined();
+    expect(queryByText(messages.requestFromInfo)).toBeDefined();
   });
 
   it('display network info if there is an alert on that field', () => {
@@ -213,7 +214,7 @@ describe('TypedSignInfo', () => {
       <TypedSignInfo />,
       mockStore,
     );
-    expect(getByText(messages.network.message)).toBeInTheDocument();
-    expect(getByText(messages.networkNameGoerli.message)).toBeInTheDocument();
+    expect(getByText(messages.network)).toBeInTheDocument();
+    expect(getByText(messages.networkNameGoerli)).toBeInTheDocument();
   });
 });

@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { act, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 
 import mockState from '../../../../../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../../shared/lib/text';
 import { MetaMetricsEventName } from '../../../../../../../../../shared/constants/metametrics';
 import * as actions from '../../../../../../../../store/actions';
 import { memoizedGetTokenStandardAndDetailsByChain } from '../../../../../../utils/token';
@@ -126,7 +127,7 @@ describe('PermitSimulationValueDisplay', () => {
     );
 
     await waitFor(() => {
-      expect(queryByText(messages.unlimited.message)).not.toBeInTheDocument();
+      expect(queryByText(messages.unlimited)).not.toBeInTheDocument();
     });
   });
 
@@ -171,7 +172,7 @@ describe('PermitSimulationValueDisplay', () => {
       mockStore,
     );
 
-    expect(await findByText(messages.unlimited.message)).toBeInTheDocument();
+    expect(await findByText(messages.unlimited)).toBeInTheDocument();
   });
 
   it('renders unlimited if value over threshold', async () => {
@@ -187,7 +188,7 @@ describe('PermitSimulationValueDisplay', () => {
       mockStore,
     );
 
-    expect(await findByText(messages.unlimited.message)).toBeInTheDocument();
+    expect(await findByText(messages.unlimited)).toBeInTheDocument();
   });
 
   it('renders unlimited if value under threshold', async () => {
@@ -204,7 +205,7 @@ describe('PermitSimulationValueDisplay', () => {
     );
 
     await waitFor(() => {
-      expect(queryByText(messages.unlimited.message)).toBeNull();
+      expect(queryByText(messages.unlimited)).toBeNull();
     });
   });
 });

@@ -5,7 +5,7 @@ import {
   Toast,
   ToastContainer,
 } from '../../../../components/multichain/toast/toast';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { resolveCancelSpeedupErrorMessage } from './utils';
 
 const AUTO_HIDE_MS = 5000;
@@ -21,7 +21,7 @@ export const CancelSpeedupErrorToast = ({
   errorMessage,
   onClose,
 }: CancelSpeedupErrorToastProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const title = isCancel
     ? t('cancelTransactionFailed')

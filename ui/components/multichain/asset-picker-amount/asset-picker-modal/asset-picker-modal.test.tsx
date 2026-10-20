@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { screen, fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import { useSelector } from 'react-redux';
@@ -7,7 +8,7 @@ import {
   NetworkConfiguration,
   RpcEndpointType,
 } from '@metamask/network-controller';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useTokenTracker } from '../../../../hooks/useTokenTracker';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../test/data/mock-send-state.json';
@@ -36,7 +37,7 @@ import {
 } from '../../../../selectors/multichain';
 import { MultichainNetworks } from '../../../../../shared/constants/multichain/networks';
 import { useMultichainBalances } from '../../../../hooks/useMultichainBalances';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { CHAIN_IDS } from '../../../../../shared/constants/network';
 import {
   ARC_USDC_ERC20_TOKEN_ADDRESS,
@@ -67,8 +68,8 @@ jest.mock('../../../../hooks/useMultichainSelector', () => ({
     mockUseMultichainSelector(selector),
 }));
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 jest.mock('../../../../hooks/useTokenTracker', () => ({
@@ -87,7 +88,7 @@ jest.mock('../../../../hooks/useMultichainBalances', () => ({
 
 describe('AssetPickerModal', () => {
   const useSelectorMock = useSelector as jest.Mock;
-  const useI18nContextMock = useI18nContext as jest.Mock;
+  const getTextMock = getText as jest.Mock;
   const useTokenTrackerMock = useTokenTracker as jest.Mock;
   const mockStore = configureStore([thunk]);
   const store = mockStore(mockState);
@@ -153,7 +154,7 @@ describe('AssetPickerModal', () => {
       return undefined;
     });
 
-    useI18nContextMock.mockReturnValue((key: string) => key);
+    getTextMock.mockImplementation((key: string) => key);
     useTokenTrackerMock.mockReturnValue({
       tokensWithBalances: [],
     });
@@ -299,7 +300,7 @@ describe('AssetPickerModal', () => {
     expect(modalTitle).toBeInTheDocument();
 
     expect(getAllByRole('img')).toHaveLength(2);
-    const modalContent = getByText(messages.networkNameEthereum.message);
+    const modalContent = getByText(messages.networkNameEthereum);
     expect(modalContent).toBeInTheDocument();
   });
 
@@ -394,7 +395,7 @@ describe('AssetPickerModal', () => {
 
 describe('AssetPickerModal token filtering', () => {
   const onAssetChangeMock = jest.fn();
-  const useI18nContextMock = useI18nContext as jest.Mock;
+  const getTextMock = getText as jest.Mock;
 
   const defaultProps = {
     header: 'Select Token',
@@ -427,7 +428,7 @@ describe('AssetPickerModal token filtering', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    useI18nContextMock.mockReturnValue((key: string) => key);
+    getTextMock.mockImplementation((key: string) => key);
     mockGetRenderableTokenData.mockImplementation((data) => data);
     mockUseMultichainBalances.mockReturnValue({
       assetsWithBalance: [

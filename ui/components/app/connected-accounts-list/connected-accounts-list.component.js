@@ -11,7 +11,7 @@ import {
   Text,
 } from '../../component-library';
 import { MenuItem } from '../../ui/menu';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import ConnectedAccountsListItem from './connected-accounts-list-item';
 import ConnectedAccountsListOptions from './connected-accounts-list-options';
 
@@ -24,7 +24,7 @@ function ConnectedAccountsList({
   setSelectedAddress,
   shouldRenderListOptions,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const [accountWithOptionsShown, setAccountWithOptionsShown] = useState(null);
 
   const hideAccountOptions = useCallback(() => {

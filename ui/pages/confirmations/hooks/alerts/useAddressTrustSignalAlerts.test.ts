@@ -28,8 +28,8 @@ jest.mock('../../../../../app/scripts/lib/ppom/security-alerts-api', () => ({
   isSecurityAlertsAPIEnabled: jest.fn(),
 }));
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(() => (key: string) => key),
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: jest.fn((key: string) => key),
 }));
 
 const mockUseTrustSignal = jest.requireMock(

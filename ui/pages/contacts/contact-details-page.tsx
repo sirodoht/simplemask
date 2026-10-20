@@ -9,7 +9,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { Content, Header, Page } from '../../components/multichain/pages/page';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   CONTACTS_ROUTE,
   CONTACTS_EDIT_ROUTE,
@@ -32,7 +32,7 @@ import { DeleteContactModal } from './components/delete-contact-modal';
 import { ViewContactContent } from './components/view-contact-content';
 
 export function ContactDetailsPage() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();

@@ -1,9 +1,10 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+
+import { fireEvent, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import {
   MetaMetricsEventCategory,
@@ -70,20 +71,16 @@ describe('AutoLockSubPage', () => {
     renderWithProvider(<AutoLockSubPage />, createMockStore());
 
     expect(
-      screen.getByText(messages.autoLockAfter15Seconds.message),
+      screen.getByText(messages.autoLockAfter15Seconds),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.autoLockAfter30Seconds.message),
+      screen.getByText(messages.autoLockAfter30Seconds),
     ).toBeInTheDocument();
+    expect(screen.getByText(messages.autoLockAfter1Minute)).toBeInTheDocument();
     expect(
-      screen.getByText(messages.autoLockAfter1Minute.message),
+      screen.getByText(messages.autoLockAfter5Minutes),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.autoLockAfter5Minutes.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.autoLockNever.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.autoLockNever)).toBeInTheDocument();
   });
 
   it('highlights the currently selected option', () => {
@@ -95,7 +92,7 @@ describe('AutoLockSubPage', () => {
   it('dispatches setAutoLockTimeLimit and navigates on click', () => {
     renderWithProvider(<AutoLockSubPage />, createMockStore());
 
-    fireEvent.click(screen.getByText(messages.autoLockAfter1Minute.message));
+    fireEvent.click(screen.getByText(messages.autoLockAfter1Minute));
 
     expect(mockTrackEvent).toHaveBeenCalledWith({
       name: MetaMetricsEventName.SettingsUpdated,

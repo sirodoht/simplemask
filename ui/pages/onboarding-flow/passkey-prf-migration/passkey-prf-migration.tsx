@@ -18,7 +18,7 @@ import {
 } from '@metamask/design-system-react';
 import { BaseUrl } from '../../../../shared/constants/urls';
 import { getIsUnlocked } from '../../../ducks/metamask/base-selectors';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getRedirectAfterUnlock } from '../../../helpers/utils/redirect-after-unlock';
 import {
   DEFAULT_ROUTE,
@@ -97,7 +97,7 @@ function PasskeyMigrationPrompt({
   onReplacePasskey,
   onRemindMeLater,
 }: PasskeyMigrationPromptProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

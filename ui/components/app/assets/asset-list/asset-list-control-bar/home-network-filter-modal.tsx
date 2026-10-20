@@ -43,7 +43,7 @@ import {
   ModalContentSize,
   ModalOverlay,
 } from '../../../../component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { transitionForward } from '../../../../ui/transition';
 import { NETWORKS_ROUTE } from '../../../../../helpers/constants/routes';
 import {
@@ -230,7 +230,7 @@ export const NetworkSelectionModal = ({
   footerButton,
   'data-testid': dataTestId,
 }: NetworkSelectionModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Modal
       isOpen={isOpen}
@@ -343,7 +343,7 @@ const HomeNetworkFilterModalContent = ({
   onClose: () => void;
   onPendingChange?: (isPending: boolean) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const orderedNetworksList = useSelector(getOrderedNetworksList);

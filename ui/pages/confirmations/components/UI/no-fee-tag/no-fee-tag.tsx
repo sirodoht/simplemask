@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { Tag, TagSeverity } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 type NoFeeTagProps = {
   testId?: string;
@@ -13,7 +14,7 @@ type NoFeeTagProps = {
  * @param props.testId - Optional test id override.
  */
 export function NoFeeTag({ testId = 'no-fee-tag' }: NoFeeTagProps = {}) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Tag

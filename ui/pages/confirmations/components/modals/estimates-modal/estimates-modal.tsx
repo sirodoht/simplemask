@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   Text,
@@ -18,7 +19,7 @@ import {
 import NetworkStatistics from '../../edit-gas-fee-popover/network-statistics/network-statistics';
 import { GasModalType } from '../../../constants/gas';
 import { useGasOptions } from '../../../hooks/gas/useGasOptions';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   Display,
   FlexDirection,
@@ -33,7 +34,7 @@ export const EstimatesModal = ({
   setActiveModal: (modal: GasModalType) => void;
   handleCloseModals: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { options } = useGasOptions({
     handleCloseModals,
     setActiveModal,

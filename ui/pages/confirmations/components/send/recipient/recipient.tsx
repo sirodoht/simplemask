@@ -27,7 +27,7 @@ import {
   BannerAlert,
   BannerAlertSeverity,
 } from '../../../../../components/component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useRecipientSelectionMetrics } from '../../../hooks/send/metrics/useRecipientSelectionMetrics';
 import { useRecipientValidation } from '../../../hooks/send/useRecipientValidation';
 import { AddressPoisoningDetectionResult } from '../../../hooks/send/useAddressPoisoningDetection';
@@ -56,7 +56,7 @@ export const Recipient = ({
     toAddressValidated,
     resolutionProtocol,
   } = recipientValidationResult;
-  const t = useI18nContext();
+  const t = getText;
   const [isRecipientModalOpen, setIsRecipientModalOpen] = useState(false);
   const { to, updateTo, updateToResolved } = useSendContext();
   const {

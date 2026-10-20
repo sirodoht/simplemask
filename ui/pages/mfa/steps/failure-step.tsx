@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AvatarIcon,
   AvatarIconSeverity,
@@ -8,13 +9,13 @@ import {
   ButtonVariant,
   IconName,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getSpecificErrorMessageKey } from '../labels';
 import { MfaFlowTestIds } from '../test-ids';
 import StepLayout, { type StepProps } from './step-layout';
 
 const FailureStep = ({ step, state, onAction }: StepProps<'failure'>) => {
-  const t = useI18nContext();
+  const t = getText;
   const specificKey = getSpecificErrorMessageKey(step.code);
   return (
     <StepLayout

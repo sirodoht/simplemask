@@ -43,7 +43,7 @@ import {
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
 import ImportControl from '../import-control';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useAnalytics } from '../../../../../hooks/useAnalytics';
 import { useBoolean } from '../../../../../hooks/useBoolean';
 import { TEST_CHAINS } from '../../../../../../shared/constants/network';
@@ -98,7 +98,7 @@ const AssetListControlBar = ({
   onRefresh,
   'data-testid': dataTestId,
 }: AssetListControlBarProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const navigate = useNavigate();

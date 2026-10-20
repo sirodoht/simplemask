@@ -6,7 +6,7 @@ import {
   TRIGGER_TYPES,
   NOTIFICATION_API_TRIGGER_TYPES_SET,
 } from '@metamask/notification-services-controller/notification-services';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   IconName,
   IconSize,
@@ -110,7 +110,7 @@ export default function Notifications() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const runCloseTransition = useGlobalMenuRouteTransition();
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const fromPath = searchParams.get('from') ?? undefined;

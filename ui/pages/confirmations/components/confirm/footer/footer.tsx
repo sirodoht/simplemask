@@ -20,7 +20,7 @@ import {
 } from '../../../../../helpers/constants/design-system';
 import { DEFAULT_ROUTE } from '../../../../../helpers/constants/routes';
 import useAlerts from '../../../../../hooks/useAlerts';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmationNavigation } from '../../../hooks/useConfirmationNavigation';
 import { resolvePendingApproval } from '../../../../../store/actions';
 import { useConfirmContext } from '../../../context/confirm';
@@ -52,7 +52,7 @@ export type OnCancelHandler = ({
 
 function reviewAlertButtonText(
   unconfirmedDangerAlerts: Alert[],
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
 ) {
   if (unconfirmedDangerAlerts.length === 1) {
     return t('reviewAlert');
@@ -92,7 +92,7 @@ const ConfirmButton = ({
   onSubmit: () => void;
   onCancel: OnCancelHandler;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
@@ -205,7 +205,7 @@ const CancelButton = ({
 }: {
   handleFooterCancel: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   return (
@@ -231,7 +231,7 @@ const Footer = () => {
   const { currentConfirmation, isScrollToBottomCompleted, goBackTo } =
     useConfirmContext<TransactionMeta>();
   const currentConfirmationId = currentConfirmation?.id;
-  const t = useI18nContext();
+  const t = getText;
   const { isGaslessLoading } = useIsGaslessLoading();
 
   // Hardware preflight and signing follow the paying account: Money Account

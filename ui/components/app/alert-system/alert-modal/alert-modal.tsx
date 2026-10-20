@@ -19,7 +19,7 @@ import {
   TextVariant,
 } from '../../../../helpers/constants/design-system';
 import useAlerts from '../../../../hooks/useAlerts';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../../pages/confirmations/context/confirm';
 import { useSendingAssetsFiatTotal } from '../../../../pages/confirmations/hooks/alerts/useSendingAssetsFiatTotal';
 import { REASON_TO_REQUEST_TYPE_TKEY } from '../../../../pages/confirmations/hooks/alerts/constants';
@@ -121,7 +121,7 @@ function AlertHeader({
   selectedAlert: Alert;
   customTitle?: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { severity, reason, iconName, iconColor } = selectedAlert;
   const severityStyle = getSeverityStyle(severity);
   return (
@@ -155,7 +155,7 @@ function AlertHeader({
 // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function BlockaidAlertDetails() {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
   const { securityAlertResponse } = currentConfirmation;
   const sendingFiatTotal = useSendingAssetsFiatTotal();
@@ -189,7 +189,7 @@ function AlertDetails({
   selectedAlert: Alert;
   customDetails?: React.ReactNode;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const severityStyle = getSeverityStyle(selectedAlert.severity);
   const customAlertBg = selectedAlert.alertDetailsBackgroundColor;
 
@@ -251,7 +251,7 @@ export function AcknowledgeCheckboxBase({
   isConfirmed: boolean;
   label?: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const severityStyle = getSeverityStyle(selectedAlert.severity);
 
   if (!requiresAcknowledgement(selectedAlert)) {
@@ -292,7 +292,7 @@ function AcknowledgeButton({
   isBlocking?: boolean;
   label?: string;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Button

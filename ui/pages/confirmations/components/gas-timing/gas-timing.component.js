@@ -1,14 +1,14 @@
 import BigNumber from 'bignumber.js';
 import classNames from 'clsx';
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   GasEstimateTypes,
   PriorityLevels,
 } from '../../../../../shared/constants/gas';
 import { Box, Text } from '../../../../components/component-library';
-import { I18nContext } from '../../../../contexts/i18n';
+import { getText } from '../../../../helpers/utils/text';
 import {
   getGasEstimateType,
   getGasEstimateTypeByChainId,
@@ -71,7 +71,7 @@ export default function GasTiming({
 
   const gasFeeEstimates = chainGasFeeEstimates || gasFeeEstimatesFromRoot;
   const [customEstimate, setCustomEstimate] = useState(null);
-  const t = useContext(I18nContext);
+  const t = getText;
 
   // If the user has chosen a value lower than the low gas fee estimate,
   // We'll need to use the useEffect hook below to make a call to calculate

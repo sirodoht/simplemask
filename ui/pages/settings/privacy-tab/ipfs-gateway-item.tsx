@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, BoxFlexDirection } from '@metamask/design-system-react';
 import { FormTextField } from '../../../components/component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { SettingsToggleItem } from '../shared/settings-toggle-item';
 import {
   setIpfsGateway,
@@ -24,7 +24,7 @@ import {
 } from '../../../../shared/constants/metametrics';
 
 export const IpfsGatewayItem = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
 

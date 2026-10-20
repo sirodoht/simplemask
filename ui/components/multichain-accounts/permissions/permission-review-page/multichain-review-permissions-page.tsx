@@ -7,7 +7,7 @@ import {
   getCaipAccountIdsFromCaip25CaveatValue,
 } from '@metamask/chain-agnostic-permission';
 import log from 'loglevel';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   getAllPermittedChainsForSelectedTab,
   getConnectedSitesList,
@@ -37,7 +37,7 @@ import { toast } from '../../../ui/toast/toast';
 import { getURLHost } from '../../../../helpers/utils/util';
 
 export const MultichainReviewPermissions = () => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();

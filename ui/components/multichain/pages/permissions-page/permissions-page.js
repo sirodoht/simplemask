@@ -17,7 +17,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { Content, Footer, Header, Page } from '../page';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { PermissionsEmptyState } from '../gator-permissions/components';
 import { BackgroundColor } from '../../../../helpers/constants/design-system';
 import {
@@ -40,7 +40,7 @@ import { useDispatch } from '../../../../store/hooks';
 import { ConnectionListItem } from './connection-list-item';
 
 const PermissionsPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const runCloseTransition = useGlobalMenuRouteTransition();

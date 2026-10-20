@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { AssetFilterInput } from './asset-filter-input';
 
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 jest.mock('@metamask/design-system-react', () => ({
   TextFieldSearch: ({
     value,
@@ -35,11 +35,11 @@ jest.mock('@metamask/design-system-react', () => ({
 }));
 
 describe('AssetFilterInput', () => {
-  const mockUseI18nContext = jest.mocked(useI18nContext);
+  const mockGetText = jest.mocked(getText);
   const mockOnChange = jest.fn();
 
   beforeEach(() => {
-    mockUseI18nContext.mockReturnValue((key: string) => key);
+    mockGetText.mockImplementation((key: string) => key);
   });
 
   afterEach(() => {

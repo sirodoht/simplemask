@@ -22,7 +22,7 @@ import {
 import { Label } from '../label';
 import { HelpText, HelpTextSeverity } from '../help-text';
 import { TextColor as TextColorLegacy } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { FileUploaderProps } from './file-uploader.types';
 
 // Constants
@@ -43,7 +43,7 @@ export const FileUploader = ({
   onChange,
   ...props
 }: FileUploaderProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const fileInputRef = useRef<FileInputRef>(null);
   const [files, setFiles] = useState<FileList | null>(null);
   const [error, setError] = useState<string | null>(null);

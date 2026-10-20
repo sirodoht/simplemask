@@ -11,7 +11,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type PermissionItemProps = {
   icon: IconName;
@@ -34,7 +34,7 @@ const PermissionItem = ({ icon, iconColor, children }: PermissionItemProps) => (
 );
 
 export const ConnectionPermissionsList = () => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box flexDirection={BoxFlexDirection.Column} gap={2}>

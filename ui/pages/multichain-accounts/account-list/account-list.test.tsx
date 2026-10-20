@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { fireEvent, screen, within } from '@testing-library/react';
 
 import configureStore from '../../../store/store';
 import { useAccountsOperationsLoadingStates } from '../../../hooks/accounts/useAccountsOperationsLoadingStates';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import { CHOOSE_NEW_WALLET_TYPE_PAGE_ROUTE } from '../../../helpers/constants/routes';
 import {
@@ -87,8 +88,8 @@ describe('AccountList', () => {
   it('renders the page with correct components and elements', () => {
     renderComponent();
 
-    expect(screen.getByText(messages.accounts.message)).toBeInTheDocument();
-    expect(screen.getByLabelText(messages.back.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.accounts)).toBeInTheDocument();
+    expect(screen.getByLabelText(messages.back)).toBeInTheDocument();
 
     const walletHeaders = screen.getAllByTestId(walletHeaderTestId);
 
@@ -104,7 +105,7 @@ describe('AccountList', () => {
 
     renderComponent();
 
-    const backButton = screen.getByLabelText(messages.back.message);
+    const backButton = screen.getByLabelText(messages.back);
     fireEvent.click(backButton);
 
     expect(mockUseNavigate).toHaveBeenCalledWith(-1);
@@ -113,7 +114,7 @@ describe('AccountList', () => {
   it('navigates to home when location.key is default', () => {
     renderComponent();
 
-    const backButton = screen.getByLabelText(messages.back.message);
+    const backButton = screen.getByLabelText(messages.back);
     fireEvent.click(backButton);
 
     expect(mockUseNavigate).toHaveBeenCalledWith('/', { replace: true });
@@ -125,7 +126,7 @@ describe('AccountList', () => {
 
     renderComponent();
 
-    const backButton = screen.getByLabelText(messages.back.message);
+    const backButton = screen.getByLabelText(messages.back);
     fireEvent.click(backButton);
 
     expect(mockUseNavigate).toHaveBeenCalledWith('/', { replace: true });
@@ -135,7 +136,7 @@ describe('AccountList', () => {
     renderComponent();
 
     const addWalletButton = screen.getByRole('button', {
-      name: messages.addWallet.message,
+      name: messages.addWallet,
     });
     expect(addWalletButton).toBeInTheDocument();
 
@@ -154,7 +155,7 @@ describe('AccountList', () => {
     expect(searchContainer).toBeInTheDocument();
 
     const searchInput = within(searchContainer).getByPlaceholderText(
-      messages.searchYourAccounts.message,
+      messages.searchYourAccounts,
     );
 
     expect(searchInput).toBeInTheDocument();
@@ -195,9 +196,7 @@ describe('AccountList', () => {
     const searchInput = within(searchContainer).getByRole('searchbox');
     fireEvent.change(searchInput, { target: { value: 'nonexistent account' } });
 
-    expect(
-      screen.getByText(messages.noAccountsFound.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.noAccountsFound)).toBeInTheDocument();
   });
 
   it('clears search when clear button is clicked', () => {
@@ -232,7 +231,7 @@ describe('AccountList', () => {
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       renderComponent();
@@ -240,7 +239,7 @@ describe('AccountList', () => {
       const addWalletButton = screen.getByTestId(addWalletButtonTestId);
       expect(addWalletButton).toBeDisabled();
       expect(
-        within(addWalletButton).getByText(messages.syncing.message),
+        within(addWalletButton).getByText(messages.syncing),
       ).toBeInTheDocument();
     });
 
@@ -248,7 +247,7 @@ describe('AccountList', () => {
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       renderComponent();
@@ -257,7 +256,7 @@ describe('AccountList', () => {
 
       const addWalletButton = screen.getByTestId(addWalletButtonTestId);
       expect(
-        within(addWalletButton).getByText(messages.syncing.message),
+        within(addWalletButton).getByText(messages.syncing),
       ).toBeInTheDocument();
     });
 
@@ -265,7 +264,7 @@ describe('AccountList', () => {
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       renderComponent();
@@ -273,7 +272,7 @@ describe('AccountList', () => {
       const addWalletButton = screen.getByTestId(addWalletButtonTestId);
       expect(addWalletButton).toBeDisabled();
       expect(
-        within(addWalletButton).getByText(messages.syncing.message),
+        within(addWalletButton).getByText(messages.syncing),
       ).toBeInTheDocument();
       expect(
         addWalletButton.querySelector(
@@ -293,7 +292,7 @@ describe('AccountList', () => {
       const addWalletButton = screen.getByTestId(addWalletButtonTestId);
       expect(addWalletButton).not.toBeDisabled();
       expect(
-        within(addWalletButton).getByText(messages.addWallet.message),
+        within(addWalletButton).getByText(messages.addWallet),
       ).toBeInTheDocument();
     });
 
@@ -310,14 +309,14 @@ describe('AccountList', () => {
       let addWalletButton = screen.getByTestId(addWalletButtonTestId);
       expect(addWalletButton).not.toBeDisabled();
       expect(
-        within(addWalletButton).getByText(messages.addWallet.message),
+        within(addWalletButton).getByText(messages.addWallet),
       ).toBeInTheDocument();
 
       // Simulate account syncing starting
       mockUseAccountsOperationsLoadingStates.mockReturnValue({
         isAccountTreeSyncingInProgress: true,
         areAnyOperationsLoading: true,
-        loadingMessage: messages.syncing.message,
+        loadingMessage: messages.syncing,
       });
 
       rerender(<AccountList />);
@@ -325,7 +324,7 @@ describe('AccountList', () => {
       addWalletButton = screen.getByTestId(addWalletButtonTestId);
       expect(addWalletButton).toBeDisabled();
       expect(
-        within(addWalletButton).getByText(messages.syncing.message),
+        within(addWalletButton).getByText(messages.syncing),
       ).toBeInTheDocument();
 
       // Simulate syncing completing
@@ -340,7 +339,7 @@ describe('AccountList', () => {
       addWalletButton = screen.getByTestId(addWalletButtonTestId);
       expect(addWalletButton).not.toBeDisabled();
       expect(
-        within(addWalletButton).getByText(messages.addWallet.message),
+        within(addWalletButton).getByText(messages.addWallet),
       ).toBeInTheDocument();
     });
   });
@@ -349,9 +348,9 @@ describe('AccountList', () => {
     it('starts outside manage mode', () => {
       renderComponent();
 
-      expect(screen.getByText(messages.accounts.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.accounts)).toBeInTheDocument();
       expect(
-        screen.queryByText(messages.manageAccounts.message),
+        screen.queryByText(messages.manageAccounts),
       ).not.toBeInTheDocument();
       expect(screen.getByTestId(manageButtonTestId)).toBeInTheDocument();
       expect(
@@ -364,12 +363,8 @@ describe('AccountList', () => {
 
       fireEvent.click(screen.getByTestId(manageButtonTestId));
 
-      expect(
-        screen.getByText(messages.manageAccounts.message),
-      ).toBeInTheDocument();
-      expect(
-        screen.queryByText(messages.accounts.message),
-      ).not.toBeInTheDocument();
+      expect(screen.getByText(messages.manageAccounts)).toBeInTheDocument();
+      expect(screen.queryByText(messages.accounts)).not.toBeInTheDocument();
       expect(screen.queryByTestId(manageButtonTestId)).not.toBeInTheDocument();
       expect(
         screen.getAllByTestId('multichain-account-cell-edit-mode-visible-icon'),
@@ -382,9 +377,9 @@ describe('AccountList', () => {
       fireEvent.click(screen.getByTestId(manageButtonTestId));
       fireEvent.click(screen.getByTestId(backButtonTestId));
 
-      expect(screen.getByText(messages.accounts.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.accounts)).toBeInTheDocument();
       expect(
-        screen.queryByText(messages.manageAccounts.message),
+        screen.queryByText(messages.manageAccounts),
       ).not.toBeInTheDocument();
       expect(screen.getByTestId(manageButtonTestId)).toBeInTheDocument();
       expect(

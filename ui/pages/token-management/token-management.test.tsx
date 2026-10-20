@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import {
   en as messages,
@@ -571,9 +572,7 @@ describe('TokenManagementPage', () => {
       screen.getByTestId('token-management-header-back-button'),
     ).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText(
-        messages.enterTokenNameOrAddressManageTokens.message,
-      ),
+      screen.getByPlaceholderText(messages.enterTokenNameOrAddressManageTokens),
     ).toBeInTheDocument();
     expect(
       screen.getByTestId('token-management-add-custom-token-button'),
@@ -657,9 +656,7 @@ describe('TokenManagementPage', () => {
     renderPage();
 
     expect(screen.getByText('Alpha Token')).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.networkNameEthereum.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.networkNameEthereum)).toBeInTheDocument();
     expect(screen.queryByText('Beta Token')).not.toBeInTheDocument();
     expect(
       screen.getByTestId(
@@ -700,13 +697,9 @@ describe('TokenManagementPage', () => {
     );
 
     expect(screen.getByText('Alpha Token')).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.networkNameEthereum.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.networkNameEthereum)).toBeInTheDocument();
     expect(screen.getByText('Beta Token')).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.allDefaultNetworks.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.allDefaultNetworks)).toBeInTheDocument();
   });
 
   it('ignores a saved Solana selection and excludes its assets from the EVM list', () => {
@@ -725,10 +718,8 @@ describe('TokenManagementPage', () => {
       }),
     );
 
-    expect(
-      screen.getByText(messages.allDefaultNetworks.message),
-    ).toBeInTheDocument();
-    expect(screen.queryByText(messages.networkNameSolana.message)).toBeNull();
+    expect(screen.getByText(messages.allDefaultNetworks)).toBeInTheDocument();
+    expect(screen.queryByText(messages.networkNameSolana)).toBeNull();
     expect(screen.getByText('Alpha Token')).toBeInTheDocument();
     expect(screen.getByText('Beta Token')).toBeInTheDocument();
     expect(screen.queryByText('Solana Token')).not.toBeInTheDocument();
@@ -1357,7 +1348,7 @@ describe('TokenManagementPage', () => {
       expect(mockToastError).toHaveBeenCalledWith(
         expect.objectContaining({
           props: expect.objectContaining({
-            title: messages.importTokensError.message,
+            title: messages.importTokensError,
           }),
         }),
       ),
@@ -1775,7 +1766,7 @@ describe('TokenManagementPage', () => {
 
     expectSecurityLookupToInclude(`eip155:1/erc20:${mainnetToken.address}`);
     expect(
-      screen.getByLabelText(messages.securityTrustVerified.message),
+      screen.getByLabelText(messages.securityTrustVerified),
     ).toBeInTheDocument();
   });
 
@@ -1809,7 +1800,7 @@ describe('TokenManagementPage', () => {
       `eip155:1/erc20:${mainnetToken.address}`,
     );
     expect(
-      screen.getByText(messages.securityTrustMalicious.message),
+      screen.getByText(messages.securityTrustMalicious),
     ).toBeInTheDocument();
   });
 
@@ -1969,7 +1960,7 @@ describe('TokenManagementPage', () => {
 
     expect(
       screen.getByTestId('token-management-empty-state'),
-    ).toHaveTextContent(messages.noTokensMatchSearch.message);
+    ).toHaveTextContent(messages.noTokensMatchSearch);
   });
 
   it('surfaces a friendly error message when the search request fails', () => {

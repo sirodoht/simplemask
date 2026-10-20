@@ -17,7 +17,7 @@ import {
   TextAlign,
   TextButton,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import type { QuizQuestionConfig, AnsweredQuizQuestion } from './types';
 
 type QuizQuestionProps = {
@@ -29,7 +29,7 @@ export function QuizQuestion({
   onQuizComplete,
   onLearnMore,
 }: Readonly<QuizQuestionProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(false);

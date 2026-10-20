@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { Hex } from '@metamask/utils';
 import {
@@ -21,7 +22,7 @@ import {
   AvatarNetworkSize,
 } from '@metamask/design-system-react';
 import { PreferredAvatar } from '../../../components/app/preferred-avatar';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/lib/selectors/networks';
 import { getImageForChainId } from '../../../selectors/multichain';
@@ -36,7 +37,7 @@ export function ViewContactContent({
   onEdit,
   onDelete,
 }: ViewContactContentProps) {
-  const t = useI18nContext();
+  const t = getText;
   const [copied, handleCopy] = useCopyToClipboard();
   const networks = useSelector(getNetworkConfigurationsByChainId);
   const network = networks?.[chainId as Hex];

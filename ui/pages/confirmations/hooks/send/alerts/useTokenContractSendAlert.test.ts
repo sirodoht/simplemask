@@ -1,11 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useSendContext } from '../../../context/send';
 import { useSendType } from '../useSendType';
 import { getTokenStandardAndDetailsByChain } from '../../../../../store/actions';
 import { useTokenContractSendAlert } from './useTokenContractSendAlert';
 
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 jest.mock('../../../context/send');
 jest.mock('../useSendType');
 jest.mock('../../../../../store/actions', () => ({
@@ -20,7 +20,7 @@ describe('useTokenContractSendAlert', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.mocked(useI18nContext).mockReturnValue(mockT);
+    jest.mocked(getText).mockImplementation(mockT);
     mockUseSendType.mockReturnValue({
       isEvmSendType: true,
     } as ReturnType<typeof useSendType>);

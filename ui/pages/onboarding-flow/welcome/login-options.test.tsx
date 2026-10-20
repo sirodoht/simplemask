@@ -1,9 +1,13 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages, tEn } from '../../../../test/lib/i18n-helpers';
+import {
+  englishText as messages,
+  getText as tEn,
+} from '../../../../shared/lib/text';
 import { ThemeType } from '../../../../shared/constants/preferences';
 import LoginOptions from './login-options';
 import { LOGIN_OPTION, LOGIN_TYPE, LoginOptionType } from './types';
@@ -105,7 +109,7 @@ describe('LoginOptions', () => {
       loginOption: LOGIN_OPTION.NEW,
       buttonPrefix: 'create',
       socialLabelKey: 'onboardingContinueWith',
-      srpLabel: messages.onboardingSrpCreate.message,
+      srpLabel: messages.onboardingSrpCreate,
     });
   });
 
@@ -114,7 +118,7 @@ describe('LoginOptions', () => {
       loginOption: LOGIN_OPTION.EXISTING,
       buttonPrefix: 'import',
       socialLabelKey: 'onboardingSignInWith',
-      srpLabel: messages.onboardingSrpImport.message,
+      srpLabel: messages.onboardingSrpImport,
     });
   });
 
@@ -136,13 +140,10 @@ describe('LoginOptions', () => {
     const { getByRole } = renderComponent();
 
     const termsLink = getByRole('link', {
-      name: new RegExp(messages.onboardingLoginFooterTermsOfUse.message, 'iu'),
+      name: new RegExp(messages.onboardingLoginFooterTermsOfUse, 'iu'),
     });
     const privacyLink = getByRole('link', {
-      name: new RegExp(
-        messages.onboardingLoginFooterPrivacyNotice.message,
-        'iu',
-      ),
+      name: new RegExp(messages.onboardingLoginFooterPrivacyNotice, 'iu'),
     });
 
     expect(termsLink).toHaveAttribute(

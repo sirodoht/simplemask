@@ -3,7 +3,7 @@ import { providerErrors, serializeError } from '@metamask/rpc-errors';
 import { TextColor } from '@metamask/design-system-react';
 import { ErrorCode } from '@metamask/hw-wallet-sdk';
 import { shortenAddress } from '../../../helpers/utils/util';
-import type { useI18nContext } from '../../../hooks/useI18nContext';
+import type { getText } from '../../../helpers/utils/text';
 import { rejectPendingApproval } from '../../../store/actions';
 import type { MetaMaskReduxDispatch } from '../../../store/store';
 import {
@@ -118,10 +118,10 @@ export function getStepLabelColor(stepStatus: SignatureStepStatus): TextColor {
 }
 
 /**
- * Returns the localization key for the QR scan button label.
+ * Returns the text key for the QR scan button label.
  *
  * @param isFinalSignature - Whether this is the final signing step.
- * @returns The i18n key for the scan button label.
+ * @returns The English text key for the scan button label.
  */
 export const getQrScanButtonLabelKey = (isFinalSignature: boolean): string =>
   isFinalSignature
@@ -233,8 +233,8 @@ export const hasApprovalTxForRequestId = (
  * @param options - Configuration object.
  * @param options.status - The current signature state machine status.
  * @param options.needsTwoConfirmations - Whether the transaction requires two signatures.
- * @param options.t - The i18n translation function.
- * @returns The localized title string.
+ * @param options.t - The English text function.
+ * @returns The English title string.
  */
 export const getTitle = ({
   status,
@@ -243,7 +243,7 @@ export const getTitle = ({
 }: {
   status: HardwareWalletSignatureStatus;
   needsTwoConfirmations: boolean;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 }) => {
   if (status === HardwareWalletSignatureStatus.Submitted) {
     return t('hardwareAllSetTitle');
@@ -291,8 +291,8 @@ export const getTitle = ({
  * the user to scan with their wallet; false when scanning the signed QR code
  * back from the wallet. Defaults to the scan phase.
  * @param options.needsTwoConfirmations - Whether the transaction requires approval.
- * @param options.t - The i18n translation function.
- * @returns The localized page title string.
+ * @param options.t - The English text function.
+ * @returns The English page title string.
  */
 export const getQrHardwareSigningPageTitle = ({
   activeQrStep,
@@ -303,7 +303,7 @@ export const getQrHardwareSigningPageTitle = ({
   activeQrStep: HardwareWalletSignatureStatus;
   isDisplayPhase?: boolean;
   needsTwoConfirmations: boolean;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 }) => {
   const isFinalSignature =
     activeQrStep === HardwareWalletSignatureStatus.AwaitingFinalSignature;
@@ -353,8 +353,8 @@ export const getQrHardwareSigningPageTitle = ({
  * @param options.isSwap - True when the flow is a same-chain swap.
  * @param options.toTokenSymbol - The symbol of the destination token (swap only).
  * @param options.toAmount - The destination token amount (swap only).
- * @param options.t - The i18n translation function.
- * @returns The localized step label.
+ * @param options.t - The English text function.
+ * @returns The English step label.
  */
 export const getFinalStepLabel = ({
   status,
@@ -373,7 +373,7 @@ export const getFinalStepLabel = ({
   isSwap?: boolean;
   toTokenSymbol?: string;
   toAmount?: string;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 }) => {
   const swapAmounts = [fromAmount, fromTokenSymbol, toAmount, toTokenSymbol];
 
@@ -451,7 +451,7 @@ export function getSignatureStepDescriptionLines(
  * @param options.spenderAddress - The spender (grantee) address decoded from
  * the approve calldata, if available.
  * @param options.approvalTokenAddress - The token contract being approved.
- * @param options.t - The i18n translation function.
+ * @param options.t - The English text function.
  * @returns The structured description, or undefined.
  */
 export const getFirstStepDescription = ({
@@ -463,7 +463,7 @@ export const getFirstStepDescription = ({
   firstStepStatus: SignatureStepStatus;
   spenderAddress?: string;
   approvalTokenAddress?: string;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 }): SignatureStepDescription | undefined => {
   if (firstStepStatus === SignatureStepStatus.Rejected) {
     return { error: t('hardwareRejected') };
@@ -497,7 +497,7 @@ export const getFirstStepDescription = ({
  *
  * @param options - Configuration object.
  * @param options.toAddress - The destination address, if available.
- * @param options.t - The i18n translation function.
+ * @param options.t - The English text function.
  * @returns The structured description, or undefined.
  */
 export const getFinalStepDescription = ({
@@ -505,7 +505,7 @@ export const getFinalStepDescription = ({
   t,
 }: {
   toAddress?: string;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 }): SignatureStepDescription | undefined => {
   if (!toAddress) {
     return undefined;
@@ -515,7 +515,7 @@ export const getFinalStepDescription = ({
 };
 
 /**
- * Computes the localized labels for the first and final signature steps,
+ * Computes the English labels for the first and final signature steps,
  * branching on flow.
  *
  * sendBundle (two confirmations — gas-token payment): first step = the SEND
@@ -549,8 +549,8 @@ export const getFinalStepDescription = ({
  * @param options.gasSymbol - The symbol of the token used to pay the network
  * fee (always the chain's native currency). Labels the gas-payment step in a
  * two-step sendBundle flow.
- * @param options.t - The i18n translation function.
- * @returns An object containing the localized `firstStepLabel` and
+ * @param options.t - The English text function.
+ * @returns An object containing the English `firstStepLabel` and
  * `finalStepLabel` strings.
  */
 export const getStepLabels = ({
@@ -582,7 +582,7 @@ export const getStepLabels = ({
   sendAmount?: string;
   sendSymbol?: string;
   gasSymbol?: string;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 }): {
   firstStepLabel: string;
   finalStepLabel: string;
@@ -645,7 +645,7 @@ export const getStepLabels = ({
 };
 
 /**
- * Computes the optional localized descriptions for the first and final
+ * Computes the optional English descriptions for the first and final
  * signature steps, branching on flow.
  *
  * sendBundle (two confirmations — gas-token payment): first step (SEND) shows
@@ -666,7 +666,7 @@ export const getStepLabels = ({
  * @param options.approvalTokenAddress - The token contract being approved
  * (bridge only).
  * @param options.toAddress - The destination address.
- * @param options.t - The i18n translation function.
+ * @param options.t - The English text function.
  * @returns An object containing optional `firstStepDescription` and
  * `finalStepDescription` structured descriptions (either may be `undefined`).
  */
@@ -685,7 +685,7 @@ export const getStepDescriptions = ({
   spenderAddress?: string;
   approvalTokenAddress?: string;
   toAddress?: string;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 }): {
   firstStepDescription?: SignatureStepDescription;
   finalStepDescription?: SignatureStepDescription;
@@ -903,7 +903,7 @@ export type HardwareWalletSignatureViewModelParams = {
   showInlineQrSigning: boolean;
   isReadingQrSignature: boolean;
   activeQrStep?: HardwareWalletSignatureStatus;
-  t: ReturnType<typeof useI18nContext>;
+  t: typeof getText;
 };
 
 export type HardwareWalletSignatureViewModel = {

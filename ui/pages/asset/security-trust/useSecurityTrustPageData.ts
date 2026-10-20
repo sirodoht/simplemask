@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { isNativeCaipAssetId } from '#shared/lib/asset-utils';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/lib/selectors/networks';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useTokenSecurityData } from '../../../hooks/useTokenSecurityData';
 import { getUseExternalServices } from '../../../selectors';
 import { getFungibleAssetForRoute } from '../../../selectors/assets';
@@ -29,7 +29,7 @@ import { processAssetParams, resolveAssetRouteLookup } from '../util';
 import type { SecurityTrustLocationState } from '../types/security-trust';
 
 export const useSecurityTrustPageData = () => {
-  const t = useI18nContext();
+  const t = getText;
   const location = useLocation();
   const params = useParams();
   const locationState = location.state as
@@ -146,7 +146,7 @@ export const useSecurityTrustPageData = () => {
       return t('securityTrustNa');
     }
     try {
-      return new Date(raw).toLocaleDateString(undefined, {
+      return new Date(raw).toLocaleDateString('en', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',

@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import { ApprovalType } from '@metamask/controller-utils';
 import { renderWithConfirmContextProvider } from '../../../../../test/lib/confirmations/render-helpers';
 import { AlertMetricsProvider } from '../../../../components/app/alert-system/contexts/alertMetricsContext';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { AddEthereumChain } from './add-ethereum-chain';
 
 const mockConfirmation = {
@@ -53,10 +53,7 @@ describe('AddEthereumChain', () => {
 
     expect(
       screen.getByText(
-        messages.addNetworkConfirmationTitle.message.replace(
-          '$1',
-          'Test Network',
-        ),
+        messages.addNetworkConfirmationTitle.replace('$1', 'Test Network'),
       ),
     ).toBeInTheDocument();
     expect(screen.getByText('Test Network')).toBeInTheDocument();
@@ -110,7 +107,7 @@ describe('AddEthereumChain', () => {
 
     expect(
       screen.getByText(
-        messages.updateNetworkConfirmationTitle.message.replace(
+        messages.updateNetworkConfirmationTitle.replace(
           '$1',
           'Existing Network',
         ),

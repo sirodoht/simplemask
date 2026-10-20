@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Box, Text } from '../../../../../components/component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useSendContext } from '../../../context/send';
 import {
   Display,
@@ -30,7 +30,7 @@ export const ConfusableRecipientName = ({
 }: {
   confusableCharacters: Confusable[];
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { to } = useSendContext();
 
   const nameSplits = useMemo(() => {

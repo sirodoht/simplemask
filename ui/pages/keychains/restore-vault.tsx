@@ -42,13 +42,13 @@ import SetupPasskeyContent from '../../components/app/passkey-setup/setup-passke
 import SrpInputForm from '../srp-input-form';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { CreatePasswordForm } from '../create-password-form';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useDispatch } from '../../store/hooks';
 
 function RestoreVaultPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const isSocialLoginFlow = useSelector(getIsSocialLoginFlow);
   const isPasskeyFeatureAvailable = useSelector(getIsPasskeyFeatureAvailable);

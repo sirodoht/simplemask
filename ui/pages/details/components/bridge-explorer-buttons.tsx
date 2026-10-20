@@ -4,7 +4,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { NetworkName } from '../../../components/app/transaction/network-name';
 import { useBlockExplorerUrl } from './shared';
 
@@ -21,7 +21,7 @@ export function BridgeExplorerButtons({
   destChainId,
   destTxHash,
 }: Props) {
-  const t = useI18nContext();
+  const t = getText;
   const [showPopup, setShowPopup] = useState(false);
 
   const sourceUrl = useBlockExplorerUrl(sourceChainId, sourceTxHash);

@@ -1,10 +1,10 @@
 import { TransactionMeta } from '@metamask/transaction-controller';
 import { BigNumber } from 'bignumber.js';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+
 import { Hex } from '@metamask/utils';
 import { calcTokenAmount } from '../../../../../../../../shared/lib/transactions-controller-utils';
-import { getIntlLocale } from '../../../../../../../ducks/locale/locale';
+
 import { formatAmount } from '../../../../../../../../shared/lib/format-amount';
 import { TOKEN_VALUE_UNLIMITED_THRESHOLD } from '../../shared/constants';
 import { parseApprovalTransactionData } from '../../../../../../../../shared/lib/transaction.utils';
@@ -22,7 +22,7 @@ export const useApproveTokenSimulation = (
   transactionMeta: TransactionMeta,
   decimals: string | undefined,
 ) => {
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const { isNFT: isToNFT, pending: isNFTPending } = useIsNFT(transactionMeta);
   const transactionData = transactionMeta?.txParams?.data as Hex | undefined;
 

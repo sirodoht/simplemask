@@ -19,8 +19,8 @@ jest.mock('../selectors', () => ({
   getAddressSecurityAlertResponse: jest.fn(),
 }));
 
-jest.mock('./useI18nContext', () => ({
-  useI18nContext: () => (key: string) =>
+jest.mock('../helpers/utils/text', () => ({
+  getText: (key: string) =>
     key === 'nameModalTitleMalicious' ? 'Malicious Address' : key,
 }));
 

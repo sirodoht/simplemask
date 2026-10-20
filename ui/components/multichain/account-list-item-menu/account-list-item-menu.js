@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { IconName, Text, TextVariant } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useEventListener } from '../../../hooks/useEventListener';
 import {
   getPinnedAccountsList,
@@ -36,7 +36,7 @@ export const AccountListItemMenu = ({
   isHidden,
   isRemovable: _isRemovable, // Accepted for API compatibility; remove-account action is no longer shown
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const pinnedAccountList = useSelector(getPinnedAccountsList);

@@ -1,18 +1,19 @@
+import React from 'react';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import { NameType } from '@metamask/name-controller';
 import { Box, BoxFlexDirection } from '@metamask/design-system-react';
-import React from 'react';
+
 import { ConfirmInfoSection } from '../../../../../../components/app/confirm/info/row/section';
 import { RowAlertKey } from '../../../../../../components/app/confirm/info/row/constants';
 import { toChecksumHexAddress } from '../../../../../../../shared/lib/hexstring-utils';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { useDisplayName } from '../../../../../../hooks/useDisplayName';
 import { useConfirmContext } from '../../../../context/confirm';
 import { useTransferRecipient } from '../hooks/useTransferRecipient';
 import { AccountFlowRow } from '../../../rows/account-flow-row/account-flow-row';
 
 export const TransactionFlowSection = () => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();

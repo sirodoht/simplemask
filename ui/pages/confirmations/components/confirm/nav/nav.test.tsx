@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import {
   TransactionStatus,
@@ -7,7 +8,7 @@ import {
 
 import { getMockConfirmState } from '../../../../../../test/data/confirmations/helper';
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import * as Actions from '../../../../../store/actions';
 import configureStore from '../../../../../store/store';
 import { ConfirmNav } from './nav';
@@ -95,7 +96,7 @@ describe('ConfirmNav', () => {
     const { getAllByRole, getByText } = render();
     const buttons = getAllByRole('button');
     expect(buttons).toHaveLength(3);
-    expect(getByText(messages.rejectAll.message)).toBeInTheDocument();
+    expect(getByText(messages.rejectAll)).toBeInTheDocument();
   });
 
   it('renders button to navigate to previous or next confirmation', () => {

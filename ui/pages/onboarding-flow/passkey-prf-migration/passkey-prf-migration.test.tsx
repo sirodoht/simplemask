@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import {
   DEFAULT_ROUTE,
   ONBOARDING_PASSKEY_PRF_MIGRATION_ROUTE,
@@ -62,9 +63,7 @@ describe('PasskeyPrfMigration', () => {
     expect(
       getByTestId('parent-selector-passkey-prf-migration'),
     ).toBeInTheDocument();
-    expect(
-      getByText(messages.passkeyMigrationTitle.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.passkeyMigrationTitle)).toBeInTheDocument();
     expect(getByTestId('passkey-migration-replace-button')).toBeInTheDocument();
     expect(
       getByTestId('passkey-migration-remind-me-later-button'),

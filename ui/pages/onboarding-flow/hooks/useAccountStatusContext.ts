@@ -22,9 +22,9 @@ import { ONBOARDING_WELCOME_ROUTE } from '../../../helpers/constants/routes';
 import { useOnboardingReset } from './useOnboardingReset';
 
 type UseAccountStatusContextOptions = {
-  /** i18n key used when the social login type is Telegram. */
+  /** English text key used when the social login type is Telegram. */
   telegramDescriptionKey: string;
-  /** i18n key used for every other social login type. */
+  /** English text key used for every other social login type. */
   defaultDescriptionKey: string;
   /** The only flow type for which this page is valid; all others redirect to welcome. */
   validFlowType: FirstTimeFlowType;

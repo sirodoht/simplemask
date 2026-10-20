@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   BannerAlert,
   BannerAlertSeverity,
@@ -19,7 +20,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PreferredAvatar } from '../../app/preferred-avatar';
 import { AddressCopyButton } from '../../multichain';
 
@@ -38,7 +39,7 @@ export const AccountRemoveModal = ({
   accountName,
   accountAddress,
 }: AccountRemoveModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal onClose={onClose} isOpen={isOpen}>

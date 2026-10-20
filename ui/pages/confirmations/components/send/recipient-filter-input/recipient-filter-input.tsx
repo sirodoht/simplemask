@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextFieldSearch } from '@metamask/design-system-react';
 import { Box } from '../../../../../components/component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 type RecipientFilterInputProps = {
   searchQuery: string;
@@ -12,7 +12,7 @@ export const RecipientFilterInput = ({
   searchQuery,
   onChange,
 }: RecipientFilterInputProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box paddingInline={4} paddingBottom={4}>

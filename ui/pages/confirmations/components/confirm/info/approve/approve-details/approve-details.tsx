@@ -1,5 +1,6 @@
-import { TransactionMeta } from '@metamask/transaction-controller';
 import React from 'react';
+import { TransactionMeta } from '@metamask/transaction-controller';
+
 import { useSelector } from 'react-redux';
 import {
   ConfirmInfoRowAddress,
@@ -8,7 +9,7 @@ import {
 import { ConfirmInfoAlertRow } from '../../../../../../../components/app/confirm/info/row/alert-row/alert-row';
 import { RowAlertKey } from '../../../../../../../components/app/confirm/info/row/constants';
 import { ConfirmInfoSection } from '../../../../../../../components/app/confirm/info/row/section';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { selectConfirmationAdvancedDetailsOpen } from '../../../../../selectors/preferences';
 import { SigningInWithRow } from '../../shared/sign-in-with-row/sign-in-with-row';
@@ -27,7 +28,7 @@ const Spender = ({
 }: {
   isSetApprovalForAll?: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();

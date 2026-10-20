@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   BatchTransactionParams,
@@ -25,7 +26,7 @@ import {
   DecodedTransactionDataMethod,
   DecodedTransactionDataSource,
 } from '../../../../../../../../shared/types/transaction-decode';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { TransactionData } from './transaction-data';
 
 const DATA_MOCK = '0x123456';
@@ -251,8 +252,8 @@ describe('TransactionData', () => {
 
     await waitFor(() => {
       expect(getByText('approve')).toBeInTheDocument();
-      expect(getByText(messages.spender.message)).toBeInTheDocument();
-      expect(getByText(messages.amount.message)).toBeInTheDocument();
+      expect(getByText(messages.spender)).toBeInTheDocument();
+      expect(getByText(messages.amount)).toBeInTheDocument();
       expect(getByText('10000000 ETH')).toBeInTheDocument();
     });
   });

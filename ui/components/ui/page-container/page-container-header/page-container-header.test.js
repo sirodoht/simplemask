@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import PageContainerHeader from '.';
 
 describe('Page Container Header', () => {
@@ -28,7 +29,7 @@ describe('Page Container Header', () => {
       <PageContainerHeader {...props} />,
     );
 
-    const backButton = queryByText(messages.back.message);
+    const backButton = queryByText(messages.back);
 
     fireEvent.click(backButton);
 

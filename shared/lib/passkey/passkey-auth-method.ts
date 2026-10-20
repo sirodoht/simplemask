@@ -17,8 +17,8 @@ function detectOsForPasskey(): Os {
 }
 
 /**
- * i18n message keys for the localized passkey auth-method noun.
- * Maps to copy in `app/_locales/*\/messages.json`.
+ * English text keys for the English passkey auth-method noun.
+ * Maps to copy in `shared/constants/english-text.ts`.
  */
 type PasskeyAuthMethodKey =
   | 'passkeyAuthMethodBiometrics'
@@ -39,7 +39,7 @@ type GetPasskeyAuthMethodKeyOptions = {
 };
 
 /**
- * Returns the i18n key for the passkey auth-method noun shown in passkey copy.
+ * Returns the English text key for the passkey auth-method noun shown in passkey copy.
  *
  * Uses {@link detectOsForPasskey} internally (Bowser on `globalThis.navigator`).
  *
@@ -53,7 +53,7 @@ type GetPasskeyAuthMethodKeyOptions = {
  * check; we do not detect Touch ID hardware or Windows Hello enrollment here.
  *
  * @param options - Optional flags such as `specific` for Touch ID on macOS.
- * @returns The i18n key for the passkey auth-method noun.
+ * @returns The English text key for the passkey auth-method noun.
  */
 export function getPasskeyAuthMethodKey(
   options?: GetPasskeyAuthMethodKeyOptions,

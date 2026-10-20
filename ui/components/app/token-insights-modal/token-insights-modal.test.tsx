@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useTokenInsightsData } from '../../../hooks/useTokenInsightsData';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MetaMetricsEventCategory } from '../../../../shared/constants/metametrics';
 import * as tokenInsightsUtils from '../../../helpers/utils/token-insights';
 import { TokenInsightsModal } from './token-insights-modal';
@@ -21,7 +22,7 @@ jest.mock('../../../hooks/useAnalytics', () => {
 });
 
 jest.mock('../../../hooks/useTokenInsightsData');
-jest.mock('../../../hooks/useI18nContext');
+jest.mock('../../../helpers/utils/text');
 jest.mock('../../multichain', () => ({
   AddressCopyButton: ({
     address,
@@ -77,7 +78,7 @@ const defaultMarketDataFiat = {
 describe('TokenInsightsModal', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    (useI18nContext as jest.Mock).mockReturnValue(mockT);
+    (getText as jest.Mock).mockImplementation(mockT);
     (useTokenInsightsData as jest.Mock).mockReturnValue({
       marketData: defaultMarketData,
       marketDataFiat: defaultMarketDataFiat,

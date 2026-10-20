@@ -157,7 +157,6 @@ describe('MetaMaskController', function () {
     metamaskController = new MetaMaskController({
       showUserConfirmation: noop,
       encryptor: mockEncryptor,
-      initLangCode: 'en_US',
       platform: {
         showTransactionNotification: () => undefined,
         getVersion: () => 'foo',

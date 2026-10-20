@@ -15,7 +15,7 @@ import {
   BoxBackgroundColor,
   TextAlign,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   setParticipateInMetaMetrics,
   setPna25Acknowledged,
@@ -117,7 +117,7 @@ function MetametricsCheckboxOption({
 }
 
 export default function OnboardingMetametrics() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isFirefox = useIsFirefox();

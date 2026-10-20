@@ -14,14 +14,14 @@ import {
 } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { RevertReason } from '../../../components/revert-reason/revert-reason';
 import { useEstimationFailed } from '../../gas/useEstimationFailed';
 import { useIsGasSponsored } from '../../gas/useIsGasSponsored';
 import { useIsMonadReserveViolation } from './useIsMonadReserveViolation';
 
 export function useGasEstimateFailedAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const estimationFailed = useEstimationFailed();
   const isGasSponsored = useIsGasSponsored();
   const isMonadReserveViolation = useIsMonadReserveViolation();
@@ -51,7 +51,7 @@ export function useGasEstimateFailedAlerts(): Alert[] {
 }
 
 function GasEstimateFailedAlertMessage() {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box flexDirection={BoxFlexDirection.Column} gap={2}>

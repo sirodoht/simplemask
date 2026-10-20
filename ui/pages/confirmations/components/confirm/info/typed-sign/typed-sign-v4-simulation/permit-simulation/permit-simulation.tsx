@@ -1,5 +1,6 @@
-import { Hex } from '@metamask/utils';
 import React from 'react';
+import { Hex } from '@metamask/utils';
+
 import { PrimaryType } from '../../../../../../../../../shared/constants/signatures';
 import {
   getEip712TokenId,
@@ -11,7 +12,7 @@ import {
   Display,
   FlexDirection,
 } from '../../../../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../../../../context/confirm';
 import { SignatureRequestType } from '../../../../../../types/confirm';
 import { getIsRevokeDAIPermit } from '../../../../utils';
@@ -48,7 +49,7 @@ function extractTokenDetailsByPrimaryType(
 }
 
 const PermitSimulation = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<SignatureRequestType>();
   const msgData = currentConfirmation.msgParams?.data;
   const chainId = currentConfirmation.chainId as Hex;

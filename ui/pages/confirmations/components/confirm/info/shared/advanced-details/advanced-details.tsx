@@ -10,7 +10,7 @@ import {
   ConfirmInfoRowText,
 } from '../../../../../../../components/app/confirm/info/row';
 import { ConfirmInfoSection } from '../../../../../../../components/app/confirm/info/row/section';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import {
   getCustomNonceValue,
   getNextSuggestedNonce,
@@ -29,7 +29,7 @@ import { useDispatch } from '../../../../../../../store/hooks';
 
 const NonceDetails = () => {
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   useEffect(() => {

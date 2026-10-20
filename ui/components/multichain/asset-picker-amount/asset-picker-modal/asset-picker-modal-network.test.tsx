@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { screen, fireEvent } from '@testing-library/react';
@@ -7,7 +8,7 @@ import { CHAIN_IDS } from '@metamask/transaction-controller';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../test/data/mock-send-state.json';
 import { NETWORK_TO_SHORT_NETWORK_NAME_MAP } from '../../../../../shared/constants/bridge';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { AssetPickerModalNetwork } from './asset-picker-modal-network';
 
 const mockOnClose = jest.fn();
@@ -126,10 +127,10 @@ describe('AssetPickerModalNetwork', () => {
       store,
     );
 
-    fireEvent.click(screen.getByLabelText(messages.close.message));
+    fireEvent.click(screen.getByLabelText(messages.close));
     expect(mockOnClose).toHaveBeenCalledTimes(1);
 
-    fireEvent.click(screen.getByLabelText(messages.back.message));
+    fireEvent.click(screen.getByLabelText(messages.back));
     expect(mockOnBack).toHaveBeenCalledTimes(1);
   });
 

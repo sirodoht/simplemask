@@ -8,8 +8,8 @@ jest.mock('../../../shared/lib/passkey', () => ({
   getPasskeyAuthMethodKey: () => 'passkeyAuthMethodBiometrics',
 }));
 
-jest.mock('../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string, substitutions?: string[]) => {
+jest.mock('../../helpers/utils/text', () => ({
+  getText: (key: string, substitutions?: string[]) => {
     const translations: Record<string, string> = {
       notifications: 'Notifications',
       notificationsSettingsWalletActivityTitle: 'Wallet activity',

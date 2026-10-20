@@ -16,7 +16,7 @@ import {
   REVEAL_SEED_ROUTE,
   SETTINGS_ROUTE,
 } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { toggleDefaultView } from '../../../store/actions';
 import { Icon, IconName, IconSize } from '../../component-library';
 import { Toast, ToastContainer } from '../../multichain';
@@ -109,7 +109,7 @@ export function ToastMaster() {
 }
 
 function PrivacyPolicyToast() {
-  const t = useI18nContext();
+  const t = getText;
 
   const showPrivacyPolicyToast = useSelector(selectShowPrivacyPolicyToast);
   const newPrivacyPolicyToastShownDate = useSelector(
@@ -143,7 +143,7 @@ function PrivacyPolicyToast() {
 }
 
 function InfuraSwitchToast() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const showInfuraSwitchToast = useSelector(selectShowInfuraSwitchToast);
@@ -167,7 +167,7 @@ function InfuraSwitchToast() {
 }
 
 function StorageErrorToast() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [isDismissed, setIsDismissed] = useState(false);
@@ -252,7 +252,7 @@ function StorageErrorToast() {
 }
 
 function SidePanelMigrationToast() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const showSidePanelMigrationToast = useSelector(

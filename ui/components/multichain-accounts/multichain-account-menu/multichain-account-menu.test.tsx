@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { AccountGroupId, AccountWalletType } from '@metamask/account-api';
 import { KeyringTypes } from '@metamask/keyring-controller';
 import {
@@ -15,7 +16,7 @@ import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { MULTICHAIN_ACCOUNT_DETAILS_PAGE_ROUTE } from '../../../helpers/constants/routes';
 import { MultichainAccountMenu } from './multichain-account-menu';
 import type { MultichainAccountMenuProps } from './multichain-account-menu.types';
@@ -668,7 +669,7 @@ describe('MultichainAccountMenu', () => {
       expect(popover).toBeInTheDocument();
 
       const addressesItem = popover
-        ? within(popover as HTMLElement).getByText(messages.addresses.message)
+        ? within(popover as HTMLElement).getByText(messages.addresses)
         : null;
       expect(addressesItem).toBeInTheDocument();
 

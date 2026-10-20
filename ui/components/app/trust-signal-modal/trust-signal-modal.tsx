@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -15,7 +16,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Modal,
   ModalContent,
@@ -32,7 +33,7 @@ export function TrustSignalModal({
   onContinue,
   onCancel,
 }: TrustSignalModalProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal isOpen onClose={onCancel} data-testid="trust-signal-block-modal">

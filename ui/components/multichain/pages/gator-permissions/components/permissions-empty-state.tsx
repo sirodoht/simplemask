@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxFlexDirection,
@@ -11,11 +12,11 @@ import {
   FontWeight,
 } from '@metamask/design-system-react';
 import { useTheme } from '../../../../../hooks/useTheme';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { ThemeType } from '../../../../../../shared/constants/preferences';
 
 export const PermissionsEmptyState = () => {
-  const t = useI18nContext();
+  const t = getText;
   const theme = useTheme();
 
   const descriptionText = t('permissionsPageEmptyDescription');

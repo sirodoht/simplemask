@@ -23,7 +23,7 @@ import {
 } from '@metamask/design-system-react';
 import classnames from 'clsx';
 import { PolymorphicRef } from '../../../components/component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { ThemeType } from '../../../../shared/constants/preferences';
 import { useTheme } from '../../../hooks/useTheme';
 import { LOGIN_TYPE, LoginType, LoginOptionType, LOGIN_OPTION } from './types';
@@ -72,7 +72,7 @@ export default function LoginOptions({
   loginOption: LoginOptionType;
   handleLogin: (loginType: LoginType) => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const theme = useTheme();
 
   const backgroundColorForLoginOptions = useMemo(() => {

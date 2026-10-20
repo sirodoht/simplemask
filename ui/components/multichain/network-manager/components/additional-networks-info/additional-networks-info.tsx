@@ -6,7 +6,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { Box } from '../../../../component-library/box';
 import { Text } from '../../../../component-library/text';
 
@@ -16,7 +16,7 @@ import { Text } from '../../../../component-library/text';
  * Displays the "Additional networks" section label in the network manager.
  */
 export const AdditionalNetworksInfo = memo(() => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box paddingTop={4} paddingBottom={4} paddingRight={4} paddingLeft={4}>

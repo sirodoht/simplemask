@@ -36,7 +36,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useBoolean } from '../../../hooks/useBoolean';
 import { getPermissions } from '../../../selectors';
 import { getPreferences } from '../../../../shared/lib/selectors/preferences';
@@ -162,7 +162,7 @@ const MultiAccountRow = ({
     address,
     variant: avatarVariant,
   }));
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box
@@ -200,7 +200,7 @@ export const MultichainAccountsConnectPage = ({
   approveConnection,
   targetSubjectMetadata,
 }: MultichainConnectPageProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [pageMode, setPageMode] = useState<MultichainAccountsConnectPageMode>(
     MultichainAccountsConnectPageMode.Summary,

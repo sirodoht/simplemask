@@ -36,7 +36,7 @@ import {
   getIsEnrolledPasskeyIncompatibleWithSidepanel,
 } from '../../../selectors';
 import { forceUpdateMetamaskState } from '../../../store/actions';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { useRemovePasskeyWithPasskey } from '../../../hooks/passkey/usePasskeyRemoval';
 import { SettingsToggleItem } from '../shared/settings-toggle-item';
@@ -46,10 +46,7 @@ import { useDispatch } from '../../../store/hooks';
 const PASSKEY_SETTINGS_TOAST_DURATION_MS = 5 * SECOND;
 
 const PasskeyItem = () => {
-  const t = useI18nContext() as (
-    key: string,
-    substitutions?: string[],
-  ) => string;
+  const t = getText as (key: string, substitutions?: string[]) => string;
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const passkeyMethodSpecificLabel = t(
     getPasskeyAuthMethodKey({ specific: true }),

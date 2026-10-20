@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxFlexDirection,
@@ -13,7 +14,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { SensitiveClipboardState } from '../../../hooks/useCopyToClipboard';
 
 type SensitiveClipboardCleanupProps = {
@@ -25,7 +26,7 @@ export function SensitiveClipboardCleanup({
   state,
   onClear,
 }: SensitiveClipboardCleanupProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   if (state === 'idle') {
     return null;

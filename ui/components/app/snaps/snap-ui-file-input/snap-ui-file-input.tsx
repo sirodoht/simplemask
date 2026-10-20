@@ -1,7 +1,6 @@
 import React, {
   ChangeEvent,
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  DragEvent,
+  DragEvent as ReactDragEvent,
   useRef,
   useState,
 } from 'react';
@@ -31,7 +30,7 @@ import {
   JustifyContent,
   TextAlign,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export type SnapUIFileInputProps = {
   name: string;
@@ -78,7 +77,7 @@ export const SnapUIFileInput = ({
   helpText,
   disabled,
 }: SnapUIFileInputProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { handleFileChange } = useSnapInterfaceContext();
   const ref = useRef<HTMLInputElement>(null);
   const [active, setActive] = useState(false);
@@ -92,17 +91,17 @@ export const SnapUIFileInput = ({
     handleFileChange(name, file, form);
   };
 
-  const handleDragOver = (event: DragEvent<HTMLSpanElement>) => {
+  const handleDragOver = (event: ReactDragEvent<HTMLSpanElement>) => {
     event.preventDefault();
     setActive(true);
   };
 
-  const handleDragLeave = (event: DragEvent<HTMLSpanElement>) => {
+  const handleDragLeave = (event: ReactDragEvent<HTMLSpanElement>) => {
     event.preventDefault();
     setActive(false);
   };
 
-  const handleDrop = (event: DragEvent<HTMLSpanElement>) => {
+  const handleDrop = (event: ReactDragEvent<HTMLSpanElement>) => {
     event.preventDefault();
     setActive(false);
 

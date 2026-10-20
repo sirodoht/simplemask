@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
@@ -23,7 +24,7 @@ import {
 import Tooltip from '../../ui/tooltip';
 import { AvatarGroup } from '../../multichain/avatar-group';
 import { AvatarType } from '../../multichain/avatar-group/avatar-group.types';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { formatDate } from '../../../helpers/utils/util';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../shared/constants/network';
 import {
@@ -49,7 +50,7 @@ export const PermissionCellStatus = ({
   accounts,
   networks,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const avatarAccountVariant = useSelector(getAvatarType);
 
   const renderAccountsGroup = () => (

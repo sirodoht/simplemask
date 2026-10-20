@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import type { Hex } from 'viem';
 import {
@@ -18,7 +19,7 @@ import { useConfirmContext } from '../../context/confirm';
 import { ConfirmInfoAlertRow } from '../../../../components/app/confirm/info/row/alert-row/alert-row';
 import { getNetworkConfigurationsByChainId } from '../../../../../shared/lib/selectors/networks';
 import { getSubjectMetadata } from '../../../../selectors';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
 import { stripProtocol, toPunycodeURL } from '../../utils/confirm';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../../shared/constants/network';
@@ -26,7 +27,7 @@ import { RowAlertKey } from '../../../../components/app/confirm/info/row/constan
 import { AddEthereumChainContext } from './types';
 
 export const AddEthereumChain = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<AddEthereumChainContext>();
   const { requestData, origin } = currentConfirmation;
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);

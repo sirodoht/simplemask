@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { act, fireEvent, screen } from '@testing-library/react';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../shared/lib/text';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
 import {
   MetaMetricsEventCategory,
@@ -71,11 +72,9 @@ describe('ArcUsageNoticeToast', () => {
     );
 
     expect(screen.getByTestId('arc-usage-notice-toast')).toBeInTheDocument();
+    expect(screen.getByText(messages.arcUsageNoticeTitle)).toBeInTheDocument();
     expect(
-      screen.getByText(messages.arcUsageNoticeTitle.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.arcUsageNoticeDescription.message),
+      screen.getByText(messages.arcUsageNoticeDescription),
     ).toBeInTheDocument();
   });
 
@@ -108,9 +107,7 @@ describe('ArcUsageNoticeToast', () => {
     const store = createArcStore({ balance: '0xde0b6b3a7640000' });
     renderWithProvider(<ArcUsageNoticeToast />, store);
 
-    fireEvent.click(
-      screen.getByRole('button', { name: messages.close.message }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: messages.close }));
 
     act(() => {
       store.dispatch({
@@ -130,9 +127,7 @@ describe('ArcUsageNoticeToast', () => {
       createArcStore({ balance: '0xde0b6b3a7640000' }),
     );
 
-    fireEvent.click(
-      screen.getByRole('button', { name: messages.close.message }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: messages.close }));
 
     expect(
       screen.queryByTestId('arc-usage-notice-toast'),
@@ -145,9 +140,7 @@ describe('ArcUsageNoticeToast', () => {
       createArcStore({ balance: '0xde0b6b3a7640000' }),
     );
 
-    fireEvent.click(
-      screen.getByRole('button', { name: messages.close.message }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: messages.close }));
 
     expect(mockTrackEvent).toHaveBeenCalledTimes(1);
     expect(mockTrackEvent).toHaveBeenCalledWith(

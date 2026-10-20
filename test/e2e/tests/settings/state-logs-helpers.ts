@@ -214,7 +214,6 @@ export const createTypeMapFromDefinition = (
 // 3. To handle properties that depend on browser environment (e.g., appActiveTab requires active tabs)
 //    Firefox doesn't support sidepanel and tabs may not be available at startup in E2E tests
 const getIgnoredKeys = (): string[] => [
-  'localeMessages',
   'metamask.currentBlockGasLimitByChainId',
   'metamask.database.verifiedSnaps',
   'metamask.domains',

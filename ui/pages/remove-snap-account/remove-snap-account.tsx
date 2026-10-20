@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AvatarIcon,
   AvatarIconSize,
@@ -19,7 +20,7 @@ import {
   TextAlign,
   TextVariant,
 } from '../../helpers/constants/design-system';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import SnapAuthorshipHeader from '../../components/app/snaps/snap-authorship-header';
 import { SnapAccountCard } from './snap-account-card';
 
@@ -34,7 +35,7 @@ const RemoveSnapAccount = ({
   publicAddress,
   onCancel,
 }: RemoveSnapAccountProps) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box
       className="remove-snap-account-page"

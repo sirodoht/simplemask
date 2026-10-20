@@ -123,7 +123,6 @@ function createConfiguredMessenger({
     'PreferencesController:getState',
     () =>
       ({
-        currentLocale: 'en_US',
         useExternalServices: true,
       }) as never,
   );

@@ -1,6 +1,6 @@
+import React from 'react';
 /* eslint-disable @typescript-eslint/naming-convention */
 import { act, waitFor } from '@testing-library/react';
-import React from 'react';
 
 import {
   SimulationError,
@@ -15,7 +15,7 @@ import { renderWithConfirmContextProvider } from '../../../../../../../../test/l
 import { getGasFeeTimeEstimate } from '../../../../../../../store/actions';
 import configureStore from '../../../../../../../store/store';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { GasFeesDetails } from './gas-fees-details';
 
 const mockUpdateTransactionEventFragment = jest.fn();
@@ -142,7 +142,7 @@ describe('<GasFeesDetails />', () => {
 
     expect(getByTestId('gas-fee-details-max-fee')).toBeInTheDocument();
     expect(getByTestId('added-protection-network-fee')).toHaveTextContent(
-      messages.addedProtectionIncludesNetworkFee.message.replace('$1', '$0.07'),
+      messages.addedProtectionIncludesNetworkFee.replace('$1', '$0.07'),
     );
     await waitFor(() => {
       expect(mockUpdateTransactionEventFragment).toHaveBeenCalledWith(
@@ -192,7 +192,7 @@ describe('<GasFeesDetails />', () => {
       // Intentionally empty
     });
 
-    expect(queryByText(messages.speed.message)).not.toBeInTheDocument();
+    expect(queryByText(messages.speed)).not.toBeInTheDocument();
   });
 
   describe('when estimation failed', () => {

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import mockState from '../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import configureStore from '../../store/store';
 import {
   CONTACTS_VIEW_ROUTE,
@@ -42,7 +43,7 @@ describe('ContactsListPage', () => {
 
   it('renders header with "Contacts" title', () => {
     const { getByText } = renderPage();
-    expect(getByText(messages.contacts.message)).toBeInTheDocument();
+    expect(getByText(messages.contacts)).toBeInTheDocument();
   });
 
   it('renders the contact list with existing contacts', () => {

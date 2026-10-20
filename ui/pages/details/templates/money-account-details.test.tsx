@@ -16,8 +16,8 @@ jest.mock('../../../contexts/route-messenger', () => ({
     children,
 }));
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../../hooks/useFormatters', () => ({

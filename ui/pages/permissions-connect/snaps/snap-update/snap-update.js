@@ -8,7 +8,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { PageContainerFooter } from '../../../../components/ui/page-container';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import SnapInstallWarning from '../../../../components/app/snaps/snap-install-warning';
 import {
   AlignItems,
@@ -41,7 +41,7 @@ export default function SnapUpdate({
   rejectSnapUpdate,
   targetSubjectMetadata,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const [isShowingWarning, setIsShowingWarning] = useState(false);
 

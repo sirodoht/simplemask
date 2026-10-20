@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -24,7 +24,7 @@ import {
   Page,
 } from '../../../components/multichain/pages/page';
 import { TextVariant as LegacyTextVariant } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ACCOUNT_LIST_PAGE_ROUTE,
   CONNECT_HARDWARE_ROUTE,
@@ -59,7 +59,7 @@ import { getSnapRoute } from '../../../helpers/utils/util';
 import type { WalletTypeOption } from './choose-new-wallet-type-page.types';
 
 export const ChooseNewWalletTypePage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const location = useLocation();
   const { trackEvent, createEventBuilder } = useAnalytics();

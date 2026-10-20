@@ -17,7 +17,7 @@ import {
   TextVariant,
 } from '../../../../helpers/constants/design-system';
 import { Copyable } from '../copyable';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { deleteInterface } from '../../../../store/actions';
 import {
   CONFIRMATION_V_NEXT_ROUTE,
@@ -28,7 +28,7 @@ import { useSnapHome } from './useSnapHome';
 
 export const SnapHomeRenderer = ({ snapId }) => {
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
   const { name: snapName } = useSelector((state) =>
     getSnapMetadata(state, snapId),
   );

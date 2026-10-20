@@ -1,8 +1,9 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { genUnapprovedApproveConfirmation } from '../../../../../../../../test/data/confirmations/token-approve';
 import { getMockConfirmStateForTransaction } from '../../../../../../../../test/data/confirmations/helper';
 import { RowAlertKey } from '../../../../../../../components/app/confirm/info/row/constants';
@@ -71,7 +72,7 @@ describe('<ApproveDetails />', () => {
       <ApproveDetails />,
       mockStore,
     );
-    expect(getByText(messages.network.message)).toBeInTheDocument();
-    expect(getByText(messages.networkNameGoerli.message)).toBeInTheDocument();
+    expect(getByText(messages.network)).toBeInTheDocument();
+    expect(getByText(messages.networkNameGoerli)).toBeInTheDocument();
   });
 });

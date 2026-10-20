@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -17,7 +18,7 @@ import {
   BoxBorderColor,
   BoxJustifyContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   AlignItems,
   Display,
@@ -54,7 +55,7 @@ const SEGMENT_CTA_MAPPING: Record<string, string> = {
  * Shows an inline toggle to turn it on and, when on, a primary CTA to open the blocked feature page.
  */
 export const BasicFunctionalityOff = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();

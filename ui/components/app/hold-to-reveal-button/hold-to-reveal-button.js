@@ -1,6 +1,6 @@
 import classnames from 'clsx';
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
   Box,
   BoxAlignItems,
@@ -12,7 +12,7 @@ import {
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import {
   AlignItems,
   BlockSize,
@@ -25,7 +25,7 @@ const strokeWidth = 2;
 const radiusWithStroke = radius - strokeWidth / 2;
 
 export default function HoldToRevealButton({ buttonText, onLongPressed }) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const isLongPressing = useRef(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [hasTriggeredUnlock, setHasTriggeredUnlock] = useState(false);

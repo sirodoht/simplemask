@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { toAssetId } from '../../../../shared/lib/asset-utils';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { Menu, MenuItem } from '../../../components/ui/menu';
 import { getBlockExplorerLinkText } from '../../../selectors';
@@ -29,7 +29,7 @@ const AssetOptions = ({
   token,
   isNativeAsset,
 }) => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const [assetOptionsOpen, setAssetOptionsOpen] = useState(false);
   const navigate = useNavigate();

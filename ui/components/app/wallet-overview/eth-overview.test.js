@@ -10,7 +10,7 @@ import { KeyringType } from '../../../../shared/constants/keyring';
 import { useIsOriginalNativeTokenSymbol } from '../../../hooks/useIsOriginalNativeTokenSymbol';
 import useMultiPolling from '../../../hooks/useMultiPolling';
 import { ETH_EOA_METHODS } from '../../../../shared/constants/eth-methods';
-import { getIntlLocale } from '../../../ducks/locale/locale';
+
 import { mockNetworkState } from '../../../../test/stub/networks';
 import {
   MetaMetricsEventCategory,
@@ -53,11 +53,6 @@ jest.mock('../../../hooks/useIsOriginalNativeTokenSymbol', () => {
   };
 });
 
-jest.mock('../../../ducks/locale/locale', () => ({
-  ...jest.requireActual('../../../ducks/locale/locale'),
-  getIntlLocale: jest.fn(),
-}));
-
 jest.mock('../../../store/actions', () => ({
   startNewDraftTransaction: jest.fn(),
   tokenBalancesStartPolling: jest.fn().mockResolvedValue('pollingToken'),
@@ -69,13 +64,10 @@ jest.mock('../../../hooks/useMultiPolling', () => ({
   default: jest.fn(),
 }));
 
-const mockGetIntlLocale = getIntlLocale;
-
 let openTabSpy;
 
 describe('EthOverview', () => {
   useIsOriginalNativeTokenSymbol.mockReturnValue(true);
-  mockGetIntlLocale.mockReturnValue('en-US');
 
   const mockEvmAccount1 = {
     address: '0x1',
@@ -111,9 +103,7 @@ describe('EthOverview', () => {
     appState: {
       confirmationExchangeRates: {},
     },
-    localeMessages: {
-      currentLocale: 'en-US',
-    },
+
     metamask: {
       ...mockNetworkState({ chainId: CHAIN_IDS.MAINNET }),
       selectedAccountGroup: 'entropy:wallet1/group1',

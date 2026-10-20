@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { configureStore } from '@reduxjs/toolkit';
 import configureMockStore from 'redux-mock-store';
 import { screen, fireEvent, waitFor } from '@testing-library/react';
@@ -19,7 +20,7 @@ import {
   setTokenNetworkFilter,
   updateNetwork,
 } from '../../../store/actions';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { NetworksForm } from './networks-form';
 
 const mockTrackEvent = jest.fn();
@@ -82,7 +83,7 @@ const renderComponent = ({ isRpcFailoverEnabled, ...props } = {}) => {
 };
 
 const chainIdExistsMessage = (networkName) =>
-  messages.chainIdExistsErrorMsg.message.replace('$1', networkName);
+  messages.chainIdExistsErrorMsg.replace('$1', networkName);
 
 const renderWithUpdatingNetworks = (metamaskState, props) => {
   const store = configureStore({
@@ -223,12 +224,12 @@ describe('NetworkForm Component', () => {
         ticker: 'ETH',
       },
     });
-    expect(queryByText(messages.networkName.message)).toBeInTheDocument();
-    expect(queryByText(messages.defaultRpcUrl.message)).toBeInTheDocument();
-    expect(queryByText(messages.chainId.message)).toBeInTheDocument();
-    expect(queryByText(messages.currencySymbol.message)).toBeInTheDocument();
-    expect(queryByText(messages.blockExplorerUrl.message)).toBeInTheDocument();
-    expect(queryByText(messages.save.message)).toBeInTheDocument();
+    expect(queryByText(messages.networkName)).toBeInTheDocument();
+    expect(queryByText(messages.defaultRpcUrl)).toBeInTheDocument();
+    expect(queryByText(messages.chainId)).toBeInTheDocument();
+    expect(queryByText(messages.currencySymbol)).toBeInTheDocument();
+    expect(queryByText(messages.blockExplorerUrl)).toBeInTheDocument();
+    expect(queryByText(messages.save)).toBeInTheDocument();
 
     expect(
       await screen.findByText(
@@ -242,7 +243,7 @@ describe('NetworkForm Component', () => {
 
     expect(
       screen.queryByRole('button', {
-        name: messages.addFromChainlist.message,
+        name: messages.addFromChainlist,
       }),
     ).not.toBeInTheDocument();
   });
@@ -261,12 +262,12 @@ describe('NetworkForm Component', () => {
   it('should render network form correctly', () => {
     const { queryByText, getByDisplayValue } =
       renderComponent(propNetworkDisplay);
-    expect(queryByText(messages.networkName.message)).toBeInTheDocument();
-    expect(queryByText(messages.defaultRpcUrl.message)).toBeInTheDocument();
-    expect(queryByText(messages.chainId.message)).toBeInTheDocument();
-    expect(queryByText(messages.currencySymbol.message)).toBeInTheDocument();
-    expect(queryByText(messages.blockExplorerUrl.message)).toBeInTheDocument();
-    expect(queryByText(messages.save.message)).toBeInTheDocument();
+    expect(queryByText(messages.networkName)).toBeInTheDocument();
+    expect(queryByText(messages.defaultRpcUrl)).toBeInTheDocument();
+    expect(queryByText(messages.chainId)).toBeInTheDocument();
+    expect(queryByText(messages.currencySymbol)).toBeInTheDocument();
+    expect(queryByText(messages.blockExplorerUrl)).toBeInTheDocument();
+    expect(queryByText(messages.save)).toBeInTheDocument();
 
     expect(
       getByDisplayValue(propNetworkDisplay.networkFormState.chainId),
@@ -318,9 +319,7 @@ describe('NetworkForm Component', () => {
       'The RPC URL you have entered returned a different chain ID (56).';
     expect(await screen.findByText(expectedWarning)).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('button', { name: messages.save.message }),
-    ).toBeDisabled();
+    expect(screen.getByRole('button', { name: messages.save })).toBeDisabled();
   });
 
   it('should chainID be a valid number', async () => {
@@ -352,9 +351,7 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    expect(
-      await screen.findByText(messages.invalidNumber.message),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(messages.invalidNumber)).toBeInTheDocument();
   });
 
   it('should chainID not be leading zeros', async () => {
@@ -387,7 +384,7 @@ describe('NetworkForm Component', () => {
     });
 
     expect(
-      await screen.findByText(messages.invalidNumberLeadingZeros.message),
+      await screen.findByText(messages.invalidNumberLeadingZeros),
     ).toBeInTheDocument();
   });
 
@@ -438,9 +435,7 @@ describe('NetworkForm Component', () => {
     expect(await screen.findByText(expectedSymbolWarning)).toBeInTheDocument();
 
     expect(
-      await screen.findByText(
-        messages.chainListReturnedDifferentTickerSymbol.message,
-      ),
+      await screen.findByText(messages.chainListReturnedDifferentTickerSymbol),
     ).toBeInTheDocument();
   });
 
@@ -525,9 +520,7 @@ describe('NetworkForm Component', () => {
     expect(
       screen.getByText(chainIdExistsMessage('Gnosis')),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: messages.save.message }),
-    ).toBeDisabled();
+    expect(screen.getByRole('button', { name: messages.save })).toBeDisabled();
   });
 
   it('does not warn about the chain id that this save just added', async () => {
@@ -545,9 +538,7 @@ describe('NetworkForm Component', () => {
       screen.queryByText(chainIdExistsMessage(MAINNET_DISPLAY_NAME)),
     ).not.toBeInTheDocument();
 
-    fireEvent.click(
-      screen.getByRole('button', { name: messages.save.message }),
-    );
+    fireEvent.click(screen.getByRole('button', { name: messages.save }));
 
     await waitFor(() => {
       expect(addNetwork).toHaveBeenCalledTimes(1);
@@ -559,7 +550,7 @@ describe('NetworkForm Component', () => {
 
   it('should call addNetwork when saving a new network', async () => {
     const { getByText } = renderComponent(propNetworkDisplay);
-    const saveButton = getByText(messages.save.message);
+    const saveButton = getByText(messages.save);
     fireEvent.click(saveButton);
     await waitFor(() => {
       expect(addNetwork).toHaveBeenCalledTimes(1);
@@ -599,7 +590,7 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    fireEvent.click(getByText(messages.save.message));
+    fireEvent.click(getByText(messages.save));
 
     await waitFor(() => {
       expect(mockTrackEvent).toHaveBeenCalledWith(
@@ -618,7 +609,7 @@ describe('NetworkForm Component', () => {
       ...propNetworkDisplay,
       existingNetwork: {},
     });
-    const saveButton = getByText(messages.save.message);
+    const saveButton = getByText(messages.save);
     fireEvent.click(saveButton);
     await waitFor(() => {
       expect(updateNetwork).toHaveBeenCalledTimes(1);
@@ -655,7 +646,7 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    fireEvent.click(getByText(messages.save.message));
+    fireEvent.click(getByText(messages.save));
 
     await waitFor(() => {
       expect(updateNetwork).toHaveBeenCalledWith(
@@ -683,7 +674,7 @@ describe('NetworkForm Component', () => {
       configureMockStore([thunk])({ metamask }),
     );
 
-    fireEvent.click(getByText(messages.save.message));
+    fireEvent.click(getByText(messages.save));
 
     await waitFor(() => {
       expect(updateNetwork).toHaveBeenCalledWith(
@@ -722,7 +713,7 @@ describe('NetworkForm Component', () => {
       trackRpcUpdateFromBanner: true,
     });
 
-    const saveButton = getByText(messages.save.message);
+    const saveButton = getByText(messages.save);
     fireEvent.click(saveButton);
 
     await waitFor(() => {
@@ -757,7 +748,7 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    const saveButton = getByText(messages.save.message);
+    const saveButton = getByText(messages.save);
     fireEvent.click(saveButton);
 
     await waitFor(() => {
@@ -800,7 +791,7 @@ describe('NetworkForm Component', () => {
       trackRpcUpdateFromBanner: true,
     });
 
-    const saveButton = getByText(messages.save.message);
+    const saveButton = getByText(messages.save);
     fireEvent.click(saveButton);
 
     await waitFor(() => {
@@ -843,7 +834,7 @@ describe('NetworkForm Component', () => {
       trackRpcUpdateFromBanner: true,
     });
 
-    const saveButton = getByText(messages.save.message);
+    const saveButton = getByText(messages.save);
     fireEvent.click(saveButton);
 
     await waitFor(() => {
@@ -907,7 +898,7 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    expect(getByLabelText(messages.failoverRpcUrl.message)).toHaveValue(
+    expect(getByLabelText(messages.failoverRpcUrl)).toHaveValue(
       'failover.example',
     );
   });
@@ -958,7 +949,7 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    expect(getByText(messages.failover.message)).toBeInTheDocument();
+    expect(getByText(messages.failover)).toBeInTheDocument();
   });
 
   it('does not show failover for a custom endpoint even when the chain has a shared config failover', () => {
@@ -1008,8 +999,8 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    expect(queryByLabelText(messages.failoverRpcUrl.message)).toBeNull();
-    expect(queryByText(messages.failover.message)).toBeNull();
+    expect(queryByLabelText(messages.failoverRpcUrl)).toBeNull();
+    expect(queryByText(messages.failover)).toBeNull();
   });
 
   it('does not show failover for a chain not in the shared config', () => {
@@ -1057,7 +1048,7 @@ describe('NetworkForm Component', () => {
       },
     });
 
-    expect(queryByLabelText(messages.failoverRpcUrl.message)).toBeNull();
-    expect(queryByText(messages.failover.message)).toBeNull();
+    expect(queryByLabelText(messages.failoverRpcUrl)).toBeNull();
+    expect(queryByText(messages.failover)).toBeNull();
   });
 });

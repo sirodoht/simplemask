@@ -24,7 +24,6 @@ import {
 } from '../../../../selectors/multichain';
 import { getProviderConfig } from '../../../../../shared/lib/selectors/networks';
 
-import { getIntlLocale } from '../../../../ducks/locale/locale';
 import { TokenWithFiatAmount } from '../types';
 import { TokenCellProps } from './token-cell';
 import TokenCell from '.';
@@ -175,9 +174,7 @@ describe('Token Cell', () => {
     if (selector === getMultichainIsEvm) {
       return true;
     }
-    if (selector === getIntlLocale) {
-      return 'en-US';
-    }
+
     if (selector === getCurrentCurrency) {
       return 'usd';
     }

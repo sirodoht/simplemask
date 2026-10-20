@@ -14,7 +14,7 @@ import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { getEnvironmentType } from '../../../../shared/lib/environment-type';
 import { PRIVACY_ROUTE } from '../../../helpers/constants/routes';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getUseExternalServices } from '../../../selectors';
 import { getShouldShowBasicFunctionalityMigrationToast } from '../../../selectors/multichain/feature-flags';
 import { hideMigrationToast } from '../../../store/actions';
@@ -26,7 +26,7 @@ import {
 } from './constants';
 
 export function BasicFunctionalityMigrationToast() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();

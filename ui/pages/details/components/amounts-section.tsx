@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CaipAssetType } from '@metamask/utils';
 import type {
   ActivityFee,
@@ -6,7 +7,7 @@ import type {
   FiatAmount,
   TokenAmount,
 } from '../../../../shared/lib/activity/types';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useFormatters } from '../../../hooks/useFormatters';
 import { useIsGasFeeSponsored } from '../../../hooks/activity/useIsGasFeeSponsored';
 import { SuccessPill } from '../../../components/component-library';
@@ -31,7 +32,7 @@ function feeToToken(fee: ActivityFee): TokenAmount {
 }
 
 export function FeesRows({ item }: { item: ActivityListItem }) {
-  const t = useI18nContext();
+  const t = getText;
   const isGasFeeSponsored = useIsGasFeeSponsored(item.hash);
 
   const amountFees =
@@ -87,7 +88,7 @@ export function PerpsFiatRows({
 }: {
   item: Extract<ActivityListItem, { type: 'perpsAddFunds' | 'perpsWithdraw' }>;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { formatCurrencyWithMinThreshold } = useFormatters();
   const { fiat, networkFee } = item.data;
   const amount = getFiatValue(fiat);
@@ -122,7 +123,7 @@ export function PerpsFiatRows({
 }
 
 export function TotalAmountRow({ token }: { token: TokenAmount | undefined }) {
-  const t = useI18nContext();
+  const t = getText;
 
   if (!token?.amount) {
     return null;

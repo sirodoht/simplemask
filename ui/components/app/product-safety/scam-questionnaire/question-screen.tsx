@@ -12,7 +12,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { QuestionOption } from './scam-questionnaire.constants';
 
 export type QuestionScreenProps = {
@@ -34,7 +34,7 @@ export const QuestionScreen: React.FC<QuestionScreenProps> = ({
   onSelect,
   onContinue,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box className="flex h-full flex-col">

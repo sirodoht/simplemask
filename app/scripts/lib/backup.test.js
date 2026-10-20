@@ -154,7 +154,7 @@ const jsonData = JSON.stringify({
       sendHexData: true,
     },
     knownMethodData: {},
-    currentLocale: 'en',
+
     forgottenPassword: false,
     preferences: {
       hideZeroBalanceTokens: false,
@@ -169,7 +169,6 @@ const jsonData = JSON.stringify({
     ledgerTransportType: 'webhid',
     theme: 'light',
     customNetworkListEnabled: false,
-    textDirection: 'auto',
   },
   internalAccounts: {
     accounts: {

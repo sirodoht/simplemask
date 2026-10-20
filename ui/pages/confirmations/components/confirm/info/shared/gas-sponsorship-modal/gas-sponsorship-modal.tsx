@@ -22,7 +22,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { useGasSponsorshipPreference } from '../../../../../hooks/gas/useGasSponsorshipPreference';
 import { CHAIN_ID_TOKEN_IMAGE_MAP } from '../../../../../../../../shared/constants/network';
@@ -30,7 +30,7 @@ import { useNativeCurrencySymbol } from '../../hooks/useNativeCurrencySymbol';
 import { useFeeCalculations } from '../../hooks/useFeeCalculations';
 
 export function GasSponsorshipModal({ onClose }: { onClose: () => void }) {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
 

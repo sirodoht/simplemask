@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BigNumber } from 'bignumber.js';
 import {
   BatchTransactionParams,
@@ -6,7 +7,7 @@ import {
 } from '@metamask/transaction-controller';
 import { act, fireEvent } from '@testing-library/react';
 import { renderWithConfirmContextProvider } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import configureStore from '../../../../../../../store/store';
 import { getMockConfirmStateForTransaction } from '../../../../../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
@@ -159,9 +160,7 @@ describe('BatchSimulationDetails', () => {
         },
       }),
     );
-    expect(
-      getByText(messages.confirmSimulationApprove.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.confirmSimulationApprove)).toBeInTheDocument();
     expect(getByText('123.6')).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
     expect(getByTestId('simulation-details-layout').parentElement).toHaveClass(
@@ -176,10 +175,8 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(
-      getByText(messages.confirmSimulationApprove.message),
-    ).toBeInTheDocument();
-    expect(getByText(messages.unlimited.message)).toBeInTheDocument();
+    expect(getByText(messages.confirmSimulationApprove)).toBeInTheDocument();
+    expect(getByText(messages.unlimited)).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
 
@@ -190,9 +187,7 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(
-      getByText(messages.confirmSimulationApprove.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.confirmSimulationApprove)).toBeInTheDocument();
     expect(getByText('#321')).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
@@ -213,10 +208,8 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(
-      getByText(messages.confirmSimulationApprove.message),
-    ).toBeInTheDocument();
-    expect(getByText(messages.all.message)).toBeInTheDocument();
+    expect(getByText(messages.confirmSimulationApprove)).toBeInTheDocument();
+    expect(getByText(messages.all)).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
 
@@ -227,9 +220,7 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(
-      getByText(messages.confirmSimulationApprove.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.confirmSimulationApprove)).toBeInTheDocument();
     expect(getByText('123 #321')).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
@@ -250,10 +241,8 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(
-      getByText(messages.confirmSimulationApprove.message),
-    ).toBeInTheDocument();
-    expect(getByText(messages.all.message)).toBeInTheDocument();
+    expect(getByText(messages.confirmSimulationApprove)).toBeInTheDocument();
+    expect(getByText(messages.all)).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
 
@@ -264,16 +253,14 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(
-      getByText(messages.confirmSimulationApprove.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.confirmSimulationApprove)).toBeInTheDocument();
     expect(getByText('123.6')).toBeInTheDocument();
     expect(getByText('#321')).toBeInTheDocument();
   });
 
   it('does not render approve row if no approve balance changes', () => {
     const { queryByText } = render();
-    expect(queryByText(messages.confirmSimulationApprove.message)).toBeNull();
+    expect(queryByText(messages.confirmSimulationApprove)).toBeNull();
   });
 
   it('shows edit modal on edit click', async () => {
@@ -286,9 +273,7 @@ describe('BatchSimulationDetails', () => {
 
     fireEvent.click(getByTestId('balance-change-edit'));
 
-    expect(
-      await findByText(messages.editSpendingCap.message),
-    ).toBeInTheDocument();
+    expect(await findByText(messages.editSpendingCap)).toBeInTheDocument();
   });
 
   it('updates nested transaction data on modal submit', async () => {
@@ -306,7 +291,7 @@ describe('BatchSimulationDetails', () => {
     });
 
     await act(async () => {
-      getByText(messages.save.message).click();
+      getByText(messages.save).click();
     });
 
     expect(updateAtomicBatchDataMock).toHaveBeenCalledTimes(1);
@@ -333,8 +318,8 @@ describe('BatchSimulationDetails', () => {
       value: [BALANCE_CHANGE_ERC20_MOCK],
     });
     const { queryByText, queryByTestId } = render();
-    expect(queryByText(messages.editSpendingCap.message)).toBeNull();
+    expect(queryByText(messages.editSpendingCap)).toBeNull();
     expect(queryByTestId('balance-change-edit')).toBeNull();
-    expect(queryByText(messages.confirmSimulationApprove.message)).toBeNull();
+    expect(queryByText(messages.confirmSimulationApprove)).toBeNull();
   });
 });

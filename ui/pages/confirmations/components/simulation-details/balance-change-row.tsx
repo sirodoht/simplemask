@@ -22,7 +22,7 @@ import {
 } from '../../../../components/component-library';
 import { ConfirmInfoAlertRow } from '../../../../components/app/confirm/info/row/alert-row/alert-row';
 import { RowAlertKey } from '../../../../components/app/confirm/info/row/constants';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { AssetPill } from './asset-pill';
 import { AmountPill } from './amount-pill';
 import { BalanceChange } from './types';
@@ -60,7 +60,7 @@ export const BalanceChangeRow = ({
   hasIncomingTokens?: boolean;
   confirmationId?: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const {
     asset,

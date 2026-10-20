@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   IconColor,
@@ -12,7 +13,7 @@ import {
   IconSize,
   IconName,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Modal,
   ModalContent,
@@ -32,7 +33,7 @@ export default function ConfirmSrpModal({
   onClose,
   isError,
 }: ConfirmSrpModalProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   const handleContinue = () => {
     if (isError) {

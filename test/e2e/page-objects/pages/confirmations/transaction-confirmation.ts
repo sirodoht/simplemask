@@ -1,6 +1,6 @@
 import { strict as assert } from 'assert';
 import { By, Key } from 'selenium-webdriver';
-import { tEn } from '../../../../lib/i18n-helpers';
+import { getText as tEn } from '../../../../../shared/lib/text';
 import { Driver } from '../../../webdriver/driver';
 import { RawLocator } from '../../common';
 import Confirmation from './confirmation';

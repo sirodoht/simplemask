@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   act,
   cleanup,
@@ -6,13 +7,13 @@ import {
   screen,
 } from '@testing-library/react';
 import thunk from 'redux-thunk';
-import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 
 import { QrScanRequestType } from '@metamask/eth-qr-keyring';
 import { ErrorCode } from '@metamask/hw-wallet-sdk';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { tEn } from '../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import {
   LedgerTransportTypes,
   HardwareDeviceNames,

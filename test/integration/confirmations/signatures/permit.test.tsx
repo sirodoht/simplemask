@@ -14,7 +14,7 @@ import {
   getSelectedAccountGroupAccounts,
   getSelectedAccountGroupName,
 } from '../../helpers';
-import { tEn } from '../../../lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import {
   getMetamaskStateWithMaliciousPermit,
   getMetaMaskStateWithUnapprovedPermitSign,

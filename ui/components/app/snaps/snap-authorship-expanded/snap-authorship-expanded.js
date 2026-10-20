@@ -1,7 +1,8 @@
+import React from 'react';
 import { getSnapPrefix, stripSnapPrefix } from '@metamask/snaps-utils';
 import classnames from 'clsx';
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   AlignItems,
@@ -20,7 +21,7 @@ import {
   TextVariant,
 } from '../../../../helpers/constants/design-system';
 import { formatDate } from '../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useOriginMetadata } from '../../../../hooks/useOriginMetadata';
 import { getSnapRegistryData } from '../../../../selectors';
 import { disableSnap, enableSnap } from '../../../../store/actions';
@@ -32,7 +33,7 @@ import { useSafeWebsite } from '../../../../hooks/snaps/useSafeWebsite';
 import { useDispatch } from '../../../../store/hooks';
 
 const SnapAuthorshipExpanded = ({ snapId, className, snap }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   // We're using optional chaining with snapId, because with the current implementation

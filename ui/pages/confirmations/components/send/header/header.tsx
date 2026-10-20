@@ -13,12 +13,12 @@ import {
   IconName,
   Text,
 } from '../../../../../components/component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useNavigateSendPage } from '../../../hooks/send/useNavigateSendPage';
 import { transitionBack } from '../../../../../components/ui/transition';
 
 export const Header = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { goToPreviousPage } = useNavigateSendPage();
 
   const handleBack = useCallback(() => {

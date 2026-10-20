@@ -267,7 +267,7 @@ class SendPage {
    * Recipient validation is debounced, so callers should expect this to
    * wait rather than assert instantly.
    *
-   * @param errorText - The expected (potentially localized) error text.
+   * @param errorText - The expected (potentially English) error text.
    */
   async checkRecipientValidationError(errorText: string): Promise<void> {
     console.log(`Checking recipient validation error: ${errorText}`);

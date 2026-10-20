@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import mockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 
 import {
   DisconnectAllGatorPermissionsModal,
@@ -78,9 +79,7 @@ describe('DisconnectAllGatorPermissionsModal', () => {
       ...mockState.metamask,
       useExternalServices: true,
     },
-    locale: {
-      currentLocale: 'en',
-    },
+    locale: {},
     networkConfigurations: {
       '0x1': { name: 'Ethereum Mainnet', nativeCurrency: 'ETH' },
       '0x89': {
@@ -130,11 +129,9 @@ describe('DisconnectAllGatorPermissionsModal', () => {
       mockStore,
     );
     // The test helpers provide actual translations
+    expect(getByText(messages.otherPermissionsOnSiteTitle)).toBeInTheDocument();
     expect(
-      getByText(messages.otherPermissionsOnSiteTitle.message),
-    ).toBeInTheDocument();
-    expect(
-      getByText(messages.otherPermissionsOnSiteDescription.message),
+      getByText(messages.otherPermissionsOnSiteDescription),
     ).toBeInTheDocument();
   });
 
@@ -143,7 +140,7 @@ describe('DisconnectAllGatorPermissionsModal', () => {
       <DisconnectAllGatorPermissionsModal {...args} />,
       mockStore,
     );
-    expect(getByText(messages.tokenStream.message)).toBeInTheDocument();
+    expect(getByText(messages.tokenStream)).toBeInTheDocument();
     expect(getByText('1 ETH per second • 0x12345...67890')).toBeInTheDocument();
   });
 });

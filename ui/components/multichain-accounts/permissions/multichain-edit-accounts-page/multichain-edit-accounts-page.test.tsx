@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, waitFor, within } from '@testing-library/react';
 import { EthAccountType, SolAccountType } from '@metamask/keyring-api';
 import {
@@ -7,7 +8,7 @@ import {
   AccountGroupId,
 } from '@metamask/account-api';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import configureStore from '../../../../store/store';
 import { createMockInternalAccount } from '../../../../../test/jest/mocks';
 import {
@@ -349,7 +350,7 @@ describe('MultichainEditAccountsPage', () => {
 
   it('renders modal with correct title', () => {
     const { getByText } = render();
-    expect(getByText(messages.editAccounts.message)).toBeInTheDocument();
+    expect(getByText(messages.editAccounts)).toBeInTheDocument();
   });
 
   it('renders connect button', () => {
@@ -376,7 +377,7 @@ describe('MultichainEditAccountsPage', () => {
     expect(searchContainer).toBeInTheDocument();
 
     const searchInput = within(searchContainer).getByPlaceholderText(
-      messages.searchYourAccounts.message,
+      messages.searchYourAccounts,
     );
     expect(searchInput).toBeInTheDocument();
   });
@@ -413,7 +414,7 @@ describe('MultichainEditAccountsPage', () => {
     const searchInput = within(searchContainer).getByRole('searchbox');
     fireEvent.change(searchInput, { target: { value: 'nonexistent account' } });
 
-    expect(getByText(messages.noAccountsFound.message)).toBeInTheDocument();
+    expect(getByText(messages.noAccountsFound)).toBeInTheDocument();
   });
 
   it('shows selected accounts with visual indication', () => {
@@ -494,7 +495,7 @@ describe('MultichainEditAccountsPage', () => {
       defaultSelectedAccountGroups: [],
     });
 
-    expect(getByText(messages.editAccounts.message)).toBeInTheDocument();
+    expect(getByText(messages.editAccounts)).toBeInTheDocument();
   });
 
   it('updates selected accounts when defaultSelectedAccountGroups prop changes', async () => {

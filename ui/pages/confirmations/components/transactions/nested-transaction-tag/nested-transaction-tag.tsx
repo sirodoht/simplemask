@@ -1,9 +1,10 @@
 import React from 'react';
+
 import {
   BatchTransactionParams,
   TransactionMeta,
 } from '@metamask/transaction-controller';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { useNestedTransactionLabels } from '../../confirm/info/hooks/useNestedTransactionLabels';
 import {
@@ -33,7 +34,7 @@ const NestedTransactionTagContent = ({
 }: {
   nestedTransactions: BatchTransactionParams[];
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const functionNames = useNestedTransactionLabels({ nestedTransactions });
 
   const tooltip = t('transactionIncludesTypes', [functionNames.join(', ')]);

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from '@metamask/design-system-react';
 import { TabEmptyState } from '../../ui/tab-empty-state';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useTheme } from '../../../hooks/useTheme';
 import { getCurrentChainId } from '../../../../shared/lib/selectors/networks';
 import {
@@ -27,7 +27,7 @@ export type TransactionActivityEmptyStateProps = {
 export const TransactionActivityEmptyState = ({
   className,
 }: TransactionActivityEmptyStateProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const theme = useTheme();
   const navigate = useNavigate();
   const { trackEvent, createEventBuilder } = useAnalytics();

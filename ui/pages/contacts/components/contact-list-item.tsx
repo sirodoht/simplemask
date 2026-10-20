@@ -23,7 +23,7 @@ import {
 import { PreferredAvatar } from '../../../components/app/preferred-avatar';
 import { shortenAddress } from '../../../helpers/utils/util';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/lib/selectors/networks';
 import { getImageForChainId } from '../../../selectors/multichain';
 import Tooltip from '../../../components/ui/tooltip';
@@ -38,7 +38,7 @@ export function ContactListItem({
   onSelect,
   isDuplicate = false,
 }: ContactListItemProps) {
-  const t = useI18nContext();
+  const t = getText;
   const [copied, handleCopy] = useCopyToClipboard();
   const allNetworks = useSelector(getNetworkConfigurationsByChainId);
   const network = allNetworks?.[chainId as Hex];

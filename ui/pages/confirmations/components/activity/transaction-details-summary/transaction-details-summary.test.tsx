@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   MetamaskPayMetadata,
@@ -8,9 +9,9 @@ import {
 } from '@metamask/transaction-controller';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import {
-  enLocale as messages,
-  tEn,
-} from '../../../../../../test/lib/i18n-helpers';
+  englishText as messages,
+  getText as tEn,
+} from '../../../../../../shared/lib/text';
 import { useTokenWithBalance } from '../../../hooks/tokens/useTokenWithBalance';
 import { TransactionDetailsProvider } from '../transaction-details-context';
 import { TransactionDetailsSummary } from './transaction-details-summary';
@@ -96,17 +97,17 @@ describe('TransactionDetailsSummary', () => {
 
   it('renders summary label', () => {
     const { getByText } = render();
-    expect(getByText(messages.summary.message)).toBeInTheDocument();
+    expect(getByText(messages.summary)).toBeInTheDocument();
   });
 
   it('renders bridge title for bridge transactions', () => {
     const { getByText } = render(TransactionType.bridge);
-    expect(getByText(messages.bridge.message)).toBeInTheDocument();
+    expect(getByText(messages.bridge)).toBeInTheDocument();
   });
 
   it('renders swap title for swap transactions', () => {
     const { getByText } = render(TransactionType.swap);
-    expect(getByText(messages.swap.message)).toBeInTheDocument();
+    expect(getByText(messages.swap)).toBeInTheDocument();
   });
 
   it('uses metamaskPay chain for relayDeposit source token lookup', () => {
@@ -160,7 +161,7 @@ describe('TransactionDetailsSummary', () => {
     expect(
       getByText(tEn('bridgeSend', ['USDC', 'Ethereum'])),
     ).toBeInTheDocument();
-    expect(queryByText(messages.transaction.message)).not.toBeInTheDocument();
+    expect(queryByText(messages.transaction)).not.toBeInTheDocument();
   });
 
   it('renders bridge send title for predictRelayDeposit instead of generic transaction', () => {
@@ -194,7 +195,7 @@ describe('TransactionDetailsSummary', () => {
     expect(
       getByText(tEn('bridgeSend', ['USDC', 'Ethereum'])),
     ).toBeInTheDocument();
-    expect(queryByText(messages.transaction.message)).not.toBeInTheDocument();
+    expect(queryByText(messages.transaction)).not.toBeInTheDocument();
   });
 
   it('renders approve title with token symbol for tokenMethodApprove', () => {
@@ -215,7 +216,7 @@ describe('TransactionDetailsSummary', () => {
 
   it('renders approve fallback title when token symbol is not resolved', () => {
     const { getByText } = render(TransactionType.tokenMethodApprove);
-    expect(getByText(messages.approveButtonText.message)).toBeInTheDocument();
+    expect(getByText(messages.approveButtonText)).toBeInTheDocument();
   });
 
   it('uses txParams.to as token address for tokenMethodApprove lookup', () => {
@@ -226,9 +227,7 @@ describe('TransactionDetailsSummary', () => {
   it('renders a ReceiveSummaryLine for perpsWithdraw transactions', () => {
     const { getByText } = render(TransactionType.perpsWithdraw);
 
-    expect(
-      getByText(messages.bridgeReceiveLoading.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.bridgeReceiveLoading)).toBeInTheDocument();
   });
 
   describe('mUSD conversion summary', () => {

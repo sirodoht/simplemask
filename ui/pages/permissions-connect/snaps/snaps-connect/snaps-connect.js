@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isSnapId } from '@metamask/snaps-utils';
 import { IconSize } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Box, Text } from '../../../../components/component-library';
 import {
   FlexDirection,
@@ -182,7 +182,7 @@ export default function SnapsConnect({
   snapsInstallPrivacyWarningShown,
   setSnapsInstallPrivacyWarningShownStatus,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { origin } = targetSubjectMetadata;
   const [isLoading, setIsLoading] = useState(false);
 

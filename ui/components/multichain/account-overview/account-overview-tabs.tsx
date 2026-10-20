@@ -9,7 +9,7 @@ import {
 } from '../../../../shared/constants/app-state';
 import { endTrace, trace } from '../../../../shared/lib/trace';
 import { ASSET_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useTabState } from '../../../hooks/useTabState';
 import { useSafeChains } from '../networks-form/use-safe-chains';
 import { getDefaultHomeActiveTabName } from '../../../selectors';
@@ -51,7 +51,7 @@ export const AccountOverviewTabs = ({
       : undefined,
   );
 
-  const t = useI18nContext();
+  const t = getText;
   const prefetchTransactions = usePrefetchTransactions();
   const showBottomNav = useBottomNavBar();
 

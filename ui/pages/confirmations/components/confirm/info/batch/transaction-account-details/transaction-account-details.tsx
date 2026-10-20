@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { TransactionMeta } from '@metamask/transaction-controller';
 
 import { isBatchTransaction } from '../../../../../../../../shared/lib/transactions.utils';
@@ -8,7 +9,7 @@ import {
   ConfirmInfoRowText,
 } from '../../../../../../../components/app/confirm/info/row';
 import { ConfirmInfoSection } from '../../../../../../../components/app/confirm/info/row/section';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { ConfirmInfoAlertRow } from '../../../../../../../components/app/confirm/info/row/alert-row/alert-row';
 import { RowAlertKey } from '../../../../../../../components/app/confirm/info/row/constants';
@@ -19,7 +20,7 @@ import {
 import { RecipientRow } from '../../shared/transaction-details/transaction-details';
 
 export function TransactionAccountDetails() {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { isUpgrade, isUpgradeOnly } = useIsUpgradeTransaction();
   const isDowngrade = useIsDowngradeTransaction();

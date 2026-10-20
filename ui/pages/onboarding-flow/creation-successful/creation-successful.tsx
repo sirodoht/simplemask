@@ -19,7 +19,7 @@ import {
   IconName,
   IconSize,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ONBOARDING_PRIVACY_SETTINGS_ROUTE,
   DEFAULT_ROUTE,
@@ -39,7 +39,7 @@ import WalletReadyAnimation from './wallet-ready-animation';
 
 export default function CreationSuccessful() {
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const isWalletReady = useSelector(getIsPrimarySeedPhraseBackedUp);
   const isSidePanelEnabled = useSidePanelEnabled();
   const isInitialized = useSelector(getIsInitialized);

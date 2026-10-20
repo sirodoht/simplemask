@@ -1,5 +1,4 @@
-import React from 'react';
-import type { FC } from 'react';
+import React, { type FC } from 'react';
 import { NotificationServicesController } from '@metamask/notification-services-controller';
 import { isOnChainNotification } from '@metamask/notification-services-controller/notification-services';
 import { useAnalytics } from '../../../hooks/useAnalytics';
@@ -24,7 +23,7 @@ import {
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { getNotificationTypeForAnalytics } from '../../../helpers/utils/notification.util';
 import Tooltip from '../../ui/tooltip/tooltip';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type Notification = NotificationServicesController.Types.INotification;
 
@@ -56,7 +55,7 @@ export const NotificationDetailCopyButton: FC<
 }): JSX.Element => {
   // useCopyToClipboard analysis: Copies the text of the notification detail, which is never a private key
   const [copied, handleCopy] = useCopyToClipboard();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const tooltipText = copied ? t('copiedExclamation') : t('copyToClipboard');

@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import classnames from 'clsx';
@@ -21,7 +15,7 @@ import {
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
 
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import { getMultichainAccountAddressListReceivePagePath } from '../../../pages/multichain-accounts/multichain-account-address-list-page';
 import Tooltip from '../../ui/tooltip';
 import UserPreferencedCurrencyDisplay from '../user-preferenced-currency-display';
@@ -45,7 +39,6 @@ import {
   getMultichainIsTestnet,
 } from '../../../selectors/multichain';
 import { setPrivacyMode } from '../../../store/actions';
-import { useI18nContext } from '../../../hooks/useI18nContext';
 import { useAccountTotalCrossChainFiatBalance } from '../../../hooks/useAccountTotalCrossChainFiatBalance';
 
 import { useGetFormattedTokensPerChain } from '../../../hooks/useGetFormattedTokensPerChain';
@@ -196,7 +189,7 @@ export const CoinOverview = ({
   chainId,
   isSigningEnabled,
 }: CoinOverviewProps) => {
-  const t: ReturnType<typeof useI18nContext> = useContext(I18nContext);
+  const t: typeof getText = getText;
 
   const { trackEvent, createEventBuilder } = useAnalytics();
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, waitFor } from '@testing-library/react';
 
 import mockState from '../../../../../../test/data/mock-state.json';
@@ -9,7 +10,7 @@ import {
 } from '../../../../../../test/data/send/assets';
 import { Numeric } from '../../../../../../shared/lib/Numeric';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import configureStore from '../../../../../store/store';
 import * as AmountSelectionMetrics from '../../../hooks/send/metrics/useAmountSelectionMetrics';
 import * as BalanceFunctions from '../../../hooks/send/useBalance';
@@ -31,7 +32,7 @@ describe('Amount', () => {
   it('should render correctly', () => {
     const { getByText } = render();
 
-    expect(getByText(messages.amount.message)).toBeInTheDocument();
+    expect(getByText(messages.amount)).toBeInTheDocument();
   });
 
   it('call update value method when value is changed', () => {
@@ -239,7 +240,7 @@ describe('Amount', () => {
 
     const { getByRole, getByText } = render();
 
-    fireEvent.click(getByText(messages.max.message));
+    fireEvent.click(getByText(messages.max));
     expect(getByRole('textbox')).toHaveValue('5');
     expect(mockUpdateValue).toHaveBeenCalledWith('5', true);
   });
@@ -261,7 +262,7 @@ describe('Amount', () => {
       >);
 
     const { getByText } = render();
-    fireEvent.click(getByText(messages.max.message));
+    fireEvent.click(getByText(messages.max));
     expect(mockSetAmountInputMethodPressedMax).toHaveBeenCalled();
   });
 

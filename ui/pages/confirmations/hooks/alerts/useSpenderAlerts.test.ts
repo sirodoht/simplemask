@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import { TransactionType } from '@metamask/transaction-controller';
 import { NameType } from '@metamask/name-controller';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useConfirmContext } from '../../context/confirm';
 import { Severity } from '../../../../helpers/constants/design-system';
 import { RowAlertKey } from '../../../../components/app/confirm/info/row/constants';
@@ -21,8 +21,8 @@ import { buildSetApproveForAllTransactionData } from '../../../../../test/data/c
 import { permitSignatureMsgWithUnsignedFields } from '../../../../../test/data/confirmations/typed_sign';
 import { useSpenderAlerts } from './useSpenderAlerts';
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 jest.mock('../../context/confirm', () => ({
@@ -69,9 +69,7 @@ const mockUseAsyncResult = useAsyncResult as jest.MockedFunction<
 const mockUseTrustSignal = useTrustSignal as jest.MockedFunction<
   typeof useTrustSignal
 >;
-const mockUseI18nContext = useI18nContext as jest.MockedFunction<
-  typeof useI18nContext
->;
+const mockGetText = getText as jest.MockedFunction<typeof getText>;
 const mockUseConfirmContext = useConfirmContext as jest.MockedFunction<
   typeof useConfirmContext
 >;
@@ -81,7 +79,7 @@ const MOCK_TRANSACTION_ID = 'test-tx-id';
 
 function setupDefaultMocks() {
   jest.clearAllMocks();
-  mockUseI18nContext.mockReturnValue((key: string) => key);
+  mockGetText.mockImplementation((key: string) => key);
   mockUseTrustSignal.mockReturnValue({
     state: TrustSignalDisplayState.Unknown,
     label: null,

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { getAllNetworkConfigurationsByCaipChainId } from '../../../../../shared/lib/selectors/networks';
 import { getImageForChainId } from '../../../../selectors/multichain';
 import { BridgeNetworkRow } from './bridge-network-row';
@@ -42,16 +43,16 @@ describe('BridgeNetworkRow', () => {
 
   it('renders the configured network names for both chains', () => {
     mockGetAllNetworkConfigurationsByCaipChainId.mockReturnValue({
-      'eip155:1': { name: messages.networkNameEthereum.message },
-      'eip155:137': { name: messages.networkNamePolygon.message },
+      'eip155:1': { name: messages.networkNameEthereum },
+      'eip155:137': { name: messages.networkNamePolygon },
     });
 
     const { getByText } = render(
       <BridgeNetworkRow fromChainId="eip155:1" toChainId="eip155:137" />,
     );
 
-    expect(getByText(messages.networkNameEthereum.message)).toBeInTheDocument();
-    expect(getByText(messages.networkNamePolygon.message)).toBeInTheDocument();
+    expect(getByText(messages.networkNameEthereum)).toBeInTheDocument();
+    expect(getByText(messages.networkNamePolygon)).toBeInTheDocument();
     expect(getByText('→')).toBeInTheDocument();
   });
 

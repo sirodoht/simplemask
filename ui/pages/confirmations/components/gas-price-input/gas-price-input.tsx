@@ -9,7 +9,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useConfirmContext } from '../../context/confirm';
 import {
   hexWEIToDecGWEI,
@@ -25,7 +25,7 @@ export const GasPriceInput = ({
   onChange: (value: Hex) => void;
   onErrorChange: (error: string | undefined) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 
   const initialGasPrice = hexWEIToDecGWEI(

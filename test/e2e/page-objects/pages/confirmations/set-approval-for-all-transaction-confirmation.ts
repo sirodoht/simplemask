@@ -1,4 +1,4 @@
-import { tEn } from '../../../../lib/i18n-helpers';
+import { getText as tEn } from '../../../../../shared/lib/text';
 import { Driver } from '../../../webdriver/driver';
 import { RawLocator } from '../../common';
 import TransactionConfirmation from './transaction-confirmation';

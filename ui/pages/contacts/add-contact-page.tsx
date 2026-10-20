@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -7,12 +8,12 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { Content, Header, Page } from '../../components/multichain/pages/page';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { CONTACTS_ROUTE, DEFAULT_ROUTE } from '../../helpers/constants/routes';
 import { AddContactForm } from './components/add-contact-form';
 
 export function AddContactPage() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   const handleBack = () => {

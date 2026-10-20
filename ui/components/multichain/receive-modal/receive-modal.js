@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Box } from '../../component-library';
 import QrCodeView from '../../ui/qr-code-view';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getInternalAccountByAddress } from '../../../selectors';
 import {
   AlignItems,
@@ -19,7 +19,7 @@ import {
 import { endTrace, TraceName } from '../../../../shared/lib/trace';
 
 export const ReceiveModal = ({ address, onClose }) => {
-  const t = useI18nContext();
+  const t = getText;
   const {
     metadata: { name },
   } = useSelector((state) => getInternalAccountByAddress(state, address));

@@ -1,5 +1,6 @@
-import { fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
@@ -20,7 +21,7 @@ import {
   MetaMetricsEventName,
   MetaMetricsEventVerificationMethod,
 } from '../../../../shared/constants/metametrics';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import RevealRecoveryPhrase from './reveal-recovery-phrase';
 
 const mockTrackEvent = jest.fn();
@@ -125,6 +126,7 @@ const mockState = {
     internalAccounts: {
       accounts: {
         accountId: {
+          type: 'eip155:eoa',
           address: '0x0000000000000000000000000000000000000000',
           metadata: {
             keyring: 'HD Key Tree',
@@ -160,12 +162,8 @@ describe('RevealRecoveryPhrase', () => {
     );
 
     expect(getByTestId('reveal-recovery-phrase')).toBeInTheDocument();
-    expect(
-      getByText(messages.revealSecretRecoveryPhrase.message),
-    ).toBeInTheDocument();
-    expect(
-      getByText(messages.enterPasswordContinue.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.revealSecretRecoveryPhrase)).toBeInTheDocument();
+    expect(getByText(messages.enterPasswordContinue)).toBeInTheDocument();
     expect(getByTestId('reveal-recovery-phrase-continue')).toBeInTheDocument();
   });
 
@@ -304,9 +302,7 @@ describe('RevealRecoveryPhrase', () => {
     const continueButton = getByTestId('reveal-recovery-phrase-continue');
     fireEvent.click(continueButton);
 
-    const errorMessage = await findByText(
-      messages.unlockPageIncorrectPassword.message,
-    );
+    const errorMessage = await findByText(messages.unlockPageIncorrectPassword);
     expect(errorMessage).toBeInTheDocument();
 
     await waitFor(() => {
@@ -361,12 +357,12 @@ describe('RevealRecoveryPhrase', () => {
     const continueButton = getByTestId('reveal-recovery-phrase-continue');
     fireEvent.click(continueButton);
 
-    await findByText(messages.unlockPageIncorrectPassword.message);
+    await findByText(messages.unlockPageIncorrectPassword);
 
     fireEvent.change(passwordInput, { target: { value: 'newpassword' } });
 
     expect(
-      queryByText(messages.unlockPageIncorrectPassword.message),
+      queryByText(messages.unlockPageIncorrectPassword),
     ).not.toBeInTheDocument();
   });
 

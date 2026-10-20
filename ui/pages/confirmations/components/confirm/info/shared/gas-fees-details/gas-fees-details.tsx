@@ -11,7 +11,7 @@ import {
   BoxAlignItems,
   BoxFlexDirection,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { selectConfirmationAdvancedDetailsOpen } from '../../../../../selectors/preferences';
 import { useConfirmContext } from '../../../../../context/confirm';
 import GasTiming from '../../../../gas-timing/gas-timing.component';
@@ -29,7 +29,7 @@ import { useGasSponsorshipPreference } from '../../../../../hooks/gas/useGasSpon
 import { useTransactionEventFragment } from '../../../../../hooks/useTransactionEventFragment';
 
 export const GasFeesDetails = (): JSX.Element | null => {
-  const t = useI18nContext();
+  const t = getText;
   useAutomaticGasFeeTokenSelect();
 
   const { currentConfirmation: transactionMeta } =

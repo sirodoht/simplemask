@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, ButtonVariant } from '@metamask/design-system-react';
 import { isEvmChainId } from '../../../../../shared/lib/asset-utils';
 import { NETWORKS_ROUTE } from '../../../../helpers/constants/routes';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   getSafeNativeCurrencySymbol,
   type SafeChain,
@@ -50,7 +50,7 @@ export default function TokenCell({
 }: TokenCellProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const isEvm = isEvmChainId(token.chainId);
   const nativeCurrencySymbol = useMemo(
     () => getSafeNativeCurrencySymbol(safeChains, token.chainId),

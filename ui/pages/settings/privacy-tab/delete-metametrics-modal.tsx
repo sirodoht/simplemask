@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxFlexDirection,
@@ -16,7 +17,7 @@ import {
   ModalOverlay,
   ModalContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { createMetaMetricsDataDeletionTask } from '../../../store/actions';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
@@ -37,7 +38,7 @@ export default function DeleteMetametricsModal({
   onSuccess,
   onError,
 }: Readonly<DeleteMetametricsModalProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const deleteMetaMetricsData = async () => {

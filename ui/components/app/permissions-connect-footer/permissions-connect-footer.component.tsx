@@ -1,16 +1,17 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
   BoxJustifyContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import { TextVariant } from '../../../helpers/constants/design-system';
 import { ButtonLink, ButtonLinkSize, Text } from '../../component-library';
 
 export default function PermissionsConnectFooter() {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

@@ -23,7 +23,7 @@ import {
   FontWeight,
   JustifyContent,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import InfoTooltip from '../../../ui/info-tooltip';
 import { getCurrentChainId } from '../../../../../shared/lib/selectors/networks';
 import { KeyringAccountListItem } from './keyring-account-list-item';
@@ -45,7 +45,7 @@ export default function KeyringRemovalSnapWarning({
   onBack: () => void;
   isOpen: boolean;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const hasNoAccounts = keyringAccounts.length === 0;
   const [showConfirmation, setShowConfirmation] = useState(false);
   const displayConfirmation = hasNoAccounts || showConfirmation;

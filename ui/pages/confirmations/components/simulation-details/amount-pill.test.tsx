@@ -15,10 +15,6 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn((selector) => selector()),
 }));
 
-jest.mock('../../../../ducks/locale/locale', () => ({
-  getIntlLocale: jest.fn(() => 'en-US'),
-}));
-
 jest.mock('../../../../components/ui/tooltip', () => ({
   // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -286,7 +282,7 @@ describe('AmountPill', () => {
         ERC20_ASSET_MOCK,
         new BigNumber(TOKEN_VALUE_UNLIMITED_THRESHOLD),
         {
-          text: '[unlimited]',
+          text: 'Unlimited',
           tooltip: '1,000,000,000,000,000',
         },
         { isApproval: true, isUnlimitedApproval: true },
@@ -298,8 +294,8 @@ describe('AmountPill', () => {
         { ...ERC721_ASSET_MOCK, tokenId: undefined },
         new BigNumber(1),
         {
-          text: '[all]',
-          tooltip: '[all]',
+          text: 'All',
+          tooltip: 'All',
         },
         { isApproval: true, isAllApproval: true },
       );
@@ -310,8 +306,8 @@ describe('AmountPill', () => {
         { ...ERC1155_ASSET_MOCK, tokenId: undefined },
         new BigNumber(1),
         {
-          text: '[all]',
-          tooltip: '[all]',
+          text: 'All',
+          tooltip: 'All',
         },
         { isApproval: true, isAllApproval: true },
       );

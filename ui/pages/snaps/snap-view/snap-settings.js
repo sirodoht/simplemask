@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import semver from 'semver';
 import { isSnapId } from '@metamask/snaps-utils';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   BackgroundColor,
   BlockSize,
@@ -51,7 +51,7 @@ import { useKeyringSnap } from './hooks/useKeyringSnap';
 function SnapSettings({ snapId, initRemove, resetInitRemove }) {
   const messenger = useMessenger();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const snaps = useSelector(getSnaps);
   const dispatch = useDispatch();
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { TransactionType } from '@metamask/transaction-controller';
 import { isSnapId } from '@metamask/snaps-utils';
@@ -10,7 +11,7 @@ import {
   getMockTypedSignConfirmStateForRequest,
 } from '../../../../../../../test/data/confirmations/helper';
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import {
   signatureRequestSIWE,
   unapprovedPersonalSignMsg,
@@ -99,7 +100,7 @@ describe('PersonalSignInfo', () => {
       <PersonalSignInfo />,
       mockStore,
     );
-    expect(getByText(messages.signingInWith.message)).toBeDefined();
+    expect(getByText(messages.signingInWith)).toBeDefined();
   });
 
   it('display simulation for SIWE request if preference useTransactionSimulations is enabled', () => {
@@ -117,7 +118,7 @@ describe('PersonalSignInfo', () => {
       <PersonalSignInfo />,
       mockStore,
     );
-    expect(getByText(messages.simulationDetailsTitle.message)).toBeDefined();
+    expect(getByText(messages.simulationDetailsTitle)).toBeDefined();
   });
 
   it('does not display tooltip text when isSIWE is true', async () => {
@@ -131,13 +132,13 @@ describe('PersonalSignInfo', () => {
       mockStore,
     );
 
-    const requestFromLabel = getByText(messages.requestFrom.message);
+    const requestFromLabel = getByText(messages.requestFrom);
     await requestFromLabel.dispatchEvent(
       new MouseEvent('mouseenter', { bubbles: true }),
     );
 
-    expect(queryByText(messages.requestFromInfo.message)).toBeNull();
-    expect(queryByText(messages.requestFromInfoSnap.message)).toBeNull();
+    expect(queryByText(messages.requestFromInfo)).toBeNull();
+    expect(queryByText(messages.requestFromInfoSnap)).toBeNull();
   });
 
   it('displays "requestFromInfoSnap" tooltip when isSIWE is false and origin is a snap', async () => {
@@ -153,12 +154,12 @@ describe('PersonalSignInfo', () => {
       mockStore,
     );
 
-    const requestFromLabel = getByText(messages.requestFrom.message);
+    const requestFromLabel = getByText(messages.requestFrom);
     await requestFromLabel.dispatchEvent(
       new MouseEvent('mouseenter', { bubbles: true }),
     );
 
-    expect(queryByText(messages.requestFromInfoSnap.message)).toBeDefined();
+    expect(queryByText(messages.requestFromInfoSnap)).toBeDefined();
   });
 
   it('displays "requestFromInfo" tooltip when isSIWE is false and origin is not a snap', async () => {
@@ -173,12 +174,12 @@ describe('PersonalSignInfo', () => {
       mockStore,
     );
 
-    const requestFromLabel = getByText(messages.requestFrom.message);
+    const requestFromLabel = getByText(messages.requestFrom);
     await requestFromLabel.dispatchEvent(
       new MouseEvent('mouseenter', { bubbles: true }),
     );
 
-    expect(queryByText(messages.requestFromInfo.message)).toBeDefined();
+    expect(queryByText(messages.requestFromInfo)).toBeDefined();
   });
 
   it('display hex message value if it can not be converted to valid UTF-8 string', () => {
@@ -224,7 +225,7 @@ describe('PersonalSignInfo', () => {
       <PersonalSignInfo />,
       mockStore,
     );
-    expect(getByText(messages.network.message)).toBeInTheDocument();
-    expect(getByText(messages.networkNameGoerli.message)).toBeInTheDocument();
+    expect(getByText(messages.network)).toBeInTheDocument();
+    expect(getByText(messages.networkNameGoerli)).toBeInTheDocument();
   });
 });

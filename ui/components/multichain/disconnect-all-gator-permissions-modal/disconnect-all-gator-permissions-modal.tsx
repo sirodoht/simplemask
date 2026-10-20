@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Button,
   ButtonVariant,
@@ -13,7 +14,7 @@ import {
   ModalOverlay,
   ModalContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PermissionItem } from './permission-item';
 import { DisconnectAllGatorPermissionsModalProps } from './types';
 
@@ -24,7 +25,7 @@ export const DisconnectAllGatorPermissionsModal = ({
   onRemoveAll,
   permissions = [],
 }: DisconnectAllGatorPermissionsModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { add0x, Hex } from '@metamask/utils';
 import { Box, BoxFlexDirection } from '@metamask/design-system-react';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   hexToDecimal,
   decimalToHex,
@@ -25,7 +25,7 @@ export const GasInput = ({
   onChange: (value: Hex) => void;
   onErrorChange: (error: string | undefined) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const [value, setValue] = useState(() =>
     gasLimit ? hexToDecimal(gasLimit).toString() : '',
   );

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import SimulationErrorMessage from './simulation-error-message';
 
 jest.mock('../../../../hooks/useAnalytics', () => {
@@ -35,12 +36,8 @@ describe('Simulation Error Message', () => {
       store,
     );
 
-    expect(
-      queryByText(messages.simulationErrorMessageV2.message),
-    ).toBeInTheDocument();
-    expect(
-      queryByText(messages.proceedWithTransaction.message),
-    ).toBeInTheDocument();
+    expect(queryByText(messages.simulationErrorMessageV2)).toBeInTheDocument();
+    expect(queryByText(messages.proceedWithTransaction)).toBeInTheDocument();
   });
 
   it('should render SimulationErrorMessage component without I want to procced anyway link', () => {
@@ -50,11 +47,9 @@ describe('Simulation Error Message', () => {
       store,
     );
 
+    expect(queryByText(messages.simulationErrorMessageV2)).toBeInTheDocument();
     expect(
-      queryByText(messages.simulationErrorMessageV2.message),
-    ).toBeInTheDocument();
-    expect(
-      queryByText(messages.proceedWithTransaction.message),
+      queryByText(messages.proceedWithTransaction),
     ).not.toBeInTheDocument();
   });
 
@@ -65,16 +60,10 @@ describe('Simulation Error Message', () => {
       store,
     );
 
-    expect(
-      queryByText(messages.simulationErrorMessageV2.message),
-    ).toBeInTheDocument();
-    expect(
-      queryByText(messages.proceedWithTransaction.message),
-    ).toBeInTheDocument();
+    expect(queryByText(messages.simulationErrorMessageV2)).toBeInTheDocument();
+    expect(queryByText(messages.proceedWithTransaction)).toBeInTheDocument();
 
-    const proceedAnywayLink = getByText(
-      messages.proceedWithTransaction.message,
-    );
+    const proceedAnywayLink = getByText(messages.proceedWithTransaction);
     fireEvent.click(proceedAnywayLink);
     expect(props.setUserAcknowledgedGasMissing).toHaveBeenCalledTimes(1);
   });

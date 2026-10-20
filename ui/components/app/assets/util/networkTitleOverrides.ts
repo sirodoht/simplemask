@@ -9,7 +9,7 @@ export type TranslateFunction = (arg: string) => string;
 // overrides certain token titles to display network name over token title
 // usually in the case of native tokens for L1 networks
 export const networkTitleOverrides = (
-  t: TranslateFunction, // translate function from useI18nContext() hook
+  t: TranslateFunction, // translate function from getText hook
   token: Partial<TokenFiatDisplayInfo>,
 ) => {
   switch (token.title) {

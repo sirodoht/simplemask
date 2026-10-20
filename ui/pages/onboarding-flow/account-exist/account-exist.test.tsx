@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { waitFor, fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import initializedMockState from '../../../../test/data/mock-state.json';
 import {
   AuthConnection,
@@ -54,17 +55,15 @@ describe('Account Exist Seedless Onboarding View', () => {
   it('should display the correct content', () => {
     const { getByText } = renderWithProvider(<AccountExist />, customMockStore);
 
-    expect(
-      getByText(messages.accountAlreadyExistsTitle.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.accountAlreadyExistsTitle)).toBeInTheDocument();
     // should show the correct button
-    const loginButton = getByText(messages.accountAlreadyExistsLogin.message);
+    const loginButton = getByText(messages.accountAlreadyExistsLogin);
     expect(loginButton).toBeInTheDocument();
   });
 
   it('should navigate to the unlock page when the button is clicked', async () => {
     const { getByText } = renderWithProvider(<AccountExist />, customMockStore);
-    const loginButton = getByText(messages.accountAlreadyExistsLogin.message);
+    const loginButton = getByText(messages.accountAlreadyExistsLogin);
     fireEvent.click(loginButton);
 
     await waitFor(() => {
@@ -102,9 +101,7 @@ describe('Account Exist Seedless Onboarding View', () => {
       });
       const { getByText } = renderWithProvider(<AccountExist />, store);
       expect(
-        getByText(
-          messages.accountAlreadyExistsLoginDescriptionTelegram.message,
-        ),
+        getByText(messages.accountAlreadyExistsLoginDescriptionTelegram),
       ).toBeInTheDocument();
     });
 

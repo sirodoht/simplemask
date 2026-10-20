@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   BoxFlexDirection,
   Box,
@@ -11,7 +12,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Modal,
   ModalContent,
@@ -21,7 +22,7 @@ import {
 import { AlignItems } from '../../../helpers/constants/design-system';
 
 export default function SRPDetailsModal({ onClose }: { onClose: () => void }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal

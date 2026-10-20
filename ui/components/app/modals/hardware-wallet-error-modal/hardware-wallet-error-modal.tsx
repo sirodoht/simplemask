@@ -27,7 +27,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { Modal, ModalContent, ModalHeader } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useModalProps } from '../../../../hooks/useModalProps';
 import { useHardwareWalletRecoveryLocation } from '../../../../hooks/useHardwareWalletRecoveryLocation';
 import {
@@ -223,7 +223,7 @@ export const HardwareWalletErrorModal = React.memo(
     onRetry: onRetryProp,
     onRepairDevice: onRepairDeviceProp,
   }: HardwareWalletErrorModalProps) => {
-    const t = useI18nContext();
+    const t = getText;
     const { trackEvent, createEventBuilder } = useAnalytics();
     const recoveryLocation = useHardwareWalletRecoveryLocation();
     const { hideModal, props: modalProps } = useModalProps();

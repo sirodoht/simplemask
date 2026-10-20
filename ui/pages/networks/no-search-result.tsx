@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   FontWeight,
@@ -6,7 +7,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { ThemeType } from '../../../shared/constants/preferences';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useTheme } from '../../hooks/useTheme';
 
 type NoSearchResultProps = {
@@ -16,7 +17,7 @@ type NoSearchResultProps = {
 export const NoSearchResult = ({
   dataTestId = 'networks-page-no-results',
 }: NoSearchResultProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const theme = useTheme();
   const activityIcon =
     theme === ThemeType.dark

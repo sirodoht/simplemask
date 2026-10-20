@@ -1,13 +1,14 @@
-import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { render, fireEvent } from '@testing-library/react';
+
+import { englishText as messages } from '../../../../shared/lib/text';
 import { HeaderSearch } from './header-search';
 import { HeaderSearchVariant } from './header-search.types';
 
 describe('HeaderSearch', () => {
   const defaultSearchProps = {
     value: '',
-    placeholder: messages.search.message,
+    placeholder: messages.search,
   };
 
   describe('Screen variant', () => {
@@ -23,7 +24,7 @@ describe('HeaderSearch', () => {
 
       const backButton = getByRole('button');
       expect(backButton).toBeDefined();
-      expect(getByPlaceholderText(messages.search.message)).toBeDefined();
+      expect(getByPlaceholderText(messages.search)).toBeDefined();
       expect(backButton.closest('header')).toHaveClass('mm-header-search');
     });
 
@@ -54,7 +55,7 @@ describe('HeaderSearch', () => {
         />,
       );
 
-      expect(getByPlaceholderText(messages.search.message)).toBeDefined();
+      expect(getByPlaceholderText(messages.search)).toBeDefined();
       expect(getByRole('button')).toBeDefined();
     });
 
@@ -88,7 +89,7 @@ describe('HeaderSearch', () => {
         />,
       );
 
-      const input = getByPlaceholderText(messages.search.message);
+      const input = getByPlaceholderText(messages.search);
       fireEvent.change(input, { target: { value: 'test query' } });
 
       expect(onChangeText).toHaveBeenCalledWith('test query');

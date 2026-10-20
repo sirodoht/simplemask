@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import {
   TransactionMeta,
@@ -12,7 +13,7 @@ import { genUnapprovedContractInteractionConfirmation } from '../../../../../../
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
 import configureStore from '../../../../../store/store';
 import * as ConfirmActions from '../../../hooks/useConfirmActions';
-import { tEn } from '../../../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../../../shared/lib/text';
 import { WalletInitiatedHeader } from './wallet-initiated-header';
 
 const mockHandleShieldSubscriptionApprovalTransactionRejected = jest.fn();

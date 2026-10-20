@@ -9,7 +9,7 @@ import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { MINUTE } from '../../../shared/constants/time';
 import { getErrorBodyMessage } from '../../../shared/lib/error';
-import { getIntlLocale } from '../../ducks/locale/locale';
+
 import { apiClient } from '../../helpers/api-client';
 import { getUseExternalServices } from '../../selectors';
 import { selectEvmAddress } from '../../selectors/activity';
@@ -73,7 +73,7 @@ function withKnownApiResponse(queryFn: QueryOptions['queryFn']) {
 export function useTransactionsQuery(filters: ActivityListFilter) {
   const useExternalServices = useSelector(getUseExternalServices);
   const evmAddress = (useSelector(selectEvmAddress) || '').toLowerCase();
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const selectFn = useQueryFilters({ subjectAddress: evmAddress, ...filters });
   const networks =
     'assetId' in filters
@@ -164,7 +164,7 @@ export function usePrefetchTransactions() {
   const queryClient = useQueryClient();
   const useExternalServices = useSelector(getUseExternalServices);
   const evmAddress = (useSelector(selectEvmAddress) || '').toLowerCase();
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const enabledNetworks = useSelector(selectEnabledNetworksAsCaipChainIds);
 
   const evmNetworks = useMemo(

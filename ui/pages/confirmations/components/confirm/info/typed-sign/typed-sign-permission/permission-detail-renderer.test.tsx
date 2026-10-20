@@ -8,7 +8,7 @@ import {
   renderWithConfirmContextProvider,
   renderWithConfirmContext,
 } from '../../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../../shared/lib/text';
 import { fetchErc20DecimalsOrThrow } from '../../../../../utils/token';
 import { ALL_METAMASK_FACILITATOR_ADDRESSES } from '../../../../../../../../shared/lib/gator-permissions';
 import { PermissionDetailRenderer } from './permission-detail-renderer';
@@ -239,10 +239,10 @@ describe('PermissionDetailRenderer', () => {
       ).toBeInTheDocument();
       await waitFor(() => {
         expect(
-          getByText(messages.confirmFieldTotalExposure.message),
+          getByText(messages.confirmFieldTotalExposure),
         ).toBeInTheDocument();
       });
-      expect(queryByText(messages.unlimited.message)).not.toBeInTheDocument();
+      expect(queryByText(messages.unlimited)).not.toBeInTheDocument();
     });
   });
 
@@ -418,11 +418,11 @@ describe('PermissionDetailRenderer', () => {
 
       expect(
         getByText(
-          messages.gatorPermissionsAllTokenApprovalRevocationPrimitives.message,
+          messages.gatorPermissionsAllTokenApprovalRevocationPrimitives,
         ),
       ).toBeInTheDocument();
       expect(
-        queryByText(messages.gatorPermissionsErc20ApproveRevocation.message),
+        queryByText(messages.gatorPermissionsErc20ApproveRevocation),
       ).not.toBeInTheDocument();
     });
 
@@ -448,11 +448,11 @@ describe('PermissionDetailRenderer', () => {
       );
 
       expect(
-        getByText(messages.gatorPermissionsPermit2ApproveRevocation.message),
+        getByText(messages.gatorPermissionsPermit2ApproveRevocation),
       ).toBeInTheDocument();
       expect(
         queryByText(
-          messages.gatorPermissionsAllTokenApprovalRevocationPrimitives.message,
+          messages.gatorPermissionsAllTokenApprovalRevocationPrimitives,
         ),
       ).not.toBeInTheDocument();
     });
@@ -524,15 +524,13 @@ describe('PermissionDetailRenderer', () => {
       });
 
       await waitFor(() => {
-        expect(
-          screen.getByText(messages.recipient.message),
-        ).toBeInTheDocument();
+        expect(screen.getByText(messages.recipient)).toBeInTheDocument();
       });
     });
 
     for (const [ruleType, label] of [
-      ['redeemer', messages.redeemer.message],
-      ['payee', messages.payee.message],
+      ['redeemer', messages.redeemer],
+      ['payee', messages.payee],
     ] as const) {
       it(`lists ${ruleType} addresses from rules`, async () => {
         renderPermissionDetail({
@@ -558,12 +556,10 @@ describe('PermissionDetailRenderer', () => {
       });
 
       await waitFor(() => {
-        expect(
-          screen.getByText(messages.redeemers.message),
-        ).toBeInTheDocument();
+        expect(screen.getByText(messages.redeemers)).toBeInTheDocument();
       });
       expect(
-        screen.getByText(messages.gatorPermissionsMetaMaskFacilitator.message),
+        screen.getByText(messages.gatorPermissionsMetaMaskFacilitator),
       ).toBeInTheDocument();
       expect(
         document.querySelector(
@@ -579,13 +575,11 @@ describe('PermissionDetailRenderer', () => {
       });
 
       await waitFor(() => {
-        expect(
-          screen.getByText(messages.requestFrom.message),
-        ).toBeInTheDocument();
+        expect(screen.getByText(messages.requestFrom)).toBeInTheDocument();
       });
       expect(
         document.querySelector(
-          `[data-original-title="${messages.requestFromInfoSnap.message}"]`,
+          `[data-original-title="${messages.requestFromInfoSnap}"]`,
         ),
       ).toBeTruthy();
       expect(screen.getByText('@metamask/test-snap')).toBeInTheDocument();

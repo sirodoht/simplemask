@@ -81,7 +81,6 @@ export function getSnapPermissionSpecifications(
           ).selectedCurrency;
 
           const {
-            currentLocale: locale,
             preferences: { privacyMode, showTestNetworks },
             securityAlertsEnabled,
             useCurrencyRateCheck,
@@ -91,7 +90,7 @@ export function getSnapPermissionSpecifications(
           } = messenger.call('PreferencesController:getState');
 
           return {
-            locale,
+            locale: 'en',
             currency,
             hideBalances: privacyMode,
             useSecurityAlerts: securityAlertsEnabled,

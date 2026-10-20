@@ -1,9 +1,10 @@
-import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import type { MetaMaskReduxState } from '../../../store/store';
 import {
@@ -65,7 +66,7 @@ describe('createToggleItem', () => {
     renderWithProvider(<TestToggleItem />, mockStore);
 
     expect(
-      screen.getByText(messages.showExtensionInFullSizeView.message),
+      screen.getByText(messages.showExtensionInFullSizeView),
     ).toBeInTheDocument();
   });
 
@@ -74,7 +75,7 @@ describe('createToggleItem', () => {
     renderWithProvider(<TestToggleItem />, mockStore);
 
     expect(
-      screen.getByText(messages.showExtensionInFullSizeViewDescription.message),
+      screen.getByText(messages.showExtensionInFullSizeViewDescription),
     ).toBeInTheDocument();
   });
 
@@ -151,12 +152,10 @@ describe('createToggleItem', () => {
     renderWithProvider(<TestToggleWithoutDescription />, mockStore);
 
     expect(
-      screen.getByText(messages.showExtensionInFullSizeView.message),
+      screen.getByText(messages.showExtensionInFullSizeView),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText(
-        messages.showExtensionInFullSizeViewDescription.message,
-      ),
+      screen.queryByText(messages.showExtensionInFullSizeViewDescription),
     ).not.toBeInTheDocument();
   });
 

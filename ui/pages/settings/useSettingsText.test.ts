@@ -1,29 +1,29 @@
 import { renderHook } from '@testing-library/react';
-import { useI18nContext } from '../../hooks/useI18nContext';
-import { useSettingsI18n } from './useSettingsI18n';
+import { getText } from '../../helpers/utils/text';
+import { useSettingsText } from './useSettingsText';
 
 jest.mock('../../../shared/lib/passkey', () => ({
   getPasskeyAuthMethodKey: jest.fn(() => 'passkeyAuthMethodBiometrics'),
 }));
 
-jest.mock('../../hooks/useI18nContext');
+jest.mock('../../helpers/utils/text');
 
-const mockUseI18nContext = jest.mocked(useI18nContext);
+const mockGetText = jest.mocked(getText);
 
 const { getPasskeyAuthMethodKey } = jest.requireMock<
   typeof import('../../../shared/lib/passkey')
 >('../../../shared/lib/passkey');
 
-describe('useSettingsI18n', () => {
+describe('useSettingsText', () => {
   beforeEach(() => {
-    mockUseI18nContext.mockReset();
+    mockGetText.mockReset();
   });
 
   it('forwards to raw t when substitutions are passed', () => {
     const rawT = jest.fn(() => 'forwarded');
-    mockUseI18nContext.mockReturnValue(rawT);
+    mockGetText.mockImplementation(rawT);
 
-    const { result } = renderHook(() => useSettingsI18n());
+    const { result } = renderHook(() => useSettingsText());
     expect(result.current('settingsSearchCantFindSetting', [{}])).toBe(
       'forwarded',
     );
@@ -41,9 +41,9 @@ describe('useSettingsI18n', () => {
       }
       return key;
     });
-    mockUseI18nContext.mockReturnValue(rawT);
+    mockGetText.mockImplementation(rawT);
 
-    const { result } = renderHook(() => useSettingsI18n());
+    const { result } = renderHook(() => useSettingsText());
     expect(result.current('unlockWithPasskey')).toBe('Unlock with Biometrics');
     expect(getPasskeyAuthMethodKey).toHaveBeenCalled();
     expect(rawT).toHaveBeenCalledWith('passkeyAuthMethodBiometrics');
@@ -60,18 +60,18 @@ describe('useSettingsI18n', () => {
       }
       return key;
     });
-    mockUseI18nContext.mockReturnValue(rawT);
+    mockGetText.mockImplementation(rawT);
 
-    const { result } = renderHook(() => useSettingsI18n());
+    const { result } = renderHook(() => useSettingsText());
     expect(result.current('setUpPasskey')).toBe('setUpPasskey done');
     expect(result.current('turnOffPasskey')).toBe('turnOffPasskey done');
   });
 
   it('delegates to raw t for keys without passkey substitution', () => {
     const rawT = jest.fn((key: string) => `:${key}:`);
-    mockUseI18nContext.mockReturnValue(rawT);
+    mockGetText.mockImplementation(rawT);
 
-    const { result } = renderHook(() => useSettingsI18n());
+    const { result } = renderHook(() => useSettingsText());
     expect(result.current('theme')).toBe(':theme:');
     expect(rawT).toHaveBeenCalledWith('theme');
   });

@@ -5,13 +5,13 @@ import { isCorrectDeveloperTransactionType } from '../../../../../../shared/lib/
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { submittedPendingTransactionsSelector } from '../../../../../selectors';
 import { useConfirmContext } from '../../../context/confirm';
 import { PendingTransactionAlertMessage } from './PendingTransactionAlertMessage';
 
 export function usePendingTransactionAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
   const { type } = currentConfirmation ?? ({} as TransactionMeta);
   const pendingTransactions = useSelector(submittedPendingTransactionsSelector);

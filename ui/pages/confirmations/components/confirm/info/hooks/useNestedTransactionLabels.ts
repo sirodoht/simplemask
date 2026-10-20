@@ -1,5 +1,5 @@
 import { BatchTransactionParams } from '@metamask/transaction-controller';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { useFourByte } from './useFourByte';
 
 export function useNestedTransactionLabels({
@@ -9,7 +9,7 @@ export function useNestedTransactionLabels({
   nestedTransactions?: BatchTransactionParams[];
   useIndex?: number;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return nestedTransactions
     ?.filter((nestedTransaction) => nestedTransaction !== undefined)

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars -- ESLint is confused here */
 /* global jest */
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { render, renderHook } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
@@ -8,10 +8,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 import configureStore from '../../ui/store/store';
-import { I18nContext } from '../../ui/contexts/i18n';
+
 import { MetaMetricsContext } from '../../ui/contexts/metametrics';
-import { getMessage } from '../../ui/helpers/utils/i18n-helper';
-import * as enLocaleMessages from '../../app/_locales/en/messages.json';
+
+import { englishText as enLocaleMessages } from '../../shared/lib/text';
 import { RouteMessengerContext } from '../../ui/contexts/route-messenger';
 import { UIMessengerProvider } from '../../ui/contexts/ui-messenger';
 import { MetaMaskTestReduxProvider } from './redux-test-provider';
@@ -29,30 +29,6 @@ const createMockMetaMetricsContext = (
   bufferedEndTrace: jest.fn().mockResolvedValue(undefined),
   onboardingParentContext: { current: null },
 });
-
-/**
- * @param {object} props
- * @param {string} [props.currentLocale]
- * @param {object} [props.current]
- * @param {object} [props.en]
- * @param {import('react').ReactNode} [props.children]
- */
-export const I18nProvider = ({ currentLocale, current, en: eng, children }) => {
-  const t = useMemo(() => {
-    return (key, ...args) =>
-      getMessage(currentLocale, current, key, ...args) ||
-      getMessage(currentLocale, eng, key, ...args);
-  }, [currentLocale, current, eng]);
-
-  return <I18nContext.Provider value={t}>{children}</I18nContext.Provider>;
-};
-
-I18nProvider.propTypes = {
-  currentLocale: PropTypes.string,
-  current: PropTypes.object,
-  en: PropTypes.object,
-  children: PropTypes.node,
-};
 
 /**
  * @param {object} [options]
@@ -135,7 +111,7 @@ export function createProviderWrapper(
 
     return (
       <MemoryRouter>
-        <I18nProvider currentLocale="en" current={en} en={en}>
+        <>
           <UIMessengerProvider value={uiMessenger}>
             <MetaMetricsContext.Provider value={mockMetaMetricsContext}>
               <QueryClientProvider client={queryClient}>
@@ -143,7 +119,7 @@ export function createProviderWrapper(
               </QueryClientProvider>
             </MetaMetricsContext.Provider>
           </UIMessengerProvider>
-        </I18nProvider>
+        </>
       </MemoryRouter>
     );
   }
@@ -254,20 +230,6 @@ export const renderHookWithProviderTyped = (
     uiMessenger,
     routeMessenger,
   );
-
-export function renderWithLocalization(component) {
-  const Wrapper = ({ children }) => (
-    <I18nProvider currentLocale="en" current={en} en={en}>
-      {children}
-    </I18nProvider>
-  );
-
-  Wrapper.propTypes = {
-    children: PropTypes.node,
-  };
-
-  return render(component, { wrapper: Wrapper });
-}
 
 export function renderControlledInput(InputComponent, props) {
   const ControlledWrapper = () => {

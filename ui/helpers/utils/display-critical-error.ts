@@ -1,12 +1,10 @@
 import browser from 'webextension-polyfill';
 import log from 'loglevel';
 import { v4 as uuidv4 } from 'uuid';
+import { getText } from '../../../shared/lib/text';
 import { type ErrorLike } from '../../../shared/constants/errors';
 import { hasAnalyticsConsent } from '../../../shared/lib/analytics';
-import {
-  getErrorHtml,
-  maybeGetLocaleContext,
-} from '../../../shared/lib/error-utils';
+import { getErrorHtml } from '../../../shared/lib/error-utils';
 import { SUPPORT_LINK } from '../../../shared/lib/ui-utils';
 import {
   CriticalErrorRepairAction,
@@ -91,7 +89,7 @@ function getBuildSentryTags(): Record<string, string> {
   };
 }
 
-export enum CriticalErrorTranslationKey {
+export enum CriticalErrorTextKey {
   TroubleStarting = 'troubleStarting',
   SomethingIsWrong = 'somethingIsWrong',
 }
@@ -286,7 +284,6 @@ async function handleRestartAction(
  * Optional context for {@link displayCriticalErrorMessage}.
  */
 export type DisplayCriticalErrorMessageOptions = {
-  currentLocale?: string;
   /**
    * Theme preference from PreferencesController (`light` | `dark` | `os`).
    * Applied before the critical error HTML is shown.
@@ -308,7 +305,6 @@ export type DisplayCriticalErrorMessageOptions = {
  * @param errorKey - The key for the error message to display.
  * @param error - The error object to log.
  * @param options - Optional display context.
- * @param options.currentLocale - Locale context for translations.
  * @param options.theme - Theme preference from PreferencesController.
  * @param options.port - Port for background communication (needed for vault recovery).
  * @param options.criticalErrorType - Type of critical error (for analytics). Defaults to Other.
@@ -320,10 +316,9 @@ export type DisplayCriticalErrorMessageOptions = {
  */
 export async function displayCriticalErrorMessage(
   container: HTMLElement,
-  errorKey: CriticalErrorTranslationKey,
+  errorKey: CriticalErrorTextKey,
   error: ErrorLike,
   {
-    currentLocale,
     theme: themeFromPreferences,
     port,
     criticalErrorType,
@@ -367,11 +362,9 @@ export async function displayCriticalErrorMessage(
     log.warn('Failed to notify background of critical error screen view', e);
   }
 
-  const localeContext = await maybeGetLocaleContext(currentLocale);
   const html = getErrorHtml(
     errorKey,
     error,
-    localeContext,
     SUPPORT_LINK,
     repairAction,
     criticalErrorType,
@@ -429,15 +422,13 @@ export async function displayCriticalErrorMessage(
         }
 
         // eslint-disable-next-line no-alert
-        const confirmed = confirm(
-          localeContext.t('stateCorruptionAreYouSure') ?? '',
-        );
+        const confirmed = confirm(getText('stateCorruptionAreYouSure') ?? '');
         if (confirmed) {
           const originalLabel = repairButton.textContent;
           repairButton.removeEventListener('click', handleRepairClick);
           repairButton.disabled = true;
           repairButton.textContent =
-            localeContext.t(
+            getText(
               repairAction === CriticalErrorRepairAction.Recover
                 ? 'stateCorruptionRestoringDatabase'
                 : 'stateCorruptionResettingDatabase',

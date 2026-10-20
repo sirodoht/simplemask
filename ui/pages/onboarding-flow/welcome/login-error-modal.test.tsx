@@ -4,7 +4,10 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages, tEn } from '../../../../test/lib/i18n-helpers';
+import {
+  englishText as messages,
+  getText as tEn,
+} from '../../../../shared/lib/text';
 import { SUPPORT_LINK } from '../../../helpers/constants/common';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
 import {
@@ -117,18 +120,18 @@ describe('LoginErrorModal', () => {
     it('renders the unable to connect content', () => {
       expectErrorContent({
         loginError: LOGIN_ERROR.UNABLE_TO_CONNECT,
-        title: messages.loginErrorConnectTitle.message,
-        description: messages.loginErrorConnectDescription.message,
-        buttonText: messages.loginErrorConnectButton.message,
+        title: messages.loginErrorConnectTitle,
+        description: messages.loginErrorConnectDescription,
+        buttonText: messages.loginErrorConnectButton,
       });
     });
 
     it('renders the session expired content', () => {
       expectErrorContent({
         loginError: LOGIN_ERROR.SESSION_EXPIRED,
-        title: messages.loginErrorSessionExpiredTitle.message,
-        description: messages.loginErrorSessionExpiredDescription.message,
-        buttonText: messages.loginErrorSessionExpiredButton.message,
+        title: messages.loginErrorSessionExpiredTitle,
+        description: messages.loginErrorSessionExpiredDescription,
+        buttonText: messages.loginErrorSessionExpiredButton,
       });
     });
 
@@ -144,7 +147,7 @@ describe('LoginErrorModal', () => {
       ).toBeInTheDocument();
       expect(
         screen.getByRole('button', {
-          name: messages.loginErrorGenericButton.message,
+          name: messages.loginErrorGenericButton,
         }),
       ).toBeInTheDocument();
     });
@@ -153,16 +156,16 @@ describe('LoginErrorModal', () => {
       renderModal({ loginError: LOGIN_ERROR.GENERIC });
 
       expect(
-        screen.getByText(messages.loginErrorGenericTitle.message),
+        screen.getByText(messages.loginErrorGenericTitle),
       ).toBeInTheDocument();
       expect(
         screen.getByRole('button', {
-          name: messages.loginErrorGenericButton.message,
+          name: messages.loginErrorGenericButton,
         }),
       ).toBeInTheDocument();
       expect(
         screen.getByRole('link', {
-          name: messages.loginErrorGenericSupport.message,
+          name: messages.loginErrorGenericSupport,
         }),
       ).toHaveAttribute('href', SUPPORT_LINK);
     });
@@ -170,9 +173,9 @@ describe('LoginErrorModal', () => {
     it('renders the Telegram outdated content', () => {
       expectErrorContent({
         loginError: LOGIN_ERROR.TELEGRAM_OUTDATED,
-        title: messages.loginErrorTelegramOutdatedTitle.message,
-        description: messages.loginErrorTelegramOutdatedDescription.message,
-        buttonText: messages.loginErrorTelegramOutdatedButton.message,
+        title: messages.loginErrorTelegramOutdatedTitle,
+        description: messages.loginErrorTelegramOutdatedDescription,
+        buttonText: messages.loginErrorTelegramOutdatedButton,
       });
     });
   });
@@ -183,7 +186,7 @@ describe('LoginErrorModal', () => {
 
       fireEvent.click(
         screen.getByRole('link', {
-          name: messages.loginErrorGenericSupport.message,
+          name: messages.loginErrorGenericSupport,
         }),
       );
 

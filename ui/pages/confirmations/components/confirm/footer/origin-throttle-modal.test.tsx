@@ -1,12 +1,14 @@
 import React from 'react';
+
 import configureStore from 'redux-mock-store';
 import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { I18nContext } from '../../../../../contexts/i18n';
+
 import { useOriginThrottling } from '../../../hooks/useOriginThrottling';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../../test/data/mock-state.json';
 import { MetaMetricsEventLocation } from '../../../../../../shared/constants/metametrics';
+import { englishText } from '../../../../../../shared/lib/text';
 import OriginThrottleModal from './origin-throttle-modal';
 
 const mockHideModal = jest.fn();
@@ -20,14 +22,13 @@ jest.mock('../../../hooks/useOriginThrottling');
 
 const renderComponent = (isOpen: boolean, onConfirmationCancel: jest.Mock) => {
   const store = configureStore()(mockState);
-  const t = (key: string) => key;
   return renderWithProvider(
-    <I18nContext.Provider value={t}>
+    <>
       <OriginThrottleModal
         isOpen={isOpen}
         onConfirmationCancel={onConfirmationCancel}
       />
-    </I18nContext.Provider>,
+    </>,
     store,
   );
 };
@@ -46,10 +47,12 @@ describe('OriginThrottleModal', () => {
     const onConfirmationCancel = jest.fn();
     renderComponent(true, onConfirmationCancel);
 
-    expect(screen.getByText('spamModalTitle')).toBeInTheDocument();
-    expect(screen.getByText('spamModalDescription')).toBeInTheDocument();
+    expect(screen.getByText(englishText.spamModalTitle)).toBeInTheDocument();
     expect(
-      screen.getByText('spamModalTemporaryBlockButton'),
+      screen.getByText(englishText.spamModalDescription),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(englishText.spamModalTemporaryBlockButton),
     ).toBeInTheDocument();
   });
 
@@ -58,18 +61,24 @@ describe('OriginThrottleModal', () => {
     renderComponent(true, onConfirmationCancel);
 
     // Simulate clicking the temporary block button
-    fireEvent.click(screen.getByText('spamModalTemporaryBlockButton'));
+    fireEvent.click(
+      screen.getByText(englishText.spamModalTemporaryBlockButton),
+    );
 
-    expect(screen.getByText('spamModalBlockedTitle')).toBeInTheDocument();
-    expect(screen.getByText('spamModalBlockedDescription')).toBeInTheDocument();
-    expect(screen.getByText('gotIt')).toBeInTheDocument();
+    expect(
+      screen.getByText(englishText.spamModalBlockedTitle),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(englishText.spamModalBlockedDescription),
+    ).toBeInTheDocument();
+    expect(screen.getByText(englishText.gotIt)).toBeInTheDocument();
   });
 
   it('calls onConfirmationCancel and resetOrigin on submit in MultipleRequestContent', () => {
     const onConfirmationCancel = jest.fn();
     renderComponent(true, onConfirmationCancel);
 
-    fireEvent.click(screen.getByText('cancel'));
+    fireEvent.click(screen.getByText(englishText.cancel));
 
     expect(onConfirmationCancel).toHaveBeenCalledWith({
       location: MetaMetricsEventLocation.OriginThrottleModal,
@@ -82,9 +91,11 @@ describe('OriginThrottleModal', () => {
     renderComponent(true, onConfirmationCancel);
 
     // Simulate clicking the temporary block button
-    fireEvent.click(screen.getByText('spamModalTemporaryBlockButton'));
+    fireEvent.click(
+      screen.getByText(englishText.spamModalTemporaryBlockButton),
+    );
 
-    fireEvent.click(screen.getByText('gotIt'));
+    fireEvent.click(screen.getByText(englishText.gotIt));
 
     expect(onConfirmationCancel).toHaveBeenCalledWith({
       location: MetaMetricsEventLocation.OriginThrottleModal,

@@ -46,15 +46,6 @@
   "history": {
     "mostRecentOverviewPage": "/mostRecentOverviewPage"
   },
-  "localeMessages": {
-    "currentLocale": "en",
-    "current": {
-      "user": "user"
-    },
-    "en": {
-      "user": "user"
-    }
-  },
   "metamask": {
     "allTokens": {},
     "tokenBalances": {},
@@ -968,10 +959,10 @@
         "0x108cf70c7d384c552f42c07c41c0e1e46d77ea0d": {
           "price": 0.00039345803819379796,
           "contractPercentChange1d": 0.004,
-          "priceChange1d": 0.00004
+          "priceChange1d": 4e-5
         },
         "0xd8f6a2ffb0fc5952d16c9768b71cfd35b6399aa5": {
-          "price": 0.00008189274407698049,
+          "price": 8.189274407698049e-5,
           "contractPercentChange1d": 0.01,
           "priceChange1d": 0.001
         },
@@ -981,7 +972,7 @@
           "priceChange1d": 0.001
         },
         "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
-          "price": 0.0000000018,
+          "price": 1.8e-9,
           "contractPercentChange1d": 0.02,
           "priceChange1d": 0.01
         }
@@ -990,10 +981,10 @@
         "0x108cf70c7d384c552f42c07c41c0e1e46d77ea0d": {
           "price": 0.00039345803819379796,
           "contractPercentChange1d": 0.004,
-          "priceChange1d": 0.00004
+          "priceChange1d": 4e-5
         },
         "0xd8f6a2ffb0fc5952d16c9768b71cfd35b6399aa5": {
-          "price": 0.00008189274407698049,
+          "price": 8.189274407698049e-5,
           "contractPercentChange1d": 0.01,
           "priceChange1d": 0.001
         },
@@ -1003,7 +994,7 @@
           "priceChange1d": 0.001
         },
         "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
-          "price": 0.0000000018,
+          "price": 1.8e-9,
           "contractPercentChange1d": 0.02,
           "priceChange1d": 0.01
         }
@@ -1012,10 +1003,10 @@
         "0x108cf70c7d384c552f42c07c41c0e1e46d77ea0d": {
           "price": 0.00039345803819379796,
           "contractPercentChange1d": 0.004,
-          "priceChange1d": 0.00004
+          "priceChange1d": 4e-5
         },
         "0xd8f6a2ffb0fc5952d16c9768b71cfd35b6399aa5": {
-          "price": 0.00008189274407698049,
+          "price": 8.189274407698049e-5,
           "contractPercentChange1d": 0.01,
           "priceChange1d": 0.001
         },
@@ -1025,7 +1016,7 @@
           "priceChange1d": 0.001
         },
         "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
-          "price": 0.0000000018,
+          "price": 1.8e-9,
           "contractPercentChange1d": 0.02,
           "priceChange1d": 0.01
         }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Button } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PRIVACY_ITEMS } from '../search-config';
 import ExportYourDataModal from './export-your-data-modal';
 
 export const ExportYourDataItem = () => {
-  const t = useI18nContext();
+  const t = getText;
   const [showModal, setShowModal] = useState(false);
 
   return (

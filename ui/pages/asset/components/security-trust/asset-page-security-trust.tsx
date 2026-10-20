@@ -10,7 +10,7 @@ import React, {
   type ReactNode,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useTokenSecurityData } from '../../../../hooks/useTokenSecurityData';
 import { getUseExternalServices } from '../../../../selectors';
 import { getIsSecurityTrustTdpEnabled } from '../../../../selectors/multichain/feature-flags';
@@ -103,7 +103,7 @@ export const AssetPageSecurityTrustProvider = ({
   token,
   children,
 }: AssetPageSecurityTrustProviderProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const useExternalServices = useSelector(getUseExternalServices);
   const isSecurityTrustTdpEnabled = useSelector(getIsSecurityTrustTdpEnabled);
   const isEnabled = useExternalServices && isSecurityTrustTdpEnabled;
@@ -312,7 +312,7 @@ export const AssetPageSecurityTrustHeaderBadge = () => {
 
 /** Warning banner shown below the token name row on TDP. */
 export const AssetPageSecurityTrustBanner = () => {
-  const t = useI18nContext();
+  const t = getText;
   const context = useAssetPageSecurityTrustContext();
 
   if (!context?.showSecurityBanner || !context.securityData) {

@@ -1,10 +1,14 @@
+import {
+  render as renderComponent,
+  fireEvent,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import React from 'react';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { renderWithLocalization } from '../../../../../test/lib/render-helpers-navigate';
-// eslint-disable-next-line import-x/no-restricted-paths
-import messages from '../../../../../app/_locales/en/messages.json';
+
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { verifyPassword } from '../../../../store/actions';
-import { SyncAccountsStep } from '../constant';
+
 import EnterPassword from './enter-password';
 
 jest.mock('../../../../store/actions', () => ({
@@ -22,25 +26,21 @@ describe('EnterPassword', () => {
   });
 
   it('renders the heading and description', () => {
-    renderWithLocalization(<EnterPassword onPasswordChange={jest.fn()} />);
+    renderComponent(<EnterPassword onPasswordChange={jest.fn()} />);
 
+    expect(screen.getByText(messages.enter_your_password)).toBeInTheDocument();
     expect(
-      screen.getByText(messages.enter_your_password.message),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.enter_your_password_desc.message),
+      screen.getByText(messages.enter_your_password_desc),
     ).toBeInTheDocument();
   });
 
   it('continues to the AddWallets step when the password is correct', async () => {
     mockVerifyPassword.mockResolvedValue(true);
     const onPasswordChange = jest.fn();
-    renderWithLocalization(
-      <EnterPassword onPasswordChange={onPasswordChange} />,
-    );
+    renderComponent(<EnterPassword onPasswordChange={onPasswordChange} />);
 
     fireEvent.change(getPasswordInput(), { target: { value: 'correct' } });
-    fireEvent.click(screen.getByText(messages.continue.message));
+    fireEvent.click(screen.getByText(messages.continue));
 
     await waitFor(() => {
       expect(onPasswordChange).toHaveBeenCalledWith('correct');
@@ -51,15 +51,13 @@ describe('EnterPassword', () => {
   it('shows an error and does not continue when the password is incorrect', async () => {
     mockVerifyPassword.mockRejectedValue(new Error('wrong password'));
     const onPasswordChange = jest.fn();
-    renderWithLocalization(
-      <EnterPassword onPasswordChange={onPasswordChange} />,
-    );
+    renderComponent(<EnterPassword onPasswordChange={onPasswordChange} />);
 
     fireEvent.change(getPasswordInput(), { target: { value: 'wrong' } });
-    fireEvent.click(screen.getByText(messages.continue.message));
+    fireEvent.click(screen.getByText(messages.continue));
 
     expect(
-      await screen.findByText(messages.unlockPageIncorrectPassword.message),
+      await screen.findByText(messages.unlockPageIncorrectPassword),
     ).toBeInTheDocument();
     expect(onPasswordChange).not.toHaveBeenCalled();
   });

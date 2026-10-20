@@ -36,7 +36,7 @@ export function formatDate(date, format = "M/d/y 'at' T") {
   if (!date) {
     return '';
   }
-  return DateTime.fromMillis(date).toFormat(format);
+  return DateTime.fromMillis(date).setLocale('en').toFormat(format);
 }
 
 /**
@@ -49,6 +49,7 @@ export const formatUTCDateFromUnixTimestamp = (unixTimestamp) => {
   }
 
   return DateTime.fromSeconds(unixTimestamp)
+    .setLocale('en')
     .toUTC()
     .toFormat('dd LLLL yyyy, HH:mm');
 };
@@ -61,7 +62,7 @@ export function formatDateWithYearContext(
   if (!date) {
     return '';
   }
-  const dateTime = DateTime.fromMillis(date);
+  const dateTime = DateTime.fromMillis(date).setLocale('en');
   const now = DateTime.local();
   return dateTime.toFormat(
     now.year === dateTime.year ? formatThisYear : fallback,
@@ -69,7 +70,7 @@ export function formatDateWithYearContext(
 }
 
 export function formatDateWithSuffix(timestamp) {
-  const date = DateTime.fromMillis(timestamp * 1000); // Convert to milliseconds
+  const date = DateTime.fromMillis(timestamp * 1000).setLocale('en'); // Convert to milliseconds
   const { day } = date;
   const suffix = getOrdinalSuffix(day);
 

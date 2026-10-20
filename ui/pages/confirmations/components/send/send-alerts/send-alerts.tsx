@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useSendContext } from '../../../context/send';
 import { useUnreliableNetworkRpc } from '../../../hooks/send/useUnreliableNetworkRpc';
 import { SendAlertModal } from '../send-alert-modal';
@@ -11,7 +11,7 @@ type NetworkAlertDismissState = {
 };
 
 export const SendAlerts = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { chainId } = useSendContext();
   const {
     isUnreliable: isNetworkUnreliable,

@@ -1,18 +1,19 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import AddRpcUrlModal from './add-rpc-url-modal';
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 describe('AddRpcUrlModal', () => {
-  const useI18nContextMock = useI18nContext as jest.Mock;
+  const getTextMock = getText as jest.Mock;
 
   beforeEach(() => {
-    useI18nContextMock.mockReturnValue((key: string) => key);
+    getTextMock.mockImplementation((key: string) => key);
     jest.clearAllMocks();
   });
 

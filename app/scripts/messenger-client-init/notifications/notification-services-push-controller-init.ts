@@ -39,8 +39,6 @@ const APP_VERSION_REGEX = /^\d+\.\d+(?:\.\d+){0,2}$/u;
  * @param locale - extension locale
  * @returns normalised locale
  */
-export const getNormalisedLocale = (locale: string): string =>
-  locale.replace('_', '-');
 
 /**
  * Returns the extension version for push registration metadata, but only when
@@ -108,10 +106,7 @@ export const NotificationServicesPushControllerInit: MessengerClientInitFunction
           onClickHandler: onPushNotificationClicked,
         }),
       },
-      getLocale: () =>
-        getNormalisedLocale(
-          getMessengerClient('PreferencesController').state.currentLocale,
-        ),
+      getLocale: () => 'en',
       ...(appVersion ? { appVersion } : {}),
     },
   });

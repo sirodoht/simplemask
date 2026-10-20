@@ -12,7 +12,7 @@ import {
   TextFieldSearch,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { MultichainAddressRow } from '../multichain-address-row/multichain-address-row';
 import { getInternalAccountListSpreadByScopesByGroupId } from '../../../selectors/multichain-accounts/account-tree';
@@ -47,7 +47,7 @@ export const MultichainAddressRowsList = ({
   groupId,
   onQrClick,
 }: MultichainAddressRowsListProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const [searchPattern, setSearchPattern] = React.useState<string>('');
 
   // useCopyToClipboard analysis: Copies one of your public addresses

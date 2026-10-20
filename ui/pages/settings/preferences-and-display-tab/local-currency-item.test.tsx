@@ -1,9 +1,10 @@
-import { screen } from '@testing-library/react';
 import React from 'react';
+import { screen } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import { CURRENCY_ROUTE } from '../../../helpers/constants/routes';
@@ -25,9 +26,7 @@ describe('LocalCurrencyItem', () => {
   it('renders title', () => {
     renderWithProvider(<LocalCurrencyItem />, mockStore);
 
-    expect(
-      screen.getByText(messages.localCurrency.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.localCurrency)).toBeInTheDocument();
   });
 
   it('displays current currency in uppercase', () => {

@@ -23,7 +23,6 @@ import type {
   AdvancedGasFeePreferencesByChain,
 } from '../../../shared/constants/gas';
 import { type DefaultAddressScope } from '../../../shared/constants/default-address';
-import { FALLBACK_LOCALE } from '../../../shared/lib/i18n';
 import type { Preferences } from '../../../shared/types/preferences';
 import {
   BFT_CHILD_PREFERENCES,
@@ -112,7 +111,6 @@ export type PreferencesControllerState = Omit<
 > & {
   addSnapAccountEnabled?: boolean;
   advancedGasFee: AdvancedGasFeePreferencesByChain;
-  currentLocale: string;
   dismissSeedBackUpReminder: boolean;
   forgottenPassword: boolean;
   knownMethodData: Record<string, string>;
@@ -123,7 +121,6 @@ export type PreferencesControllerState = Omit<
   // TODO: Replace `Json` with correct type
   snapRegistryList: Record<string, Json>;
   snapsAddSnapAccountModalDismissed?: boolean;
-  textDirection?: string;
   theme: ThemeType;
   use4ByteResolution: boolean;
   useAddressBarEnsResolution: boolean;
@@ -144,7 +141,6 @@ export const getDefaultPreferencesControllerState =
   (): PreferencesControllerState => ({
     addSnapAccountEnabled: false,
     advancedGasFee: {},
-    currentLocale: FALLBACK_LOCALE,
     dismissSeedBackUpReminder: false,
     featureFlags: {},
     forgottenPassword: false,
@@ -236,12 +232,6 @@ const controllerMetadata: StateMetadata<PreferencesControllerState> = {
     includeInDebugSnapshot: true,
     usedInUi: true,
   },
-  currentLocale: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
   dismissSeedBackUpReminder: {
     includeInStateLogs: true,
     persist: true,
@@ -321,12 +311,6 @@ const controllerMetadata: StateMetadata<PreferencesControllerState> = {
     usedInUi: true,
   },
   snapsAddSnapAccountModalDismissed: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: false,
-    usedInUi: true,
-  },
-  textDirection: {
     includeInStateLogs: true,
     persist: true,
     includeInDebugSnapshot: false,
@@ -430,7 +414,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'setAdvancedGasFee',
   'setTheme',
   'addKnownMethodData',
-  'setCurrentLocale',
   'setAccountLabel',
   'setFeatureFlag',
   'setPreference',
@@ -470,8 +453,6 @@ export class PreferencesController extends BaseController<
     const mergedState = {
       ...defaultState,
       ...state,
-      currentLocale: FALLBACK_LOCALE,
-      textDirection: 'auto',
       preferences: {
         ...defaultState.preferences,
         ...state?.preferences,
@@ -482,6 +463,10 @@ export class PreferencesController extends BaseController<
         state?.useMultiAccountBalanceChecker ??
         defaultState.isMultiAccountBalancesEnabled,
     };
+
+    // Discard obsolete language preferences when loading old fixtures or state.
+    delete (mergedState as Record<string, unknown>).currentLocale;
+    delete (mergedState as Record<string, unknown>).textDirection;
 
     super({
       messenger,
@@ -856,19 +841,6 @@ export class PreferencesController extends BaseController<
   }
 
   /**
-   * Setter for the `currentLocale` property
-   *
-   * @param _key - Legacy locale argument; English is always used.
-   */
-  setCurrentLocale(_key: string): string {
-    this.update((state) => {
-      state.currentLocale = FALLBACK_LOCALE;
-      state.textDirection = 'auto';
-    });
-    return 'auto';
-  }
-
-  /**
    * Sets a custom label for an account
    *
    * @deprecated - Use setAccountName from the AccountsController
@@ -1117,7 +1089,6 @@ export class PreferencesController extends BaseController<
     const defaultState = getDefaultPreferencesControllerState();
     const resetState = {
       ...defaultState,
-      currentLocale: FALLBACK_LOCALE,
       preferences: {
         ...defaultState.preferences,
         autoLockTimeLimit: DEFAULT_AUTO_LOCK_TIME_LIMIT,

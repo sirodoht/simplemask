@@ -23,7 +23,7 @@ import {
   type SafeChain,
   useSafeChains,
 } from '../../components/multichain/networks-form/use-safe-chains';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { getShouldShowTestNetworks } from '../../selectors';
 import { NoSearchResult } from './no-search-result';
 
@@ -45,7 +45,7 @@ export const ChainlistSourceBanner = ({
   onLearnMoreMouseDown?: (event: React.MouseEvent) => void;
   testId: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <BannerBase
@@ -121,7 +121,7 @@ export const ChainlistNetworkPicker = ({
   layout = 'page',
   maxHeight,
 }: ChainlistNetworkPickerProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const [internalSearchValue, setInternalSearchValue] = useState('');
   const searchValue = showSearchField ? internalSearchValue : searchValueProp;
   const [visibleNetworkCount, setVisibleNetworkCount] =

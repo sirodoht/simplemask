@@ -1,7 +1,7 @@
+import { render as renderComponent, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
-import { renderWithLocalization } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+
+import { englishText as messages } from '../../../../shared/lib/text';
 import ZENDESK_URLS from '../../../helpers/constants/zendesk-url';
 import ChangePasswordWarning from './change-password-warning';
 
@@ -14,7 +14,7 @@ describe('ChangePasswordWarning', () => {
   });
 
   function renderWarning() {
-    return renderWithLocalization(
+    return renderComponent(
       <ChangePasswordWarning
         onConfirm={mockOnConfirm}
         onCancel={mockOnCancel}
@@ -26,11 +26,9 @@ describe('ChangePasswordWarning', () => {
     const { getByTestId, getByText } = renderWarning();
 
     expect(getByTestId('change-password-warning-modal')).toBeInTheDocument();
+    expect(getByText(messages.changePasswordWarning)).toBeInTheDocument();
     expect(
-      getByText(messages.changePasswordWarning.message),
-    ).toBeInTheDocument();
-    expect(
-      getByText(messages.changePasswordWarningDescription.message, {
+      getByText(messages.changePasswordWarningDescription, {
         exact: false,
       }),
     ).toBeInTheDocument();
@@ -42,7 +40,7 @@ describe('ChangePasswordWarning', () => {
     const { getByRole } = renderWarning();
 
     const learnMoreLink = getByRole('link', {
-      name: messages.learnMoreUpperCase.message,
+      name: messages.learnMoreUpperCase,
     });
     expect(learnMoreLink).toBeInTheDocument();
     expect(learnMoreLink).toHaveAttribute('href', ZENDESK_URLS.PASSWORD_RESET);

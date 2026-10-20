@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   Box,
   ButtonIcon,
@@ -27,7 +27,7 @@ export default function SnapHomeMenu({
   onSettingsClick,
   onRemoveClick,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const [menuReferenceElement, setMenuReferenceElement] = useState();
 

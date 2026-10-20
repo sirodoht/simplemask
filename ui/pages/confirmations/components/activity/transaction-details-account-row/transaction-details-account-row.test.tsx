@@ -1,8 +1,9 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { TransactionStatus } from '@metamask/transaction-controller';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { TransactionDetailsProvider } from '../transaction-details-context';
 import { TransactionDetailsAccountRow } from './transaction-details-account-row';
 
@@ -167,7 +168,7 @@ describe('TransactionDetailsAccountRow', () => {
 
     it('renders Account label', () => {
       const { getByText } = render();
-      expect(getByText(messages.account.message)).toBeInTheDocument();
+      expect(getByText(messages.account)).toBeInTheDocument();
     });
 
     it('renders selected account group name when the account address is missing', () => {

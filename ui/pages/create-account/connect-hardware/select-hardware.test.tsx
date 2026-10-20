@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { HardwareDeviceNames } from '../../../../shared/constants/hardware-wallets';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { tEn } from '../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import SelectHardware from './select-hardware';
 
 const mockTrackEvent = jest.fn();

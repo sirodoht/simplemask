@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import classnames from 'clsx';
 import {
@@ -6,7 +7,7 @@ import {
   ButtonSize,
   ButtonVariant,
 } from '../../../component-library/button';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export default function PageContainerFooter({
   children,
@@ -22,7 +23,7 @@ export default function PageContainerFooter({
   footerButtonClassName,
   submitButtonIcon,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   const submitVariant =
     submitButtonType === 'confirm' ? ButtonVariant.Primary : submitButtonType;

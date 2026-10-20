@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -13,7 +14,7 @@ import {
 } from '@metamask/design-system-react';
 import Card from '../../../ui/card';
 import { Label } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export type SelectSrpProps = {
   srpName: string;
@@ -26,7 +27,7 @@ export const SelectSrp = ({
   srpAccounts,
   onClick,
 }: SelectSrpProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box data-testid="select-srp-container">

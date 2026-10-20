@@ -1,6 +1,7 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { SubjectType } from '@metamask/permission-controller';
-import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   AvatarBase,
@@ -24,7 +25,7 @@ import {
   getSnapName,
 } from '../../../../helpers/utils/util';
 import PermissionCell from '../../permission-cell';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { getSnapsMetadata } from '../../../../selectors';
 
 export default function SnapPermissionCell({
@@ -36,7 +37,7 @@ export default function SnapPermissionCell({
   revoked,
   approved,
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   let { label, description, leftIcon } = permission;
 

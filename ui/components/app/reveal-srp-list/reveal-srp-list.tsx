@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { capitalize } from 'lodash';
@@ -18,7 +19,7 @@ import {
 import { AuthConnection } from '../../../../shared/constants/onboarding';
 import { SrpList } from '../../multichain/multi-srp/srp-list/srp-list';
 import { BackgroundColor } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   ONBOARDING_REVIEW_SRP_ROUTE,
   REVEAL_SEED_ROUTE,
@@ -64,7 +65,7 @@ function renderSocialLoginIcon(socialLoginType: AuthConnection) {
 }
 
 export const RevealSrpList = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const isSocialLoginFlow = useSelector(getIsSocialLoginFlow);
   const socialLoginType = useSelector(getSocialLoginType);

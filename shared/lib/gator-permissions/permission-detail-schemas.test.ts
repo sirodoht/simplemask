@@ -1,13 +1,13 @@
 import {
-  getPeriodFrequencyValueTranslationKey,
+  getPeriodFrequencyValueTranslationKey as getPeriodFrequencyValueTextKey,
   formatPermissionPeriodDuration,
 } from '@metamask/7715-permission-types';
 import type {
   SchemaElement,
   PermissionRenderContext,
 } from '@metamask/7715-permission-types';
-// eslint-disable-next-line import-x/no-restricted-paths
-import enMessages from '../../../app/_locales/en/messages.json';
+
+import { englishText as enMessages } from '../text';
 import { captureMessage } from '../sentry';
 import { getPermissionSchemaEntry } from './permission-detail-schemas';
 
@@ -32,13 +32,13 @@ const BASE_CONTEXT: PermissionRenderContext = {
 };
 
 /**
- * Collects every locale key an element can reference at render time: its
+ * Collects every text key an element can reference at render time: its
  * `labelKey`/`tooltip`, plus any `{ key }` i18n value its `getValue` can
  * produce, exercised across every context that changes which branch runs.
  * @param element
  * @param contexts
  */
-function collectElementLocaleKeys(
+function collectElementTextKeys(
   element: SchemaElement,
   contexts: PermissionRenderContext[],
 ): string[] {
@@ -63,9 +63,9 @@ function collectElementLocaleKeys(
       if (value && typeof value === 'object' && 'key' in value) {
         keys.push(value.key);
       }
-      // Only `list` elements render their array values as i18n keys
+      // Only `list` elements render their array values as English text keys
       // (e.g. revocation method names); other array-valued fields
-      // (like `rule-address`) hold raw data, not locale keys.
+      // (like `rule-address`) hold raw data, not text keys.
       if (element.type === 'list' && Array.isArray(value)) {
         value.forEach((item) => {
           if (typeof item === 'string') {
@@ -122,8 +122,8 @@ describe('getPermissionSchemaEntry', () => {
   });
 });
 
-describe('locale keys referenced by @metamask/7715-permission-types schemas', () => {
-  // Contexts chosen to exercise every branch that changes which locale key
+describe('text keys referenced by @metamask/7715-permission-types schemas', () => {
+  // Contexts chosen to exercise every branch that changes which text key
   // a `getValue()` call returns (e.g. facilitator-only vs. named redeemers,
   // each individually-enabled token approval revocation method).
   const revocationContexts: PermissionRenderContext[] = [
@@ -162,7 +162,7 @@ describe('locale keys referenced by @metamask/7715-permission-types schemas', ()
       const schema = getPermissionSchemaEntry(permissionType);
       for (const section of schema.sections) {
         for (const element of section.elements) {
-          collectElementLocaleKeys(element, [
+          collectElementTextKeys(element, [
             BASE_CONTEXT,
             ...revocationContexts,
           ]).forEach((key) => referencedKeys.add(key));
@@ -176,7 +176,7 @@ describe('locale keys referenced by @metamask/7715-permission-types schemas', ()
       1, 3600, 86400, 604800, 1209600, 2592000, 31536000,
     ];
     secondsPerPeriod.forEach((seconds) => {
-      referencedKeys.add(getPeriodFrequencyValueTranslationKey(seconds));
+      referencedKeys.add(getPeriodFrequencyValueTextKey(seconds));
       referencedKeys.add(formatPermissionPeriodDuration(seconds).key);
     });
 
@@ -187,10 +187,7 @@ describe('locale keys referenced by @metamask/7715-permission-types schemas', ()
     );
     expect(missingKeys).toStrictEqual([]);
 
-    // Written out as literals (not derived from referencedKeys) so
-    // `yarn verify-locales` can see these locale keys are still in use —
-    // it statically scans source text and can't detect keys computed only
-    // at runtime via getValue()/formatPermissionPeriodDuration() above.
+    // Keep an explicit contract for text emitted by the external schemas.
     const expectedKeys = [
       'account',
       'allTokens',

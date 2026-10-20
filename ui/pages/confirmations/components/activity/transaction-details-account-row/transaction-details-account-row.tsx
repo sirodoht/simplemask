@@ -6,7 +6,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   getAllAccountGroups,
   getMultichainAccountGroupById,
@@ -44,7 +44,7 @@ function selectFirstAccountGroupName(state: unknown): string | undefined {
 }
 
 export function TransactionDetailsAccountRow() {
-  const t = useI18nContext();
+  const t = getText;
   const { transactionMeta } = useTransactionDetails();
   const hasPaymentDetails = Boolean(transactionMeta.metamaskPay);
   const selectedAccountGroupId = useSelector(selectAccountGroupId);

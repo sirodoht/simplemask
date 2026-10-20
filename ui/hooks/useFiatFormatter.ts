@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { getIntlLocale } from '../ducks/locale/locale';
+
 import { getCurrentCurrency } from '../ducks/metamask/metamask';
 import { shortenString } from '../helpers/utils/util';
 
 /**
- * Returns a function that formats a fiat amount as a localized string.
+ * Returns a function that formats a fiat amount as a English string.
  * The hook takes an optional options object to configure the formatting.
  *
  * Example usage:
@@ -41,7 +41,7 @@ type UseFiatFormatterOptions = {
 export const useFiatFormatter = (
   hookOptions?: UseFiatFormatterOptions,
 ): FiatFormatter => {
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const reduxCurrency = useSelector(getCurrentCurrency);
   const fiatCurrency = hookOptions?.overrideCurrency ?? reduxCurrency;
 

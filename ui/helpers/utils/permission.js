@@ -667,7 +667,7 @@ const PERMISSION_DESCRIPTIONS = deepFreeze({
 
 /**
  * @typedef {object} PermissionDescriptionParamsObject
- * @property {Function} t - The translation function.
+ * @property {Function} t - The English text function.
  * @property {boolean} [isRequestApprovalPermittedChains] - Flag for checking if request incoming from 'wallet_switchEthereumChain'.
  * @property {string} permissionName - The name of the permission.
  * @property {object} permissionValue - The permission object.
@@ -714,7 +714,7 @@ export const getPermissionDescription = ({
 
 /**
  * @typedef {object} WeightedPermissionDescriptionParamsObject
- * @property {Function} t - The translation function.
+ * @property {Function} t - The English text function.
  * @property {boolean} [isRequestApprovalPermittedChains] - Flag for checking if request incoming from 'wallet_switchEthereumChain'.
  * @property {string} permissions - The permissions object.
  * @property {Function} [getSubjectName] - The function to get a subject name.

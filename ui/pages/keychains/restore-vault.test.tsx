@@ -94,7 +94,7 @@ describe('Restore vault Component', () => {
     const { container } = renderWithProvider(
       <RestoreVaultPage />,
       mockStore({
-        metamask: { currentLocale: 'en' },
+        metamask: {},
         appState: { isLoading: false },
       }) as ReturnType<typeof mockStore>,
     );
@@ -106,7 +106,7 @@ describe('Restore vault Component', () => {
     const { queryByTestId } = renderWithProvider(
       <RestoreVaultPage />,
       mockStore({
-        metamask: { currentLocale: 'en' },
+        metamask: {},
         appState: { isLoading: false },
       }) as ReturnType<typeof mockStore>,
     );
@@ -121,7 +121,7 @@ describe('Restore vault Component', () => {
     const mockResetWallet = sinon.stub().resolves();
 
     const testStore = mockStore({
-      metamask: { currentLocale: 'en' },
+      metamask: {},
       appState: { isLoading: false },
     });
 
@@ -227,7 +227,7 @@ describe('Restore vault Component', () => {
     const mockResetWallet = sinon.stub().resolves();
 
     const testStore = mockStore({
-      metamask: { currentLocale: 'en' },
+      metamask: {},
       appState: { isLoading: false },
     });
 

@@ -19,7 +19,10 @@ import { TransactionType } from '@metamask/transaction-controller';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import nock from 'nock';
 import * as backgroundConnection from '../../../../ui/store/background-connection';
-import { enLocale as messages, tEn } from '../../../lib/i18n-helpers';
+import {
+  englishText as messages,
+  getText as tEn,
+} from '../../../../shared/lib/text';
 import { integrationTestRender } from '../../../lib/render-helpers';
 import mockMetaMaskState from '../../data/integration-init-state.json';
 import { createMockImplementation, mock4byte } from '../../helpers';
@@ -588,14 +591,14 @@ describe('DappSwapComparisonBanner', () => {
     expect(screen.queryByTestId('bridge-no-quotes')).not.toBeInTheDocument();
     expect(screen.queryByTestId('bridge-cta-button')).not.toBeInTheDocument();
     expect(
-      screen.queryByText(messages.swapFetchingQuotesErrorTitle.message),
+      screen.queryByText(messages.swapFetchingQuotesErrorTitle),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(messages.swapQuotesNotAvailableErrorTitle.message),
+      screen.queryByText(messages.swapQuotesNotAvailableErrorTitle),
     ).not.toBeInTheDocument();
 
     expect(
-      await screen.findByText(messages.confirmTitleSending.message),
+      await screen.findByText(messages.confirmTitleSending),
     ).toBeInTheDocument();
   });
 

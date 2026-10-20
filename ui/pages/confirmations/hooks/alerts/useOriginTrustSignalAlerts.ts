@@ -3,14 +3,14 @@ import { TransactionMeta } from '@metamask/transaction-controller';
 import { Alert } from '../../../../ducks/confirm-alerts/confirm-alerts';
 import { RowAlertKey } from '../../../../components/app/confirm/info/row/constants';
 import { Severity } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useConfirmContext } from '../../context/confirm';
 import { TrustSignalDisplayState } from '../../../../hooks/useTrustSignals';
 import { useOriginTrustSignals } from '../../../../hooks/useOriginTrustSignals';
 import { SignatureRequestType } from '../../types/confirm';
 
 export function useOriginTrustSignalAlerts(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
 
   const origin =

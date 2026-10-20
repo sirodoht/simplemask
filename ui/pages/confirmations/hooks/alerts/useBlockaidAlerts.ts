@@ -14,7 +14,7 @@ import {
 } from '../../../../../shared/constants/security-provider';
 import { Alert } from '../../../../ducks/confirm-alerts/confirm-alerts';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { SIGNATURE_TRANSACTION_TYPES } from '../../utils';
 import { isCorrectDeveloperTransactionType } from '../../../../../shared/lib/confirmation.utils';
 import {
@@ -43,7 +43,7 @@ type SecurityAlertResponsesState = {
 };
 
 const useBlockaidAlerts = (): Alert[] => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext();
   const sendingFiatTotal = useSendingAssetsFiatTotal();
 

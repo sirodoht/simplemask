@@ -18,7 +18,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useAmountSelectionMetrics } from '../../../hooks/send/metrics/useAmountSelectionMetrics';
 import { useBalance } from '../../../hooks/send/useBalance';
 import { useCurrencyConversions } from '../../../hooks/send/useCurrencyConversions';
@@ -35,7 +35,7 @@ export const Amount = ({
 }: {
   amountError: string | undefined;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { asset, updateValue, value } = useSendContext();
   const [amount, setAmount] = useState(value ?? '');
   const { balance } = useBalance();

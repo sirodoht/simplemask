@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { TextFieldSearch } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { Box } from '../../../component-library';
 
 const NetworkListSearch = ({
@@ -12,7 +13,7 @@ const NetworkListSearch = ({
   setSearchQuery: (query: string) => void;
   setFocusSearch: (val: boolean) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box paddingLeft={4} paddingRight={4} paddingBottom={2} paddingTop={0}>

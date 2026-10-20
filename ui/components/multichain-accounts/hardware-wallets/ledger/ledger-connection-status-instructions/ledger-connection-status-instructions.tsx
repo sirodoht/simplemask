@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AvatarIcon,
   AvatarIconSeverity,
@@ -10,7 +11,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { LEDGER_CONNECTION_STATUS_CONTENT } from '../ledger-connection-status.constants';
 import type { LedgerConnectionStatusInstructionsProps } from './ledger-connection-status-instructions.types';
 
@@ -22,7 +23,7 @@ import type { LedgerConnectionStatusInstructionsProps } from './ledger-connectio
 export const LedgerConnectionStatusInstructions = ({
   status,
 }: Readonly<LedgerConnectionStatusInstructionsProps>) => {
-  const t = useI18nContext();
+  const t = getText;
   const { instructions } = LEDGER_CONNECTION_STATUS_CONTENT[status];
 
   return (

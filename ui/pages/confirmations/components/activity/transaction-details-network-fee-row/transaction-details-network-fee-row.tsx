@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { Text } from '../../../../../components/component-library';
 import { TextVariant } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useFiatFormatter } from '../../../../../hooks/useFiatFormatter';
 import { TransactionDetailsRow } from '../transaction-details-row';
 import { useTransactionDetails } from '../transaction-details-context';
 
 export function TransactionDetailsNetworkFeeRow() {
-  const t = useI18nContext();
+  const t = getText;
   const { transactionMeta } = useTransactionDetails();
   const fiatFormatter = useFiatFormatter({ overrideCurrency: 'usd' });
 

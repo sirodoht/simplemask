@@ -16,7 +16,7 @@ import {
   TextAlign,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { TransactionDetailsProvider } from '../transaction-details-context';
 import { TransactionDetails } from '../transaction-details';
 
@@ -29,7 +29,7 @@ export function TransactionDetailsModal({
   transactionMeta,
   onClose,
 }: TransactionDetailsModalProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   const title = useMemo(() => {
     switch (transactionMeta.type) {

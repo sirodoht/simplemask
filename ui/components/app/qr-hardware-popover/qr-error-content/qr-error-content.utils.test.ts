@@ -1,4 +1,4 @@
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { QrErrorType, QrErrorFlowContext } from './qr-error-content.types';
 import { resolveErrorCopy, rootTestId } from './qr-error-content.utils';
 

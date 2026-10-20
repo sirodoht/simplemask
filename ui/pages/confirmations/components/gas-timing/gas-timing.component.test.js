@@ -1,4 +1,5 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
@@ -6,7 +7,7 @@ import { renderWithProvider } from '../../../../../test/lib/render-helpers-navig
 import { GasEstimateTypes } from '../../../../../shared/constants/gas';
 import mockState from '../../../../../test/data/mock-state.json';
 
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { CHAIN_IDS } from '../../../../../shared/constants/network';
 import GasTiming from '.';
 
@@ -41,7 +42,7 @@ describe('Gas timing', () => {
     const screen = renderWithProvider(<GasTiming {...props} />, mockStore);
 
     await waitFor(() => {
-      expect(screen.queryByText(messages.medium.message)).toBeTruthy();
+      expect(screen.queryByText(messages.medium)).toBeTruthy();
       expect(screen.getByTestId('gas-timing-time')).toBeInTheDocument();
     });
   });
@@ -56,9 +57,7 @@ describe('Gas timing', () => {
     const screen = renderWithProvider(<GasTiming {...props} />, mockStore);
 
     await waitFor(() => {
-      expect(
-        screen.queryByText(messages.tenPercentIncreased.message),
-      ).toBeTruthy();
+      expect(screen.queryByText(messages.tenPercentIncreased)).toBeTruthy();
     });
   });
 
@@ -72,7 +71,7 @@ describe('Gas timing', () => {
     const screen = renderWithProvider(<GasTiming {...props} />, mockStore);
 
     await waitFor(() => {
-      expect(screen.queryByText(messages.dappSuggested.message)).toBeTruthy();
+      expect(screen.queryByText(messages.dappSuggested)).toBeTruthy();
     });
   });
 
@@ -87,9 +86,7 @@ describe('Gas timing', () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.queryByText(messages.tenPercentIncreased.message),
-      ).toBeTruthy();
+      expect(screen.queryByText(messages.tenPercentIncreased)).toBeTruthy();
     });
   });
 
@@ -104,7 +101,7 @@ describe('Gas timing', () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByText(messages.medium.message)).toBeTruthy();
+      expect(screen.queryByText(messages.medium)).toBeTruthy();
     });
   });
 
@@ -116,7 +113,7 @@ describe('Gas timing', () => {
     );
 
     await waitFor(() => {
-      expect(screen.queryByText(messages.medium.message)).toBeTruthy();
+      expect(screen.queryByText(messages.medium)).toBeTruthy();
     });
   });
 

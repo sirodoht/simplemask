@@ -17,7 +17,7 @@ import {
   BoxAlignItems,
 } from '@metamask/design-system-react';
 import { toast } from 'react-hot-toast';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Modal,
   ModalContent,
@@ -36,7 +36,7 @@ import {
 } from '../../../../shared/constants/metametrics';
 
 export default function PasswordOutdatedModal() {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSeedlessPwdOutdated = useSelector(getIsSeedlessPasswordOutdated);

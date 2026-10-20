@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -6,7 +6,7 @@ import {
   ButtonIconSize,
   IconName,
 } from '../../../../../components/component-library';
-import { I18nContext } from '../../../../../contexts/i18n';
+import { getText } from '../../../../../helpers/utils/text';
 
 import {
   BackgroundColor,
@@ -29,7 +29,7 @@ type ContentProps = {
 };
 
 const ScrollToBottom = ({ children }: ContentProps) => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const { currentConfirmation, setIsScrollToBottomCompleted } =
     useConfirmContext();
   const previousConfirmationIdRef = useRef<string | undefined>(undefined);

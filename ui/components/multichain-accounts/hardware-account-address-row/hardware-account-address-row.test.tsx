@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import { tEn } from '../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import { MOCK_ETHEREUM_HARDWARE_ADDRESS } from '../../../../test/data/hardware-wallet-accounts';
 import type { HardwareWalletAccountAddress } from './hardware-account-address-row.types';
 import { HardwareAccountAddressRow } from './hardware-account-address-row';

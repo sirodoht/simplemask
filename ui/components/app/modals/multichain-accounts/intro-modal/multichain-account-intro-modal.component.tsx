@@ -21,7 +21,7 @@ import {
   ModalOverlay,
   Text,
 } from '../../../../component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { LottieAnimation } from '../../../../component-library/lottie-animation';
 
 export type MultichainAccountIntroModalProps = {
@@ -37,7 +37,7 @@ const MemoizedLottieAnimation = React.memo(LottieAnimation);
 export const MultichainAccountIntroModal: React.FC<MultichainAccountIntroModalProps> =
   React.memo(
     ({ isOpen, onViewAccounts, onLearnMore, onClose, isLoading = false }) => {
-      const t = useI18nContext();
+      const t = getText;
 
       return (
         <Modal

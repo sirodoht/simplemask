@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import SnapListItem from '../../../components/app/snaps/snap-list-item';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   JustifyContent,
   AlignItems,
@@ -42,7 +43,7 @@ import { getSnapRoute } from '../../../helpers/utils/util';
 import { useGlobalMenuRouteTransition } from '../../routes/global-menu-route-transition';
 
 const SnapList = () => {
-  const t = useI18nContext();
+  const t = getText;
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const runCloseTransition = useGlobalMenuRouteTransition();

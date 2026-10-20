@@ -11,7 +11,9 @@
   },
   "appState": {
     "networkDropdownOpen": false,
-    "importNftsModal": { "open": false },
+    "importNftsModal": {
+      "open": false
+    },
     "isLoading": false,
     "modal": {
       "open": false,
@@ -53,9 +55,6 @@
   "invalidCustomNetwork": {
     "state": "CLOSED",
     "networkName": ""
-  },
-  "localeMessages": {
-    "currentLocale": "en"
   },
   "metamask": {
     "accountsByChainId": {},
@@ -146,7 +145,6 @@
     },
     "featureFlags": {},
     "network": "5",
-
     "networkConfigurationsByChainId": {
       "0x5": {
         "nativeCurrency": "ETH",
@@ -556,7 +554,6 @@
         }
       }
     },
-
     "transactions": [
       {
         "id": 8393540981007587,

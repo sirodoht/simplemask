@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { DEFAULT_ROUTE } from '../../../helpers/constants/routes';
 import { isPopupOrSidePanelEnvironment } from '../../../../shared/lib/environment-type';
 import ConnectionsRemovedModal from './connections-removed-modal';
@@ -56,13 +57,13 @@ describe('ConnectionsRemovedModal', () => {
         screen.getByTestId('connections-removed-modal'),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.connectionsRemovedModalTitle.message),
+        screen.getByText(messages.connectionsRemovedModalTitle),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.connectionsRemovedModalDescription.message),
+        screen.getByText(messages.connectionsRemovedModalDescription),
       ).toBeInTheDocument();
       expect(
-        screen.getByRole('button', { name: messages.gotIt.message }),
+        screen.getByRole('button', { name: messages.gotIt }),
       ).toBeInTheDocument();
     });
   });

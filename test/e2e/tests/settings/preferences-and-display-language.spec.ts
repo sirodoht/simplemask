@@ -7,12 +7,16 @@ import { login } from '../../page-objects/flows/login.flow';
 
 describe('English-only settings', function () {
   it('opens a wallet with a saved Arabic locale in English after reload', async function () {
+    const retiredLanguagePreferences = {
+      currentLocale: 'ar',
+      textDirection: 'rtl',
+    };
     await withFixtures(
       {
         fixtures: new FixtureBuilderV2()
           .withPreferencesController({
-            currentLocale: 'ar',
-            textDirection: 'rtl',
+            ...retiredLanguagePreferences,
+            preferences: {},
           })
           .build(),
         title: this.test?.fullTitle(),

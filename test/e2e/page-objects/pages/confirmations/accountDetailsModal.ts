@@ -1,6 +1,6 @@
 import { Driver } from '../../../webdriver/driver';
 import { RawLocator } from '../../common';
-import { tEn } from '../../../../lib/i18n-helpers';
+import { getText as tEn } from '../../../../../shared/lib/text';
 import Confirmation from './confirmation';
 
 /**

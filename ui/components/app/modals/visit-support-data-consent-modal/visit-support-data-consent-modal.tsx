@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Box } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { openWindow } from '../../../../helpers/utils/window';
 import {
   Modal,
@@ -43,7 +43,7 @@ const VisitSupportDataConsentModal = ({
   onClose,
 }: VisitSupportDataConsentModalProps) => {
   const version = process.env.METAMASK_VERSION as string;
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
   const [isLoading, setIsLoading] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import {
   AvatarToken,
   AvatarTokenSize,
 } from '@metamask/design-system-react';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import Tooltip from '../tooltip';
 import Popover from '../popover';
 import Button from '../button';
@@ -25,7 +25,7 @@ const NicknamePopover = ({
   onAdd = null,
   explorerLink,
 }) => {
-  const t = useContext(I18nContext);
+  const t = getText;
   const navigate = useNavigate();
 
   const onAddClick = useCallback(() => {

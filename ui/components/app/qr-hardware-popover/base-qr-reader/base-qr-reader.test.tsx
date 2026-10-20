@@ -10,7 +10,7 @@ import {
   getMozExtensionOriginForDisplay,
   isFirefoxBrowser,
 } from '../../../../../shared/lib/browser-runtime.utils';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import {
   ENVIRONMENT_TYPE_FULLSCREEN,
   ENVIRONMENT_TYPE_POPUP,
@@ -222,7 +222,7 @@ describe('BaseQrReader', () => {
     });
 
     expect(
-      screen.getByText(messages.QRHardwareScanInstructions.message),
+      screen.getByText(messages.QRHardwareScanInstructions),
     ).toBeInTheDocument();
     expect(mockRequestVideoStream).not.toHaveBeenCalled();
   });
@@ -425,7 +425,7 @@ describe('BaseQrReader', () => {
     });
 
     expect(
-      screen.getByText(messages.QRHardwareScanInstructions.message),
+      screen.getByText(messages.QRHardwareScanInstructions),
     ).toBeInTheDocument();
     expect(mockRequestVideoStream).toHaveBeenCalledTimes(1);
     expect(mockStopVideoStream).toHaveBeenCalledWith(mockStream);
@@ -514,7 +514,7 @@ describe('BaseQrReader', () => {
       });
 
       expect(
-        screen.getByText(messages.QRHardwareScanInstructions.message),
+        screen.getByText(messages.QRHardwareScanInstructions),
       ).toBeInTheDocument();
       expect(mockRequestVideoStream).toHaveBeenCalledTimes(1);
       expect(mockStopVideoStream).toHaveBeenCalledWith(mockStream);
@@ -567,9 +567,7 @@ describe('BaseQrReader', () => {
         renderWithProvider(<BaseQrReader {...defaultProps} />);
       });
 
-      expect(
-        screen.getByText(messages.generalCameraError.message),
-      ).toBeInTheDocument();
+      expect(screen.getByText(messages.generalCameraError)).toBeInTheDocument();
       expect(mockQueryCameraPermission).toHaveBeenCalledTimes(1);
     });
   });
@@ -711,7 +709,7 @@ describe('BaseQrReader', () => {
     });
 
     expect(
-      screen.getByText(messages.QRHardwareScanInstructions.message),
+      screen.getByText(messages.QRHardwareScanInstructions),
     ).toBeInTheDocument();
   });
 
@@ -791,7 +789,7 @@ describe('BaseQrReader', () => {
     });
 
     expect(
-      screen.getByText(messages.QRHardwareScanInstructions.message),
+      screen.getByText(messages.QRHardwareScanInstructions),
     ).toBeInTheDocument();
   });
 
@@ -840,9 +838,7 @@ describe('BaseQrReader', () => {
       renderWithProvider(<BaseQrReader {...defaultProps} />);
     });
 
-    expect(
-      screen.getByText(messages.noWebcamFound.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.noWebcamFound)).toBeInTheDocument();
   });
 
   it('renders QrErrorContent when scan throws during wallet read', async () => {
@@ -944,10 +940,10 @@ describe('BaseQrReader', () => {
       ).toBeInTheDocument();
     });
     expect(
-      screen.getByText(messages.qrErrorMismatchedTransactionTitle.message),
+      screen.getByText(messages.qrErrorMismatchedTransactionTitle),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(messages.qrErrorMismatchedTransactionBody.message),
+      screen.getByText(messages.qrErrorMismatchedTransactionBody),
     ).toBeInTheDocument();
     expect(defaultProps.setErrorActive).toHaveBeenCalledWith(true);
 
@@ -984,9 +980,7 @@ describe('BaseQrReader', () => {
     await act(async () => {
       renderWithProvider(<BaseQrReader {...defaultProps} />);
     });
-    expect(
-      screen.getByText(messages.noWebcamFound.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.noWebcamFound)).toBeInTheDocument();
 
     await userEvent.click(screen.getByTestId('page-container-footer-cancel'));
 
@@ -1007,9 +1001,7 @@ describe('BaseQrReader', () => {
     await act(async () => {
       renderWithProvider(<BaseQrReader {...defaultProps} />);
     });
-    expect(
-      screen.getByText(messages.noWebcamFound.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.noWebcamFound)).toBeInTheDocument();
 
     setupWebcamUtilsSuccess();
 
@@ -1018,7 +1010,7 @@ describe('BaseQrReader', () => {
     });
 
     expect(
-      screen.getByText(messages.QRHardwareScanInstructions.message),
+      screen.getByText(messages.QRHardwareScanInstructions),
     ).toBeInTheDocument();
     expect(mockCheckStatus).toHaveBeenCalledTimes(2);
   });
@@ -1198,7 +1190,7 @@ describe('BaseQrReader', () => {
 
       await waitFor(() => {
         expect(
-          screen.getByText(messages.QRHardwareScanInstructions.message),
+          screen.getByText(messages.QRHardwareScanInstructions),
         ).toBeInTheDocument();
       });
 
@@ -1277,7 +1269,7 @@ describe('BaseQrReader', () => {
       });
 
       expect(
-        screen.getByText(messages.QRHardwareScanInstructions.message),
+        screen.getByText(messages.QRHardwareScanInstructions),
       ).toBeInTheDocument();
       expect(mockTrackEvent).not.toHaveBeenCalled();
     });

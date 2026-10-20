@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -21,7 +22,7 @@ import {
   MetaMetricsEventCategory,
 } from '../../../../shared/constants/metametrics';
 import { ThemeType } from '../../../../shared/constants/preferences';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { transitionBack } from '../../../components/ui/transition';
 import { useDispatch } from '../../../store/hooks';
@@ -30,7 +31,7 @@ import { THEME_OPTIONS } from './theme-utils';
 const ThemeSubPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const currentTheme = useSelector(getTheme) as ThemeType;
 

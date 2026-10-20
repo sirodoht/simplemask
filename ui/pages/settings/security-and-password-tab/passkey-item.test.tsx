@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
 import { ENVIRONMENT_TYPE_SIDEPANEL } from '../../../../shared/constants/app';
-import { tEn } from '../../../../test/lib/i18n-helpers';
+import { getText as tEn } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import { SECURITY_AND_PASSWORD_ROUTE } from '../../../helpers/constants/routes';

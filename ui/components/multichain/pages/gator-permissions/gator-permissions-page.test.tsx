@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { Hex } from '@metamask/utils';
 import type { PermissionInfoWithMetadata } from '@metamask/gator-permissions-controller';
 import configureStore from '../../../../store/store';
 import mockState from '../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { GatorPermissionsPage } from './gator-permissions-page';
 
 const MOCK_CHAIN_ID = '0x1' as Hex;
@@ -118,8 +119,8 @@ describe('Gator Permissions Page', () => {
       );
 
       expect(getByTestId('permission-list')).toBeInTheDocument();
-      expect(getByText(messages.assets.message)).toBeInTheDocument();
-      expect(getByText(messages.tokenTransfer.message)).toBeInTheDocument();
+      expect(getByText(messages.assets)).toBeInTheDocument();
+      expect(getByText(messages.tokenTransfer)).toBeInTheDocument();
     });
 
     it('renders connections section when site permissions exist', () => {
@@ -129,8 +130,8 @@ describe('Gator Permissions Page', () => {
       });
       const { getByText } = renderWithProvider(<GatorPermissionsPage />, store);
 
-      expect(getByText(messages.dapps.message)).toBeInTheDocument();
-      expect(getByText(messages.connections.message)).toBeInTheDocument();
+      expect(getByText(messages.dapps)).toBeInTheDocument();
+      expect(getByText(messages.connections)).toBeInTheDocument();
     });
   });
 });

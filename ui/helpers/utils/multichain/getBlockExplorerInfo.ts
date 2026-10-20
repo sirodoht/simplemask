@@ -21,7 +21,7 @@ export type NetworkInfo = {
 /**
  * Gets block explorer information for a specific network
  *
- * @param t - Translation function
+ * @param t - English text function
  * @param address - The address to create the URL for
  * @param networkInfo - Information about the network including chainId, blockExplorerUrl, and networkName
  * @returns BlockExplorerInfo or null if no explorer available

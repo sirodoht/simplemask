@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import log from 'loglevel';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PASSKEY_STAGES } from '../../../../shared/constants/passkey';
 import {
   getFirstTimeFlowType,
@@ -73,10 +73,7 @@ export function usePasskeySetupFlow({
 }: UsePasskeySetupFlowParams) {
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
-  const t = useI18nContext() as (
-    key: string,
-    substitutions?: string[],
-  ) => string;
+  const t = getText as (key: string, substitutions?: string[]) => string;
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const passkeyMethodSpecificLabel = t(
     getPasskeyAuthMethodKey({ specific: true }),

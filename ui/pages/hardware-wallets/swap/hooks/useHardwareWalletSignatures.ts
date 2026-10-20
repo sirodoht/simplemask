@@ -15,7 +15,7 @@ import {
   getIsSmartTransaction,
   type SmartTransactionsState,
 } from '../../../../../shared/lib/selectors';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useHwSwapConnectionMonitoring } from '../../../../hooks/hardware-wallets/useHwSwapConnectionMonitoring';
 import { useHwSwapConfirmationMonitoring } from '../../../../hooks/hardware-wallets/useHwSwapConfirmationMonitoring';
 import { useHwSwapQrState } from '../../../../hooks/hardware-wallets/useHwSwapQrState';
@@ -101,7 +101,7 @@ const TERMINAL_STATUSES = new Set<HardwareWalletSignatureStatus>([
  * original component body — refactoring is purely structural.
  */
 export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch<MetaMaskReduxDispatch>();
   const location = useLocation();
   const sendBundleState = (

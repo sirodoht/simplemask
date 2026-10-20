@@ -52,7 +52,7 @@ import { AddressCopyButton } from '../../../components/multichain';
 import { ActivityList } from '../../activity/activity-list';
 import { getCurrentCurrency } from '../../../ducks/metamask/metamask';
 import { getPortfolioUrl } from '../../../helpers/utils/portfolio';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useInAppBack } from '../../../hooks/useInAppBack';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
 import { transitionBack } from '../../../components/ui/transition';
@@ -102,7 +102,7 @@ const AssetPage = ({
   asset: Asset;
   optionsButton: React.ReactNode;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { decodedAsset } = processAssetParams(useParams());
   const currency = useSelector(getCurrentCurrency);
   const isEvm = isEvmChainId(asset.chainId);

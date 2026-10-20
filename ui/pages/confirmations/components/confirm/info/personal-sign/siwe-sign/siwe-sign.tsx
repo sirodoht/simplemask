@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { DateTime } from 'luxon';
 import { toHex } from '@metamask/controller-utils';
 
 import { NETWORK_TO_NAME_MAP } from '../../../../../../../../shared/constants/network';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { SignatureRequestType } from '../../../../../types/confirm';
 import {
   ConfirmInfoRow,
@@ -19,7 +20,7 @@ import {
 import { useConfirmContext } from '../../../../../context/confirm';
 
 const SIWESignInfo = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<SignatureRequestType>();
 
   const siweMessage = currentConfirmation?.msgParams?.siwe?.parsedMessage;

@@ -37,7 +37,7 @@ import {
   CriticalStartupErrorHandler,
   connectToBackground,
   displayCriticalErrorMessage,
-  CriticalErrorTranslationKey,
+  CriticalErrorTextKey,
   // TODO: Remove restricted import
   // eslint-disable-next-line import-x/no-restricted-paths
 } from '../../ui';
@@ -308,7 +308,7 @@ async function initializeUiWithTab(
     // run and removed the repair listener, so a restore link would be non-functional.
     await displayCriticalErrorMessage(
       getContainer(),
-      CriticalErrorTranslationKey.TroubleStarting,
+      CriticalErrorTextKey.TroubleStarting,
       error as Error,
       undefined,
     );

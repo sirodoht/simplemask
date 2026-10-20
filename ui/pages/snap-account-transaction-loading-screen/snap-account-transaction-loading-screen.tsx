@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { InternalAccount } from '@metamask/keyring-internal-api';
 import { useSelector } from 'react-redux';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import {
   MetaMetricsEventCategory,
@@ -16,7 +16,7 @@ const SnapAccountTransactionLoadingScreen = ({
 }: {
   internalAccount: InternalAccount;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const snapsMetadata = useSelector(getSnapsMetadata);
   const snapId = internalAccount?.metadata.snap?.id;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import ActionableMessage from '../../../../components/ui/actionable-message';
 import { Text } from '../../../../components/component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 const SnapAccountErrorMessage = ({
   message,
@@ -13,7 +13,7 @@ const SnapAccountErrorMessage = ({
   learnMoreLink?: string;
   error?: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <>

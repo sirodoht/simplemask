@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import configureMockState from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -9,7 +10,7 @@ import {
   MetaMetricsEventKeyType,
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import HoldToRevealButton from './hold-to-reveal-button';
 
 const mockTrackEvent = jest.fn();
@@ -35,7 +36,7 @@ describe('HoldToRevealButton', () => {
 
     props = {
       onLongPressed: mockOnLongPressed,
-      buttonText: messages.holdToRevealSRP.message,
+      buttonText: messages.holdToRevealSRP,
     };
   });
 
@@ -46,13 +47,13 @@ describe('HoldToRevealButton', () => {
   it('should render a button with label', () => {
     const { getByText } = render(<HoldToRevealButton {...props} />);
 
-    expect(getByText(messages.holdToRevealSRP.message)).toBeInTheDocument();
+    expect(getByText(messages.holdToRevealSRP)).toBeInTheDocument();
   });
 
   it('should render a button when mouse is down and up', () => {
     const { getByText } = render(<HoldToRevealButton {...props} />);
 
-    const button = getByText(messages.holdToRevealSRP.message);
+    const button = getByText(messages.holdToRevealSRP);
 
     fireEvent.mouseDown(button);
 
@@ -69,21 +70,17 @@ describe('HoldToRevealButton', () => {
       mockStore,
     );
 
-    const button = getByText(messages.holdToRevealSRP.message);
+    const button = getByText(messages.holdToRevealSRP);
 
     fireEvent.mouseDown(button);
-    const circleLocked = queryByLabelText(
-      messages.holdToRevealLockedLabel.message,
-    );
+    const circleLocked = queryByLabelText(messages.holdToRevealLockedLabel);
 
     await waitFor(() => {
       expect(circleLocked).toBeInTheDocument();
     });
 
     fireEvent.mouseUp(button);
-    const circleUnlocked = queryByLabelText(
-      messages.holdToRevealUnlockedLabel.message,
-    );
+    const circleUnlocked = queryByLabelText(messages.holdToRevealUnlockedLabel);
 
     await waitFor(() => {
       expect(circleUnlocked).not.toBeInTheDocument();
@@ -96,18 +93,14 @@ describe('HoldToRevealButton', () => {
       mockStore,
     );
 
-    const button = getByText(messages.holdToRevealSRP.message);
+    const button = getByText(messages.holdToRevealSRP);
 
     fireEvent.pointerDown(button);
 
-    const circleLocked = getByLabelText(
-      messages.holdToRevealLockedLabel.message,
-    );
+    const circleLocked = getByLabelText(messages.holdToRevealLockedLabel);
     fireEvent.transitionEnd(circleLocked);
 
-    const circleUnlocked = queryByLabelText(
-      messages.holdToRevealUnlockedLabel.message,
-    );
+    const circleUnlocked = queryByLabelText(messages.holdToRevealUnlockedLabel);
     fireEvent.animationEnd(circleUnlocked);
 
     await waitFor(() => {

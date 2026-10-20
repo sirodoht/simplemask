@@ -4,7 +4,7 @@ import {
   TextFieldSearch,
   TextFieldSize,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 /**
  * Renders a search component for the asset picker modal.
@@ -33,7 +33,7 @@ export const Search = ({
   placeholder?: JSX.Element | string | null;
   autoFocus?: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

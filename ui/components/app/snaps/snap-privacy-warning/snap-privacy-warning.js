@@ -1,6 +1,7 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   AvatarIcon,
   AvatarIconSize,
@@ -28,7 +29,7 @@ import { useScrollRequired } from '../../../../hooks/useScrollRequired';
 import { TERMS_OF_USE_LINK } from '../../../../../shared/constants/terms';
 
 export default function SnapPrivacyWarning({ onAccepted, onCanceled }) {
-  const t = useI18nContext();
+  const t = getText;
   const { isScrollable, isScrolledToBottom, scrollToBottom, ref, onScroll } =
     useScrollRequired();
 

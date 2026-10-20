@@ -12,7 +12,7 @@ import { SectionHeader } from '../../components/ui/section-header';
 import { VirtualizedList } from '../../components/ui/virtualized-list/virtualized-list';
 import { useScrollContainer } from '../../contexts/scroll-container';
 import { useRelativeMediumDate } from '../../hooks/useRelativeMediumDate';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useItemInView } from '../../hooks/useItemInView';
 import { useEventListener } from '../../hooks/useEventListener';
 import {
@@ -50,7 +50,7 @@ export function ActivityList({
   filter?: ActivityListFilter;
   entryPoint?: ScreenViewedEntryPoint;
 } = {}) {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const formatRelativeMediumDate = useRelativeMediumDate();
   const scrollContainerRef = useScrollContainer();

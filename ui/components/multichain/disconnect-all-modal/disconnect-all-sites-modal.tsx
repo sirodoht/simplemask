@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Text,
   TextVariant,
@@ -11,7 +12,7 @@ import {
   ModalContent,
 } from '@metamask/design-system-react';
 import { Button, ButtonSize, ButtonVariant } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export type DisconnectAllSitesModalProps = {
   isOpen: boolean;
@@ -24,7 +25,7 @@ export const DisconnectAllSitesModal = ({
   onClick,
   onClose,
 }: DisconnectAllSitesModalProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Modal

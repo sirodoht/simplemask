@@ -387,7 +387,6 @@
     "currentCurrency": "string",
     "currentExtensionPopupId": "number",
     "dappSwapComparisonData": {},
-    "currentLocale": "string",
     "currentMigrationVersion": "number",
     "customAssets": {},
     "database": {
@@ -1273,7 +1272,6 @@
       "testnet": {},
       "mainnet": {}
     },
-    "batchTransactionCounts": {},
     "transactionBatches": [],
     "transactionData": {},
     "transactions": [],

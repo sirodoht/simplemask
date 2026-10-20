@@ -1,10 +1,11 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   TransactionStatus,
   TransactionType,
 } from '@metamask/transaction-controller';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import { TransactionDetailsProvider } from '../transaction-details-context';
 import { TransactionDetailsBridgeFeeRow } from './transaction-details-bridge-fee-row';
@@ -68,8 +69,8 @@ describe('TransactionDetailsBridgeFeeRow', () => {
       '2.50',
       TransactionType.perpsDeposit,
     );
-    expect(getByText(messages.bridgeFee.message)).toBeInTheDocument();
-    expect(queryByText(messages.providerFee.message)).not.toBeInTheDocument();
+    expect(getByText(messages.bridgeFee)).toBeInTheDocument();
+    expect(queryByText(messages.providerFee)).not.toBeInTheDocument();
   });
 
   it('renders "Provider fee" label for perpsWithdraw transactions', () => {
@@ -77,7 +78,7 @@ describe('TransactionDetailsBridgeFeeRow', () => {
       '2.50',
       TransactionType.perpsWithdraw,
     );
-    expect(getByText(messages.providerFee.message)).toBeInTheDocument();
-    expect(queryByText(messages.bridgeFee.message)).not.toBeInTheDocument();
+    expect(getByText(messages.providerFee)).toBeInTheDocument();
+    expect(queryByText(messages.bridgeFee)).not.toBeInTheDocument();
   });
 });

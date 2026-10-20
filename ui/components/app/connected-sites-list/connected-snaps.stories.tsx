@@ -6,7 +6,6 @@ import ConnectedSnaps from './connected-snaps';
 
 const mockStore = configureStore({
   metamask: {
-    currentLocale: 'en',
     providerConfig: { chainId: '0x1' },
     snaps: {
       'npm:@metamask/example-snap': {

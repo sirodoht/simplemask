@@ -59,7 +59,7 @@ import { FirstTimeFlowType } from '../../../shared/constants/onboarding';
 import { MetaMetricsContext } from '../../contexts/metametrics';
 import { useAnalytics } from '../../hooks/useAnalytics';
 import { useSegmentContext } from '../../hooks/useSegmentContext';
-import { I18nContext } from '../../contexts/i18n';
+import { getText } from '../../helpers/utils/text';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import LoginErrorModal from '../onboarding-flow/welcome/login-error-modal';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
@@ -858,7 +858,7 @@ class UnlockPageBase extends Component<UnlockPageProps, UnlockPageState> {
 }
 
 function UnlockPage(props: React.PropsWithChildren<Record<string, unknown>>) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
   const { bufferedTrace, bufferedEndTrace } = useContext(MetaMetricsContext);

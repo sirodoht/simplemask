@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -17,7 +18,7 @@ import {
 } from '@metamask/design-system-react';
 
 import Reader from '../../../../components/app/qr-hardware-popover/qr-hardware-sign-request/qr-reader';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import QrSignatureCode from '../qr-signature-code';
 import { getQrScanButtonLabelKey } from '../hardware-wallet-signatures.utils';
 import {
@@ -41,7 +42,7 @@ export const QrHardwareSigningPage = ({
   onContinueToScan,
   onScanSuccess,
 }: QrHardwareSigningPageProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const isScanningSignature = phase === QrHardwareSigningPhase.ScanSignature;
 
   return (

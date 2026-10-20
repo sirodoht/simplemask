@@ -21,7 +21,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   useHardwareWalletActions,
   useHardwareWalletConfig,
@@ -68,10 +68,7 @@ function getRepairConnectErrorMessage(
 }
 
 export const HardwareWalletRepair: React.FC = () => {
-  const t = useI18nContext() as (
-    key: string,
-    substitutions?: string[],
-  ) => string;
+  const t = getText as (key: string, substitutions?: string[]) => string;
   const { search } = useLocation();
   const {
     ensureDeviceReady,

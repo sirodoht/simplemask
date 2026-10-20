@@ -16,7 +16,7 @@ import {
   TextFieldType,
 } from '../../../components/component-library';
 import { SECURITY_AND_PASSWORD_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { transitionBack } from '../../../components/ui/transition';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { createSentryError } from '../../../../shared/lib/error';
@@ -46,7 +46,7 @@ export default function PasskeyTurnOffSubPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const removePasskeyWithPassword = useRemovePasskeyWithPassword();
-  const t = useI18nContext();
+  const t = getText;
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const { trackEvent, createEventBuilder } = useAnalytics();
   const isPasskeyRegistered = useSelector(getIsPasskeyRegistered);

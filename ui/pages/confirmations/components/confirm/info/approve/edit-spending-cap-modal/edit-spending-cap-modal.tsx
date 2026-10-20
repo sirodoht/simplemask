@@ -22,7 +22,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import {
   estimateGas,
   updateEditableParams,
@@ -52,7 +52,7 @@ export const EditSpendingCapModal = ({
   setIsOpenEditSpendingCapModal: (newValue: boolean) => void;
   to?: Hex;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const dispatch = useDispatch();
 

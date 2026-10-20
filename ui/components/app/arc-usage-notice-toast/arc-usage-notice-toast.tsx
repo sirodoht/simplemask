@@ -10,7 +10,7 @@ import {
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { submitRequestToBackground } from '../../../store/background-connection';
 import { Toast } from '../../multichain/toast';
 import { selectShowArcUsageNoticeToast } from './selectors';
@@ -19,7 +19,7 @@ const ARC_CAIP_CHAIN_ID = 'eip155:5042';
 const ARC_NETWORK_NAME = 'arc';
 
 export function ArcUsageNoticeToast() {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const shouldShow = useSelector(selectShowArcUsageNoticeToast);
   const [visible, setVisible] = useState(false);

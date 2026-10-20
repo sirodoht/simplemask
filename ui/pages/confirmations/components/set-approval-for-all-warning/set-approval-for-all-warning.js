@@ -1,6 +1,7 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 import Popover from '../../../../components/ui/popover';
 import Box from '../../../../components/ui/box';
@@ -30,7 +31,7 @@ const SetApproveForAllWarning = ({
   onSubmit,
   onCancel,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const footer = (
     <Box

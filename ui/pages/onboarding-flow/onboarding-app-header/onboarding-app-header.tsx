@@ -19,7 +19,7 @@ import {
   BorderColor,
 } from '../../../helpers/constants/design-system';
 import MetaFoxLogo from '../../../components/ui/metafox-logo';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { BannerTip } from '../../../components/component-library';
 import {
   ONBOARDING_COMPLETION_ROUTE,
@@ -39,7 +39,7 @@ export default function OnboardingAppHeader({
   location,
 }: OnboardingAppHeaderProps) {
   const { pathname } = location;
-  const t = useI18nContext();
+  const t = getText;
   const { isFromReminder, isFromSettingsSecurity } =
     useOnboardingSearchParams();
   const isFromSettingsSRPBackup = isFromReminder || isFromSettingsSecurity;

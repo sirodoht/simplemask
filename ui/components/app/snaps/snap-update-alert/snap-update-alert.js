@@ -1,11 +1,12 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { BannerAlert, IconName, Text } from '../../../component-library';
 import { TextColor } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 const SnapUpdateAlert = ({ snapName, onUpdateClick, bannerAlertProps }) => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <BannerAlert
       title={t('snapUpdateAvailable')}

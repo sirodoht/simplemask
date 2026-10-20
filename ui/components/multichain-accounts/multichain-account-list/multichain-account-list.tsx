@@ -1,6 +1,5 @@
 import React, {
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -29,7 +28,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { MultichainAccountCell } from '../multichain-account-cell';
 import {
   AccountTreeWallets,
@@ -206,7 +205,7 @@ export const MultichainAccountList = ({
   const [isPending, startTransition] = useTransition();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const disconnectAccountGroup = useDisconnectAccountGroup();
-  const t = useI18nContext();
+  const t = getText;
   const defaultHomeActiveTabName: AccountOverviewTabKey = useSelector(
     getDefaultHomeActiveTabName,
   );

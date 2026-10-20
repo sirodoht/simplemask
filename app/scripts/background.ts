@@ -50,7 +50,7 @@ import {
 } from '../../shared/constants/offscreen-communication';
 import { getCurrentChainId } from '../../shared/lib/selectors/networks';
 import { createCaipStream } from '../../shared/lib/caip-stream';
-import getFirstPreferredLangCode from '../../shared/lib/get-first-preferred-lang-code';
+
 import { getErrorBackup, getErrorLike } from '../../shared/lib/error-like';
 import { getManifestFlags } from '../../shared/lib/manifestFlags';
 import { DISPLAY_GENERAL_STARTUP_ERROR } from '../../shared/constants/start-up-errors';
@@ -500,8 +500,7 @@ const handleOnConnect = async (port: Runtime.Port) => {
                   repairAction,
                 }
               : {}),
-            currentLocale:
-              controller?.preferencesController?.state?.currentLocale,
+
             theme: controller?.preferencesController?.state?.theme,
           },
         );
@@ -568,7 +567,6 @@ async function initialize(backup: Backup | null) {
   });
 
   const initState = initData.data;
-  const initLangCode = await getFirstPreferredLangCode();
 
   let isFirstMetaMaskControllerSetup: boolean | undefined;
 
@@ -600,7 +598,6 @@ async function initialize(backup: Backup | null) {
 
   setupController(
     initState,
-    initLangCode,
     isFirstMetaMaskControllerSetup,
     initData.meta,
     offscreenPromise,
@@ -656,7 +653,6 @@ async function initialize(backup: Backup | null) {
 /**
  * Constructs `MetamaskController` and registers port/stream connection handlers.
  * @param initState
- * @param initLangCode
  * @param isFirstMetaMaskControllerSetup
  * @param stateMetadata
  * @param offscreenPromise
@@ -665,7 +661,6 @@ async function initialize(backup: Backup | null) {
  */
 export function setupController(
   initState: MetaMaskStateType,
-  initLangCode: string,
   isFirstMetaMaskControllerSetup: boolean | undefined,
   stateMetadata: StateMetadata,
   offscreenPromise: Promise<void> | null,
@@ -681,8 +676,6 @@ export function setupController(
     showUserConfirmation: triggerUi,
     // initial state
     initState,
-    // initial locale code
-    initLangCode,
     // platform specific api
     platform,
     notificationManager,

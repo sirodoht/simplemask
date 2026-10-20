@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { isValidHexAddress } from '../../../../../../shared/lib/hexstring-utils';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { getTokenStandardAndDetailsByChain } from '../../../../../store/actions';
 import { useSendContext } from '../../../context/send';
 import { useSendType } from '../useSendType';
 import type { SendAlert } from './types';
 
 export function useTokenContractSendAlert(): SendAlert | null {
-  const t = useI18nContext();
+  const t = getText;
   const { to, chainId, asset } = useSendContext();
   const { isEvmSendType } = useSendType();
   const [isTokenContract, setIsTokenContract] = useState(false);

@@ -31,7 +31,7 @@ import {
   Header,
   Page,
 } from '../../../components/multichain/pages/page';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getWalletsWithAccounts } from '../../../selectors/multichain-accounts/account-tree';
 import {
   ACCOUNT_LIST_PAGE_ROUTE,
@@ -54,7 +54,7 @@ type WalletDetailsPageProps = {
 export const WalletDetailsPage = ({
   params: propsParams,
 }: WalletDetailsPageProps = {}) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 

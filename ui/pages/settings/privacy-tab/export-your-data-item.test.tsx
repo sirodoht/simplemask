@@ -1,9 +1,10 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { captureException } from '../../../../shared/lib/sentry';
 import * as exportUtils from '../../../helpers/utils/export-utils';
@@ -62,9 +63,7 @@ describe('ExportYourDataItem', () => {
     expect(
       screen.getByTestId('privacy-tab-export-your-data-button'),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.exportYourData.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.exportYourData)).toBeInTheDocument();
   });
 
   it('opens the export modal when the row is clicked', () => {
@@ -73,7 +72,7 @@ describe('ExportYourDataItem', () => {
     fireEvent.click(screen.getByTestId('privacy-tab-export-your-data-button'));
 
     expect(
-      screen.getByText(messages.exportYourDataDescription.message),
+      screen.getByText(messages.exportYourDataDescription),
     ).toBeInTheDocument();
     expect(
       screen.getByTestId('export-your-data-modal-download-button'),

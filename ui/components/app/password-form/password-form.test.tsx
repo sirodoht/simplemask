@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { PASSWORD_MIN_LENGTH } from '../../../helpers/constants/common';
 import PasswordForm, { computeMismatchError } from './password-form';
@@ -8,8 +9,8 @@ const SHORT_PASSWORD = 'abc';
 
 const mockT = (key: string) => key;
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => mockT,
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (...args: Parameters<typeof mockT>) => mockT(...args),
 }));
 
 describe('computeMismatchError', () => {

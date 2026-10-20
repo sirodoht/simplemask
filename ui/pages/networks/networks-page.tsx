@@ -26,7 +26,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import * as URI from 'uri-js';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   transitionBack,
   transitionForward,
@@ -96,7 +96,7 @@ const NetworksPageFormHeader = ({
   onBack: () => void;
   onClose: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Header
@@ -133,7 +133,7 @@ const NetworksPageFormBody = ({ children }: { children: React.ReactNode }) => (
 
 export const NetworksPage = () => {
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const navigate = useNavigate();
   const runCloseTransition = useGlobalMenuRouteTransition();

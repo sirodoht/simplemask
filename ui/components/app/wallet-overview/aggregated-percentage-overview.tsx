@@ -18,7 +18,7 @@ import {
   formatValue,
   isValidAmount,
 } from '../../../../shared/lib/format-value';
-import { getIntlLocale } from '../../../ducks/locale/locale';
+
 import {
   TextColor,
   TextVariant,
@@ -173,7 +173,7 @@ export const AggregatedMultichainPercentageOverview = ({
   trailingChild: () => JSX.Element | null;
   privacyMode?: boolean;
 }) => {
-  const locale = useSelector(getIntlLocale);
+  const locale = 'en';
   const currentCurrency = useSelector(getCurrentCurrency);
   const selectedAccount = useSelector(getSelectedInternalAccount);
   const historicalAggregatedBalances = useSelector((state) =>

@@ -6,7 +6,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { JsonRpcRequestError } from '../../../shared/lib/rpc.utils';
 import { useSafeChains } from '../../components/multichain/networks-form/use-safe-chains';
 import ZENDESK_URLS from '../../helpers/constants/zendesk-url';
@@ -19,8 +19,8 @@ jest.mock('../../../shared/lib/rpc.utils', () => ({
   jsonRpcRequest: (...args: unknown[]) => mockJsonRpcRequest(...args),
 }));
 
-jest.mock('../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn(),
+jest.mock('../../helpers/utils/text', () => ({
+  getText: jest.fn(),
 }));
 
 jest.mock('../../components/multichain/networks-form/use-safe-chains', () => ({
@@ -30,13 +30,13 @@ jest.mock('../../components/multichain/networks-form/use-safe-chains', () => ({
 const mockUseSafeChains = jest.mocked(useSafeChains);
 
 describe('AddRpcUrlPageForm', () => {
-  const useI18nContextMock = useI18nContext as jest.Mock;
+  const getTextMock = getText as jest.Mock;
 
   beforeEach(() => {
     jest.useFakeTimers();
     jest.clearAllMocks();
     mockJsonRpcRequest.mockResolvedValue('0x1');
-    useI18nContextMock.mockReturnValue((key: string) => key);
+    getTextMock.mockImplementation((key: string) => key);
     mockUseSafeChains.mockReturnValue({ safeChains: [] });
   });
 
@@ -413,7 +413,7 @@ describe('AddRpcUrlPageForm', () => {
     const openTab = jest.fn();
     // @ts-expect-error mocking the extension platform
     global.platform = { openTab };
-    useI18nContextMock.mockReturnValue(
+    getTextMock.mockImplementation(
       (key: string, substitutions?: React.ReactNode[]) =>
         substitutions?.length ? [key, ...substitutions] : key,
     );

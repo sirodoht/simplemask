@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { Hex } from '@metamask/utils';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import configureStore from '../../../store/store';
 import {
   useEIP7702Networks,
@@ -107,12 +108,10 @@ describe('SmartContractAccountToggleSection', () => {
 
       expect(screen.getByTestId('network-loader')).toBeInTheDocument();
       expect(
-        screen.getByText(messages.enableSmartContractAccount.message),
+        screen.getByText(messages.enableSmartContractAccount),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(
-          messages.enableSmartContractAccountDescription.message,
-        ),
+        screen.getByText(messages.enableSmartContractAccountDescription),
       ).toBeInTheDocument();
       expect(container).toMatchSnapshot();
     });
@@ -182,9 +181,7 @@ describe('SmartContractAccountToggleSection', () => {
 
       const { container } = render();
 
-      const learnMoreButton = screen.getByText(
-        messages.learnMoreUpperCase.message,
-      );
+      const learnMoreButton = screen.getByText(messages.learnMoreUpperCase);
       fireEvent.click(learnMoreButton);
 
       expect(mockOpenTab).toHaveBeenCalledWith({

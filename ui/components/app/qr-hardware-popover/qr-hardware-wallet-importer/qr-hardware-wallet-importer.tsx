@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import type { UR } from '@ngraveio/bc-ur';
 import { completeQrCodeScan } from '../../../../store/actions';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import BaseQrReader, {
   CBOR_ENCODING,
   PAIRING_EXPECTED_UR_TYPES,
@@ -29,7 +29,7 @@ const QRHardwareWalletImporter = ({
   setErrorActive,
   setCameraPermissionErrorCode,
 }: QRHardwareWalletImporterProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const handleSuccess = useCallback(

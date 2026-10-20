@@ -11,7 +11,7 @@ import {
   ApprovalsMetaMaskState,
   getApprovalsByOrigin,
 } from '../../../../selectors';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 const VALIDATED_APPROVAL_TYPES = [
   ApprovalType.AddEthereumChain,
@@ -27,7 +27,7 @@ export function useUpdateEthereumChainAlerts(
       pendingConfirmation?.origin,
     ),
   );
-  const t = useI18nContext();
+  const t = getText;
 
   return useMemo(() => {
     if (

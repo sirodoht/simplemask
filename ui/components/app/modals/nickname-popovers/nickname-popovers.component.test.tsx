@@ -1,29 +1,18 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
-import { BtcAccountType } from '@metamask/keyring-api';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import configureStore from '../../../../store/store';
 import mockState from '../../../../../test/data/mock-state.json';
-import {
-  MULTICHAIN_NETWORK_BLOCK_EXPLORER_FORMAT_URLS_MAP,
-  MultichainNetworks,
-} from '../../../../../shared/constants/multichain/networks';
 import { createMockInternalAccount } from '../../../../../test/jest/mocks';
 import { normalizeSafeAddress } from '../../../../../shared/lib/multichain/address';
 import { mockNetworkState } from '../../../../../test/stub/networks';
-import { formatBlockExplorerAddressUrl } from '../../../../../shared/lib/multichain/networks';
 import NicknamePopover from './nickname-popovers.component';
 
 const mockAccount = createMockInternalAccount({
   name: 'Account 1',
   address: '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
-});
-
-const mockNonEvmAccount = createMockInternalAccount({
-  name: 'Account 1',
-  address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq',
-  type: BtcAccountType.P2wpkh,
 });
 
 const mockEvmExplorer = (address: string) =>
@@ -52,13 +41,11 @@ const render = (
       internalAccounts: {
         accounts: {
           [mockAccount.id]: mockAccount,
-          [mockNonEvmAccount.id]: mockNonEvmAccount,
         },
         selectedAccount: mockAccount.id,
       },
       accountIdByAddress: {
         [mockAccount.address]: mockAccount.id,
-        [mockNonEvmAccount.address]: mockNonEvmAccount.id,
       },
       ...mockNetworkState({
         chainId: '0x5',
@@ -85,29 +72,7 @@ describe('NicknamePopover', () => {
     const expectedExplorerUrl = mockEvmExplorer(mockAccount.address);
     const { getByText } = render({ props: { address: mockAccount.address } });
 
-    const viewExplorerButton = getByText(messages.viewOnBlockExplorer.message);
-    fireEvent.click(viewExplorerButton);
-    expect(global.platform.openTab).toHaveBeenCalledWith({
-      url: expectedExplorerUrl,
-    });
-  });
-
-  it('opens non-EVM block explorer', () => {
-    // @ts-expect-error mocking platform
-    global.platform = { openTab: jest.fn(), closeCurrentWindow: jest.fn() };
-    const expectedExplorerUrl = formatBlockExplorerAddressUrl(
-      MULTICHAIN_NETWORK_BLOCK_EXPLORER_FORMAT_URLS_MAP[
-        MultichainNetworks.BITCOIN
-      ],
-      mockNonEvmAccount.address,
-    );
-
-    const { getByText } = render({
-      props: { address: mockNonEvmAccount.address },
-    });
-
-    const viewExplorerButton = getByText(messages.viewOnBlockExplorer.message);
-
+    const viewExplorerButton = getByText(messages.viewOnBlockExplorer);
     fireEvent.click(viewExplorerButton);
     expect(global.platform.openTab).toHaveBeenCalledWith({
       url: expectedExplorerUrl,

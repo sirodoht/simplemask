@@ -1,8 +1,12 @@
+import { render as renderComponent, screen } from '@testing-library/react';
 import React from 'react';
-import { screen } from '@testing-library/react';
+
 import { userEvent } from '@testing-library/user-event';
-import { renderWithLocalization } from '../../../../test/lib/render-helpers';
-import { enLocale as messages, tEn } from '../../../../test/lib/i18n-helpers';
+
+import {
+  englishText as messages,
+  getText as tEn,
+} from '../../../../shared/lib/text';
 import {
   CameraAccessErrorContent,
   CameraAccessErrorContentVariant,
@@ -13,7 +17,7 @@ describe('CameraAccessErrorContent', () => {
     it('renders localized title, body, and continue control', async () => {
       const user = userEvent.setup();
       const onContinue = jest.fn();
-      renderWithLocalization(
+      renderComponent(
         <CameraAccessErrorContent
           variant={CameraAccessErrorContentVariant.Needed}
           onContinue={onContinue}
@@ -22,18 +26,18 @@ describe('CameraAccessErrorContent', () => {
 
       expect(screen.getByTestId('qr-camera-access-needed')).toBeInTheDocument();
       expect(
-        screen.getByText(messages.qrCameraAccessNeededTitle.message),
+        screen.getByText(messages.qrCameraAccessNeededTitle),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(messages.qrCameraAccessNeededBody.message),
+        screen.getByText(messages.qrCameraAccessNeededBody),
       ).toBeInTheDocument();
-      expect(screen.getByText(messages.continue.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.continue)).toBeInTheDocument();
       await user.click(screen.getByTestId('qr-camera-access-needed-continue'));
       expect(onContinue).toHaveBeenCalledTimes(1);
     });
 
     it('accepts zero root padding without breaking layout', () => {
-      renderWithLocalization(
+      renderComponent(
         <CameraAccessErrorContent
           variant={CameraAccessErrorContentVariant.Needed}
           onContinue={jest.fn()}
@@ -44,7 +48,7 @@ describe('CameraAccessErrorContent', () => {
 
       expect(screen.getByTestId('qr-camera-access-needed')).toBeInTheDocument();
       expect(
-        screen.getByText(messages.qrCameraAccessNeededTitle.message),
+        screen.getByText(messages.qrCameraAccessNeededTitle),
       ).toBeInTheDocument();
     });
   });
@@ -53,7 +57,7 @@ describe('CameraAccessErrorContent', () => {
     it('shows chromium hint and open settings when not Firefox', () => {
       const onContinue = jest.fn();
       const onOpenSettings = jest.fn();
-      renderWithLocalization(
+      renderComponent(
         <CameraAccessErrorContent
           variant={CameraAccessErrorContentVariant.Blocked}
           isFirefox={false}
@@ -67,7 +71,7 @@ describe('CameraAccessErrorContent', () => {
         screen.getByTestId('qr-camera-access-blocked'),
       ).toBeInTheDocument();
       expect(screen.getByTestId('qr-camera-chromium-hint')).toHaveTextContent(
-        messages.qrCameraAccessBlockedChromiumHint.message,
+        messages.qrCameraAccessBlockedChromiumHint,
       );
       expect(
         screen.getByTestId('qr-camera-chromium-hint-videocam'),
@@ -80,7 +84,7 @@ describe('CameraAccessErrorContent', () => {
 
     it('shows firefox instructions when Firefox', () => {
       const mozOrigin = 'moz-extension://abc';
-      renderWithLocalization(
+      renderComponent(
         <CameraAccessErrorContent
           variant={CameraAccessErrorContentVariant.Blocked}
           isFirefox

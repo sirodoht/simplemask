@@ -13,7 +13,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { transitionForward } from '../../../components/ui/transition';
 import { SETTINGS_ROOT_SECTIONS, SETTINGS_TABS } from '../settings-registry';
 
@@ -30,7 +30,7 @@ type SettingsRootProps = {
 };
 
 export const SettingsRoot = ({ onBeforeNavigate }: SettingsRootProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   const groupedItems = useMemo(() => {

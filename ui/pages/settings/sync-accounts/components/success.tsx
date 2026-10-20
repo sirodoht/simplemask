@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   Button,
@@ -14,7 +15,7 @@ import {
   BoxFlexDirection,
   BoxAlignItems,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 type SuccessProps = {
   onDone: () => void;
@@ -23,7 +24,7 @@ type SuccessProps = {
 };
 
 const getSuccessDescription = (
-  t: ReturnType<typeof useI18nContext>,
+  t: typeof getText,
   walletCount: number,
   importedAccountCount: number,
 ): string => {
@@ -70,7 +71,7 @@ const Success = ({
   walletCount = 2,
   importedAccountCount = 5,
 }: SuccessProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const description = getSuccessDescription(
     t,

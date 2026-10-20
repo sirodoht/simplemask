@@ -1,4 +1,5 @@
 import React from 'react';
+
 import classnames from 'clsx';
 import { type AccountGroupId } from '@metamask/account-api';
 import {
@@ -18,7 +19,7 @@ import {
   ButtonIconSize,
   ButtonIconVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { shortenAddress } from '../../../helpers/utils/util';
 import { normalizeSafeAddress } from '../../../../shared/lib/multichain/address';
 import { MultichainTriggeredAddressRowsList } from '../multichain-address-rows-triggered-list/multichain-triggered-address-rows-list';
@@ -40,7 +41,7 @@ export type MultichainAccountCellDefaultAddressProps = {
 export const MultichainAccountCellDefaultAddress = ({
   groupId,
 }: MultichainAccountCellDefaultAddressProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const {
     defaultAddress,
     defaultAddressScope,

@@ -8,7 +8,7 @@ import {
 import { type GasFeeEstimates } from '@metamask/gas-fee-controller';
 import { useSelector } from 'react-redux';
 
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useConfirmContext } from '../../context/confirm';
 import { useGasFeeEstimates } from '../../../../hooks/useGasFeeEstimates';
 import { useFeeCalculations } from '../../components/confirm/info/hooks/useFeeCalculations';
@@ -41,7 +41,7 @@ export const useGasFeeEstimateLevelOptions = ({
 }: {
   handleCloseModals: () => void;
 }): GasOption[] => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const persistGasFeePreference = usePersistGasFeePreference();
   const { currentConfirmation: transactionMeta } =

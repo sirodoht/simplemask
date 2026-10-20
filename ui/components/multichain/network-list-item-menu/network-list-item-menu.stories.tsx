@@ -6,9 +6,7 @@ import { Button } from '@metamask/design-system-react';
 import { NetworkListItemMenu } from './network-list-item-menu';
 
 const mockStore = configureStore({
-  metamask: {
-    currentLocale: 'en',
-  },
+  metamask: {},
 });
 
 const meta: Meta<typeof NetworkListItemMenu> = {

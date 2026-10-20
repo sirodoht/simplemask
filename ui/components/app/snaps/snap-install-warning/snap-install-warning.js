@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   BackgroundColor,
   IconColor,
@@ -34,7 +34,7 @@ export default function SnapInstallWarning({
   warnings,
   snapName,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const [userAgree, setUserAgree] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
 

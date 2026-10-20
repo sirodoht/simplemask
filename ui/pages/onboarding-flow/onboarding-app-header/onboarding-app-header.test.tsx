@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import type { Location as RouterLocation } from 'react-router-dom';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { ONBOARDING_COMPLETION_ROUTE } from '../../../helpers/constants/routes';
 import OnboardingAppHeader from './onboarding-app-header';
 
@@ -15,11 +16,7 @@ const mockLocation = {
 } as RouterLocation;
 
 describe('OnboardingAppHeader', () => {
-  const mockState = {
-    localeMessages: {
-      currentLocale: 'en',
-    },
-  };
+  const mockState = {};
 
   const store = configureMockStore([thunk])(mockState);
 
@@ -67,6 +64,6 @@ describe('OnboardingAppHeader', () => {
       />,
       store,
     );
-    expect(getByText(messages.pinMetaMask.message)).toBeInTheDocument();
+    expect(getByText(messages.pinMetaMask)).toBeInTheDocument();
   });
 });

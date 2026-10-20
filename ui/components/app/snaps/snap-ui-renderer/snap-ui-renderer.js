@@ -20,8 +20,8 @@ import {
   Display,
   JustifyContent,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
-import { getIntlLocale } from '../../../../ducks/locale/locale';
+import { getText } from '../../../../helpers/utils/text';
+
 import {
   mapToExtensionCompatibleColor,
   mapToTemplate,
@@ -108,8 +108,8 @@ const SnapUIRendererComponent = ({
     // `.current` when scroll fires, so the callback does not need to be recreated.
   }, []);
 
-  const t = useI18nContext();
-  const locale = useSelector(getIntlLocale);
+  const t = getText;
+  const locale = 'en';
 
   const interfaceState = useSelector(
     (state) => getInterface(state, interfaceId),

@@ -1,10 +1,11 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { Button, ButtonVariant } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 export default function CancelButton({ cancelTransaction, ...props }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Button

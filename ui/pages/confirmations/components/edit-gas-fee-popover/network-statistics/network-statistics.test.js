@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../../../store/store';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { useGasFeeEstimates } from '../../../../../hooks/useGasFeeEstimates';
 import { useConfirmContext } from '../../../context/confirm';
 import NetworkStatistics from './network-statistics';
@@ -91,7 +92,7 @@ describe('NetworkStatistics', () => {
         networkCongestion: 0.5,
       },
     });
-    expect(getByText(messages.stable.message)).toBeInTheDocument();
+    expect(getByText(messages.stable)).toBeInTheDocument();
   });
 
   it('should not render the network status slider if the network congestion is not available', () => {
@@ -128,6 +129,6 @@ describe('NetworkStatistics', () => {
     expect(mockUseGasFeeEstimates).toHaveBeenCalledWith('mainnet');
     expect(getByText('50 GWEI')).toBeInTheDocument();
     expect(getByText('1 - 3 GWEI')).toBeInTheDocument();
-    expect(getByText(messages.stable.message)).toBeInTheDocument();
+    expect(getByText(messages.stable)).toBeInTheDocument();
   });
 });

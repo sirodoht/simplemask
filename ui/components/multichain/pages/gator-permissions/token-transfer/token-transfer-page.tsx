@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Hex } from '@metamask/utils';
@@ -12,11 +13,8 @@ import {
   IconColor,
 } from '@metamask/design-system-react';
 import { Content, Header, Page } from '../../page';
-import {
-  BackgroundColor,
-  TextVariant as TextVariantLocal,
-} from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { BackgroundColor } from '../../../../../helpers/constants/design-system';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   PREVIOUS_ROUTE,
   REVIEW_GATOR_PERMISSIONS_ROUTE,
@@ -30,7 +28,7 @@ import {
 import { safeDecodeURIComponent } from '../helper';
 
 export const TokenTransferPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const urlParams = useParams<{ origin?: string }>();
   const origin = urlParams.origin

@@ -13,7 +13,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import * as URI from 'uri-js';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useNetworkFormState } from '../networks-form/networks-form-state';
 import {
   getEditedNetwork,
@@ -30,7 +30,7 @@ import { useNetworkManagerInitialTab } from './hooks/useNetworkManagerState';
 
 export const NetworkManager = () => {
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
   const [searchParams, setSearchParams] = useSearchParams();
   const view = searchParams.get('view') ?? '';
 

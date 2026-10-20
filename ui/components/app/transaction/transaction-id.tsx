@@ -1,4 +1,5 @@
 import React from 'react';
+
 import classnames from 'clsx';
 import {
   Icon,
@@ -7,11 +8,10 @@ import {
   IconSize,
   Text,
   TextColor,
-  TextVariant,
   FontWeight,
 } from '@metamask/design-system-react';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { shortenAddress } from '../../../helpers/utils/util';
 
 type TransactionIdProps = {
@@ -19,7 +19,7 @@ type TransactionIdProps = {
 };
 
 export function TransactionId({ value }: TransactionIdProps) {
-  const t = useI18nContext();
+  const t = getText;
   const [copied, handleCopy] = useCopyToClipboard();
 
   if (!value) {

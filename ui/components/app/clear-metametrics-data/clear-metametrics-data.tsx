@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -9,7 +10,7 @@ import {
   hideDeleteMetaMetricsDataModal,
   openDataDeletionErrorModal,
 } from '../../../ducks/app/app';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   Button,
   ButtonSize,
@@ -42,7 +43,7 @@ export default function ClearMetaMetricsData({
 }: {
   onDeletionSuccess?: () => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
 

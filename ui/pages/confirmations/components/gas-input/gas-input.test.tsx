@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { CHAIN_IDS } from '@metamask/transaction-controller';
 import { Hex } from '@metamask/utils';
 import configureStore from '../../../../store/store';
 import { renderWithConfirmContextProvider } from '../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { getMockConfirmStateForTransaction } from '../../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../test/data/confirmations/contract-interaction';
 import { GasInput } from './gas-input';
@@ -54,7 +55,7 @@ describe('GasInput', () => {
     const { getByTestId, getByText } = render();
 
     expect(getByTestId('gas-input')).toBeInTheDocument();
-    expect(getByText(messages.gasLimit.message)).toBeInTheDocument();
+    expect(getByText(messages.gasLimit)).toBeInTheDocument();
   });
 
   it('uses numeric input mode without number input behavior', () => {
@@ -81,14 +82,14 @@ describe('GasInput', () => {
   it('disables editing and describes why the estimate is unavailable', () => {
     const { getByTestId, getByText } = render({
       gasLimit: undefined,
-      helpText: messages.gasLimitEditingUnavailable.message,
+      helpText: messages.gasLimitEditingUnavailable,
       isDisabled: true,
     });
 
     const input = getByTestId('gas-input').querySelector(
       'input',
     ) as HTMLInputElement;
-    const helpText = getByText(messages.gasLimitEditingUnavailable.message);
+    const helpText = getByText(messages.gasLimitEditingUnavailable);
 
     expect(input).toBeDisabled();
     expect(input).toHaveAttribute('aria-describedby', helpText.id);

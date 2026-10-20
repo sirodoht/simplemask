@@ -8,7 +8,7 @@ import {
   toast,
   ToastContent,
 } from '../../../../../../../components/ui/toast/toast';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useTransactionMetadataRequestOptional } from '../../../../../hooks/transactions/useTransactionMetadataRequest';
 import { TokenIcon } from '../../../../token-icon';
 import {
@@ -20,7 +20,7 @@ const TOAST_ID = 'gas-fee-token-toast';
 const TOAST_DURATION = 5 * SECOND;
 
 export function GasFeeTokenToast() {
-  const t = useI18nContext();
+  const t = getText;
   const chainId = useTransactionMetadataRequestOptional()?.chainId;
 
   const nativeGasFeeToken = useGasFeeToken({

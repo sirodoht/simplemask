@@ -21,7 +21,7 @@ import {
   IconColor,
   JustifyContent,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../context/confirm';
 import { PAY_TRANSACTION_TYPES } from '../../../constants/pay';
 import { SEND_TRANSACTION_TYPES } from '../../../constants/send';
@@ -29,7 +29,7 @@ import { useConfirmActions } from '../../../hooks/useConfirmActions';
 import { AdvancedDetailsButton } from './advanced-details-button';
 
 export const WalletInitiatedHeader = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { onCancel } = useConfirmActions();
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
 

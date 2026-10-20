@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { CopyParams } from '../multichain-address-row/multichain-address-row';
 import { MultichainAggregatedAddressListRow } from './multichain-aggregated-list-row';
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => {
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: (key: string) => {
     if (key === 'networkNameEthereum') {
       return 'Ethereum';
     }

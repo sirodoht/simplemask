@@ -29,7 +29,6 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup
       - run: yarn lint
-      - run: yarn verify-locales --quiet
       - run: yarn circular-deps:check
       - run: yarn legacy-background-api:check
       - run: yarn messenger-action-types:check

@@ -16,7 +16,7 @@ import {
   ButtonSize,
   twMerge,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { getCurrentChainId } from '../../../../shared/lib/selectors/networks';
 import { getMultichainCurrentNetwork } from '../../../selectors/multichain';
@@ -26,7 +26,6 @@ import {
 } from '../../../../shared/constants/metametrics';
 
 import { ORIGIN_METAMASK } from '../../../../shared/constants/app';
-import { getCurrentLocale } from '../../../ducks/locale/locale';
 
 import { FundingMethodModal } from '../../multichain/funding-method-modal/funding-method-modal';
 
@@ -49,9 +48,9 @@ export const BalanceEmptyState = ({
   onClickReceive,
   ...props
 }: BalanceEmptyStateProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
-  const currentLocale = useSelector(getCurrentLocale);
+  const currentLocale = 'en';
   const chainId = useSelector(getCurrentChainId);
   const { nickname } = useSelector(getMultichainCurrentNetwork);
 

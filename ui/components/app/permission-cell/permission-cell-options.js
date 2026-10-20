@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '../../ui/box';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   IconName,
   ButtonIcon,
@@ -25,7 +25,7 @@ export const PermissionCellOptions = ({
   permissionName,
   description,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const [anchorElement, setAnchorElement] = useState(null);
   const setAnchorRef = useCallback((node) => {

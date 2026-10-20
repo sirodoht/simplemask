@@ -16,7 +16,7 @@ import {
   HeaderSubpage,
 } from '@metamask/design-system-react';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { shortenAddress } from '../../../helpers/utils/util';
 
 type AssetPageHeaderProps = {
@@ -47,7 +47,7 @@ type AssetPageHeaderProps = {
  * @returns The rendered copy control
  */
 const AssetPageHeaderAddress = ({ address }: { address: string }) => {
-  const t = useI18nContext();
+  const t = getText;
   // useCopyToClipboard analysis: Copies a public token contract address
   const [copied, handleCopy] = useCopyToClipboard();
 
@@ -105,7 +105,7 @@ export const AssetPageHeader = ({
   endAccessory,
   onBack,
 }: AssetPageHeaderProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const avatar = useMemo(
     () => (

@@ -10,7 +10,7 @@ import {
   Button,
   BoxFlexDirection,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { getAccountTree } from '../../../../selectors/multichain-accounts/account-tree';
 import { ScrollContainer } from '../../../../contexts/scroll-container';
 import type { AddDeviceSyncRequest } from '../types';
@@ -22,7 +22,7 @@ type AddWalletsProps = {
 };
 
 const AddWallets = ({ onAddWallets }: AddWalletsProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { wallets } = useSelector(getAccountTree);
 
   const syncableWallets = useMemo(

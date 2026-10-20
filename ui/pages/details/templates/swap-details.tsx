@@ -1,6 +1,7 @@
 import React from 'react';
+
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { FeesRows, TotalAmountRow } from '../components/amounts-section';
 import { Footer, Section } from '../components/shared';
 import { BlockExplorerButton } from '../components/block-explorer-button';
@@ -23,7 +24,7 @@ export function SwapDetails({
     }
   >;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <div className="flex grow flex-col">

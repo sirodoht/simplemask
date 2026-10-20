@@ -5,13 +5,13 @@ import {
   ButtonIconSize,
   IconName,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { useTransactionEventFragment } from '../../../../../hooks/useTransactionEventFragment';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { useGasFeeModalContext } from '../../../../../context/gas-fee-modal';
 
 export const EditGasIconButton = (): JSX.Element => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
   const { updateTransactionEventFragment } = useTransactionEventFragment();

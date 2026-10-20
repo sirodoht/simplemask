@@ -1,5 +1,6 @@
-import { screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import { screen, waitFor } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import { useParams } from 'react-router-dom';
 import {
@@ -20,7 +21,7 @@ import { useAssetDetails } from '../../../hooks/useAssetDetails';
 import { useEnabledAdvancedPermissions } from '../../../../../hooks/gator-permissions/useEnabledAdvancedPermissions';
 import { DEFAULT_ROUTE } from '../../../../../helpers/constants/routes';
 import { ConfirmationLoader } from '../../../hooks/useConfirmationNavigation';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import Info from './info';
 
 jest.mock('../../simulation-details/useBalanceChanges', () => ({
@@ -239,7 +240,7 @@ describe('Info', () => {
     const { container } = renderWithConfirmContextProvider(<Info />, mockStore);
 
     await waitFor(() => {
-      expect(screen.getByText(messages.speed.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.speed)).toBeInTheDocument();
       // useIsNFT pending renders Container loader (advanced-details-data-section);
       // wait for the settled simulation before snapshotting.
       expect(
@@ -256,7 +257,7 @@ describe('Info', () => {
     const { container } = renderWithConfirmContextProvider(<Info />, mockStore);
 
     await waitFor(() => {
-      expect(screen.getByText(messages.speed.message)).toBeInTheDocument();
+      expect(screen.getByText(messages.speed)).toBeInTheDocument();
       expect(
         screen.getByTestId('confirmation__simulation_section'),
       ).toBeInTheDocument();
@@ -312,7 +313,7 @@ describe('Info', () => {
       ).toBeInTheDocument();
     });
 
-    it('renders CustomAmountInfoSkeleton when loader is CustomAmount', () => {
+    it('falls back to InfoSkeleton for the retired CustomAmount loader', () => {
       mockUseConfirmationNavigationOptions.mockReturnValue({
         loader: ConfirmationLoader.CustomAmount,
       });
@@ -322,7 +323,7 @@ describe('Info', () => {
       renderWithConfirmContextProvider(<Info />, mockStore);
 
       expect(
-        screen.getByTestId('custom-amount-info-skeleton'),
+        screen.getByTestId('confirmation__info_skeleton'),
       ).toBeInTheDocument();
     });
 

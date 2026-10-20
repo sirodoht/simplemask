@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { isValidAddress } from 'ethereumjs-util';
 
 import { isSnapId } from '@metamask/snaps-utils';
@@ -12,7 +13,7 @@ import {
   ConfirmInfoRowUrl,
 } from '../../../../../../components/app/confirm/info/row';
 import { ConfirmInfoSection } from '../../../../../../components/app/confirm/info/row/section';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { SignatureRequestType } from '../../../../types/confirm';
 import { useGetTokenStandardAndDetails } from '../../../../hooks/useGetTokenStandardAndDetails';
 import {
@@ -50,7 +51,7 @@ const useTokenContract = () => {
 };
 
 const TypedSignInfo = () => {
-  const t = useI18nContext();
+  const t = getText;
   const isSimulationSupported = useTypesSignSimulationEnabledInfo();
   const { tokenContract, verifyingContract, spender, isPermit, chainId } =
     useTokenContract();

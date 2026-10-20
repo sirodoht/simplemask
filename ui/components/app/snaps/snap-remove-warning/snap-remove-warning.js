@@ -1,6 +1,7 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   Text,
   Box,
@@ -25,7 +26,7 @@ export default function SnapRemoveWarning({
   onSubmit,
   snapName,
 }) {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Modal isOpen={isOpen} onClose={onCancel}>
       <ModalOverlay />

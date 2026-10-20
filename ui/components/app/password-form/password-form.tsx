@@ -5,7 +5,7 @@ import {
   FormTextFieldSize,
   InputType,
 } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { PASSWORD_MIN_LENGTH } from '../../../helpers/constants/common';
 
 type PasswordFormProps = {
@@ -32,7 +32,7 @@ export default function PasswordForm({
   confirmPwdInputTestId,
   disabled = false,
 }: PasswordFormProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

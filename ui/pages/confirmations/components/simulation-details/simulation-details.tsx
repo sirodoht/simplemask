@@ -40,7 +40,7 @@ import {
   TextVariant,
 } from '../../../../helpers/constants/design-system';
 import useAlerts from '../../../../hooks/useAlerts';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { selectTransactionMetadata } from '../../../../selectors';
 import { BalanceChangeList } from './balance-change-list';
 import { BalanceChange } from './types';
@@ -69,7 +69,7 @@ export type SimulationDetailsProps = {
  * @param props.error
  */
 const ErrorContent = ({ error }: { error: SimulationError }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   function getMessage() {
     return error.code === SimulationErrorCode.Reverted
@@ -100,7 +100,7 @@ const ErrorContent = ({ error }: { error: SimulationError }) => {
  * Content when there are no balance changes.
  */
 const EmptyContent = () => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Text
       color={TextColor.textDefault}
@@ -122,7 +122,7 @@ const Header = ({
   titleTooltip?: string;
   transactionId: string;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const transactionMetadata = useSelector((state) =>
     selectTransactionMetadata(state, transactionId),
@@ -166,7 +166,7 @@ const Header = ({
 };
 
 const LegacyHeader = () => {
-  const t = useI18nContext();
+  const t = getText;
   return (
     <Box
       display={Display.Flex}
@@ -434,7 +434,7 @@ export const SimulationDetails = ({
   staticRows = [],
   smartTransactionStatus,
 }: SimulationDetailsProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { chainId, id: transactionId, simulationData } = transaction;
   const balanceChangesResult = useBalanceChanges({ chainId, simulationData });
   const loading = !simulationData || balanceChangesResult.pending;

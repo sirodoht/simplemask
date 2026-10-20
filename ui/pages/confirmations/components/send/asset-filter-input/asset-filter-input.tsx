@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextFieldSearch } from '@metamask/design-system-react';
 import { Box } from '../../../../../components/component-library';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 type AssetFilterInputProps = {
   searchQuery: string;
@@ -14,7 +14,7 @@ export const AssetFilterInput = ({
   onChange,
   placeholder,
 }: AssetFilterInputProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box paddingLeft={4} paddingRight={4} paddingBottom={2}>

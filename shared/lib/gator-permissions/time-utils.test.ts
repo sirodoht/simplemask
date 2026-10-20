@@ -14,7 +14,7 @@ import {
   convertMillisecondsToSeconds,
   convertTimestampToReadableDate,
   extractExpiryTimestampFromRules,
-  getPeriodFrequencyValueTranslationKey,
+  getPeriodFrequencyValueTextKey,
 } from './time-utils';
 
 describe('time-utils', () => {
@@ -28,39 +28,39 @@ describe('time-utils', () => {
     Settings.defaultZone = 'system';
   });
 
-  describe('getPeriodFrequencyValueTranslationKey', () => {
+  describe('getPeriodFrequencyValueTextKey', () => {
     it('returns daily frequency for 1 day period', () => {
-      const result = getPeriodFrequencyValueTranslationKey(DAY / SECOND);
+      const result = getPeriodFrequencyValueTextKey(DAY / SECOND);
       expect(result).toBe('gatorPermissionDailyFrequency');
     });
 
     it('returns weekly frequency for 1 week period', () => {
-      const result = getPeriodFrequencyValueTranslationKey(WEEK / SECOND);
+      const result = getPeriodFrequencyValueTextKey(WEEK / SECOND);
       expect(result).toBe('gatorPermissionWeeklyFrequency');
     });
 
     it('returns fortnightly frequency for 2 weeks period', () => {
-      const result = getPeriodFrequencyValueTranslationKey(FORTNIGHT / SECOND);
+      const result = getPeriodFrequencyValueTextKey(FORTNIGHT / SECOND);
       expect(result).toBe('gatorPermissionFortnightlyFrequency');
     });
 
     it('returns monthly frequency for 1 month period', () => {
-      const result = getPeriodFrequencyValueTranslationKey(MONTH / SECOND);
+      const result = getPeriodFrequencyValueTextKey(MONTH / SECOND);
       expect(result).toBe('gatorPermissionMonthlyFrequency');
     });
 
     it('returns annual frequency for 1 year period', () => {
-      const result = getPeriodFrequencyValueTranslationKey(YEAR / SECOND);
+      const result = getPeriodFrequencyValueTextKey(YEAR / SECOND);
       expect(result).toBe('gatorPermissionAnnualFrequency');
     });
 
     it('returns custom frequency for arbitrary period', () => {
-      const result = getPeriodFrequencyValueTranslationKey(123456);
+      const result = getPeriodFrequencyValueTextKey(123456);
       expect(result).toBe('gatorPermissionCustomFrequency');
     });
 
     it('returns custom frequency for zero period', () => {
-      const result = getPeriodFrequencyValueTranslationKey(0);
+      const result = getPeriodFrequencyValueTextKey(0);
       expect(result).toBe('gatorPermissionCustomFrequency');
     });
   });

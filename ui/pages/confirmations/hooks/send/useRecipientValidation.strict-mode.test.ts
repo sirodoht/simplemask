@@ -5,20 +5,20 @@ import { waitFor } from '@testing-library/react';
 import mockState from '../../../../../test/data/mock-state.json';
 import { EVM_ASSET } from '../../../../../test/data/send/assets';
 import { renderHookWithProvider } from '../../../../../test/lib/render-helpers-navigate';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { useSendContext } from '../../context/send';
 import * as NameValidation from './useNameValidation';
 import { useSendType } from './useSendType';
 import { useRecipientValidation } from './useRecipientValidation';
 import { useSendAlerts } from './alerts/useSendAlerts';
 
-jest.mock('../../../../hooks/useI18nContext');
+jest.mock('../../../../helpers/utils/text');
 jest.mock('../../context/send');
 jest.mock('./useSendType');
 jest.mock('./alerts/useSendAlerts');
 
 describe('useRecipientValidation under StrictMode', () => {
-  const mockUseI18nContext = jest.mocked(useI18nContext);
+  const mockGetText = jest.mocked(getText);
   const mockUseSendContext = jest.mocked(useSendContext);
   const mockUseSendType = jest.mocked(useSendType);
   const mockUseSendAlerts = jest.mocked(useSendAlerts);
@@ -26,7 +26,7 @@ describe('useRecipientValidation under StrictMode', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useRealTimers();
-    mockUseI18nContext.mockReturnValue((key: string) => key);
+    mockGetText.mockImplementation((key: string) => key);
     mockUseSendAlerts.mockReturnValue({
       alerts: [],
       hasUnacknowledgedAlerts: false,

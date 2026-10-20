@@ -17,7 +17,7 @@ import {
 import { BlockExplorerButton } from '../components/block-explorer-button';
 import { Footer, Row, Section } from '../components/shared';
 import { TokensSection } from '../components/sections';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useFormatters } from '../../../hooks/useFormatters';
 import { useDestinationToken } from './helpers';
 
@@ -31,7 +31,7 @@ export function PerpsDetails({
 }: {
   item: Extract<ActivityListItem, { type: 'perpsAddFunds' | 'perpsWithdraw' }>;
 }) {
-  const t = useI18nContext();
+  const t = getText;
   const { formatDateTime, formatCurrencyWithMinThreshold } = useFormatters();
   const transactionMeta = useLocalTransactionMeta(item.hash);
   const { metamaskPay } = transactionMeta || {};

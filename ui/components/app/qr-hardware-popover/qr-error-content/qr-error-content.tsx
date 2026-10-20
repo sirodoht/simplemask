@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -16,7 +17,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
 import type { QrErrorContentProps } from './qr-error-content.types';
 import { resolveErrorCopy, rootTestId } from './qr-error-content.utils';
@@ -24,7 +25,7 @@ import { resolveErrorCopy, rootTestId } from './qr-error-content.utils';
 /**
  * Presentational component for QR scan and decode error states.
  *
- * Renders localized title and body copy based on `errorType` and
+ * Renders English title and body copy based on `errorType` and
  * `flowContext`, plus "Learn more" and "Try again" action buttons.
  *
  * @param options0 - Component props.
@@ -37,7 +38,7 @@ export const QrErrorContent = ({
   flowContext,
   onTryAgain,
 }: QrErrorContentProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { title, body } = resolveErrorCopy(errorType, flowContext, t);
 
   const handleLearnMore = () => {

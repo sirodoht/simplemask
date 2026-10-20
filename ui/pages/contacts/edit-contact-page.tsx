@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -8,7 +9,7 @@ import {
 } from '@metamask/design-system-react';
 import type { Hex } from '@metamask/utils';
 import { Content, Header, Page } from '../../components/multichain/pages/page';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import {
   CONTACTS_ROUTE,
   DEFAULT_ROUTE,
@@ -22,7 +23,7 @@ import {
 import { EditContactForm } from './components/edit-contact-form';
 
 export function EditContactPage() {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const { chainId, address } = useParams<{
     chainId: string;

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import type { InternalAccount } from '@metamask/keyring-internal-api';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { shortenAddress } from '../../../helpers/utils/util';
 
@@ -23,7 +23,7 @@ type SelectedAccountProps = {
 };
 
 function SelectedAccount({ selectedAccount }: SelectedAccountProps) {
-  const t = useI18nContext();
+  const t = getText;
   const [copied, copyToClipboard] = useCopyToClipboard();
 
   const checksummedAddress = toChecksumHexAddress(selectedAccount.address);

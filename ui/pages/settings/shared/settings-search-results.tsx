@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxFlexDirection,
@@ -13,7 +14,7 @@ import {
   IconName,
 } from '@metamask/design-system-react';
 import { REQUEST_SETTING_URL } from '../../../../shared/lib/ui-utils';
-import { useSettingsI18n } from '../useSettingsI18n';
+import { useSettingsText } from '../useSettingsText';
 import type { SettingsSearchResult } from '../useSettingsSearch';
 import { Divider } from './divider';
 
@@ -26,7 +27,7 @@ export const SettingsSearchResults = ({
   results,
   onClickResult,
 }: SettingsSearchResultsProps) => {
-  const t = useSettingsI18n();
+  const t = useSettingsText();
 
   return (
     <Box

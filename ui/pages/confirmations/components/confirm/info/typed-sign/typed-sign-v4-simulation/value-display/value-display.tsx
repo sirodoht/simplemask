@@ -19,7 +19,7 @@ import {
   TextAlign,
 } from '../../../../../../../../helpers/constants/design-system';
 import { shortenString } from '../../../../../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../../helpers/utils/text';
 import { useGetTokenStandardAndDetails } from '../../../../../../hooks/useGetTokenStandardAndDetails';
 import useTrackERC20WithoutDecimalInformation from '../../../../../../hooks/useTrackERC20WithoutDecimalInformation';
 import { TokenDetailsERC20 } from '../../../../../../utils/token';
@@ -77,7 +77,7 @@ const PermitSimulationValueDisplay = ({
   debit,
   canDisplayValueAsUnlimited,
 }: PermitSimulationValueDisplayParams) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const exchangeRate = useTokenExchangeRate(tokenContract, chainId);
 

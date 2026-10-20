@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { toEvmCaipChainId } from '@metamask/multichain-network-controller';
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
@@ -8,7 +9,7 @@ import {
   PERPS_CURRENCY,
   // eslint-disable-next-line import-x/no-restricted-paths
 } from '../../confirmations/constants/perps';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useFormatters } from '../../../hooks/useFormatters';
 import { MmPayDetailsLayout } from './mm-pay-details-layout';
 
@@ -22,7 +23,7 @@ type Props = {
 };
 
 export function PerpsDepositDetails({ item }: Readonly<Props>) {
-  const t = useI18nContext();
+  const t = getText;
   const { formatCurrencyWithMinThreshold } = useFormatters();
   const transactionMeta = useLocalTransactionMeta(item.hash);
   const { metamaskPay } = transactionMeta ?? {};

@@ -1,6 +1,9 @@
+import {
+  render as renderComponent,
+  fireEvent,
+  screen,
+} from '@testing-library/react';
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
-import { renderWithLocalization } from '../../../../test/lib/render-helpers';
 
 import { DisconnectAllModal } from '.';
 
@@ -14,7 +17,7 @@ describe('DisconnectAllModal', () => {
   };
 
   const renderModal = (props = {}) => {
-    return renderWithLocalization(<DisconnectAllModal {...args} {...props} />);
+    return renderComponent(<DisconnectAllModal {...args} {...props} />);
   };
 
   beforeEach(() => {

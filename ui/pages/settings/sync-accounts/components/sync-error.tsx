@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -16,7 +17,7 @@ import {
   BoxFlexDirection,
   BoxAlignItems,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { selectQrSyncError } from '../../../../selectors/qr-sync/qr-sync';
 import { QrSyncErrorCodes } from '../../../../../shared/constants/qr-sync';
 
@@ -40,7 +41,7 @@ const ERROR_CODE_TO_MESSAGE_KEY: Partial<Record<QrSyncErrorCode, string>> = {
 };
 
 const SyncError = ({ onRetry, onCancel }: SyncErrorProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const qrSyncError = useSelector(selectQrSyncError);
 
   const messageKey = qrSyncError

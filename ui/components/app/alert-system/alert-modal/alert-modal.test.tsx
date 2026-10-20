@@ -1,5 +1,6 @@
-import { fireEvent } from '@testing-library/react';
 import React from 'react';
+import { fireEvent } from '@testing-library/react';
+
 import configureMockStore from 'redux-mock-store';
 import {
   BlockaidReason,
@@ -7,9 +8,9 @@ import {
 } from '../../../../../shared/constants/security-provider';
 import mockState from '../../../../../test/data/mock-state.json';
 import {
-  tEn,
-  enLocale as messages,
-} from '../../../../../test/lib/i18n-helpers';
+  getText as tEn,
+  englishText as messages,
+} from '../../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import { Alert } from '../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../helpers/constants/design-system';
@@ -264,7 +265,7 @@ describe('AlertModal', () => {
       mockStore,
     );
 
-    fireEvent.click(getByLabelText(messages.close.message));
+    fireEvent.click(getByLabelText(messages.close));
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 

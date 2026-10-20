@@ -1,46 +1,11 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { act, render } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import PropTypes from 'prop-types';
 import { noop } from 'lodash';
-import { I18nContext } from '../../ui/contexts/i18n';
-import { getMessage } from '../../ui/helpers/utils/i18n-helper';
-import * as en from '../../app/_locales/en/messages.json';
+
 import { setupInitialStore, connectToBackground } from '../../ui';
 import Root from '../../ui/pages';
 import { createUIMessenger } from '../../ui/messengers/ui-messenger';
-
-/** @type {import('react').FC<{ currentLocale?: string; current?: object; en?: object; children?: import('react').ReactNode }>} */
-export const I18nProvider = ({ currentLocale, current, en: eng, children }) => {
-  const t = useMemo(() => {
-    return (key, ...args) =>
-      getMessage(currentLocale, current, key, ...args) ||
-      getMessage(currentLocale, eng, key, ...args);
-  }, [currentLocale, current, eng]);
-
-  return <I18nContext.Provider value={t}>{children}</I18nContext.Provider>;
-};
-
-I18nProvider.propTypes = {
-  currentLocale: PropTypes.string,
-  current: PropTypes.object,
-  en: PropTypes.object,
-  children: PropTypes.node,
-};
-
-export function renderWithLocalization(component) {
-  const Wrapper = ({ children }) => (
-    <I18nProvider currentLocale="en" current={en} en={en}>
-      {children}
-    </I18nProvider>
-  );
-
-  Wrapper.propTypes = {
-    children: PropTypes.node,
-  };
-
-  return render(component, { wrapper: Wrapper });
-}
 
 export function renderControlledInput(InputComponent, props) {
   const ControlledWrapper = () => {

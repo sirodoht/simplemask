@@ -9,7 +9,7 @@ import {
   JustifyContent,
   IconColor,
 } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getAvatarFallbackLetter } from '../../../helpers/utils/util';
 import { PolymorphicRef } from '../box';
 import {
@@ -20,7 +20,7 @@ import {
 
 const Favicon = (props: { src?: string; name: string }) => {
   const { src, name } = props;
-  const t = useI18nContext();
+  const t = getText;
   const [imageLoadError, setImageLoadError] = useState(false);
   const [prevSrc, setPrevSrc] = useState(src);
 

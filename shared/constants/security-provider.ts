@@ -10,7 +10,7 @@ export enum SecurityProvider {
 type SecurityProviderConfig = Record<
   SecurityProvider,
   {
-    /** translation key for security provider name */
+    /** text key for security provider name */
     readonly tKeyName: string;
     /** URL to security provider website */
     readonly url: string;

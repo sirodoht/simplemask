@@ -21,7 +21,7 @@ import {
   AlignItems,
   JustifyContent,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { type Asset } from '../../../types/send';
 import { useNavigateSendPage } from '../../../hooks/send/useNavigateSendPage';
 import { useAssetSelectionMetrics } from '../../../hooks/send/metrics/useAssetSelectionMetrics';
@@ -59,7 +59,7 @@ export const AssetList = ({
   tagRenderers,
   endRenderers,
 }: AssetListProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const scrollContainerRef = useScrollContainer();
   const { goToAmountRecipientPage } = useNavigateSendPage();
   // Use context directly so catalog pickers (e.g. ramps) can reuse this list

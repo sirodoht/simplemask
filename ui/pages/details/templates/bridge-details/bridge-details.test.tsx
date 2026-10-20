@@ -9,8 +9,8 @@ jest.mock('react-redux', () => ({
   useSelector: (selector: (state: unknown) => unknown) => selector({}),
 }));
 
-jest.mock('../../../../hooks/useI18nContext', () => ({
-  useI18nContext: () => (key: string) => key,
+jest.mock('../../../../helpers/utils/text', () => ({
+  getText: (key: string) => key,
 }));
 
 jest.mock('../../../../hooks/useFormatters', () => ({

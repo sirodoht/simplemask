@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { useSelector } from 'react-redux';
-import { getIntlLocale } from '../../ducks/locale/locale';
+
 import { getCurrentCurrency } from '../../ducks/metamask/metamask';
 import { selectBalanceByWallet } from '../../selectors/assets';
 import {
@@ -11,12 +11,10 @@ import {
 jest.mock('react-redux');
 jest.mock('../../selectors/assets');
 jest.mock('../../ducks/metamask/metamask');
-jest.mock('../../ducks/locale/locale');
 
 const mockUseSelector = jest.mocked(useSelector);
 const mockSelectBalanceByWallet = jest.mocked(selectBalanceByWallet);
 const mockGetCurrentCurrency = jest.mocked(getCurrentCurrency);
-const mockGetIntlLocale = jest.mocked(getIntlLocale);
 
 // type utility for testing purposes only
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,7 +30,6 @@ describe('useSingleWalletDisplayBalance', () => {
   const arrange = (walletBalance = createMockWalletBalance()) => {
     mockSelectBalanceByWallet.mockReturnValue(walletBalance as MockVar);
     mockGetCurrentCurrency.mockReturnValue('USD');
-    mockGetIntlLocale.mockReturnValue('en-US');
 
     mockUseSelector.mockImplementation((selector) => {
       const mockStore = {} as MockVar;
@@ -42,9 +39,7 @@ describe('useSingleWalletDisplayBalance', () => {
       if (selector === getCurrentCurrency) {
         return mockGetCurrentCurrency(mockStore);
       }
-      if (selector === getIntlLocale) {
-        return mockGetIntlLocale(mockStore);
-      }
+
       throw new Error(`unmocked selector called: ${selector.name}`);
     });
 
@@ -130,7 +125,6 @@ describe('useSingleWalletAccountsBalanceCallback', () => {
   const arrange = (walletBalance = createMockWalletBalance()) => {
     mockSelectBalanceByWallet.mockReturnValue(walletBalance as MockVar);
     mockGetCurrentCurrency.mockReturnValue('USD');
-    mockGetIntlLocale.mockReturnValue('en-US');
 
     mockUseSelector.mockImplementation((selector) => {
       const mockStore = {} as MockVar;
@@ -140,9 +134,7 @@ describe('useSingleWalletAccountsBalanceCallback', () => {
       if (selector === getCurrentCurrency) {
         return mockGetCurrentCurrency(mockStore);
       }
-      if (selector === getIntlLocale) {
-        return mockGetIntlLocale(mockStore);
-      }
+
       throw new Error(`unmocked selector called: ${selector.name}`);
     });
 

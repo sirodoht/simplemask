@@ -16,7 +16,7 @@ import {
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
 import { getSendHexDataFeatureFlagState } from '../../../../../ducks/metamask/metamask';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useSendContext } from '../../../context/send';
 import { useSendType } from '../../../hooks/send/useSendType';
 
@@ -25,7 +25,7 @@ export const HexData = ({
 }: {
   setHexDataError: (str?: string) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { asset, hexData, updateHexData } = useSendContext();
   const [hexDataError, setHexDataErrorLocal] = useState<string>();
   const { isEvmSendType } = useSendType();

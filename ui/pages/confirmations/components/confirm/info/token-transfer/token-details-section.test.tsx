@@ -1,5 +1,6 @@
-import { TransactionMeta } from '@metamask/transaction-controller';
 import React from 'react';
+import { TransactionMeta } from '@metamask/transaction-controller';
+
 import configureMockStore from 'redux-mock-store';
 import {
   getMockConfirmStateForTransaction,
@@ -7,7 +8,7 @@ import {
 } from '../../../../../../../test/data/confirmations/helper';
 import { genUnapprovedTokenTransferConfirmation } from '../../../../../../../test/data/confirmations/token-transfer';
 import { renderWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import { TokenDetailsSection } from './token-details-section';
 
 jest.mock(
@@ -37,9 +38,9 @@ describe('TokenDetailsSection', () => {
       <TokenDetailsSection />,
       mockStore,
     );
-    expect(getByText(messages.network.message)).toBeInTheDocument();
-    expect(getByText(messages.networkNameGoerli.message)).toBeInTheDocument();
-    expect(getByText(messages.interactingWith.message)).toBeInTheDocument();
+    expect(getByText(messages.network)).toBeInTheDocument();
+    expect(getByText(messages.networkNameGoerli)).toBeInTheDocument();
+    expect(getByText(messages.interactingWith)).toBeInTheDocument();
   });
 
   it('renders the original interacting-with address when the transaction is wrapped', () => {

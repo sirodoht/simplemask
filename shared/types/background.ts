@@ -227,7 +227,6 @@ export type ControllerStatePropertiesEnumerated = {
   addSnapAccountEnabled?: PreferencesControllerState['addSnapAccountEnabled'];
   advancedGasFee: PreferencesControllerState['advancedGasFee'];
   knownMethodData: PreferencesControllerState['knownMethodData'];
-  currentLocale: PreferencesControllerState['currentLocale'];
   forgottenPassword: PreferencesControllerState['forgottenPassword'];
   preferences: PreferencesControllerState['preferences'];
   useAddressBarEnsResolution: PreferencesControllerState['useAddressBarEnsResolution'];
@@ -237,7 +236,6 @@ export type ControllerStatePropertiesEnumerated = {
   snapsAddSnapAccountModalDismissed?: PreferencesControllerState['snapsAddSnapAccountModalDismissed'];
   useExternalNameSources: PreferencesControllerState['useExternalNameSources'];
   useExternalServices: PreferencesControllerState['useExternalServices'];
-  textDirection?: PreferencesControllerState['textDirection'];
   manageInstitutionalWallets: PreferencesControllerState['manageInstitutionalWallets'];
   remoteFeatureFlags: RemoteFeatureFlagControllerState['remoteFeatureFlags'];
   cacheTimestamp: RemoteFeatureFlagControllerState['cacheTimestamp'];

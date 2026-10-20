@@ -19,7 +19,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { getSnapName, shortenAddress } from '../../../helpers/utils/util';
 
 import { AccountListItemMenu } from '../account-list-item-menu';
@@ -83,7 +83,7 @@ const AccountListItem = ({
   privacyMode = false,
   showAccountLabels = true,
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const hdEntropyIndex = useSelector(getHDEntropyIndex);
   const [accountOptionsMenuOpen, setAccountOptionsMenuOpen] = useState(false);

@@ -23,7 +23,7 @@ import {
 import { PermissionInfoWithMetadata } from '@metamask/gator-permissions-controller';
 import { Content, Header, Page } from '../../page';
 import { BackgroundColor } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import {
   extractNetworkName,
   getDisplayOrigin,
@@ -43,7 +43,7 @@ import {
 import { PREVIOUS_ROUTE } from '../../../../../helpers/constants/routes';
 
 export const ReviewGatorPermissionsPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const { chainId, origin } = useParams<{
     chainId: string;
@@ -93,7 +93,7 @@ export const ReviewGatorPermissionsPage = () => {
     const networkNameKey = extractNetworkName(evmNetworks, chainId as Hex);
     const networkNameFromTranslation: string = t(networkNameKey);
 
-    // If the translation key doesn't exist (returns the same key), fall back to the full network name
+    // If the text key doesn't exist (returns the same key), fall back to the full network name
     if (
       !networkNameFromTranslation ||
       networkNameFromTranslation === networkNameKey

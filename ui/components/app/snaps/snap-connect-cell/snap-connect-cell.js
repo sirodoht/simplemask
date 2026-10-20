@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
@@ -16,12 +17,12 @@ import {
   Text,
 } from '../../../component-library';
 import Tooltip from '../../../ui/tooltip/tooltip';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { getSnapMetadata } from '../../../../selectors';
 import { SnapIcon } from '../snap-icon';
 
 export default function SnapConnectCell({ origin, snapId }) {
-  const t = useI18nContext();
+  const t = getText;
   const { name: snapName } = useSelector((state) =>
     getSnapMetadata(state, snapId),
   );

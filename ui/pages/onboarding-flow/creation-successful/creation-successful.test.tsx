@@ -1,9 +1,10 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import {
   MetaMetricsEventCategory,
@@ -163,7 +164,7 @@ describe('Wallet Ready Page', () => {
     const mockStore = configureMockStore([thunk])(mockState);
     const { getByText } = renderWithProvider(<CreationSuccessful />, mockStore);
 
-    expect(getByText(messages.yourWalletIsReady.message)).toBeInTheDocument();
+    expect(getByText(messages.yourWalletIsReady)).toBeInTheDocument();
   });
 
   it('should render the wallet ready content if the seed phrase is not backed up', () => {
@@ -176,15 +177,13 @@ describe('Wallet Ready Page', () => {
     });
     const { getByText } = renderWithProvider(<CreationSuccessful />, mockStore);
 
-    expect(getByText(messages.yourWalletIsReady.message)).toBeInTheDocument();
+    expect(getByText(messages.yourWalletIsReady)).toBeInTheDocument();
   });
 
   it('should redirect to privacy-settings view when "Manage default settings" button is clicked', () => {
     const mockStore = configureMockStore([thunk])(mockState);
     const { getByText } = renderWithProvider(<CreationSuccessful />, mockStore);
-    const privacySettingsButton = getByText(
-      messages.manageDefaultSettings.message,
-    );
+    const privacySettingsButton = getByText(messages.manageDefaultSettings);
     fireEvent.click(privacySettingsButton);
     expect(mockUseNavigate).toHaveBeenCalledWith(
       ONBOARDING_PRIVACY_SETTINGS_ROUTE,
@@ -205,7 +204,7 @@ describe('Wallet Ready Page', () => {
         <CreationSuccessful />,
         mockStore,
       );
-      const learnHowButton = getByText(messages.learnHow.message);
+      const learnHowButton = getByText(messages.learnHow);
       fireEvent.click(learnHowButton);
       expect(openTabMock).toHaveBeenCalledTimes(1);
       expect(openTabMock).toHaveBeenCalledWith({

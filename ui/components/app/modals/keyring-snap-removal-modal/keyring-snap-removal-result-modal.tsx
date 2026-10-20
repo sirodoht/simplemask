@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -21,7 +22,7 @@ import {
 } from '../../../component-library';
 import { ModalContent } from '../../../component-library/modal-content/deprecated';
 import { ModalHeader } from '../../../component-library/modal-header/deprecated';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { getKeyringSnapRemovalResult } from '../../../../selectors';
 
 const KeyringSnapRemovalResult = ({
@@ -31,7 +32,7 @@ const KeyringSnapRemovalResult = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const snapRemovalResult = useSelector(getKeyringSnapRemovalResult);
 
   return (

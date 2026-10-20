@@ -16,7 +16,7 @@ import {
 } from '../../../../helpers/constants/design-system';
 import { REVEAL_SEED_ROUTE } from '../../../../helpers/constants/routes';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   ButtonSize,
   ButtonVariant,
@@ -76,7 +76,7 @@ export default function SRPQuiz(props: SRPQuizProps): JSX.Element {
   const [stage, setStage] = useState<QuizStage>(QuizStage.introduction);
 
   const { trackEvent, createEventBuilder } = useAnalytics();
-  const t = useI18nContext();
+  const t = getText;
   const hdEntropyIndex = useSelector(getHDEntropyIndex);
 
   // This should not be a state variable, because it's derivable from the state variable `stage`

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 
 import { isSnapId } from '@metamask/snaps-utils';
@@ -32,7 +33,7 @@ import {
   hexToText,
   sanitizeString,
 } from '../../../../../../helpers/utils/util';
-import { useI18nContext } from '../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../helpers/utils/text';
 import { useConfirmContext } from '../../../../context/confirm';
 import { selectUseTransactionSimulations } from '../../../../selectors/preferences';
 import { SignatureRequestType } from '../../../../types/confirm';
@@ -51,7 +52,7 @@ const getMessageText = (hexString?: string) => {
 };
 
 const PersonalSignInfo = () => {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<SignatureRequestType>();
   const useTransactionSimulations = useSelector(
     selectUseTransactionSimulations,

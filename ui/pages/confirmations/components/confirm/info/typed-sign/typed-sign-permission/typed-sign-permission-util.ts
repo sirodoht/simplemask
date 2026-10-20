@@ -5,7 +5,7 @@ import {
   type NetworkConfigurationsByChainIdState,
 } from '../../../../../../../../shared/lib/selectors/networks';
 import { getTokenByAccountAndAddressAndChainId } from '../../../../../../../selectors/assets';
-import type { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import type { getText } from '../../../../../../../helpers/utils/text';
 
 export { MAX_UINT256 } from '../../../../../../../../shared/lib/gator-permissions/permission-constants';
 
@@ -62,20 +62,20 @@ export const useNativeTokenLabel = (chainId: Hex): string => {
 };
 
 /**
- * Returns the localized description for a given permission type.
+ * Returns the English description for a given permission type.
  *
- * @param i18nContext - i18n function
+ * @param getTextForKey - English text function
  * @param permissionType - decoded permission type identifier
  * @returns Localized description string
  */
 export const getPermissionDescription = (
-  i18nContext: ReturnType<typeof useI18nContext>,
+  getTextForKey: typeof getText,
   permissionType?: string,
 ): string => {
   switch (permissionType) {
     case 'token-approval-revocation':
-      return i18nContext('confirmTitleDescTokenApprovalRevocation');
+      return getTextForKey('confirmTitleDescTokenApprovalRevocation');
     default:
-      return i18nContext('confirmTitleDescPermission');
+      return getTextForKey('confirmTitleDescPermission');
   }
 };

@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { Text } from '@metamask/design-system-react';
 import type { TokenAmount } from '../../../../shared/lib/activity/types';
 import { ActivityAvatar } from '../../../components/app/activity-list-item-avatar';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useTokensData } from '../../../hooks/useTokensData';
 
 export const TokenHeader = ({ token }: { token?: TokenAmount }) => {
-  const t = useI18nContext();
+  const t = getText;
   const tokenAssetId = token?.assetId;
   const tokensByAssetId = useTokensData(tokenAssetId ? [tokenAssetId] : []);
   const tokenMetadata = tokenAssetId

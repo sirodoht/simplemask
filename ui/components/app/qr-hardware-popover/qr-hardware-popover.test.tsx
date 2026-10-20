@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { Provider } from 'react-redux';
@@ -12,8 +13,8 @@ import {
   ENVIRONMENT_TYPE_SIDEPANEL,
 } from '../../../../shared/constants/app';
 import { HARDWARE_WALLET_SIGNATURES_ROUTE } from '../../../helpers/constants/routes';
-import { I18nProvider } from '../../../../test/lib/render-helpers';
-import { enLocale as en } from '../../../../test/lib/i18n-helpers';
+
+import { englishText as en } from '../../../../shared/lib/text';
 import QRHardwarePopover from './qr-hardware-popover';
 
 jest.mock('../../../../shared/lib/environment-type', () => ({
@@ -102,9 +103,9 @@ function buildStore(
 function renderPopover(store: ReturnType<typeof buildStore>) {
   return render(
     <Provider store={store}>
-      <I18nProvider currentLocale="en" current={en} en={en}>
+      <>
         <QRHardwarePopover />
-      </I18nProvider>
+      </>
     </Provider>,
   );
 }
@@ -127,7 +128,7 @@ describe('QRHardwarePopover', () => {
       screen.getByTestId('qr-hardware-wallet-importer'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(en.QRHardwareWalletImporterTitle.message),
+      screen.getByText(en.QRHardwareWalletImporterTitle),
     ).toBeInTheDocument();
   });
 
@@ -139,9 +140,7 @@ describe('QRHardwarePopover', () => {
       }),
     );
     expect(screen.getByTestId('qr-hardware-sign-request')).toBeInTheDocument();
-    expect(
-      screen.getByText(en.QRHardwareSignRequestTitle.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(en.QRHardwareSignRequestTitle)).toBeInTheDocument();
   });
 
   it('does not render the PAIR popover in sidepanel mode', () => {
@@ -210,15 +209,13 @@ describe('title behavior', () => {
         request: { requestId: 'req-1', payload: {} },
       }),
     );
-    expect(
-      screen.getByText(en.QRHardwareSignRequestTitle.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(en.QRHardwareSignRequestTitle)).toBeInTheDocument();
 
     await userEvent.click(screen.getByTestId('sign-set-error-title'));
 
     expect(screen.getByText('Sign Error')).toBeInTheDocument();
     expect(
-      screen.queryByText(en.QRHardwareSignRequestTitle.message),
+      screen.queryByText(en.QRHardwareSignRequestTitle),
     ).not.toBeInTheDocument();
   });
 
@@ -234,9 +231,7 @@ describe('title behavior', () => {
     expect(screen.getByText('Sign Error')).toBeInTheDocument();
 
     await userEvent.click(screen.getByTestId('sign-clear-error-title'));
-    expect(
-      screen.getByText(en.QRHardwareSignRequestTitle.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(en.QRHardwareSignRequestTitle)).toBeInTheDocument();
     expect(screen.queryByText('Sign Error')).not.toBeInTheDocument();
   });
 
@@ -247,13 +242,13 @@ describe('title behavior', () => {
       }),
     );
     expect(
-      screen.getByText(en.QRHardwareWalletImporterTitle.message),
+      screen.getByText(en.QRHardwareWalletImporterTitle),
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByTestId('importer-set-error-active'));
 
     expect(
-      screen.queryByText(en.QRHardwareWalletImporterTitle.message),
+      screen.queryByText(en.QRHardwareWalletImporterTitle),
     ).not.toBeInTheDocument();
   });
 
@@ -266,12 +261,12 @@ describe('title behavior', () => {
 
     await userEvent.click(screen.getByTestId('importer-set-error-active'));
     expect(
-      screen.queryByText(en.QRHardwareWalletImporterTitle.message),
+      screen.queryByText(en.QRHardwareWalletImporterTitle),
     ).not.toBeInTheDocument();
 
     await userEvent.click(screen.getByTestId('importer-clear-error-active'));
     expect(
-      screen.getByText(en.QRHardwareWalletImporterTitle.message),
+      screen.getByText(en.QRHardwareWalletImporterTitle),
     ).toBeInTheDocument();
   });
 

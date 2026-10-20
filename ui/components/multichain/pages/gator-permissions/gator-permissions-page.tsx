@@ -18,7 +18,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { Content, Header, Page } from '../page';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import {
   DEFAULT_ROUTE,
   PERMISSIONS,
@@ -35,7 +35,7 @@ import { transitionForward } from '../../../ui/transition';
 import { PermissionListItem, PermissionsEmptyState } from './components';
 
 export const GatorPermissionsPage = () => {
-  const t = useI18nContext();
+  const t = getText;
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const runCloseTransition = useGlobalMenuRouteTransition();

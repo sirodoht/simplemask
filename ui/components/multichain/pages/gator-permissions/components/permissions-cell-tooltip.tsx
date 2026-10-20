@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Tooltip } from 'react-tippy';
 import {
   BoxAlignItems,
@@ -13,7 +14,7 @@ import {
 import { AvatarType } from '../../../avatar-group/avatar-group.types';
 import { AvatarGroup } from '../../../avatar-group';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../../../shared/constants/network';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 
 // Define types for networks permissions
 type Network = {
@@ -28,7 +29,7 @@ type PermissionsCellTooltipProps = {
 export const PermissionsCellTooltip = ({
   networks,
 }: PermissionsCellTooltipProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const AVATAR_GROUP_LIMIT = 4;
   const TOOLTIP_LIMIT = 4;
 

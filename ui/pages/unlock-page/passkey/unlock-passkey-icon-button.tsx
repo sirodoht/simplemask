@@ -14,7 +14,7 @@ import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
 } from '../../../../shared/constants/metametrics';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   getPasskeyAuthenticatorId,
   getPasskeyDerivationMethod,
@@ -29,7 +29,7 @@ export const UnlockPasskeyIconButton = ({
   disabled,
   onClick,
 }: UnlockPasskeyIconButtonProps) => {
-  const t = useI18nContext() as (key: string, ...args: unknown[]) => string;
+  const t = getText as (key: string, ...args: unknown[]) => string;
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const { trackEvent, createEventBuilder } = useAnalytics();
   const passkeyDerivationMethod = useSelector(getPasskeyDerivationMethod);

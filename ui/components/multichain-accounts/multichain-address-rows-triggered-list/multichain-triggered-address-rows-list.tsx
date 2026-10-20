@@ -23,7 +23,7 @@ import {
 } from '@metamask/design-system-react';
 import { useNavigate } from 'react-router-dom';
 import { Popover, PopoverPosition } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import {
   getAllAccountGroups,
@@ -138,7 +138,7 @@ export const MultichainTriggeredAddressRowsList = ({
   showDefaultAddressSection = true,
   triggerMode = 'hover',
 }: MultichainAddressRowsListProps) => {
-  const t = useI18nContext();
+  const t = getText;
 
   // useCopyToClipboard analysis: Copies one of your public addresses
   const [, handleCopy] = useCopyToClipboard();

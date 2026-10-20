@@ -14,7 +14,7 @@ import {
 import { useCopyToClipboard } from '../../../hooks/useCopyToClipboard';
 import { shortenAddress } from '../../../helpers/utils/util';
 import Tooltip from '../../ui/tooltip/tooltip';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { normalizeSafeAddress } from '../../../../shared/lib/multichain/address';
 
 function AddressCopyButton({ address, shorten = false, wrap = false }) {
@@ -25,7 +25,7 @@ function AddressCopyButton({ address, shorten = false, wrap = false }) {
 
   // useCopyToClipboard analysis: Copies a public address
   const [copied, handleCopy] = useCopyToClipboard();
-  const t = useI18nContext();
+  const t = getText;
 
   const tooltipText = copied ? t('copiedExclamation') : t('copyToClipboard');
   const tooltipTitle = tooltipText;

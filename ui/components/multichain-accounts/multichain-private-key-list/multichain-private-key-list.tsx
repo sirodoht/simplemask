@@ -12,7 +12,7 @@ import {
   Box,
   BoxFlexDirection,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { BlockSize } from '../../../helpers/constants/design-system';
 import {
   Button,
@@ -83,7 +83,7 @@ const MultichainPrivateKeyList = ({
   groupId,
   goBack,
 }: MultichainPrivateKeyListProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const exportAccountsWithPasskey = usePasskeyPrivateKeyExport();
   const { trackEvent, createEventBuilder } = useAnalytics();

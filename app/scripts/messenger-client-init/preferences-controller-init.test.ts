@@ -19,7 +19,6 @@ function getInitRequestMock(): jest.Mocked<
     ...buildControllerInitRequestMock(),
     controllerMessenger: getPreferencesControllerMessenger(baseMessenger),
     initMessenger: undefined,
-    initLangCode: 'en-US',
   };
 
   return requestMock;
@@ -37,9 +36,7 @@ describe('PreferencesControllerInit', () => {
     const controllerMock = jest.mocked(PreferencesController);
     expect(controllerMock).toHaveBeenCalledWith({
       messenger: expect.any(Object),
-      state: {
-        currentLocale: 'en-US',
-      },
+      state: {},
     });
   });
 });

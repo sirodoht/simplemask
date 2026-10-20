@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxAlignItems,
@@ -11,7 +12,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import type { MfaMethod } from '../../../hooks/identity/mfa/engine/types';
 import { MfaFlowTestIds } from '../test-ids';
 import StepLayout, { MfaShield, type StepProps } from './step-layout';
@@ -34,7 +35,7 @@ const PICKER_LABEL_KEYS: Record<MfaMethod, string> = {
  * @param props.onAction - Sends the chosen method.
  */
 const PickerStep = ({ step, state, reason, onAction }: StepProps<'picker'>) => {
-  const t = useI18nContext();
+  const t = getText;
   const hasPasskey = step.options.includes('passkey');
   const others = step.options.filter((method) => method !== 'passkey');
   const renderOption = (method: MfaMethod, isMain: boolean) => (

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { NotificationServicesController } from '@metamask/notification-services-controller';
 import { TRIGGER_TYPES } from '@metamask/notification-services-controller/notification-services';
 import { useAnalytics } from '../../hooks/useAnalytics';
@@ -6,7 +7,7 @@ import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
 } from '../../../shared/constants/metametrics';
-import { useI18nContext } from '../../hooks/useI18nContext';
+import { getText } from '../../helpers/utils/text';
 import { useMarkNotificationAsRead } from '../../hooks/metamask-notifications/useNotifications';
 import { Box, Button, ButtonVariant } from '../../components/component-library';
 import { BlockSize } from '../../helpers/constants/design-system';
@@ -23,7 +24,7 @@ export type NotificationsListReadAllButtonProps = {
 export const NotificationsListReadAllButton = ({
   notifications,
 }: NotificationsListReadAllButtonProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { markNotificationAsRead } = useMarkNotificationAsRead();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { setNotificationTimeout } = useSnapNotificationTimeouts();

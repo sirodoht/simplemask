@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import mockState from '../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../shared/lib/text';
 import configureStore from '../../store/store';
 import { PREVIOUS_ROUTE } from '../../helpers/constants/routes';
 import { EditContactPage } from './edit-contact-page';
@@ -41,7 +42,7 @@ describe('EditContactPage', () => {
 
   it('renders header with "Edit contact" title', () => {
     const { getByText } = renderPage();
-    expect(getByText(messages.editContact.message)).toBeInTheDocument();
+    expect(getByText(messages.editContact)).toBeInTheDocument();
   });
 
   it('renders edit contact form with contact name', () => {

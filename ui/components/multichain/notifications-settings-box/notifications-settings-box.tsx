@@ -7,7 +7,7 @@ import {
   BoxJustifyContent,
   TextColor,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import ToggleButton from '../../ui/toggle-button';
 import Preloader from '../../ui/icon/preloader/preloader-icon.component';
 
@@ -30,7 +30,7 @@ export function NotificationsSettingsBox({
   dataTestId,
   onToggle,
 }: NotificationsSettingsBoxProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box className="w-full">

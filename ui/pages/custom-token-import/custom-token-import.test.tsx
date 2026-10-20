@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import {
   en as messages,
@@ -293,9 +294,7 @@ describe('CustomTokenImportPage', () => {
 
     fireEvent.change(input, { target: { value: '0xnot-an-address' } });
 
-    expect(
-      screen.getByText(messages.invalidAddress.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.invalidAddress)).toBeInTheDocument();
     expect(
       screen.getByTestId('custom-token-import-submit-button'),
     ).toBeDisabled();
@@ -333,7 +332,7 @@ describe('CustomTokenImportPage', () => {
     fireEvent.change(decimalsInput, { target: { value: '0.0001' } });
 
     expect(
-      screen.getByText(messages.tokenDecimalsMustBeWholeNumber.message),
+      screen.getByText(messages.tokenDecimalsMustBeWholeNumber),
     ).toBeInTheDocument();
     expect(
       screen.getByTestId('custom-token-import-submit-button'),
@@ -348,9 +347,7 @@ describe('CustomTokenImportPage', () => {
     expect(
       screen.getByTestId('custom-token-import-network-selector'),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.networkMenuHeading.message),
-    ).toBeInTheDocument();
+    expect(screen.getByText(messages.networkMenuHeading)).toBeInTheDocument();
   });
 
   it('shows a success toast and returns to token management after submitting a custom token', async () => {
@@ -518,7 +515,7 @@ describe('CustomTokenImportPage', () => {
       await screen.findByTestId('custom-token-import-symbol-input');
 
       expect(
-        screen.queryByText(messages.tokenAlreadyAdded.message),
+        screen.queryByText(messages.tokenAlreadyAdded),
       ).not.toBeInTheDocument();
       await waitFor(() =>
         expect(
@@ -568,9 +565,7 @@ describe('CustomTokenImportPage', () => {
     });
 
     await waitFor(() =>
-      expect(
-        screen.getByText(messages.tokenAlreadyAdded.message),
-      ).toBeInTheDocument(),
+      expect(screen.getByText(messages.tokenAlreadyAdded)).toBeInTheDocument(),
     );
     expect(
       screen.getByTestId('custom-token-import-submit-button'),

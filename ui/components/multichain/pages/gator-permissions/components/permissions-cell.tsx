@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -6,7 +7,7 @@ import {
   BoxSpacing,
   IconName,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { EvmAndMultichainNetworkConfigurationsWithCaipChainId } from '../../../../../selectors/selectors.types';
 import { TOKEN_TRANSFER_ROUTE } from '../../../../../helpers/constants/routes';
 import { PermissionsCellConnectionListItem } from './permissions-cell-connection-list-item';
@@ -28,7 +29,7 @@ export const PermissionsCell = ({
   paddingTop,
   origin,
 }: PermissionsCellProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
   const allNetworks = [...nonTestNetworks, ...testNetworks];
 

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import configureMockStore from 'redux-mock-store';
 import { act, fireEvent, waitFor } from '@testing-library/react';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../test/data/mock-state.json';
 import {
@@ -12,7 +13,6 @@ import { SECOND } from '../../../../shared/constants/time';
 import { PasskeyPRFRequiredError } from '../../../../shared/lib/passkey';
 import { toast } from '../../../components/ui/toast/toast';
 import PasskeyRegisterSubPage from './passkey-register-sub-page';
-import { PASSKEY_REGISTRATION_ROUTE_CAPABILITIES } from './messenger';
 
 jest.mock('../../../components/ui/toast/toast', () => ({
   toast: {
@@ -254,9 +254,7 @@ describe('PasskeyRegisterSubPage', () => {
     fireEvent.click(getByTestId('register-passkey-verify-continue-button'));
 
     await waitFor(() => {
-      expect(
-        getByText(messages.passkeyErrorNotSupported.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.passkeyErrorNotSupported)).toBeInTheDocument();
     });
     expect(mockForceUpdateMetamaskState).not.toHaveBeenCalled();
   });

@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   Box,
   BoxFlexDirection,
   BoxJustifyContent,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
   useEnableMetametrics,
@@ -30,7 +31,7 @@ const MetametricsToggle = ({
 }: {
   fromDefaultSettings?: boolean;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { enableMetametrics, error: enableMetametricsError } =
     useEnableMetametrics();

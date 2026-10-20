@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import { CHAIN_IDS } from '@metamask/transaction-controller';
 import configureStore from '../../../../store/store';
 import { renderWithConfirmContextProvider } from '../../../../../test/lib/confirmations/render-helpers';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { getMockConfirmStateForTransaction } from '../../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../test/data/confirmations/contract-interaction';
 import { MaxBaseFeeInput } from './max-base-fee-input';
@@ -52,13 +53,13 @@ describe('MaxBaseFeeInput', () => {
     const { getByTestId, getByText } = render();
 
     expect(getByTestId('max-base-fee-input')).toBeInTheDocument();
-    expect(getByText(messages.maxBaseFee.message)).toBeInTheDocument();
+    expect(getByText(messages.maxBaseFee)).toBeInTheDocument();
   });
 
   it('renders the GWEI unit', () => {
     const { getByText } = render();
 
-    expect(getByText(messages.gwei.message)).toBeInTheDocument();
+    expect(getByText(messages.gwei)).toBeInTheDocument();
   });
 
   it('calls onChange when value changes', () => {

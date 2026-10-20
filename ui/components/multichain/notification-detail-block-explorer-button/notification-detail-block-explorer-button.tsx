@@ -7,7 +7,7 @@ import {
 import { toHex } from '@metamask/controller-utils';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/lib/selectors/networks';
 import { ButtonVariant } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { NotificationDetailButton } from '../notification-detail-button';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
@@ -27,7 +27,7 @@ export const NotificationDetailBlockExplorerButton = ({
   chainId,
   txHash,
 }: NotificationDetailBlockExplorerButtonProps) => {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
 
   const chainIdHex = toHex(chainId);

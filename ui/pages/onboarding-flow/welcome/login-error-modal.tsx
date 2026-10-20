@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -23,7 +24,7 @@ import {
   ModalOverlay,
 } from '../../../components/component-library';
 import { AlignItems } from '../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -59,7 +60,7 @@ export default function LoginErrorModal({
   onClose,
   loginError,
 }: LoginErrorModalProps) {
-  const t = useI18nContext();
+  const t = getText;
   const { trackEvent, createEventBuilder } = useAnalytics();
   const segmentContext = useSegmentContext();
   const socialLoginType = useSelector(getSocialLoginType);

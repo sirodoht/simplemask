@@ -11,11 +11,6 @@ const TOKEN_ADDRESS = '0x2222222222222222222222222222222222222222' as Hex;
 
 function createMockState() {
   return {
-    localeMessages: {
-      currentLocale: 'en_US',
-      current: {},
-      en: {},
-    },
     metamask: {
       currentCurrency: 'usd',
       internalAccounts: {

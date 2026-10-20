@@ -8,10 +8,10 @@ import {
   BackgroundColor,
   TextColor,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 export const ShowMore = ({ children, className = '', ...props }) => {
-  const t = useI18nContext();
+  const t = getText;
   const { contentRef, isOverflowing } = useIsOverflowing();
   const [isOpen, setIsOpen] = useState(false);
 

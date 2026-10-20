@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, BoxSpacing } from '@metamask/design-system-react';
 import {
   SECURITY_PROVIDER_CONFIG,
@@ -20,7 +21,7 @@ import {
   TextColor,
   TextVariant,
 } from '../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 const TEXT_ALIGN_CLASS: Partial<Record<TextAlign, string>> = {
   [TextAlign.Left]: 'text-left',
@@ -39,7 +40,7 @@ export function AlertProvider({
   paddingTop = 0,
   textAlign,
 }: AlertProviderProps) {
-  const t = useI18nContext();
+  const t = getText;
 
   if (!provider) {
     return null;

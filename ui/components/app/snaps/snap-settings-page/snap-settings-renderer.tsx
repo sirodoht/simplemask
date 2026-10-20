@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 
 import { deleteInterface } from '../../../../store/actions';
 import { Box, Text } from '../../../component-library';
@@ -21,7 +21,7 @@ import { useDispatch } from '../../../../store/hooks';
 export const SnapSettingsRenderer = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const t = useI18nContext();
+  const t = getText;
 
   const snapId = searchParams.get('snapId');
 

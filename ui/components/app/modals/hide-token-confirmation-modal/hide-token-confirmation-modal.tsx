@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { CaipChainId, Hex } from '@metamask/utils';
 import {
   AvatarToken,
@@ -19,7 +20,7 @@ import {
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import * as actions from '../../../../store/actions';
 import { useDispatch } from '../../../../store/hooks';
 import { DEFAULT_ROUTE } from '../../../../helpers/constants/routes';
@@ -46,7 +47,7 @@ export function HideTokenConfirmationModal({
   onClose,
   navigate,
 }: HideTokenConfirmationModalProps) {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const { symbol, address, image, chainId: tokenChainId, assetId } = token;
 

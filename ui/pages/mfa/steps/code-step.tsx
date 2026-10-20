@@ -10,7 +10,7 @@ import {
   TextVariant,
 } from '@metamask/design-system-react';
 import { getErrorHandling } from '../../../hooks/identity/mfa/engine/errors';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { maskEmail } from '../../../hooks/identity/mfa/mask-email';
 import { MfaFlowTestIds } from '../test-ids';
 import StepLayout, {
@@ -93,7 +93,7 @@ const useSecondsUntil = (at?: number) => {
 };
 
 const CodeStep = ({ step, state, onAction }: StepProps<'otp'>) => {
-  const t = useI18nContext();
+  const t = getText;
   const [code, setCode] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);

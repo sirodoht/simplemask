@@ -11,12 +11,11 @@ import {
 import { BackgroundColor } from '../constants/design-system';
 import { KeyringType } from '../../../shared/constants/keyring';
 import { HardwareKeyringNames } from '../../../shared/constants/hardware-wallets';
-import { t } from '../../../shared/lib/translate';
+import { getText as t } from '../../../shared/lib/text';
 import { isSnapPreinstalled } from '../../../shared/lib/snaps/snaps';
 
 export function getAccountNameErrorMessage(
   accounts,
-  context,
   newAccountName,
   defaultAccountName,
 ) {
@@ -27,16 +26,11 @@ export function getAccountNameErrorMessage(
 
   const isEmptyAccountName = !newAccountName || newAccountName === '';
 
-  const localizedWordForAccount = context
-    .t('newAccountNumberName')
-    .replace(' $1', '');
+  const accountLabel = t('newAccountNumberName').replace(' $1', '');
 
-  // Match strings starting with ${localizedWordForAccount} and then any numeral, case insensitive
+  // Reserve the English account label followed by a number, case insensitive
   // Trim spaces before and after
-  const reservedRegEx = new RegExp(
-    `^\\s*${localizedWordForAccount} \\d+\\s*$`,
-    'iu',
-  );
+  const reservedRegEx = new RegExp(`^\\s*${accountLabel} \\d+\\s*$`, 'iu');
   const isReservedAccountName = reservedRegEx.test(newAccountName || '');
 
   const isValidAccountName =
@@ -50,11 +44,11 @@ export function getAccountNameErrorMessage(
     errorMessage = InvisibleCharacter; // Using an invisible character, so the spacing stays
     // constant
   } else if (isDuplicateAccountName) {
-    errorMessage = context.t('accountNameDuplicate');
+    errorMessage = t('accountNameDuplicate');
   } else if (isReservedAccountName) {
-    errorMessage = context.t('accountNameReserved');
+    errorMessage = t('accountNameReserved');
   } else if (isEmptyAccountName) {
-    errorMessage = context.t('required');
+    errorMessage = t('required');
   }
 
   return { isValidAccountName, errorMessage };

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { AdvancedGasFeeModal } from './advanced-gas-fee-modal';
 
 const render = ({
@@ -54,8 +55,8 @@ describe('AdvancedGasFeeModal', () => {
     expect(getByTestId('gas-input').querySelector('input')).toHaveValue(
       '21000',
     );
-    expect(getByText(messages.cancel.message)).toBeInTheDocument();
-    expect(getByText(messages.save.message)).toBeInTheDocument();
+    expect(getByText(messages.cancel)).toBeInTheDocument();
+    expect(getByText(messages.save)).toBeInTheDocument();
   });
 
   it('explains an estimation failure and disables Save', () => {
@@ -64,7 +65,7 @@ describe('AdvancedGasFeeModal', () => {
       isGasLimitAvailable: false,
     });
 
-    const helpText = getByText(messages.alertMessageGasEstimateFailed.message);
+    const helpText = getByText(messages.alertMessageGasEstimateFailed);
     expect(getByTestId('gas-fee-modal-save-button')).toBeDisabled();
     expect(getByTestId('gas-fee-modal-save-button')).toHaveAttribute(
       'aria-describedby',
@@ -75,8 +76,8 @@ describe('AdvancedGasFeeModal', () => {
   it('handles modal actions', () => {
     const { getByText, onNavigateToEstimates, onSave } = render();
 
-    fireEvent.click(getByText(messages.cancel.message));
-    fireEvent.click(getByText(messages.save.message));
+    fireEvent.click(getByText(messages.cancel));
+    fireEvent.click(getByText(messages.save));
 
     expect(onNavigateToEstimates).toHaveBeenCalledTimes(1);
     expect(onSave).toHaveBeenCalledTimes(1);

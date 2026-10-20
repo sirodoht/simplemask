@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -10,14 +11,14 @@ import {
 } from '../../../../ducks/alerts/invalid-custom-network';
 import Popover from '../../../ui/popover';
 import { Button, ButtonVariant } from '../../../component-library';
-import { useI18nContext } from '../../../../hooks/useI18nContext';
+import { getText } from '../../../../helpers/utils/text';
 import { NETWORKS_ROUTE } from '../../../../helpers/constants/routes';
 import { useDispatch } from '../../../../store/hooks';
 
 const { ERROR, LOADING } = ALERT_STATE;
 
 const InvalidCustomNetworkAlert = ({ navigate }) => {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
   const alertState = useSelector(getAlertState);
   const networkName = useSelector(getNetworkName);

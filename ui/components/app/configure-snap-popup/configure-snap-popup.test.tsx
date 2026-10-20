@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import ConfigureSnapPopup, {
   ConfigureSnapPopupType,
@@ -24,11 +25,9 @@ describe('ConfigureSnapPopup', () => {
       />,
       mockStore,
     );
+    expect(getByText(messages.configureSnapPopupTitle)).toBeInTheDocument();
     expect(
-      getByText(messages.configureSnapPopupTitle.message),
-    ).toBeInTheDocument();
-    expect(
-      getByText(messages.configureSnapPopupDescription.message),
+      getByText(messages.configureSnapPopupDescription),
     ).toBeInTheDocument();
   });
 
@@ -43,10 +42,10 @@ describe('ConfigureSnapPopup', () => {
       mockStore,
     );
     expect(
-      getByText(messages.configureSnapPopupInstallTitle.message),
+      getByText(messages.configureSnapPopupInstallTitle),
     ).toBeInTheDocument();
     expect(
-      getByText(messages.configureSnapPopupInstallDescription.message),
+      getByText(messages.configureSnapPopupInstallDescription),
     ).toBeInTheDocument();
   });
 

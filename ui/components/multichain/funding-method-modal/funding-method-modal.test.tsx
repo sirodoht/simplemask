@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import mockState from '../../../../test/data/mock-state.json';
 import { FundingMethodModal } from './funding-method-modal';
 
@@ -77,7 +78,7 @@ describe('FundingMethodModal', () => {
       store,
     );
 
-    fireEvent.click(getByText(messages.receiveCrypto.message));
+    fireEvent.click(getByText(messages.receiveCrypto));
     expect(onClickReceive).toHaveBeenCalled();
     expect(
       document.querySelector('[data-testid="funding-method-modal"]'),

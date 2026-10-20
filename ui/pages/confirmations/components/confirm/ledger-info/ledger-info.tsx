@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector } from 'react-redux';
 import { getEnvironmentType } from '../../../../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_FULLSCREEN } from '../../../../../../shared/constants/app';
@@ -25,7 +26,7 @@ import {
   TextAlign,
   TextVariant,
 } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import useLedgerConnection from '../../../hooks/useLedgerConnection';
 import { useDispatch } from '../../../../../store/hooks';
 import { isInE2eTest } from '../../../../../../shared/lib/environment';
@@ -34,7 +35,7 @@ import { HardwareWalletType } from '../../../../../contexts/hardware-wallets/typ
 
 const LedgerInfo = () => {
   const { isLedgerWallet } = useLedgerConnection();
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const inE2eTest = isInE2eTest();

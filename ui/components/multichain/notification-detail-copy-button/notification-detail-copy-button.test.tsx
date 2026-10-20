@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
@@ -23,8 +24,8 @@ jest.mock('../../../hooks/useAnalytics', () => {
   };
 });
 
-jest.mock('../../../hooks/useI18nContext', () => ({
-  useI18nContext: jest.fn().mockReturnValue((key: string) => key),
+jest.mock('../../../helpers/utils/text', () => ({
+  getText: jest.fn().mockImplementation((key: string) => key),
 }));
 
 const mockStore = configureStore();

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Box,
   BoxFlexDirection,
@@ -17,7 +18,7 @@ import {
   ModalContent,
 } from '@metamask/design-system-react';
 import { toast } from '../../../components/ui/toast/toast';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { resetAccount } from '../../../store/actions';
 import { useDispatch } from '../../../store/hooks';
 
@@ -28,7 +29,7 @@ type DeleteActivityModalProps = {
 export default function DeleteActivityModal({
   onClose,
 }: Readonly<DeleteActivityModalProps>) {
-  const t = useI18nContext();
+  const t = getText;
   const dispatch = useDispatch();
 
   const deleteActivityData = async () => {

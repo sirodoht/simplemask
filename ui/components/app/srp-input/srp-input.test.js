@@ -1,8 +1,13 @@
+import {
+  render as renderComponent,
+  fireEvent,
+  waitFor,
+} from '@testing-library/react';
 import React from 'react';
-import { fireEvent, waitFor } from '@testing-library/react';
+
 import { userEvent as userEventApi } from '@testing-library/user-event';
-import { enLocale } from '../../../../test/lib/i18n-helpers';
-import { renderWithLocalization } from '../../../../test/lib/render-helpers';
+import { englishText as enLocale } from '../../../../shared/lib/text';
+
 import SrpInput from '.';
 
 const tooFewWords = new Array(11).fill('test').join(' ');
@@ -44,13 +49,13 @@ describe('srp-input', () => {
     it('should not fire event on render', async () => {
       const onChange = jest.fn();
 
-      const { getByText } = renderWithLocalization(
+      const { getByText } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
-      await waitFor(() => getByText(enLocale.secretRecoveryPhrase.message));
+      await waitFor(() => getByText(enLocale.secretRecoveryPhrase));
 
       expect(onChange).not.toHaveBeenCalled();
     });
@@ -59,10 +64,10 @@ describe('srp-input', () => {
       it('should fire event with empty string when only first field is filled out', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         fireEvent.change(getByTestId('import-srp__srp-word-0'), {
@@ -75,10 +80,10 @@ describe('srp-input', () => {
       it('should fire event with empty string when one field is empty', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -94,10 +99,10 @@ describe('srp-input', () => {
       it('should fire event with empty string when one field has two words', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -116,10 +121,10 @@ describe('srp-input', () => {
       it('should fire event with empty string when one field has two words and one is empty', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -138,10 +143,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP has invalid checksum', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -158,10 +163,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP has invalid word', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -178,10 +183,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP was valid, then a word was removed', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -199,10 +204,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP was valid, then was changed to invalidate the checksum', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -223,10 +228,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if valid SRP is pasted, then replaced with an SRP with an invalid word', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -247,10 +252,10 @@ describe('srp-input', () => {
       it('should fire event with empty string when only first field is filled out', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -262,10 +267,10 @@ describe('srp-input', () => {
       it('should fire event with empty string when one field is empty', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -280,10 +285,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP has invalid checksum', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -299,10 +304,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP has invalid word', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -318,10 +323,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP was valid, then a word was removed', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -338,10 +343,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if SRP was valid, then was changed to invalidate the checksum', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -361,10 +366,10 @@ describe('srp-input', () => {
       it('should fire event with empty string if valid SRP is pasted, then replaced with an SRP with an invalid word', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
 
@@ -384,10 +389,10 @@ describe('srp-input', () => {
       it(`should fire event with empty string upon invalid pasted input: 'test'`, async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -399,10 +404,10 @@ describe('srp-input', () => {
       it(`should not fire any event when pasted contents includes >24 words`, async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -415,10 +420,10 @@ describe('srp-input', () => {
         it(`should fire event with empty string upon invalid pasted input: '${invalidInput}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -430,10 +435,10 @@ describe('srp-input', () => {
         it(`should fire event with empty string upon invalid input pasted into second field: '${invalidInput}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           await userEvent.click(getByTestId('import-srp__srp-word-1'));
@@ -445,10 +450,10 @@ describe('srp-input', () => {
         it(`should fire event with empty string after replacing valid SRP with: '${invalidInput}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           await userEvent.click(getByTestId('import-srp__srp-word-1'));
@@ -462,10 +467,10 @@ describe('srp-input', () => {
       it('should fire with empty string when full valid SRP is replaced by prefix', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-1'));
@@ -480,10 +485,10 @@ describe('srp-input', () => {
       it('should fire event with a valid SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -500,10 +505,10 @@ describe('srp-input', () => {
         it(`should fire event with a valid SRP preceded by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -524,10 +529,10 @@ describe('srp-input', () => {
         it(`should fire event with a valid SRP followed by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -548,10 +553,10 @@ describe('srp-input', () => {
         it(`should fire event with a valid SRP where each word is followed by a'${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -570,10 +575,10 @@ describe('srp-input', () => {
       it('should fire event with a valid SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -588,10 +593,10 @@ describe('srp-input', () => {
       it('should fire event with a valid SRP when each word is pasted in two parts', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -608,10 +613,10 @@ describe('srp-input', () => {
         it(`should fire event with a valid SRP preceded by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -630,10 +635,10 @@ describe('srp-input', () => {
         it(`should fire event with a valid SRP followed by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -652,10 +657,10 @@ describe('srp-input', () => {
         it(`should fire event with a valid SRP where each word is followed by a'${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -673,10 +678,10 @@ describe('srp-input', () => {
       it('should fire event with a valid SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -688,10 +693,10 @@ describe('srp-input', () => {
       it('should fire event with a valid SRP when replacing invalid SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -705,10 +710,10 @@ describe('srp-input', () => {
         it(`should fire with formatted SRP when given poorly formatted valid SRP: '${poorlyFormattedInput}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -720,10 +725,10 @@ describe('srp-input', () => {
         it(`should fire with formatted SRP when poorly formatted valid SRP is pasted into second field: '${poorlyFormattedInput}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId } = renderWithLocalization(
+          const { getByTestId } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           await userEvent.click(getByTestId('import-srp__srp-word-1'));
@@ -739,30 +744,26 @@ describe('srp-input', () => {
     it('should not show error for empty input', async () => {
       const onChange = jest.fn();
 
-      const { getByText, queryByText } = renderWithLocalization(
+      const { getByText, queryByText } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
-      await waitFor(() => getByText(enLocale.secretRecoveryPhrase.message));
+      await waitFor(() => getByText(enLocale.secretRecoveryPhrase));
 
-      expect(
-        queryByText(enLocale.seedPhraseReq.message),
-      ).not.toBeInTheDocument();
-      expect(
-        queryByText(enLocale.invalidSeedPhrase.message),
-      ).not.toBeInTheDocument();
+      expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+      expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
     });
 
     describe('typed', () => {
       it('should show word requirement error if SRP has too few words', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = tooFewWords.split(' ');
@@ -772,19 +773,17 @@ describe('srp-input', () => {
           });
         }
 
-        expect(queryByText(enLocale.seedPhraseReq.message)).toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       it('should show word requirement error if SRP has an unsupported word count above 12 but below 24', async () => {
         const onChange = jest.fn();
 
-        const { getByRole, getByTestId, queryByText } = renderWithLocalization(
+        const { getByRole, getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.selectOptions(getByRole('combobox'), '15');
@@ -795,19 +794,17 @@ describe('srp-input', () => {
           });
         }
 
-        expect(queryByText(enLocale.seedPhraseReq.message)).toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       it('should show invalid SRP error if SRP is correct length but has an invalid checksum', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = invalidChecksum.split(' ');
@@ -817,21 +814,17 @@ describe('srp-input', () => {
           });
         }
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).toBeInTheDocument();
       });
 
       it('should show invalid SRP error if SRP is correct length and has correct checksum but has an invalid word', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = invalidWordCorrectChecksum.split(' ');
@@ -841,21 +834,17 @@ describe('srp-input', () => {
           });
         }
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).toBeInTheDocument();
       });
 
       it('should not show error for valid SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -865,22 +854,18 @@ describe('srp-input', () => {
           });
         }
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       for (const whitespaceCharacter of whitespaceCharacters) {
         it(`should not show error for a valid SRP preceded by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId, queryByText } = renderWithLocalization(
+          const { getByTestId, queryByText } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -895,21 +880,19 @@ describe('srp-input', () => {
             });
           }
 
+          expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
           expect(
-            queryByText(enLocale.seedPhraseReq.message),
-          ).not.toBeInTheDocument();
-          expect(
-            queryByText(enLocale.invalidSeedPhrase.message),
+            queryByText(enLocale.invalidSeedPhrase),
           ).not.toBeInTheDocument();
         });
 
         it(`should not show error for a valid SRP followed by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId, queryByText } = renderWithLocalization(
+          const { getByTestId, queryByText } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -924,21 +907,19 @@ describe('srp-input', () => {
             });
           }
 
+          expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
           expect(
-            queryByText(enLocale.seedPhraseReq.message),
-          ).not.toBeInTheDocument();
-          expect(
-            queryByText(enLocale.invalidSeedPhrase.message),
+            queryByText(enLocale.invalidSeedPhrase),
           ).not.toBeInTheDocument();
         });
 
         it(`should not show error for a valid SRP where each word is followed by a'${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId, queryByText } = renderWithLocalization(
+          const { getByTestId, queryByText } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -948,11 +929,9 @@ describe('srp-input', () => {
             });
           }
 
+          expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
           expect(
-            queryByText(enLocale.seedPhraseReq.message),
-          ).not.toBeInTheDocument();
-          expect(
-            queryByText(enLocale.invalidSeedPhrase.message),
+            queryByText(enLocale.invalidSeedPhrase),
           ).not.toBeInTheDocument();
         });
       }
@@ -962,10 +941,10 @@ describe('srp-input', () => {
       it('should show word requirement error if SRP has too few words', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = tooFewWords.split(' ');
@@ -974,19 +953,17 @@ describe('srp-input', () => {
           await userEvent.paste(srpParts[index]);
         }
 
-        expect(queryByText(enLocale.seedPhraseReq.message)).toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       it('should show word requirement error if SRP has an unsupported word count above 12 but below 24', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, getByRole, queryByText } = renderWithLocalization(
+        const { getByTestId, getByRole, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.selectOptions(getByRole('combobox'), '15');
@@ -996,19 +973,17 @@ describe('srp-input', () => {
           await userEvent.paste(srpParts[index]);
         }
 
-        expect(queryByText(enLocale.seedPhraseReq.message)).toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       it('should show invalid SRP error if SRP is correct length but has an invalid checksum', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = invalidChecksum.split(' ');
@@ -1017,21 +992,17 @@ describe('srp-input', () => {
           await userEvent.paste(srpParts[index]);
         }
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).toBeInTheDocument();
       });
 
       it('should show invalid SRP error if SRP is correct length and has correct checksum but has an invalid word', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = invalidWordCorrectChecksum.split(' ');
@@ -1040,21 +1011,17 @@ describe('srp-input', () => {
           await userEvent.paste(srpParts[index]);
         }
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).toBeInTheDocument();
       });
 
       it('should not show error for valid SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1063,22 +1030,18 @@ describe('srp-input', () => {
           await userEvent.paste(srpParts[index]);
         }
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       for (const whitespaceCharacter of whitespaceCharacters) {
         it(`should not show error for a valid SRP preceded by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId, queryByText } = renderWithLocalization(
+          const { getByTestId, queryByText } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -1091,21 +1054,19 @@ describe('srp-input', () => {
             );
           }
 
+          expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
           expect(
-            queryByText(enLocale.seedPhraseReq.message),
-          ).not.toBeInTheDocument();
-          expect(
-            queryByText(enLocale.invalidSeedPhrase.message),
+            queryByText(enLocale.invalidSeedPhrase),
           ).not.toBeInTheDocument();
         });
 
         it(`should not show error for a valid SRP followed by a '${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId, queryByText } = renderWithLocalization(
+          const { getByTestId, queryByText } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -1118,21 +1079,19 @@ describe('srp-input', () => {
             );
           }
 
+          expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
           expect(
-            queryByText(enLocale.seedPhraseReq.message),
-          ).not.toBeInTheDocument();
-          expect(
-            queryByText(enLocale.invalidSeedPhrase.message),
+            queryByText(enLocale.invalidSeedPhrase),
           ).not.toBeInTheDocument();
         });
 
         it(`should not show error for a valid SRP where each word is followed by a'${whitespaceCharacter}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId, queryByText } = renderWithLocalization(
+          const { getByTestId, queryByText } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           const srpParts = correct.split(' ');
@@ -1141,11 +1100,9 @@ describe('srp-input', () => {
             await userEvent.paste(`${srpParts[index]}${whitespaceCharacter}`);
           }
 
+          expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
           expect(
-            queryByText(enLocale.seedPhraseReq.message),
-          ).not.toBeInTheDocument();
-          expect(
-            queryByText(enLocale.invalidSeedPhrase.message),
+            queryByText(enLocale.invalidSeedPhrase),
           ).not.toBeInTheDocument();
         });
       }
@@ -1155,117 +1112,99 @@ describe('srp-input', () => {
       it('should show word requirement error if SRP has too few words', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
         await userEvent.paste(tooFewWords);
 
-        expect(queryByText(enLocale.seedPhraseReq.message)).toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       it('should show word requirement error if SRP has an unsupported word count above 12 but below 24', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
         await userEvent.paste(invalidWordCount);
 
-        expect(queryByText(enLocale.seedPhraseReq.message)).toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       it('should show invalid SRP error if SRP is correct length but has an invalid checksum', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
         await userEvent.paste(invalidChecksum);
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).toBeInTheDocument();
       });
 
       it('should show invalid SRP error if SRP is correct length and has correct checksum but has an invalid word', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
         await userEvent.paste(invalidWordCorrectChecksum);
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).toBeInTheDocument();
       });
 
       it('should not show error for valid SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryByText } = renderWithLocalization(
+        const { getByTestId, queryByText } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
         await userEvent.paste(correct);
 
-        expect(
-          queryByText(enLocale.seedPhraseReq.message),
-        ).not.toBeInTheDocument();
-        expect(
-          queryByText(enLocale.invalidSeedPhrase.message),
-        ).not.toBeInTheDocument();
+        expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
+        expect(queryByText(enLocale.invalidSeedPhrase)).not.toBeInTheDocument();
       });
 
       for (const poorlyFormattedInput of poorlyFormattedInputs) {
         it(`should not show error for poorly formatted valid SRP: '${poorlyFormattedInput}'`, async () => {
           const onChange = jest.fn();
 
-          const { getByTestId, queryByText } = renderWithLocalization(
+          const { getByTestId, queryByText } = renderComponent(
             <SrpInput
               onChange={onChange}
-              srpText={enLocale.secretRecoveryPhrase.message}
+              srpText={enLocale.secretRecoveryPhrase}
             />,
           );
           await userEvent.click(getByTestId('import-srp__srp-word-0'));
           await userEvent.paste(poorlyFormattedInput);
 
+          expect(queryByText(enLocale.seedPhraseReq)).not.toBeInTheDocument();
           expect(
-            queryByText(enLocale.seedPhraseReq.message),
-          ).not.toBeInTheDocument();
-          expect(
-            queryByText(enLocale.invalidSeedPhrase.message),
+            queryByText(enLocale.invalidSeedPhrase),
           ).not.toBeInTheDocument();
         });
       }
@@ -1276,10 +1215,10 @@ describe('srp-input', () => {
     it('should default to not showing SRP', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId } = renderWithLocalization(
+      const { getByTestId } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
 
@@ -1298,10 +1237,10 @@ describe('srp-input', () => {
       it('should prevent reading typed SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryAllByRole } = renderWithLocalization(
+        const { getByTestId, queryAllByRole } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1317,10 +1256,10 @@ describe('srp-input', () => {
       it('should prevent reading individually pasted SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryAllByRole } = renderWithLocalization(
+        const { getByTestId, queryAllByRole } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1335,10 +1274,10 @@ describe('srp-input', () => {
       it('should prevent reading pasted SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryAllByRole } = renderWithLocalization(
+        const { getByTestId, queryAllByRole } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1352,10 +1291,10 @@ describe('srp-input', () => {
       it('should prevent reading typed SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1380,10 +1319,10 @@ describe('srp-input', () => {
       it('should prevent reading individually pasted SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1409,10 +1348,10 @@ describe('srp-input', () => {
       it('should show words from typed SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1443,10 +1382,10 @@ describe('srp-input', () => {
       it('should show words from individually pasted SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1476,10 +1415,10 @@ describe('srp-input', () => {
       it('should show words from pasted SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1509,10 +1448,10 @@ describe('srp-input', () => {
       it('should show words from typed SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1540,10 +1479,10 @@ describe('srp-input', () => {
       it('should show words from individually pasted SRP', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId } = renderWithLocalization(
+        const { getByTestId } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         const srpParts = correct.split(' ');
@@ -1572,10 +1511,10 @@ describe('srp-input', () => {
       it('should hide all inputs after an incomplete multi-word paste', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryAllByRole } = renderWithLocalization(
+        const { getByTestId, queryAllByRole } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0-checkbox'));
@@ -1597,10 +1536,10 @@ describe('srp-input', () => {
       it('should hide all inputs after a full SRP paste', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryAllByRole } = renderWithLocalization(
+        const { getByTestId, queryAllByRole } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0-checkbox'));
@@ -1622,10 +1561,10 @@ describe('srp-input', () => {
       it('should not hide inputs after a single word paste', async () => {
         const onChange = jest.fn();
 
-        const { getByTestId, queryAllByRole } = renderWithLocalization(
+        const { getByTestId, queryAllByRole } = renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
         await userEvent.click(getByTestId('import-srp__srp-word-0-checkbox'));
@@ -1644,10 +1583,10 @@ describe('srp-input', () => {
     it('should hide shown field when another field is shown', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, queryAllByRole } = renderWithLocalization(
+      const { getByTestId, queryAllByRole } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1667,10 +1606,10 @@ describe('srp-input', () => {
       const onChange = jest.fn();
       const writeTextSpy = jest.spyOn(window.navigator.clipboard, 'writeText');
 
-      const { getByTestId } = renderWithLocalization(
+      const { getByTestId } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       const srpParts = correct.split(' ');
@@ -1687,10 +1626,10 @@ describe('srp-input', () => {
       const onChange = jest.fn();
       const writeTextSpy = jest.spyOn(window.navigator.clipboard, 'writeText');
 
-      const { getByTestId } = renderWithLocalization(
+      const { getByTestId } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       const srpParts = correct.split(' ');
@@ -1706,10 +1645,10 @@ describe('srp-input', () => {
       const onChange = jest.fn();
       const writeTextSpy = jest.spyOn(window.navigator.clipboard, 'writeText');
 
-      const { getByTestId } = renderWithLocalization(
+      const { getByTestId } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1722,10 +1661,10 @@ describe('srp-input', () => {
       const onChange = jest.fn();
       const writeTextSpy = jest.spyOn(window.navigator.clipboard, 'writeText');
 
-      const { getByTestId } = renderWithLocalization(
+      const { getByTestId } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1738,10 +1677,10 @@ describe('srp-input', () => {
       const onChange = jest.fn();
       const writeTextSpy = jest.spyOn(window.navigator.clipboard, 'writeText');
 
-      const { getByTestId } = renderWithLocalization(
+      const { getByTestId } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1755,16 +1694,16 @@ describe('srp-input', () => {
     it('should default to 12 words', () => {
       const onChange = jest.fn();
 
-      const { queryByTestId, queryByRole } = renderWithLocalization(
+      const { queryByTestId, queryByRole } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
 
       expect(
         queryByRole('option', {
-          name: enLocale.srpInputNumberOfWords.message.replace('$1', '12'),
+          name: enLocale.srpInputNumberOfWords.replace('$1', '12'),
           selected: true,
         }),
       ).toBeInTheDocument();
@@ -1775,19 +1714,18 @@ describe('srp-input', () => {
     it('should be updated on paste to allow room for a longer SRP', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, queryByTestId, queryByRole } =
-        renderWithLocalization(
-          <SrpInput
-            onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
-          />,
-        );
+      const { getByTestId, queryByTestId, queryByRole } = renderComponent(
+        <SrpInput
+          onChange={onChange}
+          srpText={enLocale.secretRecoveryPhrase}
+        />,
+      );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
       await userEvent.paste(new Array(15).fill('test').join(' '));
 
       expect(
         queryByRole('option', {
-          name: enLocale.srpInputNumberOfWords.message.replace('$1', '15'),
+          name: enLocale.srpInputNumberOfWords.replace('$1', '15'),
           selected: true,
         }),
       ).toBeInTheDocument();
@@ -1799,10 +1737,10 @@ describe('srp-input', () => {
       const onChange = jest.fn();
 
       const { getByRole, getByTestId, queryByTestId, queryByRole } =
-        renderWithLocalization(
+        renderComponent(
           <SrpInput
             onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
+            srpText={enLocale.secretRecoveryPhrase}
           />,
         );
       await userEvent.selectOptions(getByRole('combobox'), '15');
@@ -1811,7 +1749,7 @@ describe('srp-input', () => {
 
       expect(
         queryByRole('option', {
-          name: enLocale.srpInputNumberOfWords.message.replace('$1', '12'),
+          name: enLocale.srpInputNumberOfWords.replace('$1', '12'),
           selected: true,
         }),
       ).toBeInTheDocument();
@@ -1822,19 +1760,18 @@ describe('srp-input', () => {
     it('should round up to nearest valid size on paste when SRP has an invalid number of words', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, queryByTestId, queryByRole } =
-        renderWithLocalization(
-          <SrpInput
-            onChange={onChange}
-            srpText={enLocale.secretRecoveryPhrase.message}
-          />,
-        );
+      const { getByTestId, queryByTestId, queryByRole } = renderComponent(
+        <SrpInput
+          onChange={onChange}
+          srpText={enLocale.secretRecoveryPhrase}
+        />,
+      );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
       await userEvent.paste(invalidWordCount);
 
       expect(
         queryByRole('option', {
-          name: enLocale.srpInputNumberOfWords.message.replace('$1', '15'),
+          name: enLocale.srpInputNumberOfWords.replace('$1', '15'),
           selected: true,
         }),
       ).toBeInTheDocument();
@@ -1845,17 +1782,17 @@ describe('srp-input', () => {
     it('should update the number of fields', async () => {
       const onChange = jest.fn();
 
-      const { getByRole, queryByTestId, queryByRole } = renderWithLocalization(
+      const { getByRole, queryByTestId, queryByRole } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.selectOptions(getByRole('combobox'), '24');
 
       expect(
         queryByRole('option', {
-          name: enLocale.srpInputNumberOfWords.message.replace('$1', '24'),
+          name: enLocale.srpInputNumberOfWords.replace('$1', '24'),
           selected: true,
         }),
       ).toBeInTheDocument();
@@ -1866,10 +1803,10 @@ describe('srp-input', () => {
     it('should forget any field state that is no longer shown', async () => {
       const onChange = jest.fn();
 
-      const { getByRole, getByTestId, queryByTestId } = renderWithLocalization(
+      const { getByRole, getByTestId, queryByTestId } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1890,45 +1827,45 @@ describe('srp-input', () => {
     it('should show paste error when too many words are pasted', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, queryByText } = renderWithLocalization(
+      const { getByTestId, queryByText } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
       await userEvent.paste(tooManyWords);
 
       expect(
-        queryByText(enLocale.srpPasteFailedTooManyWords.message),
+        queryByText(enLocale.srpPasteFailedTooManyWords),
       ).toBeInTheDocument();
     });
 
     it('should allow dismissing the paste error', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, getByText, queryByText } = renderWithLocalization(
+      const { getByTestId, getByText, queryByText } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
       await userEvent.paste(tooManyWords);
-      await userEvent.click(getByText(enLocale.dismiss.message));
+      await userEvent.click(getByText(enLocale.dismiss));
 
       expect(
-        queryByText(enLocale.srpPasteFailedTooManyWords.message),
+        queryByText(enLocale.srpPasteFailedTooManyWords),
       ).not.toBeInTheDocument();
     });
 
     it('should dismiss the paste error after paste with fewer than 24 words', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, queryByText } = renderWithLocalization(
+      const { getByTestId, queryByText } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1936,17 +1873,17 @@ describe('srp-input', () => {
       await userEvent.paste(correct);
 
       expect(
-        queryByText(enLocale.srpPasteFailedTooManyWords.message),
+        queryByText(enLocale.srpPasteFailedTooManyWords),
       ).not.toBeInTheDocument();
     });
 
     it('should not dismiss the paste error after a second paste with over 24 words', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, queryByText } = renderWithLocalization(
+      const { getByTestId, queryByText } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1954,17 +1891,17 @@ describe('srp-input', () => {
       await userEvent.paste(tooManyWords);
 
       expect(
-        queryByText(enLocale.srpPasteFailedTooManyWords.message),
+        queryByText(enLocale.srpPasteFailedTooManyWords),
       ).toBeInTheDocument();
     });
 
     it('should dismiss the paste error after typing', async () => {
       const onChange = jest.fn();
 
-      const { getByTestId, queryByText } = renderWithLocalization(
+      const { getByTestId, queryByText } = renderComponent(
         <SrpInput
           onChange={onChange}
-          srpText={enLocale.secretRecoveryPhrase.message}
+          srpText={enLocale.secretRecoveryPhrase}
         />,
       );
       await userEvent.click(getByTestId('import-srp__srp-word-0'));
@@ -1974,7 +1911,7 @@ describe('srp-input', () => {
       });
 
       expect(
-        queryByText(enLocale.srpPasteFailedTooManyWords.message),
+        queryByText(enLocale.srpPasteFailedTooManyWords),
       ).not.toBeInTheDocument();
     });
   });

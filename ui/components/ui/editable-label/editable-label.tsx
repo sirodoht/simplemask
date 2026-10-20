@@ -12,7 +12,7 @@ import {
 } from '../../../helpers/constants/design-system';
 import { getAccountNameErrorMessage } from '../../../helpers/utils/accounts';
 import { ButtonIcon, IconName, Text } from '../../component-library';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 
 type EditableLabelProps = {
   onSubmit: (value: string) => Promise<void>;
@@ -27,7 +27,7 @@ export default function EditableLabel({
   className,
   accounts,
 }: EditableLabelProps) {
-  const t = useI18nContext();
+  const t = getText;
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(defaultValue || '');
 
@@ -46,7 +46,6 @@ export default function EditableLabel({
   if (isEditing) {
     const { isValidAccountName, errorMessage } = getAccountNameErrorMessage(
       accounts,
-      { t },
       value,
       defaultValue,
     );

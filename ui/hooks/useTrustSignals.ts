@@ -5,7 +5,7 @@ import isEqual from 'lodash/isEqual';
 import { getAddressSecurityAlertResponse } from '../selectors';
 import { ResultType, createCacheKey } from '../../shared/lib/trust-signals';
 import { SecurityAlertResponse } from '../pages/confirmations/types/confirm';
-import { useI18nContext } from './useI18nContext';
+import { getText } from '../helpers/utils/text';
 
 export type UseTrustSignalRequest = {
   value: string;
@@ -53,7 +53,7 @@ export function useTrustSignal(
 export function useTrustSignals(
   requests: UseTrustSignalRequest[],
 ): TrustSignalResult[] {
-  const t = useI18nContext();
+  const t = getText;
 
   return useSelector(
     (state) =>

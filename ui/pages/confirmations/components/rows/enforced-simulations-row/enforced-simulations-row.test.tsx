@@ -6,14 +6,14 @@ import { TransactionContainerType } from '@metamask/transaction-controller';
 import { getMockConfirmStateForTransaction } from '../../../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { applyTransactionContainersExisting } from '../../../../../store/actions';
 import { useEnforcedSimulationsEligibility } from '../../../hooks/useEnforcedSimulationsEligibility';
 import { useTransactionEventFragment } from '../../../hooks/useTransactionEventFragment';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../shared/lib/text';
 import { EnforcedSimulationsRow } from './enforced-simulations-row';
 
-jest.mock('../../../../../hooks/useI18nContext');
+jest.mock('../../../../../helpers/utils/text');
 jest.mock('../../../../../store/actions', () => ({
   ...jest.requireActual('../../../../../store/actions'),
   applyTransactionContainersExisting: jest.fn().mockResolvedValue({}),
@@ -48,7 +48,7 @@ const mockStore = configureMockStore([]);
 const useEnforcedSimulationsEligibilityMock = jest.mocked(
   useEnforcedSimulationsEligibility,
 );
-const useI18nContextMock = jest.mocked(useI18nContext);
+const getTextMock = jest.mocked(getText);
 const useTransactionEventFragmentMock = jest.mocked(
   useTransactionEventFragment,
 );
@@ -77,18 +77,17 @@ function render({
     hasPendingTrustSignals,
   });
 
-  useI18nContextMock.mockReturnValue(((key: string) => {
+  getTextMock.mockImplementation(((key: string) => {
     const translations: Record<string, string> = {
-      addedProtectionOptionalBadge:
-        messages.addedProtectionOptionalBadge.message,
-      addedProtectionTitle: messages.addedProtectionTitle.message,
-      addedProtectionDescription: messages.addedProtectionDescription.message,
+      addedProtectionOptionalBadge: messages.addedProtectionOptionalBadge,
+      addedProtectionTitle: messages.addedProtectionTitle,
+      addedProtectionDescription: messages.addedProtectionDescription,
       addedProtectionTooltip:
         "If the final transaction doesn't match this preview, it won't go through. You only pay the network fee.",
       learnMore: 'Learn more',
     };
     return translations[key] ?? key;
-  }) as ReturnType<typeof useI18nContext>);
+  }) as typeof getText);
 
   const transaction = genUnapprovedContractInteractionConfirmation({
     containerTypes,
@@ -298,7 +297,7 @@ describe('EnforcedSimulationsRow', () => {
     });
 
     expect(
-      getByText(messages.addedProtectionOptionalBadge.message),
+      getByText(messages.addedProtectionOptionalBadge),
     ).toBeInTheDocument();
   });
 
@@ -306,14 +305,10 @@ describe('EnforcedSimulationsRow', () => {
     const { getByText } = render({ containerTypes: [] });
 
     await waitFor(() => {
-      expect(
-        getByText(messages.addedProtectionTitle.message),
-      ).toBeInTheDocument();
+      expect(getByText(messages.addedProtectionTitle)).toBeInTheDocument();
     });
 
-    expect(
-      getByText(messages.addedProtectionDescription.message),
-    ).toBeInTheDocument();
+    expect(getByText(messages.addedProtectionDescription)).toBeInTheDocument();
   });
 
   it('records learn more link clicks', async () => {

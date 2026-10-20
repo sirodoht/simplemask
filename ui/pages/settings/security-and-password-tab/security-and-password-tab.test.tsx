@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockState from '../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../shared/lib/text';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { setBackgroundConnection } from '../../../store/background-connection';
 import SecurityAndPasswordTab from './security-and-password-tab';
@@ -43,11 +44,9 @@ describe('SecurityAndPasswordTab', () => {
   it('renders all expected items', () => {
     renderWithProvider(<SecurityAndPasswordTab />, mockStore);
 
-    expect(
-      screen.getByText(messages.manageWalletRecovery.message),
-    ).toBeInTheDocument();
-    expect(screen.getByText(messages.password.message)).toBeInTheDocument();
-    expect(screen.getByText(messages.autoLock.message)).toBeInTheDocument();
+    expect(screen.getByText(messages.manageWalletRecovery)).toBeInTheDocument();
+    expect(screen.getByText(messages.password)).toBeInTheDocument();
+    expect(screen.getByText(messages.autoLock)).toBeInTheDocument();
     expect(
       screen.getByTestId('security-phishing-detection-toggle'),
     ).toBeInTheDocument();

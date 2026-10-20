@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { RowAlertKey } from '../../../../../components/app/confirm/info/row/constants';
 import { Alert } from '../../../../../ducks/confirm-alerts/confirm-alerts';
 import { Severity } from '../../../../../helpers/constants/design-system';
-import { useI18nContext } from '../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../helpers/utils/text';
 import { useAsyncResult } from '../../../../../hooks/useAsync';
 import { getTokenStandardAndDetailsByChain } from '../../../../../store/actions';
 import { useConfirmContext } from '../../../context/confirm';
@@ -20,7 +20,7 @@ const TRANSFER_TRANSACTION_TYPES: TransactionType[] = [
 ];
 
 export function useTokenContractAlert(): Alert[] {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const recipient = useTransferRecipient();
   const chainId = currentConfirmation?.chainId;

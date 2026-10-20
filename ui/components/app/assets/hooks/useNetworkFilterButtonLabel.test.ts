@@ -1,6 +1,6 @@
 import { renderHookWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../test/data/mock-state.json';
-import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../shared/lib/text';
 import { useNetworkFilterButtonLabel } from './useNetworkFilterButtonLabel';
 
 describe('useNetworkFilterButtonLabel', () => {
@@ -21,7 +21,7 @@ describe('useNetworkFilterButtonLabel', () => {
       },
     );
 
-    expect(result.current).toBe(messages.allDefaultNetworks.message);
+    expect(result.current).toBe(messages.allDefaultNetworks);
   });
 
   it('prefixes a single selected network with the network label', () => {
@@ -45,6 +45,6 @@ describe('useNetworkFilterButtonLabel', () => {
       },
     );
 
-    expect(result.current).toBe(`${messages.network.message}: BNB Chain`);
+    expect(result.current).toBe(`${messages.network}: BNB Chain`);
   });
 });

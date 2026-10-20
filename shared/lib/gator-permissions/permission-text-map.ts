@@ -5,11 +5,11 @@ import type {
 
 /**
  * Builds a lookup map for every {@link TranslationKeys} entry using the given
- * i18n function. Ensures at compile time that all keys the package can emit
+ * English text function. Ensures at compile time that all keys the package can emit
  * (e.g. `SchemaElement.labelKey`) have a corresponding translation.
  * @param t
  */
-export function buildPermissionI18nMap(
+export function buildPermissionTextMap(
   t: I18nFunction,
 ): Record<TranslationKeys, string> {
   return {

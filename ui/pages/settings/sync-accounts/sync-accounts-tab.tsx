@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   ButtonIcon,
   ButtonIconSize,
@@ -10,13 +11,13 @@ import {
   Header,
   Page,
 } from '../../../components/multichain/pages/page';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { SETTINGS_ROUTE } from '../../../helpers/constants/routes';
 import { submitRequestToBackground } from '../../../store/background-connection';
 import SyncAccountsSettings from './sync-accounts-settings';
 
 const SyncAccountsTab = () => {
-  const t = useI18nContext();
+  const t = getText;
   const navigate = useNavigate();
 
   const handleBack = async () => {

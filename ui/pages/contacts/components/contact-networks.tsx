@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { NetworkConfiguration } from '@metamask/network-controller';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/lib/selectors/networks';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { NETWORK_TO_SHORT_NETWORK_NAME_MAP } from '../../../../shared/constants/bridge';
 import { getImageForChainId } from '../../../selectors/multichain';
 import { getNetworkSections } from '../../../helpers/utils/network-sections';
@@ -22,7 +22,7 @@ export const ContactNetworks = ({
   selectedChainId?: string;
   onSelect?: (chainId: string) => void;
 }) => {
-  const t = useI18nContext();
+  const t = getText;
 
   const networkConfigurations = useSelector(getNetworkConfigurationsByChainId);
   const networkSections = useMemo(

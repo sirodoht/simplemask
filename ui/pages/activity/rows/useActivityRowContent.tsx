@@ -17,7 +17,7 @@ import type { ActivityListItemAvatarTokens } from '../../../components/app/activ
 import { ChainBadge } from '../../../components/app/chain-badge/chain-badge';
 import { useGetDisplayName } from '../../../hooks/useGetDisplayName';
 import { shortenAddress } from '../../../helpers/utils/util';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { PERPS_CURRENCY } from '../../confirmations/constants/perps';
 import type {
@@ -105,7 +105,7 @@ function getChainDisplay(caipChainId: CaipChainId) {
 }
 
 export function useActivityRowContent(activity: ActivityRowProps['data']) {
-  const t = useI18nContext();
+  const t = getText;
   const formatTokenAmount = useFormatTokenAmount();
   const { formatCurrencyWithMinThreshold } = useFormatters();
   const { chainId } = getChainDisplay(activity.chainId);

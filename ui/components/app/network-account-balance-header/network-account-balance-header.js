@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
 import PropTypes from 'prop-types';
 import { AvatarAccountSize } from '@metamask/design-system-react';
 import IconWithFallback from '../../ui/icon-with-fallback';
@@ -13,7 +14,7 @@ import {
   TextColor,
 } from '../../../helpers/constants/design-system';
 import Box from '../../ui/box/box';
-import { I18nContext } from '../../../contexts/i18n';
+import { getText } from '../../../helpers/utils/text';
 import { CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP } from '../../../../shared/constants/network';
 import { Text } from '../../component-library';
 import { PreferredAvatar } from '../preferred-avatar';
@@ -26,7 +27,7 @@ export default function NetworkAccountBalanceHeader({
   accountAddress,
   chainId,
 }) {
-  const t = useContext(I18nContext);
+  const t = getText;
   const networkIcon = CHAIN_ID_TO_NETWORK_IMAGE_URL_MAP[chainId];
   const networkIconWrapperClass = networkIcon
     ? 'network-account-balance-header__network-account__ident-icon-ethereum'

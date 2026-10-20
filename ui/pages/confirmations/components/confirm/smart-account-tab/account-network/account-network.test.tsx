@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { Hex } from '@metamask/utils';
 import { fireEvent } from '@testing-library/dom';
 
 import mockState from '../../../../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../../../../test/lib/render-helpers-navigate';
-import { enLocale as messages } from '../../../../../../../test/lib/i18n-helpers';
+import { englishText as messages } from '../../../../../../../shared/lib/text';
 import configureStore from '../../../../../../store/store';
 import { EIP7702NetworkConfiguration } from '../../../../hooks/useBatchAuthorizationRequests';
 import { AccountNetwork } from './account-network';
@@ -52,20 +53,20 @@ describe('AccountNetwork', () => {
     const { getByText } = renderComponent();
 
     expect(getByText('Sepolia')).toBeInTheDocument();
-    expect(getByText(messages.smartAccountLabel.message)).toBeInTheDocument();
-    expect(getByText(messages.switchBack.message)).toBeInTheDocument();
+    expect(getByText(messages.smartAccountLabel)).toBeInTheDocument();
+    expect(getByText(messages.switchBack)).toBeInTheDocument();
   });
 
   it('click on switch should call downgradeAccount method for smart accounts', async () => {
     const { getByText } = renderComponent();
-    fireEvent.click(getByText(messages.switchBack.message));
+    fireEvent.click(getByText(messages.switchBack));
 
     expect(mockDowngradeAccount).toHaveBeenCalled();
   });
 
   it('click on switch should call upgradeAccount method for standard accounts', async () => {
     const { getByText } = renderComponent({ isSupported: false });
-    fireEvent.click(getByText(messages.switch.message));
+    fireEvent.click(getByText(messages.switch));
 
     expect(mockUpgradeAccount).toHaveBeenCalled();
   });

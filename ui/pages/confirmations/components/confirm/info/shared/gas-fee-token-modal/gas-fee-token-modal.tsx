@@ -31,14 +31,14 @@ import {
 } from '../../../../../../../helpers/constants/design-system';
 import { useConfirmContext } from '../../../../../context/confirm';
 import { GasFeeTokenListItem } from '../gas-fee-token-list-item';
-import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
+import { getText } from '../../../../../../../helpers/utils/text';
 import { updateSelectedGasFeeToken } from '../../../../../../../store/controller-actions/transaction-controller';
 import Tooltip from '../../../../../../../components/ui/tooltip';
 import { useIsGaslessSupported } from '../../../../../hooks/gas/useIsGaslessSupported';
 import { useIsInsufficientBalance } from '../../../../../hooks/useIsInsufficientBalance';
 
 export function GasFeeTokenModal({ onClose }: { onClose?: () => void }) {
-  const t = useI18nContext();
+  const t = getText;
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { isSmartTransaction } = useIsGaslessSupported();
 
@@ -187,7 +187,7 @@ function NativeToggle({
   isFuture?: boolean;
   onChange: (isFuture: boolean) => void;
 }) {
-  const t = useI18nContext();
+  const t = getText;
 
   return (
     <Box

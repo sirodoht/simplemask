@@ -22,7 +22,7 @@ import {
   TextFieldType,
 } from '../../../components/component-library';
 import { SECURITY_AND_PASSWORD_ROUTE } from '../../../helpers/constants/routes';
-import { useI18nContext } from '../../../hooks/useI18nContext';
+import { getText } from '../../../helpers/utils/text';
 import { transitionBack } from '../../../components/ui/transition';
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import { createSentryError } from '../../../../shared/lib/error';
@@ -79,10 +79,7 @@ export default function PasskeyRegisterSubPage() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { enrollWithPasskey } = usePasskeyEnrollment();
-  const t = useI18nContext() as (
-    key: string,
-    substitutions?: string[],
-  ) => string;
+  const t = getText as (key: string, substitutions?: string[]) => string;
   const passkeyMethodLabel = t(getPasskeyAuthMethodKey());
   const passkeyMethodSpecificLabel = t(
     getPasskeyAuthMethodKey({ specific: true }),
