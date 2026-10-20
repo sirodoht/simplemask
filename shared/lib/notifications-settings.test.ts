@@ -20,7 +20,6 @@ describe('getNotificationsSettingsSectionTypeFromSlug', () => {
   for (const [slug, sectionType] of [
     ['wallet-activity', 'walletActivity'],
     ['perps', 'perps'],
-    ['marketing', 'marketing'],
     ['agentic-cli', 'agenticCli'],
     ['  Wallet-Activity  ', 'walletActivity'],
     ['PERPS', 'perps'],
@@ -39,6 +38,7 @@ describe('getNotificationsSettingsSectionTypeFromSlug', () => {
     '__proto__',
     'toString',
     '../marketing',
+    'marketing',
     '',
     '   ',
     null,

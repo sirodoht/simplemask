@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux';
 import {
   selectIsMetamaskNotificationsEnabled,
-  getFeatureAnnouncementsReadCount,
-  getFeatureAnnouncementsUnreadCount,
   getOnChainMetamaskNotificationsReadCount,
   getOnChainMetamaskNotificationsUnreadCount,
   getSnapNotificationsReadCount,
@@ -15,18 +13,6 @@ const useSnapNotificationsCount = () => {
   );
   const readSnapNotificationsCount = useSelector(getSnapNotificationsReadCount);
   return { unreadSnapNotificationsCount, readSnapNotificationsCount };
-};
-
-const useFeatureAnnouncementCount = () => {
-  const featureAnnouncementsUnreadCount = useSelector(
-    getFeatureAnnouncementsUnreadCount,
-  );
-
-  const featureAnnouncementsReadCount = useSelector(
-    getFeatureAnnouncementsReadCount,
-  );
-
-  return { featureAnnouncementsUnreadCount, featureAnnouncementsReadCount };
 };
 
 const useWalletNotificationCount = () => {
@@ -55,14 +41,11 @@ const useWalletNotificationCount = () => {
 
 export function useUnreadNotificationsCounter() {
   const { unreadSnapNotificationsCount } = useSnapNotificationsCount();
-  const { featureAnnouncementsUnreadCount } = useFeatureAnnouncementCount();
   const { onChainMetamaskNotificationsUnreadCount } =
     useWalletNotificationCount();
 
   const notificationsUnreadCount =
-    unreadSnapNotificationsCount +
-    featureAnnouncementsUnreadCount +
-    onChainMetamaskNotificationsUnreadCount;
+    unreadSnapNotificationsCount + onChainMetamaskNotificationsUnreadCount;
 
   return {
     notificationsUnreadCount,
@@ -71,14 +54,11 @@ export function useUnreadNotificationsCounter() {
 
 export function useReadNotificationsCounter() {
   const { readSnapNotificationsCount } = useSnapNotificationsCount();
-  const { featureAnnouncementsReadCount } = useFeatureAnnouncementCount();
   const { onChainMetamaskNotificationsReadCount } =
     useWalletNotificationCount();
 
   const notificationsReadCount =
-    readSnapNotificationsCount +
-    featureAnnouncementsReadCount +
-    onChainMetamaskNotificationsReadCount;
+    readSnapNotificationsCount + onChainMetamaskNotificationsReadCount;
 
   return {
     notificationsReadCount,

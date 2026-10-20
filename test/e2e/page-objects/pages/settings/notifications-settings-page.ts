@@ -5,13 +5,11 @@ import { shortenAddress } from '../../../../../ui/helpers/utils/util';
 export type NotificationPreferenceSection =
   | 'walletActivity'
   | 'perps'
-  | 'marketing'
   | 'agenticCli';
 
 const NOTIFICATION_PREFERENCE_SECTIONS: NotificationPreferenceSection[] = [
   'walletActivity',
   'perps',
-  'marketing',
   'agenticCli',
 ];
 
@@ -22,7 +20,7 @@ const NOTIFICATION_PREFERENCE_SECTIONS: NotificationPreferenceSection[] = [
  * `SettingsPage.goToNotificationsSettings` or
  * `flows/notifications.flow.ts` `goToNotificationsSettingsPage`.
  * Owns: allow-notifications toggle, per-account toggles, preference section
- * navigation (wallet activity, perps, marketing, Agent wallet), and in-app
+ * navigation (wallet activity, perps, Agent wallet), and in-app
  * notification toggles within those sections.
  * Boundaries: notification preferences only. The notifications list / inbox
  * UI is outside this page object.
@@ -89,10 +87,8 @@ class NotificationsSettingsPage {
     driver: Driver,
     {
       generalExpectedState = 'enabled',
-      marketingInAppExpectedState = 'enabled',
     }: {
       generalExpectedState?: 'enabled' | 'disabled';
-      marketingInAppExpectedState?: 'enabled' | 'disabled';
     } = {},
   ) {
     const notificationsSettingsPage = new NotificationsSettingsPage(driver);
@@ -101,10 +97,6 @@ class NotificationsSettingsPage {
     await notificationsSettingsPage.checkNotificationState({
       toggleType: 'general',
       expectedState: generalExpectedState,
-    });
-    await notificationsSettingsPage.checkNotificationState({
-      toggleType: 'product',
-      expectedState: marketingInAppExpectedState,
     });
     return notificationsSettingsPage;
   }
@@ -170,7 +162,7 @@ class NotificationsSettingsPage {
    * Validates the state of any notification toggle.
    *
    * @param options - Configuration object
-   * @param options.toggleType - The type of toggle to check ('general' | 'product' | 'address')
+   * @param options.toggleType - The type of toggle to check ('general' | 'address')
    * @param options.address - The ethereum address (required only when toggleType is 'address')
    * @param options.expectedState - The expected state of the toggle ('enabled' or 'disabled')
    * @throws {Error} If toggle state doesn't match expected state or if the toggle element cannot be found
@@ -180,7 +172,7 @@ class NotificationsSettingsPage {
     address,
     expectedState,
   }: {
-    toggleType: 'general' | 'product' | 'address';
+    toggleType: 'general' | 'address';
     address?: string;
     expectedState: 'enabled' | 'disabled';
   }): Promise<void> {
@@ -192,10 +184,6 @@ class NotificationsSettingsPage {
       case 'general':
         await this.goToMainSettings();
         selector = this.allowNotificationsInput;
-        break;
-      case 'product':
-        await this.goToNotificationSection('marketing');
-        selector = this.sectionInAppNotificationsInput('marketing');
         break;
       case 'address':
         if (!address) {
@@ -254,7 +242,7 @@ class NotificationsSettingsPage {
    * Clicks a notification toggle and verifies its new state.
    *
    * @param options - Configuration object
-   * @param options.toggleType - The type of toggle to click ('general' | 'product' | 'address')
+   * @param options.toggleType - The type of toggle to click ('general' | 'address')
    * @param options.address - The ethereum address (required only when toggleType is 'address')
    * @throws {Error} If toggle element cannot be found or if address is missing when required
    */
@@ -262,7 +250,7 @@ class NotificationsSettingsPage {
     toggleType,
     address,
   }: {
-    toggleType: 'general' | 'product' | 'address';
+    toggleType: 'general' | 'address';
     address?: string;
   }): Promise<void> {
     let selector: string;
@@ -272,11 +260,6 @@ class NotificationsSettingsPage {
         await this.goToMainSettings();
         selector = this.allowNotificationsToggle;
         console.log('Clicking general notifications toggle');
-        break;
-      case 'product':
-        await this.goToNotificationSection('marketing');
-        selector = this.sectionInAppNotificationsToggle('marketing');
-        console.log('Clicking marketing in-app notifications toggle');
         break;
       case 'address':
         if (!address) {

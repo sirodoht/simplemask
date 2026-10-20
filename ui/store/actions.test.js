@@ -3978,52 +3978,6 @@ describe('Actions', () => {
     });
   });
 
-  describe('#setFeatureAnnouncementsEnabled', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls setFeatureAnnouncementsEnabled in the background with correct parameters', async () => {
-      const store = mockStore();
-      const state = true;
-
-      const setFeatureAnnouncementsEnabledStub = sinon.stub().resolves();
-
-      background.getApi.returns({
-        setFeatureAnnouncementsEnabled: setFeatureAnnouncementsEnabledStub,
-      });
-      setBackgroundConnection(background.getApi());
-
-      await store.dispatch(actions.setFeatureAnnouncementsEnabled(state));
-      expect(setFeatureAnnouncementsEnabledStub.calledOnceWith(state)).toBe(
-        true,
-      );
-    });
-
-    it('handles errors when setFeatureAnnouncementsEnabled fails', async () => {
-      const store = mockStore();
-      const state = false;
-      const error = new Error(
-        'Failed to set feature announcements enabled state',
-      );
-
-      const setFeatureAnnouncementsEnabledStub = sinon
-        .stub()
-        .rejects(
-          new Error('Failed to set feature announcements enabled state'),
-        );
-
-      background.getApi.returns({
-        setFeatureAnnouncementsEnabled: setFeatureAnnouncementsEnabledStub,
-      });
-      setBackgroundConnection(background.getApi());
-
-      await expect(
-        store.dispatch(actions.setFeatureAnnouncementsEnabled(state)),
-      ).rejects.toThrow(error);
-    });
-  });
-
   describe('#checkAccountsPresence', () => {
     afterEach(() => {
       sinon.restore();

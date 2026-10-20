@@ -55,7 +55,10 @@ export function getIsNotificationEnabledByDefaultFeatureFlag(
 export const getMetamaskNotifications = createSelector(
   [getMetamask],
   (metamask): Notification[] => {
-    return metamask.metamaskNotificationsList;
+    return metamask.metamaskNotificationsList.filter(
+      (notification) =>
+        notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
+    );
   },
 );
 
@@ -95,44 +98,6 @@ export const getMetamaskNotificationsUnreadCount = createSelector(
   (notifications: Notification[]): number => {
     return notifications
       ? notifications.filter((notification) => !notification.isRead).length
-      : 0;
-  },
-);
-
-/**
- * Selector to get the count of unread feature announcement notifications.
- *
- * @param {NotificationAppState} state - The current state of the Redux store.
- * @returns {number} The count of unread feature announcement notifications.
- */
-export const getFeatureAnnouncementsUnreadCount = createSelector(
-  [getMetamaskNotifications],
-  (notifications: Notification[]): number => {
-    return notifications
-      ? notifications.filter(
-          (notification) =>
-            !notification.isRead &&
-            notification.type === TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
-        ).length
-      : 0;
-  },
-);
-
-/**
- * Selector to get the count of read feature announcement notifications.
- *
- * @param {NotificationAppState} state - The current state of the Redux store.
- * @returns {number} The count of read feature announcement notifications.
- */
-export const getFeatureAnnouncementsReadCount = createSelector(
-  [getMetamaskNotifications],
-  (notifications: Notification[]) => {
-    return notifications
-      ? notifications.filter(
-          (notification) =>
-            notification.isRead &&
-            notification.type === TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
-        ).length
       : 0;
   },
 );
@@ -233,17 +198,6 @@ export const selectIsMetamaskNotificationsFeatureSeen = createSelector(
 export const selectIsMetamaskNotificationsEnabled = createSelector(
   [getMetamask],
   (metamask): boolean => metamask.isNotificationServicesEnabled,
-);
-
-/**
- * Selector to determine if feature announcements are enabled.
- *
- * @param {NotificationAppState} state - The current state of the Redux store.
- * @returns {boolean} Returns true if feature announcements are enabled, false otherwise.
- */
-export const selectIsFeatureAnnouncementsEnabled = createSelector(
-  [getMetamask],
-  (metamask): boolean => metamask.isFeatureAnnouncementsEnabled,
 );
 
 /**

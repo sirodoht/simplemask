@@ -6,7 +6,6 @@ import {
   TRIGGER_TYPES,
   NOTIFICATION_API_TRIGGER_TYPES_SET,
 } from '@metamask/notification-services-controller/notification-services';
-import type { NotificationPreferences } from '@metamask/authenticated-user-storage';
 import { useI18nContext } from '../../hooks/useI18nContext';
 import {
   IconName,
@@ -24,11 +23,9 @@ import {
 import { Content, Header, Page } from '../../components/multichain/pages/page';
 import { useMetamaskNotificationsContext } from '../../contexts/metamask-notifications/metamask-notifications';
 import { useUnreadNotificationsCounter } from '../../hooks/metamask-notifications/useCounter';
-import { useSafeState } from '../../hooks/metamask-notifications/useNotifications';
 import { getNotifySnaps } from '../../selectors';
 import {
   selectIsMetamaskNotificationsEnabled,
-  selectIsFeatureAnnouncementsEnabled,
   getMetamaskNotifications,
 } from '../../selectors/metamask-notifications/metamask-notifications';
 import {
@@ -36,68 +33,18 @@ import {
   Display,
   JustifyContent,
 } from '../../helpers/constants/design-system';
-import {
-  deleteExpiredNotifications,
-  getNotificationPreferences,
-} from '../../store/actions';
+import { deleteExpiredNotifications } from '../../store/actions';
 import { useGlobalMenuRouteTransition } from '../routes/global-menu-route-transition';
 import { useDispatch } from '../../store/hooks';
 import { NotificationsList, TAB_KEYS } from './notifications-list';
 import { NewFeatureTag } from './NewFeatureTag';
 
-const useFeatureAnnouncementsEnabled = () => {
-  const dispatch = useDispatch();
-  const featureAnnouncementsEnabledInState = useSelector(
-    selectIsFeatureAnnouncementsEnabled,
-  );
-  const [areFeatureAnnouncementsEnabled, setAreFeatureAnnouncementsEnabled] =
-    useSafeState(featureAnnouncementsEnabledInState);
-
-  useEffect(() => {
-    const loadPreferences = async () => {
-      try {
-        const preferences = (await dispatch(
-          getNotificationPreferences(),
-        )) as unknown as NotificationPreferences | null;
-
-        setAreFeatureAnnouncementsEnabled(
-          Boolean(preferences?.marketing.inAppNotificationsEnabled),
-        );
-      } catch {
-        setAreFeatureAnnouncementsEnabled(
-          Boolean(featureAnnouncementsEnabledInState),
-        );
-      }
-    };
-
-    loadPreferences();
-  }, [
-    dispatch,
-    featureAnnouncementsEnabledInState,
-    setAreFeatureAnnouncementsEnabled,
-  ]);
-
-  return areFeatureAnnouncementsEnabled;
-};
-
-// NOTE - these 2 data sources are combined in our controller.
-// FUTURE - we could separate these data sources into separate methods.
 const useMetaMaskNotifications = () => {
-  const areFeatureAnnouncementsEnabled = useFeatureAnnouncementsEnabled();
-
   const isMetamaskNotificationsEnabled = useSelector(
     selectIsMetamaskNotificationsEnabled,
   );
 
   const notificationsData = useSelector(getMetamaskNotifications);
-
-  const featureAnnouncementNotifications = useMemo(() => {
-    return areFeatureAnnouncementsEnabled
-      ? (notificationsData ?? []).filter(
-          (n) => n.type === TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
-        )
-      : [];
-  }, [areFeatureAnnouncementsEnabled, notificationsData]);
 
   const walletNotifications = useMemo(() => {
     return isMetamaskNotificationsEnabled
@@ -116,35 +63,22 @@ const useMetaMaskNotifications = () => {
   }, [notificationsData]);
 
   return {
-    featureAnnouncementNotifications,
     walletNotifications,
     snapNotifications,
   };
 };
 
 const useCombinedNotifications = () => {
-  const {
-    featureAnnouncementNotifications,
-    walletNotifications,
-    snapNotifications,
-  } = useMetaMaskNotifications();
+  const { walletNotifications, snapNotifications } = useMetaMaskNotifications();
 
   const combinedNotifications = useMemo(() => {
-    const notifications = [
-      ...snapNotifications,
-      ...featureAnnouncementNotifications,
-      ...walletNotifications,
-    ].sort(
+    const notifications = [...snapNotifications, ...walletNotifications].sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
     return notifications;
-  }, [
-    snapNotifications,
-    featureAnnouncementNotifications,
-    walletNotifications,
-  ]);
+  }, [snapNotifications, walletNotifications]);
 
   return combinedNotifications;
 };
@@ -158,10 +92,8 @@ export const filterNotifications = (
   }
 
   if (activeTab === TAB_KEYS.WALLET) {
-    return notifications.filter(
-      (notification) =>
-        NOTIFICATION_API_TRIGGER_TYPES_SET.has(notification.type) ||
-        notification.type === TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
+    return notifications.filter((notification) =>
+      NOTIFICATION_API_TRIGGER_TYPES_SET.has(notification.type),
     );
   }
 

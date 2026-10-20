@@ -1,0 +1,57 @@
+diff --git a/dist/NotificationServicesController/NotificationServicesController.js b/dist/NotificationServicesController/NotificationServicesController.js
+index fbaad16cd7b03248fde44160422e027c5e7f8981..f2e4730ab557de2a22a4a7fedd8f96fa8b5ba1af 100644
+--- a/dist/NotificationServicesController/NotificationServicesController.js
++++ b/dist/NotificationServicesController/NotificationServicesController.js
+@@ -7,7 +7,6 @@ import log from 'loglevel';
+ import { TRIGGER_TYPES } from './constants/notification-schema.js';
+ import { processAndFilterNotifications, safeProcessNotification, } from './processors/process-notifications.js';
+ import { getAPINotifications, getNotificationsApiConfigCached, markNotificationsAsRead, updateOnChainNotifications, } from './services/api-notifications.js';
+-import { getFeatureAnnouncementNotifications } from './services/feature-announcements.js';
+ import { createPerpOrderNotification } from './services/perp-notifications.js';
+ // Unique name for the controller
+ const controllerName = 'NotificationServicesController';
+@@ -623,7 +622,7 @@ export class NotificationServicesController extends BaseController {
+     async setFeatureAnnouncementsEnabled(featureAnnouncementsEnabled) {
+         try {
+             this.update((state) => {
+-                state.isFeatureAnnouncementsEnabled = featureAnnouncementsEnabled;
++                state.isFeatureAnnouncementsEnabled = false;
+             });
+         }
+         catch (error) {
+@@ -711,7 +710,7 @@ export class NotificationServicesController extends BaseController {
+                 else {
+                     // User is turning on notifications from a disabled state
+                     state.isNotificationServicesEnabled = true;
+-                    state.isFeatureAnnouncementsEnabled = true;
++                    state.isFeatureAnnouncementsEnabled = false;
+                     state.isMetamaskNotificationsFeatureSeen = true;
+                 }
+             });
+@@ -839,16 +838,6 @@ export class NotificationServicesController extends BaseController {
+             // This is used by Feature Announcement & On Chain
+             // Not used by Snaps
+             const isGlobalNotifsEnabled = this.state.isNotificationServicesEnabled;
+-            const notificationPreferences = isGlobalNotifsEnabled
+-                ? await this.messenger
+-                    .call('AuthenticatedUserStorageService:getNotificationPreferences')
+-                    .catch(() => null)
+-                : null;
+-            // Raw Feature Notifications
+-            const rawAnnouncements = isGlobalNotifsEnabled &&
+-                notificationPreferences?.marketing.inAppNotificationsEnabled
+-                ? await getFeatureAnnouncementNotifications(this.#featureAnnouncementEnv, previewToken).catch(() => [])
+-                : [];
+             // Raw On Chain Notifications
+             const rawOnChainNotifications = [];
+             if (isGlobalNotifsEnabled) {
+@@ -874,8 +863,7 @@ export class NotificationServicesController extends BaseController {
+             const readIds = this.state.metamaskNotificationsReadList;
+             // Combine Notifications
+             const metamaskNotifications = [
+-                ...processAndFilterNotifications(rawAnnouncements, readIds),
+-                ...processAndFilterNotifications(rawOnChainNotifications, readIds),
++                ...processAndFilterNotifications(rawOnChainNotifications, readIds).filter((notification) => notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT),
+                 ...snapNotifications,
+             ];
+             // Sort Notifications

@@ -7168,17 +7168,19 @@ export function enableAccounts(
  * This function sends a request to the background script to fetch the latest notifications.
  * If the operation encounters an error, it logs the error message and rethrows the error to ensure it is handled appropriately.
  *
- * @param previewToken - Optional preview token for fetching draft feature announcements.
  * @returns A thunk action that, when dispatched, attempts to fetch and update MetaMask notifications.
  */
-export function fetchAndUpdateMetamaskNotifications(
-  previewToken?: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
+export function fetchAndUpdateMetamaskNotifications(): ThunkAction<
+  void,
+  MetaMaskReduxState,
+  unknown,
+  AnyAction
+> {
   return async () => {
     try {
       const response = await submitRequestToBackground(
         'fetchAndUpdateMetamaskNotifications',
-        [previewToken],
+        [],
       );
       return response;
     } catch (error) {
@@ -7316,31 +7318,6 @@ export function markMetamaskNotificationsAsRead(
     try {
       await submitRequestToBackground('markMetamaskNotificationsAsRead', [
         notifications,
-      ]);
-    } catch (error) {
-      logErrorWithMessage(error);
-      throw error;
-    }
-  };
-}
-
-/**
- * Enables or disables feature announcements.
- *
- * This function sends a request to the background script to toggle the enabled state of feature announcements.
- * Upon success, it dispatches an action with type `SET_FEATURE_ANNOUNCEMENTS_ENABLED` to update the Redux state.
- * If the operation encounters an error, it logs the error message and rethrows the error to ensure it is handled appropriately.
- *
- * @param state - A boolean indicating whether to enable (true) or disable (false) feature announcements.
- * @returns A thunk action that, when dispatched, attempts to set the enabled state of feature announcements.
- */
-export function setFeatureAnnouncementsEnabled(
-  state: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async () => {
-    try {
-      await submitRequestToBackground('setFeatureAnnouncementsEnabled', [
-        state,
       ]);
     } catch (error) {
       logErrorWithMessage(error);

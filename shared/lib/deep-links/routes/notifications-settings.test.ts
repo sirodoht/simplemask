@@ -29,7 +29,6 @@ describe('notificationsSettings', () => {
     ['wallet-activity', '/settings/notifications/wallet-activity'],
     ['perps', '/settings/notifications/perps'],
     ['agentic-cli', '/settings/notifications/agentic-cli'],
-    ['marketing', '/settings/notifications/marketing'],
   ];
 
   for (const [section, path] of sections) {
@@ -53,6 +52,7 @@ describe('notificationsSettings', () => {
 
   for (const section of [
     'unknown',
+    'marketing',
     '',
     'constructor',
     '__proto__',

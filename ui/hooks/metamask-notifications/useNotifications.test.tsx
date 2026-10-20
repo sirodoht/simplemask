@@ -19,7 +19,6 @@ jest.mock('../../store/actions', () => ({
   createOnChainTriggers: jest.fn(),
   deleteOnChainTriggersByAccount: jest.fn(),
   fetchAndUpdateMetamaskNotifications: jest.fn(),
-  setFeatureAnnouncementsEnabled: jest.fn(),
   markMetamaskNotificationsAsRead: jest.fn(),
   showLoadingIndication: jest.fn(),
   hideLoadingIndication: jest.fn(),
@@ -94,7 +93,7 @@ describe('useNotifications', () => {
     expect(actions.disableMetamaskNotifications).toHaveBeenCalled();
   });
 
-  it('should enable notifications with AUS marketing initialization options', async () => {
+  it('enables wallet notifications without opting into marketing', async () => {
     const { result } = renderHook(() => useEnableNotifications(), {
       wrapper: ({ children }: React.PropsWithChildren) => (
         <Provider store={store}>{children}</Provider>
@@ -106,7 +105,7 @@ describe('useNotifications', () => {
     });
 
     expect(actions.enableMetamaskNotifications).toHaveBeenCalledWith({
-      hasMarketingConsent: true,
+      hasMarketingConsent: false,
       productAnnouncementEnabled: false,
     });
   });

@@ -41,7 +41,7 @@ Keep the home screen focused on everyday wallet tasks:
 
 For every removed feature, address both its visible interface and its underlying controllers, dependencies, polling, services, configuration, and permissions where no longer needed. Hiding a button is only part of the work.
 
-- [ ] Remove ads, promotional cards/carousels, and marketing announcements. Home carousel, remote carousel fetching, and the legacy announcement controller are removed; notification-service marketing remains for the marketing-notification task.
+- [x] Remove ads, promotional cards/carousels, and marketing announcements. Removed the home carousel, remote carousel fetching, legacy announcement controller, and notification-service feature announcements, including fetching, saved announcements, marketing settings, and unused rendering dependencies. Product-specific promotional placements and push marketing are covered by their respective items below.
 - [ ] Remove perpetual futures, including Perps navigation and promotional placements.
 - [ ] Remove rewards and referral features.
 - [ ] Remove NFT galleries, discovery, import, and other dedicated NFT features.

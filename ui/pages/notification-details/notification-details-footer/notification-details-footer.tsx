@@ -34,17 +34,6 @@ export const NotificationDetailsFooter = ({
       {footer.type === NotificationComponentType.OnChainFooter && (
         <footer.ScanLink notification={notification} />
       )}
-      {footer.type === NotificationComponentType.AnnouncementFooter && (
-        <Box
-          display={Display.Flex}
-          gap={4}
-          flexDirection={FlexDirection.Row}
-          width={BlockSize.Full}
-        >
-          <footer.ExternalLink notification={notification} />
-          <footer.ExtensionLink notification={notification} />
-        </Box>
-      )}
       {footer.type === NotificationComponentType.SnapFooter && (
         <footer.Link notification={notification} />
       )}

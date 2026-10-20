@@ -59,7 +59,6 @@ describe('Enable Notifications - Without Accounts Syncing', function () {
      * - Add accounts again
      * - Verify settings:
      * → General notifications: requires manual re-enable
-     * → Product notifications: disabled (persisted in AUS)
      * → First account: enabled
      * → Second account: disabled (persisted via the Trigger API from Part 1)
      */
@@ -85,18 +84,13 @@ describe('Enable Notifications - Without Accounts Syncing', function () {
           );
           await notificationsSettingsPage.assertMainNotificationSettingsTogglesState(
             driver,
-            { marketingInAppExpectedState: 'disabled' },
           );
 
           // Update preferences for persistence check:
-          // disable account 2 and toggle marketing in-app notifications.
+          // disable account 2.
           await notificationsSettingsPage.clickNotificationToggle({
             address: notificationsMockAccounts[1].a,
             toggleType: 'address',
-          });
-
-          await notificationsSettingsPage.clickNotificationToggle({
-            toggleType: 'product',
           });
         },
       );

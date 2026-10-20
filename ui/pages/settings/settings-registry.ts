@@ -19,7 +19,6 @@ import {
   NOTIFICATIONS_SETTINGS_ROUTE,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
   NOTIFICATIONS_SETTINGS_PERPS_ROUTE,
-  NOTIFICATIONS_SETTINGS_MARKETING_ROUTE,
   NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
   PREFERENCES_AND_DISPLAY_ROUTE,
   SECURITY_AND_PASSWORD_ROUTE,
@@ -199,13 +198,6 @@ export const SETTINGS_ROUTES: Record<string, SettingsRouteMeta> = {
         },
       }
     : {}),
-  [NOTIFICATIONS_SETTINGS_MARKETING_ROUTE]: {
-    labelKey: 'notificationsSettingsMarketingTitle',
-    parentPath: NOTIFICATIONS_SETTINGS_ROUTE,
-    component: mmLazy(
-      () => import('./notifications-tab/marketing-sub-page.tsx'),
-    ),
-  },
   [NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE]: {
     labelKey: 'notificationsSettingsAgenticCliTitle',
     parentPath: NOTIFICATIONS_SETTINGS_ROUTE,

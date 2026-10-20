@@ -7,7 +7,6 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react';
-import { useSelector } from 'react-redux';
 import type { InternalAccount } from '@metamask/keyring-internal-api';
 import log from 'loglevel';
 import {
@@ -25,8 +24,6 @@ import {
   setUserHasTurnedOffNotificationsOnce,
   updateNotificationSubscriptionExpiration,
 } from '../../contexts/metamask-notifications/notification-storage-keys';
-import { getDataCollectionForMarketing } from '../../selectors/metametrics';
-import { selectIsFeatureAnnouncementsEnabled } from '../../selectors/metamask-notifications/metamask-notifications';
 import { useDispatch } from '../../store/hooks';
 
 /**
@@ -95,13 +92,8 @@ export function useListNotifications(): {
     setLoading(true);
     setError(null);
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const previewToken = urlParams.get('previewToken');
-
     try {
-      const data = await dispatch(
-        fetchAndUpdateMetamaskNotifications(previewToken ?? undefined),
-      );
+      const data = await dispatch(fetchAndUpdateMetamaskNotifications());
       startTransition(() => {
         setNotificationsData(data as unknown as INotification[]);
         setLoading(false);
@@ -170,11 +162,6 @@ export function useEnableNotifications(): {
   error: string | null;
 } {
   const dispatch = useDispatch();
-  const hasMarketingConsent = Boolean(
-    useSelector(getDataCollectionForMarketing),
-  );
-  const isFeatureAnnouncementsEnabled =
-    useSelector(selectIsFeatureAnnouncementsEnabled) ?? true;
 
   const [error, setError] = useSafeState<string | null>(null);
 
@@ -184,8 +171,8 @@ export function useEnableNotifications(): {
     try {
       await dispatch(
         enableMetamaskNotifications({
-          hasMarketingConsent,
-          productAnnouncementEnabled: isFeatureAnnouncementsEnabled,
+          hasMarketingConsent: false,
+          productAnnouncementEnabled: false,
         }),
       );
       await updateNotificationSubscriptionExpiration();
@@ -194,7 +181,7 @@ export function useEnableNotifications(): {
       log.error(e);
       throw e;
     }
-  }, [dispatch, hasMarketingConsent, isFeatureAnnouncementsEnabled, setError]);
+  }, [dispatch, setError]);
 
   return {
     enableNotifications,

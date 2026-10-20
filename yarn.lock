@@ -9791,7 +9791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/notification-services-controller@npm:^29.0.1":
+"@metamask/notification-services-controller@npm:29.0.1":
   version: 29.0.1
   resolution: "@metamask/notification-services-controller@npm:29.0.1"
   dependencies:
@@ -9810,6 +9810,28 @@ __metadata:
     semver: "npm:^7.6.3"
     uuid: "npm:^11.1.1"
   checksum: 10/551014168f1a52c771b219e9af7a91180cfd76b63ad7bb0922abc22d78c2d643577b76b34ca5dd25a702bc8582b0e5f0c3776411c04983f428ac426d925e4ab3
+  languageName: node
+  linkType: hard
+
+"@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A29.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-29.0.1-1bb51c75bc.patch":
+  version: 29.0.1
+  resolution: "@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A29.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-29.0.1-1bb51c75bc.patch::version=29.0.1&hash=ffd964"
+  dependencies:
+    "@contentful/rich-text-html-renderer": "npm:^16.5.2"
+    "@metamask/authenticated-user-storage": "npm:^4.1.0"
+    "@metamask/base-controller": "npm:^10.0.0"
+    "@metamask/controller-utils": "npm:^13.0.0"
+    "@metamask/keyring-controller": "npm:^28.1.0"
+    "@metamask/messenger": "npm:^3.0.0"
+    "@metamask/profile-sync-controller": "npm:^32.3.1"
+    "@metamask/utils": "npm:^12.0.0"
+    bignumber.js: "npm:^9.1.2"
+    firebase: "npm:^11.2.0"
+    lodash-es: "npm:^4.17.21"
+    loglevel: "npm:^1.8.1"
+    semver: "npm:^7.6.3"
+    uuid: "npm:^11.1.1"
+  checksum: 10/2ec826d6aff962cc256f42bc35eaa7fcfd7abf35f75dabba4a1bacee5add230c7e6997f418119c247d8c444fd0d06042b0ae0fc2cf1969d79035b84ac44bacdf
   languageName: node
   linkType: hard
 
@@ -18837,7 +18859,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/trusted-types@npm:^2.0.2, @types/trusted-types@npm:^2.0.7":
+"@types/trusted-types@npm:^2.0.2":
   version: 2.0.7
   resolution: "@types/trusted-types@npm:2.0.7"
   checksum: 10/8e4202766a65877efcf5d5a41b7dd458480b36195e580a3b1085ad21e948bc417d55d6f8af1fd2a7ad008015d4117d5fdfe432731157da3c68678487174e4ba3
@@ -26216,30 +26238,6 @@ __metadata:
   dependencies:
     domelementtype: "npm:^2.3.0"
   checksum: 10/809b805a50a9c6884a29f38aec0a4e1b4537f40e1c861950ed47d10b049febe6b79ab72adaeeebb3cc8fc1cd33f34e97048a72a9265103426d93efafa78d3e96
-  languageName: node
-  linkType: hard
-
-"dompurify@npm:3.4.16":
-  version: 3.4.16
-  resolution: "dompurify@npm:3.4.16"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.7"
-  dependenciesMeta:
-    "@types/trusted-types":
-      optional: true
-  checksum: 10/a571d0e2bede4f739666afd640398a86854abd27c71ce0724910249e2fd2ca7ddb8098a9ab579d3a5b39058419af694421f8fe859a81fd6d8acda16019a8ab9d
-  languageName: node
-  linkType: hard
-
-"dompurify@patch:dompurify@npm%3A3.4.16#~/.yarn/patches/dompurify-npm-3.4.16-5722cc146c.patch":
-  version: 3.4.16
-  resolution: "dompurify@patch:dompurify@npm%3A3.4.16#~/.yarn/patches/dompurify-npm-3.4.16-5722cc146c.patch::version=3.4.16&hash=71fd3e"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.7"
-  dependenciesMeta:
-    "@types/trusted-types":
-      optional: true
-  checksum: 10/f06c9d09ecd0ff8bd1794605d5cf92b1e6107c590a7ce1218ea020e8faf04f771a81b9c3a407e8f39139caa81111b602404661f0e03fa2fa5e15580ecf881f74
   languageName: node
   linkType: hard
 
@@ -36143,7 +36141,7 @@ __metadata:
     "@metamask/network-connection-banner-controller": "npm:^0.2.0"
     "@metamask/network-controller": "npm:^36.0.0"
     "@metamask/network-enablement-controller": "npm:^6.0.0"
-    "@metamask/notification-services-controller": "npm:^29.0.1"
+    "@metamask/notification-services-controller": "patch:@metamask/notification-services-controller@npm%3A29.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-29.0.1-1bb51c75bc.patch"
     "@metamask/object-multiplex": "npm:^2.0.0"
     "@metamask/obs-store": "npm:^9.0.0"
     "@metamask/passkey-controller": "npm:^4.1.0"
@@ -36330,7 +36328,6 @@ __metadata:
     deep-freeze-strict: "npm:1.1.1"
     depcheck: "npm:^1.4.7"
     detect-port: "npm:^1.5.1"
-    dompurify: "patch:dompurify@npm%3A3.4.16#~/.yarn/patches/dompurify-npm-3.4.16-5722cc146c.patch"
     dotenv: "npm:^16.4.5"
     duplexify: "npm:^4.1.1"
     eciesjs: "npm:^0.5.0"

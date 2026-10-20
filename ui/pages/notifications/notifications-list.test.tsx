@@ -18,7 +18,6 @@ import {
   createMockNotificationMetaMaskSwapsCompleted,
   createMockNotificationRocketPoolStakeCompleted,
   createMockNotificationRocketPoolUnStakeCompleted,
-  createMockFeatureAnnouncementRaw,
   createMockPlatformNotification,
 } from '@metamask/notification-services-controller/notification-services/mocks';
 
@@ -87,7 +86,6 @@ const mockNotifications = [
   processNotification(createMockNotificationMetaMaskSwapsCompleted()),
   processNotification(createMockNotificationRocketPoolStakeCompleted()),
   processNotification(createMockNotificationRocketPoolUnStakeCompleted()),
-  processNotification(createMockFeatureAnnouncementRaw()),
   processNotification(createMockPlatformNotification()),
 ];
 

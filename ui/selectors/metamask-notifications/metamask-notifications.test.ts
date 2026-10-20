@@ -3,10 +3,12 @@ import {
   INotification as Notification,
   processNotification,
 } from '@metamask/notification-services-controller/notification-services';
-import { createMockNotificationEthReceived } from '@metamask/notification-services-controller/notification-services/mocks';
+import {
+  createMockNotificationEthReceived,
+  createMockFeatureAnnouncementRaw,
+} from '@metamask/notification-services-controller/notification-services/mocks';
 import {
   selectIsMetamaskNotificationsEnabled,
-  selectIsFeatureAnnouncementsEnabled,
   getMetamaskNotifications,
   getMetamaskNotificationById,
   getMetamaskNotificationsReadList,
@@ -49,10 +51,6 @@ describe('Metamask Notifications Selectors', () => {
     expect(selectIsMetamaskNotificationsEnabled(mockState())).toBe(true);
   });
 
-  it('should select the isFeatureAnnouncementsEnabled state', () => {
-    expect(selectIsFeatureAnnouncementsEnabled(mockState())).toBe(true);
-  });
-
   it('should select the metamaskNotificationsList from state', () => {
     expect(getMetamaskNotifications(mockState())).toStrictEqual(
       mockNotifications,
@@ -63,6 +61,23 @@ describe('Metamask Notifications Selectors', () => {
     const state = mockState();
     delete state.metamask.metamaskNotificationsList;
     expect(getMetamaskNotifications(state)).toStrictEqual([]);
+  });
+
+  it('excludes stale announcements from the inbox, badge, and detail lookup', () => {
+    const announcement = processNotification(
+      createMockFeatureAnnouncementRaw(),
+    );
+    const state = mockState();
+    state.metamask.metamaskNotificationsList = [
+      ...mockNotifications,
+      announcement,
+    ];
+
+    expect(getMetamaskNotifications(state)).toStrictEqual(mockNotifications);
+    expect(getMetamaskNotificationById(state, announcement.id)).toBeUndefined();
+    expect(getMetamaskNotificationsUnreadCount(state)).toBe(
+      mockNotifications.filter((notification) => !notification.isRead).length,
+    );
   });
 
   it('should select the metamaskNotificationsReadList from state', () => {

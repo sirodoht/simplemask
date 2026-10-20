@@ -1,6 +1,5 @@
 import {
   NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
-  NOTIFICATIONS_SETTINGS_MARKETING_ROUTE,
   NOTIFICATIONS_SETTINGS_PERPS_ROUTE,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
   THIRD_PARTY_APIS_ROUTE,
@@ -111,7 +110,6 @@ export const NOTIFICATIONS_ITEMS = {
 export const NOTIFICATIONS_SECTION_ITEMS = {
   'wallet-activity': 'notificationsSettingsWalletActivityTitle',
   perps: 'notificationsSettingsPerpsTitle',
-  marketing: 'notificationsSettingsMarketingTitle',
   'agentic-cli': 'notificationsSettingsAgenticCliTitle',
 } as const;
 
@@ -179,12 +177,6 @@ export const SETTINGS_SEARCH_CONFIG: TabSearchConfig[] = [
             },
           ]
         : []),
-      {
-        path: NOTIFICATIONS_SETTINGS_MARKETING_ROUTE,
-        items: createSearchItemMeta({
-          marketing: NOTIFICATIONS_SECTION_ITEMS.marketing,
-        }),
-      },
       {
         path: NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
         items: createSearchItemMeta({

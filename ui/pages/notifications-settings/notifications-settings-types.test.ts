@@ -4,9 +4,9 @@ import { getNotificationsSettingsSectionConfigs } from './notifications-settings
 describe('getNotificationsSettingsSectionConfigs', () => {
   const t = ((key: string) => key) as ReturnType<typeof useI18nContext>;
 
-  it('keeps marketing as the last section', () => {
+  it('does not offer marketing notifications', () => {
     const sections = getNotificationsSettingsSectionConfigs(t);
 
-    expect(sections.at(-1)?.type).toBe('marketing');
+    expect(sections.map(({ type }) => type)).not.toContain('marketing');
   });
 });

@@ -17,7 +17,6 @@ import {
   createMockNotificationMetaMaskSwapsCompleted,
   createMockNotificationRocketPoolStakeCompleted,
   createMockNotificationRocketPoolUnStakeCompleted,
-  createMockFeatureAnnouncementRaw,
   createMockSnapNotification,
   createMockPlatformNotification,
 } from '@metamask/notification-services-controller/notification-services/mocks';
@@ -43,7 +42,6 @@ const notificationMocks = {
   MetaMaskSwapsCompleted: createMockNotificationMetaMaskSwapsCompleted,
   RocketPoolStakeCompleted: createMockNotificationRocketPoolStakeCompleted,
   RocketPoolUnStakeCompleted: createMockNotificationRocketPoolUnStakeCompleted,
-  FeatureAnnouncement: createMockFeatureAnnouncementRaw,
   Snap: () => {
     const mock = createMockSnapNotification();
     // TODO(hmalik88): the mock's origin should be fixed upstream

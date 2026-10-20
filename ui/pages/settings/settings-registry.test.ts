@@ -4,7 +4,6 @@ import {
   CURRENCY_ROUTE,
   MANAGE_WALLET_RECOVERY_ROUTE,
   NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
-  NOTIFICATIONS_SETTINGS_MARKETING_ROUTE,
   NOTIFICATIONS_SETTINGS_ROUTE,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
   PRIVACY_ROUTE,
@@ -172,13 +171,8 @@ describe('settings-registry', () => {
       );
 
       expect(
-        getSettingsRouteMeta(NOTIFICATIONS_SETTINGS_MARKETING_ROUTE),
-      ).toEqual(
-        expect.objectContaining({
-          labelKey: 'notificationsSettingsMarketingTitle',
-          parentPath: NOTIFICATIONS_SETTINGS_ROUTE,
-        }),
-      );
+        getSettingsRouteMeta('/settings/notifications/marketing'),
+      ).toBeNull();
     });
   });
 
@@ -256,7 +250,7 @@ describe('settings-registry', () => {
       expect(paths).toContain(TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE);
       expect(paths).toContain(`${TRANSACTION_SHIELD_CLAIM_ROUTES.BASE}/*`);
       expect(paths).toContain(NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE);
-      expect(paths).toContain(NOTIFICATIONS_SETTINGS_MARKETING_ROUTE);
+      expect(paths).not.toContain('/settings/notifications/marketing');
       expect(paths).toContain(NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE);
     });
 

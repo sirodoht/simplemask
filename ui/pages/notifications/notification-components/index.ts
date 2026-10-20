@@ -4,7 +4,6 @@ import { components as ERC20SentReceivedComponents } from './erc20-sent-received
 import { components as ERC721SentReceivedComponents } from './erc721-sent-received/erc721-sent-received';
 import { components as ERC1155SentReceivedComponents } from './erc1155-sent-received/erc1155-sent-received';
 import { components as EthSentReceivedComponents } from './eth-sent-received/eth-sent-received';
-import { components as FeatureAnnouncementComponents } from './feature-announcement/feature-announcement';
 import { components as StakeComponents } from './stake/stake';
 import { components as SwapCompletedComponents } from './swap-completed/swap-completed';
 import { components as LidoWithdrawalRequestedComponents } from './lido-withdrawal-requested/lido-withdrawal-requested';
@@ -50,9 +49,6 @@ export const NotificationComponents = {
   ),
   [TRIGGER_TYPES.ETH_SENT]: expandComponentsType(EthSentReceivedComponents),
   [TRIGGER_TYPES.ETH_RECEIVED]: expandComponentsType(EthSentReceivedComponents),
-  [TRIGGER_TYPES.FEATURES_ANNOUNCEMENT]: expandComponentsType(
-    FeatureAnnouncementComponents,
-  ),
   [TRIGGER_TYPES.ROCKETPOOL_STAKE_COMPLETED]:
     expandComponentsType(StakeComponents),
   [TRIGGER_TYPES.ROCKETPOOL_UNSTAKE_COMPLETED]:

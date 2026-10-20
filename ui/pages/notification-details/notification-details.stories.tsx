@@ -22,7 +22,6 @@ import {
   createMockNotificationMetaMaskSwapsCompleted,
   createMockNotificationRocketPoolStakeCompleted,
   createMockNotificationRocketPoolUnStakeCompleted,
-  createMockFeatureAnnouncementRaw,
 } from '@metamask/notification-services-controller/notification-services/mocks';
 import {
   BlockSize,
@@ -70,7 +69,6 @@ const notificationMocks = {
   MetaMaskSwapsCompleted: createMockNotificationMetaMaskSwapsCompleted,
   RocketPoolStakeCompleted: createMockNotificationRocketPoolStakeCompleted,
   RocketPoolUnStakeCompleted: createMockNotificationRocketPoolUnStakeCompleted,
-  FeatureAnnouncement: createMockFeatureAnnouncementRaw,
 };
 
 const Template = ({ notification }: { notification: Notification }) => {
@@ -136,4 +134,3 @@ export const LidoWithdrawalRequested = stories.LidoWithdrawalRequested;
 export const MetaMaskSwapsCompleted = stories.MetaMaskSwapsCompleted;
 export const RocketPoolStakeCompleted = stories.RocketPoolStakeCompleted;
 export const RocketPoolUnStakeCompleted = stories.RocketPoolUnStakeCompleted;
-export const FeatureAnnouncement = stories.FeatureAnnouncement;

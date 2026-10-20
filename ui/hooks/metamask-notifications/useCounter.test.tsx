@@ -16,54 +16,24 @@ const mockStore = configureStore(middlewares);
 
 const mockState = {
   metamask: {
-    isMetamaskNotificationsEnabled: true,
+    isNotificationServicesEnabled: true,
     metamaskNotificationsList: [
       {
+        id: 'advert-unread',
         type: TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
-        createdAt: '2999-04-09T13:24:01.872Z',
         isRead: false,
-        data: {
-          id: 'dont-miss-out-on-airdrops-and-new-nft-mints',
-          category: 'ANNOUNCEMENT',
-          title: 'Don’t miss out on airdrops and new NFT mints!',
-          longDescription: `<p>You can now verify if any of your connected addresses are eligible for airdrops and other ERC-20 claims in a secure and convenient way. We’ve also added trending NFT mints based on creators you’ve minted from before or other tokens you hold. Head over to the Explore tab to get started.</p>`,
-          shortDescription:
-            'Check your airdrop eligibility and see trending NFT drops. Head over to the Explore tab to get started.',
-          image: {
-            title: 'PDAPP notification image Airdrops & NFT mints',
-            description: '',
-            url: '//images.ctfassets.net/jdkgyfmyd9sw/5jqq8sFeLc6XEoeWlpI3aB/73ee0f1afa9916c3a7538b0bbee09c26/PDAPP_notification_image_Airdrops___NFT_mints.png',
-          },
-          link: {
-            linkText: 'Try now',
-            linkUrl: 'https://app.metamask.io/explore',
-            isExternal: false,
-          },
-        },
       },
       {
+        id: 'advert-read',
         type: TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
-        createdAt: '2999-04-09T13:24:01.872Z',
-        isRead: false,
-        data: {
-          id: 'dont-miss-out-on-airdrops-and-new-nft-mints',
-          category: 'ANNOUNCEMENT',
-          title: 'Don’t miss out on airdrops and new NFT mints!',
-          longDescription: `<p>You can now verify if any of your connected addresses are eligible for airdrops and other ERC-20 claims in a secure and convenient way. We’ve also added trending NFT mints based on creators you’ve minted from before or other tokens you hold. Head over to the Explore tab to get started.</p>`,
-          shortDescription:
-            'Check your airdrop eligibility and see trending NFT drops. Head over to the Explore tab to get started.',
-          image: {
-            title: 'PDAPP notification image Airdrops & NFT mints',
-            description: '',
-            url: '//images.ctfassets.net/jdkgyfmyd9sw/5jqq8sFeLc6XEoeWlpI3aB/73ee0f1afa9916c3a7538b0bbee09c26/PDAPP_notification_image_Airdrops___NFT_mints.png',
-          },
-          link: {
-            linkText: 'Try now',
-            linkUrl: 'https://app.metamask.io/explore',
-            isExternal: false,
-          },
-        },
+        isRead: true,
       },
+      {
+        id: 'transfer-unread',
+        type: TRIGGER_TYPES.ETH_RECEIVED,
+        isRead: false,
+      },
+      { id: 'transfer-read', type: TRIGGER_TYPES.ETH_SENT, isRead: true },
     ],
   },
 };
@@ -73,19 +43,19 @@ const wrapper = ({ children }: { children: ReactNode }) => (
 );
 
 describe('useUnreadNotificationsCounter', () => {
-  it('should return the correct notifications count', () => {
+  it('excludes announcements from the unread count', () => {
     const { result } = renderHook(() => useUnreadNotificationsCounter(), {
       wrapper,
     });
-    expect(result.current.notificationsUnreadCount).toBe(2);
+    expect(result.current.notificationsUnreadCount).toBe(1);
   });
 });
 
 describe('useReadNotificationsCounter', () => {
-  it('should return the correct read notifications count', () => {
+  it('counts read wallet notifications without announcements', () => {
     const { result } = renderHook(() => useReadNotificationsCounter(), {
       wrapper,
     });
-    expect(result.current.notificationsReadCount).toBe(0);
+    expect(result.current.notificationsReadCount).toBe(1);
   });
 });

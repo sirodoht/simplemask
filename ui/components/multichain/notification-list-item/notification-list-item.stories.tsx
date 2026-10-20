@@ -85,29 +85,6 @@ SnapNotification.args = {
   },
 };
 
-export const FeatureAnnouncementNotification = Template.bind({});
-FeatureAnnouncementNotification.args = {
-  id: '1',
-  isRead: true,
-  createdAt: new Date(Date.now() - 3 * 7 * 24 * 60 * 60 * 1000),
-  description: {
-    items: [{ text: 'You can now cash out crypto on Metamask Portfolio' }],
-    variant: TextVariant.bodyMd,
-  },
-  icon: {
-    type: NotificationListItemIconType.Token,
-    value:
-      'https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg',
-  },
-  title: {
-    items: [
-      {
-        text: 'Introducing Cash Out',
-      },
-    ],
-  },
-};
-
 export const NftSentNotification = Template.bind({});
 NftSentNotification.args = {
   id: '1',

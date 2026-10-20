@@ -1,10 +1,8 @@
 import { Mockttp, RequestRuleBuilder } from 'mockttp';
 import type { NotificationPreferences } from '@metamask/authenticated-user-storage';
 import {
-  getMockFeatureAnnouncementResponse,
   getMockListNotificationsResponse,
   getMockMarkNotificationsAsReadResponse,
-  createMockFeatureAnnouncementAPIResult,
   createMockNotificationEthSent,
   createMockNotificationEthReceived,
   createMockNotificationERC20Sent,
@@ -126,20 +124,6 @@ const mockListNotificationsResponse = {
   response: mockNotifications,
 };
 
-const mockFeatureAnnouncementContent = createMockFeatureAnnouncementAPIResult();
-const FEATURE_ANNOUNCEMENT_EXPIRED_MS = 31 * 24 * 60 * 60 * 1000;
-const date = new Date(Date.now() - FEATURE_ANNOUNCEMENT_EXPIRED_MS);
-const firstFeatureAnnouncementItem = mockFeatureAnnouncementContent.items?.[0];
-if (firstFeatureAnnouncementItem) {
-  firstFeatureAnnouncementItem.sys.createdAt = date.toISOString();
-}
-
-const mockFeatureAnnouncementResponse = {
-  ...getMockFeatureAnnouncementResponse(),
-  url: /^https:\/\/cdn\.contentful\.com\/.*$/u,
-  response: mockFeatureAnnouncementContent,
-};
-
 export function getMockWalletNotificationItemId(trigger: TRIGGER_TYPES) {
   return (
     mockNotifications.find((n) => {
@@ -151,12 +135,6 @@ export function getMockWalletNotificationItemId(trigger: TRIGGER_TYPES) {
       }
       return false;
     })?.id ?? 'DOES NOT EXIST'
-  );
-}
-
-export function getMockFeatureAnnouncementItemId() {
-  return (
-    mockFeatureAnnouncementContent.items?.at(0)?.fields?.id ?? 'DOES NOT EXIST'
   );
 }
 
@@ -182,13 +160,6 @@ export async function mockNotificationServices(
   triggerServer.setupServer(server);
 
   // Notification Server
-  mockAPICall(server, mockFeatureAnnouncementResponse, (r) =>
-    r.withQuery({
-      // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      content_type: 'productAnnouncement',
-    }),
-  );
   mockAPICall(server, mockListNotificationsResponse);
   mockAPICall(server, getMockMarkNotificationsAsReadResponse());
 

@@ -948,11 +948,6 @@ describe('NotificationSectionSubPage', () => {
       description: string;
     }[] = [
       {
-        section: 'marketing',
-        preferences: createMockNotificationPreferences(),
-        description: messages.notificationsSettingsMarketingDescription.message,
-      },
-      {
         section: 'agenticCli',
         preferences: {
           ...createMockNotificationPreferences(),

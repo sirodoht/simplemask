@@ -329,7 +329,6 @@
     "setDismissSeedBackUpReminder",
     "setEnabledAllPopularNetworks",
     "setEnabledNetworks",
-    "setFeatureAnnouncementsEnabled",
     "setFeatureFlag",
     "setFirstTimeFlowType",
     "setHasSeenOnboardingCompletionPage",

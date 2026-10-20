@@ -5,11 +5,6 @@
         "regeneratorRuntime": "write"
       }
     },
-    "@metamask/notification-services-controller>@contentful/rich-text-html-renderer": {
-      "globals": {
-        "SuppressedError": true
-      }
-    },
     "eciesjs>@ecies/ciphers": {
       "packages": {
         "@noble/ciphers": true
@@ -2829,7 +2824,6 @@
         "removeEventListener": true
       },
       "packages": {
-        "@metamask/notification-services-controller>@contentful/rich-text-html-renderer": true,
         "@metamask/authenticated-user-storage": true,
         "@metamask/base-controller": true,
         "@metamask/notification-services-controller>@metamask/controller-utils": true,
@@ -2837,7 +2831,6 @@
         "@metamask/notification-services-controller>firebase": true,
         "@metamask/assets-controller>lodash-es": true,
         "loglevel": true,
-        "semver": true,
         "@metamask/notification-services-controller>uuid": true
       }
     },
@@ -5563,11 +5556,6 @@
         "buffer": true,
         "crypto-browserify>diffie-hellman>miller-rabin": true,
         "crypto-browserify>randombytes": true
-      }
-    },
-    "dompurify": {
-      "globals": {
-        "console.warn": true
       }
     },
     "eslint-plugin-react>es-iterator-helpers>has-proto>dunder-proto": {

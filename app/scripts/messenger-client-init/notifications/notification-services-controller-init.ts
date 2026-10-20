@@ -14,12 +14,17 @@ export const NotificationServicesControllerInit: MessengerClientInitFunction<
 > = ({ controllerMessenger, persistedState, getMessengerClient }) => {
   const messengerClient = new NotificationServicesController({
     messenger: controllerMessenger,
-    state: persistedState.NotificationServicesController,
+    state: {
+      ...persistedState.NotificationServicesController,
+      isFeatureAnnouncementsEnabled: false,
+    },
     env: {
+      // Core also uses this object's platform for wallet notifications.
+      // The tracked Yarn patch removes announcement fetching entirely.
       featureAnnouncements: {
         platform: 'extension',
-        spaceId: process.env.CONTENTFUL_ACCESS_SPACE_ID ?? ':spaceId',
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN ?? ':accessToken',
+        spaceId: '',
+        accessToken: '',
         platformVersion: APP_VERSION,
       },
       locale: () =>

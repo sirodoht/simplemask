@@ -197,10 +197,8 @@ describe('NotificationsSettingsContent', () => {
       `${messages.notificationsSettingsStatusPush.message}, ${messages.notificationsSettingsStatusInApp.message}`,
     );
     expect(
-      screen.getByTestId('notifications-settings-section-marketing'),
-    ).toHaveTextContent(
-      `${messages.notificationsSettingsStatusPush.message}, ${messages.notificationsSettingsStatusInApp.message}`,
-    );
+      screen.queryByTestId('notifications-settings-section-marketing'),
+    ).not.toBeInTheDocument();
   });
 
   describe('deferred section navigation', () => {
@@ -413,7 +411,6 @@ describe('NotificationsSettingsContent', () => {
     });
 
     const otherSections: NotificationsSettingsSectionType[] = [
-      'marketing',
       'agenticCli',
       ...(getIsPerpsIncludedInBuild() ? ['perps' as const] : []),
     ];

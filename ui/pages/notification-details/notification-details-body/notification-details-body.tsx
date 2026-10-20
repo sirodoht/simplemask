@@ -26,12 +26,6 @@ export const NotificationDetailsBody = ({
       flexDirection={FlexDirection.Column}
       padding={0}
     >
-      {body.type === NotificationComponentType.AnnouncementBody && (
-        <>
-          <body.Image notification={notification} />
-          <body.Description notification={notification} />
-        </>
-      )}
       {body.type === NotificationComponentType.OnChainBody && (
         <>
           {body.Image && <body.Image notification={notification} />}

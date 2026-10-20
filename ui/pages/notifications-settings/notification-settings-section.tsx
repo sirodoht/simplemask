@@ -6,7 +6,6 @@ import {
   BoxJustifyContent,
   FontWeight,
   Text,
-  TextAlign,
   TextColor,
   TextVariant,
 } from '@metamask/design-system-react';
@@ -61,7 +60,6 @@ type NotificationSettingsSectionProps = {
 const SETTINGS_TYPE_BY_SECTION: Record<SectionType, string> = {
   walletActivity: 'wallet_activity',
   perps: 'perps',
-  marketing: 'marketing',
   agenticCli: 'agentic_cli',
 };
 
@@ -360,23 +358,6 @@ const WalletActivitySectionContent = ({
   );
 };
 
-const MarketingSectionContent = () => {
-  const t = useI18nContext();
-
-  return (
-    <Box className="mt-auto pb-4">
-      <Text
-        variant={TextVariant.BodySm}
-        fontWeight={FontWeight.Regular}
-        textAlign={TextAlign.Center}
-        color={TextColor.TextAlternative}
-      >
-        {t('notificationsSettingsMarketingConsent')}
-      </Text>
-    </Box>
-  );
-};
-
 const SECTION_CONTENT_BY_TYPE: Partial<
   Record<
     NotificationsSettingsSectionConfig['type'],
@@ -384,7 +365,6 @@ const SECTION_CONTENT_BY_TYPE: Partial<
   >
 > = {
   walletActivity: WalletActivitySectionContent,
-  marketing: MarketingSectionContent,
 };
 
 export function NotificationSettingsSection({
