@@ -36,7 +36,7 @@ import {
   selectTransactionDataByTransactionId,
   type TransactionPayState,
 } from '../../../../selectors/transactionPayController';
-import { isHardwareAccount } from '../../rewards/utils/isHardwareAccount';
+import { isHardwareAccount } from '../../../../../shared/lib/is-hardware-account';
 import { toast, ToastContent } from '../../../ui/toast/toast';
 import type { ToastStatus } from '../../toast-listener/shared';
 import {

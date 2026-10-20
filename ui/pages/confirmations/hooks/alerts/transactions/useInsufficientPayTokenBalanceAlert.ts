@@ -20,7 +20,7 @@ import {
 } from '../../../../../../shared/lib/money/money-account-flow';
 import { useConfirmContext } from '../../../context/confirm';
 import { getInternalAccountByAddress } from '../../../../../selectors/accounts';
-import { isHardwareAccount } from '../../../../../components/app/rewards/utils/isHardwareAccount';
+import { isHardwareAccount } from '../../../../../../shared/lib/is-hardware-account';
 import { useTransactionPayingAccount } from '../../transactions/useTransactionPayingAccount';
 import { useTransactionPayToken } from '../../pay/useTransactionPayToken';
 import { usePayTokenAccountBalance } from '../../pay/usePayTokenAccountBalance';

@@ -1,6 +1,6 @@
 import { EthScope } from '@metamask/keyring-api';
 import { useSelector } from 'react-redux';
-import { isHardwareAccount } from '../components/app/rewards/utils/isHardwareAccount';
+import { isHardwareAccount } from '../../shared/lib/is-hardware-account';
 import { getInternalAccountByAddress } from '../selectors/accounts';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../selectors/multichain-accounts/account-tree';
 import { isHardwareWallet } from '../../shared/lib/selectors/keyring';

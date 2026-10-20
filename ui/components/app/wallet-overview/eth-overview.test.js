@@ -59,10 +59,6 @@ jest.mock('../../../hooks/useIsOriginalNativeTokenSymbol', () => {
   };
 });
 
-jest.mock('../../../hooks/rewards/useRewardsModal', () => ({
-  useRewardsModal: jest.fn(),
-}));
-
 jest.mock('../../../ducks/locale/locale', () => ({
   ...jest.requireActual('../../../ducks/locale/locale'),
   getIntlLocale: jest.fn(),

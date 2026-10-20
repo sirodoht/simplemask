@@ -1004,38 +1004,6 @@ export type LegacyBackgroundApiServiceGetSentinelNetworkFlagsAction = {
 };
 
 /**
- * Runs when CAIP-25 permitted accounts are extended via the permission
- * background API. If the origin is a referral partner and the globally
- * selected account is EVM and included among the newly permitted accounts,
- * it triggers the DeFi referral flow.
- *
- * @param details - Added accounts payload.
- * @param details.origin - The origin whose permitted accounts were extended.
- * @param details.newCaipAccountIds - The newly added CAIP-10 account ids.
- */
-export type LegacyBackgroundApiServiceHandleDefiReferralOnPermittedAccountsAddedAction =
-  {
-    type: `LegacyBackgroundApiService:handleDefiReferralOnPermittedAccountsAdded`;
-    handler: LegacyBackgroundApiService['handleDefiReferralOnPermittedAccountsAdded'];
-  };
-
-/**
- * Handles DeFi referral approval flow for a partner.
- * Shows approval confirmation screen if needed and manages referral URL redirection.
- * This can be triggered by connection permission grants or existing connections.
- *
- * @param partner - The partner configuration.
- * @param tabId - The browser tab ID to update.
- * @param triggerType - The trigger type.
- * @param options - Optional behavior.
- * @param options.activePermittedAddressOverride - When set, use this permitted address for referral state instead of the first sorted permitted account.
- */
-export type LegacyBackgroundApiServiceHandleDefiReferralAction = {
-  type: `LegacyBackgroundApiService:handleDefiReferral`;
-  handler: LegacyBackgroundApiService['handleDefiReferral'];
-};
-
-/**
  * Adds a permitted account for the given origin.
  *
  * @param origin - The origin to add the permitted account for.
@@ -1226,8 +1194,6 @@ export type LegacyBackgroundApiServiceMethodActions =
   | LegacyBackgroundApiServiceCreateNewVaultAndRestoreAction
   | LegacyBackgroundApiServiceIsRelaySupportedAction
   | LegacyBackgroundApiServiceGetSentinelNetworkFlagsAction
-  | LegacyBackgroundApiServiceHandleDefiReferralOnPermittedAccountsAddedAction
-  | LegacyBackgroundApiServiceHandleDefiReferralAction
   | LegacyBackgroundApiServiceAddPermittedAccountAction
   | LegacyBackgroundApiServiceAddPermittedAccountsAction
   | LegacyBackgroundApiServiceRemovePermittedAccountAction

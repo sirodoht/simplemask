@@ -8,7 +8,6 @@ import {
   SubscriptionControllerUpdatePaymentMethodAction,
   SubscriptionControllerSubmitSponsorshipIntentsAction,
   SubscriptionControllerGetStateAction,
-  SubscriptionControllerLinkRewardsAction,
   SubscriptionControllerSubmitSubscriptionCryptoApprovalAction,
   SubscriptionControllerClearLastSelectedPaymentMethodAction,
 } from '@metamask/subscription-controller';
@@ -28,12 +27,6 @@ import {
   AppStateControllerSetPendingRedirectRouteAction,
   AppStateControllerSetShieldSubscriptionErrorAction,
 } from '../../controllers/app-state-controller-method-action-types';
-import {
-  RewardsControllerGetActualSubscriptionIdAction,
-  RewardsControllerGetHasAccountOptedInAction,
-  RewardsControllerGetSeasonMetadataAction,
-  RewardsControllerGetSeasonStatusAction,
-} from '../../controllers/rewards/rewards-controller-method-action-types';
 import { ShieldSubscriptionServiceMethodActions } from './shield-subscription-service-method-action-types';
 
 export type {
@@ -42,7 +35,6 @@ export type {
   ShieldSubscriptionServiceStartSubscriptionWithCardAction,
   ShieldSubscriptionServiceHandlePostTransactionAction,
   ShieldSubscriptionServiceSubmitSubscriptionSponsorshipIntentAction,
-  ShieldSubscriptionServiceLinkRewardToExistingSubscriptionAction,
 } from './shield-subscription-service-method-action-types';
 
 export const SERVICE_NAME = 'ShieldSubscriptionService';
@@ -58,7 +50,6 @@ type AllowedActions =
   | SubscriptionControllerGetBillingPortalUrlAction
   | SubscriptionControllerSubmitSponsorshipIntentsAction
   | SubscriptionControllerGetStateAction
-  | SubscriptionControllerLinkRewardsAction
   | SubscriptionControllerSubmitSubscriptionCryptoApprovalAction
   | SubscriptionControllerClearLastSelectedPaymentMethodAction
   | TransactionControllerGetTransactionsAction
@@ -72,12 +63,7 @@ type AllowedActions =
   | AppStateControllerSetPendingShieldCohortAction
   | AppStateControllerSetPendingRedirectRouteAction
   | AppStateControllerSetShieldSubscriptionErrorAction
-  | KeyringControllerGetStateAction // For metrics, to get the HD Keyrings metadata
-  // Rewards Integration
-  | RewardsControllerGetActualSubscriptionIdAction // For metrics, to get the rewards subscription ID
-  | RewardsControllerGetSeasonStatusAction // For rewards, to get the season status for claiming points with the shield subscription
-  | RewardsControllerGetSeasonMetadataAction // For rewards, to check if the season is active and can claim points
-  | RewardsControllerGetHasAccountOptedInAction; // For rewards, to check if the account has opted in to rewards
+  | KeyringControllerGetStateAction;
 
 export type ShieldSubscriptionServiceEvent = never;
 

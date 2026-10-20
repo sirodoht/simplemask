@@ -1,11 +1,5 @@
 import { ApprovalType } from '@metamask/controller-utils';
-import {
-  HYPERLIQUID_APPROVAL_TYPE,
-  ASTERDEX_APPROVAL_TYPE,
-  GMX_APPROVAL_TYPE,
-  VARIATIONAL_APPROVAL_TYPE,
-  SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES,
-} from '../../../../../shared/constants/app';
+import { SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES } from '../../../../../shared/constants/app';
 import type { IsEquivalent } from '../../../../../shared/types/type-level-utils';
 import type { Expect } from '../../../../../shared/types/type-test-utils';
 import type * as Templates from './approval-templates';
@@ -27,10 +21,6 @@ export const TEMPLATED_CONFIRMATION_APPROVAL_TYPES = [
   SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES.confirmAccountCreation,
   SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES.confirmAccountRemoval,
   SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES.showSnapAccountRedirect,
-  HYPERLIQUID_APPROVAL_TYPE,
-  ASTERDEX_APPROVAL_TYPE,
-  GMX_APPROVAL_TYPE,
-  VARIATIONAL_APPROVAL_TYPE,
 ] as const;
 
 // ──────────────────────────────────────────────────────────────────────────

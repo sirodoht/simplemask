@@ -8,7 +8,7 @@ import { RowAlertKey } from '../../../../../components/app/confirm/info/row/cons
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
 import { AlertsName } from '../constants';
 import { getInternalAccountByAddress } from '../../../../../selectors/accounts';
-import { isHardwareAccount } from '../../../../../components/app/rewards/utils/isHardwareAccount';
+import { isHardwareAccount } from '../../../../../../shared/lib/is-hardware-account';
 import { PAY_QR_HARDWARE_BLOCKED_TRANSACTION_TYPES } from '../../../constants/pay';
 import { useIsPayHardwareBlocked } from '../../pay/useIsPayHardwareBlocked';
 import { useTransactionMetadataRequestOptional } from '../../transactions/useTransactionMetadataRequest';

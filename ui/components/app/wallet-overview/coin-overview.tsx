@@ -57,7 +57,6 @@ import { useAccountTotalCrossChainFiatBalance } from '../../../hooks/useAccountT
 
 import { useGetFormattedTokensPerChain } from '../../../hooks/useGetFormattedTokensPerChain';
 import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
-import { useRewardsModal } from '../../../hooks/rewards/useRewardsModal';
 import { isZeroAmount } from '../../../helpers/utils/number-utils';
 import { BalanceEmptyState } from '../balance-empty-state';
 import {
@@ -251,8 +250,6 @@ export const CoinOverview = ({
 
   const period = '1d';
   const { isLoading: balanceIsLoading } = useAccountGroupBalanceDisplay(period);
-
-  useRewardsModal();
 
   const aggregateFiatBalanceIsZero = isZeroAmount(
     selectedGroupBalance?.totalBalanceInUserCurrency ?? 0,

@@ -37,7 +37,6 @@ import {
   cancelSubscription,
   estimateGas,
   getCustomerServiceToken,
-  getRewardsHasAccountOptedIn,
   getSubscriptionBillingPortalUrl,
   getSubscriptions,
   getSubscriptionsEligibilities,
@@ -73,10 +72,8 @@ import { useGasFeeEstimates } from '../useGasFeeEstimates';
 import { CONFIRM_TRANSACTION_ROUTE } from '../../helpers/constants/routes';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../selectors/multichain-accounts/account-tree';
 import {
-  getMetaMaskHdKeyrings,
   getModalTypeForShieldEntryModal,
   getUnapprovedConfirmations,
-  getUpdatedAndSortedAccountsWithCaipAccountId,
 } from '../../selectors';
 import { useSubscriptionMetrics } from '../shield/metrics/useSubscriptionMetrics';
 import { CaptureShieldSubscriptionRequestParams } from '../shield/metrics/types';
@@ -93,7 +90,6 @@ import { MetaMetricsEventName } from '../../../shared/constants/metametrics';
 import { useAccountTotalFiatBalance } from '../useAccountTotalFiatBalance';
 import { getNetworkConfigurationsByChainId } from '../../../shared/lib/selectors/networks';
 import { isCryptoPaymentMethod } from '../../pages/shield/transaction-shield/types';
-import { isEqualCaseInsensitive } from '../../../shared/lib/string-utils';
 
 import {
   TokenWithApprovalAmount,
@@ -841,101 +837,6 @@ export const useUpdateSubscriptionCryptoPaymentMethod = ({
   return {
     execute,
     result,
-  };
-};
-
-export const useShieldRewards = (): {
-  pending: boolean;
-  pointsMonthly: number | null;
-  pointsYearly: number | null;
-  isRewardsSeason: boolean;
-  hasAccountOptedIn: boolean;
-} => {
-  const dispatch = useDispatch();
-  const [primaryKeyring] = useSelector(getMetaMaskHdKeyrings);
-  const accountsWithCaipChainId = useSelector(
-    getUpdatedAndSortedAccountsWithCaipAccountId,
-  );
-
-  const caipAccountId = useMemo(() => {
-    if (!primaryKeyring) {
-      return null;
-    }
-
-    const primaryAccountWithCaipChainId = accountsWithCaipChainId.find(
-      (account) => {
-        const entropySource = account.options?.entropySource;
-        if (typeof entropySource === 'string') {
-          return isEqualCaseInsensitive(
-            entropySource,
-            primaryKeyring.metadata.id,
-          );
-        }
-        return false;
-      },
-    );
-    if (!primaryAccountWithCaipChainId) {
-      return null;
-    }
-    return primaryAccountWithCaipChainId.caipAccountId;
-  }, [primaryKeyring, accountsWithCaipChainId]);
-
-  const {
-    value: hasAccountOptedInResultValue,
-    pending: hasAccountOptedInResultPending,
-    error: hasAccountOptedInResultError,
-  } = useAsyncResult<boolean>(async () => {
-    if (!caipAccountId) {
-      return false;
-    }
-    const optinStatus = await dispatch(
-      getRewardsHasAccountOptedIn(caipAccountId),
-    );
-    return optinStatus;
-  }, [caipAccountId, dispatch]);
-
-  const {
-    value: pointsValue,
-    pending: pointsPending,
-    error: pointsError,
-  } = useAsyncResult<{
-    monthly: number | null;
-    yearly: number | null;
-  }>(async () => {
-    return { monthly: null, yearly: null };
-  }, []);
-
-  const isRewardsSeason = false;
-  const seasonPending = false;
-  const seasonError: Error | null = null;
-
-  // if there is an error, return null values for points and season so it will not block the UI
-  if (pointsError || seasonError || hasAccountOptedInResultError) {
-    if (pointsError) {
-      console.error('[useShieldRewards error]:', pointsError);
-    }
-    if (seasonError) {
-      console.error('[useShieldRewards error]:', seasonError);
-    }
-    if (hasAccountOptedInResultError) {
-      console.error('[useShieldRewards error]:', hasAccountOptedInResultError);
-    }
-
-    return {
-      pending: false,
-      pointsMonthly: null,
-      pointsYearly: null,
-      isRewardsSeason: false,
-      hasAccountOptedIn: false,
-    };
-  }
-
-  return {
-    pending: pointsPending || seasonPending || hasAccountOptedInResultPending,
-    pointsMonthly: pointsValue?.monthly ?? null,
-    pointsYearly: pointsValue?.yearly ?? null,
-    isRewardsSeason: isRewardsSeason ?? false,
-    hasAccountOptedIn: hasAccountOptedInResultValue ?? false,
   };
 };
 

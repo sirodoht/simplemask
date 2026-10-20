@@ -56,10 +56,6 @@ jest.mock('../../components/app/shield-entry-modal', () => ({
   ShieldEntryModalContainer: () => null,
 }));
 jest.mock(
-  '../../components/app/rewards/onboarding/rewards-modal-container',
-  () => ({ RewardsModalContainer: () => null }),
-);
-jest.mock(
   '../../components/app/modals/pna25-modal/pna25-modal-container',
   () => ({ Pna25ModalContainer: () => null }),
 );

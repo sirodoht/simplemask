@@ -12,7 +12,6 @@ import { getRemoteFeatureFlags } from '../../../../../../shared/lib/selectors/re
 import { Confirmation } from '../../../types/confirm';
 import { useDappSwapComparisonInfo } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapComparisonInfo';
 import * as DappSwapContext from '../../../context/dapp-swap';
-import { useDappSwapComparisonRewardText } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapComparisonRewardText';
 import { useDappSwapCheck } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapCheck';
 import { DappSwapComparisonBanner } from './dapp-swap-comparison-banner';
 
@@ -45,13 +44,6 @@ jest.mock(
       captureDappSwapComparisonDisplayProperties:
         mockCaptureDappSwapComparisonDisplayProperties,
     })),
-  }),
-);
-
-jest.mock(
-  '../../../hooks/transactions/dapp-swap-comparison/useDappSwapComparisonRewardText',
-  () => ({
-    useDappSwapComparisonRewardText: jest.fn(),
   }),
 );
 
@@ -121,9 +113,6 @@ describe('<DappSwapComparisonBanner />', () => {
   const mockUseDappSwapCheck = jest.mocked(useDappSwapCheck);
   const mockGetRemoteFeatureFlags = jest.mocked(getRemoteFeatureFlags);
   const mockUseDappSwapComparisonInfo = jest.mocked(useDappSwapComparisonInfo);
-  const mockUseDappSwapComparisonRewardText = jest.mocked(
-    useDappSwapComparisonRewardText,
-  );
 
   beforeEach(() => {
     mockCaptureDappSwapComparisonDisplayProperties.mockClear();
@@ -131,7 +120,6 @@ describe('<DappSwapComparisonBanner />', () => {
       dappSwapMetrics: { enabled: true },
       dappSwapUi: { enabled: true, threshold: 0.01 },
     });
-    mockUseDappSwapComparisonRewardText.mockReturnValue(null);
     mockUseDappSwapCheck.mockReturnValue({
       isSwapToBeCompared: true,
     });
@@ -239,15 +227,5 @@ describe('<DappSwapComparisonBanner />', () => {
     ).toHaveBeenNthCalledWith(2, {
       swap_mm_opened: 'true',
     });
-  });
-
-  it('renders rewards text when it is provided', () => {
-    mockUseDappSwapComparisonRewardText.mockReturnValue({
-      text: 'Earn 100 points',
-      estimatedPoints: 100,
-    });
-    const { getByText } = render();
-    expect(getByText(/Earn 100 points/u)).toBeInTheDocument();
-    expect(getByText(messages.dappSwapAdvantage.message)).toBeInTheDocument();
   });
 });

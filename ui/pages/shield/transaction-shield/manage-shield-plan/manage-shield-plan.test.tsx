@@ -12,7 +12,6 @@ import {
 } from '@metamask/subscription-controller';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import mockState from '../../../../../test/data/mock-state.json';
-import { initialState as rewardsInitialState } from '../../../../ducks/rewards';
 import ManageShieldPlan from './manage-shield-plan';
 
 const mockUseNavigate = jest.fn();
@@ -41,7 +40,6 @@ jest.mock('../../../../hooks/useAnalytics', () => {
 describe('Manage Shield Plan Page', () => {
   const STATE_MOCK = {
     ...mockState,
-    rewards: rewardsInitialState,
     metamask: {
       ...mockState.metamask,
       customerId: '1',

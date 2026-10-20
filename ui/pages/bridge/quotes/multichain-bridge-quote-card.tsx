@@ -8,7 +8,6 @@ import {
   getNativeAssetForChainId,
   sumAmounts,
 } from '@metamask/bridge-controller';
-import { Skeleton } from '@metamask/design-system-react';
 import {
   SuccessPill,
   Text,
@@ -43,9 +42,6 @@ import { trackUnifiedSwapBridgeEvent } from '../../../ducks/bridge/actions';
 import { getIntlLocale } from '../../../ducks/locale/locale';
 import { useCountdownTimer } from '../../../hooks/bridge/useCountdownTimer';
 import { type DestinationAccount } from '../prepare/types';
-import { useRewards } from '../../../hooks/bridge/useRewards';
-import { RewardsBadge } from '../../../components/app/rewards/RewardsBadge';
-import AddRewardsAccount from '../../../components/app/rewards/AddRewardsAccount';
 import { getGasFeesSponsoredNetworkEnabled } from '../../../selectors/selectors';
 import { isHardwareWallet } from '../../../../shared/lib/selectors/keyring';
 import { PriceImpactQuoteDetailsRow } from '../components/price-impact-quote-details-row';
@@ -179,17 +175,6 @@ export const MultichainBridgeQuoteCard = ({
     : '';
 
   const secondsUntilNextRefresh = useCountdownTimer();
-
-  const {
-    isLoading: isRewardsLoading,
-    estimatedPoints,
-    shouldShowRewardsRow,
-    hasError: hasRewardsError,
-    rewardsAccountScope,
-    accountOptedIn: rewardsAccountOptedIn,
-  } = useRewards({
-    activeQuote: isQuoteLoading ? null : (activeQuote?.quote ?? null),
-  });
 
   if (!activeQuote) {
     return null;
@@ -490,75 +475,6 @@ export const MultichainBridgeQuoteCard = ({
         )}
 
         {/* Estimated Rewards Points */}
-        {shouldShowRewardsRow && (
-          <Row
-            justifyContent={JustifyContent.spaceBetween}
-            data-testid="rewards-row"
-          >
-            <Row gap={2}>
-              <Text
-                variant={TextVariant.bodySm}
-                color={TextColor.textAlternative}
-              >
-                {t('bridgePoints')}
-              </Text>
-              <Tooltip
-                title={t('bridgePoints_tooltip')}
-                position={PopoverPosition.TopStart}
-                offset={[-16, 16]}
-              >
-                {`${t('bridgePoints_tooltip_content_1')}\n\n${t('bridgePoints_tooltip_content_2')}`}
-              </Tooltip>
-            </Row>
-            <Row gap={1}>
-              {isRewardsLoading || isQuoteLoading ? (
-                <Skeleton
-                  width={100}
-                  height={16}
-                  data-testid="rewards-loading-skeleton"
-                />
-              ) : null}
-              {!isRewardsLoading && !isQuoteLoading && hasRewardsError && (
-                <Row data-testid="rewards-error-state">
-                  <RewardsBadge
-                    formattedPoints={t('bridgePoints_couldntLoad')}
-                    withPointsSuffix={false}
-                    boxClassName="gap-1 bg-background-transparent"
-                    textClassName="text-alternative"
-                    useAlternativeIconColor
-                  />
-                  <Tooltip
-                    title={t('bridgePoints_error')}
-                    iconName={IconName.Warning}
-                    color={IconColor.warningDefault}
-                    position={PopoverPosition.TopEnd}
-                    offset={[-16, 16]}
-                    style={{ width: 350 }}
-                  >
-                    {t('bridgePoints_error_content')}
-                  </Tooltip>
-                </Row>
-              )}
-              {!isRewardsLoading && !isQuoteLoading && !hasRewardsError && (
-                <>
-                  {rewardsAccountScope && rewardsAccountOptedIn === false ? (
-                    <AddRewardsAccount account={rewardsAccountScope} />
-                  ) : (
-                    <RewardsBadge
-                      formattedPoints={new Intl.NumberFormat(locale).format(
-                        estimatedPoints ?? 0,
-                      )}
-                      withPointsSuffix={false}
-                      boxClassName="gap-1 bg-background-transparent"
-                      textClassName="text-alternative"
-                      useAlternativeIconColor={!estimatedPoints}
-                    />
-                  )}
-                </>
-              )}
-            </Row>
-          </Row>
-        )}
       </Column>
     </>
   );

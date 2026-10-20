@@ -402,31 +402,6 @@ export type PreferencesControllerResetStateAction = {
   handler: PreferencesController['resetState'];
 };
 
-export type PreferencesControllerAddReferralApprovedAccountAction = {
-  type: `PreferencesController:addReferralApprovedAccount`;
-  handler: PreferencesController['addReferralApprovedAccount'];
-};
-
-export type PreferencesControllerAddReferralPassedAccountAction = {
-  type: `PreferencesController:addReferralPassedAccount`;
-  handler: PreferencesController['addReferralPassedAccount'];
-};
-
-export type PreferencesControllerAddReferralDeclinedAccountAction = {
-  type: `PreferencesController:addReferralDeclinedAccount`;
-  handler: PreferencesController['addReferralDeclinedAccount'];
-};
-
-export type PreferencesControllerRemoveReferralDeclinedAccountAction = {
-  type: `PreferencesController:removeReferralDeclinedAccount`;
-  handler: PreferencesController['removeReferralDeclinedAccount'];
-};
-
-export type PreferencesControllerSetAccountsReferralApprovedAction = {
-  type: `PreferencesController:setAccountsReferralApproved`;
-  handler: PreferencesController['setAccountsReferralApproved'];
-};
-
 /**
  * Union of all PreferencesController action types.
  */
@@ -469,9 +444,4 @@ export type PreferencesControllerMethodActions =
   | PreferencesControllerSetDefaultAddressScopeAction
   | PreferencesControllerSetSnapsAddSnapAccountModalDismissedAction
   | PreferencesControllerDismissBasicFunctionalityMigrationNotificationAction
-  | PreferencesControllerResetStateAction
-  | PreferencesControllerAddReferralApprovedAccountAction
-  | PreferencesControllerAddReferralPassedAccountAction
-  | PreferencesControllerAddReferralDeclinedAccountAction
-  | PreferencesControllerRemoveReferralDeclinedAccountAction
-  | PreferencesControllerSetAccountsReferralApprovedAction;
+  | PreferencesControllerResetStateAction;

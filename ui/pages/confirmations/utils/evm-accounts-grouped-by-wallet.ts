@@ -1,7 +1,7 @@
 import type { AccountGroupId, AccountWalletId } from '@metamask/account-api';
 import { isEvmAccountType } from '@metamask/keyring-api';
 import { KeyringTypes } from '@metamask/keyring-controller';
-import { isHardwareAccount } from '../../../components/app/rewards/utils/isHardwareAccount';
+import { isHardwareAccount } from '../../../../shared/lib/is-hardware-account';
 import type { ConsolidatedWallets } from '../../../selectors/multichain-accounts/account-tree.types';
 
 export type EvmAccountGroupedByWallet = {

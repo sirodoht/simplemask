@@ -47,7 +47,6 @@ const SEGMENT_CTA_MAPPING: Record<string, string> = {
   defi: 'basicFunctionalityRequired_openDefiPage',
   musd: 'basicFunctionalityRequired_openMusdConversionPage',
   'shield-plan': 'basicFunctionalityRequired_openTransactionShieldPage',
-  rewards: 'basicFunctionalityRequired_openRewardsPage',
 };
 
 /**

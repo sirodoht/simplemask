@@ -6,7 +6,6 @@ const { RulePriority } = require('mockttp');
 const {
   ACCOUNTS_PROD_API_BASE_URL,
 } = require('../../shared/constants/accounts');
-const { REWARDS_API_URL } = require('../../shared/constants/rewards');
 const {
   GAS_API_BASE_URL,
   SWAPS_API_V2_BASE_URL,
@@ -853,15 +852,6 @@ async function setupMocking(
         ],
       };
     });
-
-  // Rewards API
-  for (const rewardsApiUrl of [REWARDS_API_URL.UAT, REWARDS_API_URL.PRD]) {
-    await server
-      .forPost(`${rewardsApiUrl}/public/rewards/ois`)
-      .thenCallback(() => {
-        return { statusCode: 200, json: { ois: [], sids: [] } };
-      });
-  }
 
   // User Profile Lineage
   await server

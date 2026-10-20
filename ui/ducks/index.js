@@ -13,7 +13,6 @@ import historyReducer from './history/history';
 import confirmAlertsReducer from './confirm-alerts/confirm-alerts';
 import sendMaxValueReducer from './send-max-value/send-max-value';
 import smartAccountsReducer from './smart-accounts/smart-accounts';
-import rewardsReducer from './rewards';
 import moneyBalanceReducer from './money-balance';
 
 export default combineReducers({
@@ -32,6 +31,5 @@ export default combineReducers({
   gas: gasReducer,
   localeMessages: localeMessagesReducer,
   smartAccounts: smartAccountsReducer,
-  rewards: rewardsReducer,
   moneyBalance: moneyBalanceReducer,
 });

@@ -73,7 +73,6 @@ import type { EncryptionPublicKeyControllerState } from '../../app/scripts/contr
 import type { DecryptMessageControllerState } from '../../app/scripts/controllers/decrypt-message';
 import type { OnboardingControllerState } from '../../app/scripts/controllers/onboarding';
 import type { AppMetadataControllerState } from '../../app/scripts/controllers/app-metadata';
-import type { RewardsControllerState } from '../../app/scripts/controllers/rewards/rewards-controller.types';
 
 export type ControllerStatePropertiesEnumerated = {
   assetsInfo: AssetsControllerState['assetsInfo'];
@@ -273,7 +272,6 @@ export type ControllerStatePropertiesEnumerated = {
   currentLocale: PreferencesControllerState['currentLocale'];
   forgottenPassword: PreferencesControllerState['forgottenPassword'];
   preferences: PreferencesControllerState['preferences'];
-  referrals: PreferencesControllerState['referrals'];
   useAddressBarEnsResolution: PreferencesControllerState['useAddressBarEnsResolution'];
   ledgerTransportType: PreferencesControllerState['ledgerTransportType'];
   snapRegistryList: PreferencesControllerState['snapRegistryList'];
@@ -325,14 +323,6 @@ export type ControllerStatePropertiesEnumerated = {
   isContactSyncingEnabled: UserStorageController.UserStorageControllerState['isContactSyncingEnabled'];
   isContactSyncingInProgress: UserStorageController.UserStorageControllerState['isContactSyncingInProgress'];
   isRampsSyncingEnabled: UserStorageController.UserStorageControllerState['isRampsSyncingEnabled'];
-  rewardsActiveAccount: RewardsControllerState['rewardsActiveAccount'];
-  rewardsAccounts: RewardsControllerState['rewardsAccounts'];
-  rewardsSubscriptions: RewardsControllerState['rewardsSubscriptions'];
-  rewardsSeasons: RewardsControllerState['rewardsSeasons'];
-  rewardsSeasonStatuses: RewardsControllerState['rewardsSeasonStatuses'];
-  rewardsSubscriptionTokens: RewardsControllerState['rewardsSubscriptionTokens'];
-  rewardsPointsEstimateHistory: RewardsControllerState['rewardsPointsEstimateHistory'];
-  rewardsVipPerpsFees: RewardsControllerState['rewardsVipPerpsFees'];
   claims: ClaimsControllerState['claims'];
   claimsConfigurations: ClaimsControllerState['claimsConfigurations'];
   drafts: ClaimsControllerState['drafts'];
@@ -401,7 +391,6 @@ export type ControllerStateTypesMerged = AccountsControllerState &
   TransactionControllerState &
   UserOperationControllerState &
   UserStorageController.UserStorageControllerState &
-  RewardsControllerState &
   ConnectivityControllerState &
   NetworkConnectionBannerControllerState;
 

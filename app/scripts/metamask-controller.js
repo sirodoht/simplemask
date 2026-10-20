@@ -234,7 +234,6 @@ import {
   getBooleanFlag,
 } from './lib/util';
 import createMetamaskMiddleware from './lib/createMetamaskMiddleware';
-import { createDefiReferralMiddleware } from './lib/defi-referrals/createDefiReferralMiddleware';
 
 import {
   diffMap,
@@ -363,8 +362,6 @@ import { EncryptionPublicKeyControllerInit } from './messenger-client-init/confi
 import { EncryptionPublicKeyManagerInit } from './messenger-client-init/confirmations/encryption-public-key-message-manager-init';
 import { SignatureControllerInit } from './messenger-client-init/confirmations/signature-controller-init';
 import { UserOperationControllerInit } from './messenger-client-init/confirmations/user-operation-controller-init';
-import { RewardsDataServiceInit } from './messenger-client-init/rewards-data-service-init';
-import { RewardsControllerInit } from './messenger-client-init/rewards-controller-init';
 import { QrSyncControllerInit } from './messenger-client-init/qr-sync';
 import { getRootMessenger } from './lib/messenger';
 import { MessengerSubscriptions } from './lib/MessengerSubscriptions';
@@ -623,8 +620,6 @@ export default class MetamaskController extends EventEmitter {
       GatorPermissionsController: GatorPermissionsControllerInit,
       SnapsNameProvider: SnapsNameProviderInit,
       NameController: NameControllerInit,
-      RewardsDataService: RewardsDataServiceInit,
-      RewardsController: RewardsControllerInit,
       ProfileMetricsController: ProfileMetricsControllerInit,
       ProfileMetricsService: ProfileMetricsServiceInit,
       ProofOfOwnershipService: ProofOfOwnershipServiceInit,
@@ -778,7 +773,6 @@ export default class MetamaskController extends EventEmitter {
       messengerClientsByName.GatorPermissionsController;
     this.nameController = messengerClientsByName.NameController;
     this.accountOrderController = messengerClientsByName.AccountOrderController;
-    this.rewardsController = messengerClientsByName.RewardsController;
     this.qrSyncController = messengerClientsByName.QrSyncController;
     this.claimsController = this.wallet.getInstance('ClaimsController');
     this.claimsService = this.wallet.getInstance('ClaimsService');
@@ -2478,51 +2472,6 @@ export default class MetamaskController extends EventEmitter {
       submitSubscriptionUserEvents:
         this.subscriptionController.submitUserEvent.bind(
           this.subscriptionController,
-        ),
-      linkRewardToShieldSubscription:
-        this.shieldSubscriptionService.linkRewardToExistingSubscription.bind(
-          this.shieldSubscriptionService,
-        ),
-
-      // rewards
-      getRewardsCandidateSubscriptionId:
-        this.rewardsController.getCandidateSubscriptionId.bind(
-          this.rewardsController,
-        ),
-      getRewardsSeasonMetadata: this.rewardsController.getSeasonMetadata.bind(
-        this.rewardsController,
-      ),
-      getRewardsSeasonStatus: this.rewardsController.getSeasonStatus.bind(
-        this.rewardsController,
-      ),
-      getRewardsHasAccountOptedIn:
-        this.rewardsController.getHasAccountOptedIn.bind(
-          this.rewardsController,
-        ),
-      estimateRewardsPoints: this.rewardsController.estimatePoints.bind(
-        this.rewardsController,
-      ),
-      validateRewardsReferralCode:
-        this.rewardsController.validateReferralCode.bind(
-          this.rewardsController,
-        ),
-      getRewardsGeoMetadata: this.rewardsController.getGeoRewardsMetadata.bind(
-        this.rewardsController,
-      ),
-      rewardsOptIn: this.rewardsController.optIn.bind(this.rewardsController),
-      rewardsIsOptInSupported: this.rewardsController.isOptInSupported.bind(
-        this.rewardsController,
-      ),
-      rewardsGetOptInStatus: this.rewardsController.getOptInStatus.bind(
-        this.rewardsController,
-      ),
-      rewardsLinkAccountsToSubscriptionCandidate:
-        this.rewardsController.linkAccountsToSubscriptionCandidate.bind(
-          this.rewardsController,
-        ),
-      rewardsGetVipTierForAccount:
-        this.rewardsController.getVipTierForAccount.bind(
-          this.rewardsController,
         ),
 
       // claims
@@ -5119,18 +5068,6 @@ export default class MetamaskController extends EventEmitter {
           origin,
           messenger: this.controllerMessenger,
         }),
-      );
-
-      // Add Defi referral partner permission monitoring middleware
-      engine.push(
-        createDefiReferralMiddleware((partner, referralTabId, triggerType) =>
-          this.controllerMessenger.call(
-            'LegacyBackgroundApiService:handleDefiReferral',
-            partner,
-            referralTabId,
-            triggerType,
-          ),
-        ),
       );
     }
 

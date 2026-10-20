@@ -64,14 +64,6 @@ describe('Pna25ModalContainer', () => {
     expect(getByTestId('pna25-modal')).toBeInTheDocument();
   });
 
-  it('renders nothing when the rewards modal is open', () => {
-    const { queryByTestId } = renderContainer({
-      showPna25Modal: true,
-      rewardsModalOpen: true,
-    });
-    expect(queryByTestId('pna25-modal')).toBeNull();
-  });
-
   it('renders nothing when a deeplink QR code modal is active', () => {
     const { queryByTestId } = renderContainer({
       showPna25Modal: true,

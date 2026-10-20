@@ -19,7 +19,6 @@ import { useGasFeeEstimates } from '../useGasFeeEstimates';
 import type { MetaMaskReduxState } from '../../store/store';
 import {
   useSubscriptionCryptoApprovalTransaction,
-  useShieldRewards,
   useHandleSubscriptionSupportAction,
   useCancelSubscription,
   useUnCancelSubscription,
@@ -40,8 +39,6 @@ jest.mock('../../store/actions', () => ({
   cancelSubscription: jest.fn(() => async () => undefined),
   unCancelSubscription: jest.fn(() => async () => undefined),
   getSubscriptionPricing: jest.fn().mockResolvedValue({}),
-  getRewardsSeasonMetadata: jest.fn(() => async () => null),
-  estimateRewardsPoints: jest.fn(() => async () => null),
   getRewardsHasAccountOptedIn: jest.fn(() => async () => false),
 }));
 
@@ -420,103 +417,6 @@ describe('useHandleSubscriptionSupportAction', () => {
 
     expect(mockGetCustomerServiceToken).toHaveBeenCalled();
     expect(openWindow).toHaveBeenCalledWith(expectedUrl);
-  });
-});
-
-const mockGetRewardsSeasonMetadata =
-  actions.getRewardsSeasonMetadata as jest.Mock;
-const mockEstimateRewardsPoints = actions.estimateRewardsPoints as jest.Mock;
-
-describe('useShieldRewards', () => {
-  let shieldState: MetaMaskReduxState;
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-    shieldState = cloneDeep(mockState) as unknown as MetaMaskReduxState;
-    // Remove keyrings so caipAccountId is null (simplifies season-only tests)
-    (shieldState.metamask as Record<string, unknown>).keyrings = [];
-  });
-
-  it('returns isRewardsSeason false when getRewardsSeasonMetadata throws "No valid season metadata" error', async () => {
-    mockGetRewardsSeasonMetadata.mockImplementation(() => async () => {
-      throw new Error(
-        'No valid season metadata could be found for type: current',
-      );
-    });
-
-    const { result } = renderHookWithProvider(
-      () => useShieldRewards(),
-      shieldState,
-    );
-
-    await waitFor(() => {
-      expect(result.current.isRewardsSeason).toBe(false);
-      expect(result.current.pending).toBe(false);
-    });
-  });
-
-  // useShieldRewards now hard-returns disabled state without invoking
-  // getRewardsSeasonMetadata or estimateRewardsPoints, so the cases below
-  // (which depend on those throwing/resolving) are skipped until rewards
-  // points estimation is re-enabled.
-  it.skip('surfaces seasonError when getRewardsSeasonMetadata throws a non-season-metadata error', async () => {
-    const consoleSpy = jest
-      .spyOn(console, 'error')
-      .mockImplementation(() => undefined);
-
-    mockGetRewardsSeasonMetadata.mockImplementation(() => async () => {
-      throw new Error('Network error');
-    });
-
-    const { result } = renderHookWithProvider(
-      () => useShieldRewards(),
-      shieldState,
-    );
-
-    const prevUpdate0 = result.current;
-    await waitFor(() => {
-      expect(result.current).not.toBe(prevUpdate0);
-    });
-
-    // seasonError triggers the error fallback, returning default values
-    expect(result.current.isRewardsSeason).toBe(false);
-    expect(result.current.pointsMonthly).toBeNull();
-    expect(result.current.pointsYearly).toBeNull();
-    expect(result.current.hasAccountOptedIn).toBe(false);
-    expect(result.current.pending).toBe(false);
-
-    // Verify the error was logged
-    expect(consoleSpy).toHaveBeenCalledWith(
-      '[useShieldRewards error]:',
-      expect.any(Error),
-    );
-    consoleSpy.mockRestore();
-  });
-
-  it.skip('returns null points when estimateRewardsPoints throws', async () => {
-    // Set up keyrings and accounts so caipAccountId is non-null and estimateRewardsPoints runs
-    const stateWithKeyrings = cloneDeep(
-      mockState,
-    ) as unknown as MetaMaskReduxState;
-
-    mockEstimateRewardsPoints.mockImplementation(() => async () => {
-      throw new Error('Points estimation failed: 500');
-    });
-
-    const { result } = renderHookWithProvider(
-      () => useShieldRewards(),
-      stateWithKeyrings,
-    );
-
-    const prevUpdate1 = result.current;
-    await waitFor(() => {
-      expect(result.current).not.toBe(prevUpdate1);
-    });
-
-    // Points estimation error is caught gracefully, returning null values
-    expect(result.current.pointsMonthly).toBeNull();
-    expect(result.current.pointsYearly).toBeNull();
-    expect(result.current.pending).toBe(false);
   });
 });
 

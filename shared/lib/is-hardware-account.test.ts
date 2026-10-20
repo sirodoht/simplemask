@@ -1,7 +1,7 @@
 import type { InternalAccount } from '@metamask/keyring-internal-api';
 import { EthAccountType } from '@metamask/keyring-api';
-import { HardwareKeyringType } from '../../../../../shared/constants/hardware-wallets';
-import { isHardwareAccount } from './isHardwareAccount';
+import { HardwareKeyringType } from '../constants/hardware-wallets';
+import { isHardwareAccount } from './is-hardware-account';
 
 const MOCK_ACCOUNT_ADDRESS = '0x1234567890123456789012345678901234567890';
 

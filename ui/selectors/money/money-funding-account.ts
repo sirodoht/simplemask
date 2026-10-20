@@ -4,7 +4,7 @@ import { KeyringTypes } from '@metamask/keyring-controller';
 import type { InternalAccount } from '@metamask/keyring-internal-api';
 import type { AccountsState } from '../../../shared/lib/selectors/accounts';
 import { getMaybeSelectedInternalAccount } from '../../../shared/lib/selectors/accounts';
-import { isHardwareAccount } from '../../components/app/rewards/utils/isHardwareAccount';
+import { isHardwareAccount } from '../../../shared/lib/is-hardware-account';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../multichain-accounts/account-tree';
 import type { MultichainAccountsState } from '../multichain-accounts/account-tree.types';
 import { EMPTY_OBJECT } from '../shared';

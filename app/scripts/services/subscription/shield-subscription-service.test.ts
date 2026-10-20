@@ -157,22 +157,6 @@ rootMessenger.registerActionHandler(
   mockGetKeyringControllerState,
 );
 rootMessenger.registerActionHandler(
-  'RewardsController:getSeasonMetadata',
-  mockGetRewardSeasonMetadata,
-);
-rootMessenger.registerActionHandler(
-  'RewardsController:getHasAccountOptedIn',
-  mockGetHasAccountOptedIn,
-);
-rootMessenger.registerActionHandler(
-  'RewardsController:getActualSubscriptionId',
-  mockGetActualSubscriptionId,
-);
-rootMessenger.registerActionHandler(
-  'SubscriptionController:linkRewards',
-  mockLinkRewards,
-);
-rootMessenger.registerActionHandler(
   'SubscriptionController:submitSubscriptionCryptoApproval',
   mockSubmitShieldSubscriptionCryptoApproval,
 );
@@ -207,7 +191,6 @@ rootMessenger.delegate({
     'SubscriptionController:startSubscriptionWithCard',
     'SubscriptionController:getSubscriptions',
     'SubscriptionController:submitSponsorshipIntents',
-    'SubscriptionController:linkRewards',
     'SubscriptionController:submitSubscriptionCryptoApproval',
     'SubscriptionController:clearLastSelectedPaymentMethod',
     'TransactionController:getTransactions',
@@ -223,10 +206,6 @@ rootMessenger.delegate({
     'SubscriptionController:updatePaymentMethod',
     'SubscriptionController:getState',
     'KeyringController:getState',
-    'RewardsController:getHasAccountOptedIn',
-    'RewardsController:getSeasonMetadata',
-    'RewardsController:getSeasonStatus',
-    'RewardsController:getActualSubscriptionId',
   ],
 });
 
@@ -348,120 +327,6 @@ describe('ShieldSubscriptionService - startSubscriptionWithCard', () => {
       path: '/shield-plan',
     });
     expect(mockSetPendingRedirectRoute).toHaveBeenNthCalledWith(2, null);
-  });
-
-  it('should include the reward account id if the primary account is opted in to rewards and the season is active', async () => {
-    mockGetAccountsState.mockRestore();
-    mockGetHasAccountOptedIn.mockRestore();
-    mockGetHasAccountOptedIn.mockResolvedValueOnce(true);
-    mockGetActualSubscriptionId.mockReturnValue('rewards_subscription_id');
-
-    mockGetAccountsState.mockReturnValue({
-      internalAccounts: {
-        ...MOCK_STATE.internalAccounts,
-        accounts: {
-          ...MOCK_STATE.internalAccounts.accounts,
-          [MOCK_STATE.internalAccounts.selectedAccount]: {
-            // @ts-expect-error mock account
-            ...MOCK_STATE.internalAccounts.accounts[
-              MOCK_STATE.internalAccounts.selectedAccount
-            ],
-            options: {
-              entropySource: MOCK_STATE.keyrings[0].metadata.id,
-            },
-          },
-        },
-      },
-    });
-
-    await subscriptionService.startSubscriptionWithCard({
-      products: [PRODUCT_TYPES.SHIELD],
-      isTrialRequested: false,
-      recurringInterval: RECURRING_INTERVALS.month,
-    });
-
-    expect(mockStartShieldSubscriptionWithCard).toHaveBeenCalledWith({
-      products: [PRODUCT_TYPES.SHIELD],
-      isTrialRequested: false,
-      recurringInterval: RECURRING_INTERVALS.month,
-      successUrl: MOCK_REDIRECT_URI,
-      cancelUrl: `${MOCK_REDIRECT_URI}?cancel=true`,
-      rewardAccountId: 'eip155:0:0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
-    });
-
-    expect(mockGetRewardSeasonMetadata).toHaveBeenCalledWith('current');
-
-    expect(mockGetHasAccountOptedIn).toHaveBeenCalled();
-    expect(mockGetActualSubscriptionId).toHaveBeenCalledWith(
-      'eip155:0:0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
-    );
-    expect(mockTrackEvent.mock.calls).toEqual(
-      expect.arrayContaining([
-        [
-          expect.objectContaining({
-            properties: expect.objectContaining({
-              // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-              // eslint-disable-next-line @typescript-eslint/naming-convention
-              rewards_subscription_id: 'rewards_subscription_id',
-            }),
-          }),
-        ],
-      ]),
-    );
-  });
-
-  it('should not include the reward account id if the season is not active', async () => {
-    mockGetRewardSeasonMetadata.mockRestore();
-
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() + 1);
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 3);
-    mockGetRewardSeasonMetadata.mockResolvedValueOnce({
-      startDate: startDate.getTime(),
-      endDate: endDate.getTime(),
-    });
-    await subscriptionService.startSubscriptionWithCard({
-      products: [PRODUCT_TYPES.SHIELD],
-      isTrialRequested: false,
-      recurringInterval: RECURRING_INTERVALS.month,
-    });
-
-    expect(mockStartShieldSubscriptionWithCard).toHaveBeenCalledWith({
-      products: [PRODUCT_TYPES.SHIELD],
-      isTrialRequested: false,
-      recurringInterval: RECURRING_INTERVALS.month,
-      successUrl: MOCK_REDIRECT_URI,
-      cancelUrl: `${MOCK_REDIRECT_URI}?cancel=true`,
-      rewardSubscriptionId: undefined,
-    });
-
-    expect(mockGetRewardSeasonMetadata).toHaveBeenCalledWith('current');
-    expect(mockGetHasAccountOptedIn).not.toHaveBeenCalled();
-  });
-
-  it('should not include the reward account id when getSeasonMetadata throws season not found error', async () => {
-    mockGetRewardSeasonMetadata.mockRestore();
-    mockGetRewardSeasonMetadata.mockRejectedValueOnce(
-      new Error('No valid season metadata could be found for type: current'),
-    );
-
-    await subscriptionService.startSubscriptionWithCard({
-      products: [PRODUCT_TYPES.SHIELD],
-      isTrialRequested: false,
-      recurringInterval: RECURRING_INTERVALS.month,
-    });
-
-    expect(mockStartShieldSubscriptionWithCard).toHaveBeenCalledWith({
-      products: [PRODUCT_TYPES.SHIELD],
-      isTrialRequested: false,
-      recurringInterval: RECURRING_INTERVALS.month,
-      successUrl: MOCK_REDIRECT_URI,
-      cancelUrl: `${MOCK_REDIRECT_URI}?cancel=true`,
-    });
-
-    expect(mockGetRewardSeasonMetadata).toHaveBeenCalledWith('current');
-    expect(mockGetHasAccountOptedIn).not.toHaveBeenCalled();
   });
 
   it('should poll until paused subscription is found', async () => {
@@ -615,44 +480,6 @@ describe('ShieldSubscriptionService - handlePostTransaction', () => {
     });
   });
 
-  it('should handle the crypto approval transaction with reward account id if a primary account is opted in to rewards', async () => {
-    const from = '0x88069b650422308bf8b472beaf790189f3f28309';
-    const txMeta = {
-      ...MOCK_TX_META,
-      txParams: {
-        from,
-      },
-    };
-
-    mockGetAccountsState.mockRestore();
-    mockGetAccountsState.mockReturnValue({
-      internalAccounts: {
-        ...MOCK_STATE.internalAccounts,
-        accounts: {
-          ...MOCK_STATE.internalAccounts.accounts,
-          [MOCK_STATE.internalAccounts.selectedAccount]: {
-            // @ts-expect-error mock account
-            ...MOCK_STATE.internalAccounts.accounts[
-              MOCK_STATE.internalAccounts.selectedAccount
-            ],
-            options: {
-              entropySource: MOCK_STATE.keyrings[0].metadata.id,
-            },
-          },
-        },
-      },
-    });
-
-    // @ts-expect-error mock tx meta
-    await subscriptionService.handlePostTransaction(txMeta);
-    expect(mockSubmitShieldSubscriptionCryptoApproval).toHaveBeenCalledWith({
-      productType: PRODUCT_TYPES.SHIELD,
-      txMeta,
-      isSponsored: false,
-      rewardAccountId: MOCK_REWARD_ACCOUNT_ID,
-    });
-  });
-
   it('should set shield API error when payerAddressAlreadyUsed error occurs', async () => {
     mockSubmitShieldSubscriptionCryptoApproval.mockRejectedValueOnce(
       new Error(SHIELD_ERROR.payerAddressAlreadyUsed),
@@ -776,124 +603,6 @@ describe('ShieldSubscriptionService - handlePostTransaction', () => {
     expect(mockClearLastSelectedPaymentMethod).toHaveBeenCalledWith(
       PRODUCT_TYPES.SHIELD,
     );
-  });
-});
-
-describe('ShieldSubscriptionService - linkRewardToExistingSubscription', () => {
-  const MOCK_STATE = createSwapsMockStore().metamask;
-  const MOCK_REWARD_ACCOUNT_ID =
-    'eip155:0:0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc';
-  const MOCK_SHIELD_SUBSCRIPTION_ID = 'shield_subscription_id';
-  const MOCK_REWARD_POINTS = 100;
-
-  beforeEach(() => {
-    jest.resetAllMocks();
-
-    mockGetAccountsState.mockReturnValue({
-      internalAccounts: {
-        ...MOCK_STATE.internalAccounts,
-        accounts: {
-          ...MOCK_STATE.internalAccounts.accounts,
-          [MOCK_STATE.internalAccounts.selectedAccount]: {
-            // @ts-expect-error mock account
-            ...MOCK_STATE.internalAccounts.accounts[
-              MOCK_STATE.internalAccounts.selectedAccount
-            ],
-            options: {
-              entropySource: MOCK_STATE.keyrings[0].metadata.id,
-            },
-          },
-        },
-      },
-    });
-    mockGetKeyringControllerState.mockReturnValue({
-      keyrings: MOCK_STATE.keyrings,
-    });
-    mockGetRewardSeasonMetadata.mockResolvedValueOnce({
-      startDate: Date.now() - 1000,
-      endDate: Date.now() + 1000,
-    });
-    mockGetHasAccountOptedIn.mockResolvedValueOnce(true);
-    mockGetActualSubscriptionId.mockReturnValue('rewards_subscription_id');
-    mockGetAppStateControllerState.mockReturnValue({
-      shieldSubscriptionMetricsProps: {
-        userBalanceInUSD: 1000,
-      },
-    });
-  });
-
-  it('should link the reward to the existing subscription', async () => {
-    await subscriptionService.linkRewardToExistingSubscription(
-      MOCK_SHIELD_SUBSCRIPTION_ID,
-      MOCK_REWARD_POINTS,
-    );
-
-    expect(mockLinkRewards).toHaveBeenCalledWith({
-      subscriptionId: MOCK_SHIELD_SUBSCRIPTION_ID,
-      rewardAccountId: MOCK_REWARD_ACCOUNT_ID,
-    });
-    expect(mockGetActualSubscriptionId).toHaveBeenCalledWith(
-      MOCK_REWARD_ACCOUNT_ID,
-    );
-    expect(mockTrackEvent.mock.calls).toEqual(
-      expect.arrayContaining([
-        [
-          expect.objectContaining({
-            properties: expect.objectContaining({
-              // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-              // eslint-disable-next-line @typescript-eslint/naming-convention
-              rewards_subscription_id: 'rewards_subscription_id',
-            }),
-          }),
-        ],
-      ]),
-    );
-  });
-
-  it('should not link the reward to the existing subscription if the season is not active', async () => {
-    mockGetRewardSeasonMetadata.mockRestore();
-
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() + 1);
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 3);
-    mockGetRewardSeasonMetadata.mockResolvedValueOnce({
-      startDate: startDate.getTime(),
-      endDate: endDate.getTime(),
-    });
-    await subscriptionService.linkRewardToExistingSubscription(
-      MOCK_SHIELD_SUBSCRIPTION_ID,
-      MOCK_REWARD_POINTS,
-    );
-
-    expect(mockLinkRewards).not.toHaveBeenCalled();
-  });
-
-  it('should not link the reward when getSeasonMetadata throws season not found error', async () => {
-    mockGetRewardSeasonMetadata.mockRestore();
-    mockGetRewardSeasonMetadata.mockRejectedValueOnce(
-      new Error('No valid season metadata could be found for type: current'),
-    );
-
-    await subscriptionService.linkRewardToExistingSubscription(
-      MOCK_SHIELD_SUBSCRIPTION_ID,
-      MOCK_REWARD_POINTS,
-    );
-
-    expect(mockLinkRewards).not.toHaveBeenCalled();
-    expect(mockGetHasAccountOptedIn).not.toHaveBeenCalled();
-  });
-
-  it('should not link the reward to the existing subscription if user is not opted in to rewards', async () => {
-    mockGetHasAccountOptedIn.mockRestore();
-    mockGetHasAccountOptedIn.mockResolvedValueOnce(false);
-
-    await subscriptionService.linkRewardToExistingSubscription(
-      MOCK_SHIELD_SUBSCRIPTION_ID,
-      MOCK_REWARD_POINTS,
-    );
-
-    expect(mockLinkRewards).not.toHaveBeenCalled();
   });
 });
 
@@ -1340,52 +1049,5 @@ describe('ShieldSubscriptionService - handlePostTransaction cohort assignment', 
 
     expect(mockSetPendingShieldCohort).not.toHaveBeenCalled();
     expect(mockTrackEvent).not.toHaveBeenCalled();
-  });
-});
-
-describe('ShieldSubscriptionService - linkRewardToExistingSubscription errors', () => {
-  const MOCK_STATE = createSwapsMockStore().metamask;
-  const MOCK_SHIELD_SUBSCRIPTION_ID = 'shield_subscription_id';
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-    mockGetAccountsState.mockReturnValue({
-      internalAccounts: {
-        ...MOCK_STATE.internalAccounts,
-        accounts: {
-          ...MOCK_STATE.internalAccounts.accounts,
-          [MOCK_STATE.internalAccounts.selectedAccount]: {
-            // @ts-expect-error mock account
-            ...MOCK_STATE.internalAccounts.accounts[
-              MOCK_STATE.internalAccounts.selectedAccount
-            ],
-            options: {
-              entropySource: MOCK_STATE.keyrings[0].metadata.id,
-            },
-          },
-        },
-      },
-    });
-    mockGetKeyringControllerState.mockReturnValue({
-      keyrings: MOCK_STATE.keyrings,
-    });
-    mockGetRewardSeasonMetadata.mockResolvedValue({
-      startDate: Date.now() - 1000,
-      endDate: Date.now() + 1000,
-    });
-    mockGetHasAccountOptedIn.mockResolvedValue(true);
-  });
-
-  it('does not throw when linking reward fails', async () => {
-    mockLinkRewards.mockRejectedValueOnce(new Error('Network error'));
-
-    await expect(
-      subscriptionService.linkRewardToExistingSubscription(
-        MOCK_SHIELD_SUBSCRIPTION_ID,
-        100,
-      ),
-    ).resolves.toBeUndefined();
-
-    expect(mockLinkRewards).toHaveBeenCalled();
   });
 });

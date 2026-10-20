@@ -53,8 +53,13 @@ describe('addRoute', () => {
 });
 
 describe('retired feature links', () => {
-  for (const path of ['/perps', '/perps-asset?symbol=ETH', '/perps-markets']) {
-    it(`rejects the removed Perps link ${path}`, async () => {
+  for (const path of [
+    '/perps',
+    '/perps-asset?symbol=ETH',
+    '/perps-markets',
+    '/rewards',
+  ]) {
+    it(`rejects the removed feature link ${path}`, async () => {
       expect(await parse(new URL(`https://link.metamask.io${path}`))).toBe(
         false,
       );

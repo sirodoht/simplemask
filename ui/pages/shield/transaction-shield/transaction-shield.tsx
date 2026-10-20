@@ -17,7 +17,6 @@ import {
   Box,
   BoxBackgroundColor,
   Button,
-  ButtonSize,
   ButtonVariant,
   Icon,
   IconColor,
@@ -30,10 +29,8 @@ import {
   Skeleton,
 } from '@metamask/design-system-react';
 import { useSelector } from 'react-redux';
-import log from 'loglevel';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import {
-  useShieldRewards,
   useSubscriptionError,
   useUserLastSubscriptionByProduct,
   useUserSubscriptionByProduct,
@@ -52,7 +49,6 @@ import { useFormatters } from '../../../hooks/useFormatters';
 import LoadingScreen from '../../../components/ui/loading-screen';
 import AddFundsModal from '../../../components/app/modals/add-funds-modal/add-funds-modal';
 import { useSubscriptionPricing } from '../../../hooks/subscription/useSubscriptionPricing';
-import RewardsModal from '../../../components/app/rewards/onboarding/RewardsModal';
 import {
   getIsShieldSubscriptionEndingSoon,
   getIsShieldSubscriptionPaused,
@@ -68,11 +64,8 @@ import {
 } from '../../../../shared/constants/subscriptions';
 import ApiErrorHandler from '../../../components/app/api-error-handler';
 import { useHandlePayment } from '../../../hooks/subscription/useHandlePayment';
-import type { MetaMaskReduxDispatch } from '../../../store/types';
 import { useDispatch } from '../../../store/hooks';
-import { setRewardsModalOpen } from '../../../ducks/rewards';
 import { getIntlLocale } from '../../../ducks/locale/locale';
-import { linkRewardToShieldSubscription } from '../../../store/actions';
 import { isCardPaymentMethod, isCryptoPaymentMethod } from './types';
 import { formatOptionalDate } from './utils';
 import {
@@ -188,26 +181,13 @@ const TransactionShield = () => {
     [displayedShieldSubscription],
   );
 
-  const {
-    pointsMonthly,
-    pointsYearly,
-    isRewardsSeason,
-    hasAccountOptedIn,
-    pending: pendingShieldRewards,
-  } = useShieldRewards();
-
-  // Use rewardAccountId from subscription as additional signal for opt-in status
-  const hasOptedIntoRewards =
-    hasAccountOptedIn || Boolean(displayedShieldSubscription?.rewardAccountId);
-
   const isWaitingForSubscriptionCreation =
     shouldWaitForSubscriptionCreation && !currentShieldSubscription;
 
   const showSkeletonLoader =
     isWaitingForSubscriptionCreation ||
     subscriptionsLoading ||
-    subscriptionPricingLoading ||
-    pendingShieldRewards;
+    subscriptionPricingLoading;
 
   // redirect to shield plan page if user doesn't have a subscription
   useEffect(() => {
@@ -224,26 +204,6 @@ const TransactionShield = () => {
   ]);
 
   const [isAddFundsModalOpen, setIsAddFundsModalOpen] = useState(false);
-
-  const openRewardsModal = useCallback(() => {
-    dispatch(setRewardsModalOpen(true));
-  }, [dispatch]);
-
-  const claimedRewardsPoints = useMemo(() => {
-    const points =
-      displayedShieldSubscription?.interval === RECURRING_INTERVALS.year
-        ? pointsYearly
-        : pointsMonthly;
-    return points;
-  }, [pointsYearly, pointsMonthly, displayedShieldSubscription?.interval]);
-
-  const formattedRewardsPoints = useMemo(() => {
-    if (!claimedRewardsPoints || !isRewardsSeason) {
-      return '';
-    }
-
-    return new Intl.NumberFormat(locale).format(claimedRewardsPoints);
-  }, [claimedRewardsPoints, isRewardsSeason, locale]);
 
   const trialDaysLeft = useMemo(() => {
     if (!isTrialing || !displayedShieldSubscription?.trialEnd) {
@@ -319,20 +279,6 @@ const TransactionShield = () => {
     return t('shieldPlanCard');
   }, [displayedShieldSubscription, t]);
 
-  const handleLinkRewardToShieldSubscription = useCallback(
-    async (subscriptionId: string, rewardPoints: number) => {
-      // link to shield only coz already opted in to rewards
-      try {
-        await dispatch(
-          linkRewardToShieldSubscription(subscriptionId, rewardPoints),
-        );
-      } catch (error) {
-        log.warn('Failed to link reward to shield subscription', error);
-      }
-    },
-    [dispatch],
-  );
-
   const isCardPayment =
     currentShieldSubscription &&
     isCardPaymentMethod(currentShieldSubscription.paymentMethod);
@@ -374,66 +320,6 @@ const TransactionShield = () => {
       redirectToUrl: TRANSACTION_SHIELD_LINK,
     });
   }, [captureShieldCtaClickedEvent]);
-
-  const rewardsButton = useMemo(() => {
-    if (isCancelled) {
-      return null;
-    }
-    if (showSkeletonLoader) {
-      return <Skeleton width={80} height={40} />;
-    }
-
-    if (!hasOptedIntoRewards) {
-      return (
-        <Button
-          variant={ButtonVariant.Secondary}
-          size={ButtonSize.Md}
-          textProps={{
-            variant: TextVariant.BodySm,
-          }}
-          onClick={() => {
-            openRewardsModal();
-          }}
-        >
-          {t('shieldTxMembershipBenefits3SignUp')}
-        </Button>
-      );
-    }
-    if (
-      displayedShieldSubscription?.id &&
-      claimedRewardsPoints &&
-      !displayedShieldSubscription?.rewardAccountId
-    ) {
-      return (
-        <Button
-          variant={ButtonVariant.Secondary}
-          size={ButtonSize.Md}
-          textProps={{
-            variant: TextVariant.BodySm,
-          }}
-          onClick={async () =>
-            handleLinkRewardToShieldSubscription(
-              displayedShieldSubscription?.id,
-              claimedRewardsPoints,
-            )
-          }
-        >
-          {t('shieldTxMembershipBenefits3LinkRewards')}
-        </Button>
-      );
-    }
-    return null;
-  }, [
-    isCancelled,
-    showSkeletonLoader,
-    hasOptedIntoRewards,
-    displayedShieldSubscription?.id,
-    displayedShieldSubscription?.rewardAccountId,
-    claimedRewardsPoints,
-    t,
-    openRewardsModal,
-    handleLinkRewardToShieldSubscription,
-  ]);
 
   if (!loading && hasApiError) {
     return (
@@ -602,21 +488,6 @@ const TransactionShield = () => {
               description={t('shieldTxMembershipBenefits2Description')}
               loading={showSkeletonLoader}
             />
-            <ButtonRow
-              startIconName={IconName.MetamaskFoxOutline}
-              title={t('shieldTxMembershipBenefits3Title')}
-              description={t(
-                isMembershipInactive
-                  ? 'shieldTxMembershipBenefits3DescriptionInactive'
-                  : 'shieldTxMembershipBenefits3Description',
-                [
-                  formattedRewardsPoints || '',
-                  displayedShieldSubscription?.interval || '',
-                ],
-              )}
-              loading={showSkeletonLoader}
-              endAccessory={rewardsButton}
-            />
           </ButtonRowContainer>
         </Box>
         {!isCancelled && displayedShieldSubscription?.isEligibleForSupport && (
@@ -701,10 +572,6 @@ const TransactionShield = () => {
             }
           />
         )}
-      <RewardsModal
-        rewardPoints={claimedRewardsPoints ?? undefined}
-        shieldSubscriptionId={displayedShieldSubscription?.id}
-      />
     </Box>
   );
 };

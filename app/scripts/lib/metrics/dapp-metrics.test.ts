@@ -4,13 +4,7 @@ import {
 } from '../../../../shared/constants/app';
 import { MetaMetricsEventName } from '../../../../shared/constants/metametrics';
 import { createEventBuilder, trackEvent } from '../../controllers/analytics';
-import { getPartnerByOrigin } from '../../../../shared/constants/defi-referrals';
-import { ReferralTriggerType } from '../defi-referrals/createDefiReferralMiddleware';
 import { createDappMetrics, type DappMetricsController } from './dapp-metrics';
-
-jest.mock('../../../../shared/constants/defi-referrals', () => ({
-  getPartnerByOrigin: jest.fn(),
-}));
 
 jest.mock('../../controllers/analytics', () => ({
   createEventBuilder: jest.fn(),
@@ -45,7 +39,6 @@ describe('createDappMetrics', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    (getPartnerByOrigin as jest.Mock).mockReturnValue(undefined);
     tabActivatedListeners.length = 0;
     (createEventBuilder as jest.Mock).mockImplementation(createBuilder);
     addCategory.mockImplementation(() => ({ addProperties }));
@@ -170,69 +163,43 @@ describe('createDappMetrics', () => {
     expect(trackEvent).toHaveBeenCalled();
   });
 
-  it('installOnNavigateToTabListener calls handleDefiReferral for connected partner tabs', async () => {
-    const partner = { name: 'PartnerDapp' };
-    (getPartnerByOrigin as jest.Mock).mockReturnValue(partner);
-
-    const messengerCall = jest.fn((method: string) => {
-      if (method === 'AccountsController:getState') {
-        return { internalAccounts: { accounts: { a: {} } } };
-      }
-      if (method === 'PermissionController:hasPermissions') {
-        return true;
-      }
-      if (method === 'LegacyBackgroundApiService:handleDefiReferral') {
-        return Promise.resolve();
-      }
-      return undefined;
-    });
-
-    const partnerOrigin = 'https://partner.test';
+  it('does not start a referral flow when navigating to a connected former partner', () => {
+    const origin = 'https://app.hyperliquid.xyz';
     const controller = createController({
-      controllerMessenger: { call: messengerCall },
       permissionController: {
+        state: { subjects: { [origin]: { origin, permissions: {} } } },
+      },
+      remoteFeatureFlagController: {
         state: {
-          subjects: {
-            'https://partner.test': {
-              origin: 'https://partner.test',
-              permissions: {},
-            },
-            'https://iframe.partner.test': {
-              origin: 'https://iframe.partner.test',
-              permissions: {},
-            },
+          remoteFeatureFlags: {
+            extensionUxDefiReferralPartners: { hyperliquid: true },
           },
         },
       },
     });
-
     const { trackDappView, installOnNavigateToTabListener } = createDappMetrics(
       {
         getController: () => controller,
         isAnyUiOpen: () => false,
       },
     );
-
     trackDappView({
       sender: {
-        tab: { id: 7, title: 'Partner', url: partnerOrigin },
-        url: 'https://iframe.partner.test/embed',
-        frameId: 1,
+        tab: { id: 3, title: 'Connected dApp', url: origin },
+        url: origin,
+        frameId: 0,
       },
     });
-
     installOnNavigateToTabListener();
-    tabActivatedListeners[0]({ tabId: 7 });
+    tabActivatedListeners[0]({ tabId: 3 });
 
-    await Promise.resolve();
-
-    expect(getPartnerByOrigin).toHaveBeenCalledWith(partnerOrigin);
-    expect(messengerCall).toHaveBeenCalledWith(
+    expect(controller.controllerMessenger.call).not.toHaveBeenCalledWith(
       'LegacyBackgroundApiService:handleDefiReferral',
-      partner,
-      7,
-      ReferralTriggerType.OnNavigateConnectedTab,
+      expect.anything(),
+      expect.anything(),
+      expect.anything(),
     );
+    expect(trackEvent).toHaveBeenCalled();
   });
 
   it('trackDappView does not overwrite senderOriginMapping for the same tab', () => {

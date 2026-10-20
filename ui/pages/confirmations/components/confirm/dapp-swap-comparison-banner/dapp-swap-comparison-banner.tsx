@@ -23,7 +23,6 @@ import { Tab, Tabs } from '../../../../../components/ui/tabs';
 import { useDappSwapComparisonInfo } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapComparisonInfo';
 import { useDappSwapComparisonMetrics } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapComparisonMetrics';
 import { useDappSwapCheck } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapCheck';
-import { useDappSwapComparisonRewardText } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapComparisonRewardText';
 import { useDappSwapContext } from '../../../context/dapp-swap';
 import { QuoteSwapSimulationDetails } from '../../transactions/quote-swap-simulation-details/quote-swap-simulation-details';
 import { NetworkRow } from '../info/shared/network-row/network-row';
@@ -97,7 +96,6 @@ const DappSwapComparisonInner = ({
   };
   const { setQuotedSwapDisplayedInInfo, setSelectedQuote } =
     useDappSwapContext();
-  const rewards = useDappSwapComparisonRewardText();
   const [selectedSwapType, setSelectedSwapType] = useState<SwapType>(
     SwapType.Current,
   );
@@ -196,7 +194,7 @@ const DappSwapComparisonInner = ({
             fontWeight={FontWeight.Medium}
             variant={TextVariant.BodySm}
           >
-            {rewards ? t('dappSwapAdvantage') : t('dappSwapAdvantageSaveOnly')}
+            {t('dappSwapAdvantageSaveOnly')}
           </Text>
           <Box
             flexDirection={BoxFlexDirection.Row}
@@ -208,22 +206,6 @@ const DappSwapComparisonInner = ({
                 `$${selectedQuoteValueDifference.toFixed(2)}`,
               ])}
             </Text>
-            {rewards && (
-              <>
-                <Text
-                  color={TextColor.TextAlternative}
-                  variant={TextVariant.BodySm}
-                >
-                  {` • `}
-                </Text>
-                <Text
-                  className="dapp-swap_text-rewards"
-                  variant={TextVariant.BodySm}
-                >
-                  {rewards?.text}
-                </Text>
-              </>
-            )}
           </Box>
           <Text color={TextColor.TextAlternative} variant={TextVariant.BodySm}>
             {t('dappSwapBenefits')}

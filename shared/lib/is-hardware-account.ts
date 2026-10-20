@@ -1,6 +1,6 @@
 import type { InternalAccount } from '@metamask/keyring-internal-api';
 import { KeyringTypes } from '@metamask/keyring-controller';
-import { DEVICE_KEYRING_MAP } from '../../../../../shared/constants/hardware-wallets';
+import { DEVICE_KEYRING_MAP } from '../constants/hardware-wallets';
 
 /**
  * Check if an account is a hardware wallet account.

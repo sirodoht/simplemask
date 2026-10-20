@@ -201,15 +201,6 @@ import { NOTIFICATIONS_EXPIRATION_DELAY } from '../helpers/constants/notificatio
 import { getDismissSmartAccountSuggestionEnabled } from '../pages/confirmations/selectors/preferences';
 import { stripWalletTypePrefixFromWalletId } from '../hooks/multichain-accounts/utils';
 import { ClaimSubmitToastType } from '../../shared/constants/app-state';
-import {
-  SeasonDtoState,
-  SeasonStatusState,
-  EstimatePointsDto,
-  EstimatedPointsDto,
-  RewardsGeoMetadata,
-  OptInStatusDto,
-  OptInStatusInputDto,
-} from '../../shared/types/rewards';
 import { SubmitClaimErrorResponse } from '../pages/shield/transaction-shield/types';
 import { SubmitClaimError } from '../pages/shield/transaction-shield/claim-error';
 import {
@@ -218,7 +209,7 @@ import {
 } from '../../shared/types';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { OAuthLoginResult } from '../../app/scripts/services/oauth/types';
-import { isHardwareAccount as isUiHardwareAccount } from '../components/app/rewards/utils/isHardwareAccount';
+import { isHardwareAccount as isUiHardwareAccount } from '../../shared/lib/is-hardware-account';
 import { isHardwareAccount } from '../../shared/lib/accounts';
 import { SUBSCRIPTIONS_POLLING_INPUT } from '../../shared/constants/subscriptions';
 
@@ -884,28 +875,6 @@ export function setShieldSubscriptionMetricsProps(
       log.error('[setShieldSubscriptionMetricsProps] error', error);
       throw error;
     }
-  };
-}
-
-/**
- * Links the reward to the existing shield subscription.
- *
- * @param subscriptionId - Shield subscription ID to link the reward to.
- * @param rewardPoints - The number of reward points which user will receive after linking the reward to the subscription.
- * @returns Promise<void> - The reward subscription ID or undefined if the season is not active or the primary account is not opted in to rewards.
- */
-export function linkRewardToShieldSubscription(
-  subscriptionId: string,
-  rewardPoints: number,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('linkRewardToShieldSubscription', [
-      subscriptionId,
-      rewardPoints,
-    ]);
-
-    // refetch the subscriptions
-    await dispatch(getSubscriptions());
   };
 }
 
@@ -6505,177 +6474,6 @@ export function cancelQrCodeScan(
       : [];
 
     await submitRequestToBackground('cancelQrCodeScan', cancelPayload);
-  };
-}
-
-// Rewards
-
-export function getRewardsHasAccountOptedIn(
-  account: CaipAccountId,
-): ThunkAction<Promise<boolean>, MetaMaskReduxState, unknown, AnyAction> {
-  return async () => {
-    return await submitRequestToBackground<boolean>(
-      'getRewardsHasAccountOptedIn',
-      [account],
-    );
-  };
-}
-
-export function getRewardsCandidateSubscriptionId(
-  primaryWalletGroupAccounts?: InternalAccount[],
-): ThunkAction<Promise<string | null>, MetaMaskReduxState, unknown, AnyAction> {
-  return async () => {
-    return await submitRequestToBackground<string | null>(
-      'getRewardsCandidateSubscriptionId',
-      primaryWalletGroupAccounts ? [primaryWalletGroupAccounts] : undefined,
-    );
-  };
-}
-
-export function getRewardsSeasonMetadata(
-  type?: 'current' | 'next' | 'previous',
-): ThunkAction<
-  Promise<SeasonDtoState>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<SeasonDtoState>(
-      'getRewardsSeasonMetadata',
-      type ? [type] : [],
-    );
-  };
-}
-
-export function getRewardsSeasonStatus(
-  subscriptionId: string,
-  seasonId: string,
-): ThunkAction<
-  Promise<SeasonStatusState>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<SeasonStatusState>(
-      'getRewardsSeasonStatus',
-      [subscriptionId, seasonId],
-    );
-  };
-}
-
-export function estimateRewardsPoints(
-  request: EstimatePointsDto,
-): ThunkAction<
-  Promise<EstimatedPointsDto>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<EstimatedPointsDto>(
-      'estimateRewardsPoints',
-      [request],
-    );
-  };
-}
-
-export function validateRewardsReferralCode(
-  code: string,
-): ThunkAction<
-  Promise<{ valid: boolean; isVipCode: boolean }>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<{
-      valid: boolean;
-      isVipCode: boolean;
-    }>('validateRewardsReferralCode', [code]);
-  };
-}
-
-export function getRewardsGeoMetadata(): ThunkAction<
-  Promise<RewardsGeoMetadata | null>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<RewardsGeoMetadata | null>(
-      'getRewardsGeoMetadata',
-    );
-  };
-}
-
-export function rewardsOptIn({
-  accounts,
-  referralCode,
-}: {
-  accounts: InternalAccount[];
-  referralCode?: string;
-}): ThunkAction<
-  Promise<string | null>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<string | null>('rewardsOptIn', [
-      accounts,
-      referralCode,
-    ]);
-  };
-}
-
-export function rewardsIsOptInSupported({
-  account,
-}: {
-  account: InternalAccount;
-}): ThunkAction<Promise<boolean>, MetaMaskReduxState, unknown, AnyAction> {
-  return async () => {
-    return await submitRequestToBackground<boolean>('rewardsIsOptInSupported', [
-      account,
-    ]);
-  };
-}
-
-export function rewardsGetOptInStatus(
-  params: OptInStatusInputDto,
-): ThunkAction<
-  Promise<OptInStatusDto>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<OptInStatusDto>(
-      'rewardsGetOptInStatus',
-      [params],
-    );
-  };
-}
-
-export function rewardsLinkAccountsToSubscriptionCandidate(
-  accounts: InternalAccount[],
-  primaryWalletGroupAccounts?: InternalAccount[],
-): ThunkAction<
-  Promise<{ account: InternalAccount; success: boolean }[]>,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async () => {
-    return await submitRequestToBackground<
-      { account: InternalAccount; success: boolean }[]
-    >(
-      'rewardsLinkAccountsToSubscriptionCandidate',
-      primaryWalletGroupAccounts
-        ? [accounts, primaryWalletGroupAccounts]
-        : [accounts],
-    );
   };
 }
 

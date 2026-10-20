@@ -45,7 +45,7 @@ For every removed feature, address both its visible interface and its underlying
 
 - [x] Remove ads, promotional cards/carousels, and marketing announcements. Removed the home carousel, remote carousel fetching, legacy announcement controller, and notification-service feature announcements, including fetching, saved announcements, marketing settings, and unused rendering dependencies. Product-specific promotional placements and push marketing are covered by their respective items below.
 - [x] Remove perpetual futures, including Perps navigation and promotional placements. Removed the trading UI, controller, streaming connections, funding prompts, deep links, notification inbox entries, and dedicated dependencies. Migrated saved Perps state while preserving accounts and transaction history. Verified wallet- and dApp-initiated ETH sends in Chrome and Firefox, and regenerated all LavaMoat policies.
-- [ ] Remove rewards and referral features.
+- [x] Remove rewards and referral features. Removed rewards screens, badges, enrollment, quote estimates, subscription rewards linking, controllers, API services, and partner referral prompts/redirects. Migrated saved rewards credentials and referral preferences. Preserved shared hardware-wallet checks and verified ETH sends in Chrome and Firefox with no rewards API requests during those tests.
 - [ ] Remove NFT galleries, discovery, import, and other dedicated NFT features.
 - [ ] Remove Discover, trending-token, and market-browsing features.
 - [ ] Remove the DeFi portfolio dashboard.

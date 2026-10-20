@@ -223,7 +223,6 @@ export function getMoneyTransactionDetailsRoute(transactionId: string): string {
 }
 
 export const SHIELD_PLAN_ROUTE = '/shield-plan';
-export const REWARDS_ROUTE = '/rewards';
 export const ACTIVITY_ROUTE = '/activity';
 
 export const ROUTES = [
@@ -253,7 +252,6 @@ export const ROUTES = [
   },
   { path: UNLOCK_ROUTE, label: 'Unlock Page', trackInAnalytics: true },
   { path: LOCK_ROUTE, label: 'Lock Page', trackInAnalytics: true },
-  { path: REWARDS_ROUTE, label: 'Rewards Page', trackInAnalytics: true },
   {
     path: ACCOUNT_LIST_PAGE_ROUTE,
     label: 'Account List Page',

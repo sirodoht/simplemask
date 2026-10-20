@@ -129,8 +129,6 @@ import { MetaMetricsDataDeletionController } from '../controllers/metametrics-da
 import { AppMetadataController } from '../controllers/app-metadata';
 import { DecryptMessageController } from '../controllers/decrypt-message';
 import { EncryptionPublicKeyController } from '../controllers/encryption-public-key';
-import { RewardsDataService } from '../controllers/rewards/rewards-data-service';
-import { RewardsController } from '../controllers/rewards/rewards-controller';
 import { StaticAssetsController } from '../controllers/static-assets-controller';
 import { QrSyncController } from '../controllers/qr-sync/qr-sync-controller';
 import { DataDeletionService } from '../services/data-deletion-service';
@@ -212,8 +210,6 @@ export type MessengerClient =
   | RateLimitController<RateLimitedApiMap>
   | RatesController
   | RemoteFeatureFlagController
-  | RewardsController
-  | RewardsDataService
   | SeedlessOnboardingController<EncryptionKey>
   | SentryTracingService
   | SelectedNetworkController
@@ -316,7 +312,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   RampsController['state'] &
   RatesController['state'] &
   RemoteFeatureFlagController['state'] &
-  RewardsController['state'] &
   SeedlessOnboardingController<EncryptionKey>['state'] &
   SelectedNetworkController['state'] &
   ShieldController['state'] &

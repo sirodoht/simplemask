@@ -39,7 +39,6 @@ export function getShieldSubscriptionServiceMessenger(
       'SubscriptionController:submitSponsorshipIntents',
       'SubscriptionController:getState',
       'SubscriptionController:submitSubscriptionCryptoApproval',
-      'SubscriptionController:linkRewards',
       'SubscriptionController:clearLastSelectedPaymentMethod',
       'AppStateController:getState',
       'AppStateController:setPendingShieldCohort',
@@ -53,12 +52,6 @@ export function getShieldSubscriptionServiceMessenger(
       'NetworkController:getState',
       'RemoteFeatureFlagController:getState',
       'KeyringController:getState',
-      // Rewards Integration
-      'RewardsController:getSeasonStatus',
-      'RewardsController:getSeasonMetadata',
-      'RewardsController:getHasAccountOptedIn',
-      // For metrics, to get the rewards subscription ID after checkout
-      'RewardsController:getActualSubscriptionId',
     ],
   });
   return serviceMessenger;

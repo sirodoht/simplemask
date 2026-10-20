@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import {
   RequestStatus,
   formatChainIdToCaip,
@@ -155,75 +155,16 @@ describe('BridgeDiscountFeeMessage', () => {
     expect(mockGetVipTierForAccount).not.toHaveBeenCalled();
   });
 
-  it('renders discounted fee copy and VIP badge when a VIP discount applies', async () => {
-    const store = createBridgeStoreWithQuotes(createDiscountedQuotes('vip'));
-    store.metamask.remoteFeatureFlags.vipProgramEnabled = {
-      enabled: true,
-      minimumVersion: '0.0.0',
-    };
-    renderWithProvider(<BridgeDiscountFeeMessage />, configureStore(store));
-
-    expect(
-      screen.getByText(messages.percent.message.replace('$1', '0.875')),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.mmFee.message.replace('$1', '0.5')),
-    ).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(screen.getByTestId('rewards-vip-badge')).toBeInTheDocument();
-      expect(screen.getByText('VIP 5')).toBeInTheDocument();
-    });
-    expect(mockGetVipTierForAccount).toHaveBeenCalledTimes(1);
-  });
-
-  it('renders fee copy without VIP badge when tier fetch returns null', async () => {
-    mockGetVipTierForAccount.mockResolvedValueOnce(null);
-
-    const store = createBridgeStoreWithQuotes(createDiscountedQuotes('vip'));
-    store.metamask.remoteFeatureFlags.vipProgramEnabled = {
-      enabled: true,
-      minimumVersion: '0.0.0',
-    };
-    renderWithProvider(<BridgeDiscountFeeMessage />, configureStore(store));
-
-    expect(
-      screen.getByText(messages.percent.message.replace('$1', '0.875')),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(messages.mmFee.message.replace('$1', '0.5')),
-    ).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(mockGetVipTierForAccount).toHaveBeenCalledTimes(1);
-    });
-    expect(screen.queryByTestId('rewards-vip-badge')).not.toBeInTheDocument();
-  });
-
-  it('renders null when fees are discounted but discountType is absent', () => {
-    const { container } = renderWithProvider(
-      <BridgeDiscountFeeMessage />,
-      configureStore(createBridgeStoreWithQuotes(createDiscountedQuotes())),
-    );
-
-    expect(container).toBeEmptyDOMElement();
-    expect(mockGetVipTierForAccount).not.toHaveBeenCalled();
-  });
-
-  (
-    [
-      ['promo', messages.bridgeDiscountBadgePromo.message],
-      ['dao', messages.bridgeDiscountBadgeDao.message],
-      ['seasonal', messages.bridgeDiscountBadgePromo.message],
-    ] as const
-  ).forEach(([discountType, badgeLabel]) => {
-    it(`renders discounted fee copy and discount badge for ${discountType} discountType`, async () => {
-      renderWithProvider(
-        <BridgeDiscountFeeMessage />,
-        configureStore(
-          createBridgeStoreWithQuotes(createDiscountedQuotes(discountType)),
-        ),
+  for (const discountType of ['vip', 'promo', 'dao', 'seasonal']) {
+    it(`renders ${discountType} fee amounts without rewards badges or tier requests`, () => {
+      const store = createBridgeStoreWithQuotes(
+        createDiscountedQuotes(discountType),
       );
+      store.metamask.remoteFeatureFlags.vipProgramEnabled = {
+        enabled: true,
+        minimumVersion: '0.0.0',
+      };
+      renderWithProvider(<BridgeDiscountFeeMessage />, configureStore(store));
 
       expect(
         screen.getByText(messages.percent.message.replace('$1', '0.875')),
@@ -231,10 +172,11 @@ describe('BridgeDiscountFeeMessage', () => {
       expect(
         screen.getByText(messages.mmFee.message.replace('$1', '0.5')),
       ).toBeInTheDocument();
-      expect(screen.getByTestId('rewards-discount-badge')).toBeInTheDocument();
-      expect(screen.getByText(badgeLabel)).toBeInTheDocument();
       expect(screen.queryByTestId('rewards-vip-badge')).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId('rewards-discount-badge'),
+      ).not.toBeInTheDocument();
       expect(mockGetVipTierForAccount).not.toHaveBeenCalled();
     });
-  });
+  }
 });

@@ -47,7 +47,6 @@ import { wordlist } from '@metamask/scure-bip39/dist/wordlists/english';
 import {
   BtcAccountType,
   EthAccountType,
-  isEvmAccountType,
   SolAccountType,
   TrxAccountType,
 } from '@metamask/keyring-api';
@@ -212,7 +211,6 @@ import {
   Caip25EndowmentPermissionName,
   getAllScopesFromCaip25CaveatValue,
   getCaipAccountIdsFromCaip25CaveatValue,
-  isCaipAccountIdInPermittedAccountIds,
   isInternalAccountInPermittedAccountIds,
   setChainIdsInCaip25CaveatValue,
   setNonSCACaipAccountIdsInCaip25CaveatValue,
@@ -249,12 +247,7 @@ import {
   AccountTreeControllerSyncWithUserStorageAction,
   AccountTreeControllerSyncWithUserStorageAtLeastOnceAction,
 } from '@metamask/account-tree-controller';
-import {
-  errorCodes,
-  JsonRpcError,
-  providerErrors,
-  rpcErrors,
-} from '@metamask/rpc-errors';
+import { JsonRpcError, providerErrors, rpcErrors } from '@metamask/rpc-errors';
 import {
   AuthenticationControllerClearStateAction,
   AuthenticationControllerGetBearerTokenAction,
@@ -315,7 +308,6 @@ import { LedgerHandlerMode } from '../../../shared/constants/offscreen-communica
 import { MINUTE } from '../../../shared/constants/time';
 import { KeyringType as KeyringTypes } from '../../../shared/constants/keyring';
 import {
-  MetaMetricsEventCategory,
   MetaMetricsEventFragmentPayload,
   MetaMetricsEventName,
 } from '../../../shared/constants/metametrics';
@@ -342,31 +334,15 @@ import {
 } from '../lib/transaction/util';
 import { TransactionControllerInitMessenger } from '../wallet-init/messengers/transaction-controller-messenger';
 import {
-  PreferencesControllerAddReferralApprovedAccountAction,
-  PreferencesControllerAddReferralDeclinedAccountAction,
-  PreferencesControllerAddReferralPassedAccountAction,
   PreferencesControllerConsolidateBasicFunctionalityAction,
   PreferencesControllerDismissBasicFunctionalityMigrationNotificationAction,
-  PreferencesControllerRemoveReferralDeclinedAccountAction,
   PreferencesControllerResetStateAction,
-  PreferencesControllerSetAccountsReferralApprovedAction,
   PreferencesControllerSetPasswordForgottenAction,
   PreferencesControllerToggleExternalServicesAction,
 } from '../controllers/preferences-controller-method-action-types';
-import {
-  PreferencesControllerGetStateAction,
-  ReferralStatus,
-} from '../controllers/preferences-controller';
+import { PreferencesControllerGetStateAction } from '../controllers/preferences-controller';
 import { OnboardingControllerGetStateAction } from '../controllers/onboarding';
 import { createEventBuilder, trackEvent } from '../controllers/analytics';
-import {
-  DefiReferralPartner,
-  DefiReferralPartnerConfig,
-  getPartnerByOrigin,
-} from '../../../shared/constants/defi-referrals';
-import { checkGmxHasReferralCode } from '../lib/defi-referrals/referral-onchain-check';
-import { checkHyperliquidHasReferralCode } from '../lib/defi-referrals/referral-api-check';
-import { ReferralTriggerType } from '../lib/defi-referrals/createDefiReferralMiddleware';
 import { runSeedlessOnboardingMigrations } from '../lib/seedless-onboarding/run-migrations';
 import { createSentryError } from '../../../shared/lib/error';
 import {
@@ -404,7 +380,6 @@ import {
 } from '../../../shared/lib/hardware-wallets';
 import { isDmkFeatureEnabled } from '../../../shared/lib/hardware-wallets/feature-flags';
 import { getManifestFlags } from '../../../shared/lib/manifestFlags';
-import { getBooleanFeatureFlag } from '../../../shared/lib/remote-feature-flag-utils';
 import {
   LatticeKeyringV2,
   LatticeCreateAccountOptions,
@@ -528,8 +503,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'getTokenStandardAndDetailsByChain',
   'getTokenSymbol',
   'getTrezorFeatures',
-  'handleDefiReferral',
-  'handleDefiReferralOnPermittedAccountsAdded',
   'importAccountWithStrategy',
   'importMnemonicToVault',
   'isPublicEndpointUrl',
@@ -701,15 +674,10 @@ type AllowedActions =
   | PhishingControllerMaybeUpdateStateAction
   | PhishingControllerScanAddressAction
   | PhishingControllerTestOriginAction
-  | PreferencesControllerAddReferralApprovedAccountAction
-  | PreferencesControllerAddReferralDeclinedAccountAction
-  | PreferencesControllerAddReferralPassedAccountAction
   | PreferencesControllerConsolidateBasicFunctionalityAction
   | PreferencesControllerDismissBasicFunctionalityMigrationNotificationAction
   | PreferencesControllerGetStateAction
-  | PreferencesControllerRemoveReferralDeclinedAccountAction
   | PreferencesControllerResetStateAction
-  | PreferencesControllerSetAccountsReferralApprovedAction
   | PreferencesControllerSetPasswordForgottenAction
   | PreferencesControllerToggleExternalServicesAction
   | RemoteFeatureFlagControllerGetStateAction
@@ -4593,399 +4561,6 @@ export class LegacyBackgroundApiService {
   }
 
   /**
-   * Runs when CAIP-25 permitted accounts are extended via the permission
-   * background API. If the origin is a referral partner and the globally
-   * selected account is EVM and included among the newly permitted accounts,
-   * it triggers the DeFi referral flow.
-   *
-   * @param details - Added accounts payload.
-   * @param details.origin - The origin whose permitted accounts were extended.
-   * @param details.newCaipAccountIds - The newly added CAIP-10 account ids.
-   */
-  handleDefiReferralOnPermittedAccountsAdded(details: {
-    origin: string;
-    newCaipAccountIds: CaipAccountId[];
-  }): void {
-    const { origin, newCaipAccountIds } = details;
-
-    const partner = getPartnerByOrigin(origin);
-    if (!partner) {
-      return;
-    }
-
-    const { accounts, selectedAccount: selectedAccountId } =
-      this.#messenger.call('AccountsController:getState').internalAccounts;
-    const selectedAccount = accounts[selectedAccountId];
-    if (!selectedAccount?.address || !isEvmAccountType(selectedAccount.type)) {
-      return;
-    }
-
-    const selectedMatchesNewPermit = newCaipAccountIds.some((caipAccountId) => {
-      try {
-        const { address } = parseCaipAccountId(caipAccountId);
-        return isEqualCaseInsensitive(address, selectedAccount.address);
-      } catch {
-        return false;
-      }
-    });
-
-    if (!selectedMatchesNewPermit) {
-      return;
-    }
-
-    const { appActiveTab } = this.#messenger.call(
-      'AppStateController:getState',
-    );
-    if (
-      !appActiveTab?.id ||
-      typeof appActiveTab.id !== 'number' ||
-      appActiveTab.origin !== origin
-    ) {
-      return;
-    }
-
-    this.handleDefiReferral(
-      partner,
-      appActiveTab.id,
-      ReferralTriggerType.PermittedAccountAdded,
-      {
-        activePermittedAddressOverride: selectedAccount.address,
-      },
-    ).catch((error) => {
-      log.error(
-        `Failed to handle ${partner.name} referral after permitted account added: `,
-        error,
-      );
-    });
-  }
-
-  /**
-   * Handles DeFi referral approval flow for a partner.
-   * Shows approval confirmation screen if needed and manages referral URL redirection.
-   * This can be triggered by connection permission grants or existing connections.
-   *
-   * @param partner - The partner configuration.
-   * @param tabId - The browser tab ID to update.
-   * @param triggerType - The trigger type.
-   * @param options - Optional behavior.
-   * @param options.activePermittedAddressOverride - When set, use this permitted address for referral state instead of the first sorted permitted account.
-   */
-  async handleDefiReferral(
-    partner: DefiReferralPartnerConfig,
-    tabId: number,
-    triggerType: ReferralTriggerType,
-    options: { activePermittedAddressOverride?: string } = {},
-  ): Promise<void> {
-    const { remoteFeatureFlags } = this.#messenger.call(
-      'RemoteFeatureFlagController:getState',
-    );
-    const referralPartnersFlag =
-      remoteFeatureFlags?.extensionUxDefiReferralPartners as
-        | Record<string, boolean>
-        | undefined;
-    const isReferralEnabled = referralPartnersFlag?.[partner.id];
-
-    if (!isReferralEnabled) {
-      return;
-    }
-
-    // Only continue if the partner has permitted accounts
-    const permittedAccounts = await this.#getPermittedAccounts(partner.origin);
-    if (permittedAccounts.length === 0) {
-      return;
-    }
-
-    // Only continue if there is no pending approval
-    const hasPendingApproval = this.#messenger.call(
-      'ApprovalController:hasRequest',
-      {
-        origin: partner.origin,
-        type: partner.approvalType,
-      },
-    );
-
-    if (hasPendingApproval) {
-      return;
-    }
-
-    // If the partner requires a specific chain and user's chain doesn't match,
-    // return early to avoid the referral code potentially not being applied.
-    // Don't write any account status so that the prompt can show on the next
-    // trigger (NewConnection or OnNavigateConnectedTab) once the user has switched chain
-    if (partner.requiredChainId) {
-      const networkClientId = this.#messenger.call(
-        'SelectedNetworkController:getNetworkClientIdForDomain',
-        partner.origin,
-      );
-      const networkConfig = this.#messenger.call(
-        'NetworkController:getNetworkConfigurationByNetworkClientId',
-        networkClientId,
-      );
-      const currentChainId = networkConfig?.chainId;
-      if (currentChainId !== partner.requiredChainId) {
-        return;
-      }
-    }
-
-    const { activePermittedAddressOverride } = options;
-    const activePermittedAccount =
-      (activePermittedAddressOverride &&
-        permittedAccounts.find((addr) =>
-          isEqualCaseInsensitive(addr, activePermittedAddressOverride),
-        )) ??
-      permittedAccounts[0];
-
-    const preferencesState = this.#messenger.call(
-      'PreferencesController:getState',
-    );
-    const referralStatusByAccount = preferencesState.referrals[partner.id];
-    const permittedAccountStatus =
-      referralStatusByAccount[activePermittedAccount as Hex];
-    const declinedAccounts = Object.keys(referralStatusByAccount).filter(
-      (account) =>
-        referralStatusByAccount[account as Hex] === ReferralStatus.Declined,
-    );
-
-    // We should show approval screen if the account does not have a status
-    const shouldShowApproval = permittedAccountStatus === undefined;
-
-    // We should redirect to the referral url if the account is approved
-    const shouldRedirect = permittedAccountStatus === ReferralStatus.Approved;
-
-    const checkExistingCodeMap: Partial<
-      Record<DefiReferralPartner, (account: string) => Promise<boolean>>
-    > = {
-      [DefiReferralPartner.GMX]: (account) =>
-        this.#checkGmxHasReferralCode(account),
-      [DefiReferralPartner.Hyperliquid]: preferencesState.useExternalServices
-        ? checkHyperliquidHasReferralCode
-        : undefined,
-    };
-
-    if (shouldShowApproval || shouldRedirect) {
-      const checkExistingCode = checkExistingCodeMap[partner.id];
-      if (checkExistingCode) {
-        const hasExistingCode = await checkExistingCode(activePermittedAccount);
-        if (hasExistingCode) {
-          this.#messenger.call(
-            'PreferencesController:addReferralPassedAccount',
-            partner.id,
-            activePermittedAccount as Hex,
-          );
-          return;
-        }
-      }
-    }
-
-    if (shouldShowApproval) {
-      try {
-        // Track referral viewed event
-        trackEvent(
-          createEventBuilder(MetaMetricsEventName.ReferralViewed)
-            .addCategory(MetaMetricsEventCategory.Referrals)
-            .addProperties({
-              url: partner.origin,
-              // eslint-disable-next-line @typescript-eslint/naming-convention
-              trigger_type: triggerType,
-            })
-            .build(),
-        );
-
-        // `shouldShowRequest` is preserved for parity with the previous
-        // MetamaskController implementation; `ApprovalController.add` ignores it
-        // (only `addRequest` reads it), so it is a no-op passed via a widened
-        // object to satisfy the action's option type.
-        const approvalRequest = {
-          origin: partner.origin,
-          type: partner.approvalType,
-          requestData: {
-            selectedAddress: activePermittedAccount,
-            partnerId: partner.id,
-            partnerName: partner.name,
-            learnMoreUrl: partner.learnMoreUrl,
-          },
-          shouldShowRequest: triggerType === ReferralTriggerType.NewConnection,
-        };
-        const approvalResponse = (await this.#messenger.call(
-          'ApprovalController:add',
-          approvalRequest,
-        )) as { approved?: boolean } | undefined;
-
-        if (approvalResponse?.approved) {
-          this.#handleDefiReferralApprovedAccount(
-            partner,
-            activePermittedAccount,
-            permittedAccounts,
-            declinedAccounts,
-          );
-          await this.#handleDefiReferralRedirect(
-            partner,
-            tabId,
-            activePermittedAccount,
-          );
-        } else {
-          this.#messenger.call(
-            'PreferencesController:addReferralDeclinedAccount',
-            partner.id,
-            activePermittedAccount as Hex,
-          );
-        }
-
-        // Track referral confirm button clicked event
-        trackEvent(
-          createEventBuilder(MetaMetricsEventName.ReferralConfirmButtonClicked)
-            .addCategory(MetaMetricsEventCategory.Referrals)
-            .addProperties({
-              // eslint-disable-next-line @typescript-eslint/naming-convention
-              opt_in: Boolean(approvalResponse?.approved),
-              url: partner.origin,
-            })
-            .build(),
-        );
-      } catch (error) {
-        // Do nothing if the user rejects the request
-        if (
-          (error as { code?: number })?.code ===
-          errorCodes.provider.userRejectedRequest
-        ) {
-          return;
-        }
-        throw error;
-      }
-    }
-
-    if (shouldRedirect) {
-      await this.#handleDefiReferralRedirect(
-        partner,
-        tabId,
-        activePermittedAccount,
-      );
-    }
-  }
-
-  /**
-   * Checks whether the given wallet already has a GMX referral code set on the
-   * Arbitrum ReferralStorage contract. Reconstructs the Arbitrum provider via
-   * the messenger and defaults to `false` when Arbitrum is not configured.
-   *
-   * @param walletAddress - The wallet address to check.
-   * @returns Whether the wallet has a GMX referral code on-chain.
-   */
-  async #checkGmxHasReferralCode(walletAddress: string): Promise<boolean> {
-    try {
-      const networkClientId = this.#messenger.call(
-        'NetworkController:findNetworkClientIdByChainId',
-        CHAIN_IDS.ARBITRUM,
-      );
-      const { provider } = this.#messenger.call(
-        'NetworkController:getNetworkClientById',
-        networkClientId,
-      );
-      return await checkGmxHasReferralCode(provider, walletAddress);
-    } catch {
-      // If Arbitrum is not configured or the lookup fails, default to false
-      return false;
-    }
-  }
-
-  /**
-   * Handles redirection to the DeFi partner's referral page.
-   *
-   * @param partner - The partner configuration.
-   * @param tabId - The browser tab ID to update.
-   * @param permittedAccount - The permitted account.
-   */
-  async #handleDefiReferralRedirect(
-    partner: DefiReferralPartnerConfig,
-    tabId: number,
-    permittedAccount: string,
-  ): Promise<void> {
-    await this.#updateDefiReferralUrl(partner, tabId);
-    // Mark this account as having been shown the referral page
-    this.#messenger.call(
-      'PreferencesController:addReferralPassedAccount',
-      partner.id,
-      permittedAccount as Hex,
-    );
-  }
-
-  /**
-   * Handles referral states for permitted accounts after user approval.
-   *
-   * @param partner - The partner configuration.
-   * @param activePermittedAccount - The active permitted account.
-   * @param permittedAccounts - The permitted accounts.
-   * @param declinedAccounts - The previously declined permitted accounts.
-   */
-  #handleDefiReferralApprovedAccount(
-    partner: DefiReferralPartnerConfig,
-    activePermittedAccount: string,
-    permittedAccounts: string[],
-    declinedAccounts: string[],
-  ): void {
-    if (declinedAccounts.length === 0) {
-      // If there are no previously declined permitted accounts then
-      // we approve all permitted accounts so that the user is not
-      // shown the approval screen unnecessarily when switching
-      this.#messenger.call(
-        'PreferencesController:setAccountsReferralApproved',
-        partner.id,
-        permittedAccounts as Hex[],
-      );
-    } else {
-      this.#messenger.call(
-        'PreferencesController:addReferralApprovedAccount',
-        partner.id,
-        activePermittedAccount as Hex,
-      );
-      // If there are any previously declined accounts then
-      // we do not approve them, but instead remove them from the declined list
-      // so they have the option to participate again in future
-      permittedAccounts.forEach((account) => {
-        if (declinedAccounts.includes(account)) {
-          this.#messenger.call(
-            'PreferencesController:removeReferralDeclinedAccount',
-            partner.id,
-            account as Hex,
-          );
-        }
-      });
-    }
-  }
-
-  /**
-   * Updates the browser tab URL to the DeFi partner's referral page.
-   *
-   * @param partner - The partner configuration.
-   * @param tabId - The browser tab ID to update.
-   */
-  async #updateDefiReferralUrl(
-    partner: DefiReferralPartnerConfig,
-    tabId: number,
-  ): Promise<void> {
-    try {
-      const url = await this.#getTabUrl(tabId);
-      const currentUrl = new URL(url || '');
-      const referralUrl = new URL(partner.referralUrl);
-
-      // Preserve (or update) existing params and add referral params
-      const mergedParams = new URLSearchParams(currentUrl.search);
-      for (const [key, value] of referralUrl.searchParams) {
-        mergedParams.set(key, value);
-      }
-
-      // Apply merged params to the referral URL
-      referralUrl.search = mergedParams.toString();
-      await this.#updateTabUrl(tabId, referralUrl.toString());
-    } catch (error) {
-      log.error(
-        `Failed to update URL to ${partner.name} referral page: `,
-        error,
-      );
-    }
-  }
-
-  /**
    * Returns the CAIP-25 caveat for the given origin, or `undefined` if the
    * origin does not currently have the CAIP-25 permission.
    *
@@ -5292,8 +4867,7 @@ export class LegacyBackgroundApiService {
 
   /**
    * Extends the permitted accounts for an origin with the accounts for the
-   * given addresses, then triggers the DeFi referral flow for any newly
-   * permitted CAIP account ids.
+   * given addresses.
    *
    * @param origin - The origin to add the accounts for.
    * @param addresses - The addresses of the accounts to permit.
@@ -5335,26 +4909,7 @@ export class LegacyBackgroundApiService {
       ]),
     );
 
-    const newCaipAccountIds = caipAccountIds.filter(
-      (id) =>
-        !isCaipAccountIdInPermittedAccountIds(id, existingPermittedAccountIds),
-    );
-
     this.setPermittedAccounts(origin, updatedAccountIds);
-
-    if (newCaipAccountIds.length > 0) {
-      try {
-        this.handleDefiReferralOnPermittedAccountsAdded({
-          origin,
-          newCaipAccountIds,
-        });
-      } catch (error) {
-        log.error(
-          'DeFi referral handler threw after permitted accounts added:',
-          error,
-        );
-      }
-    }
   }
 
   /**

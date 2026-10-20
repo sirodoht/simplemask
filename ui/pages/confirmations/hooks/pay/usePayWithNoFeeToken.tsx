@@ -14,7 +14,7 @@ import { CHAIN_IDS } from '../../../../../shared/constants/network';
 import { hasTransactionType } from '../../../../../shared/lib/transactions.utils';
 import { MUSD_TOKEN_ADDRESS } from '../../constants/musd';
 import { getInternalAccountByAddress } from '../../../../selectors/accounts';
-import { isHardwareAccount } from '../../../../components/app/rewards/utils/isHardwareAccount';
+import { isHardwareAccount } from '../../../../../shared/lib/is-hardware-account';
 import { useTransactionMetadataRequestOptional } from '../transactions/useTransactionMetadataRequest';
 import { useTransactionPayingAccount } from '../transactions/useTransactionPayingAccount';
 

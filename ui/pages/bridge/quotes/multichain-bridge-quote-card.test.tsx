@@ -20,8 +20,6 @@ import mockBridgeQuotesNativeErc20 from '../../../../test/data/bridge/mock-quote
 import { mockNetworkState } from '../../../../test/stub/networks';
 import { toChecksumHexAddress } from '../../../../shared/lib/hexstring-utils';
 import { toAssetId } from '../../../../shared/lib/asset-utils';
-import { createMockInternalAccount } from '../../../../test/jest/mocks';
-import { useRewards } from '../../../hooks/bridge/useRewards';
 import { useCountdownTimer } from '../../../hooks/bridge/useCountdownTimer';
 import { getToAccounts } from '../../../ducks/bridge/selectors';
 import { toBridgeToken } from '../../../ducks/bridge/utils';
@@ -31,10 +29,6 @@ import {
   MultichainBridgeQuoteCardSkeleton,
 } from './multichain-bridge-quote-card';
 
-jest.mock('../../../hooks/bridge/useRewards', () => ({
-  useRewards: jest.fn(),
-}));
-
 jest.mock('../../../hooks/bridge/useCountdownTimer', () => ({
   useCountdownTimer: jest.fn(),
 }));
@@ -42,23 +36,11 @@ jest.mock('../../../hooks/bridge/useCountdownTimer', () => ({
 const mockUseCountdownTimer = useCountdownTimer as jest.MockedFunction<
   typeof useCountdownTimer
 >;
-
-const mockUseRewards = useRewards as jest.MockedFunction<typeof useRewards>;
 const mockOnOpenPriceImpactWarningModal = jest.fn();
 
 describe('MultichainBridgeQuoteCard', () => {
-  const defaultUseRewardsReturn = {
-    isLoading: false,
-    estimatedPoints: null,
-    shouldShowRewardsRow: false,
-    hasError: false,
-    rewardsAccountScope: null,
-    accountOptedIn: null,
-  };
-
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseRewards.mockReturnValue(defaultUseRewardsReturn);
     mockUseCountdownTimer.mockReturnValue(30);
   });
 
@@ -554,250 +536,6 @@ describe('MultichainBridgeQuoteCard', () => {
       expect(mockOnOpenPriceImpactWarningModal).toHaveBeenCalledTimes(1);
     },
   );
-
-  describe('rewards functionality', () => {
-    const createMockStoreWithQuote = () =>
-      createBridgeMockStore({
-        featureFlagOverrides: {
-          bridgeConfig: {
-            maxRefreshCount: 5,
-            refreshRate: 30000,
-            chainRanking: [
-              { chainId: formatChainIdToCaip(CHAIN_IDS.MAINNET) },
-              { chainId: formatChainIdToCaip(CHAIN_IDS.OPTIMISM) },
-              { chainId: formatChainIdToCaip(CHAIN_IDS.POLYGON) },
-            ],
-          },
-        },
-        bridgeSliceOverrides: {
-          fromTokenInputValue: '1',
-          toToken: toBridgeToken(getNativeAssetForChainId(CHAIN_IDS.POLYGON)),
-        },
-        bridgeStateOverrides: {
-          quoteRequest: {
-            insufficientBal: false,
-            srcChainId: 10,
-            destChainId: 137,
-            srcTokenAddress: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
-            destTokenAddress: '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359',
-            srcTokenAmount: '14000000',
-          },
-          quotesRefreshCount: 1,
-          quotes: mockBridgeQuotesErc20Erc20,
-          quotesLastFetched: Date.now(),
-          quotesLoadingStatus: RequestStatus.FETCHED,
-        },
-        metamaskStateOverrides: {
-          marketData: {
-            '0xa': {
-              '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85': {
-                currency: 'usd',
-                price: 1,
-              },
-            },
-            '0x89': {
-              '0x3c499c542cef5e3811e1192ce70d8cc03d5c3359': {
-                currency: 'usd',
-                price: 0.99,
-              },
-            },
-          },
-          currencyRates: {
-            ETH: {
-              conversionRate: 2524.25,
-            },
-            POL: {
-              conversionRate: 1,
-              usdConversionRate: 1,
-            },
-          },
-          ...mockNetworkState(
-            { chainId: CHAIN_IDS.OPTIMISM },
-            { chainId: CHAIN_IDS.POLYGON },
-          ),
-        },
-      });
-
-    it('should not render rewards row when shouldShowRewardsRow is false', () => {
-      mockUseRewards.mockReturnValue({
-        ...defaultUseRewardsReturn,
-        shouldShowRewardsRow: false,
-      });
-
-      const mockStore = createMockStoreWithQuote();
-      const { queryByTestId } = renderWithProvider(
-        <MultichainBridgeQuoteCard
-          onOpenSlippageModal={() => {}}
-          onOpenRecipientModal={() => {}}
-          onOpenPriceImpactWarningModal={mockOnOpenPriceImpactWarningModal}
-          selectedDestinationAccount={null}
-        />,
-        configureStore(mockStore),
-      );
-
-      expect(queryByTestId('rewards-row')).not.toBeInTheDocument();
-    });
-
-    it('should render loading skeleton when rewards are loading', () => {
-      mockUseRewards.mockReturnValue({
-        ...defaultUseRewardsReturn,
-        shouldShowRewardsRow: true,
-        isLoading: true,
-      });
-
-      const mockStore = createMockStoreWithQuote();
-      const { getByTestId } = renderWithProvider(
-        <MultichainBridgeQuoteCard
-          onOpenSlippageModal={() => {}}
-          onOpenRecipientModal={() => {}}
-          onOpenPriceImpactWarningModal={mockOnOpenPriceImpactWarningModal}
-          selectedDestinationAccount={null}
-        />,
-        configureStore(mockStore),
-      );
-
-      expect(getByTestId('rewards-loading-skeleton')).toBeInTheDocument();
-    });
-
-    it('should render error state when rewards have error', () => {
-      mockUseRewards.mockReturnValue({
-        ...defaultUseRewardsReturn,
-        shouldShowRewardsRow: true,
-        isLoading: false,
-        hasError: true,
-      });
-
-      const mockStore = createMockStoreWithQuote();
-      const { getByTestId } = renderWithProvider(
-        <MultichainBridgeQuoteCard
-          onOpenSlippageModal={() => {}}
-          onOpenRecipientModal={() => {}}
-          onOpenPriceImpactWarningModal={mockOnOpenPriceImpactWarningModal}
-          selectedDestinationAccount={null}
-        />,
-        configureStore(mockStore),
-      );
-
-      expect(getByTestId('rewards-points-balance')).toBeInTheDocument();
-      expect(getByTestId('rewards-error-state')).toBeInTheDocument();
-    });
-
-    it('should render AddRewardsAccount when account is not opted in', () => {
-      const mockAccount = createMockInternalAccount({
-        id: 'test-account-1',
-        address: '0x1234567890123456789012345678901234567890',
-        name: 'Test Account',
-      });
-
-      mockUseRewards.mockReturnValue({
-        ...defaultUseRewardsReturn,
-        shouldShowRewardsRow: true,
-        isLoading: false,
-        hasError: false,
-        rewardsAccountScope: mockAccount,
-        accountOptedIn: false,
-      });
-
-      const mockStore = createMockStoreWithQuote();
-      const { getByTestId } = renderWithProvider(
-        <MultichainBridgeQuoteCard
-          onOpenSlippageModal={() => {}}
-          onOpenRecipientModal={() => {}}
-          onOpenPriceImpactWarningModal={mockOnOpenPriceImpactWarningModal}
-          selectedDestinationAccount={null}
-        />,
-        configureStore(mockStore),
-      );
-
-      expect(getByTestId('add-rewards-account-button')).toBeInTheDocument();
-    });
-
-    it('should render RewardsBadge with estimated points when rewards are loaded', () => {
-      mockUseRewards.mockReturnValue({
-        ...defaultUseRewardsReturn,
-        shouldShowRewardsRow: true,
-        isLoading: false,
-        hasError: false,
-        estimatedPoints: 1000,
-        accountOptedIn: true,
-      });
-
-      const mockStore = createMockStoreWithQuote();
-      const { getByTestId } = renderWithProvider(
-        <MultichainBridgeQuoteCard
-          onOpenSlippageModal={() => {}}
-          onOpenRecipientModal={() => {}}
-          onOpenPriceImpactWarningModal={mockOnOpenPriceImpactWarningModal}
-          selectedDestinationAccount={null}
-        />,
-        configureStore(mockStore),
-      );
-
-      const rewardsBadge = getByTestId('rewards-points-balance');
-      expect(rewardsBadge).toBeInTheDocument();
-      expect(rewardsBadge).toHaveTextContent('1,000');
-    });
-
-    it('should render RewardsBadge with zero points when estimatedPoints is 0', () => {
-      mockUseRewards.mockReturnValue({
-        ...defaultUseRewardsReturn,
-        shouldShowRewardsRow: true,
-        isLoading: false,
-        hasError: false,
-        estimatedPoints: 0,
-        accountOptedIn: true,
-      });
-
-      const mockStore = createMockStoreWithQuote();
-      const { getByTestId } = renderWithProvider(
-        <MultichainBridgeQuoteCard
-          onOpenSlippageModal={() => {}}
-          onOpenRecipientModal={() => {}}
-          onOpenPriceImpactWarningModal={mockOnOpenPriceImpactWarningModal}
-          selectedDestinationAccount={null}
-        />,
-        configureStore(mockStore),
-      );
-
-      const rewardsBadge = getByTestId('rewards-points-balance');
-      expect(rewardsBadge).toBeInTheDocument();
-      expect(rewardsBadge).toHaveTextContent('0');
-    });
-
-    it('should not render AddRewardsAccount when account is opted in', () => {
-      const mockAccount = createMockInternalAccount({
-        id: 'test-account-1',
-        address: '0x1234567890123456789012345678901234567890',
-        name: 'Test Account',
-      });
-
-      mockUseRewards.mockReturnValue({
-        ...defaultUseRewardsReturn,
-        shouldShowRewardsRow: true,
-        isLoading: false,
-        hasError: false,
-        rewardsAccountScope: mockAccount,
-        accountOptedIn: true,
-        estimatedPoints: 500,
-      });
-
-      const mockStore = createMockStoreWithQuote();
-      const { queryByTestId, getByTestId } = renderWithProvider(
-        <MultichainBridgeQuoteCard
-          onOpenSlippageModal={() => {}}
-          onOpenRecipientModal={() => {}}
-          onOpenPriceImpactWarningModal={mockOnOpenPriceImpactWarningModal}
-          selectedDestinationAccount={null}
-        />,
-        configureStore(mockStore),
-      );
-
-      expect(
-        queryByTestId('add-rewards-account-button'),
-      ).not.toBeInTheDocument();
-      expect(getByTestId('rewards-points-balance')).toBeInTheDocument();
-    });
-  });
 
   it('should render gas sponsored text when gasSponsored is true', async () => {
     const mockStore = createBridgeMockStore({

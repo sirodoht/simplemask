@@ -61,7 +61,6 @@ import { SnapAccountRedirect } from '../../../pages/snap-account-redirect';
 import SnapAuthorshipHeader from '../snaps/snap-authorship-header';
 import MetaMaskTranslation from '../metamask-translation/metamask-translation';
 import { Skeleton } from '../../component-library/skeleton';
-import { DefiReferralConsent } from '../../../pages/core/defi-referral-consent';
 import { Delineator } from '../../ui/delineator';
 
 export const safeComponentList = {
@@ -79,7 +78,6 @@ export const safeComponentList = {
   ConfirmInfoRowAddress,
   ConfirmInfoRowValueDouble,
   Copyable,
-  DefiReferralConsent,
   DefinitionList,
   div: 'div',
   FormTextField,

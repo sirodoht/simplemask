@@ -131,10 +131,6 @@ import {
 } from './ramps-controller-messenger';
 import { getRampsServiceMessenger } from './ramps-service-messenger';
 import {
-  getRewardsControllerInitMessenger,
-  getRewardsControllerMessenger,
-} from './rewards-controller-messenger';
-import {
   getBridgeControllerInitMessenger,
   getBridgeControllerMessenger,
 } from './bridge-controller-messenger';
@@ -172,7 +168,6 @@ import {
   getUserOperationControllerInitMessenger,
   getUserOperationControllerMessenger,
 } from './user-operation-controller-messenger';
-import { getRewardsDataServiceMessenger } from './reward-data-service-messenger';
 import { getAuthenticatedUserStorageServiceMessenger } from './authenticated-user-storage-service-messenger';
 import {
   getChompApiServiceInitMessenger,
@@ -295,7 +290,6 @@ export {
   getSignatureControllerInitMessenger,
 } from './signature-controller-messenger';
 export { getSubjectMetadataControllerMessenger } from './subject-metadata-controller-messenger';
-export { getRewardsControllerMessenger } from './rewards-controller-messenger';
 export type { TokenBalancesControllerInitMessenger } from './token-balances-controller-messenger';
 export {
   getTokenBalancesControllerMessenger,
@@ -611,14 +605,6 @@ export const MESSENGER_FACTORIES = {
   ShieldSubscriptionService: {
     getMessenger: getShieldSubscriptionServiceMessenger,
     getInitMessenger: noop,
-  },
-  RewardsDataService: {
-    getMessenger: getRewardsDataServiceMessenger,
-    getInitMessenger: noop,
-  },
-  RewardsController: {
-    getMessenger: getRewardsControllerMessenger,
-    getInitMessenger: getRewardsControllerInitMessenger,
   },
   PPOMController: {
     getMessenger: getPPOMControllerMessenger,

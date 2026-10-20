@@ -67,7 +67,6 @@ import {
   GATOR_PERMISSIONS,
   TOKEN_TRANSFER_DETAILS_ROUTE,
   REVIEW_GATOR_PERMISSIONS_DETAILS_ROUTE,
-  REWARDS_ROUTE,
   DECRYPT_MESSAGE_REQUEST_PATH,
   ENCRYPTION_PUBLIC_KEY_REQUEST_PATH,
   ACTIVITY_ROUTE,
@@ -108,7 +107,6 @@ import { pageChanged } from '../../ducks/history/history';
 import { getCompletedOnboarding } from '../../ducks/metamask/metamask';
 import { getIsUnlocked } from '../../ducks/metamask/base-selectors';
 import { useI18nContext } from '../../hooks/useI18nContext';
-import RewardsPage from '../rewards';
 import Home from '../home/home.tsx';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../shared/constants/preferences';
 import {
@@ -632,10 +630,6 @@ export const routeConfig = [
           {
             path: SHIELD_PLAN_ROUTE,
             element: <ShieldPlan />,
-          },
-          {
-            path: REWARDS_ROUTE,
-            element: <RewardsPage />,
           },
         ],
       },

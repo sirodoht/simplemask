@@ -40,18 +40,6 @@ export type ShieldSubscriptionServiceSubmitSubscriptionSponsorshipIntentAction =
   };
 
 /**
- * Link the reward to the existing shield subscription.
- *
- * @param subscriptionId - Shield subscription ID to link the reward to.
- * @param rewardPoints - The reward points.
- * @returns Promise<void> - The reward subscription ID or undefined if the season is not active or the primary account is not opted in to rewards.
- */
-export type ShieldSubscriptionServiceLinkRewardToExistingSubscriptionAction = {
-  type: `ShieldSubscriptionService:linkRewardToExistingSubscription`;
-  handler: ShieldSubscriptionService['linkRewardToExistingSubscription'];
-};
-
-/**
  * Union of all ShieldSubscriptionService action types.
  */
 export type ShieldSubscriptionServiceMethodActions =
@@ -59,5 +47,4 @@ export type ShieldSubscriptionServiceMethodActions =
   | ShieldSubscriptionServiceUpdateSubscriptionCryptoPaymentMethodAction
   | ShieldSubscriptionServiceStartSubscriptionWithCardAction
   | ShieldSubscriptionServiceHandlePostTransactionAction
-  | ShieldSubscriptionServiceSubmitSubscriptionSponsorshipIntentAction
-  | ShieldSubscriptionServiceLinkRewardToExistingSubscriptionAction;
+  | ShieldSubscriptionServiceSubmitSubscriptionSponsorshipIntentAction;

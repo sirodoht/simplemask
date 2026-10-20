@@ -10,7 +10,6 @@ import { GasFeesSection } from '../shared/gas-fees-section/gas-fees-section';
 import { TransactionDetails } from '../shared/transaction-details/transaction-details';
 import { TransactionAccountDetails } from '../batch/transaction-account-details';
 import { BatchSimulationDetails } from '../batch/batch-simulation-details/batch-simulation-details';
-import { EstimatedPointsSection } from '../../../estimated-points';
 import { EnforcedSimulationsRow } from '../../../rows/enforced-simulations-row';
 
 const BaseTransactionInfo = () => {
@@ -36,7 +35,6 @@ const BaseTransactionInfo = () => {
       <TransactionPaySection />
       <GasFeesSection />
       <AdvancedDetails />
-      <EstimatedPointsSection />
     </>
   );
 };

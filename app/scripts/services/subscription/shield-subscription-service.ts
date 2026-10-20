@@ -13,13 +13,7 @@ import {
 } from '@metamask/transaction-controller';
 import log from 'loglevel';
 import { KeyringTypes } from '@metamask/keyring-controller';
-import {
-  CaipAccountId,
-  Json,
-  parseCaipChainId,
-  toCaipAccountId,
-} from '@metamask/utils';
-import { isEqualCaseInsensitive } from '@metamask/controller-utils';
+import { Json } from '@metamask/utils';
 import ExtensionPlatform from '../../platforms/extension';
 import { WebAuthenticator } from '../oauth/types';
 import { isSendBundleSupported } from '../../lib/transaction/sentinel-api';
@@ -58,7 +52,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'startSubscriptionWithCard',
   'handlePostTransaction',
   'submitSubscriptionSponsorshipIntent',
-  'linkRewardToExistingSubscription',
 ] as const;
 
 export class ShieldSubscriptionService {
@@ -183,16 +176,12 @@ export class ShieldSubscriptionService {
       const redirectUrl = this.#webAuthenticator.getRedirectURL();
       const cancelUrl = this.#getCancelUrl(redirectUrl);
 
-      // check if the account is opted in to rewards
-      const rewardAccountId = await this.#getRewardCaipAccountId();
-
       const { checkoutSessionUrl } = await this.#messenger.call(
         'SubscriptionController:startSubscriptionWithCard',
         {
           ...params,
           successUrl: redirectUrl,
           cancelUrl,
-          rewardAccountId,
         },
       );
 
@@ -233,19 +222,6 @@ export class ShieldSubscriptionService {
         'completed',
         currentShieldSubscription,
       );
-
-      // Track the shield opt in rewards event if the reward account id and reward points are provided
-      if (rewardAccountId) {
-        const rewardsSubscriptionId = this.#messenger.call(
-          'RewardsController:getActualSubscriptionId',
-          rewardAccountId,
-        );
-        this.#trackShieldOptInRewardsEvent(
-          'create_new_subscription',
-          undefined,
-          rewardsSubscriptionId,
-        );
-      }
       return subscriptions;
     } catch (error) {
       const errorMessage =
@@ -326,44 +302,6 @@ export class ShieldSubscriptionService {
       );
     } catch (error) {
       log.error('Failed to submit sponsorship intent', error);
-    }
-  }
-
-  /**
-   * Link the reward to the existing shield subscription.
-   *
-   * @param subscriptionId - Shield subscription ID to link the reward to.
-   * @param rewardPoints - The reward points.
-   * @returns Promise<void> - The reward subscription ID or undefined if the season is not active or the primary account is not opted in to rewards.
-   */
-  async linkRewardToExistingSubscription(
-    subscriptionId: string,
-    rewardPoints: number,
-  ) {
-    try {
-      const rewardAccountId = await this.#getRewardCaipAccountId();
-      if (!rewardAccountId) {
-        return;
-      }
-
-      await this.#messenger.call('SubscriptionController:linkRewards', {
-        subscriptionId,
-        rewardAccountId,
-      });
-
-      if (rewardAccountId) {
-        const rewardsSubscriptionId = this.#messenger.call(
-          'RewardsController:getActualSubscriptionId',
-          rewardAccountId,
-        );
-        this.#trackShieldOptInRewardsEvent(
-          'link_existing_subscription',
-          rewardPoints,
-          rewardsSubscriptionId,
-        );
-      }
-    } catch (err) {
-      log.error('Failed to link reward to existing subscription', err);
     }
   }
 
@@ -479,15 +417,12 @@ export class ShieldSubscriptionService {
         );
       }
 
-      const rewardAccountId = await this.#getRewardCaipAccountId();
-
       await this.#messenger.call(
         'SubscriptionController:submitSubscriptionCryptoApproval',
         {
           productType: PRODUCT_TYPES.SHIELD,
           txMeta,
           isSponsored,
-          rewardAccountId,
         },
       );
 
@@ -593,103 +528,6 @@ export class ShieldSubscriptionService {
       selectedInternalAccount,
       hdKeyringsMetadata,
     );
-  }
-
-  /**
-   * Get the reward subscription ID for the current season.
-   *
-   * @returns Promise<string | undefined> - The reward subscription ID or undefined if the season is not active.
-   */
-  async #getRewardCaipAccountId(): Promise<CaipAccountId | undefined> {
-    try {
-      const currentSeasonMetadata = await this.#messenger.call(
-        'RewardsController:getSeasonMetadata',
-        'current',
-      );
-      const { startDate, endDate } = currentSeasonMetadata;
-      const currentTimeStamp = Date.now();
-      if (currentTimeStamp < startDate || currentTimeStamp > endDate) {
-        return undefined;
-      }
-
-      // if payer address is not provided or not opted in to rewards, fallback to use the primary account
-      const primaryCaipAccountId = await this.#getPrimaryCaipAccountId();
-      if (!primaryCaipAccountId) {
-        return undefined;
-      }
-
-      const hasAccountOptedIn = await this.#messenger.call(
-        'RewardsController:getHasAccountOptedIn',
-        primaryCaipAccountId,
-      );
-      return hasAccountOptedIn ? primaryCaipAccountId : undefined;
-    } catch (error) {
-      if (
-        error instanceof Error &&
-        // if the error is because the current season metadata is not found, return undefined
-        error.message.includes(
-          'No valid season metadata could be found for type',
-        )
-      ) {
-        return undefined;
-      }
-      log.warn('Failed to get reward season metadata', error);
-      return undefined;
-    }
-  }
-
-  /**
-   * Get the primary CAIP account ID.
-   *
-   * @returns Promise<CaipAccountId | undefined> - The primary CAIP account ID.
-   */
-  async #getPrimaryCaipAccountId(): Promise<CaipAccountId | undefined> {
-    try {
-      const keyringsMetadata = this.#messenger.call(
-        'KeyringController:getState',
-      );
-      const primaryHdKeyring = keyringsMetadata.keyrings.find(
-        (keyring) => keyring.type === KeyringTypes.hd,
-      );
-      if (!primaryHdKeyring) {
-        return undefined;
-      }
-
-      const { internalAccounts } = this.#messenger.call(
-        'AccountsController:getState',
-      );
-      const primaryInternalAccount = Object.values(
-        internalAccounts.accounts,
-      ).find((account) => {
-        const entropySource = account.options?.entropySource;
-        if (typeof entropySource === 'string') {
-          return isEqualCaseInsensitive(
-            entropySource,
-            primaryHdKeyring.metadata.id,
-          );
-        }
-        return false;
-      });
-      if (!primaryInternalAccount) {
-        return undefined;
-      }
-
-      const { namespace, reference } = parseCaipChainId(
-        primaryInternalAccount.scopes[0],
-      );
-
-      return toCaipAccountId(
-        namespace,
-        reference,
-        primaryInternalAccount.address,
-      );
-    } catch (error) {
-      log.warn(
-        '[getPrimaryCaipAccountId] Failed to get primary CAIP account ID',
-        error,
-      );
-      return undefined;
-    }
   }
 
   /**
@@ -842,44 +680,6 @@ export class ShieldSubscriptionService {
           ...trackingProps,
           ...extrasProps,
           status: changeStatus,
-        })
-        .build(),
-    );
-  }
-
-  #trackShieldOptInRewardsEvent(
-    rewardsOptInType: 'create_new_subscription' | 'link_existing_subscription',
-    rewardPoints?: number,
-    rewardsSubscriptionId?: string | null,
-  ) {
-    const accountTypeAndCategory = this.#getAccountTypeAndCategoryForMetrics();
-
-    const { shieldSubscriptionMetricsProps } = this.#messenger.call(
-      'AppStateController:getState',
-    );
-
-    const claimedRewardPoints =
-      rewardPoints ?? shieldSubscriptionMetricsProps?.rewardPoints;
-
-    trackEvent(
-      createEventBuilder(MetaMetricsEventName.ShieldOptInRewards)
-        .addCategory(MetaMetricsEventCategory.Shield)
-        .addProperties({
-          ...accountTypeAndCategory,
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          multi_chain_balance_category: getUserBalanceCategory(
-            shieldSubscriptionMetricsProps?.userBalanceInUSD ?? 0,
-          ),
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          rewards_point: claimedRewardPoints,
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          rewards_opt_in_type: rewardsOptInType,
-          // TODO: Fix in https://github.com/MetaMask/metamask-extension/issues/31860
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          rewards_subscription_id: rewardsSubscriptionId,
         })
         .build(),
     );

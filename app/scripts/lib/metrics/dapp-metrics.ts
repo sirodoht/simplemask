@@ -5,7 +5,6 @@ import type {
   PermissionControllerHasPermissionsAction,
   PermissionControllerState,
 } from '@metamask/permission-controller';
-import log from 'loglevel';
 import browser from 'webextension-polyfill';
 import type { Runtime } from 'webextension-polyfill';
 import {
@@ -15,7 +14,6 @@ import {
   ENVIRONMENT_TYPE_SIDEPANEL,
   type EnvironmentType,
 } from '../../../../shared/constants/app';
-import { getPartnerByOrigin } from '../../../../shared/constants/defi-referrals';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -27,15 +25,12 @@ import {
 import type { FlattenedBackgroundStateProxy } from '../../../../shared/types';
 import type { AppStateControllerState } from '../../controllers/app-state-controller';
 import { createEventBuilder, trackEvent } from '../../controllers/analytics';
-import type { LegacyBackgroundApiServiceHandleDefiReferralAction } from '../../services/legacy-background-api-service-method-action-types';
-import { ReferralTriggerType } from '../defi-referrals/createDefiReferralMiddleware';
 import { getIframeProperties } from '../getIframeProperties';
 import { shouldEmitDappViewedEvent } from '../util';
 
 type DappMetricsActions =
   | AccountsControllerGetStateAction
-  | PermissionControllerHasPermissionsAction
-  | LegacyBackgroundApiServiceHandleDefiReferralAction;
+  | PermissionControllerHasPermissionsAction;
 
 type DappMetricsMessenger = Messenger<'DappMetrics', DappMetricsActions, never>;
 
@@ -309,30 +304,6 @@ export function createDappMetrics({
               currentTabOrigin,
               frameIdMapping[tabId],
             );
-          }
-        }
-
-        // If the connected dApp is a referral partner, trigger the referral flow
-        const partner = getPartnerByOrigin(currentTabOrigin);
-        if (partner) {
-          const connectSitePermissions =
-            controller.permissionController.state.subjects[currentTabOrigin];
-          // when the dapp is not connected, connectSitePermissions is undefined
-          const isConnectedToDapp = connectSitePermissions !== undefined;
-          if (isConnectedToDapp) {
-            controller.controllerMessenger
-              .call(
-                'LegacyBackgroundApiService:handleDefiReferral',
-                partner,
-                tabId,
-                ReferralTriggerType.OnNavigateConnectedTab,
-              )
-              .catch((error: unknown) => {
-                log.error(
-                  `Failed to handle ${partner.name} referral after navigation to connected tab: `,
-                  error,
-                );
-              });
           }
         }
       }
