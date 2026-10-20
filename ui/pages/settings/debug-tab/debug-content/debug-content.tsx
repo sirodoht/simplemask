@@ -21,11 +21,7 @@ import {
 } from '../../../../helpers/constants/design-system';
 import { ONBOARDING_REVIEW_SRP_ROUTE } from '../../../../helpers/constants/routes';
 
-import {
-  perpsToggleTestnet,
-  resetOnboarding,
-  resetViewedNotifications,
-} from '../../../../store/actions';
+import { perpsToggleTestnet, resetOnboarding } from '../../../../store/actions';
 import { selectPerpsIsTestnet } from '../../../../selectors/perps-controller';
 import { getEnvironmentType } from '../../../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../../../shared/constants/app';
@@ -65,13 +61,7 @@ const DebugContent = () => {
     setShouldCrashPage(true);
   }, []);
 
-  const [hasResetAnnouncements, setHasResetAnnouncements] = useState(false);
   const [hasResetOnboarding, setHasResetOnboarding] = useState(false);
-
-  const handleResetAnnouncementClick = useCallback((): void => {
-    resetViewedNotifications();
-    setHasResetAnnouncements(true);
-  }, []);
 
   const handleResetOnboardingClick = useCallback(async (): Promise<void> => {
     await dispatch(resetOnboarding());
@@ -89,52 +79,6 @@ const DebugContent = () => {
       navigate(backUpSRPRoute);
     }
   }, [dispatch, navigate]);
-
-  const renderAnnouncementReset = () => {
-    return (
-      <Box
-        className="settings-page__content-row"
-        display={Display.Flex}
-        flexDirection={FlexDirection.Row}
-        justifyContent={JustifyContent.spaceBetween}
-        gap={4}
-      >
-        <div className="settings-page__content-item">
-          <span>Announcements</span>
-          <div className="settings-page__content-description">
-            Resets isShown boolean to false for all announcements. Announcements
-            are the notifications shown in the What&apos;s New popup modal.
-          </div>
-        </div>
-
-        <div className="settings-page__content-item-col">
-          <Button
-            variant={ButtonVariant.Primary}
-            onClick={handleResetAnnouncementClick}
-          >
-            Reset
-          </Button>
-        </div>
-        <div className="settings-page__content-item-col">
-          <Box
-            display={Display.Flex}
-            alignItems={AlignItems.center}
-            paddingLeft={2}
-            paddingRight={2}
-            style={{ height: '40px', width: '40px' }}
-          >
-            <Icon
-              className="settings-page-developer-options__icon-check"
-              name={IconName.Check}
-              color={IconColor.successDefault}
-              size={IconSize.Lg}
-              hidden={!hasResetAnnouncements}
-            />
-          </Box>
-        </div>
-      </Box>
-    );
-  };
 
   const renderOnboardingReset = () => {
     return (
@@ -251,7 +195,6 @@ const DebugContent = () => {
         Reset States
       </Text>
       <div className="settings-page__content-padded">
-        {renderAnnouncementReset()}
         {renderOnboardingReset()}
         {process.env.METAMASK_DEBUG && (
           <ToggleRow

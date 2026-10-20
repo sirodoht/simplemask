@@ -3,7 +3,6 @@ import { KeyringController } from '@metamask/keyring-controller';
 import { wordlist } from '@metamask/scure-bip39/dist/wordlists/english';
 import { cloneDeep } from 'lodash';
 import { hexToDecimal } from '../../../shared/lib/conversion.utils';
-import { UI_NOTIFICATIONS } from '../../../shared/notifications';
 import { E2E_SRP, WALLET_PASSWORD } from '../../../test/e2e/constants';
 import defaultFixtureJson from '../../../test/e2e/fixtures/default-fixture.json';
 import FixtureBuilderV2 from '../../../test/e2e/fixtures/fixture-builder-v2';
@@ -43,7 +42,6 @@ export async function generateWalletState(withState, fromTest) {
   fixtureBuilder
     .withAccountsController(generateAccountsControllerState(accounts))
     .withAddressBookController(generateAddressBookControllerState())
-    .withAnnouncementController(generateAnnouncementControllerState())
     .withAppStateController(FIXTURES_APP_STATE)
     .withKeyringController(generateKeyringControllerState(vault))
     .withNetworkController(generateNetworkControllerState())
@@ -173,28 +171,6 @@ function generateAddressBookControllerState() {
   }
 
   return {};
-}
-
-/**
- * Generates the state for the AnnouncementController.
- * All the what's new modals are dismissed for convenience.
- *
- * @returns {object} The generated AnnouncementController state.
- */
-function generateAnnouncementControllerState() {
-  console.log('Generating AnnouncementController state');
-
-  const allAnnouncementsAlreadyShown = Object.keys(UI_NOTIFICATIONS).reduce(
-    (acc, val) => {
-      acc[val] = {
-        ...UI_NOTIFICATIONS[val],
-        isShown: true,
-      };
-      return acc;
-    },
-    {},
-  );
-  return allAnnouncementsAlreadyShown;
 }
 
 /**

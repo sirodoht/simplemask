@@ -866,11 +866,6 @@
         "@metamask/analytics-controller>uuid": true
       }
     },
-    "@metamask/announcement-controller": {
-      "packages": {
-        "@metamask/base-controller": true
-      }
-    },
     "@metamask/approval-controller": {
       "globals": {
         "console.info": true

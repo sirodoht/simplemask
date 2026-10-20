@@ -148,7 +148,6 @@ import {
 import { getSubjectMetadataControllerMessenger } from './subject-metadata-controller-messenger';
 import { getPermissionLogControllerMessenger } from './permission-log-controller-messenger';
 import { getShieldSubscriptionServiceMessenger } from './subscription/shield-subscription-service-messenger';
-import { getAnnouncementControllerMessenger } from './announcement-controller-messenger';
 import { getAccountOrderControllerMessenger } from './account-order-controller-messenger';
 import { getPhishingControllerMessenger } from './phishing-controller-messenger';
 import { getAlertControllerMessenger } from './alert-controller-messenger';
@@ -214,7 +213,6 @@ export {
   getAccountTrackerControllerInitMessenger,
 } from './account-tracker-controller-messenger';
 export { getAlertControllerMessenger } from './alert-controller-messenger';
-export { getAnnouncementControllerMessenger } from './announcement-controller-messenger';
 export { getAppMetadataControllerMessenger } from './app-metadata-controller-messenger';
 export { getAppStateControllerMessenger } from './app-state-controller-messenger';
 export type { BridgeControllerInitMessenger } from './bridge-controller-messenger';
@@ -355,10 +353,6 @@ export const MESSENGER_FACTORIES = {
   },
   AlertController: {
     getMessenger: getAlertControllerMessenger,
-    getInitMessenger: noop,
-  },
-  AnnouncementController: {
-    getMessenger: getAnnouncementControllerMessenger,
     getInitMessenger: noop,
   },
   AppMetadataController: {

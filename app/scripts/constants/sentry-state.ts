@@ -52,9 +52,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
     optedInToMarketing: false,
     preConsentEventQueue: false,
   },
-  AnnouncementController: {
-    announcements: false,
-  },
   AuthenticationController: {
     isSignedIn: false,
     needsProfilePairing: false,

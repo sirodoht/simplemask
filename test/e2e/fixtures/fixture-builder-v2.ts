@@ -4,7 +4,6 @@ import type { CaipAssetType, Hex, Json } from '@metamask/utils';
 import type { AccountsControllerState } from '@metamask/accounts-controller';
 import type { AccountTreeControllerState } from '@metamask/account-tree-controller';
 import type { AddressBookControllerState } from '@metamask/address-book-controller';
-import type { AnnouncementControllerState } from '@metamask/announcement-controller';
 import type { BridgeStatusControllerState } from '@metamask/bridge-status-controller';
 import type {
   AccountTrackerControllerState,
@@ -275,11 +274,6 @@ class FixtureBuilderV2 {
     if (selectedCurrency !== undefined) {
       ac.selectedCurrency = selectedCurrency;
     }
-    return this;
-  }
-
-  withAnnouncementController(data: Partial<AnnouncementControllerState>): this {
-    merge(this.fixture.data.AnnouncementController, data);
     return this;
   }
 

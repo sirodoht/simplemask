@@ -361,7 +361,6 @@ import { PermissionControllerInit } from './messenger-client-init/permission-con
 import { SubjectMetadataControllerInit } from './messenger-client-init/subject-metadata-controller-init';
 import { NetworkEnablementControllerInit } from './messenger-client-init/assets/network-enablement-controller-init';
 import { PermissionLogControllerInit } from './messenger-client-init/permission-log-controller-init';
-import { AnnouncementControllerInit } from './messenger-client-init/announcement-controller-init';
 import { AccountOrderControllerInit } from './messenger-client-init/account-order-controller-init';
 import { PhishingControllerInit } from './messenger-client-init/phishing-controller-init';
 import { AlertControllerInit } from './messenger-client-init/alert-controller-init';
@@ -651,7 +650,6 @@ export default class MetamaskController extends EventEmitter {
       GatorPermissionsController: GatorPermissionsControllerInit,
       SnapsNameProvider: SnapsNameProviderInit,
       NameController: NameControllerInit,
-      AnnouncementController: AnnouncementControllerInit,
       RewardsDataService: RewardsDataServiceInit,
       RewardsController: RewardsControllerInit,
       ProfileMetricsController: ProfileMetricsControllerInit,
@@ -806,7 +804,6 @@ export default class MetamaskController extends EventEmitter {
     this.gatorPermissionsController =
       messengerClientsByName.GatorPermissionsController;
     this.nameController = messengerClientsByName.NameController;
-    this.announcementController = messengerClientsByName.AnnouncementController;
     this.accountOrderController = messengerClientsByName.AccountOrderController;
     this.rewardsController = messengerClientsByName.RewardsController;
     this.qrSyncController = messengerClientsByName.QrSyncController;
@@ -1373,7 +1370,6 @@ export default class MetamaskController extends EventEmitter {
       PermissionController: this.permissionController,
       PermissionLogController: this.permissionLogController,
       SubjectMetadataController: this.subjectMetadataController,
-      AnnouncementController: this.announcementController,
       NetworkOrderController: this.networkOrderController,
       NetworkEnablementController: this.networkEnablementController,
       AccountOrderController: this.accountOrderController,
@@ -1439,7 +1435,6 @@ export default class MetamaskController extends EventEmitter {
         PermissionController: this.permissionController,
         PermissionLogController: this.permissionLogController,
         SubjectMetadataController: this.subjectMetadataController,
-        AnnouncementController: this.announcementController,
         NetworkOrderController: this.networkOrderController,
         NetworkEnablementController: this.networkEnablementController,
         AccountOrderController: this.accountOrderController,
@@ -2411,7 +2406,6 @@ export default class MetamaskController extends EventEmitter {
       gasFeeController,
       gatorPermissionsController,
       networkController,
-      announcementController,
       onboardingController,
       preferencesController,
       tokensController,
@@ -3045,8 +3039,6 @@ export default class MetamaskController extends EventEmitter {
         appStateController.setLastInteractedConfirmationInfo.bind(
           appStateController,
         ),
-      updateSlides: appStateController.updateSlides.bind(appStateController),
-      removeSlide: appStateController.removeSlide.bind(appStateController),
       setHasShownMultichainAccountsIntroModal:
         appStateController.setHasShownMultichainAccountsIntroModal.bind(
           appStateController,
@@ -3497,14 +3489,6 @@ export default class MetamaskController extends EventEmitter {
       approveHardwareWalletTransaction: this.controllerMessenger.call.bind(
         this.controllerMessenger,
         'LegacyBackgroundApiService:approveHardwareWalletTransaction',
-      ),
-
-      // Notifications
-      resetViewedNotifications: announcementController.resetViewed.bind(
-        announcementController,
-      ),
-      updateViewedNotifications: announcementController.updateViewed.bind(
-        announcementController,
       ),
 
       // CurrencyRateController

@@ -1701,32 +1701,6 @@ export async function restoreUserData(jsonString: Json): Promise<true> {
   return true;
 }
 
-export function updateSlides(
-  slides,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async () => {
-    try {
-      await submitRequestToBackground('updateSlides', [slides]);
-    } catch (error) {
-      logErrorWithMessage(error);
-      throw error;
-    }
-  };
-}
-
-export function removeSlide(
-  id: string,
-): ThunkAction<Promise<void>, MetaMaskReduxState, unknown, AnyAction> {
-  return async () => {
-    try {
-      await submitRequestToBackground('removeSlide', [id]);
-    } catch (error) {
-      logErrorWithMessage(error);
-      throw error;
-    }
-  };
-}
-
 export function updateTransaction(
   txMeta: TransactionMeta,
   dontShowLoadingIndicator: boolean,
@@ -6225,18 +6199,6 @@ export function updateEventFragment(
  */
 export function trackMetaMetricsPage(payload: MetaMetricsPagePayload) {
   return submitRequestToBackground('trackMetaMetricsPage', [payload]);
-}
-
-export function resetViewedNotifications() {
-  return submitRequestToBackground('resetViewedNotifications');
-}
-
-export function updateViewedNotifications(notificationIdViewedStatusMap: {
-  [notificationId: string]: boolean;
-}) {
-  return submitRequestToBackground('updateViewedNotifications', [
-    notificationIdViewedStatusMap,
-  ]);
 }
 
 export async function setAlertEnabledness(

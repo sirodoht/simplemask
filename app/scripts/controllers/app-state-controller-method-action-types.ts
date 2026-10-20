@@ -130,27 +130,6 @@ export type AppStateControllerSetStorageWriteErrorTypeAction = {
 };
 
 /**
- * Replaces slides in state with new slides. If a slide with the same id
- * already exists, it will be merged with the new slide.
- *
- * @param slides - Array of new slides
- */
-export type AppStateControllerUpdateSlidesAction = {
-  type: `AppStateController:updateSlides`;
-  handler: AppStateController['updateSlides'];
-};
-
-/**
- * Marks a slide as dismissed by ID
- *
- * @param id - ID of the slide to dismiss
- */
-export type AppStateControllerRemoveSlideAction = {
-  type: `AppStateController:removeSlide`;
-  handler: AppStateController['removeSlide'];
-};
-
-/**
  * Record the timestamp of the last time the user has seen the recovery phrase reminder
  *
  * @param lastShown - timestamp when user was last shown the reminder.
@@ -619,8 +598,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerSetShieldEndingToastLastClickedOrClosedAction
   | AppStateControllerSetShieldSubscriptionErrorAction
   | AppStateControllerSetStorageWriteErrorTypeAction
-  | AppStateControllerUpdateSlidesAction
-  | AppStateControllerRemoveSlideAction
   | AppStateControllerSetRecoveryPhraseReminderLastShownAction
   | AppStateControllerSetTermsOfUseLastAgreedAction
   | AppStateControllerSetSnapsInstallPrivacyWarningShownStatusAction

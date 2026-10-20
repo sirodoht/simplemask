@@ -9,7 +9,6 @@ import {
   AccountOverviewTabsProps,
   AccountOverviewTabs,
 } from './account-overview-tabs';
-import { Carousel } from './carousel';
 
 const homepageRequiredSignals = ['balance', 'tokens'];
 
@@ -54,12 +53,10 @@ export const AccountOverviewLayout = ({
         {/*
           Renders nothing unless there is a Money Account with a balance to
           show, which is every user until the Money keyring is registered. Sits
-          below the hero balance and above the carousel, mirroring where mobile
+          below the hero balance, mirroring where mobile
           puts it on the wallet home.
         */}
         <MoneyAccountBalance />
-
-        <Carousel />
       </div>
 
       <AccountOverviewTabs {...tabsProps} />

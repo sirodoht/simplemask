@@ -1352,10 +1352,6 @@ export function getTotalUnapprovedCount(state) {
   return state.metamask.pendingApprovalCount ?? 0;
 }
 
-export function getSlides(state) {
-  return state.metamask.slides || EMPTY_ARRAY;
-}
-
 export function getUnapprovedTxCount(state) {
   const unapprovedTxs = getUnapprovedTransactions(state);
   return Object.keys(unapprovedTxs).length;
@@ -2674,9 +2670,6 @@ export function getShowOutdatedBrowserWarning(state) {
   }
   const currentTime = new Date().getTime();
   return currentTime - outdatedBrowserWarningLastShown >= DAY * 2;
-}
-export function getShowDownloadMobileAppSlide(state) {
-  return state.metamask.showDownloadMobileAppSlide;
 }
 
 /**

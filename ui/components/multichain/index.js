@@ -34,10 +34,4 @@ export { NotificationsTagCounter } from './notifications-tag-counter';
 export { Toast, ToastContainer } from './toast';
 export { DisconnectAllGatorPermissionsModal } from './disconnect-all-gator-permissions-modal';
 export { ReceiveModal } from './receive-modal';
-export {
-  Carousel,
-  CarouselWithEmptyState,
-  StackCard,
-  StackCardEmpty,
-} from './carousel';
 export { SelectSrp, SrpList } from './multi-srp';

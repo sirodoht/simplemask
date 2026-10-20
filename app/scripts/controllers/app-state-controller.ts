@@ -35,14 +35,12 @@ import {
   ENVIRONMENT_TYPE_BACKGROUND,
   POLLING_TOKEN_ENVIRONMENT_TYPES,
   ORIGIN_METAMASK,
-  DOWNLOAD_MOBILE_APP_SLIDE_ID,
 } from '../../../shared/constants/app';
 import { DEFAULT_AUTO_LOCK_TIME_LIMIT } from '../../../shared/constants/preferences';
 import { LastInteractedConfirmationInfo } from '../../../shared/types/confirm';
 import { SecurityAlertResponse } from '../lib/ppom/types';
 import {
   AccountOverviewTabKey,
-  CarouselSlide,
   StorageWriteErrorType,
 } from '../../../shared/constants/app-state';
 import type {
@@ -134,9 +132,7 @@ export type AppStateControllerState = {
   productTour?: string;
   recoveryPhraseReminderHasBeenShown: boolean;
   recoveryPhraseReminderLastShown: number;
-  showDownloadMobileAppSlide: boolean;
   signatureSecurityAlertResponses: Record<string, SecurityAlertResponse>;
-  slides: CarouselSlide[];
   snapsInstallPrivacyWarningShown?: boolean;
   shieldSubscriptionError: ShieldSubscriptionError | null;
   shieldEndingToastLastClickedOrClosed: number | null;
@@ -316,8 +312,6 @@ const getDefaultAppStateControllerState = (): AppStateControllerState => ({
   productTour: 'accountIcon',
   recoveryPhraseReminderHasBeenShown: false,
   recoveryPhraseReminderLastShown: new Date().getTime(),
-  showDownloadMobileAppSlide: true,
-  slides: [],
   shieldSubscriptionError: null,
   shieldEndingToastLastClickedOrClosed: null,
   shieldPausedToastLastClickedOrClosed: null,
@@ -537,21 +531,9 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
     includeInDebugSnapshot: true,
     usedInUi: true,
   },
-  showDownloadMobileAppSlide: {
-    includeInStateLogs: true,
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
   signatureSecurityAlertResponses: {
     includeInStateLogs: true,
     persist: false,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  slides: {
-    includeInStateLogs: true,
-    persist: true,
     includeInDebugSnapshot: true,
     usedInUi: true,
   },
@@ -752,7 +734,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'getUnlockPromise',
   'removeDeferredDeepLink',
   'removePollingToken',
-  'removeSlide',
   'requestQrCodeScan',
   'setAppActiveTab',
   'setArcUsageNoticeShown',
@@ -799,7 +780,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'setTrezorModel',
   'setUpdateModalLastDismissedAt',
   'updateNftDropDownState',
-  'updateSlides',
   'updateThrottledOriginState',
 ] as const;
 
@@ -1057,52 +1037,6 @@ export class AppStateController extends BaseController<
   setStorageWriteErrorType(errorType: StorageWriteErrorType | null): void {
     this.update((state) => {
       state.storageWriteErrorType = errorType;
-    });
-  }
-
-  /**
-   * Replaces slides in state with new slides. If a slide with the same id
-   * already exists, it will be merged with the new slide.
-   *
-   * @param slides - Array of new slides
-   */
-  updateSlides(slides: CarouselSlide[]): void {
-    this.update((state) => {
-      const currentSlides = state.slides || [];
-
-      const newSlides = slides.map((slide) => {
-        const existingSlide = currentSlides.find((s) => s.id === slide.id);
-        if (existingSlide) {
-          return {
-            ...existingSlide,
-            ...slide,
-          };
-        }
-        return slide;
-      });
-
-      state.slides = [...newSlides];
-    });
-  }
-
-  /**
-   * Marks a slide as dismissed by ID
-   *
-   * @param id - ID of the slide to dismiss
-   */
-  removeSlide(id: string): void {
-    this.update((state) => {
-      const slides = state.slides || [];
-      state.slides = slides.map((slide) => {
-        if (slide.id === id) {
-          return { ...slide, dismissed: true };
-        }
-        return slide;
-      });
-
-      if (id === DOWNLOAD_MOBILE_APP_SLIDE_ID) {
-        state.showDownloadMobileAppSlide = false;
-      }
     });
   }
 

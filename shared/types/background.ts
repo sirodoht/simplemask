@@ -23,7 +23,6 @@ import type { AddressBookControllerState } from '@metamask/address-book-controll
 import type { ApprovalControllerState } from '@metamask/approval-controller';
 import type { BridgeControllerState } from '@metamask/bridge-controller';
 import type { BridgeStatusControllerState } from '@metamask/bridge-status-controller';
-import type { AnnouncementControllerState } from '@metamask/announcement-controller';
 import type { NetworkState } from '@metamask/network-controller';
 import type { GasFeeState } from '@metamask/gas-fee-controller';
 import { NetworkEnablementControllerState } from '@metamask/network-enablement-controller';
@@ -91,7 +90,6 @@ export type ControllerStatePropertiesEnumerated = {
   alertEnabledness: AlertControllerState['alertEnabledness'];
   unconnectedAccountAlertShownOrigins: AlertControllerState['unconnectedAccountAlertShownOrigins'];
   web3ShimUsageOrigins?: AlertControllerState['web3ShimUsageOrigins'];
-  announcements: AnnouncementControllerState['announcements'];
   isSignedIn: AuthenticationController.AuthenticationControllerState['isSignedIn'];
   srpSessionData?: AuthenticationController.AuthenticationControllerState['srpSessionData'];
   pinnedAccountList: AccountOrderControllerState['pinnedAccountList'];
@@ -115,7 +113,6 @@ export type ControllerStatePropertiesEnumerated = {
   recoveryPhraseReminderLastShown: AppStateControllerState['recoveryPhraseReminderLastShown'];
   outdatedBrowserWarningLastShown: AppStateControllerState['outdatedBrowserWarningLastShown'];
   productTour?: AppStateControllerState['productTour'];
-  showDownloadMobileAppSlide: AppStateControllerState['showDownloadMobileAppSlide'];
   trezorModel: AppStateControllerState['trezorModel'];
   currentPopupId?: AppStateControllerState['currentPopupId'];
   onboardingDate: AppStateControllerState['onboardingDate'];
@@ -146,7 +143,6 @@ export type ControllerStatePropertiesEnumerated = {
   lastInteractedConfirmationInfo?: AppStateControllerState['lastInteractedConfirmationInfo'];
   termsOfUseLastAgreed?: AppStateControllerState['termsOfUseLastAgreed'];
   snapsInstallPrivacyWarningShown?: AppStateControllerState['snapsInstallPrivacyWarningShown'];
-  slides: AppStateControllerState['slides'];
   pendingExtensionVersion: AppStateControllerState['pendingExtensionVersion'];
   updateModalLastDismissedAt: AppStateControllerState['updateModalLastDismissedAt'];
   lastUpdatedAt: AppStateControllerState['lastUpdatedAt'];
@@ -353,7 +349,6 @@ export type ControllerStateTypesMerged = AccountsControllerState &
   AddressBookControllerState &
   AssetsControllerState &
   AlertControllerState &
-  AnnouncementControllerState &
   AuthenticationController.AuthenticationControllerState &
   AccountOrderControllerState &
   AppMetadataControllerState &

@@ -69,7 +69,6 @@ import { BridgeStatusController } from '@metamask/bridge-status-controller';
 import { ApprovalController } from '@metamask/approval-controller';
 import { NetworkEnablementController } from '@metamask/network-enablement-controller';
 import { PermissionLogController } from '@metamask/permission-log-controller';
-import { AnnouncementController } from '@metamask/announcement-controller';
 import { PhishingController } from '@metamask/phishing-controller';
 import { LoggingController } from '@metamask/logging-controller';
 import { StorageService } from '@metamask/storage-service';
@@ -150,7 +149,6 @@ export type MessengerClient =
   | AddressBookController
   | AlertController
   | AnalyticsController
-  | AnnouncementController
   | AppMetadataController
   | ApprovalController
   | AppStateController
@@ -275,7 +273,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   AlertController['state'] &
   AccountTreeController['state'] &
   AddressBookController['state'] &
-  AnnouncementController['state'] &
   AppMetadataController['state'] &
   ApprovalController['state'] &
   AppStateController['state'] &
