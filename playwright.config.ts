@@ -39,8 +39,7 @@ const config: PlaywrightTestConfig = {
         outputFile: `${logOutputFolder}/junit/test-results.xml`,
       },
     ],
-    // Mocha-compatible JUnit reporter used by the central e2e test
-    // report (`.github/scripts/create-e2e-test-report.mts`). Activates
+    // Per-spec JUnit reporter for archived E2E results. Activates
     // only when `PLAYWRIGHT_JUNIT_OUTPUT_FILE` is set, which the
     // Playwright e2e CI jobs (chrome-e2e / firefox-e2e) export.
     // See: test/e2e/playwright/shared/mocha-compat-junit-reporter.ts

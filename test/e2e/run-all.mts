@@ -225,10 +225,8 @@ async function main(): Promise<void> {
   await fs.promises.mkdir('test/test-results/e2e', { recursive: true });
 
   let myTestList: string[];
-  let changedOrNewTests: string[] = [];
   if (process.env.GITHUB_ACTION) {
-    ({ myTestList, changedOrNewTests } =
-      await runningOnGitHubActions(testPaths));
+    ({ myTestList } = await runningOnGitHubActions(testPaths));
 
     // If no tests to run (e.g., all passed in previous attempt), exit early
     if (myTestList.length === 0) {
@@ -250,11 +248,7 @@ async function main(): Promise<void> {
         }): ${testFile}\n`,
       );
 
-      const isTestChangedOrNew = changedOrNewTests.includes(testFile);
-      const qualityGateArg = isTestChangedOrNew
-        ? ['--stop-after-one-failure']
-        : [];
-      await runInShell('yarn', ['tsx', ...args, ...qualityGateArg, testFile]);
+      await runInShell('yarn', ['tsx', ...args, testFile]);
     }
   }
 }

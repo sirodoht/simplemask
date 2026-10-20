@@ -151,3 +151,49 @@ jobs:
             test-artifacts
             test/test-results/e2e
           retention-days: 7
+
+  playwright:
+    name: Playwright E2E (${{ matrix.browser }})
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - browser: chrome
+            engine: chromium
+          - browser: firefox
+            engine: firefox
+    env:
+      PLAYWRIGHT_HEADLESS: 'true'
+      MATRIX_INDEX: '0'
+      MATRIX_TOTAL: '1'
+      TEST_SUITE_NAME: test-e2e-${{ matrix.browser }}-playwright
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - run: yarn foundryup
+      - name: Install Playwright browser
+        env:
+          TEST_ENGINE: ${{ matrix.engine }}
+        run: yarn playwright install --with-deps "$TEST_ENGINE"
+      - uses: actions/download-artifact@v7
+        with:
+          name: test-build-${{ matrix.browser }}
+          path: dist/${{ matrix.browser }}
+      - name: Run migrated E2E specs
+        env:
+          TEST_BROWSER: ${{ matrix.browser }}
+        run: yarn "test:e2e:playwright:${TEST_BROWSER}"
+      - uses: actions/upload-artifact@v6
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-results-${{ matrix.browser }}
+          path: |
+            test-artifacts
+            test/test-results/e2e
+            public/playwright/playwright-reports
+          retention-days: 7

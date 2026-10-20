@@ -30,10 +30,10 @@ Playwright projects are declared in [`playwright.config.ts`](../../../playwright
 Migration ships one file at a time:
 
 - Add `auto-lock.pw.spec.ts` next to `auto-lock.spec.ts`.
-- Verify it passes in CI under the new `test-e2e-chrome-playwright` / `test-e2e-firefox-playwright` jobs.
+- Verify it passes in CI under the new `playwright` browser-matrix jobs.
 - Delete the Selenium `auto-lock.spec.ts` in the same PR (or a fast follow-up).
 
-The Selenium runner (`test/e2e/run-all.mts`) and the changed-file filter (`test/e2e/changedFilesUtil.js`) explicitly skip `*.pw.spec.ts`, so a `.spec.ts` file and its `.pw.spec.ts` migration can coexist briefly without double-running.
+The Selenium runner (`test/e2e/run-all.mts`) explicitly skips `*.pw.spec.ts`, so a `.spec.ts` file and its `.pw.spec.ts` migration can coexist briefly without double-running.
 
 ### Writing a migrated spec
 
@@ -73,23 +73,23 @@ yarn playwright test --project=chrome-e2e --shard=1/2
 yarn playwright test --project=chrome-e2e --shard=2/2
 ```
 
-Locally (no `GITHUB_ACTION` env) the runner runs every discovered spec — or the positional filters you pass — in a single Playwright invocation; matrix-splitting and the quality gate only kick in under GitHub Actions (see [Test runner](#test-runner-run-all-pwmts)).
+Locally (no `GITHUB_ACTION` env) the runner runs every discovered spec — or the positional filters you pass — in a single Playwright invocation; matrix-splitting only kicks in under GitHub Actions (see [Test runner](#test-runner-run-all-pwmts)).
 
-The Firefox path additionally requires `yarn playwright install firefox` once per machine (CI does this automatically via the `playwright-browsers: firefox` input on the reusable workflow, which routes through the cached `install-playwright-browsers` composite action).
+Install the corresponding engine with `yarn playwright install chromium` or `yarn playwright install firefox`. CI installs it explicitly in the testing workflow.
 
 ### Test runner (`run-all-pw.mts`)
 
-[`run-all-pw.mts`](../run-all-pw.mts) is the Playwright counterpart of the Selenium [`run-all.mts`](../run-all.mts). Both runners import the same CI test-selection logic from [`run-all-shared.mts`](../run-all-shared.mts) (spec discovery, time-based matrix splitting, quality-gate list, re-run-only-failed), so the behaviors cannot drift apart; only the execution step differs. The parity is at the **runner** level, not the per-file level: there is no Playwright equivalent of `run-e2e-test.js`, because the Playwright CLI already owns retries, reporting, and single-spec invocation (see the mapping in [CI](#ci)).
+[`run-all-pw.mts`](../run-all-pw.mts) is the Playwright counterpart of the Selenium [`run-all.mts`](../run-all.mts). Both runners import the same CI test-selection logic from [`run-all-shared.mts`](../run-all-shared.mts) (spec discovery, time-based matrix splitting, re-run-only-failed), so the behaviors cannot drift apart; only the execution step differs. The parity is at the **runner** level, not the per-file level: there is no Playwright equivalent of `run-e2e-test.js`, because the Playwright CLI already owns retries, reporting, and single-spec invocation (see the mapping in [CI](#ci)).
 
 What it does (only under GitHub Actions, guarded by `GITHUB_ACTION`):
 
 1. **Discovers** every `*.pw.spec.ts` under `test/e2e/tests/`.
 2. **Splits by timing** across the matrix with `splitTestsByTimings`, fed by the same `test-runs-<browser>.json` artifact the Selenium runner uses (matched by the job's `TEST_SUITE_NAME`). Add specs and they redistribute automatically — no manual `--shard`.
-3. **Applies the e2e quality gate**: new/changed specs (from `changedFilesUtil`, `playwrightOnly: true`) are weighted with extra copies by the splitter and distributed across shards, exactly like the Selenium runner — the extra runs count toward shard time balancing and execute in parallel. Each copy in a shard's chunk then contributes `retries + 1` runs via `--repeat-each`, combined with `--retries=0 --max-failures=1` — the Playwright equivalent of Mocha's `--stop-after-one-failure`. Skipped when `shouldE2eQualityGateBeSkipped()` returns `true`.
+3. Runs every selected spec with the standard Playwright retry settings. PR labels and upstream change-list artifacts no longer influence selection.
 4. **Re-runs only failed specs** on attempt > 1, via `extract-test-results.mts` against `PREVIOUS_RESULTS_PATH`.
 5. **Writes JUnit** as one file per spec into `test/test-results/e2e/` (the reporter splits each invocation's results so re-run merging stays correct — see [CI](#ci)).
 
-Locally (no `GITHUB_ACTION`) it skips all of the above and runs every discovered spec — or the positional spec filters you pass — in a single Playwright invocation, with no JUnit output. The `--retries` flag is forwarded to the normal (non-quality-gate) invocation; CI appends `--retries 1` to the test command.
+Locally (no `GITHUB_ACTION`) it skips all of the above and runs every discovered spec — or the positional spec filters you pass — in a single Playwright invocation, with no JUnit output. The `--retries` flag is forwarded to Playwright.
 
 ### Architecture pointers
 
@@ -107,10 +107,9 @@ Intentional no-ops (not gaps): `checkBrowserForExceptions` / `checkBrowserForCon
 
 ### CI
 
-- New jobs: `test-e2e-chrome-playwright` (in `.github/workflows/e2e-chrome.yml`) and `test-e2e-firefox-playwright` (in `.github/workflows/e2e-firefox.yml`). Both use the existing `run-e2e.yml` reusable workflow, with the test command set to `yarn test:e2e:playwright:<browser>` (the [`run-all-pw.mts`](../run-all-pw.mts) runner — see [Test runner](#test-runner-run-all-pwmts) for what it does).
-- Shard counts come from `prep-e2e.yml` (`MATRIX_TOTAL`); the runner does time-based distribution internally, so there is no `--shard` in the test command.
-- JUnit XML lands in `test/test-results/e2e/` as **one file per spec** (`junit-pw-<browser>-<shard>-<specHash>.xml`, plus `-qg-` variants for quality-gate runs), gets uploaded with the rest of the e2e artifacts, and feeds into the existing `test-e2e-*-report` job that already aggregates `test/test-results/e2e/`. One-spec-per-file (matching `mocha-junit-reporter`'s `[hash].xml`) keeps `merge-test-results.mts` correct on re-runs — a batched file would make a partial re-run skip the merge for the whole batch and drop the other specs' passes.
-- Reporting compatibility is handled by a small Playwright reporter at [`shared/mocha-compat-junit-reporter.ts`](./shared/mocha-compat-junit-reporter.ts). Playwright's built-in `junit` reporter omits the `file=` attribute and the `<properties>` block that `.github/scripts/create-e2e-test-report.mts` requires; the adapter emits a `mocha-junit-reporter`-shaped XML so migrated specs appear in the existing chrome/firefox reports. It activates only when `PLAYWRIGHT_JUNIT_OUTPUT_FILE` is set (the runner sets it per invocation), so the benchmark Playwright project is unaffected.
+`.github/workflows/main.yml` runs migrated specs in separate Chrome and Firefox jobs using the same LavaMoat test artifacts as Selenium. `run-all-pw.mts` supports matrix splitting and optional failed-test reruns; current Playwright jobs each use one shard. There are no PR-label or upstream change-list requirements.
+
+JUnit results are written per spec to `test/test-results/e2e/` by `shared/mocha-compat-junit-reporter.ts` and uploaded with failure artifacts. No external report service or notification bot receives results.
 
 #### Why no `run-e2e-test.js` for Playwright
 
@@ -119,7 +118,6 @@ The Selenium flow spawns `run-e2e-test.js` once per file to give Mocha things it
 | `run-e2e-test.js` responsibility (Selenium)        | Playwright equivalent                              |
 | -------------------------------------------------- | -------------------------------------------------- |
 | `retry({ retries })`                               | `--retries` (config + runner CLI flag)             |
-| `--stop-after-one-failure` (flakiness gate)        | `--repeat-each --retries=0 --max-failures=1`       |
 | Reporter selection (spec + `mocha-junit-reporter`) | `playwright.config.ts` `reporter: [...]`           |
 | Per-file invocation + path validation              | Playwright spec filters / file list                |
 | `E2E_DEBUG` driver logging                         | Same env, honored by the `helpers.js` driver proxy |

@@ -619,7 +619,7 @@
     "@open-rpc/mock-server": "^1.7.5",
     "@open-rpc/schema-utils-js": "^2.0.5",
     "@open-rpc/test-coverage": "^2.2.5",
-    "@playwright/test": "^1.54.2",
+    "@playwright/test": "^1.64.1",
     "@pmmmwh/react-refresh-webpack-plugin": "patch:@pmmmwh/react-refresh-webpack-plugin@npm%3A0.5.13#~/.yarn/patches/@pmmmwh-react-refresh-webpack-plugin-npm-0.5.13-25d13d4186.patch",
     "@storybook/addon-a11y": "9.1.20",
     "@storybook/addon-docs": "9.1.20",

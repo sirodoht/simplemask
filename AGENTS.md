@@ -20,17 +20,17 @@ SimpleMask is an EVM-only wallet fork. Read README.md for product scope, complet
 
 Use `.nvmrc` and the Yarn version pinned in `package.json`. Run `corepack enable`, `yarn install`, and copy `.metamaskrc.dist` to `.metamaskrc`. Configure a personal RPC/API key for live use; mocked tests use dummy configuration. Use `yarn.cmd` in PowerShell.
 
-| Task | Command |
-| --- | --- |
-| Chrome development | `yarn start` |
-| Firefox development | `yarn start:mv2` |
-| Chrome LavaMoat test build | `yarn build:test` |
-| Firefox LavaMoat test build | `yarn build:test:mv2` |
-| Targeted unit tests | `yarn test:unit path/to/file.test.ts --runInBand` |
-| Build-tool tests | `yarn test:unit:webpack` |
-| Integration tests | `yarn test:integration --runInBand` |
-| Single browser E2E | `yarn test:e2e:single path/to/spec.ts --browser=chrome` (or `firefox`) |
-| Formatting/linting changed files | `yarn lint:changed:fix` |
+| Task                             | Command                                                                |
+| -------------------------------- | ---------------------------------------------------------------------- |
+| Chrome development               | `yarn start`                                                           |
+| Firefox development              | `yarn start:mv2`                                                       |
+| Chrome LavaMoat test build       | `yarn build:test`                                                      |
+| Firefox LavaMoat test build      | `yarn build:test:mv2`                                                  |
+| Targeted unit tests              | `yarn test:unit path/to/file.test.ts --runInBand`                      |
+| Build-tool tests                 | `yarn test:unit:webpack`                                               |
+| Integration tests                | `yarn test:integration --runInBand`                                    |
+| Single browser E2E               | `yarn test:e2e:single path/to/spec.ts --browser=chrome` (or `firefox`) |
+| Formatting/linting changed files | `yarn lint:changed:fix`                                                |
 
 Only latest stable desktop Chrome and Firefox are supported. Chrome uses MV3; Firefox currently uses MV2 for its persistent background architecture. Build before E2E tests; builds clean the distribution directory. Development builds omit LavaMoat by default, so use test builds for final verification. See `docs/browser-support.md`.
 

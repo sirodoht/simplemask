@@ -6,10 +6,6 @@ import {
   normalizeTestPath,
 } from '../../.github/scripts/shared/utils.mts';
 import { splitTestsByTimings } from '../../.github/scripts/split-tests-by-timings.mts';
-import {
-  readChangedAndFilterE2eChangedFiles,
-  shouldE2eQualityGateBeSkipped,
-} from './changedFilesUtil.js';
 
 /**
  * CI test-selection logic shared by the Selenium E2E runner (`run-all.mts`) and
@@ -58,39 +54,15 @@ export async function getTestPathsForTestDir(
 }
 
 /**
- * Computes the test list a GitHub Actions matrix job should run:
- *
- * 1. Reads the changed/new specs for the e2e quality gate (unless the gate is
- *    skipped for this PR).
- * 2. Splits the full test list across the matrix by historical timings.
- *    Changed/new specs are weighted with extra copies, which the splitter
- *    distributes across shards — each copy is one extra quality-gate run, so
- *    a returned chunk CAN contain the same changed spec more than once.
- * 3. On attempt > 1, filters the chunk down to specs that did not pass in the
- *    previous attempt (failed or never executed).
+ * Split all discovered tests across CI shards, optionally rerunning failures.
+ * No PR labels or organization-generated change lists affect test coverage.
  *
  * @param fullTestList - All discovered spec paths for this runner.
- * @param options - Selection options.
- * @param options.playwrightOnly - Restrict the changed-files quality-gate list
- * to Playwright specs (`*.pw.spec.ts`) instead of Selenium specs.
- * @returns The (possibly duplicated) test list for this shard plus the
- * changed/new specs, so callers can apply quality-gate execution flags.
+ * @returns The tests assigned to this shard.
  */
 export async function runningOnGitHubActions(
   fullTestList: string[],
-  { playwrightOnly = false }: { playwrightOnly?: boolean } = {},
-): Promise<{ myTestList: string[]; changedOrNewTests: string[] }> {
-  let changedOrNewTests: string[] = [];
-
-  if (!shouldE2eQualityGateBeSkipped()) {
-    changedOrNewTests = readChangedAndFilterE2eChangedFiles({
-      playwrightOnly,
-    });
-  }
-
-  console.log('Changed or new test list:', changedOrNewTests);
-  console.log('Full test list:', fullTestList);
-
+): Promise<{ myTestList: string[] }> {
   // Determine the test matrix division
   // GitHub Actions uses matrix.index (0-based) and matrix.total values for test splitting
   const matrixIndex = parseInt(process.env.MATRIX_INDEX || '0', 10);
@@ -102,11 +74,7 @@ export async function runningOnGitHubActions(
     `GitHub Actions matrix: index ${matrixIndex} of ${matrixTotal} total jobs (attempt ${runAttempt})`,
   );
 
-  const chunks = splitTestsByTimings(
-    fullTestList,
-    changedOrNewTests,
-    matrixTotal,
-  );
+  const chunks = splitTestsByTimings(fullTestList, [], matrixTotal);
 
   console.log(
     `Expected chunk run time: ${formatTime(chunks[matrixIndex].time)}`,
@@ -129,7 +97,7 @@ export async function runningOnGitHubActions(
       console.log(
         'No test results found from previous run, running all tests in chunk.',
       );
-      return { myTestList: myOriginalTestList, changedOrNewTests };
+      return { myTestList: myOriginalTestList };
     }
 
     // Re-run tests that failed OR were never executed in previous run
@@ -155,13 +123,13 @@ export async function runningOnGitHubActions(
         `Re-running ${testsToRerun.length} tests (${failedInChunk} failed, ${notExecutedInChunk} not executed):`,
         testsToRerun,
       );
-      return { myTestList: testsToRerun, changedOrNewTests };
+      return { myTestList: testsToRerun };
     }
 
     // No tests to re-run - all tests in this chunk passed
     console.log('All tests in this chunk passed, skipping.');
-    return { myTestList: [], changedOrNewTests };
+    return { myTestList: [] };
   }
 
-  return { myTestList: myOriginalTestList, changedOrNewTests };
+  return { myTestList: myOriginalTestList };
 }
