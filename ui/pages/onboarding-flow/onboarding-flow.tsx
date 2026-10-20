@@ -35,7 +35,6 @@ import {
   ONBOARDING_ACCOUNT_NOT_FOUND,
   SECURITY_AND_PASSWORD_ROUTE,
   ONBOARDING_REVEAL_SRP_ROUTE,
-  ONBOARDING_DOWNLOAD_APP_ROUTE,
   ONBOARDING_SETUP_PASSKEY_ROUTE,
   ONBOARDING_PASSKEY_PRF_MIGRATION_ROUTE,
 } from '../../helpers/constants/routes';
@@ -100,7 +99,6 @@ import { useOnboardingCompletion } from './hooks/useOnboardingCompletion';
 import AccountExist from './account-exist/account-exist';
 import AccountNotFound from './account-not-found/account-not-found';
 import RevealRecoveryPhrase from './recovery-phrase/reveal-recovery-phrase';
-import OnboardingDownloadApp from './download-app/download-app';
 import SetupPasskey from './setup-passkey/setup-passkey';
 import { PASSKEY_SETUP_ROUTE_CAPABILITIES } from './setup-passkey/messenger';
 import { REVEAL_RECOVERY_PHRASE_ROUTE_CAPABILITIES } from './recovery-phrase/messenger';
@@ -566,10 +564,7 @@ const OnboardingFlowContent = () => {
                 path={toRelativePath(ONBOARDING_METAMETRICS)}
                 element={<MetaMetricsComponent />}
               />
-              <Route
-                path={toRelativePath(ONBOARDING_DOWNLOAD_APP_ROUTE)}
-                element={<OnboardingDownloadApp />}
-              />
+
               {isFlask() && (
                 <Route
                   path={toRelativePath(ONBOARDING_EXPERIMENTAL_AREA)}

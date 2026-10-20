@@ -1,23 +1,10 @@
 import { Mockttp } from 'mockttp';
 
-const BTC_CAIP_ASSET_ID = 'bip122:000000000019d6689c085ae165831e93/slip44:0';
-const BTC_CHAIN_CAIP_ID = 'bip122:000000000019d6689c085ae165831e93';
-
-const SOL_CAIP_ASSET_ID = 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:501';
-const SOL_CHAIN_CAIP_ID = 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp';
-const SOL_USDC_CAIP_ASSET_ID =
-  'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
-
-const TRON_NATIVE_CAIP_ASSET_ID = 'tron:728126428/slip44:195';
-const TRON_CHAIN_CAIP_ID = 'tron:728126428';
-
 /**
  * Mock GET /v2/supportedNetworks for the Token API and the Tokens API.
  *
  * Rpc token detection calls `token.api`. TokenDataSource calls `tokens.api`.
- * Both use this chain list to decide which networks can be enriched. Without
- * the non-EVM chains, BTC/SOL assets are filtered out and no metadata is
- * fetched, leaving AssetsController.assetsInfo empty.
+ * Both use this chain list to decide which networks can be enriched.
  *
  * @param mockServer - The mock server instance.
  * @returns The mocked endpoints, one per host.
@@ -25,9 +12,6 @@ const TRON_CHAIN_CAIP_ID = 'tron:728126428';
 export const mockTokensV2SupportedNetworks = async (mockServer: Mockttp) => {
   const supportedNetworks = {
     fullSupport: [
-      BTC_CHAIN_CAIP_ID,
-      SOL_CHAIN_CAIP_ID,
-      TRON_CHAIN_CAIP_ID,
       'eip155:1',
       'eip155:137',
       'eip155:56',
@@ -54,10 +38,7 @@ export const mockTokensV2SupportedNetworks = async (mockServer: Mockttp) => {
  *
  * The TokenDataSource calls this endpoint to fetch asset metadata
  * (assetsInfo) for assets whose metadata is missing. Provides symbol,
- * decimals, and name for a fixed set of chains (ETH 1337, BTC, SOL, Solana
- * USDC, Tron native), which are required by
- * getMultiChainBalancesControllerBalances to include the balance in its
- * output when the assetsUnifyState feature flag is enabled.
+ * decimals, and name for the EVM assets used in these tests.
  *
  * @param mockServer - The mock server instance.
  */
@@ -119,55 +100,6 @@ export const mockTokensV3Assets = (mockServer: Mockttp) =>
           iconUrl:
             'https://static.cx.metamask.io/api/v2/tokenIcons/assets/eip155/1337/slip44/60.png',
           coingeckoId: 'ethereum',
-        });
-      }
-
-      if (assetIds.includes('bip122:000000000019d6689c085ae165831e93')) {
-        results.push({
-          assetId: BTC_CAIP_ASSET_ID,
-          name: 'Bitcoin',
-          symbol: 'BTC',
-          decimals: 8,
-          iconUrl:
-            'https://static.cx.metamask.io/api/v1/tokenIcons/bip122/000000000019d6689c085ae165831e93/slip44/0.png',
-          coingeckoId: 'bitcoin',
-        });
-      }
-
-      if (assetIds.includes('solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp')) {
-        results.push({
-          assetId: SOL_CAIP_ASSET_ID,
-          name: 'Solana',
-          symbol: 'SOL',
-          decimals: 9,
-          iconUrl:
-            'https://static.cx.metamask.io/api/v2/tokenIcons/assets/solana/5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44/501.png',
-          coingeckoId: 'solana',
-        });
-      }
-
-      if (assetIds.includes('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')) {
-        results.push({
-          assetId: SOL_USDC_CAIP_ASSET_ID,
-          name: 'USD Coin',
-          symbol: 'USDC',
-          decimals: 6,
-          iconUrl:
-            'https://static.cx.metamask.io/api/v2/tokenIcons/assets/solana/5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v.png',
-          coingeckoId: 'usd-coin',
-        });
-      }
-
-      if (assetIds.includes('tron:728126428/slip44:195')) {
-        results.push({
-          assetId: TRON_NATIVE_CAIP_ASSET_ID,
-          name: 'Tron',
-          symbol: 'TRX',
-          decimals: 6,
-          type: 'native',
-          iconUrl:
-            'https://static.cx.metamask.io/api/v2/tokenIcons/assets/tron/728126428/slip44/195.png',
-          coingeckoId: 'tron',
         });
       }
 

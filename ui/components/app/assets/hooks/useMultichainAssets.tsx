@@ -59,7 +59,6 @@ const useMultiChainAssets = () => {
         isNative: true,
         decimals: 9, // hard coded decimal value
         title: MULTICHAIN_PROVIDER_CONFIGS[MultichainNetworks.SOLANA].nickname,
-        isStakeable: false,
       },
     ];
   }

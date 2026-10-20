@@ -25,11 +25,7 @@ const HIDDEN_BY_CONSOLIDATED_BASIC_FUNCTIONALITY: Record<
   string,
   ReadonlySet<string>
 > = {
-  assets: new Set([
-    'display-nft-media',
-    'autodetect-nfts',
-    'autodetect-tokens',
-  ]),
+  assets: new Set(['autodetect-tokens']),
   privacy: new Set(['third-party-apis', 'batch-account-balance-requests']),
   'security-and-password': new Set(['phishing-detection']),
   transactions: new Set([
@@ -44,8 +40,6 @@ const HIDDEN_SUBPAGE_ITEMS_BY_CONSOLIDATED_BASIC_FUNCTIONALITY: ReadonlySet<stri
     'network-details-check',
     'show-ens-domains',
     'make-smart-contracts-easier',
-    'display-nft-media',
-    'autodetect-nfts',
     'proposed-nicknames',
   ]);
 

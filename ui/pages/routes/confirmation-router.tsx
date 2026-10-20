@@ -10,8 +10,6 @@ import {
   CONFIRM_TRANSACTION_ROUTE,
   HARDWARE_WALLET_SIGNATURES_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
-  SHIELD_PLAN_ROUTE,
-  TRANSACTION_SHIELD_ROUTE,
 } from '../../helpers/constants/routes';
 import { getConfirmationRoute } from '../confirmations/hooks/useConfirmationNavigation';
 import { getEnvironmentType } from '../../../shared/lib/environment-type';
@@ -33,8 +31,6 @@ const EXEMPTED_ROUTES = [
   CONFIRM_TRANSACTION_ROUTE,
   HARDWARE_WALLET_SIGNATURES_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
-  SHIELD_PLAN_ROUTE,
-  TRANSACTION_SHIELD_ROUTE,
 ];
 
 const SNAP_APPROVAL_TYPES = [

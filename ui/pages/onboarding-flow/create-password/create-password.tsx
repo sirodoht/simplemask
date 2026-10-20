@@ -5,7 +5,6 @@ import log from 'loglevel';
 import { Box } from '@metamask/design-system-react';
 import {
   ONBOARDING_COMPLETION_ROUTE,
-  ONBOARDING_DOWNLOAD_APP_ROUTE,
   ONBOARDING_IMPORT_WITH_SRP_ROUTE,
   ONBOARDING_METAMETRICS,
   ONBOARDING_REVIEW_SRP_ROUTE,
@@ -319,7 +318,7 @@ export default function CreatePassword({
           })
           .build(),
       );
-      navigate(ONBOARDING_DOWNLOAD_APP_ROUTE, { replace: true });
+      navigate(ONBOARDING_COMPLETION_ROUTE, { replace: true });
     } else if (isPasskeyFeatureAvailable) {
       navigate(ONBOARDING_SETUP_PASSKEY_ROUTE, { replace: true });
     } else {

@@ -68,7 +68,7 @@ describe('PermitSimulation', () => {
 
     expect(await findByText('30')).toBeInTheDocument();
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.permitSimulationDetailInfo.message),
@@ -101,7 +101,7 @@ describe('PermitSimulation', () => {
 
     expect(await findByText('30')).toBeInTheDocument();
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.permitSimulationDetailInfo.message),
@@ -147,7 +147,7 @@ describe('PermitSimulation', () => {
     );
 
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.permitSimulationChange_approve.message),

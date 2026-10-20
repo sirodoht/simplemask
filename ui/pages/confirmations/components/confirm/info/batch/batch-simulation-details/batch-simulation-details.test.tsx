@@ -159,7 +159,9 @@ describe('BatchSimulationDetails', () => {
         },
       }),
     );
-    expect(getByText(messages.youApprove.message)).toBeInTheDocument();
+    expect(
+      getByText(messages.confirmSimulationApprove.message),
+    ).toBeInTheDocument();
     expect(getByText('123.6')).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
     expect(getByTestId('simulation-details-layout').parentElement).toHaveClass(
@@ -174,7 +176,9 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(getByText(messages.youApprove.message)).toBeInTheDocument();
+    expect(
+      getByText(messages.confirmSimulationApprove.message),
+    ).toBeInTheDocument();
     expect(getByText(messages.unlimited.message)).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
@@ -186,7 +190,9 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(getByText(messages.youApprove.message)).toBeInTheDocument();
+    expect(
+      getByText(messages.confirmSimulationApprove.message),
+    ).toBeInTheDocument();
     expect(getByText('#321')).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
@@ -207,7 +213,9 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(getByText(messages.youApprove.message)).toBeInTheDocument();
+    expect(
+      getByText(messages.confirmSimulationApprove.message),
+    ).toBeInTheDocument();
     expect(getByText(messages.all.message)).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
@@ -219,7 +227,9 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(getByText(messages.youApprove.message)).toBeInTheDocument();
+    expect(
+      getByText(messages.confirmSimulationApprove.message),
+    ).toBeInTheDocument();
     expect(getByText('123 #321')).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
@@ -240,7 +250,9 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(getByText(messages.youApprove.message)).toBeInTheDocument();
+    expect(
+      getByText(messages.confirmSimulationApprove.message),
+    ).toBeInTheDocument();
     expect(getByText(messages.all.message)).toBeInTheDocument();
     expect(getByText(ADDRESS_SHORT_MOCK)).toBeInTheDocument();
   });
@@ -252,7 +264,9 @@ describe('BatchSimulationDetails', () => {
     });
 
     const { getByText } = render();
-    expect(getByText(messages.youApprove.message)).toBeInTheDocument();
+    expect(
+      getByText(messages.confirmSimulationApprove.message),
+    ).toBeInTheDocument();
     expect(getByText('123.6')).toBeInTheDocument();
     expect(getByText('#321')).toBeInTheDocument();
   });

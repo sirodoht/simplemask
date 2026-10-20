@@ -148,7 +148,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.permitSimulationChange_approve.message),
@@ -170,7 +170,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.permitSimulationChange_approve.message),
@@ -232,7 +232,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.permitSimulationChange_nft_listing.message),
@@ -257,7 +257,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.permitSimulationChange_receive.message),
@@ -278,7 +278,7 @@ describe('DecodedSimulation', () => {
     );
 
     expect(
-      await findByText(messages.estimatedChanges.message),
+      await findByText(messages.simulationDetailsTitle.message),
     ).toBeInTheDocument();
     expect(
       await findByText(messages.simulationDetailsUnavailable.message),

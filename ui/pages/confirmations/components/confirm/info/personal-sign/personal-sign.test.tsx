@@ -117,7 +117,7 @@ describe('PersonalSignInfo', () => {
       <PersonalSignInfo />,
       mockStore,
     );
-    expect(getByText(messages.estimatedChanges.message)).toBeDefined();
+    expect(getByText(messages.simulationDetailsTitle.message)).toBeDefined();
   });
 
   it('does not display tooltip text when isSIWE is true', async () => {

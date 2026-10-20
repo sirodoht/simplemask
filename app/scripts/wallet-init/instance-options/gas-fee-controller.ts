@@ -16,7 +16,7 @@ type GetGasFeeControllerInstanceOptionsRequest = {
   initMessenger: GasFeeControllerInitMessenger;
 };
 
-const GAS_API_URL = process.env.SWAPS_USE_DEV_APIS
+const GAS_API_URL = process.env.GAS_USE_DEV_APIS
   ? GAS_DEV_API_BASE_URL
   : GAS_API_BASE_URL;
 

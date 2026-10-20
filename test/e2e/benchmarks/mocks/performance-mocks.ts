@@ -12,7 +12,7 @@ import {
 import {
   mockTokensV2SupportedNetworks,
   mockTokensV3Assets,
-} from '../../tests/btc/mocks/tokens-api';
+} from '../../mock-response-data/tokens-api';
 import { POWER_USER_PRICES } from './price-data';
 import { buildSseResponseBody } from './swap-mocks';
 import bridgeNetworkTokens from './bridge-network-tokens.json';

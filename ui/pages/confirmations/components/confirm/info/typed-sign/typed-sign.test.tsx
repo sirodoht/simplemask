@@ -112,7 +112,7 @@ describe('TypedSignInfo', () => {
       <TypedSignInfo />,
       mockStore,
     );
-    expect(getByText(messages.estimatedChanges.message)).toBeDefined();
+    expect(getByText(messages.simulationDetailsTitle.message)).toBeDefined();
   });
 
   it('correctly renders permit sign type', () => {

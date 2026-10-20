@@ -64,18 +64,6 @@
     "message": "我已阅读并同意 $1",
     "description": "$1 is the `terms` message"
   },
-  "accessRestrictedContactSupport": {
-    "message": "联系支持团队"
-  },
-  "accessRestrictedDescriptionLine1": {
-    "message": "该钱包地址在合规审查中已被标记。因此，部分 MetaMask 服务不可用。"
-  },
-  "accessRestrictedDescriptionLine2": {
-    "message": "若您认为此标记有误，请联系支持团队申请审核。"
-  },
-  "accessRestrictedTitle": {
-    "message": "访问受限"
-  },
   "accessingYourCamera": {
     "message": "正在访问您的相机……"
   },
@@ -162,9 +150,6 @@
   },
   "accountsSmallCase": {
     "message": "账户"
-  },
-  "actionUnavailable": {
-    "message": "操作不可用"
   },
   "active": {
     "message": "活跃"
@@ -1205,15 +1190,6 @@
   "addFunds": {
     "message": "充值"
   },
-  "addFundsModalBuyCrypto": {
-    "message": "购买加密货币"
-  },
-  "addFundsModalReceiveTokens": {
-    "message": "收取代币"
-  },
-  "addFundsModalSwapTokens": {
-    "message": "兑换代币"
-  },
   "addMemo": {
     "message": "添加备忘录"
   },
@@ -1227,12 +1203,6 @@
   "addNetworkDescription": {
     "message": "一个网站正在提示额外的网络详细信息。"
   },
-  "addNft": {
-    "message": "添加NFT"
-  },
-  "addNfts": {
-    "message": "添加 NFT"
-  },
   "addRpcUrl": {
     "message": "添加 RPC（远程过程调用）URL"
   },
@@ -1241,9 +1211,6 @@
   },
   "addSnapAccountsDescription": {
     "message": "启用此功能后，您可以直接使用账户列表来添加新的测试版账户Snap。如果您要安装账户Snap，请紧记，此为第三方服务。"
-  },
-  "addSuggestedNFTs": {
-    "message": "添加推荐的 NFT"
   },
   "addSuggestedTokens": {
     "message": "添加推荐代币"
@@ -1445,12 +1412,6 @@
   "alert": {
     "message": "提醒"
   },
-  "alertAccountNoFundsMessage": {
-    "message": "无可用资金。请使用其他账户。"
-  },
-  "alertAccountNoFundsTitle": {
-    "message": "资金不足"
-  },
   "alertAccountTypeUpgradeMessage": {
     "message": "您正在将账户升级为智能账户。您将保留原账户地址，同时拥有更快的交易速度和更低的网络费用。$1"
   },
@@ -1459,9 +1420,6 @@
   },
   "alertActionBurnAddress": {
     "message": "正在向销毁地址发送资产"
-  },
-  "alertActionBuyWithNativeCurrency": {
-    "message": "购买 $1"
   },
   "alertActionEditNetworkFee": {
     "message": "编辑网络费"
@@ -1478,25 +1436,8 @@
   "alertContentMultipleApprovals": {
     "message": "您正在授权他人提取您的代币，尽管本次交易无需要此操作。"
   },
-  "alertDepositLimit": {
-    "message": "最大存款金额：$1",
-    "description": "$1 is the formatted USD deposit limit (e.g. $100,000)"
-  },
   "alertDisableTooltip": {
     "message": "这可以在“设置 > 提醒”中进行更改"
-  },
-  "alertInsufficientPayMethodBalance": {
-    "message": "添加更少的资金或使用其他支付方式。"
-  },
-  "alertInsufficientPayTokenBalance": {
-    "message": "资金不足"
-  },
-  "alertInsufficientPayTokenBalanceFeesNoTarget": {
-    "message": "添加更少金额或使用其他代币。"
-  },
-  "alertInsufficientPayTokenNative": {
-    "message": "$1 不足，无法支付费用。请使用其他网络的代币，或添加更多 $1 以继续。",
-    "description": "$1 is the native currency symbol (e.g. ETH)"
   },
   "alertMessageAddressMismatchWarning": {
     "message": "攻击者有时会通过对网站地址进行细微更改来模仿网站。在继续操作之前，请确保您是与目标网站进行交互。"
@@ -1561,21 +1502,6 @@
   "alertModalReviewAllAlerts": {
     "message": "查看所有提醒"
   },
-  "alertNoPayTokenQuotesMessage": {
-    "message": "目前该支付路径不可用。请调整金额、网络或代币类型，系统将为您匹配最优选项。"
-  },
-  "alertNoPayTokenQuotesTitle": {
-    "message": "无报价"
-  },
-  "alertPayHardwareAccountMessage": {
-    "message": "暂不支持硬件钱包。请切换钱包继续操作。"
-  },
-  "alertPayHardwareAccountTitle": {
-    "message": "钱包不获支持"
-  },
-  "alertPerpsWithdrawBalanceUnavailable": {
-    "message": "无法检查您的永续合约余额。请重试。"
-  },
   "alertReasonAddressTrustSignalMalicious": {
     "message": "地址已标记为高风险"
   },
@@ -1614,9 +1540,6 @@
   },
   "alertReasonPendingTransactions": {
     "message": "待定交易"
-  },
-  "alertReasonPerpsWithdrawBalanceUnavailable": {
-    "message": "余额不可用"
   },
   "alertReasonSignIn": {
     "message": "可疑登录请求"
@@ -1687,9 +1610,6 @@
     "message": "$1 和 $2",
     "description": "$1 is the first item, $2 is the second item. Used in Snap Install Warning modal."
   },
-  "annual": {
-    "message": "每年"
-  },
   "appDescription": {
     "message": "浏览器中的以太坊钱包",
     "description": "The description of the application"
@@ -1750,36 +1670,8 @@
   "asset": {
     "message": "资产"
   },
-  "assetActivate": {
-    "message": "激活",
-    "description": "Primary button to activate an asset."
-  },
-  "assetActivateDescription": {
-    "message": "在 $2 上激活 $1 即可开始。",
-    "description": "Explainer for the trustline activation card. $1 is the token symbol and $2 is the chain name."
-  },
-  "assetActivationError": {
-    "message": "添加此信任线时出错。请重试。",
-    "description": "Alert when the Stellar changeTrustOpt add request fails for a reason other than user cancel"
-  },
   "assetChartNoHistoricalPrices": {
     "message": "我们无法获取任何历史数据"
-  },
-  "assetDeactivate": {
-    "message": "去除",
-    "description": "Button label to deactivate an asset."
-  },
-  "assetDeactivationError": {
-    "message": "移除此信任线时出错。请重试。",
-    "description": "Alert when the Stellar changeTrustOpt delete request fails for a reason other than user cancel"
-  },
-  "assetDeactivationNonZeroBalanceError": {
-    "message": "您的钱包中仍有 $1 $2。在 Stellar 上停用此资产前，必须将其全部发送或兑换。",
-    "description": "Alert when the Stellar changeTrustOpt delete request fails because the token balance is not zero. $1 is the formatted balance amount and $2 is the token symbol."
-  },
-  "assetInactive": {
-    "message": "未激活",
-    "description": "Label for a trustline token the user imported but has not established an on-chain trustline for yet"
   },
   "assetOptions": {
     "message": "资产选项"
@@ -1789,16 +1681,6 @@
   },
   "assetsDescription": {
     "message": "自动检测钱包中的代币，显示 NFT，并获取批量账户余额更新"
-  },
-  "asterdexReferralSubtitle": {
-    "message": "使用 MetaMask 推荐码，交易可获得 4% 的返现。",
-    "description": "The subtitle of the AsterDEX referral confirmation screen"
-  },
-  "attemptToCancelSwapForFree": {
-    "message": "尝试免费取消兑换"
-  },
-  "attributes": {
-    "message": "属性"
   },
   "attributions": {
     "message": "属性"
@@ -1883,9 +1765,6 @@
   },
   "backupAndSyncFeatureContacts": {
     "message": "联系方式"
-  },
-  "backupAndSyncFeatureRamps": {
-    "message": "买入和卖出订单"
   },
   "backupAndSyncManageWhatYouSync": {
     "message": "管理同步内容"
@@ -1996,12 +1875,6 @@
   "basicFunctionalityRequired_openNotificationsPage": {
     "message": "打开通知页面"
   },
-  "basicFunctionalityRequired_openPerpsPage": {
-    "message": "打开永续合约页面"
-  },
-  "basicFunctionalityRequired_openRewardsPage": {
-    "message": "打开奖励页面"
-  },
   "basicFunctionalityRequired_openSnapsPage": {
     "message": "打开 Snaps 页面"
   },
@@ -2020,60 +1893,6 @@
   "basicFunctionalityRequired_toggleLabel": {
     "message": "基本功能"
   },
-  "batchSell": {
-    "message": "批量卖出"
-  },
-  "batchSellContinueNAssetsCTAPlural": {
-    "message": "使用（$1）个代币继续"
-  },
-  "batchSellContinueNAssetsCTASingle": {
-    "message": "使用（$1）个代币继续"
-  },
-  "batchSellEmptyStateDescription": {
-    "message": "没有代币。没问题。浏览并购买代币，即可进行批量卖出。"
-  },
-  "batchSellGetNewQuotes": {
-    "message": "获取新报价"
-  },
-  "batchSellHighRateAlert": {
-    "message": "高费率提醒"
-  },
-  "batchSellHightRateAlertModalDescription": {
-    "message": "批量卖出一种代币可能导致更高费率。要改用兑换吗？"
-  },
-  "batchSellMaxSelectedTokens": {
-    "message": "最多允许 $1 个代币"
-  },
-  "batchSellMinimumReceiveExplanation": {
-    "message": "若交易处理期间价格发生波动，根据您设置的滑点容差，此为您将收到的最低金额。该金额来自流动性供应商提供的预估，最终到账金额可能存在差异。"
-  },
-  "batchSellNetworkFeeTooltip": {
-    "message": "网络费用取决于网络的繁忙程度及交易的复杂程度。"
-  },
-  "batchSellReceiveStablecoin": {
-    "message": "选择一种稳定币"
-  },
-  "batchSellSelectHeaderSubtitle": {
-    "message": "所有代币需位于同一网络。"
-  },
-  "batchSellSelectHeaderTitle": {
-    "message": "选择最多 5 个代币"
-  },
-  "batchSellSlippageDescription": {
-    "message": "如果价格变化超过滑移百分比，您的交易将无法成功。"
-  },
-  "batchSellYouSellTokenCount": {
-    "message": "$1 个代币"
-  },
-  "batchSellYouSellTokenCountPlural": {
-    "message": "$1 个代币"
-  },
-  "bestQuote": {
-    "message": "最佳报价"
-  },
-  "bestQuoteTooltip": {
-    "message": "我们从提供商处找到的最佳报价，包含提供商费用和0.25%的 MetaMask 费用。若价格发生变动，您将收到的最低金额为 $1。"
-  },
   "beta": {
     "message": "测试版"
   },
@@ -2090,10 +1909,6 @@
   "blockExplorerAssetAction": {
     "message": "资产",
     "description": "This is used with viewOnEtherscan and viewInExplorer e.g View Asset in Explorer"
-  },
-  "blockExplorerSwapAction": {
-    "message": "兑换",
-    "description": "This is used with viewOnEtherscan e.g View Swap on Etherscan"
   },
   "blockExplorerUrl": {
     "message": "区块浏览器 URL"
@@ -2183,40 +1998,12 @@
   "blockies": {
     "message": "Blockies"
   },
-  "borrowed": {
-    "message": "已借入"
-  },
-  "boughtFor": {
-    "message": "购买用于"
-  },
   "bridge": {
     "message": "桥接"
-  },
-  "bridgeAgain": {
-    "message": "再次桥接"
-  },
-  "bridgeAllowSwappingOf": {
-    "message": "允许精确获取 $3 上的 $1 $2 以进行桥接",
-    "description": "Shows a user that they need to allow a token for swapping on their hardware wallet"
   },
   "bridgeApproval": {
     "message": "批准 $1 进行桥接",
     "description": "Used in the transaction display list to describe a transaction that is an approve call on a token that is to be bridged. $1 is the symbol of a token that has been approved."
-  },
-  "bridgeBlockExplorerLinkCopied": {
-    "message": "区块浏览器链接已复制"
-  },
-  "bridgeConfirmTwoTransactions": {
-    "message": "您需要在您的硬件钱包上确认 2 笔交易："
-  },
-  "bridgeDiscountBadgeDao": {
-    "message": "DAO"
-  },
-  "bridgeDiscountBadgePromo": {
-    "message": "优惠"
-  },
-  "bridgeEnterAmount": {
-    "message": "选择金额"
   },
   "bridgeExplorerPopupDescription": {
     "message": "此交易存在于两个网络上。一个链接显示来源，另一个则在确认后显示目标地址。"
@@ -2224,30 +2011,8 @@
   "bridgeFee": {
     "message": "跨链桥费用"
   },
-  "bridgeFeeDisclaimer": {
-    "message": "包含 $1% MetaMask 费用"
-  },
-  "bridgeFromTo": {
-    "message": "将 $1 $2 桥接到 $3",
-    "description": "Tells a user that they need to confirm on their hardware wallet a bridge. $1 is amount of source token, $2 is the source network, and $3 is the destination network"
-  },
-  "bridgeGasFeesSplit": {
-    "message": "前一个屏幕中报出的任何网络费用均包含两笔交易，并将进行分割。"
-  },
-  "bridgeGetNewQuote": {
-    "message": "获取新报价"
-  },
-  "bridgeLowestCost": {
-    "message": "最低成本"
-  },
-  "bridgeMaliciousTokenTitle": {
-    "message": "恶意代币"
-  },
   "bridgeMarketClosedAction": {
     "message": "已休市"
-  },
-  "bridgeMarketClosedDescription": {
-    "message": "该股票代币当前处于非交易时段。请在市场重新开放后重试。"
   },
   "bridgeMarketClosedModalDescription": {
     "message": "支撑该代币的市场目前已关闭。但代币仍可随时在链上进行转移。"
@@ -2257,82 +2022,6 @@
   },
   "bridgeMarketClosedModalTitle": {
     "message": "已休市"
-  },
-  "bridgeMarketClosedTitle": {
-    "message": "已休市"
-  },
-  "bridgeNoMMFee": {
-    "message": "无 MM 费用"
-  },
-  "bridgeNoPriceInfoTitle": {
-    "message": "无价格信息"
-  },
-  "bridgeOffHoursDescription": {
-    "message": "市场已收盘：价格由发行方计算，并非实时市场行情数据。下一交易日市场重新开盘后，价格可能发生变动。"
-  },
-  "bridgeOffHoursTitle": {
-    "message": "非交易时段交易"
-  },
-  "bridgePoints": {
-    "message": "预计积分",
-    "description": "Label for estimated points that can be earned from a bridge or swap"
-  },
-  "bridgePoints_couldntLoad": {
-    "message": "无法加载",
-    "description": "Text shown in rewards badge when points couldn't be loaded"
-  },
-  "bridgePoints_error": {
-    "message": "无法加载积分",
-    "description": "Tooltip title when there's an error fetching estimated points"
-  },
-  "bridgePoints_error_content": {
-    "message": "请放心，您的积分仍在累计。积分稍后将显示在账户中，您也可通过 MetaMask Mobile 的“奖励”标签页查看。",
-    "description": "Error message when points estimation fails"
-  },
-  "bridgePoints_tooltip": {
-    "message": "积分",
-    "description": "Tooltip title for points"
-  },
-  "bridgePoints_tooltip_content_1": {
-    "message": "积分是您通过完成交易（如兑换、桥接或永续合约交易）获得 MetaMask Rewards 的方式。",
-    "description": "First part of tooltip content explaining rewards points"
-  },
-  "bridgePoints_tooltip_content_2": {
-    "message": "请知悉，这一数值为估算值，将在交易完成后最终确定。积分最多可能需要 1 小时才能确认并存入您的奖励余额。",
-    "description": "Second part of tooltip content explaining how points are calculated"
-  },
-  "bridgePriceDataUnavailableError": {
-    "message": "我们无法获取该代币的价格信息。请在继续前确认收到的金额符合预期。"
-  },
-  "bridgePriceImpact": {
-    "message": "价格影响"
-  },
-  "bridgePriceImpactFiatAlert": {
-    "message": "您将在这笔交易中损失 $1"
-  },
-  "bridgePriceImpactHigh": {
-    "message": "高价格影响"
-  },
-  "bridgePriceImpactHighDescription": {
-    "message": "由于您的交易规模和可用流动性，您的价格将比市场价格低约 $1。此差额已计入当前报价中。"
-  },
-  "bridgePriceImpactNormalDescription": {
-    "message": "这是您的交易对代币市场价格产生的影响。具体取决于交易规模、可用流动性以及服务商费用。MetaMask 无法控制价格影响。"
-  },
-  "bridgePriceImpactTooltipTitle": {
-    "message": "价格影响"
-  },
-  "bridgePriceImpactVeryHigh": {
-    "message": "非常高的价格影响"
-  },
-  "bridgePriceImpactVeryHighDescription": {
-    "message": "本次兑换将导致您的代币市场价格损失约 $1。请尝试降低交易金额或选择流动性更强的交易路径以获得更优汇率。"
-  },
-  "bridgePriceImpactWarningAriaLabel": {
-    "message": "参阅价格影响警告详情"
-  },
-  "bridgePriceImpactWarningTitle": {
-    "message": "价格影响警告"
   },
   "bridgeQrHardwareSignDisplayStepTitle": {
     "message": "第 $1/$2 步：使用您的钱包扫描此二维码",
@@ -2346,36 +2035,6 @@
     "message": "第 $1/$2 步：扫描钱包上显示的二维码",
     "description": "Title for the approval QR hardware-wallet signing page. $1 is the current step number and $2 is the total step count."
   },
-  "bridgeQuoteStreamCompleteAmountTooHigh": {
-    "message": "没有可用的报价。请尝试较小的金额。"
-  },
-  "bridgeQuoteStreamCompleteAmountTooLow": {
-    "message": "没有可用的报价。请尝试更大的金额。"
-  },
-  "bridgeQuoteStreamCompleteRetry": {
-    "message": "目前无法获取报价。请重试。"
-  },
-  "bridgeQuoteStreamCompleteRwaGeoRestricted": {
-    "message": "此兑换在您所在的地区不可用。"
-  },
-  "bridgeQuoteStreamCompleteRwaMarketUnavailable": {
-    "message": "该资产的市场目前不可用。请稍后再试。"
-  },
-  "bridgeQuoteStreamCompleteRwaNativeTokenUnsupported": {
-    "message": "目前暂不支持此代币与现实世界资产之间的兑换。请尝试使用其他代币。"
-  },
-  "bridgeQuoteStreamCompleteSlippageTooHigh": {
-    "message": "滑移过高。请尝试降低滑移设置。"
-  },
-  "bridgeQuoteStreamCompleteSlippageTooLow": {
-    "message": "滑移过低。请尝试提高滑移设置。"
-  },
-  "bridgeQuoteStreamCompleteTokenNotSupported": {
-    "message": "不支持此代币。请尝试使用其他代币。"
-  },
-  "bridgeQuotesSortedByCost": {
-    "message": "报价按预估总成本排序，该成本包括汇率及网络费用。"
-  },
   "bridgeReceive": {
     "message": "在 $2 上接收 $1",
     "description": "Summary line showing token received on destination chain. $1 is the token symbol, $2 is the network name."
@@ -2383,119 +2042,11 @@
   "bridgeReceiveLoading": {
     "message": "正在目标链上接收"
   },
-  "bridgeSecurityDataKnownAirdrop": {
-    "message": "可疑空投"
-  },
-  "bridgeSecurityDataKnownConcentratedSupply": {
-    "message": "供应集中"
-  },
-  "bridgeSecurityDataKnownDynamicAnalysis": {
-    "message": "可疑行为"
-  },
-  "bridgeSecurityDataKnownFakeTradeMakerCount": {
-    "message": "交易者数量虚增"
-  },
-  "bridgeSecurityDataKnownFakeVolume": {
-    "message": "虚假成交量"
-  },
-  "bridgeSecurityDataKnownHeavilySniped": {
-    "message": "大量机器人活动"
-  },
-  "bridgeSecurityDataKnownHiddenSupplyByKeyHolder": {
-    "message": "未公开供应量"
-  },
-  "bridgeSecurityDataKnownHighBuyFee": {
-    "message": "高额购买费"
-  },
-  "bridgeSecurityDataKnownHighSellFee": {
-    "message": "高额卖出费"
-  },
-  "bridgeSecurityDataKnownHighTransferFee": {
-    "message": "高额转账费"
-  },
-  "bridgeSecurityDataKnownHoneypot": {
-    "message": "蜜罐风险"
-  },
-  "bridgeSecurityDataKnownImpersonator": {
-    "message": "冒充者"
-  },
-  "bridgeSecurityDataKnownImpersonatorAsset": {
-    "message": "冒充敏感资产"
-  },
-  "bridgeSecurityDataKnownImpersonatorHigh": {
-    "message": "疑似冒充者"
-  },
-  "bridgeSecurityDataKnownImpersonatorMedium": {
-    "message": "可能为冒充者"
-  },
-  "bridgeSecurityDataKnownInappropriateContent": {
-    "message": "不当内容"
-  },
-  "bridgeSecurityDataKnownInorganicVoume": {
-    "message": "虚假交易量"
-  },
-  "bridgeSecurityDataKnownInsufficientLiquidity": {
-    "message": "低锁定流动性"
-  },
-  "bridgeSecurityDataKnownLowReputation": {
-    "message": "创建者信誉低"
-  },
-  "bridgeSecurityDataKnownMalicious": {
-    "message": "已知恶意"
-  },
-  "bridgeSecurityDataKnownMetadata": {
-    "message": "可疑元数据"
-  },
-  "bridgeSecurityDataKnownPostDump": {
-    "message": "可能的价格操纵"
-  },
-  "bridgeSecurityDataKnownRugpull": {
-    "message": "跑路风险"
-  },
-  "bridgeSecurityDataKnownSanctionedCreator": {
-    "message": "受制裁的创建者"
-  },
-  "bridgeSecurityDataKnownSimilarMaliciousContract": {
-    "message": "类似恶意合约"
-  },
-  "bridgeSecurityDataKnownSnipeMint": {
-    "message": "上线时机器人活动"
-  },
-  "bridgeSecurityDataKnownSpamText": {
-    "message": "垃圾信息"
-  },
-  "bridgeSecurityDataKnownStaticCodeSign": {
-    "message": "可疑代码"
-  },
-  "bridgeSecurityDataKnownTokenBackdoor": {
-    "message": "代币后门"
-  },
-  "bridgeSecurityDataKnownUnsellable": {
-    "message": "不可售代币"
-  },
-  "bridgeSecurityDataKnownUnstablePrice": {
-    "message": "价格不稳定"
-  },
-  "bridgeSecurityDataKnownWashTrading": {
-    "message": "刷单交易"
-  },
-  "bridgeSelectDestinationAccount": {
-    "message": "选择一个目标账户"
-  },
   "bridgeSelectDifferentQuote": {
     "message": "请选择其他报价。"
   },
   "bridgeSelectNetwork": {
     "message": "选择网络"
-  },
-  "bridgeSelectQuote": {
-    "message": "选择报价"
-  },
-  "bridgeSelectTokenAmountAndAccount": {
-    "message": "选择代币、金额和目标账户"
-  },
-  "bridgeSelectTokenAndAmount": {
-    "message": "选择代币和金额"
   },
   "bridgeSend": {
     "message": "从 $2 发送 $1",
@@ -2503,60 +2054,6 @@
   },
   "bridgeSendLoading": {
     "message": "正从源链发送"
-  },
-  "bridgeStellarTrustlineWarningCta": {
-    "message": "激活 $1",
-    "description": "CTA on the Stellar trustline warning banner. $1 is the destination token symbol."
-  },
-  "bridgeStellarTrustlineWarningMessage": {
-    "message": "此兑换可能失败。在 Stellar 网络上，您的账户只有在钱包中通过有效的信任线激活该代币后，才能接收 $1。",
-    "description": "Body of the Stellar trustline warning on cross-chain swaps when destination is the active account. $1 is the destination token symbol."
-  },
-  "bridgeStellarTrustlineWarningMessageDifferentAccount": {
-    "message": "此兑换可能失败。在 Stellar 网络上，$1 无法接收 $2，除非您切换到该账户并通过有效的信任线激活该代币。",
-    "description": "Body of the Stellar trustline warning when the destination account is not the active account. $1 is the destination account name; $2 is the destination token symbol."
-  },
-  "bridgeStellarTrustlineWarningTitle": {
-    "message": "请先在 Stellar 上激活 $1",
-    "description": "Title of the Stellar trustline warning on cross-chain swaps. $1 is the destination token symbol."
-  },
-  "bridgeSuspiciousTokenTitle": {
-    "message": "可疑代币"
-  },
-  "bridgeTokenIsMaliciousBanner": {
-    "message": "$1 是恶意代币。"
-  },
-  "bridgeTokenIsMaliciousModalDescription": {
-    "message": "$1 已被标记为恶意。任何与之交互的人都可能被窃取资金。"
-  },
-  "bridgeTokenIsSuspiciousBanner": {
-    "message": "$1 是可疑代币。"
-  },
-  "bridgeTokenIsSuspiciousModalDescription": {
-    "message": "$1 已被标记为可疑。请在继续前仔细查看相关风险。"
-  },
-  "bridgeTokenNotFound": {
-    "message": "没有代币与“$1”匹配"
-  },
-  "bridgeUseMaxAmountAllowedWithReserve": {
-    "message": "使用最大允许值"
-  },
-  "bridgeValidationInsufficientGasMessage": {
-    "message": "您的 $1 不足以支付此次跨链的网络费用。请输入较小的金额或购买更多 $1。"
-  },
-  "bridgeValidationInsufficientGasTitle": {
-    "message": "需要更多的 $1 用于燃料"
-  },
-  "bridgeValidationInsufficientNativeReserveMessage": {
-    "message": "此特定网络要求您的账户中保留 $1 $3 的储备金。根据您当前的余额，您最多可使用 $2 $3",
-    "description": "$1 is the minimum native reserve amount for the network, $2 is the spendable balance, $3 the ticker symbol of the token"
-  },
-  "bridgeValidationInsufficientNativeReserveTitle": {
-    "message": "需要最低 $1 储备金余额",
-    "description": "$1 is the ticker symbol of the token"
-  },
-  "bridging": {
-    "message": "桥接"
   },
   "browserNotSupported": {
     "message": "您的浏览器不受支持……"
@@ -2566,18 +2063,6 @@
   },
   "buy": {
     "message": "买入"
-  },
-  "buyMoreAsset": {
-    "message": "购买更多$1",
-    "description": "$1 is the ticker symbol of a an asset the user is being prompted to purchase"
-  },
-  "buyTabOpenedToastDescription": {
-    "message": "我们已为您打开了用于购买的新标签页。",
-    "description": "Toast description shown after opening the buy flow in a new tab"
-  },
-  "buyTabOpenedToastText": {
-    "message": "继续在您的浏览器标签页中操作",
-    "description": "Toast title shown after opening the buy flow in a new tab"
   },
   "bytes": {
     "message": "字节"
@@ -2605,10 +2090,6 @@
   },
   "cancelled": {
     "message": "已取消"
-  },
-  "carouselAllCaughtUp": {
-    "message": "全部搞定啦！",
-    "description": "Message shown in carousel when all promotional slides have been dismissed"
   },
   "chainId": {
     "message": "链 ID"
@@ -2693,15 +2174,8 @@
   "close": {
     "message": "关闭"
   },
-  "closeSlide": {
-    "message": "关闭 $1",
-    "description": "Aria label for close button on carousel slides. $1 is the slide title"
-  },
   "coingecko": {
     "message": "CoinGecko"
-  },
-  "collectionName": {
-    "message": "收藏品名称"
   },
   "comboNoOptions": {
     "message": "找不到任何选项",
@@ -3097,15 +2571,6 @@
   "contractInteraction": {
     "message": "合约交互"
   },
-  "convertAgain": {
-    "message": "再次转换"
-  },
-  "convertTokenToNFTDescription": {
-    "message": "我们检测到该资产是NFT。MetaMask现在完全原生支持NFT。您想将它从您的代币列表中删除并将它添加为NFT吗？"
-  },
-  "convertTokenToNFTExistDescription": {
-    "message": "我们检测到该资产已作为NFT添加。是否要将其从代币列表中删除？"
-  },
   "copiedExclamation": {
     "message": "已复制。"
   },
@@ -3157,17 +2622,11 @@
   "createPasswordDetailsSocialReset": {
     "message": "MetaMask 无法重设该密码。"
   },
-  "createPasswordMarketing": {
-    "message": "获取产品更新、提示和新闻（包括电子邮件推送）。我们可能会利用您的互动信息来优化我们分享的内容。"
-  },
   "createSnapAccountDescription": {
     "message": "$1 想在 MetaMask 添加一个新账户。"
   },
   "createSnapAccountTitle": {
     "message": "创建账户"
-  },
-  "creatorAddress": {
-    "message": "创建者地址"
   },
   "criticalErrorAttemptRecovery": {
     "message": "尝试恢复"
@@ -3257,14 +2716,8 @@
   "customNetworks": {
     "message": "自定义网络"
   },
-  "customSlippage": {
-    "message": "自定义"
-  },
   "customTokenWarningInTokenDetectionNetwork": {
     "message": "任何人都可以创建代币，包括创建现有代币的虚假版本。了解 $1"
-  },
-  "customerSupport": {
-    "message": "客户支持团队"
   },
   "dappSuggested": {
     "message": "建议的网站"
@@ -3276,21 +2729,6 @@
   "dappSuggestedHigh": {
     "message": "建议网站"
   },
-  "dappSwapAdvantage": {
-    "message": "通过 MetaMask Swaps 节省成本并赚取奖励"
-  },
-  "dappSwapAdvantageSaveOnly": {
-    "message": "使用 MetaMask Swaps 兑换以节省费用"
-  },
-  "dappSwapBenefits": {
-    "message": "兑换失败时返还网络费"
-  },
-  "dappSwapQuoteDifference": {
-    "message": "节省 $1"
-  },
-  "dappSwapRewardText": {
-    "message": "赚取 $1 积分"
-  },
   "dapps": {
     "message": "去中心化应用"
   },
@@ -3300,29 +2738,11 @@
   "data": {
     "message": "数据"
   },
-  "dataCollectionForMarketing": {
-    "message": "用于营销目的的数据收集"
-  },
-  "dataCollectionForMarketingDescription": {
-    "message": "我们将使用 MetaMetrics 来了解您如何与我们的营销通信交互。我们可能会分享相关资讯（例如产品特点和其他内容）。"
-  },
-  "dataCollectionForMarketingDescriptionSocialLogin": {
-    "message": "获取产品更新、提示和新闻（包括电子邮件推送）。我们可能会利用您的互动信息来优化我们分享的内容。"
-  },
-  "dataUnavailable": {
-    "message": "数据不可用"
-  },
   "date": {
     "message": "日期"
   },
-  "dateCreated": {
-    "message": "创建日期"
-  },
   "day": {
     "message": "天"
-  },
-  "debitCreditPurchaseOptions": {
-    "message": "借记卡或信用卡购买选项"
   },
   "debug": {
     "message": "调试"
@@ -3350,23 +2770,11 @@
   "decryptRequest": {
     "message": "解密请求"
   },
-  "deepLinkQrBatchSellDescription": {
-    "message": "MetaMask 移动端支持批量出售。请使用移动设备扫描此代码开始使用。"
-  },
-  "deepLinkQrBatchSellTitle": {
-    "message": "在移动端打开批量出售"
-  },
   "deepLinkQrPredictDescription": {
     "message": "要访问 MetaMask 预测市场，请用您的移动设备扫描二维码。"
   },
   "deepLinkQrPredictTitle": {
     "message": "在移动设备上打开预测市场"
-  },
-  "deepLinkQrTrendingDescription": {
-    "message": "Explore 功能可在 MetaMask 移动端使用。请用您的移动设备扫描此二维码以开始使用。"
-  },
-  "deepLinkQrTrendingTitle": {
-    "message": "在移动端打开 Explore"
   },
   "deepLink_Caution": {
     "message": "请谨慎行事"
@@ -3417,26 +2825,8 @@
   "deepLink_theAssetPage": {
     "message": "资产页面"
   },
-  "deepLink_theBatchSellPage": {
-    "message": "批量出售页面"
-  },
-  "deepLink_theBuyPage": {
-    "message": "购买页面"
-  },
-  "deepLink_theCardOnboardingPage": {
-    "message": "MetaMask 卡开通页面"
-  },
   "deepLink_theHomePage": {
     "message": "主页"
-  },
-  "deepLink_theMoneyPage": {
-    "message": "Money 页面"
-  },
-  "deepLink_theMusdEducationPage": {
-    "message": "MUSD 兑换教育页面"
-  },
-  "deepLink_theNFTsPage": {
-    "message": "NFT 页面"
   },
   "deepLink_theNotificationsPage": {
     "message": "通知页面"
@@ -3444,35 +2834,11 @@
   "deepLink_theOnboardingPage": {
     "message": "入门引导页"
   },
-  "deepLink_thePerpsMarketDetailPage": {
-    "message": "永续合约市场页面"
-  },
   "deepLink_thePerpsPage": {
     "message": "永续合约页面"
   },
-  "deepLink_thePredictPage": {
-    "message": "预测市场页面"
-  },
   "deepLink_thePrivacySettingsPage": {
     "message": "隐私设置页面"
-  },
-  "deepLink_theRewardsPage": {
-    "message": "MetaMask 奖励计划页面"
-  },
-  "deepLink_theSellPage": {
-    "message": "出售页面"
-  },
-  "deepLink_theSwapsPage": {
-    "message": "兑换页面"
-  },
-  "deepLink_theTopTradersPage": {
-    "message": "跟单交易页面"
-  },
-  "deepLink_theTransactionShieldPage": {
-    "message": "交易防护页面"
-  },
-  "deepLink_theTrendingPage": {
-    "message": "Explore 页面"
   },
   "default": {
     "message": "默认"
@@ -3488,36 +2854,6 @@
   },
   "defaultSettingsTitle": {
     "message": "默认隐私设置"
-  },
-  "defi": {
-    "message": "去中心化金融"
-  },
-  "defiEmptyDescription": {
-    "message": "借出、借入与交易，均可在您的钱包中轻松完成。"
-  },
-  "defiIcon": {
-    "message": "去中心化金融图标"
-  },
-  "defiReferralCheckboxLabel": {
-    "message": "允许 MetaMask 添加推荐码。此设置为永久有效。相关网站将根据其条款提供折扣。MetaMask 将从中收取费用。",
-    "description": "The text for the checkbox label in the DeFi referral confirmation screen"
-  },
-  "defiReferralTerms": {
-    "message": "条款",
-    "description": "The text for the partner terms link in the DeFi referral confirmation screen"
-  },
-  "defiReferralTitle": {
-    "message": "MetaMask x $1",
-    "description": "The title of the DeFi referral confirmation screen. $1 is the name of the partner"
-  },
-  "defiTabErrorContent": {
-    "message": "请稍后再次尝试访问。"
-  },
-  "defiTabErrorTitle": {
-    "message": "我们无法加载此页面。"
-  },
-  "defiUnsupportedEmptyDescription": {
-    "message": "该网络不支持 DeFi。"
   },
   "delete": {
     "message": "删除"
@@ -3584,18 +2920,6 @@
     "message": "来自 $1 的描述",
     "description": "$1 represents the name of the snap"
   },
-  "destinationAccountPickerNoEligible": {
-    "message": "未找到符合条件的账户"
-  },
-  "destinationAccountPickerNoMatching": {
-    "message": "未找到匹配的账户"
-  },
-  "destinationAccountPickerSearchPlaceholderToMainnet": {
-    "message": "接收地址或 ENS（Ethereum 域名服务）"
-  },
-  "destinationAccountPickerSearchPlaceholderToSolana": {
-    "message": "接收地址"
-  },
   "details": {
     "message": "详细信息"
   },
@@ -3653,26 +2977,6 @@
   "discover": {
     "message": "发现"
   },
-  "discoverSearchCap": {
-    "message": "市值",
-    "description": "Abbreviated label for market cap in Discover search result rows."
-  },
-  "discoverSearchNoResults": {
-    "message": "未找到结果",
-    "description": "Empty state when Discover search returns no matching assets."
-  },
-  "discoverSearchNoResultsFor": {
-    "message": "未找到 “$1” 的相关结果",
-    "description": "Empty state title when Discover search returns no matching assets for a user query."
-  },
-  "discoverSearchPopularAssets": {
-    "message": "查看其他热门资产",
-    "description": "Empty state subtitle prompting users to open popular assets when Discover search has no results."
-  },
-  "discoverSearchVol": {
-    "message": "交易量",
-    "description": "Abbreviated label for volume in Discover search result rows."
-  },
   "discoverSnaps": {
     "message": "探索 Snap",
     "description": "Text that links to the Snaps website. Displayed in a banner on Snaps list page in settings."
@@ -3682,9 +2986,6 @@
   },
   "displayNftMedia": {
     "message": "显示NFT媒体"
-  },
-  "displayNftMediaDescriptionV2": {
-    "message": "NFT 自动检测依赖于此功能。"
   },
   "doNotShare": {
     "message": "切勿与任何人分享"
@@ -3700,21 +3001,6 @@
   },
   "download": {
     "message": "下载"
-  },
-  "downloadAppDescription": {
-    "message": "随身携带 MetaMask。开启面容 ID 认证，即使忘记密码，您仍可随时访问。"
-  },
-  "downloadAppTitle": {
-    "message": "扫描二维码并下载应用程序"
-  },
-  "downloadMetaMaskMobileDescription": {
-    "message": "即使忘记密码，也能通过面容 ID 轻松登录我们的应用。MetaMask 伴您随身畅行！"
-  },
-  "downloadMetaMaskMobileQrNote": {
-    "message": "扫描此二维码开始。"
-  },
-  "downloadMetaMaskMobileTitle": {
-    "message": "下载我们的移动应用程序"
   },
   "downloadStateLogs": {
     "message": "下载状态日志"
@@ -3759,9 +3045,6 @@
   "durationSuffixYear": {
     "message": "年",
     "description": "Shortened form of 'year'"
-  },
-  "earn": {
-    "message": "赚取"
   },
   "edit": {
     "message": "编辑"
@@ -3838,9 +3121,6 @@
   "editSpendingCapSpecialCharError": {
     "message": "仅输入数字"
   },
-  "enableAutoDetect": {
-    "message": " 启用自动检测"
-  },
   "enableSmartContractAccount": {
     "message": "使用智能账户"
   },
@@ -3849,10 +3129,6 @@
   },
   "enableSnap": {
     "message": "启用"
-  },
-  "enableToken": {
-    "message": "启用 $1",
-    "description": "$1 is a token symbol, e.g. ETH"
   },
   "enabled": {
     "message": "已启用"
@@ -3912,9 +3188,6 @@
   },
   "enterTokenAddress": {
     "message": "输入代币地址"
-  },
-  "enterTokenNameOrAddress": {
-    "message": "输入代币名称或粘贴地址"
   },
   "enterTokenNameOrAddressManageTokens": {
     "message": "输入代币名称或地址"
@@ -4030,20 +3303,11 @@
     "message": "$1出错",
     "description": "$1 represents the name of the snap"
   },
-  "estimatedChanges": {
-    "message": "预计变化"
-  },
   "estimatedFee": {
     "message": "预估费用"
   },
   "estimatedFeeTooltip": {
     "message": "网络上处理交易所支付的金额。"
-  },
-  "estimatedPointsRow": {
-    "message": "预计积分"
-  },
-  "estimatedTime": {
-    "message": "预估时间"
   },
   "ethGasPriceFetchWarning": {
     "message": "由于目前主要的燃料估算服务不可用，因此提供了备用燃料价格。"
@@ -4070,12 +3334,6 @@
   "experimental": {
     "message": "实验性"
   },
-  "exploreDefi": {
-    "message": "探索去中心化金融"
-  },
-  "exploreTokens": {
-    "message": "探索代币"
-  },
   "exportYourData": {
     "message": "导出您的数据"
   },
@@ -4088,9 +3346,6 @@
   "extendWalletWithSnaps": {
     "message": "探索社区构建的 Snap，定制您的 Web3 体验",
     "description": "Banner description displayed on Snaps list page in Settings when less than 6 Snaps is installed."
-  },
-  "externalAccount": {
-    "message": "外部账户"
   },
   "externalExtension": {
     "message": "外部扩展程序"
@@ -4214,10 +3469,6 @@
   },
   "form": {
     "message": "表格"
-  },
-  "freeTrialDays": {
-    "message": "$1 天免费试用",
-    "description": "The $1 is the number of days"
   },
   "from": {
     "message": "自"
@@ -4405,19 +3656,12 @@
   "genericExplorerView": {
     "message": "在$1查看账户"
   },
-  "getDollarMore": {
-    "message": "再额外获取 $1"
-  },
   "getTheNewestFeatures": {
     "message": "获取最新功能"
   },
   "getYourWalletReadyToUseWeb3": {
     "message": "准备好钱包以便使用 Web3",
     "description": "Subtitle text for the balance empty state component explaining the purpose of adding funds"
-  },
-  "gmxReferralSubtitle": {
-    "message": "使用 MetaMask 推荐码交易费用最高可节省 5%。",
-    "description": "The subtitle of the GMX referral confirmation screen"
   },
   "goToSite": {
     "message": "转到网站"
@@ -4617,15 +3861,6 @@
   "hardwareWalletRepairTitle": {
     "message": "连接硬件设备"
   },
-  "hardwareWalletSubmissionWarningStep1": {
-    "message": "请确保您的 $1 已插入并选择以太坊应用程序。"
-  },
-  "hardwareWalletSubmissionWarningStep2": {
-    "message": "在您的 $1 设备上启用“智能合约数据”或“盲签”。"
-  },
-  "hardwareWalletSubmissionWarningTitle": {
-    "message": "点击提交前："
-  },
   "hardwareWalletTitleEthAppNotOpen": {
     "message": "打开以太坊应用"
   },
@@ -4683,12 +3918,6 @@
   },
   "highLowercase": {
     "message": "高"
-  },
-  "highestCurrentBid": {
-    "message": "当前最高出价"
-  },
-  "highestFloorPrice": {
-    "message": "最高底价"
   },
   "history": {
     "message": "历史记录"
@@ -4749,38 +3978,6 @@
   "honeypotTitle": {
     "message": "蜜罐"
   },
-  "hyperliquidDepositPromptDescription": {
-    "message": "存入任意代币即可。我们会自动将其兑换并发送到您的 Hyperliquid 账户，免收 MetaMask 费用。",
-    "description": "The description of the Hyperliquid deposit prompt screen shown after enabling trading on Hyperliquid"
-  },
-  "hyperliquidDepositPromptNoThanks": {
-    "message": "不用了，我要手动存入",
-    "description": "The label of the dismiss button in the Hyperliquid deposit prompt screen"
-  },
-  "hyperliquidDepositPromptTitle": {
-    "message": "通过 MetaMask 为 Hyperliquid 充值",
-    "description": "The title of the Hyperliquid deposit prompt screen shown after enabling trading on Hyperliquid"
-  },
-  "hyperliquidDepositToastSuccessDescription": {
-    "message": "资金现已可用于 Hyperliquid 和 MetaMask 永续合约交易。",
-    "description": "Description shown in the success toast after a perps deposit initiated from the Hyperliquid deposit prompt"
-  },
-  "hyperliquidReferralCheckboxLabel": {
-    "message": "根据 Hyperliquid 的 $1，为今后的所有交易应用 MetaMask 推荐码。MetaMask 将收取费用。",
-    "description": "The checkbox label in the redesigned Hyperliquid referral confirmation screen. $1 is the terms link"
-  },
-  "hyperliquidReferralSubtitle": {
-    "message": "使用 MetaMask 推荐码交易费用最高可节省 4%。",
-    "description": "The subtitle of the Hyperliquid referral confirmation screen"
-  },
-  "hyperliquidReferralSubtitle2": {
-    "message": "使用 MetaMask 推荐码，交易费用可节省 4%。",
-    "description": "The subtitle of the redesigned Hyperliquid referral confirmation screen"
-  },
-  "hyperliquidReferralTitle": {
-    "message": "在 Hyperliquid 上可节省 4%",
-    "description": "The title of the redesigned Hyperliquid referral confirmation screen"
-  },
   "iUnderstand": {
     "message": "我理解"
   },
@@ -4834,17 +4031,8 @@
   "importAnAccountDescription": {
     "message": "通过私钥"
   },
-  "importNFT": {
-    "message": "导入NFT"
-  },
-  "importNFTAddressToolTip": {
-    "message": "例如，在OpenSea中，NFT页面的详情下，有一个蓝色的超链接值，标记为“合约地址”。如果您点击它，它将带您前往该合约在Etherscan上的地址；在该页面的左上角，应该有一个标记为“合约”的图标，在右侧，有一长串字母和数字。这是创建您的NFT的合约地址。点击地址右侧的“复制”图标，就可以将它复制到剪贴板上。"
-  },
   "importNFTPage": {
     "message": "导入NFT页面"
-  },
-  "importNFTTokenIdToolTip": {
-    "message": "NFT的ID是唯一标识符，因为所有NFT都是独一无二的。同样，在OpenSea上，此数字位于“详情”下方。记下它，或将它复制到剪贴板上。"
   },
   "importSecretRecoveryPhrase": {
     "message": "导入私钥助记词"
@@ -4895,9 +4083,6 @@
   },
   "insufficientBalance": {
     "message": "余额不足。"
-  },
-  "insufficientBalanceToCoverFees": {
-    "message": "余额不足，无法支付费用"
   },
   "insufficientFunds": {
     "message": "资金不足。"
@@ -4991,21 +4176,8 @@
   "ipfsGatewayDescriptionV2": {
     "message": "使用第三方服务来显示您存储在 IPFS 上的 NFT 图片，展示与浏览器地址栏中输入的 ENS 地址相关的信息，并获取不同代币的图标。请在下方选择您偏好的 IPFS 网关。"
   },
-  "ipfsToggleModalDescriptionOne": {
-    "message": "我们使用第三方服务来显示您存储在 IPFS 的 NFT 图像，显示与您输入到浏览器地址栏中的ENS（Ethereum 域名服务）地址相关的信息，并获取不同代币的图标。当您使用这些服务时，这些服务可能会看到您的 IP 地址。"
-  },
-  "ipfsToggleModalDescriptionTwo": {
-    "message": "选择“确认”将开启 IPFS 解析。您可以在 $1 中随时将其关闭。",
-    "description": "$1 is the method to turn off ipfs"
-  },
-  "ipfsToggleModalSettings": {
-    "message": "设置 > 安全和隐私"
-  },
   "isSigningOrSubmitting": {
     "message": "先前的交易仍在签署或提交中"
-  },
-  "isSigningOrSubmittingPayToken": {
-    "message": "您在该网络上有一笔待定交易。请等待该交易完成，或选择其他网络上的代币。"
   },
   "jazzicons": {
     "message": "Jazzicons"
@@ -5046,9 +4218,6 @@
   },
   "language": {
     "message": "语言"
-  },
-  "lastSold": {
-    "message": "最后售出"
   },
   "lattice": {
     "message": "Lattice",
@@ -5207,9 +4376,6 @@
   "link": {
     "message": "链接"
   },
-  "linkCentralizedExchanges": {
-    "message": "链接您的 Coinbase 或 Binance 账户，将加密货币免费转移到 MetaMask。"
-  },
   "loading": {
     "message": "正在加载..."
   },
@@ -5299,9 +4465,6 @@
   "mainnetToken": {
     "message": "该地址与已知的以太坊主网代币地址匹配。重新检查您尝试添加的代币的合约地址和网络。"
   },
-  "makeAnotherSwap": {
-    "message": "创建新的交换"
-  },
   "makeSmartContractsEasier": {
     "message": "让智能合约更易读懂"
   },
@@ -5347,9 +4510,6 @@
   },
   "marketDetails": {
     "message": "市场详情"
-  },
-  "marketRate": {
-    "message": "市价"
   },
   "maskicons": {
     "message": "Polycons"
@@ -5413,17 +4573,8 @@
     "message": "$1 托管于 npm 上，$2 是此 Snap 的唯一标识符。",
     "description": "$1 is the snap name and $2 is the snap NPM id."
   },
-  "metamaskFee": {
-    "message": "MetaMask 费用"
-  },
   "metamaskNotificationsAreOff": {
     "message": "开启通知"
-  },
-  "metamaskSwap": {
-    "message": "MetaMask Swap"
-  },
-  "metamaskSwapsOfflineDescription": {
-    "message": "MetaMask Swaps 正在进行维护。请稍后再查看。"
   },
   "metamaskVersion": {
     "message": "MetaMask 版本"
@@ -5439,18 +4590,6 @@
   },
   "metrics": {
     "message": "指标"
-  },
-  "minimumReceivedExplanation": {
-    "message": "若交易处理期间价格发生波动，根据您设置的滑点容差范围，此为您至少可获得的代币数量。该估算值由流动性提供商提供，因此实际兑换数量可能有所差异。"
-  },
-  "minimumReceivedExplanationTitle": {
-    "message": "最少可获得的代币数量"
-  },
-  "minimumReceivedLabel": {
-    "message": "最低收款金额"
-  },
-  "minute": {
-    "message": "分钟"
   },
   "mismatchedChainLinkText": {
     "message": "验证网络信息",
@@ -5472,431 +4611,6 @@
   "mismatchedRpcUrl": {
     "message": "根据我们的记录，所提交的RPC URL值与此链 ID 的已知提供者不匹配。"
   },
-  "mmFee": {
-    "message": "$1% MetaMask 费用"
-  },
-  "money": {
-    "message": "Money"
-  },
-  "moneyAccountApyPitchApy": {
-    "message": "$1% 年化收益率",
-    "description": "$1 is the Money Account vault APY percentage shown on the deposit amount screen"
-  },
-  "moneyAccountApyPitchEarn": {
-    "message": "赚取 $1",
-    "description": "$1 is the APY pitch, e.g. \"4% APY\", rendered as hoverable text with a tooltip"
-  },
-  "moneyAccountApyTooltip": {
-    "message": "显示的利率是根据当前市场行情估算的年化收益率 (APY) 。 APY 会随市场波动，并非固定保证。"
-  },
-  "moneyAccountAvailableBalance": {
-    "message": "可用余额：$1",
-    "description": "$1 is the formatted Money Account vault withdrawable balance"
-  },
-  "moneyAccountProjectedBalance": {
-    "message": "预计 1 年后余额:"
-  },
-  "moneyAccountProjectedBalanceTooltip": {
-    "message": "预测基于 $1% 的年化收益率（APY）在一年内保持不变。APY 会随市场波动，并非固定保证。",
-    "description": "$1 is the APY percentage used in the one-year projection"
-  },
-  "moneyActivity": {
-    "message": "活动"
-  },
-  "moneyActivityCard": {
-    "message": "卡"
-  },
-  "moneyActivityConversionFailed": {
-    "message": "兑换失败"
-  },
-  "moneyActivityConverted": {
-    "message": "已兑换"
-  },
-  "moneyActivityConverting": {
-    "message": "正在兑换"
-  },
-  "moneyActivityDepositFailed": {
-    "message": "存款失败"
-  },
-  "moneyActivityDeposited": {
-    "message": "已存款"
-  },
-  "moneyActivityDepositing": {
-    "message": "正在存入"
-  },
-  "moneyActivityDetailsPaidTo": {
-    "message": "支付给"
-  },
-  "moneyActivityDetailsReceivedFrom": {
-    "message": "来自"
-  },
-  "moneyActivityDetailsTransactionId": {
-    "message": "交易 ID"
-  },
-  "moneyActivityDetailsYouEarned": {
-    "message": "您已赚取"
-  },
-  "moneyActivityDetailsYouSpent": {
-    "message": "您已消费"
-  },
-  "moneyActivityDetailsYouWereRefunded": {
-    "message": "已为您退款"
-  },
-  "moneyActivityEmpty": {
-    "message": "暂无活动"
-  },
-  "moneyActivityFilterAll": {
-    "message": "所有"
-  },
-  "moneyActivityFilterCard": {
-    "message": "卡"
-  },
-  "moneyActivityFilterDeposits": {
-    "message": "保证金"
-  },
-  "moneyActivityFilterSends": {
-    "message": "发送"
-  },
-  "moneyActivityLoadError": {
-    "message": "无法加载您的活动记录"
-  },
-  "moneyActivityMusdBack": {
-    "message": "mUSD 返现"
-  },
-  "moneyActivityPending": {
-    "message": "待定"
-  },
-  "moneyActivityPurchase": {
-    "message": "购买"
-  },
-  "moneyActivityReceived": {
-    "message": "已收到"
-  },
-  "moneyActivityReceivedFrom": {
-    "message": "从：$1"
-  },
-  "moneyActivityReceiving": {
-    "message": "正在接收"
-  },
-  "moneyActivityRefund": {
-    "message": "退款"
-  },
-  "moneyActivityRetry": {
-    "message": "重试"
-  },
-  "moneyActivitySendFailed": {
-    "message": "发送失败"
-  },
-  "moneyActivitySending": {
-    "message": "发送中"
-  },
-  "moneyActivitySent": {
-    "message": "已发送"
-  },
-  "moneyActivityTransactionFeeTooltip": {
-    "message": "兑换费用包含网络成本，且可能包含服务商费用。",
-    "description": "Tooltip explaining what the Money account transaction fee covers"
-  },
-  "moneyActivityViewAll": {
-    "message": "查看全部"
-  },
-  "moneyAdd": {
-    "message": "添加"
-  },
-  "moneyApy": {
-    "message": "$1 年化收益率"
-  },
-  "moneyBalanceInfoBody": {
-    "message": "您的由美元支持的 mUSD 余额，始终在赚取收益。我们不会将其计入您的总账户余额。"
-  },
-  "moneyBalanceInfoWithdrawals": {
-    "message": "提现立即处理，但需遵守相关区块链的标准网络确认时间。如果流动性紧张，可能会有临时延迟。"
-  },
-  "moneyBalanceLastKnown": {
-    "message": "最后已知余额"
-  },
-  "moneyBalanceRetry": {
-    "message": "重试"
-  },
-  "moneyBalanceUnavailable": {
-    "message": "余额不可用"
-  },
-  "moneyBalanceUnavailableBannerDescription": {
-    "message": "我们暂时无法显示您的余额。您的资金安全无虞，请稍后重试。"
-  },
-  "moneyBenefitAutoEarn": {
-    "message": "为您的 Money 余额自动赚取收益"
-  },
-  "moneyBenefitAutoEarnWithApy": {
-    "message": "自动赚取高达 $1",
-    "description": "$1 is the current mUSD APY (e.g. ~4.2% APY)."
-  },
-  "moneyBenefitLiquidity": {
-    "message": "享受完全流动性，无锁仓期限制，可随时交易或提现"
-  },
-  "moneyBenefitSend": {
-    "message": "转入您 MetaMask 中的任意钱包"
-  },
-  "moneyBenefitStablecoin": {
-    "message": "将您的资金安全存放于 mUSD（一种 1:1 锚定美元的稳定币）"
-  },
-  "moneyBenefits": {
-    "message": "福利"
-  },
-  "moneyContactSupport": {
-    "message": "联系支持团队"
-  },
-  "moneyConvertYourCrypto": {
-    "message": "兑换加密货币"
-  },
-  "moneyEarnApyTitle": {
-    "message": "赚取最高 $1 年化收益率"
-  },
-  "moneyEarnOnCrypto": {
-    "message": "用您的加密货币赚取收益"
-  },
-  "moneyEarnOnCryptoDescription": {
-    "message": "了解将您的加密货币转换为 mUSD 后，资金如何随时间增值。"
-  },
-  "moneyEarnOnCryptoDescriptionMiddle": {
-    "message": "在资产方面，最高可赚取"
-  },
-  "moneyEarnOnCryptoDescriptionPrefix": {
-    "message": "添加您的"
-  },
-  "moneyEarnOnCryptoDescriptionSuffix": {
-    "message": "（每年）。"
-  },
-  "moneyEarnOnCryptoNoFee": {
-    "message": "不收费"
-  },
-  "moneyEarnSectionAccountProjectedBalanceTooltip": {
-    "message": "预测假设 $1% 的年化收益率（APY）在一年内保持不变。年化收益率会浮动，不作保证。收益不作保证。",
-    "description": "$1 is the APY percentage used in the one-year projection"
-  },
-  "moneyEarnTitle": {
-    "message": "为余额赚取收益"
-  },
-  "moneyEarnings": {
-    "message": "收益"
-  },
-  "moneyExploreBenefits": {
-    "message": "查看您的权益"
-  },
-  "moneyFundDescription": {
-    "message": "为您的 Money Account 充值，见证余额增长。"
-  },
-  "moneyFundDescriptionWithApy": {
-    "message": "为您的 Money Account 充值，享受最高 $1 年化收益率，见证余额增长。"
-  },
-  "moneyHomeApyTooltip": {
-    "message": "显示的利率是当前年化收益率 (APY) 。 APY 会随市场波动，并非固定保证。"
-  },
-  "moneyHomeApyTooltipEarning": {
-    "message": "您的 Money Account 会自动赚取最高 $1 年化收益率。",
-    "description": "$1 is the current Money Account vault APY, e.g. \"6%\"."
-  },
-  "moneyHomeApyTooltipPoweredBy": {
-    "message": "Money Account 由 Monad 提供支持。"
-  },
-  "moneyHowItWorks": {
-    "message": "如何运行"
-  },
-  "moneyHowItWorksDescription": {
-    "message": "添加 mUSD，您的美元挂钩余额即可随时用于消费、交易或转账。"
-  },
-  "moneyHowItWorksDescription1": {
-    "message": "将任意加密货币兑换到您的 Money Account，即可自动赚取最高 $1 的年化收益率（浮动）。资金会进入一个去中心化金融金库，由 Veda 管理，并由 Steakhouse Financial 进行风险监控。该利率由第三方去中心化金融平台产生，这些平台会将资金部署到区块链协议中。无需质押、无需领取、无锁定期。",
-    "description": "$1 is the current mUSD APY, including the percent sign."
-  },
-  "moneyHowItWorksDescriptionWithApy": {
-    "message": "添加 mUSD，赚取最高 $1 年化收益率。您的余额与美元挂钩，可随时消费、交易或转账。",
-    "description": "$1 is the current mUSD APY."
-  },
-  "moneyHowItWorksDisclosuresBody": {
-    "message": "Money Account 并非银行账户、储蓄账户或受保存款产品。年化收益率为浮动值，不作保证。Money Account 涉及智能合约、协议、流动性及其他风险，您可能损失部分或全部资金。受地区限制约束。条款适用。"
-  },
-  "moneyHowItWorksDisclosuresTitle": {
-    "message": "风险与披露"
-  },
-  "moneyHowItWorksFaqApyAnswer": {
-    "message": "最高可享 $1 年化收益率。该利率为浮动利率，随市场情况波动。当前利率始终可在 Money Account 内查看。",
-    "description": "$1 is the current mUSD APY, including the percent sign."
-  },
-  "moneyHowItWorksFaqApyQuestion": {
-    "message": "使用 MetaMask Money Account 能赚取多少收益？"
-  },
-  "moneyHowItWorksFaqCountriesAnswer": {
-    "message": "大多数地区都可以使用！目前暂不支持美国制裁清单上的国家/地区以及英国。"
-  },
-  "moneyHowItWorksFaqCountriesQuestion": {
-    "message": "MetaMask Money Account 在哪些国家/地区可用？"
-  },
-  "moneyHowItWorksFaqFeesAnswer": {
-    "message": "开设 Money Account 不收费，存入稳定币也不收费。存入非稳定币代币时会收取费用。"
-  },
-  "moneyHowItWorksFaqFeesQuestion": {
-    "message": "MetaMask Money Account 有哪些费用？"
-  },
-  "moneyHowItWorksFaqIdentityAnswer": {
-    "message": "不需要，开设 Money Account 无需身份验证。但是，某些功能（包括银行卡和出入金通道）确实需要验证。相关核验由运营受监管服务的第三方提供商执行，而非由 MetaMask 进行。如有需要，系统将在注册过程中引导您于应用内完成操作。"
-  },
-  "moneyHowItWorksFaqIdentityQuestion": {
-    "message": "使用 MetaMask Money Account 是否需要完成身份验证？"
-  },
-  "moneyHowItWorksFaqLockedAnswer": {
-    "message": "可以。您可以随时发送或提取全部余额，不设通知期限，没有罚金，MetaMask 也不会收取提现费。如果流动性紧张，可能会有临时延迟。"
-  },
-  "moneyHowItWorksFaqLockedQuestion": {
-    "message": "我可以随时从 MetaMask Money Account 提款吗？"
-  },
-  "moneyHowItWorksFaqMoneyAccountAnswer": {
-    "message": "这是一个可赚取最高 $1 浮动年化收益率的账户。您存入资金，资金会以 mUSD 形式保存在账户中，并赚取最高 $1 的年化收益率。mUSD 是 MetaMask 的美元支持稳定币。您可以随时使用或提取资金，且无罚金。",
-    "description": "$1 is the current mUSD APY, including the percent sign."
-  },
-  "moneyHowItWorksFaqMoneyAccountQuestion": {
-    "message": "什么是 MetaMask Money Account？"
-  },
-  "moneyHowItWorksFaqTitle": {
-    "message": "常见问题"
-  },
-  "moneyHowItWorksFaqTokensAnswer": {
-    "message": "您可以将以下稳定币和 aToken 存入您的 Money Account，且无需支付兑换费：\n以太坊：USDC、USDT、DAI、aUSDC、aUSDT、aDAI\nArbitrum：USDC\nBase：USDC\nBNB Chain： USDC、USDT\n\n所有其他 EVM 代币都可以存入 Money Account，但可能收取标准费用。您也可以使用借记卡、信用卡、银行账户、PayPal、Apple Pay 或 Google Pay 为 Money Account 充值。\n\n备注： 每种代币的初始最高存款额为 $1，以确保流动性。",
-    "description": "$1 is the maximum initial deposit per token in USD, e.g. \"$100,000\"."
-  },
-  "moneyHowItWorksFaqTokensQuestion": {
-    "message": "我可以将哪些代币存入 Money Account？"
-  },
-  "moneyHowItWorksFaqYieldAnswer": {
-    "message": "当您存入资金时，这些资金会被配置到成熟的去中心化金融协议（例如 Aave 和 Morpho）中，它们通过真实经济活动产生收益。这些收益随后以年化收益率的形式返还给您。\n\n第三方服务提供商 Steakhouse Financial 负责监控资金在协议中的分配情况。第三方基础设施提供商 Veda 负责部署和维护存放您资金的金库智能合约。\n\n收益并非由 MetaMask 或 mUSD 发行方支付的利息，而是通过在第三方去中心化金融协议中持仓所产生的链上收益。"
-  },
-  "moneyHowItWorksFaqYieldQuestion": {
-    "message": "收益从何而来？"
-  },
-  "moneyHowYourMoneyGrows": {
-    "message": "资金增长方式"
-  },
-  "moneyLearnMore": {
-    "message": "了解更多。"
-  },
-  "moneyLifetime": {
-    "message": "累计"
-  },
-  "moneyLifetimeTooltip": {
-    "message": "您通过 Money Account 余额累计赚取的总收益。"
-  },
-  "moneyMeetMusd": {
-    "message": "了解 mUSD"
-  },
-  "moneyMonthlyTooltip": {
-    "message": "过去 30 天内您通过 Money Account 余额赚取的总收益。"
-  },
-  "moneyMoreInformation": {
-    "message": "更多信息"
-  },
-  "moneyMoreOptions": {
-    "message": "更多选项"
-  },
-  "moneyMusd": {
-    "message": "mUSD"
-  },
-  "moneyOnboardingFundTitle": {
-    "message": "为您的 Money Account 充值",
-    "description": "English-only analytics step title for the Money onboarding card, matching mobile's step_title. Not shown in the UI."
-  },
-  "moneySend": {
-    "message": "发送"
-  },
-  "moneyToastDepositFailedBody": {
-    "message": "无法存入资金。请重试。"
-  },
-  "moneyToastDepositFailedBodyConvert": {
-    "message": "无法兑换。请重试。"
-  },
-  "moneyToastDepositFailedTitle": {
-    "message": "存款失败"
-  },
-  "moneyToastDepositFailedTitleAddMusd": {
-    "message": "存入资金失败"
-  },
-  "moneyToastDepositFailedTitleConvert": {
-    "message": "兑换失败"
-  },
-  "moneyToastDepositInProgressDescriptionCard": {
-    "message": "卡订单可能需要几分钟时间。"
-  },
-  "moneyToastDepositInProgressTitleAddMusd": {
-    "message": "正在存入资金"
-  },
-  "moneyToastDepositInProgressTitleCard": {
-    "message": "正在存入"
-  },
-  "moneyToastDepositInProgressTitleConvert": {
-    "message": "正在兑换加密货币"
-  },
-  "moneyToastDepositSuccessDescription": {
-    "message": "已将 $1 存入 Money Account。",
-    "description": "$1 is the formatted fiat amount deposited (e.g. $20.00)"
-  },
-  "moneyToastDepositSuccessDescriptionNoAmount": {
-    "message": "已存入 Money Account。"
-  },
-  "moneyToastDepositSuccessTitleAddMusd": {
-    "message": "已存入资金"
-  },
-  "moneyToastDepositSuccessTitleCard": {
-    "message": "存款完成"
-  },
-  "moneyToastDepositSuccessTitleConvert": {
-    "message": "兑换完成"
-  },
-  "moneyToastInProgressDescription": {
-    "message": "这可能需要几分钟时间。"
-  },
-  "moneyToastWithdrawFailedBody": {
-    "message": "无法转账。请重试。"
-  },
-  "moneyToastWithdrawFailedTitle": {
-    "message": "转账失败"
-  },
-  "moneyToastWithdrawFallbackDestination": {
-    "message": "您的账户"
-  },
-  "moneyToastWithdrawInProgressTitle": {
-    "message": "转账进行中"
-  },
-  "moneyToastWithdrawSuccessDescription": {
-    "message": "已将 $1 转入 $2。",
-    "description": "$1 is the formatted fiat amount withdrawn (e.g. $20.00), $2 is the destination account name"
-  },
-  "moneyToastWithdrawSuccessDescriptionNoAmount": {
-    "message": "已转入 $1。",
-    "description": "$1 is the destination account name"
-  },
-  "moneyToastWithdrawSuccessTitle": {
-    "message": "转账完成"
-  },
-  "moneyTransferBetweenAccounts": {
-    "message": "其他账户"
-  },
-  "moneyTransferComingSoon": {
-    "message": "即将推出"
-  },
-  "moneyTransferPerpsAccount": {
-    "message": "永续合约（Perps）账户"
-  },
-  "moneyTransferSendExternal": {
-    "message": "外部地址"
-  },
-  "moneyTransferTitle": {
-    "message": "发送资金到"
-  },
-  "moneyTransferWithdrawToBank": {
-    "message": "银行账户"
-  },
-  "month": {
-    "message": "月"
-  },
   "monthly": {
     "message": "每月"
   },
@@ -5909,9 +4623,6 @@
   "moreNetworks": {
     "message": "+ 另外 $1 个网络",
     "description": "$1 is the number of networks"
-  },
-  "moreQuotes": {
-    "message": "更多报价"
   },
   "multichainAccountAddressCopied": {
     "message": "地址已复制！",
@@ -5963,86 +4674,13 @@
     "message": "授予 Multichain 提供商对 $1 的访问权限",
     "description": "The parameter is the name of the requesting origin"
   },
-  "multichainQuoteCardRateExplanation": {
-    "message": "我们从服务商找到的最优价格，包括服务商费用及 $1% 的 MetaMask 手续费。"
-  },
-  "multichainQuoteCardRateLabel": {
-    "message": "价格"
-  },
   "multipleSnapConnectionWarning": {
     "message": "$1 想连接 $2 个 snap。",
     "description": "$1 is the dapp and $2 is the number of snaps it wants to connect to."
   },
-  "musdAssetConvertBenefitDailyBonus": {
-    "message": "每日奖励",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertBenefitDollarBacked": {
-    "message": "美元挂钩",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertBenefitNoLockups": {
-    "message": "无锁仓限制",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertBenefitNoMetaMaskFee": {
-    "message": "无 MetaMask 手续费",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertDescriptionHighlight": {
-    "message": "$1% 年化奖励",
-    "description": "Shown in Figma accent lime (#baf24a) inside the mUSD asset details convert section description. $1 is the APY percentage."
-  },
-  "musdAssetConvertDescriptionLead": {
-    "message": "获得 ",
-    "description": "Text before the green APY phrase on the mUSD asset details convert section"
-  },
-  "musdAssetConvertDescriptionTail": {
-    "message": " 通过将 USDC、USDT 和 DAI 兑换为 mUSD。",
-    "description": "Text after the green APY phrase on the mUSD asset details convert section"
-  },
-  "musdAssetConvertLearnMore": {
-    "message": "了解更多。",
-    "description": "Button to open the mUSD support article from the asset details convert section"
-  },
-  "musdAssetConvertTitle": {
-    "message": "兑换您的稳定币",
-    "description": "Title of the convert section on the mUSD asset details page"
-  },
-  "musdAssetPositionBalance": {
-    "message": "余额",
-    "description": "Label in the mUSD asset details Your position section"
-  },
-  "musdAssetPositionTitle": {
-    "message": "您的排名",
-    "description": "Section title on the mUSD asset details page"
-  },
-  "musdAssetPositionValue": {
-    "message": "值",
-    "description": "Label in the mUSD asset details Your position section (fiat value)"
-  },
-  "musdBonusExplanation": {
-    "message": "将您的稳定币兑换为 mUSD，即可赚取高达 $1% 的年化奖励，该奖励每日可领取。$2",
-    "description": "$1 is the bonus APY percentage, $2 is the 'Terms apply' link"
-  },
-  "musdBoostDescription": {
-    "message": "将您的稳定币兑换为 mUSD，即可获得 $1% 的年化奖励。",
-    "description": "$1 is the bonus percentage (e.g., 3)"
-  },
-  "musdBoostTitle": {
-    "message": "获得稳定币的 $1% 奖励",
-    "description": "$1 is the bonus percentage (e.g., 3)"
-  },
-  "musdBuyMusd": {
-    "message": "购买 mUSD"
-  },
   "musdClaimTitle": {
     "message": "领取奖励",
     "description": "Title for the mUSD bonus claim confirmation screen"
-  },
-  "musdConversionFeeTooltipDescription": {
-    "message": "mUSD 兑换费用包含网络费用，并可能包含提供商费用。兑换为 mUSD 时，MetaMask 不收取任何费用。",
-    "description": "Body text shown above the fee breakdown in the transaction fee tooltip for mUSD conversion"
   },
   "musdConversionTitle": {
     "message": "已兑换为 mUSD",
@@ -6060,29 +4698,6 @@
   },
   "musdConversionToastSuccessDescription": {
     "message": "奖励将在一天内可领取。"
-  },
-  "musdConvert": {
-    "message": "兑换"
-  },
-  "musdEducationGetStarted": {
-    "message": "开始使用"
-  },
-  "musdEducationHeadline": {
-    "message": "获得稳定币的 $1% 奖励",
-    "description": "$1 is the bonus APY percentage. Line break between ON and STABLECOINS matches splash layout."
-  },
-  "musdEducationNotNow": {
-    "message": "暂时不"
-  },
-  "musdGetMusd": {
-    "message": "获取 mUSD"
-  },
-  "musdSymbol": {
-    "message": "mUSD",
-    "description": "Token ticker for MetaMask USD (displayed next to balance on the mUSD asset details page)"
-  },
-  "musdTermsApply": {
-    "message": "具体条款适用。"
   },
   "name": {
     "message": "名称"
@@ -6226,12 +4841,6 @@
   "networkFee": {
     "message": "网络费"
   },
-  "networkFeeExplanation": {
-    "message": "网络费用取决于网络的繁忙程度及交易的复杂程度。"
-  },
-  "networkFeeExplanationTitle": {
-    "message": "网络费"
-  },
   "networkMenuHeading": {
     "message": "选择网络"
   },
@@ -6321,27 +4930,11 @@
   "newCustomTokenAdded": {
     "message": "成功添加了 “$1”！"
   },
-  "newNFTDetectedInImportNFTsMessageStrongText": {
-    "message": "设置 > 资产"
-  },
-  "newNFTDetectedInImportNFTsMsg": {
-    "message": "要使用 Opensea 来查看您的 NFT，请在 $1 中打开“显示 NFT 媒体”。",
-    "description": "$1 is used for newNFTDetectedInImportNFTsMessageStrongText"
-  },
-  "newNFTDetectedInNFTsTabMessage": {
-    "message": "让 MetaMask 自动检测并显示您钱包中的 NFT。"
-  },
-  "newNFTsAutodetected": {
-    "message": "NFT 自动检测"
-  },
   "newNetworkAdded": {
     "message": "成功添加了 “$1”！"
   },
   "newNetworkEdited": {
     "message": "“$1” 已经成功编辑！"
-  },
-  "newNftAddedMessage": {
-    "message": "NFT已成功添加！"
   },
   "newPassword": {
     "message": "新密码（至少 8 个字符）"
@@ -6365,30 +4958,9 @@
   "next": {
     "message": "下一步"
   },
-  "nftAddFailedMessage": {
-    "message": "由于所有权信息不匹配，无法添加NFT。请确保所输入的信息正确无误。"
-  },
   "nftAddressError": {
     "message": "此代币是NFT。另加上$1",
     "description": "$1 is a clickable link with text defined by the 'importNFTPage' key"
-  },
-  "nftAlreadyAdded": {
-    "message": "此NFT已添加。"
-  },
-  "nftAutoDetectionEnabled": {
-    "message": "已启用 NFT 自动检测"
-  },
-  "nftEmptyDescription": {
-    "message": "NFT 世界广阔无限，立即开启您的收藏之旅。"
-  },
-  "nftOptions": {
-    "message": "NFT 期权"
-  },
-  "nftTokenIdPlaceholder": {
-    "message": "输入代币ID"
-  },
-  "nftUnsupportedEmptyDescription": {
-    "message": "该网络不支持 NFT。"
   },
   "nftWarningContent": {
     "message": "您正在授予对 $1 的访问权限，包括您将来可能拥有的任何 NFT。另一端的一方可以随时从您的钱包中转账这些NFT，而无需询问您，直到您撤销此授权。$2",
@@ -6403,9 +4975,6 @@
   },
   "nfts": {
     "message": "NFT"
-  },
-  "nftsPreviouslyOwned": {
-    "message": "先前拥有的"
   },
   "nickname": {
     "message": "昵称"
@@ -6430,9 +4999,6 @@
   "noHardwareWalletOrSnapsSupport": {
     "message": "Snaps 和大多数硬件钱包与您的当前浏览器版本不兼容。"
   },
-  "noMMFeeSwapping": {
-    "message": "无 MetaMask 费用"
-  },
   "noNetworkFee": {
     "message": "无网络费"
   },
@@ -6444,12 +5010,6 @@
   },
   "noNetworksSelected": {
     "message": "未选择网络"
-  },
-  "noOptionsAvailableMessage": {
-    "message": "此交易路径目前不可用。请尝试更改金额、网络或者代币，我们会找到最佳选项。"
-  },
-  "noQuoteAvailable": {
-    "message": "暂无报价"
   },
   "noSnaps": {
     "message": "您没有安装 snap。"
@@ -6640,26 +5200,11 @@
   "notificationsSettingsInAppNotifications": {
     "message": "应用内"
   },
-  "notificationsSettingsMarketingConsent": {
-    "message": "启用此选项即表示您同意接收来自 MetaMask 的产品新闻和营销更新。"
-  },
-  "notificationsSettingsMarketingDescription": {
-    "message": "产品更新、功能公告及新版本发布"
-  },
-  "notificationsSettingsMarketingTitle": {
-    "message": "最新动态和奖励"
-  },
   "notificationsSettingsPageAllowNotifications": {
     "message": "选择您要接收通知的内容和方式。"
   },
   "notificationsSettingsPageAllowNotificationsLink": {
     "message": "了解操作方法"
-  },
-  "notificationsSettingsPerpsDescription": {
-    "message": "永续合约仓位变动、清算、资金费率及保证金更新"
-  },
-  "notificationsSettingsPerpsTitle": {
-    "message": "交易活动"
   },
   "notificationsSettingsPushNotifications": {
     "message": "推送"
@@ -6685,54 +5230,17 @@
   "notificationsSettingsWalletActivityTitle": {
     "message": "钱包活动"
   },
-  "numberOfTokens": {
-    "message": "代币数量"
-  },
   "ofTextNofM": {
     "message": "/"
   },
   "off": {
     "message": "关"
   },
-  "offlineForMaintenance": {
-    "message": "离线维护"
-  },
   "ok": {
     "message": "确定"
   },
   "on": {
     "message": "开"
-  },
-  "onboardedMetametricsAccept": {
-    "message": "我同意"
-  },
-  "onboardedMetametricsDisagree": {
-    "message": "不，谢谢"
-  },
-  "onboardedMetametricsKey1": {
-    "message": "最新发展动态"
-  },
-  "onboardedMetametricsKey2": {
-    "message": "产品特点"
-  },
-  "onboardedMetametricsKey3": {
-    "message": "其他相关宣传材料"
-  },
-  "onboardedMetametricsLink": {
-    "message": "MetaMetrics"
-  },
-  "onboardedMetametricsParagraph1": {
-    "message": "除了 $1，我们还想使用数据来了解您如何与营销通信交互。",
-    "description": "$1 represents the 'onboardedMetametricsLink' locale string"
-  },
-  "onboardedMetametricsParagraph2": {
-    "message": "这可以帮助我们个性化与您分享的内容，例如："
-  },
-  "onboardedMetametricsParagraph3": {
-    "message": "请记住，我们绝不会出卖您提供的数据，而且您可以随时选择退出。"
-  },
-  "onboardedMetametricsTitle": {
-    "message": "帮助我们改善您的体验"
   },
   "onboardingAdvancedPrivacyIPFSDescription": {
     "message": "IPFS 网关可让您访问并查看由第三方托管的数据。您可以添加自定义 IPFS 网关或继续使用默认网关。"
@@ -6777,14 +5285,8 @@
   "onboardingMetametricCheckboxDescriptionOneUpdated": {
     "message": "我们将收集基本的产品使用数据，并可能会将这些信息与链上数据关联。"
   },
-  "onboardingMetametricCheckboxDescriptionTwo": {
-    "message": "我们会使用这些数据了解您与营销内容的互动情况，并可能向您推送相关资讯（如产品功能更新）。"
-  },
   "onboardingMetametricCheckboxTitleOne": {
     "message": "收集基本使用数据"
-  },
-  "onboardingMetametricCheckboxTitleTwo": {
-    "message": "产品更新"
   },
   "onboardingMetametricsContinue": {
     "message": "继续"
@@ -6887,9 +5389,6 @@
   "otherSnaps": {
     "message": "其他 snap",
     "description": "Used in the 'permission_rpc' message."
-  },
-  "others": {
-    "message": "其他"
   },
   "outdatedBrowserNotification": {
     "message": "您的浏览器已过期。如果不更新浏览器，您将无法获取MetaMask的安全补丁和新功能。"
@@ -7109,30 +5608,6 @@
   "payWith": {
     "message": "支付方式：",
     "description": "Label for pay with row showing which token is used to pay transaction fees"
-  },
-  "payWithCrypto": {
-    "message": "加密货币",
-    "description": "Section header for crypto payment methods in the Pay with picker"
-  },
-  "payWithEmptySelection": {
-    "message": "选择付款方式",
-    "description": "Placeholder shown in the Pay with row when no payment token is selected"
-  },
-  "payWithModalTitle": {
-    "message": "支付方式：",
-    "description": "Title for the pay with modal that allows users to select which token to pay transaction fees with"
-  },
-  "payWithMoneyAccount": {
-    "message": "Money Account",
-    "description": "Label for paying with the user's Money account in the Pay with picker"
-  },
-  "payWithOtherAssets": {
-    "message": "其他资产",
-    "description": "Row label that opens the full token list in the Pay with picker"
-  },
-  "payWithOtherAssetsDescription": {
-    "message": "从您的代币中选择",
-    "description": "Subtitle for the Other assets row in the Pay with picker"
   },
   "payee": {
     "message": "收款人"
@@ -7469,1045 +5944,20 @@
   "perps": {
     "message": "永续合约"
   },
-  "perps24hVolume": {
-    "message": "24小时交易量"
-  },
-  "perpsActivity": {
-    "message": "活动"
-  },
-  "perpsAddExposure": {
-    "message": "增加敞口"
-  },
-  "perpsAddExposureDescriptionLong": {
-    "message": "增加多头仓位规模"
-  },
-  "perpsAddExposureDescriptionShort": {
-    "message": "增加空头仓位规模"
-  },
   "perpsAddFunds": {
     "message": "充值"
-  },
-  "perpsAddFundsHint": {
-    "message": "向您的 Perps 账户至少存入 $1 才能下达此订单。",
-    "description": "$1 is the minimum order value with currency symbol (e.g., '$10'). Hint shown under the order summary when the Perps account is unfunded."
-  },
-  "perpsAddFundsToTrade": {
-    "message": "存入资金以进行交易"
-  },
-  "perpsAddMargin": {
-    "message": "追加保证金"
-  },
-  "perpsAddMarginDescription": {
-    "message": "追加保证金以降低清算风险"
-  },
-  "perpsAddToFavorites": {
-    "message": "添加到收藏夹"
-  },
-  "perpsAutoClose": {
-    "message": "自动平仓"
-  },
-  "perpsAutoDeleveraging": {
-    "message": "自动降低杠杆",
-    "description": "Badge label for trades executed via auto-deleveraging (ADL)"
-  },
-  "perpsAvailable": {
-    "message": "可用",
-    "description": "is the available balance amount"
-  },
-  "perpsAvailableBalance": {
-    "message": "可用余额: "
-  },
-  "perpsAvailableToAdd": {
-    "message": "可添加"
-  },
-  "perpsAvailableToClose": {
-    "message": "可平仓"
-  },
-  "perpsAvailableToSubtract": {
-    "message": "可减去"
-  },
-  "perpsAvailableToTrade": {
-    "message": "可用于交易",
-    "description": "Label for the available balance that can be used for trading"
   },
   "perpsBalance": {
     "message": "永续合约余额"
   },
-  "perpsBasicFunctionalityOff": {
-    "message": "在基本功能关闭时，此功能不可用。"
-  },
-  "perpsBatchCancelFailed": {
-    "message": "取消一个或多个订单失败。请重试。"
-  },
-  "perpsBatchCloseFailed": {
-    "message": "平掉一个或多个仓位失败。请重试。"
-  },
-  "perpsCancelAllOrders": {
-    "message": "全部取消"
-  },
-  "perpsCancelOrder": {
-    "message": "取消订单"
-  },
-  "perpsCancelOrderFailed": {
-    "message": "订单无法取消。请重试。",
-    "description": "Error shown when cancelling a perps order fails for a reason the trader cannot act on specifically"
-  },
-  "perpsCandleIntervals": {
-    "message": "设置 K 线间隔"
-  },
-  "perpsCandlePeriodDays": {
-    "message": "天"
-  },
-  "perpsCandlePeriodHours": {
-    "message": "小时"
-  },
-  "perpsCandlePeriodMinutes": {
-    "message": "分钟"
-  },
-  "perpsChart": {
-    "message": "价格图表"
-  },
-  "perpsChartLoadError": {
-    "message": "图表数据加载失败"
-  },
-  "perpsCloseAll": {
-    "message": "全部平仓"
-  },
-  "perpsCloseAllDescription": {
-    "message": "我们将按当前市价为您的所有未平仓仓位进行平仓。"
-  },
-  "perpsCloseAllPositions": {
-    "message": "全部平仓"
-  },
-  "perpsCloseAmount": {
-    "message": "平仓金额"
-  },
-  "perpsCloseAmountCappedAtPosition": {
-    "message": "平仓金额上限为您的仓位价值。"
-  },
-  "perpsCloseAmountInPercent": {
-    "message": "%"
-  },
-  "perpsCloseAmountInPercentLabel": {
-    "message": "请输入平仓金额，作为您仓位的百分比"
-  },
-  "perpsCloseAmountInUsd": {
-    "message": "$"
-  },
-  "perpsCloseAmountInUsdLabel": {
-    "message": "请输入以美元计的平仓金额"
-  },
-  "perpsCloseLimitPriceOutsideOracleBand": {
-    "message": "价格与市场价格的偏差不能超过 95%"
-  },
-  "perpsCloseLimitPriceRequired": {
-    "message": "请输入有效的限价以继续。"
-  },
-  "perpsCloseLong": {
-    "message": "平仓多头仓位"
-  },
-  "perpsClosePartialMinNotional": {
-    "message": "部分平仓的美元价值不得低于 $1。请增加平仓金额，或平掉全部仓位。"
-  },
-  "perpsClosePercentCappedAtMax": {
-    "message": "平仓百分比上限为 100%。"
-  },
-  "perpsClosePosition": {
-    "message": "平仓"
-  },
-  "perpsClosePrice": {
-    "message": "平仓价格"
-  },
-  "perpsClosePriceUnavailable": {
-    "message": "暂时无法获取当前价格，请稍后重试。"
-  },
-  "perpsCloseShort": {
-    "message": "平仓空头仓位"
-  },
-  "perpsCollapseChart": {
-    "message": "收起图表"
-  },
-  "perpsConfirmCloseLong": {
-    "message": "平仓多头仓位"
-  },
-  "perpsConfirmCloseShort": {
-    "message": "平仓空头仓位"
-  },
-  "perpsConnectionTimeout": {
-    "message": "连接超时。请重试."
-  },
-  "perpsContactSupport": {
-    "message": "联系支持团队"
-  },
-  "perpsCrossMarginNotSupportedDescription": {
-    "message": "MetaMask 永续合约仅支持逐仓保证金交易。您需要先平掉全仓保证金仓位，才能在 MetaMask 进行交易。"
-  },
-  "perpsCrossMarginNotSupportedTitle": {
-    "message": "不支持全仓保证金"
-  },
-  "perpsCurrentPrice": {
-    "message": "当前价格"
-  },
-  "perpsDateToday": {
-    "message": "今天"
-  },
-  "perpsDateYesterday": {
-    "message": "昨天"
-  },
-  "perpsDepositEmptyTitle": {
-    "message": "保证金",
-    "description": "Title shown for a wallet-tracked deposit transaction on the Activity page when the deposited amount is zero or unknown"
-  },
-  "perpsDepositErrorBridgeFailed": {
-    "message": "跨链桥操作失败"
-  },
-  "perpsDepositFailed": {
-    "message": "存款无法完成。请重试。"
-  },
-  "perpsDepositFundsTitle": {
-    "message": "向永续合约账户存入资金"
-  },
   "perpsDepositTitle": {
     "message": "已注资的永续合约账户"
-  },
-  "perpsDepositToastErrorDescription": {
-    "message": "您的资金未添加至永续合约。请重试。"
-  },
-  "perpsDepositToastErrorTitle": {
-    "message": "向永续合约存款失败"
-  },
-  "perpsDepositToastPendingDescription": {
-    "message": "您的资金稍后即可用于交易。"
-  },
-  "perpsDepositToastPendingTitle": {
-    "message": "正在为永续合约充值"
-  },
-  "perpsDepositToastSuccessDescription": {
-    "message": "资金可立即用于交易"
-  },
-  "perpsDepositToastSuccessTitle": {
-    "message": "您的永续合约账户已充值"
-  },
-  "perpsDepositedVerb": {
-    "message": "已存款",
-    "description": "Verb shown in the title of a wallet-tracked deposit transaction on the Activity page, followed by the amount and asset (e.g. 'Deposited 5.00 USDC')"
-  },
-  "perpsDeposits": {
-    "message": "保证金"
-  },
-  "perpsDetails": {
-    "message": "详情"
-  },
-  "perpsDirection": {
-    "message": "方向"
-  },
-  "perpsDisclaimer": {
-    "message": "永续合约交易存在很大风险，您可能会在毫无预警的情况下瞬间损失全部投资。交易风险完全由您自行承担。技术支持由 Hyperliquid 提供。价格图表由 TradingView 提供。"
-  },
-  "perpsEmptyDescription": {
-    "message": "使用杠杆交易永续合约。开设您的首个仓位即可开始。"
-  },
-  "perpsEntryPrice": {
-    "message": "入场价格"
-  },
-  "perpsEstSize": {
-    "message": "预估规模"
-  },
-  "perpsEstimatedPnlAtStopLoss": {
-    "message": "预估止损盈亏",
-    "description": "Label for estimated profit or loss when stop loss is hit"
-  },
-  "perpsEstimatedPnlAtTakeProfit": {
-    "message": "预估止盈盈亏",
-    "description": "Label for estimated profit or loss when take profit is hit"
-  },
-  "perpsExchangeAccountNotFound": {
-    "message": "充值后即可开始交易。",
-    "description": "Error shown when the wallet has no exchange account yet, which is created on the first deposit"
-  },
-  "perpsExpandChart": {
-    "message": "展开图表"
-  },
-  "perpsExploreMarkets": {
-    "message": "探索市场"
-  },
-  "perpsFees": {
-    "message": "费用"
-  },
-  "perpsFeesTooltipHyperliquidFee": {
-    "message": "Hyperliquid 费用",
-    "description": "Label for the Hyperliquid protocol fee rate in the Perps order summary fees tooltip"
-  },
-  "perpsFeesTooltipMetamaskFee": {
-    "message": "MetaMask 费用",
-    "description": "Label for the MetaMask fee rate in the Perps order summary fees tooltip"
-  },
-  "perpsFeesTooltipProviderFee": {
-    "message": "服务商费用",
-    "description": "Fallback label for the protocol fee rate in the Perps order summary fees tooltip"
-  },
-  "perpsFilterAll": {
-    "message": "所有"
-  },
-  "perpsFilterClear": {
-    "message": "$1，清除筛选条件",
-    "description": "Accessible name of the active market category pill, which clears the filter when pressed. $1 is the category name"
-  },
-  "perpsFilterCommodities": {
-    "message": "大宗商品"
-  },
-  "perpsFilterCrypto": {
-    "message": "加密货币"
-  },
-  "perpsFilterEtf": {
-    "message": "ETF"
-  },
-  "perpsFilterForex": {
-    "message": "外汇"
-  },
-  "perpsFilterIndex": {
-    "message": "指数"
-  },
-  "perpsFilterMemecoins": {
-    "message": "迷因币"
-  },
-  "perpsFilterMore": {
-    "message": "展开",
-    "description": "Trigger of the menu holding the market categories that do not fit the filter rail"
-  },
-  "perpsFilterMoreSelected": {
-    "message": "更多，当前选中：$1",
-    "description": "Accessible name of the category overflow menu when the active filter is inside it. $1 is the selected category"
-  },
-  "perpsFilterNew": {
-    "message": "新增"
-  },
-  "perpsFilterPreIpo": {
-    "message": "上市前"
-  },
-  "perpsFilterStocks": {
-    "message": "股票"
-  },
-  "perpsFundAgain": {
-    "message": "再次入金"
-  },
-  "perpsFunding": {
-    "message": "资金"
-  },
-  "perpsFundingPayments": {
-    "message": "资金费用"
-  },
-  "perpsFundingRate": {
-    "message": "资金费率"
-  },
-  "perpsFundingRateTooltip": {
-    "message": "交易者之间为使价格与市场保持一致而支付的每小时费用。当费率为正时，多头向空头支付费用；为负时，空头向多头支付费用。"
-  },
-  "perpsGeoBlockedDescription": {
-    "message": "由于当地限制或制裁，永续合约交易在您所在地区暂不可用。"
-  },
-  "perpsGeoBlockedTitle": {
-    "message": "永续合约在您所在地区暂不可用"
-  },
-  "perpsGiveFeedback": {
-    "message": "向我们提供反馈"
-  },
-  "perpsIncludesPnl": {
-    "message": "含盈亏 $1"
-  },
-  "perpsInsufficientMargin": {
-    "message": "保证金不足，无法下此订单。"
-  },
-  "perpsKeepPositions": {
-    "message": "保留仓位"
-  },
-  "perpsLearnBasics": {
-    "message": "了解永续合约的基础知识"
-  },
-  "perpsLearnMore": {
-    "message": "了解更多。"
-  },
-  "perpsLeverage": {
-    "message": "杠杆"
-  },
-  "perpsLimit": {
-    "message": "限制"
-  },
-  "perpsLimitPrice": {
-    "message": "限价"
-  },
-  "perpsLimitPriceAboveCurrentPrice": {
-    "message": "限价高于当前价格"
-  },
-  "perpsLimitPriceBelowCurrentPrice": {
-    "message": "限价低于当前价格"
-  },
-  "perpsLimitPriceNearLiquidation": {
-    "message": "当前价格接近预估的清算价格"
-  },
-  "perpsLiquidated": {
-    "message": "已清算",
-    "description": "Badge label for trades that were liquidated"
-  },
-  "perpsLiquidationDistance": {
-    "message": "清算距离"
-  },
-  "perpsLiquidationPrice": {
-    "message": "清算价格"
-  },
-  "perpsLiquidationPriceTooltip": {
-    "message": "若价格达到该点位，您的仓位将被强制平仓并导致保证金全部损失。杠杆越高，这种情况发生的可能性越大。",
-    "description": "Tooltip content for the liquidation price row on the Perps order summary"
-  },
-  "perpsLong": {
-    "message": "做多"
-  },
-  "perpsMargin": {
-    "message": "保证金"
-  },
-  "perpsMarginRiskWarning": {
-    "message": "移除保证金会导致更接近清算价格。请确保您留有足够的缓冲空间。"
-  },
-  "perpsMarginTooltip": {
-    "message": "保证金是您为开仓交易而投入的资金。它作为抵押品，且是您在该交易中可能损失的最大金额。",
-    "description": "Tooltip content for the margin row on the Perps order summary"
-  },
-  "perpsMarket": {
-    "message": "市场型"
-  },
-  "perpsMarketCategories": {
-    "message": "市场类别",
-    "description": "Accessible name of the market list group of category pills"
-  },
-  "perpsMarketCount": {
-    "message": "$1 个市场",
-    "description": "Count of markets currently listed. $1 is the number of markets"
-  },
-  "perpsMarketCountSingular": {
-    "message": "1 个市场",
-    "description": "Count of markets currently listed, when exactly one is listed"
-  },
-  "perpsMarketNotFound": {
-    "message": "未找到市场"
-  },
-  "perpsMarketNotFoundDescription": {
-    "message": "未找到“$1”市场。",
-    "description": "$1 is the market symbol that was not found"
-  },
-  "perpsMarkets": {
-    "message": "市场"
-  },
-  "perpsMid": {
-    "message": "中间价"
-  },
-  "perpsMinOrderSize": {
-    "message": "订单规模必须至少达到 $1",
-    "description": "$1 is the minimum order size with currency symbol (e.g., '$10'). Shown as submit-button copy when the size input is empty or below the minimum."
-  },
-  "perpsModify": {
-    "message": "修改"
-  },
-  "perpsModifyPosition": {
-    "message": "修改仓位"
-  },
-  "perpsMore": {
-    "message": "展开"
-  },
-  "perpsNetworkError": {
-    "message": "发生网络错误。请重试。"
-  },
-  "perpsNoMarketsFound": {
-    "message": "未找到市场"
-  },
-  "perpsNoTransactions": {
-    "message": "暂无交易"
-  },
-  "perpsOpenInterest": {
-    "message": "未平仓合约量"
-  },
-  "perpsOpenInterestTooltip": {
-    "message": "该永续合约所有未平仓头寸的总价值"
-  },
-  "perpsOpenLong": {
-    "message": "开立多头仓位 $1",
-    "description": "$1 is the asset symbol (e.g., BTC, ETH)"
-  },
-  "perpsOpenOrders": {
-    "message": "未平仓订单"
-  },
-  "perpsOpenShort": {
-    "message": "开立空头仓位 $1",
-    "description": "$1 is the asset symbol (e.g., BTC, ETH)"
-  },
-  "perpsOraclePrice": {
-    "message": "预言机价格"
-  },
-  "perpsOraclePriceTooltip": {
-    "message": "由验证器报告的外部价格中位数，用于计算资金费率"
-  },
-  "perpsOrderBook": {
-    "message": "订单簿"
-  },
-  "perpsOrderBookApply": {
-    "message": "应用"
-  },
-  "perpsOrderBookBuy": {
-    "message": "买入：$1%",
-    "description": "Order book buy-side depth percentage label. $1 is the buy percentage."
-  },
-  "perpsOrderBookConfigTitle": {
-    "message": "排列方式与分组方式"
-  },
-  "perpsOrderBookConnectionError": {
-    "message": "订单簿连接丢失"
-  },
-  "perpsOrderBookDepthRatio": {
-    "message": "买入 $1%，卖出 $2%",
-    "description": "Accessible label for the order book buy/sell depth ratio bar. $1 is the buy percentage, $2 is the sell percentage."
-  },
-  "perpsOrderBookGroupBy": {
-    "message": "分组依据"
-  },
-  "perpsOrderBookLayout": {
-    "message": "订单簿布局"
-  },
-  "perpsOrderBookLayoutLeft": {
-    "message": "左"
-  },
-  "perpsOrderBookLayoutRight": {
-    "message": "右"
-  },
-  "perpsOrderBookListedBy": {
-    "message": "排序依据"
-  },
-  "perpsOrderBookLoading": {
-    "message": "正在加载订单簿"
-  },
-  "perpsOrderBookNoData": {
-    "message": "无订单簿数据"
-  },
-  "perpsOrderBookPrice": {
-    "message": "价格"
-  },
-  "perpsOrderBookReconnect": {
-    "message": "重新连接"
-  },
-  "perpsOrderBookReconnecting": {
-    "message": "正在重新连接订单簿"
-  },
-  "perpsOrderBookResize": {
-    "message": "调整订单簿大小"
-  },
-  "perpsOrderBookSell": {
-    "message": "卖出：$1%",
-    "description": "Order book sell-side depth percentage label. $1 is the sell percentage."
-  },
-  "perpsOrderBookSize": {
-    "message": "规模"
-  },
-  "perpsOrderBookSpread": {
-    "message": "买卖差价"
-  },
-  "perpsOrderBookTotal": {
-    "message": "共计"
-  },
-  "perpsOrderBookUsePrice": {
-    "message": "使用 $1 作为限价",
-    "description": "Accessible label for a tappable order book price row. $1 is the formatted price; selecting it switches the order form to a limit order prefilled with this price."
-  },
-  "perpsOrderBookValueType": {
-    "message": "价值类型"
-  },
-  "perpsOrderBookViewModeBoth": {
-    "message": "显示买盘和卖盘的订单簿",
-    "description": "Accessible label for the order book view toggle when both buy and sell sides are visible. Activating cycles to bids only."
-  },
-  "perpsOrderBookViewModeBuy": {
-    "message": "仅显示买盘的订单簿",
-    "description": "Accessible label for the order book view toggle when only the buy (bid) side is visible. Activating cycles to asks only."
-  },
-  "perpsOrderBookViewModeSell": {
-    "message": "仅显示卖盘的订单簿",
-    "description": "Accessible label for the order book view toggle when only the sell (ask) side is visible. Activating cycles back to both sides."
-  },
-  "perpsOrderDate": {
-    "message": "日期"
-  },
-  "perpsOrderFailed": {
-    "message": "无法下单。请重试。"
-  },
-  "perpsOrderFilled": {
-    "message": "已成交"
-  },
-  "perpsOrderOriginalSize": {
-    "message": "原始规模"
-  },
-  "perpsOrderRejected": {
-    "message": "您的订单被拒绝。请重试。"
-  },
-  "perpsOrderStatus": {
-    "message": "状态"
-  },
-  "perpsOrderTotalFee": {
-    "message": "总费用"
-  },
-  "perpsOrderType": {
-    "message": "订单类型"
-  },
-  "perpsOrderValue": {
-    "message": "订单价值"
-  },
-  "perpsOrders": {
-    "message": "订单"
-  },
-  "perpsPerpMarketSubtitle": {
-    "message": "$1-$2 永续合约",
-    "description": "$1 is the market ticker (e.g. BTC), $2 is the collateral asset (e.g. USDC). Shown as the market pair subtitle on the perps market detail header, e.g. 'BTC-USDC perp'."
-  },
-  "perpsPnl": {
-    "message": "损益"
-  },
-  "perpsPosition": {
-    "message": "仓位"
-  },
-  "perpsPositions": {
-    "message": "头寸"
-  },
-  "perpsProducts": {
-    "message": "产品",
-    "description": "Heading of the Perps tab section listing market categories as chips"
-  },
-  "perpsRateLimitExceeded": {
-    "message": "请求次数过多。请稍等片刻，然后重试。"
-  },
-  "perpsRecentActivity": {
-    "message": "最近活动"
-  },
-  "perpsReduceExposure": {
-    "message": "减少风险敞口"
-  },
-  "perpsReduceExposureDescriptionLong": {
-    "message": "减少多头仓位规模"
-  },
-  "perpsReduceExposureDescriptionShort": {
-    "message": "减少空头仓位规模"
-  },
-  "perpsReduceOnly": {
-    "message": "仅减仓"
-  },
-  "perpsRemoveFromFavorites": {
-    "message": "从收藏夹中移除"
-  },
-  "perpsRemoveMargin": {
-    "message": "移除保证金"
-  },
-  "perpsRemoveMarginDescription": {
-    "message": "从仓位提取多余保证金"
-  },
-  "perpsReturn": {
-    "message": "回报率"
-  },
-  "perpsReversePosition": {
-    "message": "反转仓位"
-  },
-  "perpsReversePositionDescriptionLong": {
-    "message": "将您的多头仓位转为空头仓位"
-  },
-  "perpsReversePositionDescriptionShort": {
-    "message": "将您的空头仓位转为多头仓位"
-  },
-  "perpsSaveChanges": {
-    "message": "保存更改",
-    "description": "Button text for saving TP/SL changes"
-  },
-  "perpsSearchMarkets": {
-    "message": "搜索市场"
-  },
-  "perpsSeeAll": {
-    "message": "查看全部",
-    "description": "Accessible label for the arrow button that navigates to the full activity list"
-  },
-  "perpsServiceUnavailable": {
-    "message": "服务暂时不可用。请稍后再试。"
-  },
-  "perpsShort": {
-    "message": "做空"
-  },
-  "perpsSize": {
-    "message": "规模"
-  },
-  "perpsSlippage": {
-    "message": "滑点"
-  },
-  "perpsSlippageConfigDescription": {
-    "message": "如果价格波动超出此阈值，您的交易将无法完成。"
-  },
-  "perpsSlippageConfigTitle": {
-    "message": "设置滑移"
-  },
-  "perpsSlippageCustom": {
-    "message": "自定义"
-  },
-  "perpsSlippageEditAriaLabel": {
-    "message": "编辑最大滑移"
-  },
-  "perpsSlippageExceeded": {
-    "message": "滑移超出限制。请调整您的滑移容差，然后重试。"
-  },
-  "perpsSlippageExceedsMax": {
-    "message": "预估滑移（$1%）超过您的最大滑移（$2%）。请提高上限或缩小订单规模。",
-    "description": "$1 is estimated slippage percent, $2 is max slippage percent"
-  },
-  "perpsSlippageInputLabel": {
-    "message": "最大滑移百分比"
-  },
-  "perpsSlippageOutOfRange": {
-    "message": "输入 $1% 至 $2% 之间的值",
-    "description": "$1 is min percent, $2 is max percent"
-  },
-  "perpsSlippageRowFormat": {
-    "message": "预估：$1% / 最大：$2%",
-    "description": "$1 is estimated slippage percent, $2 is max slippage percent"
-  },
-  "perpsSlippageRowFormatPending": {
-    "message": "预估：-- / 最大：$1%",
-    "description": "$1 is max slippage percent"
-  },
-  "perpsSlippageSet": {
-    "message": "设置"
-  },
-  "perpsSortByFundingRate": {
-    "message": "资金费率"
-  },
-  "perpsSortByHighToLow": {
-    "message": "从高到低"
-  },
-  "perpsSortByLowToHigh": {
-    "message": "从低到高"
-  },
-  "perpsSortByOpenInterest": {
-    "message": "未平仓合约量"
-  },
-  "perpsSortByPriceChange": {
-    "message": "价格变化"
-  },
-  "perpsSortByTitle": {
-    "message": "排序方式"
-  },
-  "perpsSortByVolume": {
-    "message": "交易量"
-  },
-  "perpsStartNewTrade": {
-    "message": "开始新交易"
-  },
-  "perpsStartTrading": {
-    "message": "开始交易"
-  },
-  "perpsStats": {
-    "message": "统计数据"
-  },
-  "perpsStatusCanceled": {
-    "message": "已取消"
-  },
-  "perpsStatusCompleted": {
-    "message": "已完成"
-  },
-  "perpsStatusFailed": {
-    "message": "失败"
-  },
-  "perpsStatusFilled": {
-    "message": "已成交"
-  },
-  "perpsStatusOpen": {
-    "message": "未平仓"
-  },
-  "perpsStatusPending": {
-    "message": "待定"
-  },
-  "perpsStatusQueued": {
-    "message": "队列中"
-  },
-  "perpsStatusRejected": {
-    "message": "已拒绝"
-  },
-  "perpsStatusTriggered": {
-    "message": "已触发"
-  },
-  "perpsStopLoss": {
-    "message": "止损",
-    "description": "Label for stop loss price input"
-  },
-  "perpsStopLossInvalidLiquidationPrice": {
-    "message": "止损必须为 $1 清算价格",
-    "description": "Validation error when stop loss price is on the wrong side of the liquidation price. $1 is above/below."
-  },
-  "perpsStopLossInvalidPrice": {
-    "message": "止损价必须为 $1 $2",
-    "description": "Validation error when stop loss price is on the wrong side of the reference price. $1 is above/below, $2 is current/entry."
-  },
-  "perpsSubmitting": {
-    "message": "正在提交......",
-    "description": "Loading text shown while an order is being submitted"
-  },
-  "perpsTakeProfit": {
-    "message": "止盈",
-    "description": "Label for take profit price input"
-  },
-  "perpsTakeProfitInvalidPrice": {
-    "message": "止盈价必须为 $1 $2",
-    "description": "Validation error when take profit price is on the wrong side of the reference price. $1 is above/below, $2 is current/entry."
-  },
-  "perpsToastCancelOrderAlreadyClosed": {
-    "message": "此订单已关闭",
-    "description": "Success toast text shown when a perps order was already filled or cancelled before the cancel request reached the provider"
-  },
-  "perpsToastCancelOrderFailed": {
-    "message": "取消订单失败",
-    "description": "Error toast text shown when cancelling a perps limit order fails"
-  },
-  "perpsToastCancelOrderSuccess": {
-    "message": "订单已取消",
-    "description": "Success toast text shown when a perps limit order is successfully cancelled"
-  },
-  "perpsToastCloseAllFailed": {
-    "message": "未能平掉全部仓位",
-    "description": "Error toast text shown when batch closing all perps positions fails"
-  },
-  "perpsToastCloseAllInProgress": {
-    "message": "正在平掉所有仓位",
-    "description": "In-progress toast text shown while batch closing all perps positions"
-  },
-  "perpsToastCloseAllPartial": {
-    "message": "已平掉 $1 / $2 个仓位",
-    "description": "Warning toast text shown when only some perps positions were successfully closed. $1 is success count, $2 is total attempted count."
-  },
-  "perpsToastCloseAllSuccess": {
-    "message": "所有仓位已平仓",
-    "description": "Success toast text shown when all perps positions are successfully closed"
-  },
-  "perpsToastCloseFailed": {
-    "message": "平仓失败",
-    "description": "Error toast text shown when closing a perps position fails"
-  },
-  "perpsToastCloseInProgress": {
-    "message": "平仓中",
-    "description": "In-progress toast text shown while closing a perps position"
-  },
-  "perpsToastClosePnlSubtitle": {
-    "message": "您的盈亏为 $1",
-    "description": "$1 is the formatted PnL percentage for a closed position"
-  },
-  "perpsToastLimitCloseFailed": {
-    "message": "平仓订单提交失败",
-    "description": "Error toast text shown when placing a full-position perps limit close order fails"
-  },
-  "perpsToastMarginAddSuccess": {
-    "message": "向 $2 仓位添加了 $1 保证金",
-    "description": "$1 is the dollar-prefixed amount (e.g. $100) and $2 is the asset symbol for successful margin addition"
-  },
-  "perpsToastMarginAdjustmentFailed": {
-    "message": "保证金调整失败",
-    "description": "Error toast text shown when adding or removing margin fails"
-  },
-  "perpsToastMarginAdjustmentFailedDescriptionFallback": {
-    "message": "无法调整保证金。请重试。",
-    "description": "Fallback description shown when margin adjustment fails without a usable error message."
-  },
-  "perpsToastMarginRemoveSuccess": {
-    "message": "从 $2 仓位去除了 $1 保证金",
-    "description": "$1 is the dollar-prefixed amount (e.g. $100) and $2 is the asset symbol for successful margin removal"
-  },
-  "perpsToastOrderFailed": {
-    "message": "订单下达失败",
-    "description": "Error toast text shown when placing a perps order fails"
-  },
-  "perpsToastOrderFailedDescriptionFallback": {
-    "message": "您的资金已退回给您",
-    "description": "Fallback order failure subtitle shown when no specific order error is available"
-  },
-  "perpsToastOrderFilled": {
-    "message": "订单已成交",
-    "description": "Success toast text shown when a perps market order is filled"
-  },
-  "perpsToastOrderPlaced": {
-    "message": "订单已下达",
-    "description": "Success toast text shown when a perps limit order is accepted"
-  },
-  "perpsToastOrderSubmitted": {
-    "message": "订单已提交",
-    "description": "In-progress toast text shown while a perps order is being submitted"
-  },
-  "perpsToastPartialCloseFailed": {
-    "message": "部分平仓失败",
-    "description": "Error toast text shown when a perps position is partially closed and fails"
-  },
-  "perpsToastPartialCloseInProgress": {
-    "message": "正在部分平仓",
-    "description": "In-progress toast text shown while a perps position is being partially closed"
-  },
-  "perpsToastPartialCloseSuccess": {
-    "message": "仓位已部分平仓",
-    "description": "Success toast text shown when a perps position is partially closed"
-  },
-  "perpsToastPartialLimitCloseFailed": {
-    "message": "部分平仓订单提交失败",
-    "description": "Error toast text shown when placing a partial perps limit close order fails"
-  },
-  "perpsToastPositionStillActive": {
-    "message": "您的仓位仍有效",
-    "description": "Subtitle shown in perps close failure toasts when the position remains open"
-  },
-  "perpsToastReverseFailed": {
-    "message": "反转仓位失败",
-    "description": "Error toast text shown when reversing a perps position fails"
-  },
-  "perpsToastReverseInProgress": {
-    "message": "正在反转仓位",
-    "description": "In-progress toast text shown while reversing a perps position"
-  },
-  "perpsToastReverseSuccess": {
-    "message": "仓位已反转",
-    "description": "Success toast text shown when a perps position is reversed"
-  },
-  "perpsToastSubmitInProgress": {
-    "message": "正在提交您的交易",
-    "description": "In-progress toast text shown while a perps trade is being submitted"
-  },
-  "perpsToastTradeEntryFailed": {
-    "message": "无法打开交易页面",
-    "description": "Error toast text shown when opening the perps order form from an asset page fails"
-  },
-  "perpsToastTradeSuccess": {
-    "message": "仓位已平仓",
-    "description": "Success toast text shown when a perps position is closed"
-  },
-  "perpsToastUpdateFailed": {
-    "message": "更新止盈/止损失败",
-    "description": "Error toast text shown when updating TP/SL settings fails"
-  },
-  "perpsToastUpdateInProgress": {
-    "message": "正在更新止盈/止损……",
-    "description": "In-progress toast text shown while updating TP/SL settings"
-  },
-  "perpsToastUpdateSuccess": {
-    "message": "止盈/止损更新成功",
-    "description": "Success toast text shown when TP/SL settings are updated"
-  },
-  "perpsTopMovers": {
-    "message": "热门涨跌榜",
-    "description": "Heading of the Perps tab section ranking markets by 24h price change"
-  },
-  "perpsTopMoversGainers": {
-    "message": "涨幅榜",
-    "description": "Toggle option showing the markets that rose the most over 24h in the Top movers section"
-  },
-  "perpsTopMoversLosers": {
-    "message": "跌幅榜",
-    "description": "Toggle option showing the markets that fell the most over 24h in the Top movers section"
-  },
-  "perpsTrades": {
-    "message": "交易"
-  },
-  "perpsTransactionTitleOpenedLong": {
-    "message": "已开设多头仓位"
-  },
-  "perpsTriggerPrice": {
-    "message": "触发价格"
-  },
-  "perpsTutorialChooseLeverageDescription": {
-    "message": "杠杆交易会同步放大收益和亏损。使用 40 倍杠杆时，1% 的价格波动将导致保证金产生 40% 的盈利或亏损。"
-  },
-  "perpsTutorialChooseLeverageTitle": {
-    "message": "选择您的杠杆"
-  },
-  "perpsTutorialCloseAnytimeDescription": {
-    "message": "随时可以平仓。平仓后将获得保证金余额，并获得盈利或扣除亏损。"
-  },
-  "perpsTutorialCloseAnytimeTitle": {
-    "message": "随时平仓"
-  },
-  "perpsTutorialContinue": {
-    "message": "继续"
-  },
-  "perpsTutorialGoLongShortDescription": {
-    "message": "选择要做多或做空的代币，然后设置订单规模。"
-  },
-  "perpsTutorialGoLongShortSubtitle": {
-    "message": "若价格上涨，做多即可获利；若价格下跌，做空即可获利。"
-  },
-  "perpsTutorialGoLongShortTitle": {
-    "message": "做多或做空代币"
-  },
-  "perpsTutorialLetsGo": {
-    "message": "立即开始"
-  },
-  "perpsTutorialReadyToTradeDescription": {
-    "message": "可使用任意代币为永续合约账户注资，极速完成首笔交易。"
-  },
-  "perpsTutorialReadyToTradeTitle": {
-    "message": "准备好交易了吗？"
-  },
-  "perpsTutorialSkip": {
-    "message": "跳过"
-  },
-  "perpsTutorialWatchLiquidationDescription": {
-    "message": "若代币价格触及清算价，您将损失全部保证金。杠杆倍数越高，意味着可避免清算的缓冲空间越小。"
-  },
-  "perpsTutorialWatchLiquidationTitle": {
-    "message": "注意清算风险"
-  },
-  "perpsTutorialWhatArePerpsDescription": {
-    "message": "MetaMask 现已支持永续合约，让您无需购买代币即可根据其价格走势进行交易。"
-  },
-  "perpsTutorialWhatArePerpsSubtitle": {
-    "message": "运作方式如下。"
-  },
-  "perpsTutorialWhatArePerpsTitle": {
-    "message": "什么是永续合约？"
-  },
-  "perpsUnrealizedPnl": {
-    "message": "未实现盈亏"
-  },
-  "perpsUnsupportedCollateral": {
-    "message": "该市场使用不受支持的抵押品，因此无法进行交易。"
-  },
-  "perpsWatchlist": {
-    "message": "关注列表"
   },
   "perpsWithdraw": {
     "message": "提取"
   },
-  "perpsWithdrawEstimatedTime": {
-    "message": "预计时间"
-  },
-  "perpsWithdrawFailed": {
-    "message": "提现无法完成。请重试。"
-  },
-  "perpsWithdrawFee": {
-    "message": "服务商费用"
-  },
   "perpsWithdrawFundsTitle": {
     "message": "提取"
-  },
-  "perpsWithdrawInsufficient": {
-    "message": "金额超出您的可用永续合约余额。"
-  },
-  "perpsWithdrawInvalidAddress": {
-    "message": "请输入有效的目标地址。"
-  },
-  "perpsWithdrawInvalidAmount": {
-    "message": "请输入有效金额。"
-  },
-  "perpsWithdrawMinNotice": {
-    "message": "最小提现金额：$1 USDC",
-    "description": "$1 is the minimum amount (e.g. 1.01)"
-  },
-  "perpsWithdrawMinutesApprox": {
-    "message": "~$1 分钟",
-    "description": "$1 is the estimated number of minutes"
-  },
-  "perpsWithdrawNoAccount": {
-    "message": "未选择账户。请选择一个账户后重试。"
   },
   "perpsWithdrawPostQuoteToastErrorDescription": {
     "message": "提款处理失败"
@@ -8530,40 +5980,6 @@
   },
   "perpsWithdrawPostQuoteToastSuccessTitle": {
     "message": "提取完成"
-  },
-  "perpsWithdrawReceive": {
-    "message": "收款"
-  },
-  "perpsWithdrawRoutesError": {
-    "message": "无法加载提现限额。请稍后重试。"
-  },
-  "perpsWithdrawToastErrorTitle": {
-    "message": "提款失败"
-  },
-  "perpsWithdrawToastSuccessDescription": {
-    "message": "我们正在处理 $1。资金通常会在几分钟内到账。",
-    "description": "$1 is the formatted withdrawal amount"
-  },
-  "perpsWithdrawToastSuccessTitle": {
-    "message": "提现已提交"
-  },
-  "perpsWithdrawTooltip": {
-    "message": "MetaMask 将为您兑换为您想要的代币。兑换至 mUSD 时，MetaMask 不收取任何费用。",
-    "description": "Tooltip shown on the Transaction fee row of the Perps Withdraw confirmation"
-  },
-  "perpsWithdrawalEmptyTitle": {
-    "message": "提取",
-    "description": "Title shown for a wallet-tracked withdrawal transaction on the Activity page when the withdrawn amount is zero or unknown"
-  },
-  "perpsWithdrewVerb": {
-    "message": "已提现",
-    "description": "Verb shown in the title of a wallet-tracked withdrawal transaction on the Activity page, followed by the amount and asset (e.g. 'Withdrew 5.00 USDC')"
-  },
-  "perpsYouReceive": {
-    "message": "您收到"
-  },
-  "perpsYouWillReceive": {
-    "message": "您将收到"
   },
   "personalAddressDetected": {
     "message": "检测到个人地址。请输入代币合约地址。"
@@ -8617,9 +6033,6 @@
   },
   "price": {
     "message": "价格"
-  },
-  "priceUnavailable": {
-    "message": "价格不可用"
   },
   "primaryType": {
     "message": "主要类型"
@@ -8786,240 +6199,6 @@
   "quizIntroduction": {
     "message": "要查看私钥助记词，您需要答对两个问题."
   },
-  "quotedTotalCost": {
-    "message": "总成本：$1"
-  },
-  "rampsBackToWallet": {
-    "message": "返回钱包",
-    "description": "Secondary button on the ramps complete-buy interstitial that returns to the wallet home"
-  },
-  "rampsBestRate": {
-    "message": "最优价格"
-  },
-  "rampsBuyToken": {
-    "message": "购买 $1",
-    "description": "$1 is the token symbol being purchased"
-  },
-  "rampsBuyWidgetError": {
-    "message": "无法开始您的购买。请重试。"
-  },
-  "rampsBuyingViaProvider": {
-    "message": "正在通过$1购买。",
-    "description": "$1 is the ramp provider name"
-  },
-  "rampsChangeProvider": {
-    "message": "更换提供商。"
-  },
-  "rampsChangeProviders": {
-    "message": "更换提供商",
-    "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "选择提供商"
-  },
-  "rampsCompleteBuyTitle": {
-    "message": "完成买入",
-    "description": "Title of the interstitial shown after opening a ramps provider checkout tab"
-  },
-  "rampsCompletePurchaseInProviderTab": {
-    "message": "请在 $1 标签页中完成您的购买",
-    "description": "$1 is the on-ramp provider name (e.g. Transak)"
-  },
-  "rampsContinueInBrowser": {
-    "message": "在浏览器中继续",
-    "description": "Banner title on the ramps complete-buy interstitial"
-  },
-  "rampsEligibilityFailedDescription": {
-    "message": "请重试；如果问题持续出现，请联系客服。"
-  },
-  "rampsEligibilityFailedTitle": {
-    "message": "无法验证您所在的地区"
-  },
-  "rampsErrorLoadingPaymentMethods": {
-    "message": "加载支付方式时出错"
-  },
-  "rampsErrorLoadingTokens": {
-    "message": "加载代币时出错"
-  },
-  "rampsEstimatedToReceive": {
-    "message": "预计收到",
-    "description": "Label for the estimated crypto amount on the ramps complete-buy interstitial"
-  },
-  "rampsMaxPurchaseLimit": {
-    "message": "最高购买金额为 $1",
-    "description": "$1 is the formatted maximum fiat amount"
-  },
-  "rampsMinPurchaseLimit": {
-    "message": "最低购买金额为 $1",
-    "description": "$1 is the formatted minimum fiat amount"
-  },
-  "rampsMostReliable": {
-    "message": "最可靠"
-  },
-  "rampsNoPaymentMethodsAvailable": {
-    "message": "无可用支付方式。"
-  },
-  "rampsNoProvidersAvailable": {
-    "message": "没有可用的提供商。"
-  },
-  "rampsNoTokensAvailable": {
-    "message": "无可用代币"
-  },
-  "rampsOnNetwork": {
-    "message": "在 $1 上",
-    "description": "$1 is the network name"
-  },
-  "rampsOrderDetailsBankDetails": {
-    "message": "银行转账详情"
-  },
-  "rampsOrderDetailsBuyAgain": {
-    "message": "再次买入"
-  },
-  "rampsOrderDetailsFees": {
-    "message": "费用"
-  },
-  "rampsOrderDetailsOrderId": {
-    "message": "订单 ID"
-  },
-  "rampsOrderDetailsPaidWith": {
-    "message": "已使用以下支付方式付款：",
-    "description": "Label for the payment method used on a ramp order"
-  },
-  "rampsOrderDetailsProviderFee": {
-    "message": "$1 费用",
-    "description": "$1 is the ramp provider name for the fee row label"
-  },
-  "rampsOrderDetailsTotal": {
-    "message": "共计"
-  },
-  "rampsOrderDetailsViewOnProvider": {
-    "message": "在 $1 上查看"
-  },
-  "rampsOrderToastFailedDescription": {
-    "message": "您的订单处理出错。",
-    "description": "Description for the failed ramp buy order toast"
-  },
-  "rampsOrderToastFailedTitle": {
-    "message": "购买失败",
-    "description": "Title for the failed ramp buy order toast"
-  },
-  "rampsOrderToastPendingDescription": {
-    "message": "您的订单正在处理中。",
-    "description": "Description for the pending ramp buy order toast"
-  },
-  "rampsOrderToastPendingTitle": {
-    "message": "买入进行中",
-    "description": "Title for the pending ramp buy order toast"
-  },
-  "rampsOrderToastSellFailedDescription": {
-    "message": "您的订单处理出错。",
-    "description": "Description for the failed ramp sell order toast"
-  },
-  "rampsOrderToastSellFailedTitle": {
-    "message": "出售失败",
-    "description": "Title for the failed ramp sell order toast"
-  },
-  "rampsOrderToastSellPendingDescription": {
-    "message": "您的订单正在处理中。",
-    "description": "Description for the pending ramp sell order toast"
-  },
-  "rampsOrderToastSellPendingTitle": {
-    "message": "卖出进行中",
-    "description": "Title for the pending ramp sell order toast"
-  },
-  "rampsOrderToastSellSuccessDescription": {
-    "message": "您的资金正在划转中。",
-    "description": "Description for the successful ramp sell order toast"
-  },
-  "rampsOrderToastSellSuccessTitle": {
-    "message": "卖出成功",
-    "description": "Title for the successful ramp sell order toast"
-  },
-  "rampsOrderToastSuccessDescription": {
-    "message": "您的加密货币正在划转中。",
-    "description": "Description for the successful ramp buy order toast"
-  },
-  "rampsOrderToastSuccessTitle": {
-    "message": "买入成功",
-    "description": "Title for the successful ramp buy order toast"
-  },
-  "rampsPayWith": {
-    "message": "支付方式："
-  },
-  "rampsPaymentDelayBusinessDay": {
-    "message": "工作日"
-  },
-  "rampsPaymentDelayBusinessDays": {
-    "message": "工作日"
-  },
-  "rampsPaymentDelayHour": {
-    "message": "小时"
-  },
-  "rampsPaymentDelayHours": {
-    "message": "小时"
-  },
-  "rampsPaymentDelayInstant": {
-    "message": "即时"
-  },
-  "rampsPaymentDelayLessThan": {
-    "message": "<"
-  },
-  "rampsPaymentDelayMinute": {
-    "message": "分钟"
-  },
-  "rampsPaymentDelayMinutes": {
-    "message": "分钟"
-  },
-  "rampsPaymentMethod": {
-    "message": "支付方式",
-    "description": "Label for the provider shown as the payment method on the ramps complete-buy interstitial"
-  },
-  "rampsPaymentMethodLimits": {
-    "message": "$1 限额",
-    "description": "$1 is the maximum fiat buy amount"
-  },
-  "rampsPaymentMethodMinLimit": {
-    "message": "最低 $1",
-    "description": "$1 is the minimum fiat buy amount"
-  },
-  "rampsPreviouslyUsed": {
-    "message": "上次使用"
-  },
-  "rampsQuoteFetchError": {
-    "message": "获取报价时出错。请输入较小的金额或"
-  },
-  "rampsQuoteUnavailable": {
-    "message": "报价不可用。"
-  },
-  "rampsSelectPaymentMethod": {
-    "message": "选择付款方式"
-  },
-  "rampsServiceDisruptionDescription": {
-    "message": "服务目前中断，请稍后重试。"
-  },
-  "rampsServiceDisruptionTitle": {
-    "message": "购买功能暂时不可用"
-  },
-  "rampsTokenUnavailableDescription": {
-    "message": "您所在的地区暂不支持此代币。",
-    "description": "Body copy of the modal opened from the info button next to a token that cannot be bought in the user's region or via an available provider (TRAM-3710/TRAM-3961)"
-  },
-  "rampsTokenUnavailableTitle": {
-    "message": "此代币不可用",
-    "description": "Title of the modal opened from the info button next to a token that cannot be bought in the user's region or via an available provider (TRAM-3710/TRAM-3961). Also used as the info button's accessible label"
-  },
-  "rampsUnsupportedDescription": {
-    "message": "您所在的地区暂不支持购买加密货币。"
-  },
-  "rampsUnsupportedTitle": {
-    "message": "此地区暂不支持购买"
-  },
-  "rank": {
-    "message": "排名"
-  },
-  "rateIncludesMMFee": {
-    "message": "包含 $1% 的 MM 手续费。"
-  },
   "readdToken": {
     "message": "您可以之后通过代币菜单中的“管理代币”将此代币重新添加回来"
   },
@@ -9049,9 +6228,6 @@
   },
   "recipientAddressPlaceholderNew": {
     "message": "输入公钥 (0x) 或域名"
-  },
-  "recipientEditAriaLabel": {
-    "message": "编辑收款人"
   },
   "recipientPlaceholderText": {
     "message": "输入或粘贴地址/域名 (ENS)"
@@ -9089,9 +6265,6 @@
   "rejected": {
     "message": "已拒绝"
   },
-  "relayerFee": {
-    "message": "中继器费用"
-  },
   "remindMeLater": {
     "message": "明白了",
     "description": "Secondary action to postpone replacing a legacy passkey."
@@ -9126,15 +6299,6 @@
   },
   "removeKeyringSnapToolTip": {
     "message": "Snap控制这些账户，去除此Snap，会同时将这些账户从MetaMask中去除，但账户将保留在区块链中。"
-  },
-  "removeNFT": {
-    "message": "删除 NFT"
-  },
-  "removeNftErrorMessage": {
-    "message": "我们无法去除此 NFT。"
-  },
-  "removeNftMessage": {
-    "message": "NFT已成功移除！"
   },
   "removeSnap": {
     "message": "移除 Snap"
@@ -9183,10 +6347,6 @@
   },
   "required": {
     "message": "必需"
-  },
-  "requiredToken": {
-    "message": "所需代币",
-    "description": "Label for the required token row showing the token and amount needed by the transaction"
   },
   "reset": {
     "message": "重置"
@@ -9301,141 +6461,6 @@
   },
   "revokeTokenApprovals": {
     "message": "撤销代币授权"
-  },
-  "reward": {
-    "message": "奖励"
-  },
-  "rewardsAuthFailDescription": {
-    "message": "为此账户进行奖励计划认证时发生未知错误。请稍后再试。"
-  },
-  "rewardsAuthFailTitle": {
-    "message": "未知错误。"
-  },
-  "rewardsErrorMessagesAccountAlreadyRegistered": {
-    "message": "该账户已关联其他奖励档案。请切换账户继续操作。"
-  },
-  "rewardsErrorMessagesFailedToClaimReward": {
-    "message": "领取奖励失败。请稍后再试。"
-  },
-  "rewardsErrorMessagesRequestRejected": {
-    "message": "您已拒绝该请求。"
-  },
-  "rewardsErrorMessagesServiceNotAvailable": {
-    "message": "服务暂不可用。请稍后再试。"
-  },
-  "rewardsErrorMessagesSomethingWentWrong": {
-    "message": "出错了。请稍后重试。"
-  },
-  "rewardsLinkAccount": {
-    "message": "添加账户"
-  },
-  "rewardsLinkAccountError": {
-    "message": "添加账户失败"
-  },
-  "rewardsOnboardingCheckingRegion": {
-    "message": "正在检查地区……"
-  },
-  "rewardsOnboardingDescription": {
-    "message": "只需使用 MetaMask，即可赢取奖品、领取福利并探索更多赚取收益的方式。"
-  },
-  "rewardsOnboardingIntroGeoCheckFailedDescription": {
-    "message": "我们暂时无法确定您所在国家/地区是否允许参与奖励计划。请检查连接后重试。"
-  },
-  "rewardsOnboardingIntroGeoCheckFailedTitle": {
-    "message": "无法确定参与资格"
-  },
-  "rewardsOnboardingIntroGeoCheckRetry": {
-    "message": "重试"
-  },
-  "rewardsOnboardingIntroRewardsAuthFailRetry": {
-    "message": "重试"
-  },
-  "rewardsOnboardingIntroUnsupportedRegionDescription": {
-    "message": "您所在地区暂不支持奖励计划。我们正在努力拓展覆盖范围，敬请期待后续更新。"
-  },
-  "rewardsOnboardingIntroUnsupportedRegionTitle": {
-    "message": "不支持此地区"
-  },
-  "rewardsOnboardingLegalDisclaimer": {
-    "message": "加入即表示您同意我们的 $1。我们将为此设备上的所有账户选择加入，并追踪链上活动以自动为您发放奖励。$2",
-    "description": "$1 is the Terms and Privacy Notice link, $2 is the Learn more link"
-  },
-  "rewardsOnboardingLegalDisclaimerLearnMoreLink": {
-    "message": "了解更多。"
-  },
-  "rewardsOnboardingLegalDisclaimerTermsLink": {
-    "message": "服务条款与隐私说明"
-  },
-  "rewardsOnboardingOptInError": {
-    "message": "参与失败"
-  },
-  "rewardsOnboardingReferralCodeError": {
-    "message": "推荐码无效"
-  },
-  "rewardsOnboardingReferralCodePlaceholder": {
-    "message": "推荐码（可选）"
-  },
-  "rewardsOnboardingReferralCodeUnknownError": {
-    "message": "推荐码验证失败."
-  },
-  "rewardsOnboardingReferralCodeUnknownErrorDescription": {
-    "message": "请检查连接后重试。"
-  },
-  "rewardsOnboardingReferralHide": {
-    "message": "隐藏代码"
-  },
-  "rewardsOnboardingReferralPrompt": {
-    "message": "有推荐码吗？"
-  },
-  "rewardsOnboardingSignUp": {
-    "message": "加入奖励计划"
-  },
-  "rewardsOnboardingSignUpLoading": {
-    "message": "正在加入……"
-  },
-  "rewardsOnboardingTitle": {
-    "message": "开始赚取奖励"
-  },
-  "rewardsOptInVerifyingReferralCode": {
-    "message": "正在验证推荐码…",
-    "description": "Text shown while verifying a referral code during rewards opt-in"
-  },
-  "rewardsPointsBalance": {
-    "message": "$1 积分",
-    "description": "$1 is the formatted number of rewards points"
-  },
-  "rewardsPointsBalance_couldntLoad": {
-    "message": "无法加载",
-    "description": "Text shown when points balance couldn't be loaded"
-  },
-  "rewardsPointsIcon": {
-    "message": "奖励积分",
-    "description": "Alt text for the rewards points icon"
-  },
-  "rewardsQRCodeDescription": {
-    "message": "使用您的移动设备扫描二维码，即可访问 MetaMask 奖励计划。"
-  },
-  "rewardsQRCodeTitle": {
-    "message": "继续在移动端操作"
-  },
-  "rewardsSignInFailed": {
-    "message": "登录失败",
-    "description": "Text shown when the opt-in sign attempt failed, with a retry affordance"
-  },
-  "rewardsSignInToViewPoints": {
-    "message": "登录以查看积分",
-    "description": "Text shown when user needs to sign in to view their rewards points"
-  },
-  "rewardsSignUp": {
-    "message": "立即注册领取奖励"
-  },
-  "rewardsSigningIn": {
-    "message": "正在登录……",
-    "description": "Text shown while the user is signing in to view their rewards points"
-  },
-  "rewardsVipReferralTagLabel": {
-    "message": "VIP",
-    "description": "Label on the gold VIP tag shown next to a VIP referral code"
   },
   "rpcNameOptional": {
     "message": "RPC（远程过程调用）名称（可选）"
@@ -9570,10 +6595,6 @@
   "searchAnAcccountOrContact": {
     "message": "搜索账户或联系人"
   },
-  "searchAnAccount": {
-    "message": "搜索账户",
-    "description": "Search input placeholder for the Perps destination account picker"
-  },
   "searchForAnAssetToSend": {
     "message": "搜索要发送的资产"
   },
@@ -9595,9 +6616,6 @@
   "searchYourAccounts": {
     "message": "搜索您的账户",
     "description": "Placeholder in a searchbar. Used on multichain account list page."
-  },
-  "searchingForBestQuotes": {
-    "message": "正在搜索最优报价"
   },
   "second": {
     "message": "秒"
@@ -10001,20 +7019,11 @@
   "selectAnAccountAlreadyConnected": {
     "message": "此账户已连接到 MetaMask"
   },
-  "selectEnableDisplayMediaPrivacyPreference": {
-    "message": "打开\"显示 NFT 媒体\""
-  },
   "selectHdPath": {
     "message": "选择 HD 路径"
   },
-  "selectNFTPrivacyPreference": {
-    "message": "在设置中打开 NFT 检测"
-  },
   "selectPathHelp": {
     "message": "如果您没有看到期望的账户，请尝试切换 HD 路径或当前选定的网络。"
-  },
-  "selectPerpsAccount": {
-    "message": "选择永续合约账户"
   },
   "selectRecipient": {
     "message": "选择收款人"
@@ -10030,9 +7039,6 @@
   },
   "selectedAccountMismatch": {
     "message": "已选择不同账户"
-  },
-  "sellAll": {
-    "message": "查看全部"
   },
   "send": {
     "message": "发送"
@@ -10054,14 +7060,8 @@
   "sendSelectSendAsset": {
     "message": "选择要发送的资产"
   },
-  "sendToPerps": {
-    "message": "转入永续合约"
-  },
   "sendingAsset": {
     "message": "正在发送 $1"
-  },
-  "sendingDisabled": {
-    "message": "尚不支持发送ERC-1155 NFT资产。"
   },
   "sendingNativeAsset": {
     "message": "正在发送 $1",
@@ -10110,618 +7110,6 @@
   "settingsSearchRequestHere": {
     "message": "在这里请求"
   },
-  "shieldClaim": {
-    "message": "提交索赔"
-  },
-  "shieldClaimChainNotSupported": {
-    "message": "该链不受支持。"
-  },
-  "shieldClaimDeleteDraft": {
-    "message": "删除草稿"
-  },
-  "shieldClaimDeleteDraftDescription": {
-    "message": "您的索赔草稿已被删除。"
-  },
-  "shieldClaimDeletedDraft": {
-    "message": "草稿已删除"
-  },
-  "shieldClaimDescription": {
-    "message": "案例描述"
-  },
-  "shieldClaimDescriptionPlaceholder": {
-    "message": "提供事故的简要概述"
-  },
-  "shieldClaimDetails": {
-    "message": "您可以在事故发生后的 $1 天内，针对单次事故提交一笔索赔申请。$2",
-    "description": "The $1 is the number of days and $2 is a link to the full coverage policy"
-  },
-  "shieldClaimDetailsViewClaims": {
-    "message": "该索赔申请正由我们的团队进行审核。审核通过后，我们将通过电子邮件通知您。查看完整保障政策 $1。",
-    "description": "The $1 is a link to the full coverage policy"
-  },
-  "shieldClaimDraftDeleteFailed": {
-    "message": "删除草稿失败"
-  },
-  "shieldClaimDraftDeleteFailedDescription": {
-    "message": "无法删除您的索赔草稿。请重试。"
-  },
-  "shieldClaimDraftSaveFailed": {
-    "message": "保存草稿失败"
-  },
-  "shieldClaimDraftSaveFailedDescription": {
-    "message": "无法保存您的索赔草稿。请重试。"
-  },
-  "shieldClaimDraftSaved": {
-    "message": "草稿已保存"
-  },
-  "shieldClaimDraftSavedDescription": {
-    "message": "您的索赔草稿已被保存。"
-  },
-  "shieldClaimDuplicateClaimExists": {
-    "message": "该交易哈希已提交过索赔申请。"
-  },
-  "shieldClaimEmail": {
-    "message": "电子邮件地址"
-  },
-  "shieldClaimEmailHelpText": {
-    "message": "我们将通过此电子邮箱及时向您告知最新进展。"
-  },
-  "shieldClaimFileErrorCountExceeded": {
-    "message": "文件数量超出最大允许限制。"
-  },
-  "shieldClaimFileErrorInvalidType": {
-    "message": "文件类型无效。"
-  },
-  "shieldClaimFileErrorSizeExceeded": {
-    "message": "文件总大小超出最大允许限制。"
-  },
-  "shieldClaimFileUploader": {
-    "message": "图片上传"
-  },
-  "shieldClaimFileUploaderAcceptText": {
-    "message": "PDF、PNG、JPG（最大 $1MB）",
-    "description": "The $1 is the maximum file size in MB"
-  },
-  "shieldClaimFileUploaderHelpText": {
-    "message": "如有额外证据，请在此上传。"
-  },
-  "shieldClaimGroupActive": {
-    "message": "进行中的索赔"
-  },
-  "shieldClaimGroupActiveNote": {
-    "message": "注意：您同时最多只能有 $1 份草稿和 $2 个进行中的索赔。",
-    "description": "The $1 is the maximum number of drafts and $2 is the maximum number of active claims"
-  },
-  "shieldClaimGroupCompleted": {
-    "message": "已完成的索赔"
-  },
-  "shieldClaimGroupDrafts": {
-    "message": "草稿"
-  },
-  "shieldClaimGroupNoCompletedClaims": {
-    "message": "没有已完成的索赔"
-  },
-  "shieldClaimGroupNoCompletedClaimsDescription": {
-    "message": "您可以在此处查看已完成的索赔记录。"
-  },
-  "shieldClaimGroupNoOpenClaims": {
-    "message": "暂无处理中的索赔"
-  },
-  "shieldClaimGroupNoOpenClaimsDescription": {
-    "message": "您可以在此处追踪索赔状态。"
-  },
-  "shieldClaimGroupRejected": {
-    "message": "已拒绝的索赔"
-  },
-  "shieldClaimImpactedTxHash": {
-    "message": "受影响的交易哈希"
-  },
-  "shieldClaimImpactedTxHashHelpText": {
-    "message": "又称哈希 ID 或交易 ID。"
-  },
-  "shieldClaimImpactedTxHashHelpTextLink": {
-    "message": "需要帮忙查找吗？"
-  },
-  "shieldClaimImpactedTxHashNotEligible": {
-    "message": "该交易并非在 MetaMask 中完成，因此不符合索赔资格"
-  },
-  "shieldClaimImpactedWalletAddress": {
-    "message": "受影响的钱包地址"
-  },
-  "shieldClaimIncidentDetails": {
-    "message": "事故详情"
-  },
-  "shieldClaimInvalidChainId": {
-    "message": "请输入有效的链 ID"
-  },
-  "shieldClaimInvalidEmail": {
-    "message": "请输入有效的电子邮件地址"
-  },
-  "shieldClaimInvalidRequired": {
-    "message": "此字段为必填项"
-  },
-  "shieldClaimInvalidTxHash": {
-    "message": "请输入有效的交易哈希"
-  },
-  "shieldClaimInvalidWalletAddress": {
-    "message": "请输入有效的钱包地址"
-  },
-  "shieldClaimMaxClaimsLimitExceeded": {
-    "message": "您已达到未结索赔申请的最大数量限制。如需提交更多索赔，请联系支持团队。"
-  },
-  "shieldClaimMaxDraftsReached": {
-    "message": "您已达到草稿数量上限。请删除一份草稿后再保存新草稿。"
-  },
-  "shieldClaimNetwork": {
-    "message": "选择网络"
-  },
-  "shieldClaimPersonalDetails": {
-    "message": "个人信息"
-  },
-  "shieldClaimReimbursementWalletAddress": {
-    "message": "用于赔付的钱包地址"
-  },
-  "shieldClaimReimbursementWalletAddressHelpText": {
-    "message": "请确保该钱包未被盗用。"
-  },
-  "shieldClaimSameWalletAddressesError": {
-    "message": "受影响的钱包地址与报销钱包地址必须不同。"
-  },
-  "shieldClaimSaveAsDraft": {
-    "message": "保存为草稿"
-  },
-  "shieldClaimSelectAccount": {
-    "message": "选择一个账户"
-  },
-  "shieldClaimSelectNetwork": {
-    "message": "选择网络"
-  },
-  "shieldClaimSignatureCoverageNotCovered": {
-    "message": "未找到给定交易哈希对应的签名保障。"
-  },
-  "shieldClaimSubmissionWindowExpired": {
-    "message": "提交窗口期已过期。索赔必须在事故发生后的 $1 天内提交。",
-    "description": "The $1 is the number of days"
-  },
-  "shieldClaimSubmit": {
-    "message": "提交索赔"
-  },
-  "shieldClaimSubmitError": {
-    "message": "索赔提交失败"
-  },
-  "shieldClaimSubmitSuccess": {
-    "message": "索赔申请已收到"
-  },
-  "shieldClaimSubmitSuccessDescription": {
-    "message": "索赔申请已提交。我们将进行审核，并通过电子邮件向您告知进度。"
-  },
-  "shieldClaimTransactionNotFound": {
-    "message": "链上未找到交易。"
-  },
-  "shieldClaimTransactionNotFromWalletAddress": {
-    "message": "交易哈希不是来自钱包地址。"
-  },
-  "shieldClaimTransactionNotSuccessful": {
-    "message": "交易在链上失败。"
-  },
-  "shieldClaimViewGuidelines": {
-    "message": "查看指南"
-  },
-  "shieldClaimWalletOwnershipValidationFailed": {
-    "message": "钱包所有权验证失败。"
-  },
-  "shieldClaimsLastEdited": {
-    "message": "最后编辑时间：$1",
-    "description": "The $1 is the date"
-  },
-  "shieldClaimsListTitle": {
-    "message": "索赔"
-  },
-  "shieldClaimsNumber": {
-    "message": "索赔 #$1",
-    "description": "The $1 is the claim number"
-  },
-  "shieldClaimsTabHistory": {
-    "message": "索赔记录"
-  },
-  "shieldClaimsTabPending": {
-    "message": "索赔"
-  },
-  "shieldConfirmMembership": {
-    "message": "确认计划"
-  },
-  "shieldCoverageAlertCovered": {
-    "message": "您享有最高 $2 的 Metamask 交易防护功能保障。$1。"
-  },
-  "shieldCoverageAlertHighRiskTransaction": {
-    "message": "此交易属于高风险类型，因此不受 MetaMask 交易防护功能的保障。$1。"
-  },
-  "shieldCoverageAlertMessageChainNotSupported": {
-    "message": "该链不受支持，故不受 MetaMask 交易防护功能的保障。$1。"
-  },
-  "shieldCoverageAlertMessageLearnHowCoverageWorks": {
-    "message": "查看保障范围"
-  },
-  "shieldCoverageAlertMessagePaused": {
-    "message": "您的 MetaMask 交易防护功能计划付款出现问题。请更新支付方式以恢复保障。"
-  },
-  "shieldCoverageAlertMessagePausedAcknowledgeButton": {
-    "message": "更新付款方式"
-  },
-  "shieldCoverageAlertMessagePotentialRisks": {
-    "message": "该交易存在潜在风险，故不受 MetaMask 交易防护功能的保障。$1"
-  },
-  "shieldCoverageAlertMessageSignatureNotSupported": {
-    "message": "该签名不受支持，故不受 MetaMask 交易防护功能的保障。$1"
-  },
-  "shieldCoverageAlertMessageTitle": {
-    "message": "该交易不在保障范围内"
-  },
-  "shieldCoverageAlertMessageTitleCovered": {
-    "message": "该交易在保障范围内"
-  },
-  "shieldCoverageAlertMessageTitlePaused": {
-    "message": "交易防护功能已暂停"
-  },
-  "shieldCoverageAlertMessageTitleSignatureRequest": {
-    "message": "该签名请求不在保障范围内"
-  },
-  "shieldCoverageAlertMessageTitleSignatureRequestCovered": {
-    "message": "该签名请求在保障范围内"
-  },
-  "shieldCoverageAlertMessageTokenTrustSignalWarning": {
-    "message": "该代币显示出强烈的恶意行为迹象。继续操作可能导致资金损失。$1。"
-  },
-  "shieldCoverageAlertMessageTxTypeNotSupported": {
-    "message": "该交易类型不受支持，故不受 MetaMask 交易防护功能的保障。$1。"
-  },
-  "shieldCoverageAlertMessageUnknown": {
-    "message": "该请求无法通过验证，故不受 MetaMask 交易防护功能的保障。$1。"
-  },
-  "shieldCoverageEnding": {
-    "message": "防护功能保障即将到期"
-  },
-  "shieldCoverageEndingAction": {
-    "message": "续订"
-  },
-  "shieldCoverageEndingDescription": {
-    "message": "计划于 $1 到期。",
-    "description": "The $1 is the date"
-  },
-  "shieldCovered": {
-    "message": "受保障"
-  },
-  "shieldEntryModalGetStarted": {
-    "message": "开始 14 天免费试用"
-  },
-  "shieldEntryModalSubtitleA": {
-    "message": "交易防护功能提供最高 $1 的保障及全天候优先支持服务。",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldEntryModalSubtitleB": {
-    "message": "凭借最高 $1 的保障及全天候优先支持，助您更安心交易。",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldEntryModalTitleA": {
-    "message": "更安心交易"
-  },
-  "shieldEntryModalTitleB": {
-    "message": "交易防护功能简介"
-  },
-  "shieldErrorPayerAddressAlreadyUsed": {
-    "message": "该地址已关联到其他账户。请使用其他地址进行订阅。"
-  },
-  "shieldEstimatedChangesMonthlyTooltipText": {
-    "message": "授权按月支付 $1，持续12个月（总计 $2）。系统将按月结算，无需立即支付全额。"
-  },
-  "shieldFooterAgreement": {
-    "message": "继续操作即表示我同意交易防护功能 $1"
-  },
-  "shieldManagePlan": {
-    "message": "管理计划"
-  },
-  "shieldNotCovered": {
-    "message": "不在保障范围内"
-  },
-  "shieldPastPlansTitle": {
-    "message": "历史详情"
-  },
-  "shieldPaused": {
-    "message": "已暂停"
-  },
-  "shieldPaymentPaused": {
-    "message": "交易防护功能已暂停"
-  },
-  "shieldPaymentPausedActionCardPayment": {
-    "message": "更新"
-  },
-  "shieldPaymentPausedActionCryptoPayment": {
-    "message": "更新"
-  },
-  "shieldPaymentPausedActionUnexpectedError": {
-    "message": "查看"
-  },
-  "shieldPaymentPausedDescriptionCardPayment": {
-    "message": "卡片支付失败。"
-  },
-  "shieldPaymentPausedDescriptionCryptoPayment": {
-    "message": "代币余额不足。"
-  },
-  "shieldPaymentPausedDescriptionUnexpectedError": {
-    "message": "发生意外错误。"
-  },
-  "shieldPlanAnnual": {
-    "message": "年度"
-  },
-  "shieldPlanAnnualPrice": {
-    "message": "每年 $1",
-    "description": "The $1 is the price of the annual plan"
-  },
-  "shieldPlanBillingDate": {
-    "message": "结算日期"
-  },
-  "shieldPlanCard": {
-    "message": "卡片"
-  },
-  "shieldPlanCryptoMonthlyNote": {
-    "message": "预先批准的一年期月费总额"
-  },
-  "shieldPlanDetails": {
-    "message": "权益详情"
-  },
-  "shieldPlanDetails1": {
-    "message": "免费 $1 天试用",
-    "description": "The $1 is the number of days"
-  },
-  "shieldPlanDetails2": {
-    "message": "最高 $1 的交易保护",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldPlanDetails3": {
-    "message": "全天候尊享优先实时聊天支持"
-  },
-  "shieldPlanDetailsRewards": {
-    "message": "每$2可赚取 $1 积分",
-    "description": "The $1 is the number of points and $2 plan interval (month or year)"
-  },
-  "shieldPlanDetailsRewardsDescription": {
-    "message": "此优惠仅在 Rewards 奖励活动季有效。对于已注册 Rewards 的用户，积分将在免费试用结束后发放。"
-  },
-  "shieldPlanDetailsRewardsTitle": {
-    "message": "奖励"
-  },
-  "shieldPlanErrorText": {
-    "message": "无法连接到 Transaction Shield 交易盾"
-  },
-  "shieldPlanFooterNoteMonthly": {
-    "message": "按月计费，可随时取消"
-  },
-  "shieldPlanFooterNoteYearly": {
-    "message": "按年计费，可随时取消"
-  },
-  "shieldPlanMonthly": {
-    "message": "每月"
-  },
-  "shieldPlanMonthlyPrice": {
-    "message": "每月 $1",
-    "description": "The $1 is the price of the monthly plan"
-  },
-  "shieldPlanPayWith": {
-    "message": "支付方式："
-  },
-  "shieldPlanPayWithCard": {
-    "message": "用卡片支付"
-  },
-  "shieldPlanPayWithToken": {
-    "message": "使用 $1 支付",
-    "description": "The $1 is token"
-  },
-  "shieldPlanPaymentTitle": {
-    "message": "更改付款方式"
-  },
-  "shieldPlanSave": {
-    "message": "节省 17%"
-  },
-  "shieldPlanSelectToken": {
-    "message": "选择一种代币"
-  },
-  "shieldPlanTitle": {
-    "message": "选择套餐"
-  },
-  "shieldPlanYearly": {
-    "message": "每年"
-  },
-  "shieldStartNowCTA": {
-    "message": "立即开始"
-  },
-  "shieldStartNowCTAWithTrial": {
-    "message": "开始免费试用"
-  },
-  "shieldTx": {
-    "message": "交易防护"
-  },
-  "shieldTxBillingAccount": {
-    "message": "账单账户"
-  },
-  "shieldTxCancelDetails": {
-    "message": "如果您取消，自 $1 起您的钱包和交易将不再受保护。",
-    "description": "The $1 is the date subscription ends"
-  },
-  "shieldTxCancelImmediateDetails": {
-    "message": "如果取消，您的钱包和交易将不再受保障。"
-  },
-  "shieldTxCancelNotAllowed": {
-    "message": "您的订阅目前无法取消。"
-  },
-  "shieldTxCancelNotAllowedPendingVerification": {
-    "message": "由于待定验证，您的订阅无法取消。"
-  },
-  "shieldTxCancelWhenPausedDetails": {
-    "message": "您的计划在暂停期间处于未激活状态。若选择取消，该计划将立即终止。"
-  },
-  "shieldTxDetails1DescriptionTrial": {
-    "message": "前 $1 天免费，之后按 $2 收费",
-    "description": "The $1 is the number of days and the $2 is the price of the plan"
-  },
-  "shieldTxDetails1Title": {
-    "message": "MetaMask 交易防护功能"
-  },
-  "shieldTxDetails2Description": {
-    "message": "间隔 $1，下次账单日为 $2",
-    "description": "The $1 is interval and the $2 is the date of next billing"
-  },
-  "shieldTxDetails2Title": {
-    "message": "账单周期"
-  },
-  "shieldTxDetails3DescriptionCrypto": {
-    "message": "加密货币（$1）",
-    "description": "The $1 is the token symbol"
-  },
-  "shieldTxDetails3DescriptionCryptoWithAccount": {
-    "message": "加密货币（$1）、$2",
-    "description": "The $1 is the token symbol and the $2 is the account"
-  },
-  "shieldTxDetails3Title": {
-    "message": "支付方式"
-  },
-  "shieldTxDetailsManage": {
-    "message": "管理"
-  },
-  "shieldTxDetailsTitle": {
-    "message": "计划详情"
-  },
-  "shieldTxMembershipActive": {
-    "message": "已激活的计划"
-  },
-  "shieldTxMembershipBenefits": {
-    "message": "您的权益"
-  },
-  "shieldTxMembershipBenefits1Description": {
-    "message": "为受保障交易中的资产提供安全保障"
-  },
-  "shieldTxMembershipBenefits1Title": {
-    "message": "最高达 $1 的保障",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldTxMembershipBenefits2Description": {
-    "message": "随时获取更快捷的专属支持"
-  },
-  "shieldTxMembershipBenefits2Title": {
-    "message": "优先支持"
-  },
-  "shieldTxMembershipBenefits3Description": {
-    "message": "获取 $1 积分/$2",
-    "description": "The $1 is the number of points and the $2 is the interval"
-  },
-  "shieldTxMembershipBenefits3DescriptionInactive": {
-    "message": "获取 $1 积分/$2",
-    "description": "The $1 is the number of points and the $2 is the interval"
-  },
-  "shieldTxMembershipBenefits3LinkRewards": {
-    "message": "链接"
-  },
-  "shieldTxMembershipBenefits3SignUp": {
-    "message": "注册"
-  },
-  "shieldTxMembershipBenefits3Title": {
-    "message": "赚取赛季奖励"
-  },
-  "shieldTxMembershipBenefitsInactive": {
-    "message": "权益详情"
-  },
-  "shieldTxMembershipBenefitsViewAll": {
-    "message": "查看全部"
-  },
-  "shieldTxMembershipBillingDetailsViewBillingHistory": {
-    "message": "管理计费"
-  },
-  "shieldTxMembershipCancel": {
-    "message": "取消计划"
-  },
-  "shieldTxMembershipCancelNotification": {
-    "message": "您的计划将于 $1 取消。",
-    "description": "The $1 is the date"
-  },
-  "shieldTxMembershipCancelledDate": {
-    "message": "您已于 $1 取消您的计划",
-    "description": "The $1 is the date"
-  },
-  "shieldTxMembershipErrorInsufficientFunds": {
-    "message": "您的计划将于 $1 到期。请立即续订以延续权益。",
-    "description": "The $1 is the date subscription ends"
-  },
-  "shieldTxMembershipErrorPausedCard": {
-    "message": "您的计划因卡片支付失败已被暂停。"
-  },
-  "shieldTxMembershipErrorPausedCardAction": {
-    "message": "更新卡片信息"
-  },
-  "shieldTxMembershipErrorPausedCardTooltip": {
-    "message": "您的付款已被拒绝。请更新支付方式以继续使用保障服务。"
-  },
-  "shieldTxMembershipErrorPausedCryptoInsufficientFunds": {
-    "message": "计划因资金不足已暂停。支付更新最多可能需要 $1 小时。",
-    "description": "The $1 is the number of hours"
-  },
-  "shieldTxMembershipErrorPausedCryptoInsufficientFundsAction": {
-    "message": "充值"
-  },
-  "shieldTxMembershipErrorPausedCryptoTooltip": {
-    "message": "钱包代币余额不足。请充值后点击重试。"
-  },
-  "shieldTxMembershipErrorPausedUnexpected": {
-    "message": "计划因意外错误已暂停。"
-  },
-  "shieldTxMembershipErrorPausedUnexpectedAction": {
-    "message": "联系支持团队"
-  },
-  "shieldTxMembershipFreeTrial": {
-    "message": "免费试用"
-  },
-  "shieldTxMembershipFreeTrialDaysLeft": {
-    "message": "您的试用期还剩 $1 天",
-    "description": "The $1 is the number of days left"
-  },
-  "shieldTxMembershipId": {
-    "message": "会员 ID"
-  },
-  "shieldTxMembershipInactive": {
-    "message": "未激活的计划"
-  },
-  "shieldTxMembershipMakeClaim": {
-    "message": "提出索赔"
-  },
-  "shieldTxMembershipPaused": {
-    "message": "已暂停"
-  },
-  "shieldTxMembershipRenew": {
-    "message": "续订计划"
-  },
-  "shieldTxMembershipRenewDescription": {
-    "message": "支付 $1 即可重新激活",
-    "description": "The $1 is the price of the plan"
-  },
-  "shieldTxMembershipResubscribe": {
-    "message": "重启计划"
-  },
-  "shieldTxMembershipSubmitCase": {
-    "message": "提交索赔"
-  },
-  "shieldTxPastPlans": {
-    "message": "过往计划"
-  },
-  "shieldTxPastPlansMonthly": {
-    "message": "月度计划"
-  },
-  "shieldTxPastPlansYearly": {
-    "message": "年度计划"
-  },
-  "shieldTxViewPastInvoice": {
-    "message": "查看过往发票"
-  },
-  "show": {
-    "message": "显示"
-  },
   "showAccount": {
     "message": "显示账户"
   },
@@ -10753,17 +7141,11 @@
   "showHexDataDescription": {
     "message": "选择此项以在发送屏幕上显示十六进制数据字段"
   },
-  "showLess": {
-    "message": "收起"
-  },
   "showMore": {
     "message": "展开"
   },
   "showNativeTokenAsMainBalance": {
     "message": "将原生代币显示为主余额"
-  },
-  "showNft": {
-    "message": "显示NFT"
   },
   "showPermissions": {
     "message": "显示权限"
@@ -10909,18 +7291,6 @@
   "skipLinkConfirmationScreensDescription": {
     "message": "当您打开来自 MetaMask 的链接时，我们会显示一个确认页面，以保护您免于意外查看敏感信息，例如您的账户、余额或交易历史。开启此功能后，对于来自 MetaMask 的链接，将跳过该确认页面。"
   },
-  "slippage": {
-    "message": "滑点"
-  },
-  "slippageAuto": {
-    "message": "自动"
-  },
-  "slippageEditAriaLabel": {
-    "message": "编辑滑点"
-  },
-  "slippageExplanation": {
-    "message": "在交易取消前，您愿意接受的价格波动百分比。"
-  },
   "smartAccount": {
     "message": "智能账户"
   },
@@ -10944,12 +7314,6 @@
   },
   "smartContractAddressWarning": {
     "message": "该代币接收地址可能不支持直接转账，这可能导致资金损失。建议仅在确认该合约能够接收转账的情况下继续操作。"
-  },
-  "smartSwapsErrorNotEnoughFunds": {
-    "message": "没有足够的资金进行智能兑换。"
-  },
-  "smartSwapsErrorUnavailable": {
-    "message": "智能兑换暂时不可用。"
   },
   "smartTransactions": {
     "message": "智能交易"
@@ -11184,18 +7548,6 @@
   "speedUpTransactionTitle": {
     "message": "加快交易速度"
   },
-  "spendableBalance": {
-    "message": "可花费"
-  },
-  "spendableBalanceBaseReserved": {
-    "message": "已预留（锁定）"
-  },
-  "spendableBalanceFiatValue": {
-    "message": "值"
-  },
-  "spendableBalanceTotalBalance": {
-    "message": "总余额"
-  },
   "spender": {
     "message": "支出者"
   },
@@ -11428,56 +7780,8 @@
   "strong": {
     "message": "强"
   },
-  "stxCancelled": {
-    "message": "交换就会失败"
-  },
-  "stxCancelledDescription": {
-    "message": "由于预计交易会失败，该交易已被取消，以避免产生不必要的网络费用。"
-  },
-  "stxCancelledSubDescription": {
-    "message": "再次尝试进行交换。下次我们会在这里保护您免受类似风险。 "
-  },
-  "stxFailure": {
-    "message": "交换失败"
-  },
-  "stxFailureDescription": {
-    "message": "突然的市场变化可能导致失败。如果问题仍然存在，请联系$1。",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
-  },
   "stxOptInDescriptionV2": {
     "message": "开启智能交易，以获得更加安全可靠的交易体验。$1"
-  },
-  "stxPendingPrivatelySubmittingSwap": {
-    "message": "正在秘密提交您的Swap..."
-  },
-  "stxPendingPubliclySubmittingSwap": {
-    "message": "正在公开提交您的Swap..."
-  },
-  "stxSuccess": {
-    "message": "交换完成！"
-  },
-  "stxSuccessDescription": {
-    "message": "您的$1现在可用。",
-    "description": "$1 is a token symbol, e.g. ETH"
-  },
-  "stxSwapCompleteIn": {
-    "message": "Swap距离完成尚有<",
-    "description": "'<' means 'less than', e.g. Swap will complete in < 2:59"
-  },
-  "stxTryingToCancel": {
-    "message": "正在尝试取消您的交易......"
-  },
-  "stxUnknown": {
-    "message": "状态未知"
-  },
-  "stxUnknownDescription": {
-    "message": "有一笔交易已经成功，但我们不确定是哪一笔。这可能是由于在处理此交换时提交了另一笔交易。"
-  },
-  "stxUserCancelled": {
-    "message": "交换已取消"
-  },
-  "stxUserCancelledDescription": {
-    "message": "您的交易已被取消，您并未支付任何不必要的网络费用。"
   },
   "submit": {
     "message": "提交"
@@ -11498,9 +7802,6 @@
   "summary": {
     "message": "摘要"
   },
-  "supplied": {
-    "message": "已提供"
-  },
   "support": {
     "message": "获取帮助"
   },
@@ -11517,25 +7818,6 @@
   "swap": {
     "message": "兑换"
   },
-  "swapAdjustSlippage": {
-    "message": "调整滑点"
-  },
-  "swapAgain": {
-    "message": "再次兑换"
-  },
-  "swapAggregator": {
-    "message": "聚合器"
-  },
-  "swapAllowSwappingOf": {
-    "message": "允许交换 $1",
-    "description": "Shows a user that they need to allow a token for swapping on their hardware wallet"
-  },
-  "swapAmountReceived": {
-    "message": "保证金额"
-  },
-  "swapAmountReceivedInfo": {
-    "message": "这是您将收到的最低金额。根据滑点值，您可能会收到更多。"
-  },
   "swapAndSend": {
     "message": "兑换并发送"
   },
@@ -11543,257 +7825,20 @@
     "message": "批准 $1 进行交换",
     "description": "Used in the transaction display list to describe a transaction that is an approve call on a token that is to be swapped.. $1 is the symbol of a token that has been approved."
   },
-  "swapAreYouStillThere": {
-    "message": "您还在吗？"
-  },
-  "swapAreYouStillThereDescription": {
-    "message": "如果您想继续，我们准备好为您显示最新报价"
-  },
   "swapConfirmWithHwWallet": {
     "message": "使用您的硬件钱包确认"
-  },
-  "swapContractDataDisabledErrorDescription": {
-    "message": "在您的 Ledger 的 Etherum 应用程序中，转到“设置”并允许合约数据。然后再次尝试交换。"
-  },
-  "swapContractDataDisabledErrorTitle": {
-    "message": "您的 Ledger 上未启用合约数据"
-  },
-  "swapCustom": {
-    "message": "自定义"
-  },
-  "swapDecentralizedExchange": {
-    "message": "去中心化交易所"
-  },
-  "swapDirectContract": {
-    "message": "直接合约"
-  },
-  "swapEditLimit": {
-    "message": "编辑限制"
-  },
-  "swapEnableDescription": {
-    "message": "这是必须的，并且允许 MetaMask 兑换您的 $1。",
-    "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
-  },
-  "swapEnableTokenForSwapping": {
-    "message": "这将 $1 进行交换",
-    "description": "$1 is for the 'enableToken' key, e.g. 'enable ETH'"
-  },
-  "swapEstimatedNetworkFees": {
-    "message": "预估网络费用"
-  },
-  "swapEstimatedNetworkFeesInfo": {
-    "message": "这是预估的网络费用，将用于完成您的交换。实际金额可能会根据网络条件而变化。"
-  },
-  "swapFailedErrorDescriptionWithSupportLink": {
-    "message": "交易有时会失败，我们随时为您提供帮助。如果此问题仍然存在，您可以在 $1 联系我们的客服，以获得进一步的帮助。",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
-  },
-  "swapFailedErrorTitle": {
-    "message": "交换失败"
-  },
-  "swapFetchingQuoteNofN": {
-    "message": "获取$2的$1报价",
-    "description": "A count of possible quotes shown to the user while they are waiting for quotes to be fetched. $1 is the number of quotes already loaded, and $2 is the total number of resources that we check for quotes. Keep in mind that not all resources will have a quote for a particular swap."
-  },
-  "swapFetchingQuotes": {
-    "message": "取得报价中..."
-  },
-  "swapFetchingQuotesErrorDescription": {
-    "message": "呃……出错了。再试一次，如果错误仍存在，请联系客服。"
   },
   "swapFetchingQuotesErrorTitle": {
     "message": "获取报价出错"
   },
-  "swapFromTo": {
-    "message": "$1 到 $2 的交换",
-    "description": "Tells a user that they need to confirm on their hardware wallet a swap of 2 tokens. $1 is a source token and $2 is a destination token"
-  },
-  "swapGasFeesExplanation": {
-    "message": "MetaMask 不会从网络费用中获利。这些费用仅为估算值，可能会根据网络繁忙程度和交易复杂程度发生变化。通过$1了解更多信息。",
-    "description": "$1 is a link (text in link can be found at 'swapGasFeesSummaryLinkText')"
-  },
-  "swapGasFeesExplanationLinkText": {
-    "message": "参见此处",
-    "description": "Text for link in swapGasFeesExplanation"
-  },
-  "swapGasFeesIncluded": {
-    "message": " 已包含"
-  },
-  "swapGasFeesSplit": {
-    "message": "上一页显示的网络费用包含这两笔交易产生的费用。"
-  },
-  "swapGasFeesSponsored": {
-    "message": "由 MetaMask 支付"
-  },
-  "swapGasFeesSponsoredExplanation": {
-    "message": "该网络费用由 MetaMask 支付，因此即使您账户中没有 $1 也可进行交易。"
-  },
-  "swapIncludesMMFee": {
-    "message": "包括 $1% 的 MetaMask 费用。",
-    "description": "Provides information about the fee that MetaMask takes for swaps. $1 is a decimal number."
-  },
-  "swapLearnMore": {
-    "message": "了解有关 Swaps 的更多信息"
-  },
-  "swapLiquiditySourceInfo": {
-    "message": "我们搜索多种流动性来源（交易所、聚合器和专业做市商），以比较汇率和网络费用。"
-  },
-  "swapMaxSlippage": {
-    "message": "最大滑点"
-  },
-  "swapMetaMaskFee": {
-    "message": "MetaMask 费用"
-  },
-  "swapMetaMaskFeeDescription": {
-    "message": "该报价中会自动计入一笔 $1% 的费用。您支付该费用以换取使用 MetaMask 流动性提供商信息聚合软件的许可证。",
-    "description": "Provides information about the fee that MetaMask takes for swaps. $1 is a decimal number."
-  },
-  "swapNQuotesWithDot": {
-    "message": "$1 报价。",
-    "description": "$1 is the number of quotes that the user can select from when opening the list of quotes on the 'view quote' screen"
-  },
-  "swapOnceTransactionHasProcess": {
-    "message": "处理完此交易后，您的 $1 将被添加到您的账户中。",
-    "description": "This message communicates the token that is being transferred. It is shown on the awaiting swap screen. The $1 will be a token symbol."
-  },
-  "swapProcessing": {
-    "message": "处理中"
-  },
-  "swapQuoteDetails": {
-    "message": "报价详情"
-  },
-  "swapQuoteSource": {
-    "message": "报价来源"
-  },
-  "swapQuotesExpiredErrorDescription": {
-    "message": "请请求新的报价，以获得最新的价格。"
-  },
-  "swapQuotesExpiredErrorTitle": {
-    "message": "报价超时"
-  },
-  "swapQuotesNotAvailableDescription": {
-    "message": "缩小您的交易规模或者使用不同的代币。"
-  },
-  "swapQuotesNotAvailableErrorDescription": {
-    "message": "尝试调整金额或滑点设置，然后重试。"
-  },
   "swapQuotesNotAvailableErrorTitle": {
     "message": "无可用报价"
-  },
-  "swapRate": {
-    "message": "价格"
-  },
-  "swapReceiving": {
-    "message": "正在接收"
-  },
-  "swapReceivingInfoTooltip": {
-    "message": "这是一个预估额。确切的金额取决于滑点。"
-  },
-  "swapRequestForQuotation": {
-    "message": "请求报价"
-  },
-  "swapSelect": {
-    "message": "选择"
-  },
-  "swapSelectAQuote": {
-    "message": "选择一个报价"
-  },
-  "swapSelectAToken": {
-    "message": "选择代币"
-  },
-  "swapSelectQuotePopoverDescription": {
-    "message": "以下是从多个流动性来源收集到的所有报价。"
-  },
-  "swapSelectToken": {
-    "message": "选择代币"
-  },
-  "swapShowLatestQuotes": {
-    "message": "显示最新报价"
-  },
-  "swapSlippageAutoDescription": {
-    "message": "自动"
-  },
-  "swapSlippageCappedDescription": {
-    "message": "滑移容差上限为 100%。"
-  },
-  "swapSlippageHighDescription": {
-    "message": "输入的滑点（$1%）被认为是很高的，可能会因而得到较差的汇率",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageHighTitle": {
-    "message": "高滑点"
-  },
-  "swapSlippageLowDescription": {
-    "message": "此值过低（$1%），可能会导致兑换失败",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageLowTitle": {
-    "message": "低滑点"
-  },
-  "swapSlippageNegativeDescription": {
-    "message": "滑点必须大于或等于 0"
-  },
-  "swapSlippageNegativeTitle": {
-    "message": "提高滑点以继续"
-  },
-  "swapSlippageOverLimitDescription": {
-    "message": "滑点容差必须小于等于 15%。任何更高的比例将导致不良费率。"
-  },
-  "swapSlippageOverLimitTitle": {
-    "message": "非常高的滑点"
-  },
-  "swapSlippagePercent": {
-    "message": "$1%",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageTooltip": {
-    "message": "如果价格于下单到订单确认期间发生变化，这被称为“滑点”。如果滑点超过“最大滑点”设置，您的兑换将会自动取消。"
-  },
-  "swapSlippageZeroDescription": {
-    "message": "零滑点报价供应商较少，这将导致报价竞争力下降。"
-  },
-  "swapSlippageZeroTitle": {
-    "message": "寻找零滑点供应商"
-  },
-  "swapSource": {
-    "message": "流动性来源"
   },
   "swapSuggestedGasSettingToolTipMessage": {
     "message": "兑换交易较为复杂，且对时效要求较高。我们建议采用此网络费用，以便在成本和成功完成兑换的可能性之间取得良好平衡。"
   },
-  "swapToConfirmWithHwWallet": {
-    "message": "使用您的硬件钱包确认"
-  },
-  "swapTokenAvailable": {
-    "message": "您的 $1 已添加到您的账户。",
-    "description": "This message is shown after a swap is successful and communicates the exact amount of tokens the user has received for a swap. The $1 is a decimal number of tokens followed by the token symbol."
-  },
   "swapTokenNotAvailable": {
     "message": "在此地区无法兑换代币"
-  },
-  "swapTokens": {
-    "message": "兑换代币"
-  },
-  "swapTransactionComplete": {
-    "message": "交易完成"
-  },
-  "swapTwoTransactions": {
-    "message": "2笔交易"
-  },
-  "swapUnknown": {
-    "message": "未知"
-  },
-  "swapValidationInsufficientGasMessage": {
-    "message": "您的 $1 不足以支付此次兑换的网络费用。请输入较小的金额或购买更多 $1。"
-  },
-  "swapZeroSlippage": {
-    "message": "0%滑点"
-  },
-  "swapsMaxSlippage": {
-    "message": "滑点容差"
-  },
-  "swapsViewInActivity": {
-    "message": "在活动中查看"
   },
   "switch": {
     "message": "切换"
@@ -11853,9 +7898,6 @@
   "terms": {
     "message": "使用条款"
   },
-  "termsOfService": {
-    "message": "服务条款"
-  },
   "termsOfUseAgree": {
     "message": "同意"
   },
@@ -11899,9 +7941,6 @@
   "token": {
     "message": "代币"
   },
-  "tokenAddress": {
-    "message": "代币地址"
-  },
   "tokenAllowance": {
     "message": "代币授权额度"
   },
@@ -11933,9 +7972,6 @@
   "tokenList": {
     "message": "代币列表："
   },
-  "tokenMarketplace": {
-    "message": "代币市场"
-  },
   "tokenPermissionCount": {
     "message": "$1 个代币许可",
     "description": "$1 is the count of token permissions (singular form)"
@@ -11946,9 +7982,6 @@
   },
   "tokenSearchError": {
     "message": "无法加载搜索结果。请重试。"
-  },
-  "tokenStandard": {
-    "message": "代币标准"
   },
   "tokenStock": {
     "message": "股票"
@@ -11972,9 +8005,6 @@
     "message": "代币",
     "description": "is the count of tokens used for token transfers (plural form)"
   },
-  "tokensInCollection": {
-    "message": "收藏品中的代币"
-  },
   "tooltipSatusConnectedUpperCase": {
     "message": "已连接"
   },
@@ -11983,9 +8013,6 @@
   },
   "totalAmount": {
     "message": "总数额"
-  },
-  "totalReceived": {
-    "message": "总计收到"
   },
   "totalVolume": {
     "message": "总交易额（24 小时）"
@@ -11998,9 +8025,6 @@
   },
   "transactionDataFunction": {
     "message": "功能"
-  },
-  "transactionDetailGasHeading": {
-    "message": "预估网络费用"
   },
   "transactionError": {
     "message": "交易出错。合约代码中抛出异常。"
@@ -12048,12 +8072,6 @@
   "transactionIncludesTypes": {
     "message": "本交易包含：$1。"
   },
-  "transactionSettings": {
-    "message": "交易设置"
-  },
-  "transactionShield": {
-    "message": "交易防护"
-  },
   "transactionSubmitted": {
     "message": "已提交交易"
   },
@@ -12065,9 +8083,6 @@
   },
   "transfer": {
     "message": "转账"
-  },
-  "transferCrypto": {
-    "message": "转移加密货币"
   },
   "transferFrom": {
     "message": "转账自"
@@ -12082,33 +8097,6 @@
   "trezorDesktopAppRequiredError": {
     "message": "使用 Trezor 需要 Trezor Suite 桌面版。请安装并打开 Trezor Suite（suite.trezor.io）后重试。",
     "description": "An error message shown to the user during the hardware connect flow."
-  },
-  "tronBandwidth": {
-    "message": "带宽"
-  },
-  "tronBandwidthCoverageDescriptionPlural": {
-    "message": "约可覆盖 $1 次 TRX 转账费用",
-    "description": "$1 is the number of TRX transfers"
-  },
-  "tronBandwidthCoverageDescriptionSingular": {
-    "message": "可覆盖 1 次 TRX 转账费用"
-  },
-  "tronDailyResources": {
-    "message": "每日资源"
-  },
-  "tronDailyResourcesDescription": {
-    "message": "这是基于您质押的 TRX 所获得的每日额度。您每天可免费获得 $1 带宽。",
-    "description": "$1 is the maximum bandwidth value"
-  },
-  "tronEnergy": {
-    "message": "能量"
-  },
-  "tronEnergyCoverageDescriptionPlural": {
-    "message": "约可覆盖 $1 次 USDT 转账费用",
-    "description": "$1 is the number of USDT transfers"
-  },
-  "tronEnergyCoverageDescriptionSingular": {
-    "message": "可覆盖 1 次 USDT 转账费用"
   },
   "troubleConnectingToLedgerU2FOnFirefox": {
     "message": "我们在连接您的 Ledger 时遇到问题。$1",
@@ -12199,21 +8187,11 @@
     "message": "发生意外错误。",
     "description": "This is a fallback error message used for unexpected errors."
   },
-  "unifiedSwapAllowSwappingOf": {
-    "message": "允许在 $3 上精准授权 $1 $2 用于兑换"
-  },
-  "unifiedSwapFromTo": {
-    "message": "将 $1 $2 兑换为 $3",
-    "description": "Tells a user that they need to confirm on their hardware wallet a swap of 2 tokens. $1 is a source token and $2 is a destination token"
-  },
   "units": {
     "message": "单位"
   },
   "unknown": {
     "message": "未知"
-  },
-  "unknownCollection": {
-    "message": "未命名的收藏"
   },
   "unknownNetworkForGatorPermissions": {
     "message": "未知网络",
@@ -12326,9 +8304,6 @@
   "useNftDetection": {
     "message": "自动检测NFT"
   },
-  "useNftDetectionDescription": {
-    "message": "显示所有 NFT，包括诈骗者空投的伪造 NFT。"
-  },
   "usePassword": {
     "message": "使用密码"
   },
@@ -12360,10 +8335,6 @@
   "value": {
     "message": "值"
   },
-  "variationalReferralSubtitle": {
-    "message": "使用 MetaMask 推荐码可获得 +15% Omni 积分和 90 天白银等级。",
-    "description": "The subtitle of the Variational referral confirmation screen"
-  },
   "version": {
     "message": "版本"
   },
@@ -12374,16 +8345,8 @@
     "message": "在 $1 上查看",
     "description": "$1 is the block explorer name"
   },
-  "viewAll": {
-    "message": "查看全部",
-    "description": "Link to show the full list for a Discover search section."
-  },
   "viewOnBlockExplorer": {
     "message": "在区块浏览器上查看"
-  },
-  "viewOnCustomBlockExplorer": {
-    "message": "在 $2 上查看 $1",
-    "description": "$1 is the action type. e.g (Account, Transaction, Swap) and $2 is the Custom Block Explorer URL"
   },
   "viewOnEtherscan": {
     "message": "在 Etherscan 上查看 $1",
@@ -12392,23 +8355,12 @@
   "viewOnExplorer": {
     "message": "在Explorer上查看 "
   },
-  "viewOnOpensea": {
-    "message": "在 Opensea 上查看"
-  },
   "viewTokenDetails": {
     "message": "查看代币详情"
-  },
-  "viewXMore": {
-    "message": "查看另外 $1 条",
-    "description": "Link to show remaining Discover search results. $1 is the hidden result count."
   },
   "viewinExplorer": {
     "message": "在 Explorer 中查看 $1",
     "description": "$1 is the action type. e.g (Account, Transaction, Swap)"
-  },
-  "vip": {
-    "message": "VIP $1",
-    "description": "$1 is the VIP tier number"
   },
   "visitSite": {
     "message": "访问网站"
@@ -12456,9 +8408,6 @@
   "wantToAddThisNetwork": {
     "message": "想要添加此网络吗？"
   },
-  "wantsToAddThisAsset": {
-    "message": "这将允许将以下资产添加至您的钱包。"
-  },
   "warning": {
     "message": "警告"
   },
@@ -12501,10 +8450,6 @@
   "whatsThis": {
     "message": "这是什么？"
   },
-  "withdrawTo": {
-    "message": "收款",
-    "description": "Label for pay with row in withdrawal flows showing the destination token"
-  },
   "withdrawing": {
     "message": "提取"
   },
@@ -12515,20 +8460,11 @@
     "message": "密码错误，请重试。",
     "description": "Displayed when the user enters an incorrect password"
   },
-  "year": {
-    "message": "年"
-  },
   "yes": {
     "message": "是"
   },
-  "yesSwap": {
-    "message": "是的，兑换"
-  },
   "you": {
     "message": "您"
-  },
-  "youApprove": {
-    "message": "您批准"
   },
   "youNeedToAllowCameraAccess": {
     "message": "需要开启相机访问权限，才能使用该功能。"
@@ -12537,9 +8473,6 @@
     "message": "您收到了",
     "description": "Label indicating the amount and asset the user received."
   },
-  "youSell": {
-    "message": "您卖出"
-  },
   "youSent": {
     "message": "您发送了",
     "description": "Label indicating the amount and asset the user sent."
@@ -12547,10 +8480,6 @@
   "youWithdrew": {
     "message": "您已提现",
     "description": "Label indicating the amount and asset the user withdrew."
-  },
-  "youllReceive": {
-    "message": "您将收到",
-    "description": "Row label on the Perps Withdraw confirmation showing the net receive amount after fees"
   },
   "yourActivity": {
     "message": "您的活动"

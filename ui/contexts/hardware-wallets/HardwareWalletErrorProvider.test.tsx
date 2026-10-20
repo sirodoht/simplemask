@@ -12,8 +12,6 @@ import {
 import {
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
-  AWAITING_SIGNATURES_ROUTE,
   HARDWARE_WALLET_REPAIR_ROUTE,
 } from '../../helpers/constants/routes';
 import { createHardwareWalletError } from './errors';
@@ -509,7 +507,7 @@ describe('HardwareWalletErrorProvider', () => {
       };
 
       const store = mockStore(createMockState());
-      renderHardwareWalletErrorHook(store, CROSS_CHAIN_SWAP_ROUTE);
+      renderHardwareWalletErrorHook(store, '/cross-chain');
 
       expect(mockShowModal).not.toHaveBeenCalled();
     });
@@ -529,7 +527,7 @@ describe('HardwareWalletErrorProvider', () => {
       const store = mockStore(createMockState());
       renderHardwareWalletErrorHook(
         store,
-        `${CROSS_CHAIN_SWAP_ROUTE}/swaps/prepare-bridge-page`,
+        `${'/cross-chain'}/swaps/prepare-bridge-page`,
       );
 
       expect(mockShowModal).not.toHaveBeenCalled();
@@ -571,7 +569,7 @@ describe('HardwareWalletErrorProvider', () => {
       };
 
       const store = mockStore(createMockState());
-      renderHardwareWalletErrorHook(store, AWAITING_SIGNATURES_ROUTE);
+      renderHardwareWalletErrorHook(store, '/swaps/awaiting-signatures');
 
       expect(mockShowModal).toHaveBeenCalledWith(
         expect.objectContaining({

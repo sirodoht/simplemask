@@ -26,7 +26,6 @@ import {
   SECURITY_TURN_OFF_PASSKEY_ROUTE,
   SETTINGS_ROUTE,
   SNAP_SETTINGS_ROUTE,
-  TRANSACTION_SHIELD_ROUTE,
   TRANSACTIONS_ROUTE,
   THEME_ROUTE,
   PRIVACY_ROUTE,
@@ -93,7 +92,7 @@ export const SETTINGS_ROOT_SECTIONS: readonly {
   },
   {
     titleKeys: ['transactionsAndAssets'],
-    paths: [TRANSACTION_SHIELD_ROUTE, ASSETS_ROUTE, TRANSACTIONS_ROUTE],
+    paths: [ASSETS_ROUTE, TRANSACTIONS_ROUTE],
   },
   {
     titleKeys: ['moreCapital'],

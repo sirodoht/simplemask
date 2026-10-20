@@ -18,8 +18,6 @@ buildTypes:
     features:
       - keyring-snaps
       - multi-srp
-      - bitcoin
-      - tron
     # Additional env variables that are specific to this build
     env:
       - INFURA_PROD_PROJECT_ID
@@ -42,9 +40,7 @@ buildTypes:
     features:
       - build-beta
       - keyring-snaps
-      - bitcoin
       - multi-srp
-      - tron
     env:
       - INFURA_BETA_PROJECT_ID
       - SEGMENT_BETA_WRITE_KEY
@@ -69,8 +65,6 @@ buildTypes:
       - build-experimental
       - keyring-snaps
       - multi-srp
-      - bitcoin
-      - tron
     env:
       - INFURA_EXPERIMENTAL_PROJECT_ID
       - SEGMENT_EXPERIMENTAL_WRITE_KEY
@@ -94,8 +88,6 @@ buildTypes:
     features:
       - build-flask
       - keyring-snaps
-      - bitcoin
-      - tron
       - multi-srp
     env:
       - INFURA_FLASK_PROJECT_ID
@@ -150,23 +142,11 @@ features:
         dest: snaps/ens-resolver-snap.json
       - src: ./node_modules/@metamask/institutional-wallet-snap/dist/preinstalled-snap.json
         dest: snaps/institutional-wallet-snap.json
-      - src: ./node_modules/@metamask/solana-wallet-snap/dist/preinstalled-snap.json
-        dest: snaps/solana-wallet-snap.json
       - src: ./node_modules/@metamask/permissions-kernel-snap/dist/preinstalled-snap.json
         dest: snaps/permissions-kernel-snap.json
       - src: ./node_modules/@metamask/gator-permissions-snap/dist/preinstalled-snap.json
         dest: snaps/gator-permissions-snap.json
       - ./{app,shared,ui}/**/keyring-snaps/**
-  # TODO: remove bitcoin section
-  bitcoin:
-    assets:
-      - src: ./node_modules/@metamask/bitcoin-wallet-snap/dist/preinstalled-snap.json
-        dest: snaps/bitcoin-wallet-snap.json
-  # TODO: remove tron section
-  tron:
-    assets:
-      - src: ./node_modules/@metamask/tron-wallet-snap/dist/preinstalled-snap.json
-        dest: snaps/tron-wallet-snap.json
   multi-srp:
     assets:
       # srp-list is a special case and is used in the srp recovery flow now.
@@ -183,8 +163,7 @@ features:
 env:
   - ENABLE_SENTRY: true
   - ACCOUNTS_USE_DEV_APIS: false
-  - BRIDGE_USE_CUSTOM_BASE_URL: null
-  - SWAPS_USE_DEV_APIS: false
+  - GAS_USE_DEV_APIS: false
   - PORTFOLIO_URL: https://app.metamask.io
   - TOKEN_ALLOWANCE_IMPROVEMENTS: false
   - TRANSACTION_SECURITY_PROVIDER: false
@@ -357,7 +336,6 @@ env:
   # This will be defined if running a unit test
   - JEST_WORKER_ID: undefined
 
-  - METAMASK_RAMP_API_CONTENT_BASE_URL: https://on-ramp-content.api.cx.metamask.io
 
   # EIP-7715 Readable Permissions
   - GATOR_ENABLED_PERMISSION_TYPES: 'native-token-allowance,native-token-stream,native-token-periodic,erc20-token-allowance,erc20-token-stream,erc20-token-periodic,token-approval-revocation'
@@ -370,14 +348,6 @@ env:
   # Build-time gate: when true, the Add Device Sync tab is shown in Settings
   # (device pairing via QR code scan and verification code).
   - QR_SYNC_ENABLED: false
-  # Local/QA only: inject curated Money Home activity rows so the list UI
-  # can be reviewed without live deposits/withdraws. Remote flag
-  # moneyActivityMockDataEnabled takes precedence when it is a boolean.
-  - MM_MONEY_ACTIVITY_MOCK_DATA_ENABLED: false
-  # Local/QA only: make Money activity rows navigate to the transaction
-  # details page. Remote flag moneyEnableActivityDetails takes precedence
-  # when it is a boolean.
-  - MM_MONEY_ENABLE_ACTIVITY_DETAILS: false
 
   ###
   # Meta variables
@@ -430,8 +400,6 @@ env:
 
   - SEEDLESS_ONBOARDING_ENABLED: 'true'
 
-  # Metamask Shield
-  - METAMASK_SHIELD_ENABLED: 'true'
 
   # Snaps
   - AUTO_UPDATE_PREINSTALLED_SNAPS: 'true'

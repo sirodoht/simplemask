@@ -103,7 +103,6 @@ export const TokenCellSecondaryDisplay = React.memo(
           )}
           textAlign={TextAlign.End}
           data-testid="multichain-token-list-item-secondary-value"
-          ellipsis={token.isStakeable}
           isHidden={privacyMode}
           length={SensitiveTextLength.Medium}
           style={secondaryDisplayStyle}

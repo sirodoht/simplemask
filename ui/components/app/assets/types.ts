@@ -1,6 +1,6 @@
 import { KeyringAccountType } from '@metamask/keyring-api';
 import { CaipAssetType, CaipChainId, Hex } from '@metamask/utils';
-import type { Asset, TokenListToken } from '@metamask/assets-controllers';
+import type { TokenListToken } from '@metamask/assets-controllers';
 
 // Common mixin for primary and secondary display values
 export type TokenDisplayValues = {
@@ -50,10 +50,7 @@ export type Token = (BaseToken | NonEvmBaseToken) & {
 export type TokenDisplayInfo = TokenDisplayValues & {
   title: string;
   tokenImage: string;
-  isStakeable?: boolean;
   tokenChainImage: string;
-  /** True when a Stellar classic asset still needs trustline activation. */
-  tokenRequireActivate?: boolean;
 };
 
 // Token type that includes fiat amount, balance, and display values
@@ -61,7 +58,6 @@ export type TokenWithFiatAmount = Token &
   TokenDisplayValues &
   TokenBalanceValues & {
     caipAssetId?: CaipAssetType;
-    isStakeable?: boolean;
     title: string;
     rwaData?: TokenListToken['rwaData'];
     safetyResult?: string;

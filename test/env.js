@@ -14,7 +14,6 @@ process.env.COMPLIANCE_API_URL = 'https://mock-test-compliance-api.metamask.io';
 process.env.PORTFOLIO_URL = 'https://portfolio.test';
 process.env.METAMASK_VERSION = 'MOCK_VERSION';
 process.env.SEEDLESS_ONBOARDING_ENABLED = 'true';
-process.env.METAMASK_SHIELD_ENABLED = 'false';
 process.env.NEW_HARDWARE_WALLET_ONBOARDING = 'false';
 process.env.PHISHING_WARNING_PAGE_URL =
   'https://metamask.github.io/phishing-warning/v4.1.0/';

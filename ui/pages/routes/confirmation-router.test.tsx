@@ -7,12 +7,9 @@ import mockState from '../../../test/data/mock-state.json';
 import { getEnvironmentType } from '../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../shared/constants/app';
 import {
-  BATCH_SELL_REVIEW_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   DEFAULT_ROUTE,
   HARDWARE_WALLET_SIGNATURES_ROUTE,
-  PREPARE_SWAP_ROUTE,
 } from '../../helpers/constants/routes';
 import { ConfirmationRouter } from './confirmation-router';
 
@@ -21,7 +18,7 @@ jest.mock('../../../shared/lib/environment-type', () => ({
   getEnvironmentType: jest.fn(),
 }));
 
-const SWAP_ROUTE = `${CROSS_CHAIN_SWAP_ROUTE}${PREPARE_SWAP_ROUTE}`;
+const SWAP_ROUTE = `${'/cross-chain'}${'/swaps/prepare-bridge-page'}`;
 const PENDING_APPROVAL_ID = 'testApprovalId';
 
 const PathnameDisplay = () => {
@@ -114,7 +111,7 @@ describe('ConfirmationRouter', () => {
 
     it('shows pending approvals when the previous route was retired', () => {
       const { getByTestId } = renderConfirmationRouter({
-        pathname: BATCH_SELL_REVIEW_ROUTE,
+        pathname: '/batch-sell/review',
         hasPendingApproval: true,
       });
 

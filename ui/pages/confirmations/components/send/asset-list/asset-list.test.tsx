@@ -225,13 +225,11 @@ describe('AssetList', () => {
       <AssetList
         tokens={[]}
         allTokens={[]}
-        emptyStateMessage={messages.rampsNoTokensAvailable.message}
+        emptyStateMessage={'No assets available'}
       />,
     );
 
-    expect(
-      getByText(messages.rampsNoTokensAvailable.message),
-    ).toBeInTheDocument();
+    expect(getByText('No assets available')).toBeInTheDocument();
   });
 
   it('does not select disabled assets', () => {

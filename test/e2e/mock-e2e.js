@@ -17,7 +17,6 @@ const {
   LOCAL_NODE_ACCOUNT,
 } = require('./constants');
 const { SECURITY_ALERTS_PROD_API_BASE_URL } = require('./tests/ppom/constants');
-const { SOLANA_WS_PORT } = require('./websocket/solana-mocks');
 const {
   ACCOUNT_ACTIVITY_WS_PORT,
 } = require('./websocket/account-activity-mocks');
@@ -117,108 +116,6 @@ const emptyHtmlPage = () => `<!DOCTYPE html>
   </body>
 </html>`;
 
-const BITCOIN_DISCOVERY_BLOCKS = [
-  {
-    id: '00000000000000000001d3a19bc9dbde9d1d26b25aa49269b575282bb6d74409',
-    height: 932936,
-    version: 1073676288,
-    timestamp: 1768825157,
-    tx_count: 1104,
-    size: 2006326,
-    weight: 3993304,
-    merkle_root:
-      '68b04e69caac6a24c585e8a357fd9a5de8b084bda8b043690efaafcd11343c2a',
-    previousblockhash:
-      '000000000000000000013d73c3bd23225714f2fd8b801ed076818f2971897748',
-    mediantime: 1768823212,
-    nonce: 1426240500,
-    bits: 386001906,
-    difficulty: 146472570619930.78,
-  },
-];
-
-const BITCOIN_DISCOVERY_CHAIN_TIP_HASH =
-  '00000000000000000001d3a19bc9dbde9d1d26b25aa49269b575282bb6d74409';
-
-// The canonical Bitcoin mainnet genesis block hash (height 0). The snap fetches
-// `/block-height/0` and verifies it against this known value during discovery.
-const BITCOIN_MAINNET_GENESIS_HASH =
-  '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f';
-
-const BITCOIN_DISCOVERY_FEE_ESTIMATES = {
-  1: 1,
-  2: 1,
-  3: 1,
-  6: 1,
-  144: 1,
-};
-
-// The canonical Solana mainnet genesis hash. `getGenesisHash` is the network
-// identity check the Solana snap runs during discovery — like Bitcoin's
-// `/block-height/0`, returning any other value makes the snap reject the network.
-const SOLANA_MAINNET_GENESIS_HASH =
-  '5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d';
-
-const SOLANA_RPC_CONTEXT = { apiVersion: '2.0.18', slot: 308460925 };
-
-// Well-formed empty/identity results for every JSON-RPC method the Solana snap
-// calls during account discovery. Mirrors the shapes in
-// `test/e2e/tests/solana/common-solana.ts`. Returning these (instead of letting
-// the requests fall through to the empty-200 catch-all) lets discovery resolve
-// to "no extra accounts" in a single pass instead of a retry storm.
-const SOLANA_DISCOVERY_RPC_RESULTS = {
-  getGenesisHash: SOLANA_MAINNET_GENESIS_HASH,
-  getHealth: 'ok',
-  getVersion: { 'solana-core': '2.0.18', 'feature-set': 3271415109 },
-  getSlot: SOLANA_RPC_CONTEXT.slot,
-  getBalance: { context: SOLANA_RPC_CONTEXT, value: 0 },
-  getAccountInfo: { context: SOLANA_RPC_CONTEXT, value: null },
-  getMultipleAccounts: { context: SOLANA_RPC_CONTEXT, value: [] },
-  getProgramAccounts: [],
-  getTokenAccountsByOwner: { context: SOLANA_RPC_CONTEXT, value: [] },
-  getTokenAccountBalance: {
-    context: SOLANA_RPC_CONTEXT,
-    value: { amount: '0', decimals: 9, uiAmount: null, uiAmountString: '0' },
-  },
-  getLatestBlockhash: {
-    context: SOLANA_RPC_CONTEXT,
-    value: {
-      blockhash: '6E9FiVcuvavWyKTfYC7N9ezJWkNgJVQsroDTHvqApncg',
-      lastValidBlockHeight: 341034515,
-    },
-  },
-  getMinimumBalanceForRentExemption: 890880,
-  getFeeForMessage: { context: SOLANA_RPC_CONTEXT, value: 5000 },
-  getEpochInfo: {
-    absoluteSlot: 308460925,
-    blockHeight: 286665030,
-    epoch: 762,
-    slotIndex: 156925,
-    slotsInEpoch: 432000,
-    transactionCount: 386021115957,
-  },
-};
-
-// Every host the Tron snap sends provider requests to: mainnet via Infura or
-// TronGrid, plus the Shasta/Nile testnets (current `*.api.trongrid.io` and
-// legacy `*.trongrid.io` hostnames).
-const TRON_PROVIDER_HOSTS =
-  'https:\\/\\/(?:tron-mainnet\\.infura\\.io\\/v3\\/[^/]+|(?:api|shasta\\.api|nile\\.api|shasta|nile)\\.trongrid\\.io)';
-
-// TronGrid account endpoints polled during discovery and the snap's account
-// sync cronjob. Group 1 is the base58 address, group 2 the list-endpoint
-// suffix (`/transactions`, `/transactions/trc20`, or `/trc20/balance`).
-const TRON_ACCOUNT_URL_RE = new RegExp(
-  `^${TRON_PROVIDER_HOSTS}\\/v1\\/accounts\\/([A-Za-z0-9]{20,})(\\/transactions(?:\\/trc20)?|\\/trc20\\/balance)?(\\?.*)?$`,
-  'u',
-);
-
-// The JSON-RPC endpoint TronWeb hits when initialising a network provider.
-const TRON_JSONRPC_URL_RE = new RegExp(
-  `^${TRON_PROVIDER_HOSTS}\\/jsonrpc$`,
-  'u',
-);
-
 // EIP-1559 gas estimates served for every chain. Tests that predict on-chain
 // costs (e.g. bridge quote fees) derive them from these values, so keep them in
 // sync rather than duplicating the numbers.
@@ -249,200 +146,6 @@ const MOCK_SUGGESTED_GAS_FEES = {
   priorityFeeTrend: 'down',
   baseFeeTrend: 'up',
 };
-
-// Zero-balance TronGrid account, mirroring the shape produced by
-// `createTronGridAccountResponse` in `test/e2e/seeder/tron/assets.ts`, which
-// the snap's response validation is known to accept.
-const tronEmptyAccountResponse = (address) => ({
-  data: [
-    {
-      address,
-      assetV2: [],
-      balance: 0,
-      free_asset_net_usageV2: [],
-      frozenV2: [],
-      trc20: [],
-    },
-  ],
-  success: true,
-  meta: { at: Date.now(), page_size: 1 },
-});
-
-const tronEmptyListResponse = () => ({
-  data: [],
-  success: true,
-  meta: { at: Date.now(), page_size: 0 },
-});
-
-/**
- * Registers default non-EVM discovery mocks for the shared E2E environment.
- *
- * These handlers keep Bitcoin esplora discovery, Solana signature lookups, and
- * Tron account polling from falling through to the generic empty-200
- * catch-all, which otherwise causes provider retries and slow non-EVM icon
- * rendering in multichain flows.
- *
- * @param {Mockttp} server - The mock server used for E2E network mocks.
- * @returns {Promise<void>}
- */
-async function setupDefaultNonEvmDiscoveryMocks(server) {
-  await server
-    .forGet(
-      /^https:\/\/bitcoin-mainnet\.infura\.io\/v3\/[a-f0-9]{32}\/esplora\/blocks$/u,
-    )
-    .always()
-    .thenCallback(() => ({
-      statusCode: 200,
-      json: BITCOIN_DISCOVERY_BLOCKS,
-    }));
-
-  await server
-    .forGet(
-      /^https:\/\/bitcoin-mainnet\.infura\.io\/v3\/[a-f0-9]{32}\/esplora\/blocks\/tip\/height$/u,
-    )
-    .always()
-    .thenCallback(() => ({
-      statusCode: 200,
-      body: String(BITCOIN_DISCOVERY_BLOCKS[0].height),
-    }));
-
-  await server
-    .forGet(
-      /^https:\/\/bitcoin-mainnet\.infura\.io\/v3\/[a-f0-9]{32}\/esplora\/blocks\/tip\/hash$/u,
-    )
-    .always()
-    .thenCallback(() => ({
-      statusCode: 200,
-      body: BITCOIN_DISCOVERY_CHAIN_TIP_HASH,
-    }));
-
-  // The Bitcoin snap fetches `/block-height/0` and verifies the genesis hash
-  // before deriving accounts — a network-identity check not covered by the
-  // discovery mocks above (#43817) nor by the Solana-scoped completion work
-  // (#43961/#43958), so this handler stays. Unmocked, the request falls to the
-  // empty-200 catch-all, whose malformed body retry-storms discovery and
-  // delays the non-EVM account icons past the default wait. Height 0 must
-  // return the real genesis hash: the snap's chain check rejects a tip hash
-  // there and crashes account creation.
-  await server
-    .forGet(
-      /^https:\/\/bitcoin-mainnet\.infura\.io\/v3\/[a-f0-9]{32}\/esplora\/block-height\/(?<height>\d+)$/u,
-    )
-    .always()
-    .thenCallback((request) => {
-      const height = request.url.match(/block-height\/(?<h>\d+)/u)?.groups?.h;
-      return {
-        statusCode: 200,
-        body:
-          height === '0'
-            ? BITCOIN_MAINNET_GENESIS_HASH
-            : BITCOIN_DISCOVERY_CHAIN_TIP_HASH,
-      };
-    });
-
-  await server
-    .forGet(
-      /^https:\/\/bitcoin-mainnet\.infura\.io\/v3\/[a-f0-9]{32}\/esplora\/scripthash\/[0-9a-f]{64}\/txs$/u,
-    )
-    .always()
-    .thenCallback(() => ({
-      statusCode: 200,
-      json: [],
-    }));
-
-  await server
-    .forGet(
-      /^https:\/\/bitcoin-mainnet\.infura\.io\/v3\/[a-f0-9]{32}\/esplora\/scripthash\/[0-9a-f]{64}\/utxo$/u,
-    )
-    .always()
-    .thenCallback(() => ({
-      statusCode: 200,
-      json: [],
-    }));
-
-  await server
-    .forGet(
-      /^https:\/\/bitcoin-mainnet\.infura\.io\/v3\/[a-f0-9]{32}\/esplora\/fee-estimates$/u,
-    )
-    .always()
-    .thenCallback(() => ({
-      statusCode: 200,
-      json: BITCOIN_DISCOVERY_FEE_ESTIMATES,
-    }));
-
-  await server
-    .forPost(/^https:\/\/solana-(mainnet|devnet)\.infura\.io\/v3\/.*/u)
-    .withBodyIncluding('getSignaturesForAddress')
-    .always()
-    .thenCallback(() => ({
-      statusCode: 200,
-      json: {
-        id: '1337',
-        jsonrpc: '2.0',
-        result: [],
-      },
-    }));
-
-  // The Solana snap calls many more JSON-RPC methods than `getSignaturesForAddress`
-  // during discovery (balance, account info, blockhash, the `getGenesisHash`
-  // network check, …). Mock each with a well-formed empty/identity result so the
-  // request doesn't fall through to the empty-200 catch-all and trigger a retry
-  // storm. Registered at FALLBACK priority: mockttp always prefers a matching
-  // DEFAULT-priority rule (`.always()` rules included), so test-specific mocks
-  // that need richer Solana responses (e.g. the solana-wallet-standard specs)
-  // take precedence, and these defaults only answer methods no spec mocked.
-  // They still beat the empty-200 catch-all, which is also FALLBACK priority
-  // but loses to these rules within the set (`.always()` wins the first pass).
-  for (const [method, result] of Object.entries(SOLANA_DISCOVERY_RPC_RESULTS)) {
-    await server
-      .forPost(/^https:\/\/solana-(mainnet|devnet)\.infura\.io\/v3\/.*/u)
-      .withJsonBodyIncluding({ method })
-      .asPriority(RulePriority.FALLBACK)
-      .always()
-      .thenCallback(async (request) => {
-        const body = await request.body.getJson();
-        return {
-          statusCode: 200,
-          json: { id: body?.id ?? '1337', jsonrpc: '2.0', result },
-        };
-      });
-  }
-
-  // The Tron snap (preinstalled, v3+) polls TronGrid account state during
-  // BIP44 discovery and its 60-second sync cronjob, and TronWeb POSTs to
-  // `/jsonrpc` when initialising the Shasta/Nile testnet providers. None of
-  // these had shared mocks, so in flows without Tron-specific mocks (e.g. the
-  // benchmarks) every call fell to the empty-200 catch-all and retry-stormed
-  // the snap's service policy. Registered at FALLBACK priority like the
-  // Solana defaults above so Tron-specific spec mocks take precedence.
-  await server
-    .forGet(TRON_ACCOUNT_URL_RE)
-    .asPriority(RulePriority.FALLBACK)
-    .always()
-    .thenCallback((request) => {
-      const match = request.url.match(TRON_ACCOUNT_URL_RE);
-      const address = match?.[1] ?? '';
-      const isListEndpoint = Boolean(match?.[2]);
-      return {
-        statusCode: 200,
-        json: isListEndpoint
-          ? tronEmptyListResponse()
-          : tronEmptyAccountResponse(address),
-      };
-    });
-
-  await server
-    .forPost(TRON_JSONRPC_URL_RE)
-    .asPriority(RulePriority.FALLBACK)
-    .always()
-    .thenCallback(async (request) => {
-      const body = await request.body.getJson();
-      return {
-        statusCode: 200,
-        json: { jsonrpc: '2.0', id: body?.id ?? 1, result: null },
-      };
-    });
-}
 
 /**
  * The browser makes requests to domains within its own namespace for
@@ -759,8 +462,6 @@ async function setupMocking(
 
   // Snaps execution ACL registry
   await setupSnapRegistryMocks(server);
-
-  await setupDefaultNonEvmDiscoveryMocks(server);
 
   // remote feature flags — production-accurate defaults from the registry
   // FF will apply to all environments: rc, prod and dev
@@ -2183,17 +1884,6 @@ async function setupMocking(
         headers: { 'Content-Type': 'application/javascript; charset=utf-8' },
       };
     });
-
-  /**
-   * Solana Websocket
-   * Setup HTTP intercept for WebSocket handshake requests
-   */
-  await server
-    .forAnyWebSocket()
-    .matching((req) =>
-      /^wss:\/\/solana-(mainnet|devnet)\.infura\.io\//u.test(req.url),
-    )
-    .thenForwardTo(`ws://localhost:${SOLANA_WS_PORT}`);
 
   /**
    * Backend WebSocket (AccountActivity, etc.)

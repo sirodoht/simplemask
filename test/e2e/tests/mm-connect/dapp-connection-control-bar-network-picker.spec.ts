@@ -1,24 +1,13 @@
 import { Suite } from 'mocha';
 
-import {
-  DAPP_PATH,
-  DAPP_URL,
-  LOCALHOST_NETWORK_CLIENT_ID,
-  MM_CONNECT_EVM_CHAINS,
-} from '../../constants';
+import { DAPP_PATH, DAPP_URL, MM_CONNECT_EVM_CHAINS } from '../../constants';
 import { withFixtures } from '../../helpers';
 import FixtureBuilderV2 from '../../fixtures/fixture-builder-v2';
-import {
-  EVM_AND_SOLANA_FIXTURE_SCOPES_WITH_EIP1193_COMPATIBLE,
-  EVM_AND_SOLANA_FIXTURE_SCOPES_WITHOUT_EIP1193_COMPATIBLE,
-} from '../../fixtures/permission-scopes';
 import { login } from '../../page-objects/flows/login.flow';
-import { connectSolanaTestDapp } from '../../page-objects/flows/solana-dapp.flow';
 import { approveConnect } from '../../page-objects/flows/connect.flow';
 import { Driver, PAGES } from '../../webdriver/driver';
 import HeaderNavbar from '../../page-objects/pages/home/header-navbar';
 import { TestDappMmConnect as TestDapp } from '../../page-objects/pages/test-dapp-mm-connect';
-import { TestDappSolana } from '../../page-objects/pages/test-dapp-solana';
 
 // ── Shared helpers ─────────────────────────────────────────────────────────
 
@@ -130,30 +119,6 @@ describe('DappConnectionControlBar - network picker visibility', function (this:
         },
       );
     });
-
-    it('does not render the network picker after a Solana-only Wallet Standard connection', async function () {
-      await withFixtures(
-        {
-          fixtures: new FixtureBuilderV2().build(),
-          title: this.test?.fullTitle(),
-          dappOptions: {
-            customDappPaths: [DAPP_PATH.TEST_DAPP_SOLANA],
-          },
-        },
-        async ({ driver }: { driver: Driver }) => {
-          await login(driver);
-
-          const testDapp = new TestDappSolana(driver);
-          await testDapp.openTestDappPage();
-          await testDapp.checkPageIsLoaded();
-
-          await connectSolanaTestDapp(driver, testDapp);
-
-          const headerNavbar = await openPopupForDapp(driver);
-          await headerNavbar.checkDappNetworkButtonNotVisible();
-        },
-      );
-    });
   });
 
   describe('reconnection / session property preservation', function (this: Suite) {
@@ -197,59 +162,6 @@ describe('DappConnectionControlBar - network picker visibility', function (this:
 
           const headerNavbarAfter = await openPopupForDapp(driver);
           await headerNavbarAfter.checkDappNetworkButtonVisible();
-        },
-      );
-    });
-  });
-
-  describe('mixed-provider origins', function (this: Suite) {
-    // These tests pre-seed combined EVM + Solana CAIP-25 caveats via the
-    // fixture builder so they isolate the picker's gating logic from the
-    // exact sequence used to reach that state in the wild (e.g. connect-evm
-    // followed by Solana Wallet Standard). The per-domain selected network
-    // (set by the wallet during a real connect) is also seeded so the only
-    // variable across these two tests is `sessionProperties['eip1193-compatible']`.
-
-    it('renders the network picker when EVM and Solana scopes coexist with eip1193-compatible set', async function () {
-      await withFixtures(
-        {
-          fixtures: new FixtureBuilderV2()
-            .withPermissionControllerConnectedToTestDapp({
-              scopes: EVM_AND_SOLANA_FIXTURE_SCOPES_WITH_EIP1193_COMPATIBLE,
-            })
-            .withSelectedNetworkController({
-              domains: { [DAPP_URL]: LOCALHOST_NETWORK_CLIENT_ID },
-            })
-            .build(),
-          title: this.test?.fullTitle(),
-        },
-        async ({ driver }: { driver: Driver }) => {
-          await login(driver);
-
-          const headerNavbar = await openPopupForDapp(driver);
-          await headerNavbar.checkDappNetworkButtonVisible();
-        },
-      );
-    });
-
-    it('does not render the network picker when EVM and Solana scopes coexist without eip1193-compatible', async function () {
-      await withFixtures(
-        {
-          fixtures: new FixtureBuilderV2()
-            .withPermissionControllerConnectedToTestDapp({
-              scopes: EVM_AND_SOLANA_FIXTURE_SCOPES_WITHOUT_EIP1193_COMPATIBLE,
-            })
-            .withSelectedNetworkController({
-              domains: { [DAPP_URL]: LOCALHOST_NETWORK_CLIENT_ID },
-            })
-            .build(),
-          title: this.test?.fullTitle(),
-        },
-        async ({ driver }: { driver: Driver }) => {
-          await login(driver);
-
-          const headerNavbar = await openPopupForDapp(driver);
-          await headerNavbar.checkDappNetworkButtonNotVisible();
         },
       );
     });

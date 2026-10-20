@@ -59,19 +59,6 @@ import {
 import { getIsPasskeyFeatureEnabled } from '../../shared/lib/environment';
 import { isFirefoxBrowser } from '../../shared/lib/browser-runtime.utils';
 import { getRemoteFeatureFlags } from '../../shared/lib/selectors/remote-feature-flags';
-// TODO: Fix circular dependency
-// To avoid import evaluating as `undefined` due to circular dependency,
-// this needs to be imported before `'../pages/confirmations/confirmation/templates'`
-// eslint-disable-next-line import-x/order
-import {
-  getIsBitcoinSupportEnabled,
-  getIsSolanaSupportEnabled,
-  getIsTronSupportEnabled,
-  getIsStellarSupportEnabled,
-  getIsSolanaTestnetSupportEnabled,
-  getIsBitcoinTestnetSupportEnabled,
-  getIsTronTestnetSupportEnabled,
-} from './multichain/feature-flags';
 
 import { getEnvironmentType } from '../../shared/lib/environment-type';
 // TODO: Remove restricted import
@@ -192,16 +179,7 @@ const PERMITTED_ACCOUNTS_LRU_CACHE_SIZE = 5;
 
 // Re-export this file so we don't have to update all references
 // TODO: Update all references
-export {
-  getEnabledNetworks,
-  getIsBitcoinSupportEnabled,
-  getIsSolanaSupportEnabled,
-  getIsTronSupportEnabled,
-  getIsStellarSupportEnabled,
-  getIsSolanaTestnetSupportEnabled,
-  getIsBitcoinTestnetSupportEnabled,
-  getIsTronTestnetSupportEnabled,
-};
+export { getEnabledNetworks };
 
 /** `appState` slice selectors */
 

@@ -90,9 +90,6 @@ export function setEnvironmentVariables({
     SEEDLESS_ONBOARDING_ENABLED: isTestBuild
       ? 'true'
       : variables.getMaybe('SEEDLESS_ONBOARDING_ENABLED'),
-    METAMASK_SHIELD_ENABLED: isTestBuild
-      ? 'true'
-      : variables.getMaybe('METAMASK_SHIELD_ENABLED'),
     QR_SYNC_ENABLED: isTestBuild
       ? 'true'
       : variables.getMaybe('QR_SYNC_ENABLED'),

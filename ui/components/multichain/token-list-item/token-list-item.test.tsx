@@ -1,6 +1,6 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
@@ -304,29 +304,5 @@ describe('TokenListItem', () => {
     expect(
       getByText(messages.bridgeMarketClosedModalTitle.message),
     ).toBeInTheDocument();
-  });
-
-  it('handles clicking staking opens tab', async () => {
-    const store = configureMockStore()(state);
-    const { queryByTestId } = renderWithProvider(
-      <TokenListItem isStakeable {...props} />,
-      store,
-    );
-
-    const stakeButton = queryByTestId(
-      `staking-entrypoint-${CHAIN_IDS.MAINNET}`,
-    );
-
-    expect(stakeButton).toBeInTheDocument();
-    expect(stakeButton).not.toBeDisabled();
-
-    stakeButton && fireEvent.click(stakeButton);
-    expect(openTabSpy).toHaveBeenCalledTimes(1);
-
-    await waitFor(() =>
-      expect(openTabSpy).toHaveBeenCalledWith({
-        url: expect.stringContaining('/stake?metamaskEntry=ext_stake_button'),
-      }),
-    );
   });
 });

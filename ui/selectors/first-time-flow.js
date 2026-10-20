@@ -4,7 +4,6 @@ import {
   DEFAULT_ROUTE,
   ONBOARDING_COMPLETION_ROUTE,
   ONBOARDING_CREATE_PASSWORD_ROUTE,
-  ONBOARDING_DOWNLOAD_APP_ROUTE,
   ONBOARDING_IMPORT_WITH_SRP_ROUTE,
   ONBOARDING_METAMETRICS,
   ONBOARDING_REVIEW_SRP_ROUTE,
@@ -45,7 +44,7 @@ export function getFirstTimeFlowTypeRouteAfterUnlock(state) {
   } else if (firstTimeFlowType === FirstTimeFlowType.restore) {
     return ONBOARDING_METAMETRICS;
   } else if (firstTimeFlowType === FirstTimeFlowType.socialCreate) {
-    return ONBOARDING_DOWNLOAD_APP_ROUTE;
+    return ONBOARDING_COMPLETION_ROUTE;
   }
   return DEFAULT_ROUTE;
 }
@@ -73,7 +72,7 @@ export function getFirstTimeFlowTypeRouteAfterMetaMetricsOptIn(state) {
   } else if (firstTimeFlowType === FirstTimeFlowType.socialCreate) {
     return ONBOARDING_COMPLETION_ROUTE;
   } else if (firstTimeFlowType === FirstTimeFlowType.socialImport) {
-    return ONBOARDING_DOWNLOAD_APP_ROUTE;
+    return ONBOARDING_COMPLETION_ROUTE;
   }
   return DEFAULT_ROUTE;
 }

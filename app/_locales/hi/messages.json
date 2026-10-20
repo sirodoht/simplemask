@@ -64,18 +64,6 @@
     "message": "मैंने $1 पढ़ लिया है और मैं सहमत हूं",
     "description": "$1 is the `terms` message"
   },
-  "accessRestrictedContactSupport": {
-    "message": "सपोर्ट टीम से कॉन्टेक्ट करें"
-  },
-  "accessRestrictedDescriptionLine1": {
-    "message": "कम्प्लायंस स्क्रीनिंग के दौरान इस वॉलेट एड्रेस की शिक़ायत मिली है। इस वजह से, कुछ MetaMask सर्विस उपलब्ध नहीं हैं।"
-  },
-  "accessRestrictedDescriptionLine2": {
-    "message": "अगर आपको लगता है कि यह एक गड़बड़ी है, तो रिव्यू के लिए सपोर्ट से संपर्क करें।"
-  },
-  "accessRestrictedTitle": {
-    "message": "एक्सेस प्रतिबंधित"
-  },
   "accessingYourCamera": {
     "message": "आपके कैमरे को एक्सेस कर रहे हैं..."
   },
@@ -162,9 +150,6 @@
   },
   "accountsSmallCase": {
     "message": "एकाउंट्स"
-  },
-  "actionUnavailable": {
-    "message": "एक्शन उपलब्ध नहीं है"
   },
   "active": {
     "message": "एक्टिव है"
@@ -1205,15 +1190,6 @@
   "addFunds": {
     "message": "फंड जोड़ें"
   },
-  "addFundsModalBuyCrypto": {
-    "message": "क्रिप्टो खरीदें"
-  },
-  "addFundsModalReceiveTokens": {
-    "message": "टोकन प्राप्त करें"
-  },
-  "addFundsModalSwapTokens": {
-    "message": "टोकन स्वैप करें"
-  },
   "addMemo": {
     "message": "मेमो जोड़ें"
   },
@@ -1227,12 +1203,6 @@
   "addNetworkDescription": {
     "message": "एक साइट अतिरिक्त नेटवर्क डिटेल्स का सुझाव दे रही है।"
   },
-  "addNft": {
-    "message": "NFT जोड़ें"
-  },
-  "addNfts": {
-    "message": "NFTs जोड़ें"
-  },
   "addRpcUrl": {
     "message": "RPC URL जोड़ें"
   },
@@ -1241,9 +1211,6 @@
   },
   "addSnapAccountsDescription": {
     "message": "इस फीचर को चालू करने से आपको सीधे अपनी अकाउंट लिस्ट से नया बीटा अकाउंट Snap जोड़ने का विकल्प मिलेगा। अगर आप Snap अकाउंट इनस्टॉल करते हैं, तो याद रखें कि यह एक थर्ड-पार्टी सर्विस है।"
-  },
-  "addSuggestedNFTs": {
-    "message": "सुझाए गए NFTs जोड़ें"
   },
   "addSuggestedTokens": {
     "message": "सुझाए गए टोकन जोड़ें"
@@ -1445,12 +1412,6 @@
   "alert": {
     "message": "एलर्ट"
   },
-  "alertAccountNoFundsMessage": {
-    "message": "कोई फंड उपलब्ध नहीं है। कृपया किसी अन्य अकाउंट का इस्तेमाल करें।"
-  },
-  "alertAccountNoFundsTitle": {
-    "message": "अपर्याप्त फंड"
-  },
   "alertAccountTypeUpgradeMessage": {
     "message": "आप अपने अकाउंट को स्मार्ट अकाउंट में अपडेट कर रहे हैं। आप तेज़ ट्रांसेक्शन और कम नेटवर्क शुल्क अनलॉक करते हुए वही अकाउंट एड्रेस रखेंगे।$1"
   },
@@ -1459,9 +1420,6 @@
   },
   "alertActionBurnAddress": {
     "message": "एसेट्स को बर्न एड्रेस पर भेजना"
-  },
-  "alertActionBuyWithNativeCurrency": {
-    "message": "$1 खरीदें"
   },
   "alertActionEditNetworkFee": {
     "message": "नेटवर्क फीस बदलें"
@@ -1478,25 +1436,8 @@
   "alertContentMultipleApprovals": {
     "message": "आप किसी अन्य व्यक्ति को अपने टोकन निकालने की अनुमति दे रहे हैं, भले ही यह इस ट्रांसेक्शन के लिए आवश्यक न हो।"
   },
-  "alertDepositLimit": {
-    "message": "अधिकतम डिपॉज़िट: $1",
-    "description": "$1 is the formatted USD deposit limit (e.g. $100,000)"
-  },
   "alertDisableTooltip": {
     "message": "इसे \"सेटिंग > अलर्ट\" में बदला जा सकता है"
-  },
-  "alertInsufficientPayMethodBalance": {
-    "message": "कम राशि जोड़ें या किसी अन्य भुगतान विधि का उपयोग करें।"
-  },
-  "alertInsufficientPayTokenBalance": {
-    "message": "अपर्याप्त फंड"
-  },
-  "alertInsufficientPayTokenBalanceFeesNoTarget": {
-    "message": "कम की राशि जोड़ें या कोई दूसरा टोकन इस्तेमाल करें।"
-  },
-  "alertInsufficientPayTokenNative": {
-    "message": "फीस कवर करने के लिए ज़्यादा $1 मौजूद नहीं हैं। जारी रखने के लिए किसी दूसरे नेटवर्क पर टोकन इस्तेमाल करें या और $1 जोड़ें।",
-    "description": "$1 is the native currency symbol (e.g. ETH)"
   },
   "alertMessageAddressMismatchWarning": {
     "message": "हमला करने वाले कभी-कभी साइट के एड्रेस में छोटे-छोटे बदलाव करके साइटों की नकल करते हैं। जारी रखने से पहले सुनिश्चित करें कि आप इच्छित साइट के साथ इंटरैक्ट कर रहे हैं।"
@@ -1561,21 +1502,6 @@
   "alertModalReviewAllAlerts": {
     "message": "सभी एलर्ट की समीक्षा करें"
   },
-  "alertNoPayTokenQuotesMessage": {
-    "message": "यह भुगतान रूट अभी उपलब्ध नहीं है। राशि, नेटवर्क या टोकन बदलने का प्रयास करें और हम सबसे अच्छा विकल्प ढूँढ लेंगे।"
-  },
-  "alertNoPayTokenQuotesTitle": {
-    "message": "कोई कोटेशन मौजूद नहीं है"
-  },
-  "alertPayHardwareAccountMessage": {
-    "message": "हार्डवेयर वॉलेट सपोर्टेड नहीं हैं।\nजारी रखने के लिए वॉलेट बदलें।"
-  },
-  "alertPayHardwareAccountTitle": {
-    "message": "वॉलेट सपोर्टेड नहीं है"
-  },
-  "alertPerpsWithdrawBalanceUnavailable": {
-    "message": "आपका पर्प्स बैलेंस चेक नहीं किया जा सका। फिर से कोशिश करें।"
-  },
   "alertReasonAddressTrustSignalMalicious": {
     "message": "एड्रेस को हाई रिस्क के तौर पर फ़्लैग किया गया है"
   },
@@ -1614,9 +1540,6 @@
   },
   "alertReasonPendingTransactions": {
     "message": "पेंडिंग ट्रांसेक्शन"
-  },
-  "alertReasonPerpsWithdrawBalanceUnavailable": {
-    "message": "बैलेंस अनुपलब्ध है"
   },
   "alertReasonSignIn": {
     "message": "संदिग्ध साइन-इन अनुरोध"
@@ -1687,9 +1610,6 @@
     "message": "$1 और $2",
     "description": "$1 is the first item, $2 is the second item. Used in Snap Install Warning modal."
   },
-  "annual": {
-    "message": "वार्षिक"
-  },
   "appDescription": {
     "message": "विश्व का सबसे विश्वसनीय क्रिप्टो वॉलेट",
     "description": "The description of the application"
@@ -1750,36 +1670,8 @@
   "asset": {
     "message": "एसेट"
   },
-  "assetActivate": {
-    "message": "एक्टिवेट करें",
-    "description": "Primary button to activate an asset."
-  },
-  "assetActivateDescription": {
-    "message": "शुरू करने के लिए $2 पर $1 एक्टिवेट करें।",
-    "description": "Explainer for the trustline activation card. $1 is the token symbol and $2 is the chain name."
-  },
-  "assetActivationError": {
-    "message": "यह ट्रस्टलाइन जोड़ते समय कुछ गड़बड़ हो गई। कृपया फिर से कोशिश करें।",
-    "description": "Alert when the Stellar changeTrustOpt add request fails for a reason other than user cancel"
-  },
   "assetChartNoHistoricalPrices": {
     "message": "हम कोई ऐतिहासिक डेटा प्राप्त नहीं कर सके"
-  },
-  "assetDeactivate": {
-    "message": "हटाएं",
-    "description": "Button label to deactivate an asset."
-  },
-  "assetDeactivationError": {
-    "message": "यह ट्रस्टलाइन हटाते समय कुछ गड़बड़ हो गई। कृपया फिर से कोशिश करें।",
-    "description": "Alert when the Stellar changeTrustOpt delete request fails for a reason other than user cancel"
-  },
-  "assetDeactivationNonZeroBalanceError": {
-    "message": "आपके वॉलेट में अभी भी $1 $2 हैं। स्टेलर पर इस एसेट को डीएक्टिवेट करने से पहले आपको यह सब भेजना या स्वैप करना होगा।",
-    "description": "Alert when the Stellar changeTrustOpt delete request fails because the token balance is not zero. $1 is the formatted balance amount and $2 is the token symbol."
-  },
-  "assetInactive": {
-    "message": "एक्टिव नहीं है",
-    "description": "Label for a trustline token the user imported but has not established an on-chain trustline for yet"
   },
   "assetOptions": {
     "message": "एसेट के विकल्प"
@@ -1789,16 +1681,6 @@
   },
   "assetsDescription": {
     "message": "अपने वॉलेट में टोकन ऑटोडिटेक्ट करें, NFT प्रदर्शित करें, और बैच अकाउंट बैलेंस संबंधी अपडेट प्राप्त करें"
-  },
-  "asterdexReferralSubtitle": {
-    "message": "MetaMask रेफ़रल कोड के साथ ट्रेड पर 4% वापस पाएं।",
-    "description": "The subtitle of the AsterDEX referral confirmation screen"
-  },
-  "attemptToCancelSwapForFree": {
-    "message": "स्वैप को मुफ्त में कैंसिल करने की कोशिश करें"
-  },
-  "attributes": {
-    "message": "विशेषताएं"
   },
   "attributions": {
     "message": "एट्रीब्यूशन्स"
@@ -1883,9 +1765,6 @@
   },
   "backupAndSyncFeatureContacts": {
     "message": "कॉन्टेक्ट्स"
-  },
-  "backupAndSyncFeatureRamps": {
-    "message": "ऑर्डर खरीदें और बेचें"
   },
   "backupAndSyncManageWhatYouSync": {
     "message": "आप जो सिंक करते हैं उसे प्रबंधित करें"
@@ -1996,12 +1875,6 @@
   "basicFunctionalityRequired_openNotificationsPage": {
     "message": "नोटिफिकेशंस पेज खोलें"
   },
-  "basicFunctionalityRequired_openPerpsPage": {
-    "message": "पर्प्स पेज खोलें"
-  },
-  "basicFunctionalityRequired_openRewardsPage": {
-    "message": "रिवॉर्ड्स पेज खोलें"
-  },
   "basicFunctionalityRequired_openSnapsPage": {
     "message": "स्नैप्स पेज खोलें"
   },
@@ -2020,60 +1893,6 @@
   "basicFunctionalityRequired_toggleLabel": {
     "message": "बुनियादी सुविधाएं"
   },
-  "batchSell": {
-    "message": "बैच सेल"
-  },
-  "batchSellContinueNAssetsCTAPlural": {
-    "message": "($1) टोकन के साथ जारी रखें"
-  },
-  "batchSellContinueNAssetsCTASingle": {
-    "message": "($1) टोकन के साथ जारी रखें"
-  },
-  "batchSellEmptyStateDescription": {
-    "message": "कोई टोकन नहीं। कोई प्रॉब्लम नहीं। बैच सेल के लिए टोकन एक्सप्लोर करें और खरीदें।"
-  },
-  "batchSellGetNewQuotes": {
-    "message": "नए उद्धरण प्राप्त करें"
-  },
-  "batchSellHighRateAlert": {
-    "message": "हाई रेट अलर्ट"
-  },
-  "batchSellHightRateAlertModalDescription": {
-    "message": "एक टोकन बैच में बेचने पर रेट ज़्यादा हो सकता है। क्या आप इसके बजाय स्वैप करना चाहते हैं?"
-  },
-  "batchSellMaxSelectedTokens": {
-    "message": "ज़्यादा से ज़्यादा $1 टोकन अलाउड हैं"
-  },
-  "batchSellMinimumReceiveExplanation": {
-    "message": "आपके ट्रांसेक्शन के प्रोसेस होने के दौरान प्राइस बदलने पर जो न्यूनतम राशि आपको प्राप्त होगी, वह आपके स्लिपेज (slippage) टॉलरेंस पर आधारित है। यह हमारे लिक्विडिटी प्रदाताओं से एक अनुमान है। अंतिम राशि भिन्न हो सकती है।"
-  },
-  "batchSellNetworkFeeTooltip": {
-    "message": "नेटवर्क फीस इस बात पर निर्भर करते हैं कि नेटवर्क कितना व्यस्त है और आपका ट्रांसेक्शन कितना जटिल है।"
-  },
-  "batchSellReceiveStablecoin": {
-    "message": "एक स्टेबलकॉइन चुनें"
-  },
-  "batchSellSelectHeaderSubtitle": {
-    "message": "सभी टोकन एक ही नेटवर्क पर होने चाहिए।"
-  },
-  "batchSellSelectHeaderTitle": {
-    "message": "5 टोकन तक चुनें"
-  },
-  "batchSellSlippageDescription": {
-    "message": "अगर प्राइस स्लिपेज परसेंट से ज़्यादा बदल जाता है, तो आपका ट्रांसेक्शन पूरा नहीं होगा।"
-  },
-  "batchSellYouSellTokenCount": {
-    "message": "$1 टोकन"
-  },
-  "batchSellYouSellTokenCountPlural": {
-    "message": "$1 टोकन"
-  },
-  "bestQuote": {
-    "message": "सबसे अच्छी क्वोट"
-  },
-  "bestQuoteTooltip": {
-    "message": "हमें प्रोवाइडर्स से सबसे अच्छा क्वोट मिला, जिसमें प्रोवाइडर फीस और 0.25% MetaMask फीस शामिल है। कीमत में बदलाव होने पर आपको कम से कम $1 मिलेगा।"
-  },
   "beta": {
     "message": "बीटा"
   },
@@ -2090,10 +1909,6 @@
   "blockExplorerAssetAction": {
     "message": "एसेट",
     "description": "This is used with viewOnEtherscan and viewInExplorer e.g View Asset in Explorer"
-  },
-  "blockExplorerSwapAction": {
-    "message": "स्वैप करें",
-    "description": "This is used with viewOnEtherscan e.g View Swap on Etherscan"
   },
   "blockExplorerUrl": {
     "message": "एक्सप्लोरर URL को ब्लॉक करें"
@@ -2183,40 +1998,12 @@
   "blockies": {
     "message": "ब्लॉकी"
   },
-  "borrowed": {
-    "message": "उधार लिया गया"
-  },
-  "boughtFor": {
-    "message": "के लिए खरीदा गया"
-  },
   "bridge": {
     "message": "ब्रिज करें"
-  },
-  "bridgeAgain": {
-    "message": "फिर से ब्रिज करें"
-  },
-  "bridgeAllowSwappingOf": {
-    "message": "ब्रिजिंग के लिए $3 पर $1 $2 तक सटीक पहुंच की अनुमति दें",
-    "description": "Shows a user that they need to allow a token for swapping on their hardware wallet"
   },
   "bridgeApproval": {
     "message": "ब्रिज के लिए $1 एप्रूव करें",
     "description": "Used in the transaction display list to describe a transaction that is an approve call on a token that is to be bridged. $1 is the symbol of a token that has been approved."
-  },
-  "bridgeBlockExplorerLinkCopied": {
-    "message": "ब्लॉक एक्सप्लोरर लिंक कॉपी किया गया"
-  },
-  "bridgeConfirmTwoTransactions": {
-    "message": "आपको अपने हार्डवेयर वॉलेट पर 2 ट्रांसेक्शन कन्फर्म करनी होगी:"
-  },
-  "bridgeDiscountBadgeDao": {
-    "message": "DAO"
-  },
-  "bridgeDiscountBadgePromo": {
-    "message": "प्रोमो"
-  },
-  "bridgeEnterAmount": {
-    "message": "रकम चुनें"
   },
   "bridgeExplorerPopupDescription": {
     "message": "यह ट्रांज़ैक्शन दो नेटवर्क पर रहता है। एक लिंक सोर्स दिखाता है, दूसरा कन्फर्म होने के बाद डेस्टिनेशन दिखाता है।"
@@ -2224,30 +2011,8 @@
   "bridgeFee": {
     "message": "ब्रिज फीस"
   },
-  "bridgeFeeDisclaimer": {
-    "message": "$1% MetaMask फ़ीस शामिल है"
-  },
-  "bridgeFromTo": {
-    "message": "$1 $2 को $3 से ब्रिज करें",
-    "description": "Tells a user that they need to confirm on their hardware wallet a bridge. $1 is amount of source token, $2 is the source network, and $3 is the destination network"
-  },
-  "bridgeGasFeesSplit": {
-    "message": "पिछली स्क्रीन पर कोट किए गए किसी भी नेटवर्क शुल्क में दोनों ट्रांसेक्शन शामिल हैं और इसे विभाजित किया जाएगा।"
-  },
-  "bridgeGetNewQuote": {
-    "message": "नया कोटेशन प्राप्त करें"
-  },
-  "bridgeLowestCost": {
-    "message": "सबसे कम लागत"
-  },
-  "bridgeMaliciousTokenTitle": {
-    "message": "बुरी नीयत वाला टोकन"
-  },
   "bridgeMarketClosedAction": {
     "message": "मार्केट बंद"
-  },
-  "bridgeMarketClosedDescription": {
-    "message": "यह स्टॉक टोकन अभी ट्रेडिंग के समय के बाहर है। मार्केट खुलने पर फिर से कोशिश करें।"
   },
   "bridgeMarketClosedModalDescription": {
     "message": "इस टोकन को सपोर्ट करने वाला मार्केट अभी बंद है। टोकन को कभी भी ऑन-चेन ट्रांसफर किया जा सकता है।"
@@ -2257,82 +2022,6 @@
   },
   "bridgeMarketClosedModalTitle": {
     "message": "मार्केट बंद है"
-  },
-  "bridgeMarketClosedTitle": {
-    "message": "मार्केट बंद"
-  },
-  "bridgeNoMMFee": {
-    "message": "कोई MM फीस नहीं"
-  },
-  "bridgeNoPriceInfoTitle": {
-    "message": "कीमत की कोई जानकारी नहीं"
-  },
-  "bridgeOffHoursDescription": {
-    "message": "मार्केट बंद: कीमत इश्यूअर द्वारा कैलकुलेट की जाती है, लाइव मार्केट डेटा नहीं। अगले उपलब्ध ट्रेडिंग सेशन में मार्केट के फिर से खुलने पर यह अलग हो सकती है।"
-  },
-  "bridgeOffHoursTitle": {
-    "message": "ऑफ-आवर्स ट्रेडिंग"
-  },
-  "bridgePoints": {
-    "message": "अनुमानित पॉइंट्स",
-    "description": "Label for estimated points that can be earned from a bridge or swap"
-  },
-  "bridgePoints_couldntLoad": {
-    "message": "लोड नहीं हो सका",
-    "description": "Text shown in rewards badge when points couldn't be loaded"
-  },
-  "bridgePoints_error": {
-    "message": "पॉइंट्स लोड नहीं हो सके",
-    "description": "Tooltip title when there's an error fetching estimated points"
-  },
-  "bridgePoints_error_content": {
-    "message": "चिंता न करें, आप अभी भी पॉइंट्स कमा रहे हैं। वे जल्द ही आपके अकाउंट में दिखाई देंगे,\n या आप MetaMask Mobile पर रिवॉर्ड्स टैब में चेक कर सकते हैं।",
-    "description": "Error message when points estimation fails"
-  },
-  "bridgePoints_tooltip": {
-    "message": "पॉइंट्स",
-    "description": "Tooltip title for points"
-  },
-  "bridgePoints_tooltip_content_1": {
-    "message": "पॉइंट्स वह हैं जिनसे आप ट्रांसेक्शन पूरा करने पर MetaMask रिवार्ड्स कमाते हैं, जैसे जब आप स्वैप, ब्रिज या पर्प्स ट्रेड करते हैं।",
-    "description": "First part of tooltip content explaining rewards points"
-  },
-  "bridgePoints_tooltip_content_2": {
-    "message": "ध्यान रखें कि यह मूल्य केवल एक अनुमान है और ट्रांसेक्शन पूरा होने के बाद अंतिम रूप दिया जाएगा। आपके रिवॉर्ड्स बैलेंस में पॉइंट्स कन्फर्म होने में 1 घंटे तक का समय लग सकता है।",
-    "description": "Second part of tooltip content explaining how points are calculated"
-  },
-  "bridgePriceDataUnavailableError": {
-    "message": "हमें इस टोकन की कीमत की जानकारी नहीं मिल पाई। आगे बढ़ने से पहले पक्का कर लें कि आपको जो राशि मिली है, वह आपकी उम्मीद के मुताबिक है।"
-  },
-  "bridgePriceImpact": {
-    "message": "कीमत का प्रभाव"
-  },
-  "bridgePriceImpactFiatAlert": {
-    "message": "इस ट्रेड में आपको $1 का नुकसान होगा"
-  },
-  "bridgePriceImpactHigh": {
-    "message": "हाई प्राइस इम्पैक्ट"
-  },
-  "bridgePriceImpactHighDescription": {
-    "message": "आपके ट्रेड साइज़ और उपलब्ध लिक्विडिटी की वजह से, आपको मार्केट प्राइस से लगभग $1 कम मिलेगा। यह आपके कोट में पहले से ही शामिल है।"
-  },
-  "bridgePriceImpactNormalDescription": {
-    "message": "इस तरह आपका ट्रेड किसी टोकन की मार्केट कीमत बदलता है। यह ट्रेड साइज़, उपलब्ध लिक्विडिटी और प्रोवाइडर फीस पर निर्भर करता है। MetaMask प्राइस इम्पैक्ट को कंट्रोल नहीं करता है।"
-  },
-  "bridgePriceImpactTooltipTitle": {
-    "message": "कीमत का प्रभाव"
-  },
-  "bridgePriceImpactVeryHigh": {
-    "message": "वेरी हाई प्राइस इम्पैक्ट"
-  },
-  "bridgePriceImpactVeryHighDescription": {
-    "message": "इस स्वैप पर आपको अपने टोकन की मार्केट कीमत का लगभग $1 का नुकसान होगा। अपना रेट बेहतर करने के लिए छोटा ट्रेड या ज़्यादा लिक्विड तरीका आज़माएँ।"
-  },
-  "bridgePriceImpactWarningAriaLabel": {
-    "message": "प्राइस इम्पैक्ट वार्निंग की जानकारी पढ़ें"
-  },
-  "bridgePriceImpactWarningTitle": {
-    "message": "कीमत के असर को लेकर चेतावनी"
   },
   "bridgeQrHardwareSignDisplayStepTitle": {
     "message": "$2 में से $1 स्टेप: अपने वॉलेट से इस QR कोड को स्कैन करें",
@@ -2346,36 +2035,6 @@
     "message": "$2 में से $1 स्टेप: अपने वॉलेट पर दिखाए गए QR कोड को स्कैन करें",
     "description": "Title for the approval QR hardware-wallet signing page. $1 is the current step number and $2 is the total step count."
   },
-  "bridgeQuoteStreamCompleteAmountTooHigh": {
-    "message": "कोई कोटेशन उपलब्ध नहीं है। कम अमाउंट से कोशिश करें।"
-  },
-  "bridgeQuoteStreamCompleteAmountTooLow": {
-    "message": "कोई कोटेशन उपलब्ध नहीं है। ज़्यादा अमाउंट से कोशिश करें।"
-  },
-  "bridgeQuoteStreamCompleteRetry": {
-    "message": "अभी कोटेशन बताना संभव नहीं है। कृपया बाद में कोशिश करें।"
-  },
-  "bridgeQuoteStreamCompleteRwaGeoRestricted": {
-    "message": "यह स्वैप आपके क्षेत्र में उपलब्ध नहीं है।"
-  },
-  "bridgeQuoteStreamCompleteRwaMarketUnavailable": {
-    "message": "इस एसेट के लिए मार्केट फिलहाल उपलब्ध नहीं है। कृपया बाद में कोशिश करें।"
-  },
-  "bridgeQuoteStreamCompleteRwaNativeTokenUnsupported": {
-    "message": "इस टोकन और रियल वर्ल्ड एसेट्स के बीच स्वैप अभी सपोर्टेड नहीं हैं। कृपया कोई दूसरा टोकन इस्तेमाल करके देखें।"
-  },
-  "bridgeQuoteStreamCompleteSlippageTooHigh": {
-    "message": "स्लिपेज बहुत ज़्यादा है। स्लिपेज सेटिंग को कम करके कोशिश करें।"
-  },
-  "bridgeQuoteStreamCompleteSlippageTooLow": {
-    "message": "स्लिपेज बहुत कम है। स्लिपेज सेटिंग को बढ़ा करके कोशिश करें।"
-  },
-  "bridgeQuoteStreamCompleteTokenNotSupported": {
-    "message": "यह टोकन समर्थित नहीं है। कृपया कोई दूसरा टोकन इस्तेमाल करके देखें।"
-  },
-  "bridgeQuotesSortedByCost": {
-    "message": "कोटेशन को अनुमानित कुल लागत के आधार पर क्रमबद्ध किया जाता है, जिसमें एक्सचेंज रेट और नेटवर्क शुल्क शामिल होते हैं।"
-  },
   "bridgeReceive": {
     "message": "$2 पर $1 प्राप्त करें",
     "description": "Summary line showing token received on destination chain. $1 is the token symbol, $2 is the network name."
@@ -2383,119 +2042,11 @@
   "bridgeReceiveLoading": {
     "message": "डेस्टिनेशन चेन पर प्राप्त कर रहे हैं"
   },
-  "bridgeSecurityDataKnownAirdrop": {
-    "message": "संदिग्ध एयरड्रॉप"
-  },
-  "bridgeSecurityDataKnownConcentratedSupply": {
-    "message": "कंसन्ट्रेटेड सप्लाई"
-  },
-  "bridgeSecurityDataKnownDynamicAnalysis": {
-    "message": "संदिग्ध व्यवहार"
-  },
-  "bridgeSecurityDataKnownFakeTradeMakerCount": {
-    "message": "इन्फ्लेटेड ट्रेडर काउंट"
-  },
-  "bridgeSecurityDataKnownFakeVolume": {
-    "message": "नकली वॉल्यूम"
-  },
-  "bridgeSecurityDataKnownHeavilySniped": {
-    "message": "भारी बॉट एक्टिविटी"
-  },
-  "bridgeSecurityDataKnownHiddenSupplyByKeyHolder": {
-    "message": "अनडिस्क्लोज्ड सप्लाई"
-  },
-  "bridgeSecurityDataKnownHighBuyFee": {
-    "message": "हाई बाई फीस"
-  },
-  "bridgeSecurityDataKnownHighSellFee": {
-    "message": "हाई सैल फीस"
-  },
-  "bridgeSecurityDataKnownHighTransferFee": {
-    "message": "हाई ट्रांसफर फीस"
-  },
-  "bridgeSecurityDataKnownHoneypot": {
-    "message": "हनीपॉट रिस्क"
-  },
-  "bridgeSecurityDataKnownImpersonator": {
-    "message": "धोखेबाज़"
-  },
-  "bridgeSecurityDataKnownImpersonatorAsset": {
-    "message": "किसी सेंसिटिव एसेट की नकल करता है"
-  },
-  "bridgeSecurityDataKnownImpersonatorHigh": {
-    "message": "संभावित धोखेबाज़"
-  },
-  "bridgeSecurityDataKnownImpersonatorMedium": {
-    "message": "संभावित धोखेबाज़"
-  },
-  "bridgeSecurityDataKnownInappropriateContent": {
-    "message": "अभद्र कंटेंट"
-  },
-  "bridgeSecurityDataKnownInorganicVoume": {
-    "message": "आर्टिफीसियल वॉल्यूम"
-  },
-  "bridgeSecurityDataKnownInsufficientLiquidity": {
-    "message": "कम लॉक्ड लिक्विडिटी"
-  },
-  "bridgeSecurityDataKnownLowReputation": {
-    "message": "क्रिएटर की रेप्युटेशन कम है"
-  },
-  "bridgeSecurityDataKnownMalicious": {
-    "message": "जाना-माना गलत इरादे वाला"
-  },
-  "bridgeSecurityDataKnownMetadata": {
-    "message": "संदिग्ध मेटाडेटा"
-  },
-  "bridgeSecurityDataKnownPostDump": {
-    "message": "कीमत में संभावित हेरफेर"
-  },
-  "bridgeSecurityDataKnownRugpull": {
-    "message": "रगपुल रिस्क"
-  },
-  "bridgeSecurityDataKnownSanctionedCreator": {
-    "message": "सैंक्शन्ड क्रिएटर"
-  },
-  "bridgeSecurityDataKnownSimilarMaliciousContract": {
-    "message": "गलत इरादे वाले कॉन्ट्रैक्ट जैसा दिखता है"
-  },
-  "bridgeSecurityDataKnownSnipeMint": {
-    "message": "लॉन्च के समय बॉट एक्टिविटी"
-  },
-  "bridgeSecurityDataKnownSpamText": {
-    "message": "स्पैम टेक्स्ट"
-  },
-  "bridgeSecurityDataKnownStaticCodeSign": {
-    "message": "संदिग्ध कोड"
-  },
-  "bridgeSecurityDataKnownTokenBackdoor": {
-    "message": "टोकन बैकडोर"
-  },
-  "bridgeSecurityDataKnownUnsellable": {
-    "message": "बेचा न जा सकने वाला टोकन"
-  },
-  "bridgeSecurityDataKnownUnstablePrice": {
-    "message": "अस्थिर कीमत"
-  },
-  "bridgeSecurityDataKnownWashTrading": {
-    "message": "वॉश ट्रेडिंग"
-  },
-  "bridgeSelectDestinationAccount": {
-    "message": "एक डेस्टिनेशन अकाउंट चुनें"
-  },
   "bridgeSelectDifferentQuote": {
     "message": "कृपया कोई अलग कोटेशन चुनें।"
   },
   "bridgeSelectNetwork": {
     "message": "नेटवर्क चुनें"
-  },
-  "bridgeSelectQuote": {
-    "message": "कोटेशन चुनें"
-  },
-  "bridgeSelectTokenAmountAndAccount": {
-    "message": "टोकन, राशि और गंतव्य अकाउंट चुनें"
-  },
-  "bridgeSelectTokenAndAmount": {
-    "message": "टोकन और रकम का चयन करें"
   },
   "bridgeSend": {
     "message": "$2 से $1 भेजें",
@@ -2503,60 +2054,6 @@
   },
   "bridgeSendLoading": {
     "message": "सोर्स चेन से भेज रहे हैं"
-  },
-  "bridgeStellarTrustlineWarningCta": {
-    "message": "$1 एक्टिवेट करें",
-    "description": "CTA on the Stellar trustline warning banner. $1 is the destination token symbol."
-  },
-  "bridgeStellarTrustlineWarningMessage": {
-    "message": "यह स्वैप फेल हो सकता है। स्टेलर पर, आपके अकाउंट में तब तक $1 नहीं आ सकता\n जब तक टोकन आपके वॉलेट में वैलिड ट्रस्टलाइन के साथ एक्टिवेट न हो जाए।",
-    "description": "Body of the Stellar trustline warning on cross-chain swaps when destination is the active account. $1 is the destination token symbol."
-  },
-  "bridgeStellarTrustlineWarningMessageDifferentAccount": {
-    "message": "यह स्वैप फेल हो सकता है। स्टेलर पर $1 पर $2 तब तक नहीं मिल सकते जब तक आप उस अकाउंट पर स्विच न करें और वैलिड ट्रस्टलाइन के साथ टोकन एक्टिवेट न करें।",
-    "description": "Body of the Stellar trustline warning when the destination account is not the active account. $1 is the destination account name; $2 is the destination token symbol."
-  },
-  "bridgeStellarTrustlineWarningTitle": {
-    "message": "पहले स्टेलर पर $1 एक्टिवेट करें",
-    "description": "Title of the Stellar trustline warning on cross-chain swaps. $1 is the destination token symbol."
-  },
-  "bridgeSuspiciousTokenTitle": {
-    "message": "संदिग्ध टोकन"
-  },
-  "bridgeTokenIsMaliciousBanner": {
-    "message": "$1 एक बुरी नीयत वाला टोकन है।"
-  },
-  "bridgeTokenIsMaliciousModalDescription": {
-    "message": "$1 को गलत इरादे वाला बताया गया है। इससे इंटरैक्ट करने वाले किसी भी व्यक्ति के पैसे चोरी होने की संभावना है।"
-  },
-  "bridgeTokenIsSuspiciousBanner": {
-    "message": "$1 एक संदिग्ध टोकन है।"
-  },
-  "bridgeTokenIsSuspiciousModalDescription": {
-    "message": "$1 को गलत इरादे वाला बताया गया है। आगे बढ़ने से पहले जोखिमों पर एक नज़र डालें।"
-  },
-  "bridgeTokenNotFound": {
-    "message": "कोई टोकन \"$1\" से मेल नहीं खाता"
-  },
-  "bridgeUseMaxAmountAllowedWithReserve": {
-    "message": "अधिकतम अनुमत सीमा का उपयोग करें"
-  },
-  "bridgeValidationInsufficientGasMessage": {
-    "message": "इस ब्रिज के लिए नेटवर्क फीस का भुगतान करने के लिए आपके पास पर्याप्त $1 नहीं है। कम राशि दर्ज करें या अधिक $1 खरीदें।"
-  },
-  "bridgeValidationInsufficientGasTitle": {
-    "message": "गैस के लिए अधिक $1 की आवश्यकता है"
-  },
-  "bridgeValidationInsufficientNativeReserveMessage": {
-    "message": "इस विशेष नेटवर्क के लिए आपके अकाउंट में $1 $3 का रिज़र्व बनाए रखना आवश्यक है। आपके वर्तमान बैलेंस के साथ, आप अधिकतम $2 $3 तक उपयोग कर सकते हैं",
-    "description": "$1 is the minimum native reserve amount for the network, $2 is the spendable balance, $3 the ticker symbol of the token"
-  },
-  "bridgeValidationInsufficientNativeReserveTitle": {
-    "message": "न्यूनतम $1 रिज़र्व बैलेंस आवश्यक है",
-    "description": "$1 is the ticker symbol of the token"
-  },
-  "bridging": {
-    "message": "ब्रिज किया जा रहा है"
   },
   "browserNotSupported": {
     "message": "आपका ब्राउज़र सपोर्टेड नहीं है..."
@@ -2566,18 +2063,6 @@
   },
   "buy": {
     "message": "खरीदें"
-  },
-  "buyMoreAsset": {
-    "message": "ज्यादा $1 खरीदें",
-    "description": "$1 is the ticker symbol of a an asset the user is being prompted to purchase"
-  },
-  "buyTabOpenedToastDescription": {
-    "message": "हमने खरीदने के लिए एक नया टैब खोला है।",
-    "description": "Toast description shown after opening the buy flow in a new tab"
-  },
-  "buyTabOpenedToastText": {
-    "message": "अपने ब्राउज़र टैब में जारी रखें",
-    "description": "Toast title shown after opening the buy flow in a new tab"
   },
   "bytes": {
     "message": "बाइट"
@@ -2605,10 +2090,6 @@
   },
   "cancelled": {
     "message": "कैंसिल किया गया"
-  },
-  "carouselAllCaughtUp": {
-    "message": "आप पूरी तरह अपडेटेड हैं!",
-    "description": "Message shown in carousel when all promotional slides have been dismissed"
   },
   "chainId": {
     "message": "चेन आईडी"
@@ -2693,15 +2174,8 @@
   "close": {
     "message": "बंद करें"
   },
-  "closeSlide": {
-    "message": "$1 बंद करें",
-    "description": "Aria label for close button on carousel slides. $1 is the slide title"
-  },
   "coingecko": {
     "message": "CoinGecko"
-  },
-  "collectionName": {
-    "message": "संग्रह का नाम"
   },
   "comboNoOptions": {
     "message": "कोई विकल्प नहीं मिला",
@@ -3097,15 +2571,6 @@
   "contractInteraction": {
     "message": "कॉन्ट्रैक्ट इंटरैक्शन"
   },
-  "convertAgain": {
-    "message": "फिर से कन्वर्ट करें"
-  },
-  "convertTokenToNFTDescription": {
-    "message": "हमने पाया है कि यह संपत्ति एक NFT है। MetaMask के पास अब NFT के लिए फुल नेटिव सपोर्ट है। क्या आप इसे अपनी टोकन लिस्ट से हटाना चाहते हैं और इसे NFT के रूप में जोड़ना चाहते हैं?"
-  },
-  "convertTokenToNFTExistDescription": {
-    "message": "हमने पाया है कि इस संपत्ति को NFT के रूप में जोड़ा गया है। क्या आप इसे अपनी टोकन सूची से हटाना चाहेंगे?"
-  },
   "copiedExclamation": {
     "message": "कॉपी किया गया!"
   },
@@ -3157,17 +2622,11 @@
   "createPasswordDetailsSocialReset": {
     "message": "MetaMask इसे रीसेट नहीं कर सकता।"
   },
-  "createPasswordMarketing": {
-    "message": "प्रॉडक्ट अपडेट, सुझाव और समाचार प्राप्त करें, जिसमें ईमेल भी शामिल है। हम आपके इंटरैक्शन का उपयोग, साझा की जाने वाली जानकारी को बेहतर बनाने के लिए कर सकते हैं।"
-  },
   "createSnapAccountDescription": {
     "message": "$1 MetaMask में एक नया अकाउंट जोड़ना चाहता है।"
   },
   "createSnapAccountTitle": {
     "message": "अकाउंट बनाएं"
-  },
-  "creatorAddress": {
-    "message": "निर्माता का एड्रेस"
   },
   "criticalErrorAttemptRecovery": {
     "message": "पुनर्प्राप्ति का प्रयास करें"
@@ -3257,14 +2716,8 @@
   "customNetworks": {
     "message": "कस्टम नेटवर्क"
   },
-  "customSlippage": {
-    "message": "कस्टम"
-  },
   "customTokenWarningInTokenDetectionNetwork": {
     "message": "कोई भी टोकन बना सकता है, जिसमें मौजूदा टोकन के नकली वर्शन को बनाना शामिल है। $1 के बारे में जानें"
-  },
-  "customerSupport": {
-    "message": "ग्राहक सहायता"
   },
   "dappSuggested": {
     "message": "सुझावित साइट"
@@ -3276,21 +2729,6 @@
   "dappSuggestedHigh": {
     "message": "सुझावित साइट"
   },
-  "dappSwapAdvantage": {
-    "message": "MetaMask स्वैप के साथ बचत करें और कमाएँ"
-  },
-  "dappSwapAdvantageSaveOnly": {
-    "message": "MetaMask स्वैप के साथ बचत करें"
-  },
-  "dappSwapBenefits": {
-    "message": "फेल हुए स्वैप पर नेटवर्क फीस रिफंड की गई"
-  },
-  "dappSwapQuoteDifference": {
-    "message": "$1 सेव करें"
-  },
-  "dappSwapRewardText": {
-    "message": "$1 पॉइंट कमाएँ"
-  },
   "dapps": {
     "message": "डैप्स"
   },
@@ -3300,29 +2738,11 @@
   "data": {
     "message": "डेटा"
   },
-  "dataCollectionForMarketing": {
-    "message": "मार्केटिंग के लिए डेटा संग्रह"
-  },
-  "dataCollectionForMarketingDescription": {
-    "message": "आप हमारे मार्केटिंग कम्यूनिकेशन्स के साथ कैसे इंटरैक्ट करते हैं, यह जानने के लिए हम MetaMetrics का उपयोग करेंगे। हम प्रासंगिक समाचार (जैसे प्रॉडक्ट फीचर्स और अन्य सामग्री) साझा कर सकते हैं।"
-  },
-  "dataCollectionForMarketingDescriptionSocialLogin": {
-    "message": "उत्पाद अपडेट, सुझाव और समाचार प्राप्त करें - ईमेल के माध्यम से भी। हम आपके इंटरैक्शन का उपयोग साझा की जाने वाली जानकारी को बेहतर बनाने के लिए कर सकते हैं।"
-  },
-  "dataUnavailable": {
-    "message": "डेटा अनुपलब्ध है"
-  },
   "date": {
     "message": "तिथि"
   },
-  "dateCreated": {
-    "message": "बनाने की तारीख"
-  },
   "day": {
     "message": "दिन"
-  },
-  "debitCreditPurchaseOptions": {
-    "message": "डेबिट या क्रेडिट कार्ड से खरीदारी के विकल्प"
   },
   "debug": {
     "message": "डिबग"
@@ -3350,23 +2770,11 @@
   "decryptRequest": {
     "message": "रिक्वेस्ट डिक्रिप्ट करें"
   },
-  "deepLinkQrBatchSellDescription": {
-    "message": "बैच सेल MetaMask मोबाइल पर उपलब्ध है। इसका इस्तेमाल करने के लिए इस कोड को अपने मोबाइल डिवाइस से स्कैन करें।"
-  },
-  "deepLinkQrBatchSellTitle": {
-    "message": "मोबाइल पर बैच सेल खोलें"
-  },
   "deepLinkQrPredictDescription": {
     "message": "MetaMask प्रेडिक्शन मार्केट्स को एक्सेस करने के लिए, अपने मोबाइल डिवाइस से QR कोड स्कैन करें।"
   },
   "deepLinkQrPredictTitle": {
     "message": "प्रेडिक्शन मार्केट्स को मोबाइल पर खोलें"
-  },
-  "deepLinkQrTrendingDescription": {
-    "message": "एक्सप्लोर MetaMask मोबाइल पर उपलब्ध है। इसका इस्तेमाल करने के लिए इस कोड को अपने मोबाइल डिवाइस से स्कैन करें।"
-  },
-  "deepLinkQrTrendingTitle": {
-    "message": "मोबाइल पर एक्सप्लोर खोलें"
   },
   "deepLink_Caution": {
     "message": "सावधानी से आगे बढ़ें"
@@ -3417,26 +2825,8 @@
   "deepLink_theAssetPage": {
     "message": "एसेट पेज"
   },
-  "deepLink_theBatchSellPage": {
-    "message": "बैच सेल पेज"
-  },
-  "deepLink_theBuyPage": {
-    "message": "खरीद पेज"
-  },
-  "deepLink_theCardOnboardingPage": {
-    "message": "MetaMask कार्ड ऑनबोर्डिंग पेज"
-  },
   "deepLink_theHomePage": {
     "message": "होम पेज"
-  },
-  "deepLink_theMoneyPage": {
-    "message": "Money पेज"
-  },
-  "deepLink_theMusdEducationPage": {
-    "message": "MUSD कन्वर्शन एजुकेशन पेज"
-  },
-  "deepLink_theNFTsPage": {
-    "message": "NFTs पेज"
   },
   "deepLink_theNotificationsPage": {
     "message": "नोटिफिकेशंस पेज"
@@ -3444,35 +2834,11 @@
   "deepLink_theOnboardingPage": {
     "message": "ऑनबोर्डिंग पेज"
   },
-  "deepLink_thePerpsMarketDetailPage": {
-    "message": "द पर्प्स मार्केट पेज"
-  },
   "deepLink_thePerpsPage": {
     "message": "पर्प्स पेज"
   },
-  "deepLink_thePredictPage": {
-    "message": "प्रेडिक्शन मार्केट पेज"
-  },
   "deepLink_thePrivacySettingsPage": {
     "message": "प्राइवेसी सेटिंग्स पेज"
-  },
-  "deepLink_theRewardsPage": {
-    "message": "MetaMask रिवॉर्ड्स पेज"
-  },
-  "deepLink_theSellPage": {
-    "message": "सैल पेज"
-  },
-  "deepLink_theSwapsPage": {
-    "message": "स्वैप पेज"
-  },
-  "deepLink_theTopTradersPage": {
-    "message": "फ़ॉलो ट्रेडिंग पेज"
-  },
-  "deepLink_theTransactionShieldPage": {
-    "message": "ट्रांसेक्शन शील्ड पेज"
-  },
-  "deepLink_theTrendingPage": {
-    "message": "द एक्सप्लोर पेज"
   },
   "default": {
     "message": "डिफॉल्ट"
@@ -3488,36 +2854,6 @@
   },
   "defaultSettingsTitle": {
     "message": "डिफॉल्ट गोपनीयता सेटिंग्स"
-  },
-  "defi": {
-    "message": "DeFi"
-  },
-  "defiEmptyDescription": {
-    "message": "सीधे अपने वॉलेट में उधार दें, उधार लें और ट्रेड करें।"
-  },
-  "defiIcon": {
-    "message": "DeFi आइकन"
-  },
-  "defiReferralCheckboxLabel": {
-    "message": "MetaMask को रेफ़रल कोड जोड़ने की अनुमति दें। यह स्थायी है। साइट अपने नियमों के अनुसार डिस्काउंट देती है। MetaMask को एक फीस मिलता है।",
-    "description": "The text for the checkbox label in the DeFi referral confirmation screen"
-  },
-  "defiReferralTerms": {
-    "message": "शर्तें",
-    "description": "The text for the partner terms link in the DeFi referral confirmation screen"
-  },
-  "defiReferralTitle": {
-    "message": "MetaMask x $1",
-    "description": "The title of the DeFi referral confirmation screen. $1 is the name of the partner"
-  },
-  "defiTabErrorContent": {
-    "message": "दोबारा आकर देखें।"
-  },
-  "defiTabErrorTitle": {
-    "message": "हम यह पेज लोड नहीं कर सके।"
-  },
-  "defiUnsupportedEmptyDescription": {
-    "message": "इस नेटवर्क पर DeFi सपोर्टेड नहीं है।"
   },
   "delete": {
     "message": "मिटाएं"
@@ -3584,18 +2920,6 @@
     "message": "$1 से जानकारी",
     "description": "$1 represents the name of the snap"
   },
-  "destinationAccountPickerNoEligible": {
-    "message": "कोई योग्य अकाउंट नहीं मिला"
-  },
-  "destinationAccountPickerNoMatching": {
-    "message": "कोई मैचिंग अकाउंट नहीं मिला"
-  },
-  "destinationAccountPickerSearchPlaceholderToMainnet": {
-    "message": "प्राप्ति एड्रेस या ENS"
-  },
-  "destinationAccountPickerSearchPlaceholderToSolana": {
-    "message": "प्राप्ति एड्रेस"
-  },
   "details": {
     "message": "विवरण"
   },
@@ -3653,26 +2977,6 @@
   "discover": {
     "message": "खोजें"
   },
-  "discoverSearchCap": {
-    "message": "कैप",
-    "description": "Abbreviated label for market cap in Discover search result rows."
-  },
-  "discoverSearchNoResults": {
-    "message": "कोई रिज़ल्ट नहीं मिला",
-    "description": "Empty state when Discover search returns no matching assets."
-  },
-  "discoverSearchNoResultsFor": {
-    "message": "\"$1\" के लिए कोई परिणाम नहीं मिला",
-    "description": "Empty state title when Discover search returns no matching assets for a user query."
-  },
-  "discoverSearchPopularAssets": {
-    "message": "अन्य लोकप्रिय एसेट्स देखें",
-    "description": "Empty state subtitle prompting users to open popular assets when Discover search has no results."
-  },
-  "discoverSearchVol": {
-    "message": "वॉल",
-    "description": "Abbreviated label for volume in Discover search result rows."
-  },
   "discoverSnaps": {
     "message": "Snaps के बारे में और जानें",
     "description": "Text that links to the Snaps website. Displayed in a banner on Snaps list page in settings."
@@ -3682,9 +2986,6 @@
   },
   "displayNftMedia": {
     "message": "NFT मीडिया को दिखाएं"
-  },
-  "displayNftMediaDescriptionV2": {
-    "message": "NFT ऑटोडिटेक्शन इसी फीचर पर निर्भर करता है।"
   },
   "doNotShare": {
     "message": "इसे किसी के साथ साझा न करें"
@@ -3700,21 +3001,6 @@
   },
   "download": {
     "message": "डाउनलोड करें"
-  },
-  "downloadAppDescription": {
-    "message": "MetaMask को हर जगह अपने साथ लेकर जाएँ। फेस ID चालू करें ताकि पासवर्ड भूल जाने पर भी आपको हमेशा एक्सेस मिलता रहे।"
-  },
-  "downloadAppTitle": {
-    "message": "QR कोड स्कैन करें और ऐप डाउनलोड करें"
-  },
-  "downloadMetaMaskMobileDescription": {
-    "message": "हमारे ऐप में फेस ID से आप पासवर्ड भूल जाने पर भी लॉग इन कर सकते हैं। MetaMask को अपने साथ हर जगह लेकर जाएं!"
-  },
-  "downloadMetaMaskMobileQrNote": {
-    "message": "शुरू करने के लिए इस QR कोड को स्कैन करें।"
-  },
-  "downloadMetaMaskMobileTitle": {
-    "message": "हमारा मोबाइल ऐप प्राप्त करें"
   },
   "downloadStateLogs": {
     "message": "स्टेट लॉग डाउनलोड करें"
@@ -3759,9 +3045,6 @@
   "durationSuffixYear": {
     "message": "Y",
     "description": "Shortened form of 'year'"
-  },
-  "earn": {
-    "message": "कमाएं"
   },
   "edit": {
     "message": "बदलें"
@@ -3838,9 +3121,6 @@
   "editSpendingCapSpecialCharError": {
     "message": "केवल संख्या डालें"
   },
-  "enableAutoDetect": {
-    "message": " ऑटो डिटेक्ट इनेबल करें"
-  },
   "enableSmartContractAccount": {
     "message": "स्मार्ट अकाउंट का उपयोग करें"
   },
@@ -3849,10 +3129,6 @@
   },
   "enableSnap": {
     "message": "चालू करें"
-  },
-  "enableToken": {
-    "message": "$1 इनेबल करें",
-    "description": "$1 is a token symbol, e.g. ETH"
   },
   "enabled": {
     "message": "चालू किया गया"
@@ -3912,9 +3188,6 @@
   },
   "enterTokenAddress": {
     "message": "टोकन एड्रेस डालें"
-  },
-  "enterTokenNameOrAddress": {
-    "message": "टोकन का नाम दर्ज करें या एड्रेस पेस्ट करें"
   },
   "enterTokenNameOrAddressManageTokens": {
     "message": "टोकन नाम या एड्रेस डालें"
@@ -4030,20 +3303,11 @@
     "message": "$1 के साथ गड़बड़ी",
     "description": "$1 represents the name of the snap"
   },
-  "estimatedChanges": {
-    "message": "अनुमानित बदलाव"
-  },
   "estimatedFee": {
     "message": "अनुमानित फ़ीस"
   },
   "estimatedFeeTooltip": {
     "message": "नेटवर्क पर ट्रांसेक्शन को प्रोसेस करने के लिए भुगतान की गई राशि।"
-  },
-  "estimatedPointsRow": {
-    "message": "अनुमानित पॉइंट्स"
-  },
-  "estimatedTime": {
-    "message": "अनुमानित समय"
   },
   "ethGasPriceFetchWarning": {
     "message": "बैकअप गैस प्राइस दिया गया है क्योंकि मेन गैस एस्टीमेशन सर्विस अभी उपलब्ध नहीं है।"
@@ -4070,12 +3334,6 @@
   "experimental": {
     "message": "प्रायोगिक"
   },
-  "exploreDefi": {
-    "message": "DeFi को एक्सप्लोर करें"
-  },
-  "exploreTokens": {
-    "message": "टोकन एक्सप्लोर करें"
-  },
   "exportYourData": {
     "message": "अपना डेटा एक्सपोर्ट करें"
   },
@@ -4088,9 +3346,6 @@
   "extendWalletWithSnaps": {
     "message": "अपने Web3 एक्सपीरियंस को कस्टमाइज़ करने के लिए कम्युनिटी-बिल्ट Snaps को एक्सप्लोर करें।",
     "description": "Banner description displayed on Snaps list page in Settings when less than 6 Snaps is installed."
-  },
-  "externalAccount": {
-    "message": "बाहरी अकाउंट"
   },
   "externalExtension": {
     "message": "बाहरी एक्स्टेन्शन"
@@ -4214,10 +3469,6 @@
   },
   "form": {
     "message": "फॉर्म"
-  },
-  "freeTrialDays": {
-    "message": "मुफ़्त $1-दिन का ट्रायल",
-    "description": "The $1 is the number of days"
   },
   "from": {
     "message": "भेजने वाले"
@@ -4405,19 +3656,12 @@
   "genericExplorerView": {
     "message": "$1 पर अकाउंट देखें"
   },
-  "getDollarMore": {
-    "message": "$1 ज़्यादा पाएं"
-  },
   "getTheNewestFeatures": {
     "message": "नवीनतम फीचर्स प्राप्त करें"
   },
   "getYourWalletReadyToUseWeb3": {
     "message": "web3 का उपयोग करने के लिए अपना वॉलेट तैयार करें",
     "description": "Subtitle text for the balance empty state component explaining the purpose of adding funds"
-  },
-  "gmxReferralSubtitle": {
-    "message": "MetaMask रेफ़रल कोड के साथ ट्रेड पर 5% तक की बचत करें।",
-    "description": "The subtitle of the GMX referral confirmation screen"
   },
   "goToSite": {
     "message": "साइट पर जाएं"
@@ -4617,15 +3861,6 @@
   "hardwareWalletRepairTitle": {
     "message": "हार्डवेयर डिवाइस कनेक्ट करें"
   },
-  "hardwareWalletSubmissionWarningStep1": {
-    "message": "सुनिश्चित करें कि आपका $1 प्लग इन है और Ethereum ऐप का चयन करें।"
-  },
-  "hardwareWalletSubmissionWarningStep2": {
-    "message": "अपने $1 डिवाइस पर \"स्मार्ट कॉन्ट्रैक्ट डेटा\" या \"ब्लाइंड साइनिंग\" चालू करें।"
-  },
-  "hardwareWalletSubmissionWarningTitle": {
-    "message": "सबमिट करें पर क्लिक करने से पहले:"
-  },
   "hardwareWalletTitleEthAppNotOpen": {
     "message": "Ethereum ऐप खोलें"
   },
@@ -4683,12 +3918,6 @@
   },
   "highLowercase": {
     "message": "हाई"
-  },
-  "highestCurrentBid": {
-    "message": "सबसे बड़ी वर्तमान बिड"
-  },
-  "highestFloorPrice": {
-    "message": "सबसे बड़ी फ्लोर प्राइस"
   },
   "history": {
     "message": "इतिहास"
@@ -4749,38 +3978,6 @@
   "honeypotTitle": {
     "message": "हनी पॉट"
   },
-  "hyperliquidDepositPromptDescription": {
-    "message": "कोई भी टोकन डिपॉज़िट करें। हम इसे स्वैप करके आपके हाइपरलिक्विड अकाउंट में अपने आप भेज देंगे—कोई MetaMask फ़ीस नहीं लगेगी।",
-    "description": "The description of the Hyperliquid deposit prompt screen shown after enabling trading on Hyperliquid"
-  },
-  "hyperliquidDepositPromptNoThanks": {
-    "message": "नहीं, धन्यवाद, मैन्युअली डिपॉज़िट करें",
-    "description": "The label of the dismiss button in the Hyperliquid deposit prompt screen"
-  },
-  "hyperliquidDepositPromptTitle": {
-    "message": "MetaMask के साथ हाइपरलिक्विड को फंड करें",
-    "description": "The title of the Hyperliquid deposit prompt screen shown after enabling trading on Hyperliquid"
-  },
-  "hyperliquidDepositToastSuccessDescription": {
-    "message": "फंड हाइपरलिक्विड और MetaMask पर्प्स पर ट्रेड करने के लिए तैयार हैं।",
-    "description": "Description shown in the success toast after a perps deposit initiated from the Hyperliquid deposit prompt"
-  },
-  "hyperliquidReferralCheckboxLabel": {
-    "message": "हाइपरलिक्विड के $1 पर आने वाले सभी ट्रेड पर MetaMask रेफरल कोड लगाएं। MetaMask को फीस मिलती है।",
-    "description": "The checkbox label in the redesigned Hyperliquid referral confirmation screen. $1 is the terms link"
-  },
-  "hyperliquidReferralSubtitle": {
-    "message": "MetaMask रेफ़रल कोड के साथ ट्रेड पर 4% तक की बचत करें।",
-    "description": "The subtitle of the Hyperliquid referral confirmation screen"
-  },
-  "hyperliquidReferralSubtitle2": {
-    "message": "MetaMask रेफ़रल कोड के साथ ट्रेड पर 4% बचत करें।",
-    "description": "The subtitle of the redesigned Hyperliquid referral confirmation screen"
-  },
-  "hyperliquidReferralTitle": {
-    "message": "हाइपरलिक्विड पर 4% सेव करें",
-    "description": "The title of the redesigned Hyperliquid referral confirmation screen"
-  },
   "iUnderstand": {
     "message": "मैं समझता हूं"
   },
@@ -4834,17 +4031,8 @@
   "importAnAccountDescription": {
     "message": "एक प्राइवेट की (key) के द्वारा"
   },
-  "importNFT": {
-    "message": "NFT आयात करें"
-  },
-  "importNFTAddressToolTip": {
-    "message": "OpenSea पर, उदाहरण के लिए, विवरण के अंदर NFT पृष्ठ पर, 'अनुबंध पता ' लेबल वाला एक नीला हाइपरलिंक्ड मान है। यदि आप इसपर क्लिक करते हैं, तो यह आपको Etherscan पर अनुबंध के पते पर ले जाएगा; उस पृष्ठ के ऊपर बाईं ओर, 'अनुबंध' लेबल वाला एक आइकन, और दाईं ओर, अक्षरों व संख्याओं की एक लंबी श्रृंखला होनी चाहिए। यह उस अनुबंध का पता है जिसने आपका NFT बनाया है। पते के दाईं ओर 'कॉपी' आइकन पर क्लिक करें, और यह आपके क्लिपबोर्ड में आ जाएगा।"
-  },
   "importNFTPage": {
     "message": "NFT पृष्ठ आयात करें"
-  },
-  "importNFTTokenIdToolTip": {
-    "message": "किसी NFT की ID एक विशिष्ट पहचानकर्ता है क्योंकि कोई भी दो NFT एक जैसे नहीं होते हैं। फिर से, OpenSea पर यह संख्या 'डिटेल्स' के नीचे होगी। इसे नोट कर लें या अपने क्लिपबोर्ड पर कॉपी कर लें।"
   },
   "importSecretRecoveryPhrase": {
     "message": "सीक्रेट रिकवरी फ्रेज़ इंपोर्ट करें"
@@ -4895,9 +4083,6 @@
   },
   "insufficientBalance": {
     "message": "कम बैलेंस."
-  },
-  "insufficientBalanceToCoverFees": {
-    "message": "फीस कवर करने के लिए बैलेंस काफ़ी नहीं है"
   },
   "insufficientFunds": {
     "message": "अपर्याप्त फंड."
@@ -4991,21 +4176,8 @@
   "ipfsGatewayDescriptionV2": {
     "message": "IPFS पर स्टोर किए गए आपके NFT की इमेज दिखाने, आपके ब्राउज़़र के एड्रेस बार में एंटर किए गए ENS एड्रेस से संबंधित जानकारी दिखाने और अलग-अलग टोकनों के लिए आइकन लाने के लिए थर्ड-पार्टी सर्विसेज़ का इस्तेमाल करता है। जब आप इन सेवाओं का इस्तेमाल कर रहे हों तो आपका IP एड्रेस इन सेवाओं को भी दिख सकता है। नीचे अपना पसंदीदा IPFS गेटवे चुनें।"
   },
-  "ipfsToggleModalDescriptionOne": {
-    "message": "हम IPFS पर स्टोर किए गए आपके NFT की इमेज दिखाने, आपके ब्राउज़़र के एड्रेस बार में एंटर किए गए ENS एड्रेस से संबंधित जानकारी दिखाने और अलग-अलग टोकनों के लिए आइकन लाने के लिए तृतीय पक्ष के सेवाओं का इस्तेमाल करते हैं। जब आप इन सेवाओं का इस्तेमाल कर रहे हों तो आपका IP एड्रेस इन सेवाओं को भी दिख सकता है।"
-  },
-  "ipfsToggleModalDescriptionTwo": {
-    "message": "पुष्टि को चुनने से IPFS रिजॉल्यूशन चालू हो जाता है। आप इसे किसी भी समय $1 में बंद कर सकते हैं।",
-    "description": "$1 is the method to turn off ipfs"
-  },
-  "ipfsToggleModalSettings": {
-    "message": "सेटिंग्स > सुरक्षा और गोपनीयता"
-  },
   "isSigningOrSubmitting": {
     "message": "पिछला ट्रांसेक्शन अभी भी साइन या सबमिट किया जा रहा है"
-  },
-  "isSigningOrSubmittingPayToken": {
-    "message": "इस नेटवर्क पर आपका एक ट्रांसेक्शन है जो अभी पूरा नहीं हुआ है। इसके पूरा होने का इंतज़ार करें या किसी दूसरे नेटवर्क पर टोकन चुनें।"
   },
   "jazzicons": {
     "message": "Jazzicons"
@@ -5046,9 +4218,6 @@
   },
   "language": {
     "message": "भाषा"
-  },
-  "lastSold": {
-    "message": "पिछली बार बेचा गया"
   },
   "lattice": {
     "message": "लैटिस",
@@ -5207,9 +4376,6 @@
   "link": {
     "message": "लिंक"
   },
-  "linkCentralizedExchanges": {
-    "message": "क्रिप्टो को मुफ्त में MetaMask में ट्रांसफ़र करने के लिए अपने Coinbase या Binance अकाउंट को लिंक करें।"
-  },
   "loading": {
     "message": "लोड हो रहा है..."
   },
@@ -5299,9 +4465,6 @@
   "mainnetToken": {
     "message": "यह पता एक ज्ञात Ethereum Mainnet टोकन पते से मेल खाता है। जिस टोकन को आप जोड़ने की कोशिश कर रहे हैं उसके लिए अनुबंध पते और नेटवर्क को दोबारा जांचें।"
   },
-  "makeAnotherSwap": {
-    "message": "एक नया स्वैप बनाएं"
-  },
   "makeSmartContractsEasier": {
     "message": "स्मार्ट कॉन्ट्रैक्ट को पढ़ने में आसान बनाएं"
   },
@@ -5347,9 +4510,6 @@
   },
   "marketDetails": {
     "message": "मार्केट का ब्यौरा"
-  },
-  "marketRate": {
-    "message": "मार्केट रेट"
   },
   "maskicons": {
     "message": "Polycons"
@@ -5413,17 +4573,8 @@
     "message": "$1 को npm पर होस्ट किया गया है और $2 इस Snap का यूनीक आइडेंटिफायर है।",
     "description": "$1 is the snap name and $2 is the snap NPM id."
   },
-  "metamaskFee": {
-    "message": "MetaMask फीस"
-  },
   "metamaskNotificationsAreOff": {
     "message": "सूचनाएँ चालू करें"
-  },
-  "metamaskSwap": {
-    "message": "MetaMask स्वैप"
-  },
-  "metamaskSwapsOfflineDescription": {
-    "message": "MetaMask स्वैप में रख-रखाव का काम चल रहा है। कृपया बाद में जांचें।"
   },
   "metamaskVersion": {
     "message": "MetaMask वर्शन"
@@ -5439,18 +4590,6 @@
   },
   "metrics": {
     "message": "मेट्रिक्स"
-  },
-  "minimumReceivedExplanation": {
-    "message": "यदि आपके ट्रांसेक्शन के दौरान प्राइस बदलती है, तो न्यूनतम राशि जो आपको मिलेगी, वह आपके स्लिपेज (slippage) सेटिंग पर आधारित होगी। यह अनुमान लिक्विडिटी प्रोवाइडर्स से लिया गया है, इसलिए अंतिम राशि अलग हो सकती है।"
-  },
-  "minimumReceivedExplanationTitle": {
-    "message": "न्यूनतम प्राप्त राशि"
-  },
-  "minimumReceivedLabel": {
-    "message": "न्यूनतम प्राप्त किया गया"
-  },
-  "minute": {
-    "message": "मिनट"
   },
   "mismatchedChainLinkText": {
     "message": "नेटवर्क विवरण वेरीफ़ाई करें",
@@ -5472,431 +4611,6 @@
   "mismatchedRpcUrl": {
     "message": "हमारे रिकॉर्ड के अनुसार, सबमिट किया गया RPC-URL वैल्यू इस चेन ID के लिए किसी ज्ञात प्रोवाइडर से मेल नहीं खाता।"
   },
-  "mmFee": {
-    "message": "$1% MetaMask फीस"
-  },
-  "money": {
-    "message": "वित्त"
-  },
-  "moneyAccountApyPitchApy": {
-    "message": "$1% APY",
-    "description": "$1 is the Money Account vault APY percentage shown on the deposit amount screen"
-  },
-  "moneyAccountApyPitchEarn": {
-    "message": "$1 कमाएं",
-    "description": "$1 is the APY pitch, e.g. \"4% APY\", rendered as hoverable text with a tooltip"
-  },
-  "moneyAccountApyTooltip": {
-    "message": "दिखाया गया रेट मौजूदा मार्केट कंडीशन के आधार पर एक अनुमानित एनुअल परसेंटेज यील्ड (APY) है। APY वेरिएबल है और इसकी गारंटी नहीं है।"
-  },
-  "moneyAccountAvailableBalance": {
-    "message": "उपलब्ध बैलेंस: $1",
-    "description": "$1 is the formatted Money Account vault withdrawable balance"
-  },
-  "moneyAccountProjectedBalance": {
-    "message": "अनुमानित 1-वर्षीय बैलेंस:"
-  },
-  "moneyAccountProjectedBalanceTooltip": {
-    "message": "प्रोजेक्शन में माना गया है कि $1% एनुअल परसेंटेज यील्ड (APY) एक वर्ष तक अपरिवर्तित रहती है। APY परिवर्तनशील है और इसकी गारंटी नहीं है।",
-    "description": "$1 is the APY percentage used in the one-year projection"
-  },
-  "moneyActivity": {
-    "message": "गतिविधि"
-  },
-  "moneyActivityCard": {
-    "message": "कार्ड"
-  },
-  "moneyActivityConversionFailed": {
-    "message": "कन्वर्शन नहीं हो पाया"
-  },
-  "moneyActivityConverted": {
-    "message": "कन्वर्ट किया गया"
-  },
-  "moneyActivityConverting": {
-    "message": "कन्वर्ट कर रहे हैं"
-  },
-  "moneyActivityDepositFailed": {
-    "message": "डिपॉज़िट नहीं हो पाया"
-  },
-  "moneyActivityDeposited": {
-    "message": "डिपॉज़िट किया गया"
-  },
-  "moneyActivityDepositing": {
-    "message": "डिपॉज़िट कर रहे हैं"
-  },
-  "moneyActivityDetailsPaidTo": {
-    "message": "इनको दिया"
-  },
-  "moneyActivityDetailsReceivedFrom": {
-    "message": "से प्राप्त किया गया"
-  },
-  "moneyActivityDetailsTransactionId": {
-    "message": "ट्रांसेक्शन ID"
-  },
-  "moneyActivityDetailsYouEarned": {
-    "message": "आपने कमाया"
-  },
-  "moneyActivityDetailsYouSpent": {
-    "message": "आपने खर्च किया"
-  },
-  "moneyActivityDetailsYouWereRefunded": {
-    "message": "आपको रिफ़ंड कर दिया गया था"
-  },
-  "moneyActivityEmpty": {
-    "message": "अभी तक कोई गतिविधि नहीं हुई"
-  },
-  "moneyActivityFilterAll": {
-    "message": "सभी"
-  },
-  "moneyActivityFilterCard": {
-    "message": "कार्ड"
-  },
-  "moneyActivityFilterDeposits": {
-    "message": "डिपॉज़िट"
-  },
-  "moneyActivityFilterSends": {
-    "message": "भेजता है"
-  },
-  "moneyActivityLoadError": {
-    "message": "आपकी एक्टिविटी लोड नहीं हो सकी"
-  },
-  "moneyActivityMusdBack": {
-    "message": "mUSD वापस"
-  },
-  "moneyActivityPending": {
-    "message": "अभी पूरा नहीं हुआ"
-  },
-  "moneyActivityPurchase": {
-    "message": "खरीद"
-  },
-  "moneyActivityReceived": {
-    "message": "प्राप्त किया गया"
-  },
-  "moneyActivityReceivedFrom": {
-    "message": "भेजने वाले: $1"
-  },
-  "moneyActivityReceiving": {
-    "message": "प्राप्त कर रहे हैं"
-  },
-  "moneyActivityRefund": {
-    "message": "रिफंड"
-  },
-  "moneyActivityRetry": {
-    "message": "फिर से प्रयास करें"
-  },
-  "moneyActivitySendFailed": {
-    "message": "भेजना नहीं हो पाया"
-  },
-  "moneyActivitySending": {
-    "message": "भेजा जा रहा है"
-  },
-  "moneyActivitySent": {
-    "message": "भेजा गया"
-  },
-  "moneyActivityTransactionFeeTooltip": {
-    "message": "कन्वर्शन फ़ीस में नेटवर्क कॉस्ट और प्रोवाइडर फ़ीस शामिल हो सकती है।",
-    "description": "Tooltip explaining what the Money account transaction fee covers"
-  },
-  "moneyActivityViewAll": {
-    "message": "सभी देखें"
-  },
-  "moneyAdd": {
-    "message": "जोड़ें"
-  },
-  "moneyApy": {
-    "message": "$1 APY"
-  },
-  "moneyBalanceInfoBody": {
-    "message": "आपका डॉलर-समर्थित mUSD बैलेंस, जिस पर हमेशा कमाई होती रहती है। हम इसे आपके कुल अकाउंट बैलेंस में कैलकुलेट नहीं करते हैं।"
-  },
-  "moneyBalanceInfoWithdrawals": {
-    "message": "विदड्रॉल तुरंत प्रोसेस होते हैं, जो रिलेवेंट ब्लॉकचेन पर स्टैंडर्ड नेटवर्क कन्फर्मेशन टाइम के अधीन होते हैं। अगर लिक्विडिटी टाइट है, तो टेम्पररी डिले हो सकता है।"
-  },
-  "moneyBalanceLastKnown": {
-    "message": "आखिरी ज्ञात बैलेंस"
-  },
-  "moneyBalanceRetry": {
-    "message": "फिर से प्रयास करें"
-  },
-  "moneyBalanceUnavailable": {
-    "message": "बैलेंस अनुपलब्ध है"
-  },
-  "moneyBalanceUnavailableBannerDescription": {
-    "message": "हम अस्थायी रूप से आपका बैलेंस दिखाने में असमर्थ हैं। आपके फंड सुरक्षित हैं—कृपया थोड़ी देर बाद फिर से कोशिश करें।"
-  },
-  "moneyBenefitAutoEarn": {
-    "message": "आपके मनी बैलेंस पर ऑटो-अर्न यील्ड"
-  },
-  "moneyBenefitAutoEarnWithApy": {
-    "message": "$1 तक ऑटो-अर्न करें",
-    "description": "$1 is the current mUSD APY (e.g. ~4.2% APY)."
-  },
-  "moneyBenefitLiquidity": {
-    "message": "बिना किसी लॉकअप के पूरी लिक्विडिटी पाएं, इसलिए आप कभी भी ट्रेड कर सकते हैं या निकाल सकते हैं"
-  },
-  "moneyBenefitSend": {
-    "message": "MetaMask पर अपने किसी भी वॉलेट में भेजें"
-  },
-  "moneyBenefitStablecoin": {
-    "message": "अपना पैसा mUSD में रखें, जो एक 1:1 डॉलर-बैक्ड स्टेबलकॉइन है"
-  },
-  "moneyBenefits": {
-    "message": "फ़ायदे"
-  },
-  "moneyContactSupport": {
-    "message": "सपोर्ट टीम से कॉन्टेक्ट करें"
-  },
-  "moneyConvertYourCrypto": {
-    "message": "अपने क्रिप्टो को कन्वर्ट करें"
-  },
-  "moneyEarnApyTitle": {
-    "message": "$1 APY तक कमाएं"
-  },
-  "moneyEarnOnCrypto": {
-    "message": "अपने क्रिप्टो पर कमाएं"
-  },
-  "moneyEarnOnCryptoDescription": {
-    "message": "देखें कि अपने क्रिप्टो को mUSD में बदलकर आपका पैसा समय के साथ कैसे बढ़ सकता है।"
-  },
-  "moneyEarnOnCryptoDescriptionMiddle": {
-    "message": "को एसेट्स में और आप इतना कमा सकते हैं"
-  },
-  "moneyEarnOnCryptoDescriptionPrefix": {
-    "message": "अपना जोड़ें"
-  },
-  "moneyEarnOnCryptoDescriptionSuffix": {
-    "message": "एक साल में।"
-  },
-  "moneyEarnOnCryptoNoFee": {
-    "message": "कोई शुल्क नहीं"
-  },
-  "moneyEarnSectionAccountProjectedBalanceTooltip": {
-    "message": "प्रोजेक्शन में माना गया है कि $1% एनुअल परसेंटेज यील्ड (APY) एक वर्ष तक अपरिवर्तित रहती है। APY परिवर्तनशील है और इसकी गारंटी नहीं है। किसी भी रिटर्न की कोई गारंटी नहीं है।",
-    "description": "$1 is the APY percentage used in the one-year projection"
-  },
-  "moneyEarnTitle": {
-    "message": "आपके बैलेंस पर कमाएं"
-  },
-  "moneyEarnings": {
-    "message": "कमाई"
-  },
-  "moneyExploreBenefits": {
-    "message": "अपने फ़ायदे जानें"
-  },
-  "moneyFundDescription": {
-    "message": "अपने Money Account में पैसे डालें और अपने बैलेंस को बढ़ते हुए देखें।"
-  },
-  "moneyFundDescriptionWithApy": {
-    "message": "अपने Money Account में पैसे डालें और अपने बैलेंस को $1 APY तक बढ़ते हुए देखें।"
-  },
-  "moneyHomeApyTooltip": {
-    "message": "दिखाई गई दर वर्तमान सालाना प्रतिशत यील्ड (APY) है। APY परिवर्तनीय है और इसकी गारंटी नहीं है।"
-  },
-  "moneyHomeApyTooltipEarning": {
-    "message": "आपका Money Account अपने आप $1 APY तक कमाता है।",
-    "description": "$1 is the current Money Account vault APY, e.g. \"6%\"."
-  },
-  "moneyHomeApyTooltipPoweredBy": {
-    "message": "Money Account Monad द्वारा संचालित है।"
-  },
-  "moneyHowItWorks": {
-    "message": "ये कैसे काम करता है"
-  },
-  "moneyHowItWorksDescription": {
-    "message": "mUSD जोड़ें और आपका डॉलर-बैक्ड बैलेंस कभी भी खर्च करने, ट्रेड करने या भेजने के लिए तैयार है।"
-  },
-  "moneyHowItWorksDescription1": {
-    "message": "किसी भी क्रिप्टो को अपने Money Account में कन्वर्ट करें और स्वचालित रूप से $1 तक APY (वेरिएबल) कमाएं। फंड्स एक DeFi वॉल्ट में जाते हैं, जिसे Veda द्वारा प्रबंधित किया जाता है और Steakhouse Financial द्वारा जोखिम की निगरानी की जाती है। यह दर थर्ड पार्टी के DeFi प्लेटफॉर्म्स द्वारा उत्पन्न होती है जो फंड्स को ब्लॉकचेन प्रोटोकॉल्स में लगाते हैं। कोई स्टेकिंग नहीं, कोई क्लेम नहीं, कोई लॉक-अप्स नहीं।",
-    "description": "$1 is the current mUSD APY, including the percent sign."
-  },
-  "moneyHowItWorksDescriptionWithApy": {
-    "message": "mUSD जोड़ें और $1 तक कमाएं। आपका बैलेंस डॉलर-बैक्ड है और कभी भी खर्च करने, ट्रेड करने या भेजने के लिए तैयार है।",
-    "description": "$1 is the current mUSD APY."
-  },
-  "moneyHowItWorksDisclosuresBody": {
-    "message": "Money Account कोई बैंक अकाउंट, सेविंग्स अकाउंट या इंश्योर्ड डिपॉज़िट प्रोडक्ट नहीं है। APY वेरिएबल है और इसकी गारंटी नहीं है। Money Account में स्मार्ट कॉन्ट्रैक्ट, प्रोटोकॉल, लिक्विडिटी और दूसरे रिस्क शामिल हैं, और आप अपने कुछ या सभी फंड खो सकते हैं। स्थानीय पाबंदियों के अधीन। शर्तें लागू।"
-  },
-  "moneyHowItWorksDisclosuresTitle": {
-    "message": "जोखिम और प्रकटीकरण"
-  },
-  "moneyHowItWorksFaqApyAnswer": {
-    "message": "$1 APY तक। रेट बदलता रहता है और मार्केट के हालात के साथ बदलता रहता है। अभी का रेट हमेशा Money Account के अंदर दिखता है।",
-    "description": "$1 is the current mUSD APY, including the percent sign."
-  },
-  "moneyHowItWorksFaqApyQuestion": {
-    "message": "मैं MetaMask Money Account से कितना कमा सकता हूँ?"
-  },
-  "moneyHowItWorksFaqCountriesAnswer": {
-    "message": "ज़्यादातर जगहों पर! हम अभी यूके और यूएसए की सैंक्शन लिस्ट वाले देशों में उपलब्ध नहीं हैं।"
-  },
-  "moneyHowItWorksFaqCountriesQuestion": {
-    "message": "MetaMask Money Account किन देशों में उपलब्ध है?"
-  },
-  "moneyHowItWorksFaqFeesAnswer": {
-    "message": "Money Account खोलने का कोई शुल्क नहीं है और स्टेबलकॉइन डिपॉज़िट करने पर भी कोई शुल्क नहीं है। गैर-स्टेबलकॉइन टोकन डिपॉज़िट करने पर आपसे शुल्क लिया जाएगा।"
-  },
-  "moneyHowItWorksFaqFeesQuestion": {
-    "message": "MetaMask Money Account की फीस क्या है?"
-  },
-  "moneyHowItWorksFaqIdentityAnswer": {
-    "message": "नहीं, Money Account खोलने के लिए आइडेंटिटी वेरिफिकेशन की ज़रूरत नहीं है। हालाँकि, Card और Ramps जैसे कुछ फीचर्स के लिए वेरिफिकेशन की ज़रूरत होती है। चेकिंग थर्ड-पार्टी प्रोवाइडर्स करते हैं जो रेगुलेटेड सर्विसेज़ चलाते हैं, MetaMask नहीं। अगर ज़रूरत हो, तो साइन-अप के दौरान ऐप के अंदर आपको प्रोसेस के बारे में गाइड किया जाएगा।"
-  },
-  "moneyHowItWorksFaqIdentityQuestion": {
-    "message": "क्या मुझे MetaMask Money Account इस्तेमाल करने के लिए आइडेंटिटी वेरिफिकेशन पूरा करना होगा?"
-  },
-  "moneyHowItWorksFaqLockedAnswer": {
-    "message": "हां। आप MetaMask से बिना किसी नोटिस पीरियड, बिना किसी पेनल्टी और बिना किसी विदड्रॉवल फ़ीस के किसी भी समय अपना पूरा बैलेंस भेज या निकाल सकते हैं। अगर लिक्विडिटी कम है, तो कुछ समय के लिए देरी हो सकती है।"
-  },
-  "moneyHowItWorksFaqLockedQuestion": {
-    "message": "क्या मैं MetaMask Money Account से कभी भी पैसे निकाल सकता हूँ?"
-  },
-  "moneyHowItWorksFaqMoneyAccountAnswer": {
-    "message": "एक ऐसा अकाउंट जो $1 तक का परिवर्तनीय APY कमाता है। आप पैसे डिपॉज़िट करते हैं, जो अकाउंट में mUSD के रूप में रखे जाते हैं, और $1 APY तक कमाते हैं। mUSD MetaMask का डॉलर-बैक्ड स्टेबलकॉइन है। आप बिना किसी पेनल्टी के कभी भी अपने पैसे इस्तेमाल कर सकते हैं या निकाल सकते हैं।",
-    "description": "$1 is the current mUSD APY, including the percent sign."
-  },
-  "moneyHowItWorksFaqMoneyAccountQuestion": {
-    "message": "MetaMask Money Account क्या है?"
-  },
-  "moneyHowItWorksFaqTitle": {
-    "message": "सामान्य प्रश्न"
-  },
-  "moneyHowItWorksFaqTokensAnswer": {
-    "message": "आप बिना किसी कन्वर्शन फ़ीस के अपने Money account में ये स्टेबलकॉइन और aToken डिपॉज़िट कर सकते हैं:\nEthereum: USDC, USDT, DAI, aUSDC, aUSDT, aDAI\nArbitrum: USDC\nबेस: USDC\nBNB Chain: USDC, USDT\n\nबाकी सभी EVM टोकन भी Money account में डिपॉज़िट किए जा सकते हैं, लेकिन स्टैंडर्ड फ़ीस लग सकती है। आप डेबिट कार्ड, क्रेडिट कार्ड, बैंक अकाउंट, PayPal, Apple Pay, या Google Pay का इस्तेमाल करके भी अपने Money account में पैसे डाल सकते हैं।\n\nध्यान दें: लिक्विडिटी पक्का करने के लिए हर टोकन के लिए शुरुआती ज़्यादा से ज़्यादा $1 डिपॉज़िट करने की सीमा है।",
-    "description": "$1 is the maximum initial deposit per token in USD, e.g. \"$100,000\"."
-  },
-  "moneyHowItWorksFaqTokensQuestion": {
-    "message": "मैं Money Account में कौन से टोकन जमा कर सकता हूँ?"
-  },
-  "moneyHowItWorksFaqYieldAnswer": {
-    "message": "जब आप फंड जमा करते हैं, तो उन्हें Aave और Morpho जैसे जाने-माने DeFi प्रोटोकॉल में डाल दिया जाता है, जहाँ वे असली आर्थिक गतिविधि से रिटर्न कमाते हैं। ये रिटर्न फिर आपको APY के रूप में दिए जाते हैं।\n\nSteakhouse Financial नाम का एक थर्ड-पार्टी सर्विस प्रोवाइडर मॉनिटर करता है कि प्रोटोकॉल में फंड कैसे बांटे जाते हैं। Veda, एक थर्ड-पार्टी इंफ्रास्ट्रक्चर प्रोवाइडर, आपके फंड रखने वाले वॉल्ट स्मार्ट कॉन्ट्रैक्ट को डिप्लॉय और मेंटेन करता है।\n\nकमाई MetaMask या mUSD जारी करने वाले द्वारा दिया गया ब्याज नहीं है। वे थर्ड-पार्टी DeFi प्रोटोकॉल में पोज़िशन से मिलने वाले ऑनचेन रिटर्न हैं।"
-  },
-  "moneyHowItWorksFaqYieldQuestion": {
-    "message": "यील्ड कहाँ से आती है?"
-  },
-  "moneyHowYourMoneyGrows": {
-    "message": "आपका पैसा कैसे बढ़ता है"
-  },
-  "moneyLearnMore": {
-    "message": "ज्यादा जानें"
-  },
-  "moneyLifetime": {
-    "message": "जीवन भर की"
-  },
-  "moneyLifetimeTooltip": {
-    "message": "समय के साथ आपके Money अकाउंट बैलेंस पर आपने जो कुल कमाई की है।"
-  },
-  "moneyMeetMusd": {
-    "message": "mUSD से मिलें"
-  },
-  "moneyMonthlyTooltip": {
-    "message": "पिछले 30 दिनों में आपके Money अकाउंट बैलेंस पर आपने जो कुल कमाई की है।"
-  },
-  "moneyMoreInformation": {
-    "message": "अधिक जानकारी"
-  },
-  "moneyMoreOptions": {
-    "message": "ज़्यादा विकल्प"
-  },
-  "moneyMusd": {
-    "message": "mUSD"
-  },
-  "moneyOnboardingFundTitle": {
-    "message": "अपना Money Account फंड करें",
-    "description": "English-only analytics step title for the Money onboarding card, matching mobile's step_title. Not shown in the UI."
-  },
-  "moneySend": {
-    "message": "भेजें"
-  },
-  "moneyToastDepositFailedBody": {
-    "message": "फंड्स जोड़ने में असमर्थ। फिर से प्रयास करें।"
-  },
-  "moneyToastDepositFailedBodyConvert": {
-    "message": "कन्वर्ट करने में असमर्थ। फिर से प्रयास करें।"
-  },
-  "moneyToastDepositFailedTitle": {
-    "message": "डिपॉज़िट नहीं हो पाया"
-  },
-  "moneyToastDepositFailedTitleAddMusd": {
-    "message": "फंड्स जोड़ना नहीं हो पाया"
-  },
-  "moneyToastDepositFailedTitleConvert": {
-    "message": "कन्वर्शन नहीं हो पाया"
-  },
-  "moneyToastDepositInProgressDescriptionCard": {
-    "message": "कार्ड ऑर्डर में कुछ मिनट लग सकते हैं।"
-  },
-  "moneyToastDepositInProgressTitleAddMusd": {
-    "message": "फ़ंड जोड़े जा रहे हैं"
-  },
-  "moneyToastDepositInProgressTitleCard": {
-    "message": "डिपॉज़िट कर रहे हैं"
-  },
-  "moneyToastDepositInProgressTitleConvert": {
-    "message": "क्रिप्टो को कन्वर्ट किया जा रहा है"
-  },
-  "moneyToastDepositSuccessDescription": {
-    "message": "Money Account में $1 जोड़ दिया गया है।",
-    "description": "$1 is the formatted fiat amount deposited (e.g. $20.00)"
-  },
-  "moneyToastDepositSuccessDescriptionNoAmount": {
-    "message": "Money Account में जोड़ दिया गया है।"
-  },
-  "moneyToastDepositSuccessTitleAddMusd": {
-    "message": "फंड्स जोड़े गए"
-  },
-  "moneyToastDepositSuccessTitleCard": {
-    "message": "डिपॉज़िट पूरा हुआ"
-  },
-  "moneyToastDepositSuccessTitleConvert": {
-    "message": "कन्वर्शन पूरा हुआ"
-  },
-  "moneyToastInProgressDescription": {
-    "message": "इसमें कुछ मिनट लग सकते हैं।"
-  },
-  "moneyToastWithdrawFailedBody": {
-    "message": "फंड्स ट्रांसफर नहीं हो पाए। फिर से प्रयास करें।"
-  },
-  "moneyToastWithdrawFailedTitle": {
-    "message": "ट्रांसफर नहीं हो पाया"
-  },
-  "moneyToastWithdrawFallbackDestination": {
-    "message": "आपका अकाउंट"
-  },
-  "moneyToastWithdrawInProgressTitle": {
-    "message": "ट्रांसफर प्रोग्रेस में है"
-  },
-  "moneyToastWithdrawSuccessDescription": {
-    "message": "$2 में $1 जोड़ दिया गया है।",
-    "description": "$1 is the formatted fiat amount withdrawn (e.g. $20.00), $2 is the destination account name"
-  },
-  "moneyToastWithdrawSuccessDescriptionNoAmount": {
-    "message": "$1 में जोड़ दिया गया है।",
-    "description": "$1 is the destination account name"
-  },
-  "moneyToastWithdrawSuccessTitle": {
-    "message": "ट्रांसफर पूरा हुआ"
-  },
-  "moneyTransferBetweenAccounts": {
-    "message": "दूसरा अकाउंट"
-  },
-  "moneyTransferComingSoon": {
-    "message": "जल्द आ रहा है"
-  },
-  "moneyTransferPerpsAccount": {
-    "message": "पर्प्स अकाउंट"
-  },
-  "moneyTransferSendExternal": {
-    "message": "बाहरी पता"
-  },
-  "moneyTransferTitle": {
-    "message": "इनको फंड भेजें"
-  },
-  "moneyTransferWithdrawToBank": {
-    "message": "बैंक अकाउंट"
-  },
-  "month": {
-    "message": "महीना"
-  },
   "monthly": {
     "message": "मासिक"
   },
@@ -5909,9 +4623,6 @@
   "moreNetworks": {
     "message": "+ $1 और नेटवर्क",
     "description": "$1 is the number of networks"
-  },
-  "moreQuotes": {
-    "message": "अधिक कोट्स"
   },
   "multichainAccountAddressCopied": {
     "message": "एड्रेस कॉपी किया गया",
@@ -5963,86 +4674,13 @@
     "message": "$1 को मल्टीचेन प्रोवाइडर एक्सेस दें",
     "description": "The parameter is the name of the requesting origin"
   },
-  "multichainQuoteCardRateExplanation": {
-    "message": "प्रदाताओं से हमें जो सबसे अच्छा दर मिला, उसमें प्रदाता फीस और $1% MetaMask फीस शामिल है।"
-  },
-  "multichainQuoteCardRateLabel": {
-    "message": "रेट"
-  },
   "multipleSnapConnectionWarning": {
     "message": "$1 $2 Snaps का उपयोग करना चाहता है",
     "description": "$1 is the dapp and $2 is the number of snaps it wants to connect to."
   },
-  "musdAssetConvertBenefitDailyBonus": {
-    "message": "दैनिक बोनस",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertBenefitDollarBacked": {
-    "message": "डॉलर-समर्थित",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertBenefitNoLockups": {
-    "message": "कोई लॉकअप नहीं",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertBenefitNoMetaMaskFee": {
-    "message": "कोई MetaMask फीस नहीं",
-    "description": "Benefit tag on the mUSD asset details convert section"
-  },
-  "musdAssetConvertDescriptionHighlight": {
-    "message": "$1% सालाना बोनस",
-    "description": "Shown in Figma accent lime (#baf24a) inside the mUSD asset details convert section description. $1 is the APY percentage."
-  },
-  "musdAssetConvertDescriptionLead": {
-    "message": "एक ",
-    "description": "Text before the green APY phrase on the mUSD asset details convert section"
-  },
-  "musdAssetConvertDescriptionTail": {
-    "message": " USDC, USDT और DAI को mUSD में कन्वर्ट करके।",
-    "description": "Text after the green APY phrase on the mUSD asset details convert section"
-  },
-  "musdAssetConvertLearnMore": {
-    "message": "ज़्यादा जानें",
-    "description": "Button to open the mUSD support article from the asset details convert section"
-  },
-  "musdAssetConvertTitle": {
-    "message": "अपने स्टेबलकॉइन कन्वर्ट करें",
-    "description": "Title of the convert section on the mUSD asset details page"
-  },
-  "musdAssetPositionBalance": {
-    "message": "बैलेंस",
-    "description": "Label in the mUSD asset details Your position section"
-  },
-  "musdAssetPositionTitle": {
-    "message": "आपकी पोज़िशन",
-    "description": "Section title on the mUSD asset details page"
-  },
-  "musdAssetPositionValue": {
-    "message": "मूल्य",
-    "description": "Label in the mUSD asset details Your position section (fiat value)"
-  },
-  "musdBonusExplanation": {
-    "message": "अपने स्टेबलकॉइन्स को mUSD में बदलें और $1% तक वार्षिक बोनस कमाएं, जिसे आप रोज़ाना क्लेम कर सकते हैं।$2",
-    "description": "$1 is the bonus APY percentage, $2 is the 'Terms apply' link"
-  },
-  "musdBoostDescription": {
-    "message": "अपने स्टेबलकॉइन्स को mUSD में बदलें और $1% वार्षिक बोनस प्राप्त करें।",
-    "description": "$1 is the bonus percentage (e.g., 3)"
-  },
-  "musdBoostTitle": {
-    "message": "अपने स्टेबलकॉइन्स पर $1% पाएं",
-    "description": "$1 is the bonus percentage (e.g., 3)"
-  },
-  "musdBuyMusd": {
-    "message": "mUSD खरीदें"
-  },
   "musdClaimTitle": {
     "message": "बोनस क्लेम करें",
     "description": "Title for the mUSD bonus claim confirmation screen"
-  },
-  "musdConversionFeeTooltipDescription": {
-    "message": "mUSD कन्वर्शन शुल्क में नेटवर्क लागत शामिल होती है और इसमें प्रदाता शुल्क भी शामिल हो सकता है। जब आप mUSD में कन्वर्ट करते हैं, तो कोई MetaMask शुल्क लागू नहीं होता।",
-    "description": "Body text shown above the fee breakdown in the transaction fee tooltip for mUSD conversion"
   },
   "musdConversionTitle": {
     "message": "mUSD में कन्वर्ट किया गया",
@@ -6060,29 +4698,6 @@
   },
   "musdConversionToastSuccessDescription": {
     "message": "बोनस एक दिन के भीतर क्लेम किया जा सकेगा।"
-  },
-  "musdConvert": {
-    "message": "कन्वर्ट करें"
-  },
-  "musdEducationGetStarted": {
-    "message": "शुरू करें"
-  },
-  "musdEducationHeadline": {
-    "message": "स्टेबलकॉइन्स पर $1% पाएं",
-    "description": "$1 is the bonus APY percentage. Line break between ON and STABLECOINS matches splash layout."
-  },
-  "musdEducationNotNow": {
-    "message": "अभी नहीं"
-  },
-  "musdGetMusd": {
-    "message": "mUSD प्राप्त करें"
-  },
-  "musdSymbol": {
-    "message": "mUSD",
-    "description": "Token ticker for MetaMask USD (displayed next to balance on the mUSD asset details page)"
-  },
-  "musdTermsApply": {
-    "message": "नियम लागू।"
   },
   "name": {
     "message": "नाम"
@@ -6226,12 +4841,6 @@
   "networkFee": {
     "message": "नेटवर्क फीस"
   },
-  "networkFeeExplanation": {
-    "message": "नेटवर्क फीस इस बात पर निर्भर करते हैं कि नेटवर्क कितना व्यस्त है और आपका ट्रांसेक्शन कितना जटिल है।"
-  },
-  "networkFeeExplanationTitle": {
-    "message": "नेटवर्क फीस"
-  },
   "networkMenuHeading": {
     "message": "एक नेटवर्क चुनें"
   },
@@ -6321,27 +4930,11 @@
   "newCustomTokenAdded": {
     "message": "\"$1\" सफलतापूर्वक जोड़ा गया था!"
   },
-  "newNFTDetectedInImportNFTsMessageStrongText": {
-    "message": "सेटिंग्स > एसेट्स"
-  },
-  "newNFTDetectedInImportNFTsMsg": {
-    "message": "अपने NFTs देखने के लिए OpenSea का उपयोग करने के लिए, $1 में 'NFT मीडिया दिखाएं' चालू करें।",
-    "description": "$1 is used for newNFTDetectedInImportNFTsMessageStrongText"
-  },
-  "newNFTDetectedInNFTsTabMessage": {
-    "message": "MetaMask को ऑटोमेटिक तरीके से NFTs का पता लगाने और आपके वॉलेट में दिखाने के लिए अनुमति दें।"
-  },
-  "newNFTsAutodetected": {
-    "message": "NFT ऑटोडिटेक्शन"
-  },
   "newNetworkAdded": {
     "message": "\"$1\" सफलतापूर्वक जोड़ा गया था!"
   },
   "newNetworkEdited": {
     "message": "\"$1\" सफलतापूर्वक बदला गया!"
-  },
-  "newNftAddedMessage": {
-    "message": "NFT सफलतापूर्वक जोड़ा गया!"
   },
   "newPassword": {
     "message": "नया पासवर्ड"
@@ -6365,30 +4958,9 @@
   "next": {
     "message": "आगे"
   },
-  "nftAddFailedMessage": {
-    "message": "स्वामित्व विवरण के मेल न खाने के कारण NFT जोड़ा नहीं जा सकता। सुनिश्चित करें कि आपने सही जानकारी दर्ज की है।"
-  },
   "nftAddressError": {
     "message": "यह टोकन एक NFT है। $1 पर जोड़ें",
     "description": "$1 is a clickable link with text defined by the 'importNFTPage' key"
-  },
-  "nftAlreadyAdded": {
-    "message": "NFT पहले ही जोड़ा जा चुका है।"
-  },
-  "nftAutoDetectionEnabled": {
-    "message": "NFT ऑटोडिटेक्शन चालू किया गया"
-  },
-  "nftEmptyDescription": {
-    "message": "NFTs की एक अलग दुनिया है। आज ही अपना कलेक्शन शुरू करें।"
-  },
-  "nftOptions": {
-    "message": "NFT विकल्प"
-  },
-  "nftTokenIdPlaceholder": {
-    "message": "टोकन ID डालें"
-  },
-  "nftUnsupportedEmptyDescription": {
-    "message": "इस नेटवर्क पर NFT सपोर्टेड नहीं है।"
   },
   "nftWarningContent": {
     "message": "आप भविष्य में जिस पर भी आपकी ओनरशिप होगी उसके सहित, $1 को ऐक्सेस प्रदान कर रहे हैं। दूसरे छोर पर मौजूद पक्ष इन NFTs को आपके वॉलेट से किसी भी समय बिना आपसे पूछे तब तक ट्रांसफ़र कर सकता है जब तक कि आप इस एप्रूवल को कैंसिल नहीं कर देते। $2",
@@ -6403,9 +4975,6 @@
   },
   "nfts": {
     "message": "NFTs"
-  },
-  "nftsPreviouslyOwned": {
-    "message": "पहले की ओनरशिप वाले"
   },
   "nickname": {
     "message": "उपनाम"
@@ -6430,9 +4999,6 @@
   "noHardwareWalletOrSnapsSupport": {
     "message": "Snap और अधिकांश हार्डवेयर वॉलेट, आपके वर्तमान ब्राउज़र वर्जन के साथ काम नहीं करेंगे।"
   },
-  "noMMFeeSwapping": {
-    "message": "कोई MetaMask शुल्क नहीं"
-  },
   "noNetworkFee": {
     "message": "कोई नेटवर्क शुल्क नहीं"
   },
@@ -6444,12 +5010,6 @@
   },
   "noNetworksSelected": {
     "message": "कोई नेटवर्क नहीं चुना गया"
-  },
-  "noOptionsAvailableMessage": {
-    "message": "यह ट्रेड रूट अभी उपलब्ध नहीं है। राशि, नेटवर्क या टोकन बदलने का प्रयास करें और हम सबसे अच्छा विकल्प ढूंढ लेंगे।"
-  },
-  "noQuoteAvailable": {
-    "message": "कोई कोटेशन उपलब्ध नहीं है"
   },
   "noSnaps": {
     "message": "आपके पास इंस्टाल किए गए Snap नहीं हैं।"
@@ -6640,26 +5200,11 @@
   "notificationsSettingsInAppNotifications": {
     "message": "इन-ऐप"
   },
-  "notificationsSettingsMarketingConsent": {
-    "message": "इसे चालू करके, आप MetaMask से प्रोडक्ट समाचार और मार्केटिंग अपडेट प्राप्त करने के लिए सहमत होते हैं।"
-  },
-  "notificationsSettingsMarketingDescription": {
-    "message": "प्रोडक्ट अपडेट्स, फीचर घोषणाएँ और नए रिलीज़"
-  },
-  "notificationsSettingsMarketingTitle": {
-    "message": "अपडेट्स और रिवॉर्ड्स"
-  },
   "notificationsSettingsPageAllowNotifications": {
     "message": "आपको किस बारे में और कैसे सूचनाएँ मिलेंगी, यह चुनें।"
   },
   "notificationsSettingsPageAllowNotificationsLink": {
     "message": "जानें कैसे"
-  },
-  "notificationsSettingsPerpsDescription": {
-    "message": "पर्प्स पोज़िशन में बदलाव, लिक्विडेशन, फंडिंग रेट और मार्जिन अपडेट्स"
-  },
-  "notificationsSettingsPerpsTitle": {
-    "message": "ट्रेडिंग गतिविधि"
   },
   "notificationsSettingsPushNotifications": {
     "message": "पुश"
@@ -6685,54 +5230,17 @@
   "notificationsSettingsWalletActivityTitle": {
     "message": "वॉलेट गतिविधि"
   },
-  "numberOfTokens": {
-    "message": "टोकन की संख्या"
-  },
   "ofTextNofM": {
     "message": "का"
   },
   "off": {
     "message": "बंद"
   },
-  "offlineForMaintenance": {
-    "message": "रखरखाव के लिए ऑफलाइन है"
-  },
   "ok": {
     "message": "ठीक है"
   },
   "on": {
     "message": "चालू करें"
-  },
-  "onboardedMetametricsAccept": {
-    "message": "मैं सहमत हूं"
-  },
-  "onboardedMetametricsDisagree": {
-    "message": "जी नहीं, धन्यवाद"
-  },
-  "onboardedMetametricsKey1": {
-    "message": "लेटेस्ट डेवलप्मेंट्स"
-  },
-  "onboardedMetametricsKey2": {
-    "message": "प्रॉडक्ट फीचर्स"
-  },
-  "onboardedMetametricsKey3": {
-    "message": "अन्य प्रासंगिक प्रमोशनल सामग्री"
-  },
-  "onboardedMetametricsLink": {
-    "message": "MetaMetrics"
-  },
-  "onboardedMetametricsParagraph1": {
-    "message": "$1 के अलावा, हम यह समझने के लिए डेटा का उपयोग करना चाहेंगे कि आप मार्केटिंग कम्यूनिकेशन्स के साथ कैसे इंटरैक्ट करते हैं।",
-    "description": "$1 represents the 'onboardedMetametricsLink' locale string"
-  },
-  "onboardedMetametricsParagraph2": {
-    "message": "इससे हमें आपके साथ साझा की जाने वाली चीज़ों को निजीकृत करने में मदद मिलती है, जैसे:"
-  },
-  "onboardedMetametricsParagraph3": {
-    "message": "याद रखें, हम आपके द्वारा प्रदान किया गया डेटा कभी नहीं बेचते हैं और आप किसी भी समय इससे बाहर निकल सकते हैं।"
-  },
-  "onboardedMetametricsTitle": {
-    "message": "आपके अनुभव को बेहतर करने में हमारी सहायता करें"
   },
   "onboardingAdvancedPrivacyIPFSDescription": {
     "message": "IPFS (आईपीएफएस) गेटवे थर्ड पार्टियों द्वारा होस्ट किए गए डेटा को एक्सेस करना और देखना संभव बनाता है। आप एक कस्टम IPFS गेटवे जोड़ सकते हैं या डिफॉल्ट का इस्तेमाल जारी रख सकते हैं।"
@@ -6777,14 +5285,8 @@
   "onboardingMetametricCheckboxDescriptionOneUpdated": {
     "message": "हम बेसिक प्रोडक्ट यूसेज डेटा इकट्ठा करेंगे। हम इस जानकारी को ऑन-चेन डेटा से जोड़ सकते हैं।"
   },
-  "onboardingMetametricCheckboxDescriptionTwo": {
-    "message": "हम इस डेटा का उपयोग यह जानने के लिए करेंगे कि आप हमारे मार्केटिंग कम्यूनिकेशन्स के साथ कैसे इंटरैक्ट करते हैं। हम प्रासंगिक समाचार (जैसे प्रॉडक्ट फीचर्स) साझा कर सकते हैं।"
-  },
   "onboardingMetametricCheckboxTitleOne": {
     "message": "मूलभूत उपयोग संबंधी डेटा एकत्र करें"
-  },
-  "onboardingMetametricCheckboxTitleTwo": {
-    "message": "उत्पाद अपडेट"
   },
   "onboardingMetametricsContinue": {
     "message": "जारी रखें"
@@ -6887,9 +5389,6 @@
   "otherSnaps": {
     "message": "अन्य Snap",
     "description": "Used in the 'permission_rpc' message."
-  },
-  "others": {
-    "message": "अन्य"
   },
   "outdatedBrowserNotification": {
     "message": "आपका ब्राउज़़र पुराना हो चुका है। यदि आप अपने ब्राउज़़र को अपडेट नहीं करते हैं, तो आप MetaMask से सुरक्षा पैच और नई फीचर्स प्राप्त नहीं कर पाएंगे।"
@@ -7109,30 +5608,6 @@
   "payWith": {
     "message": "के साथ भुगतान करें",
     "description": "Label for pay with row showing which token is used to pay transaction fees"
-  },
-  "payWithCrypto": {
-    "message": "क्रिप्टो",
-    "description": "Section header for crypto payment methods in the Pay with picker"
-  },
-  "payWithEmptySelection": {
-    "message": "भुगतान विधि चुनें",
-    "description": "Placeholder shown in the Pay with row when no payment token is selected"
-  },
-  "payWithModalTitle": {
-    "message": "के साथ भुगतान करें",
-    "description": "Title for the pay with modal that allows users to select which token to pay transaction fees with"
-  },
-  "payWithMoneyAccount": {
-    "message": "Money Account",
-    "description": "Label for paying with the user's Money account in the Pay with picker"
-  },
-  "payWithOtherAssets": {
-    "message": "अन्य एसेट्स",
-    "description": "Row label that opens the full token list in the Pay with picker"
-  },
-  "payWithOtherAssetsDescription": {
-    "message": "अपने टोकन में से चुनें",
-    "description": "Subtitle for the Other assets row in the Pay with picker"
   },
   "payee": {
     "message": "पेई"
@@ -7469,1039 +5944,20 @@
   "perps": {
     "message": "पर्प्स"
   },
-  "perps24hVolume": {
-    "message": "24 घंटे का वॉल्यूम"
-  },
-  "perpsActivity": {
-    "message": "एक्टिविटी"
-  },
-  "perpsAddExposure": {
-    "message": "एक्सपोज़र जोड़ें"
-  },
-  "perpsAddExposureDescriptionLong": {
-    "message": "अपनी लॉन्ग पोज़िशन का साइज़ बढ़ाएं"
-  },
-  "perpsAddExposureDescriptionShort": {
-    "message": "अपनी शॉर्ट पोज़िशन का साइज़ बढ़ाएं"
-  },
   "perpsAddFunds": {
     "message": "फंड जोड़ें"
-  },
-  "perpsAddFundsHint": {
-    "message": "यह ऑर्डर देने के लिए अपने पर्प्स अकाउंट में कम से कम $1 जोड़ें।",
-    "description": "$1 is the minimum order value with currency symbol (e.g., '$10'). Hint shown under the order summary when the Perps account is unfunded."
-  },
-  "perpsAddFundsToTrade": {
-    "message": "ट्रेड करने के लिए फंड जोड़ें"
-  },
-  "perpsAddMargin": {
-    "message": "Add margin"
-  },
-  "perpsAddMarginDescription": {
-    "message": "लिक्विडेशन रिस्क कम करने के लिए मार्जिन बढ़ाएं"
-  },
-  "perpsAddToFavorites": {
-    "message": "पसंदीदा में जोड़े"
-  },
-  "perpsAutoClose": {
-    "message": "ऑटो क्लोज़"
-  },
-  "perpsAutoDeleveraging": {
-    "message": "ऑटो-डीलेवरेजिंग",
-    "description": "Badge label for trades executed via auto-deleveraging (ADL)"
-  },
-  "perpsAvailable": {
-    "message": "उपलब्ध",
-    "description": "is the available balance amount"
-  },
-  "perpsAvailableBalance": {
-    "message": "उपलब्ध बैलेंस: "
-  },
-  "perpsAvailableToAdd": {
-    "message": "जोड़ने के लिए उपलब्ध है"
-  },
-  "perpsAvailableToClose": {
-    "message": "क्लोज़ करने के लिए उपलब्ध है"
-  },
-  "perpsAvailableToSubtract": {
-    "message": "घटाने के लिए उपलब्ध है"
-  },
-  "perpsAvailableToTrade": {
-    "message": "ट्रेड करने के लिए उपलब्ध है",
-    "description": "Label for the available balance that can be used for trading"
   },
   "perpsBalance": {
     "message": "पर्प्स बैलेंस"
   },
-  "perpsBasicFunctionalityOff": {
-    "message": "जब बेसिक फ़ंक्शनैलिटी बंद होती है, तो यह सुविधा उपलब्ध नहीं होती।"
-  },
-  "perpsBatchCancelFailed": {
-    "message": "एक या एक से अधिक ऑर्डर कैंसिल नहीं हो पाए। कृपया फिर से कोशिश करें।"
-  },
-  "perpsBatchCloseFailed": {
-    "message": "एक या एक से अधिक पोज़िशन बंद नहीं हो पाए। कृपया फिर से कोशिश करें।"
-  },
-  "perpsCancelAllOrders": {
-    "message": "सब कैंसिल करें"
-  },
-  "perpsCancelOrder": {
-    "message": "ऑर्डर कैंसिल करें"
-  },
-  "perpsCancelOrderFailed": {
-    "message": "ऑर्डर कैंसिल नहीं हो पाया। कृपया दोबारा कोशिश करें।",
-    "description": "Error shown when cancelling a perps order fails for a reason the trader cannot act on specifically"
-  },
-  "perpsCandleIntervals": {
-    "message": "कैंडल इंटर्वल सेट करें"
-  },
-  "perpsCandlePeriodDays": {
-    "message": "दिन"
-  },
-  "perpsCandlePeriodHours": {
-    "message": "घंटे"
-  },
-  "perpsCandlePeriodMinutes": {
-    "message": "मिनट"
-  },
-  "perpsChart": {
-    "message": "प्राइस चार्ट"
-  },
-  "perpsChartLoadError": {
-    "message": "चार्ट डाटा लोड नहीं हो पाया"
-  },
-  "perpsCloseAll": {
-    "message": "सब बंद करें"
-  },
-  "perpsCloseAllDescription": {
-    "message": "हम आपकी सभी ओपन पोज़िशन को वर्तमान मार्केट प्राइस पर बंद कर देंगे।"
-  },
-  "perpsCloseAllPositions": {
-    "message": "सभी पोज़िशन बंद करें"
-  },
-  "perpsCloseAmount": {
-    "message": "अमाउंट क्लोज़ करें"
-  },
-  "perpsCloseAmountCappedAtPosition": {
-    "message": "क्लोज़ अमाउंट आपकी पोज़ीशन वैल्यू पर कैप्ड है।"
-  },
-  "perpsCloseAmountInPercentLabel": {
-    "message": "क्लोज़ अमाउंट अपनी पोज़ीशन के परसेंटेज के तौर पर डालें"
-  },
-  "perpsCloseAmountInUsdLabel": {
-    "message": "क्लोज़ अमाउंट US डॉलर में डालें"
-  },
-  "perpsCloseLimitPriceOutsideOracleBand": {
-    "message": "प्राइस मार्केट प्राइस से 95% से अधिक अंतर पर नहीं हो सकती"
-  },
-  "perpsCloseLimitPriceRequired": {
-    "message": "जारी रखने के लिए एक मान्य लिमिट प्राइस दर्ज करें।"
-  },
-  "perpsCloseLong": {
-    "message": "लॉन्ग को क्लोज़ करें"
-  },
-  "perpsClosePartialMinNotional": {
-    "message": "पार्शियल क्लोज़ कम से कम $1 USD वैल्यू का होना चाहिए। क्लोज़ अमाउंट बढ़ाएं या पूरी पोज़िशन क्लोज करें।"
-  },
-  "perpsClosePercentCappedAtMax": {
-    "message": "क्लोज़ परसेंटेज 100% पर कैप्ड है।"
-  },
-  "perpsClosePosition": {
-    "message": "पोज़िशन बंद करें"
-  },
-  "perpsClosePrice": {
-    "message": "क्लोज़ प्राइस"
-  },
-  "perpsClosePriceUnavailable": {
-    "message": "वर्तमान प्राइस उपलब्ध नहीं है। कुछ देर बाद फिर से प्रयास करें।"
-  },
-  "perpsCloseShort": {
-    "message": "शॉर्ट को क्लोज़ करें"
-  },
-  "perpsCollapseChart": {
-    "message": "चार्ट को छोटा करें"
-  },
-  "perpsConfirmCloseLong": {
-    "message": "लॉन्ग को क्लोज़ करें"
-  },
-  "perpsConfirmCloseShort": {
-    "message": "शॉर्ट को क्लोज़ करें"
-  },
-  "perpsConnectionTimeout": {
-    "message": "कनेक्शन टाइम आउट हो गया। कृपया फिर से कोशिश करें।"
-  },
-  "perpsContactSupport": {
-    "message": "सपोर्ट टीम से कॉन्टेक्ट करें"
-  },
-  "perpsCrossMarginNotSupportedDescription": {
-    "message": "MetaMask पर्प्स केवल आइसोलेटेड मार्जिन के साथ ट्रेडिंग का सपोर्ट करते हैं। MetaMask पर ट्रेड करने से पहले आपको अपनी क्रॉस मार्जिन पोज़िशन बंद करनी होगी।"
-  },
-  "perpsCrossMarginNotSupportedTitle": {
-    "message": "क्रॉस मार्जिन सपोर्टेड नहीं है"
-  },
-  "perpsCurrentPrice": {
-    "message": "वर्तमान प्राइस"
-  },
-  "perpsDateToday": {
-    "message": "आज"
-  },
-  "perpsDateYesterday": {
-    "message": "कल"
-  },
-  "perpsDepositEmptyTitle": {
-    "message": "डिपॉज़िट करें",
-    "description": "Title shown for a wallet-tracked deposit transaction on the Activity page when the deposited amount is zero or unknown"
-  },
-  "perpsDepositErrorBridgeFailed": {
-    "message": "ब्रिज नहीं हो पाया"
-  },
-  "perpsDepositFailed": {
-    "message": "डिपॉज़िट करना पूरा नहीं हो पाया। कृपया दोबारा कोशिश करें।"
-  },
-  "perpsDepositFundsTitle": {
-    "message": "पर्प्स में फंड डिपॉज़िट करें"
-  },
   "perpsDepositTitle": {
     "message": "फंडेड पर्प्स अकाउंट"
-  },
-  "perpsDepositToastErrorDescription": {
-    "message": "आपके फंड्स पर्प्स में नहीं जोड़े जा सके। फिर से प्रयास करें।"
-  },
-  "perpsDepositToastErrorTitle": {
-    "message": "पर्प्स डिपॉज़िट नहीं हो पाया"
-  },
-  "perpsDepositToastPendingDescription": {
-    "message": "आपके फंड्स ट्रेड करने के लिए थोड़ी ही देर में उपलब्ध होंगे।"
-  },
-  "perpsDepositToastPendingTitle": {
-    "message": "पर्प्स में फंड्स जोड़े जा रहे हैं"
-  },
-  "perpsDepositToastSuccessDescription": {
-    "message": "फंड्स ट्रेड करने के लिए तैयार हैं"
-  },
-  "perpsDepositToastSuccessTitle": {
-    "message": "आपका पर्प्स अकाउंट फंड हो गया"
-  },
-  "perpsDepositedVerb": {
-    "message": "डिपॉज़िट किया गया",
-    "description": "Verb shown in the title of a wallet-tracked deposit transaction on the Activity page, followed by the amount and asset (e.g. 'Deposited 5.00 USDC')"
-  },
-  "perpsDeposits": {
-    "message": "डिपॉज़िट"
-  },
-  "perpsDetails": {
-    "message": "विवरण"
-  },
-  "perpsDirection": {
-    "message": "दिशा"
-  },
-  "perpsDisclaimer": {
-    "message": "परपेचुअल कॉन्ट्रैक्ट्स बहुत जोखिम भरे होते हैं, और आप अचानक और बिना किसी चेतावनी के अपनी पूरी निवेश राशि खो सकते हैं। आप पूरी तरह से अपने जोखिम पर ट्रेड करते हैं। हाइपरलिक्विड द्वारा संचालित। प्राइस चार्ट ट्रेडिंगव्यू के द्वारा संचालित है।"
-  },
-  "perpsEmptyDescription": {
-    "message": "लेवरेज के साथ परपेचुअल्स ट्रेड करें। शुरू करने के लिए अपनी पहली पोज़िशन खोलें।"
-  },
-  "perpsEntryPrice": {
-    "message": "एंट्री प्राइस"
-  },
-  "perpsEstSize": {
-    "message": "अनुमानित साइज़"
-  },
-  "perpsEstimatedPnlAtStopLoss": {
-    "message": "स्टॉप लॉस पर अनुमानित पी एंड एल",
-    "description": "Label for estimated profit or loss when stop loss is hit"
-  },
-  "perpsEstimatedPnlAtTakeProfit": {
-    "message": "टेक प्रॉफ़िट पर अनुमानित पी एंड एल",
-    "description": "Label for estimated profit or loss when take profit is hit"
-  },
-  "perpsExchangeAccountNotFound": {
-    "message": "ट्रेडिंग शुरू करने के लिए फंड जोड़ें।",
-    "description": "Error shown when the wallet has no exchange account yet, which is created on the first deposit"
-  },
-  "perpsExpandChart": {
-    "message": "चार्ट को बड़ा करें"
-  },
-  "perpsExploreMarkets": {
-    "message": "मार्केट एक्सप्लोर करें"
-  },
-  "perpsFees": {
-    "message": "फीस"
-  },
-  "perpsFeesTooltipHyperliquidFee": {
-    "message": "हाइपरलिक्विड फीस",
-    "description": "Label for the Hyperliquid protocol fee rate in the Perps order summary fees tooltip"
-  },
-  "perpsFeesTooltipMetamaskFee": {
-    "message": "MetaMask फीस",
-    "description": "Label for the MetaMask fee rate in the Perps order summary fees tooltip"
-  },
-  "perpsFeesTooltipProviderFee": {
-    "message": "प्रदाता फीस",
-    "description": "Fallback label for the protocol fee rate in the Perps order summary fees tooltip"
-  },
-  "perpsFilterAll": {
-    "message": "सभी"
-  },
-  "perpsFilterClear": {
-    "message": "$1, फिल्टर हटाएं",
-    "description": "Accessible name of the active market category pill, which clears the filter when pressed. $1 is the category name"
-  },
-  "perpsFilterCommodities": {
-    "message": "कमोडिटीज़"
-  },
-  "perpsFilterCrypto": {
-    "message": "क्रिप्टो"
-  },
-  "perpsFilterEtf": {
-    "message": "ETFs"
-  },
-  "perpsFilterForex": {
-    "message": "फॉरेक्स"
-  },
-  "perpsFilterIndex": {
-    "message": "इनडाइसेज़"
-  },
-  "perpsFilterMemecoins": {
-    "message": "मीमकॉइन्स"
-  },
-  "perpsFilterMore": {
-    "message": "अधिक",
-    "description": "Trigger of the menu holding the market categories that do not fit the filter rail"
-  },
-  "perpsFilterMoreSelected": {
-    "message": "और, $1 चुना गया",
-    "description": "Accessible name of the category overflow menu when the active filter is inside it. $1 is the selected category"
-  },
-  "perpsFilterNew": {
-    "message": "नया"
-  },
-  "perpsFilterPreIpo": {
-    "message": "Pre-IPO"
-  },
-  "perpsFilterStocks": {
-    "message": "स्टॉक्स"
-  },
-  "perpsFundAgain": {
-    "message": "फिर से फंड करें"
-  },
-  "perpsFunding": {
-    "message": "फंडिंग"
-  },
-  "perpsFundingPayments": {
-    "message": "फंडिंग पेमेंट्स"
-  },
-  "perpsFundingRate": {
-    "message": "फंडिंग रेट"
-  },
-  "perpsFundingRateTooltip": {
-    "message": "एक घंटे का फीस जो ट्रेडर्स के बीच मार्केट प्राइस को संतुलित रखने के लिए लिया जाता है। अगर रेट सकारात्मक है, तो लॉन्ग्स शॉर्ट्स को भुगतान करते हैं; अगर नकारात्मक है, तो शॉर्ट्स लॉन्ग्स को भुगतान करते हैं।"
-  },
-  "perpsGeoBlockedDescription": {
-    "message": "आपके स्थान पर स्थानीय प्रतिबंधों या रुकावटों के कारण पर्प्स ट्रेडिंग उपलब्ध नहीं है।"
-  },
-  "perpsGeoBlockedTitle": {
-    "message": "आपके क्षेत्र में पर्प्स उपलब्ध नहीं है"
-  },
-  "perpsGiveFeedback": {
-    "message": "हमें फीडबैक दें"
-  },
-  "perpsIncludesPnl": {
-    "message": "इसमें P&L $1 शामिल है"
-  },
-  "perpsInsufficientMargin": {
-    "message": "इस ऑर्डर को लगाने के लिए पर्याप्त मार्जिन नहीं है।"
-  },
-  "perpsKeepPositions": {
-    "message": "पोज़िशन्स रखें"
-  },
-  "perpsLearnBasics": {
-    "message": "पर्प्स की मूल बातें सीखें"
-  },
-  "perpsLearnMore": {
-    "message": "ज़्यादा जानें"
-  },
-  "perpsLeverage": {
-    "message": "लीवरेज"
-  },
-  "perpsLimit": {
-    "message": "सीमित करें"
-  },
-  "perpsLimitPrice": {
-    "message": "लिमिट प्राइस"
-  },
-  "perpsLimitPriceAboveCurrentPrice": {
-    "message": "लिमिट प्राइस वर्तमान प्राइस से ऊपर है"
-  },
-  "perpsLimitPriceBelowCurrentPrice": {
-    "message": "लिमिट प्राइस वर्तमान प्राइस से नीचे है"
-  },
-  "perpsLimitPriceNearLiquidation": {
-    "message": "वर्तमान प्राइस अनुमानित लिक्विडेशन प्राइस के लगभग बराबर है"
-  },
-  "perpsLiquidated": {
-    "message": "लिक्विडेट किया गया",
-    "description": "Badge label for trades that were liquidated"
-  },
-  "perpsLiquidationDistance": {
-    "message": "लिक्विडेशन डिस्टेन्स"
-  },
-  "perpsLiquidationPrice": {
-    "message": "लिक्विडेशन प्राइस"
-  },
-  "perpsLiquidationPriceTooltip": {
-    "message": "अगर प्राइस इस स्तर तक पहुँचती है, तो आपकी पोज़िशन लिक्विडेट हो जाएगी और आपका मार्जिन खो जाएगा। अधिक लीवरेज इसे और अधिक संभावित बनाता है।",
-    "description": "Tooltip content for the liquidation price row on the Perps order summary"
-  },
-  "perpsLong": {
-    "message": "लॉन्ग"
-  },
-  "perpsMargin": {
-    "message": "मार्जिन"
-  },
-  "perpsMarginRiskWarning": {
-    "message": "मार्जिन हटाने से आपका लिक्विडेशन प्राइस करीब आ जाता है। पक्का करें कि आपके पास काफ़ी बफ़र हो।"
-  },
-  "perpsMarginTooltip": {
-    "message": "मार्जिन वह राशि है जो आप किसी ट्रेड को खोलने के लिए लगाते हैं। यह एक प्रकार की कोलैटरल के रूप में काम करती है और यह उस ट्रेड में आपकी अधिकतम हानि होती है।",
-    "description": "Tooltip content for the margin row on the Perps order summary"
-  },
-  "perpsMarket": {
-    "message": "मार्केट"
-  },
-  "perpsMarketCategories": {
-    "message": "मार्केट कैटेगरीज़",
-    "description": "Accessible name of the market list group of category pills"
-  },
-  "perpsMarketCount": {
-    "message": "$1 मार्केट्स",
-    "description": "Count of markets currently listed. $1 is the number of markets"
-  },
-  "perpsMarketCountSingular": {
-    "message": "1 मार्केट",
-    "description": "Count of markets currently listed, when exactly one is listed"
-  },
-  "perpsMarketNotFound": {
-    "message": "मार्केट नहीं मिला"
-  },
-  "perpsMarketNotFoundDescription": {
-    "message": "मार्केट \"$1\" नहीं मिला।",
-    "description": "$1 is the market symbol that was not found"
-  },
-  "perpsMarkets": {
-    "message": "मार्केट"
-  },
-  "perpsMid": {
-    "message": "मिड"
-  },
-  "perpsMinOrderSize": {
-    "message": "ऑर्डर का आकार कम से कम $1 होना चाहिए",
-    "description": "$1 is the minimum order size with currency symbol (e.g., '$10'). Shown as submit-button copy when the size input is empty or below the minimum."
-  },
-  "perpsModify": {
-    "message": "बदलाव करें"
-  },
-  "perpsModifyPosition": {
-    "message": "पोज़िशन को मॉडिफाई करें"
-  },
-  "perpsMore": {
-    "message": "अधिक"
-  },
-  "perpsNetworkError": {
-    "message": "नेटवर्क में गड़बड़ी हुई। कृपया फिर से कोशिश करें।"
-  },
-  "perpsNoMarketsFound": {
-    "message": "कोई मार्केट नहीं मिला"
-  },
-  "perpsNoTransactions": {
-    "message": "अभी तक कोई ट्रांसेक्शन नहीं है"
-  },
-  "perpsOpenInterest": {
-    "message": "ओपन इंटरेस्ट"
-  },
-  "perpsOpenInterestTooltip": {
-    "message": "इस पर्प के लिए सभी खुले पोज़िशन्स की कंबाइंड फीस"
-  },
-  "perpsOpenLong": {
-    "message": "लॉन्ग $1 को ओपन करें",
-    "description": "$1 is the asset symbol (e.g., BTC, ETH)"
-  },
-  "perpsOpenOrders": {
-    "message": "खुला ऑर्डर"
-  },
-  "perpsOpenShort": {
-    "message": "शॉर्ट $1 को ओपन करें",
-    "description": "$1 is the asset symbol (e.g., BTC, ETH)"
-  },
-  "perpsOraclePrice": {
-    "message": "Oracle प्राइस"
-  },
-  "perpsOraclePriceTooltip": {
-    "message": "वैलिडेटर द्वारा बताई गई बाहरी कीमतों का मीडियन, जिसे फंडिंग रेट कैलकुलेट करने के लिए इस्तेमाल किया जाता है"
-  },
-  "perpsOrderBook": {
-    "message": "ऑर्डर बुक"
-  },
-  "perpsOrderBookApply": {
-    "message": "लागू करें"
-  },
-  "perpsOrderBookBuy": {
-    "message": "खरीदें: $1%",
-    "description": "Order book buy-side depth percentage label. $1 is the buy percentage."
-  },
-  "perpsOrderBookConfigTitle": {
-    "message": "इनके द्वारा सूचीबद्ध और समूहीकृत"
-  },
-  "perpsOrderBookConnectionError": {
-    "message": "ऑर्डर बुक से कनेक्शन टूट गया"
-  },
-  "perpsOrderBookDepthRatio": {
-    "message": "$1% खरीदें, $2% बेचें",
-    "description": "Accessible label for the order book buy/sell depth ratio bar. $1 is the buy percentage, $2 is the sell percentage."
-  },
-  "perpsOrderBookGroupBy": {
-    "message": "के द्वारा समूह बनाएं"
-  },
-  "perpsOrderBookLayout": {
-    "message": "ऑर्डर बुक का लेआउट"
-  },
-  "perpsOrderBookLayoutLeft": {
-    "message": "बायां"
-  },
-  "perpsOrderBookLayoutRight": {
-    "message": "दायां"
-  },
-  "perpsOrderBookListedBy": {
-    "message": "के द्वारा लिस्ट किया गया"
-  },
-  "perpsOrderBookLoading": {
-    "message": "ऑर्डर बुक लोड हो रही है"
-  },
-  "perpsOrderBookNoData": {
-    "message": "कोई ऑर्डर बुक डेटा नहीं मिला"
-  },
-  "perpsOrderBookPrice": {
-    "message": "प्राइस"
-  },
-  "perpsOrderBookReconnect": {
-    "message": "रीकनेक्ट करें"
-  },
-  "perpsOrderBookReconnecting": {
-    "message": "ऑर्डर बुक से रीकनेक्ट हो रहा है"
-  },
-  "perpsOrderBookResize": {
-    "message": "ऑर्डर बुक का साइज़ बदलें"
-  },
-  "perpsOrderBookSell": {
-    "message": "बेचें: $1%",
-    "description": "Order book sell-side depth percentage label. $1 is the sell percentage."
-  },
-  "perpsOrderBookSize": {
-    "message": "आकार"
-  },
-  "perpsOrderBookSpread": {
-    "message": "स्प्रेड"
-  },
-  "perpsOrderBookTotal": {
-    "message": "कुल"
-  },
-  "perpsOrderBookUsePrice": {
-    "message": "लिमिट प्राइस के तौर पर $1 का इस्तेमाल करें",
-    "description": "Accessible label for a tappable order book price row. $1 is the formatted price; selecting it switches the order form to a limit order prefilled with this price."
-  },
-  "perpsOrderBookValueType": {
-    "message": "मूल्य प्रकार"
-  },
-  "perpsOrderBookViewModeBoth": {
-    "message": "बोली और मांग दिखाने वाली ऑर्डर बुक",
-    "description": "Accessible label for the order book view toggle when both buy and sell sides are visible. Activating cycles to bids only."
-  },
-  "perpsOrderBookViewModeBuy": {
-    "message": "केवल बोलियां दिखाने वाली ऑर्डर बुक",
-    "description": "Accessible label for the order book view toggle when only the buy (bid) side is visible. Activating cycles to asks only."
-  },
-  "perpsOrderBookViewModeSell": {
-    "message": "ऑर्डर बुक में केवल मांगें दिखाई गई हैं",
-    "description": "Accessible label for the order book view toggle when only the sell (ask) side is visible. Activating cycles back to both sides."
-  },
-  "perpsOrderDate": {
-    "message": "तिथि"
-  },
-  "perpsOrderFailed": {
-    "message": "ऑर्डर नहीं लग पाया। कृपया दोबारा कोशिश करें।"
-  },
-  "perpsOrderFilled": {
-    "message": "भरा गया"
-  },
-  "perpsOrderOriginalSize": {
-    "message": "मूल आकार"
-  },
-  "perpsOrderRejected": {
-    "message": "आपका ऑर्डर रिजेक्ट हो गया। कृपया फिर से कोशिश करें।"
-  },
-  "perpsOrderStatus": {
-    "message": "स्टेटस"
-  },
-  "perpsOrderTotalFee": {
-    "message": "कुल फीस"
-  },
-  "perpsOrderType": {
-    "message": "ऑर्डर प्रकार"
-  },
-  "perpsOrderValue": {
-    "message": "ऑर्डर वैल्यू"
-  },
-  "perpsOrders": {
-    "message": "ऑर्डर"
-  },
-  "perpsPerpMarketSubtitle": {
-    "message": "$1-$2 पर्प",
-    "description": "$1 is the market ticker (e.g. BTC), $2 is the collateral asset (e.g. USDC). Shown as the market pair subtitle on the perps market detail header, e.g. 'BTC-USDC perp'."
-  },
-  "perpsPnl": {
-    "message": "पी एंड एल"
-  },
-  "perpsPosition": {
-    "message": "पोज़िशन"
-  },
-  "perpsPositions": {
-    "message": "पोजीशन्स"
-  },
-  "perpsProducts": {
-    "message": "प्रोडक्ट्स",
-    "description": "Heading of the Perps tab section listing market categories as chips"
-  },
-  "perpsRateLimitExceeded": {
-    "message": "बहुत ज़्यादा रिक्वेस्ट हैं। कृपया इंतज़ार करें और फिर से कोशिश करें।"
-  },
-  "perpsRecentActivity": {
-    "message": "हालिया गतिविधि"
-  },
-  "perpsReduceExposure": {
-    "message": "एक्सपोज़र घटाएं"
-  },
-  "perpsReduceExposureDescriptionLong": {
-    "message": "अपनी लॉन्ग पोज़िशन का साइज़ घटाएं"
-  },
-  "perpsReduceExposureDescriptionShort": {
-    "message": "अपनी शॉर्ट पोज़िशन का साइज़ घटाएं"
-  },
-  "perpsReduceOnly": {
-    "message": "केवल घटाएं"
-  },
-  "perpsRemoveFromFavorites": {
-    "message": "पसंदीदा से हटाएं"
-  },
-  "perpsRemoveMargin": {
-    "message": "मार्जिन हटाएं"
-  },
-  "perpsRemoveMarginDescription": {
-    "message": "पोज़िशन से अतिरिक्त मार्जिन निकालें"
-  },
-  "perpsReturn": {
-    "message": "कमाई"
-  },
-  "perpsReversePosition": {
-    "message": "पोज़िशन रिवर्स करें"
-  },
-  "perpsReversePositionDescriptionLong": {
-    "message": "अपनी लॉन्ग पोज़िशन को शॉर्ट में बदलें"
-  },
-  "perpsReversePositionDescriptionShort": {
-    "message": "अपनी शॉर्ट पोज़िशन को लॉन्ग में बदलें"
-  },
-  "perpsSaveChanges": {
-    "message": "बदलावों को सेव करें",
-    "description": "Button text for saving TP/SL changes"
-  },
-  "perpsSearchMarkets": {
-    "message": "मार्केट्स खोजें"
-  },
-  "perpsSeeAll": {
-    "message": "सभी को देखें",
-    "description": "Accessible label for the arrow button that navigates to the full activity list"
-  },
-  "perpsServiceUnavailable": {
-    "message": "सेवा अस्थायी रूप से अनुपलब्ध है। कृपया बाद में फिर से कोशिश करें।"
-  },
-  "perpsShort": {
-    "message": "शॉर्ट"
-  },
-  "perpsSize": {
-    "message": "आकार"
-  },
-  "perpsSlippage": {
-    "message": "स्लिपेज (slippage)"
-  },
-  "perpsSlippageConfigDescription": {
-    "message": "यदि कीमत इस सीमा से आगे बदल जाती है, तो आपका ट्रांसेक्शन पूरा नहीं होगा।"
-  },
-  "perpsSlippageConfigTitle": {
-    "message": "स्लिपेज (slippage) सेट करें"
-  },
-  "perpsSlippageCustom": {
-    "message": "कस्टम"
-  },
-  "perpsSlippageEditAriaLabel": {
-    "message": "अधिकतम स्लिपेज (slippage) बदलें"
-  },
-  "perpsSlippageExceeded": {
-    "message": "स्लिपेज सीमा से अधिक हो गया है। अपनी स्लिपेज टॉलरेंस को समायोजित करें और दोबारा कोशिश करें।"
-  },
-  "perpsSlippageExceedsMax": {
-    "message": "अनुमानित स्लिपेज (slippage) ($1%) आपके अधिकतम स्लिपेज (slippage) ($2%) से अधिक है। सीमा बढ़ाएं या ऑर्डर साइज़ कम करें।",
-    "description": "$1 is estimated slippage percent, $2 is max slippage percent"
-  },
-  "perpsSlippageInputLabel": {
-    "message": "अधिकतम स्लिपेज (slippage) प्रतिशत"
-  },
-  "perpsSlippageOutOfRange": {
-    "message": "$1% और $2% के बीच एक मान दर्ज करें",
-    "description": "$1 is min percent, $2 is max percent"
-  },
-  "perpsSlippageRowFormat": {
-    "message": "अनुमानित: $1% / अधिकतम: $2%",
-    "description": "$1 is estimated slippage percent, $2 is max slippage percent"
-  },
-  "perpsSlippageRowFormatPending": {
-    "message": "अनुमानित: -- / अधिकतम: $1%",
-    "description": "$1 is max slippage percent"
-  },
-  "perpsSlippageSet": {
-    "message": "निर्धारित करें"
-  },
-  "perpsSortByFundingRate": {
-    "message": "फंडिंग रेट"
-  },
-  "perpsSortByHighToLow": {
-    "message": "ज़्यादा से कम"
-  },
-  "perpsSortByLowToHigh": {
-    "message": "कम से ज़्यादा"
-  },
-  "perpsSortByOpenInterest": {
-    "message": "ओपन इंटरेस्ट"
-  },
-  "perpsSortByPriceChange": {
-    "message": "प्राइस में बदलाव"
-  },
-  "perpsSortByTitle": {
-    "message": "इसके अनुसार क्रमबद्ध करें"
-  },
-  "perpsSortByVolume": {
-    "message": "वॉल्यूम"
-  },
-  "perpsStartNewTrade": {
-    "message": "एक नया ट्रेड शुरू करें"
-  },
-  "perpsStartTrading": {
-    "message": "ट्रेडिंग शुरू करें"
-  },
-  "perpsStats": {
-    "message": "आँकड़े"
-  },
-  "perpsStatusCanceled": {
-    "message": "कैंसिल किया गया"
-  },
-  "perpsStatusCompleted": {
-    "message": "पूरा किया गया"
-  },
-  "perpsStatusFailed": {
-    "message": "विफल हुआ"
-  },
-  "perpsStatusFilled": {
-    "message": "भरा गया"
-  },
-  "perpsStatusOpen": {
-    "message": "ओपन"
-  },
-  "perpsStatusPending": {
-    "message": "अभी पूरा नहीं हुआ"
-  },
-  "perpsStatusQueued": {
-    "message": "कतारबद्ध"
-  },
-  "perpsStatusRejected": {
-    "message": "रिजेक्ट किया गया"
-  },
-  "perpsStatusTriggered": {
-    "message": "ट्रिगर हो गया"
-  },
-  "perpsStopLoss": {
-    "message": "स्टॉप लॉस",
-    "description": "Label for stop loss price input"
-  },
-  "perpsStopLossInvalidLiquidationPrice": {
-    "message": "स्टॉप लॉस $1 लिक्विडेशन प्राइस का होना चाहिए",
-    "description": "Validation error when stop loss price is on the wrong side of the liquidation price. $1 is above/below."
-  },
-  "perpsStopLossInvalidPrice": {
-    "message": "स्टॉप लॉस $1 $2 प्राइस का होना चाहिए",
-    "description": "Validation error when stop loss price is on the wrong side of the reference price. $1 is above/below, $2 is current/entry."
-  },
-  "perpsSubmitting": {
-    "message": "सबमिट किया जा रहा है...",
-    "description": "Loading text shown while an order is being submitted"
-  },
-  "perpsTakeProfit": {
-    "message": "टेक प्रॉफ़िट",
-    "description": "Label for take profit price input"
-  },
-  "perpsTakeProfitInvalidPrice": {
-    "message": "टेक प्रॉफ़िट $1 $2 प्राइस का होना चाहिए",
-    "description": "Validation error when take profit price is on the wrong side of the reference price. $1 is above/below, $2 is current/entry."
-  },
-  "perpsToastCancelOrderAlreadyClosed": {
-    "message": "यह ऑर्डर अब ओपन नहीं है",
-    "description": "Success toast text shown when a perps order was already filled or cancelled before the cancel request reached the provider"
-  },
-  "perpsToastCancelOrderFailed": {
-    "message": "ऑर्डर कैंसिल नहीं हो पाया",
-    "description": "Error toast text shown when cancelling a perps limit order fails"
-  },
-  "perpsToastCancelOrderSuccess": {
-    "message": "ऑर्डर कैंसिल किया गया",
-    "description": "Success toast text shown when a perps limit order is successfully cancelled"
-  },
-  "perpsToastCloseAllFailed": {
-    "message": "सभी पोज़िशन बंद नहीं हो पाईं",
-    "description": "Error toast text shown when batch closing all perps positions fails"
-  },
-  "perpsToastCloseAllInProgress": {
-    "message": "सभी पोज़िशन बंद की जा रही हैं",
-    "description": "In-progress toast text shown while batch closing all perps positions"
-  },
-  "perpsToastCloseAllPartial": {
-    "message": "$2 में से $1 पोजीशन बंद की गई",
-    "description": "Warning toast text shown when only some perps positions were successfully closed. $1 is success count, $2 is total attempted count."
-  },
-  "perpsToastCloseAllSuccess": {
-    "message": "सभी पोज़िशन बंद की गईं",
-    "description": "Success toast text shown when all perps positions are successfully closed"
-  },
-  "perpsToastCloseFailed": {
-    "message": "पोज़िशन बंद नहीं हो पाई",
-    "description": "Error toast text shown when closing a perps position fails"
-  },
-  "perpsToastCloseInProgress": {
-    "message": "पोज़िशन बंद हो रही है",
-    "description": "In-progress toast text shown while closing a perps position"
-  },
-  "perpsToastClosePnlSubtitle": {
-    "message": "आपका PnL $1 है",
-    "description": "$1 is the formatted PnL percentage for a closed position"
-  },
-  "perpsToastLimitCloseFailed": {
-    "message": "क्लोज़ ऑर्डर प्लेस नहीं हो पाया",
-    "description": "Error toast text shown when placing a full-position perps limit close order fails"
-  },
-  "perpsToastMarginAddSuccess": {
-    "message": "$2 पोज़िशन में $1 मार्जिन जोड़ा गया",
-    "description": "$1 is the dollar-prefixed amount (e.g. $100) and $2 is the asset symbol for successful margin addition"
-  },
-  "perpsToastMarginAdjustmentFailed": {
-    "message": "मार्जिन एडजस्टमेंट नहीं हो पाया",
-    "description": "Error toast text shown when adding or removing margin fails"
-  },
-  "perpsToastMarginAdjustmentFailedDescriptionFallback": {
-    "message": "मार्जिन एडजस्ट नहीं हो पाया। कृपया फिर से प्रयास करें।",
-    "description": "Fallback description shown when margin adjustment fails without a usable error message."
-  },
-  "perpsToastMarginRemoveSuccess": {
-    "message": "$2 पोज़िशन में से $1 मार्जिन हटाया गया",
-    "description": "$1 is the dollar-prefixed amount (e.g. $100) and $2 is the asset symbol for successful margin removal"
-  },
-  "perpsToastOrderFailed": {
-    "message": "ऑर्डर नहीं हो पाया",
-    "description": "Error toast text shown when placing a perps order fails"
-  },
-  "perpsToastOrderFailedDescriptionFallback": {
-    "message": "आपके फंड्स आपको वापस कर दिए गए हैं",
-    "description": "Fallback order failure subtitle shown when no specific order error is available"
-  },
-  "perpsToastOrderFilled": {
-    "message": "ऑर्डर पूरा हो गया",
-    "description": "Success toast text shown when a perps market order is filled"
-  },
-  "perpsToastOrderPlaced": {
-    "message": "ऑर्डर लगाया गया",
-    "description": "Success toast text shown when a perps limit order is accepted"
-  },
-  "perpsToastOrderSubmitted": {
-    "message": "ऑर्डर सबमिट किया गया",
-    "description": "In-progress toast text shown while a perps order is being submitted"
-  },
-  "perpsToastPartialCloseFailed": {
-    "message": "पोज़िशन आंशिक रूप से बंद नहीं हो पाई",
-    "description": "Error toast text shown when a perps position is partially closed and fails"
-  },
-  "perpsToastPartialCloseInProgress": {
-    "message": "पोज़िशन आंशिक रूप से बंद किया जा रहा है",
-    "description": "In-progress toast text shown while a perps position is being partially closed"
-  },
-  "perpsToastPartialCloseSuccess": {
-    "message": "पोज़िशन आंशिक रूप से बंद की गई",
-    "description": "Success toast text shown when a perps position is partially closed"
-  },
-  "perpsToastPartialLimitCloseFailed": {
-    "message": "आंशिक क्लोज़ ऑर्डर प्लेस नहीं हो पाया",
-    "description": "Error toast text shown when placing a partial perps limit close order fails"
-  },
-  "perpsToastPositionStillActive": {
-    "message": "आपकी पोज़िशन अभी भी सक्रिय है",
-    "description": "Subtitle shown in perps close failure toasts when the position remains open"
-  },
-  "perpsToastReverseFailed": {
-    "message": "पोज़िशन रिवर्स नहीं हो पाई",
-    "description": "Error toast text shown when reversing a perps position fails"
-  },
-  "perpsToastReverseInProgress": {
-    "message": "पोज़िशन रिवर्स की जा रही है",
-    "description": "In-progress toast text shown while reversing a perps position"
-  },
-  "perpsToastReverseSuccess": {
-    "message": "पोज़िशन रिवर्स की गई",
-    "description": "Success toast text shown when a perps position is reversed"
-  },
-  "perpsToastSubmitInProgress": {
-    "message": "आपका ट्रेड सबमिट कर रहे हैं",
-    "description": "In-progress toast text shown while a perps trade is being submitted"
-  },
-  "perpsToastTradeEntryFailed": {
-    "message": "ट्रेड ओपन नहीं किया जा सका",
-    "description": "Error toast text shown when opening the perps order form from an asset page fails"
-  },
-  "perpsToastTradeSuccess": {
-    "message": "पोज़िशन बंद किया गया",
-    "description": "Success toast text shown when a perps position is closed"
-  },
-  "perpsToastUpdateFailed": {
-    "message": "TP/SL अपडेट नहीं हो पाया",
-    "description": "Error toast text shown when updating TP/SL settings fails"
-  },
-  "perpsToastUpdateInProgress": {
-    "message": "TP/SL अपडेट किया जा रहा है...",
-    "description": "In-progress toast text shown while updating TP/SL settings"
-  },
-  "perpsToastUpdateSuccess": {
-    "message": "TP/SL सफलतापूर्वक अपडेट किया गया",
-    "description": "Success toast text shown when TP/SL settings are updated"
-  },
-  "perpsTopMovers": {
-    "message": "टॉप मूवर्स",
-    "description": "Heading of the Perps tab section ranking markets by 24h price change"
-  },
-  "perpsTopMoversGainers": {
-    "message": "गेनर्स",
-    "description": "Toggle option showing the markets that rose the most over 24h in the Top movers section"
-  },
-  "perpsTopMoversLosers": {
-    "message": "लूज़र्स",
-    "description": "Toggle option showing the markets that fell the most over 24h in the Top movers section"
-  },
-  "perpsTrades": {
-    "message": "ट्रेड्स"
-  },
-  "perpsTransactionTitleOpenedLong": {
-    "message": "खुला लॉन्ग"
-  },
-  "perpsTriggerPrice": {
-    "message": "ट्रिगर प्राइस"
-  },
-  "perpsTutorialChooseLeverageDescription": {
-    "message": "लीवरेज आपके लाभ और हानि दोनों को बढ़ा देता है। 40x लीवरेज के साथ, प्राइस में 1% का बदलाव आपके मार्जिन पर 40% लाभ या हानि के बराबर होता है।"
-  },
-  "perpsTutorialChooseLeverageTitle": {
-    "message": "अपना लीवरेज चुनें"
-  },
-  "perpsTutorialCloseAnytimeDescription": {
-    "message": "जब चाहें बाहर निकलें। आपको अपना मार्जिन वापस मिलेगा, साथ ही लाभ या हानि शामिल होगी।"
-  },
-  "perpsTutorialCloseAnytimeTitle": {
-    "message": "किसी भी समय बंद करें"
-  },
-  "perpsTutorialContinue": {
-    "message": "जारी रखें"
-  },
-  "perpsTutorialGoLongShortDescription": {
-    "message": "किसी टोकन को लॉन्ग या शॉर्ट लेने के लिए चुनें, फिर अपना ऑर्डर साइज़ सेट करें।"
-  },
-  "perpsTutorialGoLongShortSubtitle": {
-    "message": "यदि प्राइस बढ़ती है तो लाभ के लिए लॉन्ग लें। यदि प्राइस घटती है तो लाभ के लिए शॉर्ट लें।"
-  },
-  "perpsTutorialGoLongShortTitle": {
-    "message": "टोकन पर लॉन्ग या शॉर्ट लें"
-  },
-  "perpsTutorialLetsGo": {
-    "message": "चलिए शुरू करें"
-  },
-  "perpsTutorialReadyToTradeDescription": {
-    "message": "अपने पर्प्स अकाउंट को किसी भी टोकन से फंड करें और सेकंडों में अपना पहला ट्रेड करें।"
-  },
-  "perpsTutorialReadyToTradeTitle": {
-    "message": "ट्रेड करने के लिए तैयार हैं?"
-  },
-  "perpsTutorialSkip": {
-    "message": "छोड़ें"
-  },
-  "perpsTutorialWatchLiquidationDescription": {
-    "message": "अगर टोकन आपकी लिक्विडेशन प्राइस तक पहुँचता है, तो आप अपना पूरा मार्जिन खो देंगे। अधिक लीवरेज का मतलब है लिक्विडेशन के लिए कम स्थान।"
-  },
-  "perpsTutorialWatchLiquidationTitle": {
-    "message": "लिक्विडेशन से सावधान रहें।"
-  },
-  "perpsTutorialWhatArePerpsDescription": {
-    "message": "MetaMask अब परपेचुअल फ्यूचर्स को सपोर्ट करता है — जिसे पर्प्स भी कहा जाता है — जिससे आप किसी टोकन की प्राइस की चाल पर बिना उसे खरीदे ट्रेड कर सकते हैं।"
-  },
-  "perpsTutorialWhatArePerpsSubtitle": {
-    "message": "यहां बताया गया है कि यह कैसे काम करता है।"
-  },
-  "perpsTutorialWhatArePerpsTitle": {
-    "message": "पर्प्स क्या हैं?"
-  },
-  "perpsUnrealizedPnl": {
-    "message": "अनरियलाइज्ड P&L"
-  },
-  "perpsUnsupportedCollateral": {
-    "message": "यह मार्केट अनसपोर्टेड कोलैटरल का उपयोग करता है और इसे ट्रेड नहीं किया जा सकता है।"
-  },
-  "perpsWatchlist": {
-    "message": "वॉचलिस्ट"
   },
   "perpsWithdraw": {
     "message": "निकालें"
   },
-  "perpsWithdrawEstimatedTime": {
-    "message": "अनुमानित समय"
-  },
-  "perpsWithdrawFailed": {
-    "message": "विदड्रॉवल पूरा नहीं हो पाया। कृपया दोबारा कोशिश करें।"
-  },
-  "perpsWithdrawFee": {
-    "message": "प्रदाता फीस"
-  },
   "perpsWithdrawFundsTitle": {
     "message": "निकालें"
-  },
-  "perpsWithdrawInsufficient": {
-    "message": "यह अमाउंट आपके उपलब्ध Perps बैलेंस से अधिक है।"
-  },
-  "perpsWithdrawInvalidAddress": {
-    "message": "मान्य डेस्टिनेशन एड्रेस डालें।"
-  },
-  "perpsWithdrawInvalidAmount": {
-    "message": "मान्य अमाउंट डालें।"
-  },
-  "perpsWithdrawMinNotice": {
-    "message": "मिनिमम विदड्रॉवल: $1 USDC",
-    "description": "$1 is the minimum amount (e.g. 1.01)"
-  },
-  "perpsWithdrawMinutesApprox": {
-    "message": "~$1 न्यूनतम",
-    "description": "$1 is the estimated number of minutes"
-  },
-  "perpsWithdrawNoAccount": {
-    "message": "कोई अकाउंट नहीं चुना गया। कृपया एक अकाउंट चुनें और दोबारा कोशिश करें।"
   },
   "perpsWithdrawPostQuoteToastErrorDescription": {
     "message": "विदड्रॉवल नहीं हो पाया"
@@ -8524,40 +5980,6 @@
   },
   "perpsWithdrawPostQuoteToastSuccessTitle": {
     "message": "विदड्रॉवल पूरा हुआ"
-  },
-  "perpsWithdrawReceive": {
-    "message": "प्राप्त करें"
-  },
-  "perpsWithdrawRoutesError": {
-    "message": "विदड्रॉवल की लिमिट लोड नहीं हो सकी। कृपया बाद में दोबारा कोशिश करें।"
-  },
-  "perpsWithdrawToastErrorTitle": {
-    "message": "विदड्रॉवल नहीं हो पाया"
-  },
-  "perpsWithdrawToastSuccessDescription": {
-    "message": "हम $1 प्रोसेस कर रहे हैं। आमतौर पर फंड कुछ ही मिनटों में आ जाते हैं।",
-    "description": "$1 is the formatted withdrawal amount"
-  },
-  "perpsWithdrawToastSuccessTitle": {
-    "message": "विदड्रॉवल सबमिट किया गया"
-  },
-  "perpsWithdrawTooltip": {
-    "message": "MetaMask आपके लिए आपके पसंदीदा टोकन में स्वैप करेगा। जब आप mUSD में स्वैप करते हैं तो कोई MetaMask शुल्क लागू नहीं होता है।",
-    "description": "Tooltip shown on the Transaction fee row of the Perps Withdraw confirmation"
-  },
-  "perpsWithdrawalEmptyTitle": {
-    "message": "विदड्रॉवल",
-    "description": "Title shown for a wallet-tracked withdrawal transaction on the Activity page when the withdrawn amount is zero or unknown"
-  },
-  "perpsWithdrewVerb": {
-    "message": "विदड्रॉल किया गया",
-    "description": "Verb shown in the title of a wallet-tracked withdrawal transaction on the Activity page, followed by the amount and asset (e.g. 'Withdrew 5.00 USDC')"
-  },
-  "perpsYouReceive": {
-    "message": "आप प्राप्त करते हैं"
-  },
-  "perpsYouWillReceive": {
-    "message": "आपको प्राप्त होगा"
   },
   "personalAddressDetected": {
     "message": "व्यक्तिगत एड्रेस का एड्रेस चला। टोकन कॉन्ट्रैक्ट एड्रेस डालें।"
@@ -8611,9 +6033,6 @@
   },
   "price": {
     "message": "मूल्य"
-  },
-  "priceUnavailable": {
-    "message": "प्राइस अनुपलब्ध है"
   },
   "primaryType": {
     "message": "प्राइमरी प्रकार"
@@ -8780,240 +6199,6 @@
   "quizIntroduction": {
     "message": "अपना सीक्रेट रिकवरी फ्रेज़ देखने के लिए, आपको दो प्रश्नों का सही उत्तर देना होगा।"
   },
-  "quotedTotalCost": {
-    "message": "कुल कीमत: $1"
-  },
-  "rampsBackToWallet": {
-    "message": "वॉलेट पर वापस जाएँ",
-    "description": "Secondary button on the ramps complete-buy interstitial that returns to the wallet home"
-  },
-  "rampsBestRate": {
-    "message": "सबसे अच्छी रेट"
-  },
-  "rampsBuyToken": {
-    "message": "$1 खरीदें",
-    "description": "$1 is the token symbol being purchased"
-  },
-  "rampsBuyWidgetError": {
-    "message": "आपकी खरीदारी शुरू नहीं हो पा रही है। कृपया दोबारा कोशिश करें।"
-  },
-  "rampsBuyingViaProvider": {
-    "message": "$1 के माध्यम से खरीदना।",
-    "description": "$1 is the ramp provider name"
-  },
-  "rampsChangeProvider": {
-    "message": "प्रोवाइडर बदलें।"
-  },
-  "rampsChangeProviders": {
-    "message": "प्रोवाइडर बदलें",
-    "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "प्रदाता चुनें"
-  },
-  "rampsCompleteBuyTitle": {
-    "message": "खरीदारी पूरी करें",
-    "description": "Title of the interstitial shown after opening a ramps provider checkout tab"
-  },
-  "rampsCompletePurchaseInProviderTab": {
-    "message": "$1 टैब में अपनी खरीदारी पूरी करें",
-    "description": "$1 is the on-ramp provider name (e.g. Transak)"
-  },
-  "rampsContinueInBrowser": {
-    "message": "ब्राउज़र में जारी रखें",
-    "description": "Banner title on the ramps complete-buy interstitial"
-  },
-  "rampsEligibilityFailedDescription": {
-    "message": "कृपया फिर से प्रयास करें, या यदि ऐसा बार-बार हो रहा है तो सपोर्ट से संपर्क करें।"
-  },
-  "rampsEligibilityFailedTitle": {
-    "message": "हम आपके क्षेत्र की पुष्टि नहीं कर सके"
-  },
-  "rampsErrorLoadingPaymentMethods": {
-    "message": "भुगतान विधियाँ लोड करने में गड़बड़ी हुई"
-  },
-  "rampsErrorLoadingTokens": {
-    "message": "टोकन को लोड करने में गड़बड़ी हुई"
-  },
-  "rampsEstimatedToReceive": {
-    "message": "प्राप्त होने का अनुमान",
-    "description": "Label for the estimated crypto amount on the ramps complete-buy interstitial"
-  },
-  "rampsMaxPurchaseLimit": {
-    "message": "अधिकतम खरीद $1 है",
-    "description": "$1 is the formatted maximum fiat amount"
-  },
-  "rampsMinPurchaseLimit": {
-    "message": "न्यूनतम खरीद $1 है",
-    "description": "$1 is the formatted minimum fiat amount"
-  },
-  "rampsMostReliable": {
-    "message": "सबसे विश्वसनीय"
-  },
-  "rampsNoPaymentMethodsAvailable": {
-    "message": "पेमेंट का कोई तरीका उपलब्ध नहीं है।"
-  },
-  "rampsNoProvidersAvailable": {
-    "message": "कोई प्रोवाइडर उपलब्ध नहीं है।"
-  },
-  "rampsNoTokensAvailable": {
-    "message": "कोई टोकन उपलब्ध नहीं है"
-  },
-  "rampsOnNetwork": {
-    "message": "$1 पर",
-    "description": "$1 is the network name"
-  },
-  "rampsOrderDetailsBankDetails": {
-    "message": "बैंक ट्रांसफर की जानकारी"
-  },
-  "rampsOrderDetailsBuyAgain": {
-    "message": "फिर से खरीदें"
-  },
-  "rampsOrderDetailsFees": {
-    "message": "फीस"
-  },
-  "rampsOrderDetailsOrderId": {
-    "message": "ऑर्डर ID"
-  },
-  "rampsOrderDetailsPaidWith": {
-    "message": "के साथ भुगतान किया गया",
-    "description": "Label for the payment method used on a ramp order"
-  },
-  "rampsOrderDetailsProviderFee": {
-    "message": "$1 शुल्क",
-    "description": "$1 is the ramp provider name for the fee row label"
-  },
-  "rampsOrderDetailsTotal": {
-    "message": "कुल"
-  },
-  "rampsOrderDetailsViewOnProvider": {
-    "message": "$1 पर देखें"
-  },
-  "rampsOrderToastFailedDescription": {
-    "message": "आपके ऑर्डर में कुछ समस्या हुई।",
-    "description": "Description for the failed ramp buy order toast"
-  },
-  "rampsOrderToastFailedTitle": {
-    "message": "खरीदना नहीं हो पाया",
-    "description": "Title for the failed ramp buy order toast"
-  },
-  "rampsOrderToastPendingDescription": {
-    "message": "आपके ऑर्डर को प्रोसेस किया जा रहा है।",
-    "description": "Description for the pending ramp buy order toast"
-  },
-  "rampsOrderToastPendingTitle": {
-    "message": "खरीद प्रगति पर है",
-    "description": "Title for the pending ramp buy order toast"
-  },
-  "rampsOrderToastSellFailedDescription": {
-    "message": "आपके ऑर्डर में कुछ समस्या हुई।",
-    "description": "Description for the failed ramp sell order toast"
-  },
-  "rampsOrderToastSellFailedTitle": {
-    "message": "बेचना नहीं हो पाया",
-    "description": "Title for the failed ramp sell order toast"
-  },
-  "rampsOrderToastSellPendingDescription": {
-    "message": "आपके ऑर्डर को प्रोसेस किया जा रहा है।",
-    "description": "Description for the pending ramp sell order toast"
-  },
-  "rampsOrderToastSellPendingTitle": {
-    "message": "बिक्री प्रगति पर है",
-    "description": "Title for the pending ramp sell order toast"
-  },
-  "rampsOrderToastSellSuccessDescription": {
-    "message": "आपका पैसा आप तक भेजा रहा है।",
-    "description": "Description for the successful ramp sell order toast"
-  },
-  "rampsOrderToastSellSuccessTitle": {
-    "message": "बिक्री सफल रही",
-    "description": "Title for the successful ramp sell order toast"
-  },
-  "rampsOrderToastSuccessDescription": {
-    "message": "आपकी क्रिप्टो आप तक पहुंच रही है।",
-    "description": "Description for the successful ramp buy order toast"
-  },
-  "rampsOrderToastSuccessTitle": {
-    "message": "खरीद सफल रही",
-    "description": "Title for the successful ramp buy order toast"
-  },
-  "rampsPayWith": {
-    "message": "के साथ भुगतान करें"
-  },
-  "rampsPaymentDelayBusinessDay": {
-    "message": "व्यावसायिक दिन"
-  },
-  "rampsPaymentDelayBusinessDays": {
-    "message": "व्यावसायिक दिन"
-  },
-  "rampsPaymentDelayHour": {
-    "message": "घंटा"
-  },
-  "rampsPaymentDelayHours": {
-    "message": "घंटे"
-  },
-  "rampsPaymentDelayInstant": {
-    "message": "तुरंत"
-  },
-  "rampsPaymentDelayLessThan": {
-    "message": "<"
-  },
-  "rampsPaymentDelayMinute": {
-    "message": "मिनट"
-  },
-  "rampsPaymentDelayMinutes": {
-    "message": "मिनट"
-  },
-  "rampsPaymentMethod": {
-    "message": "पेमेंट का तरीका",
-    "description": "Label for the provider shown as the payment method on the ramps complete-buy interstitial"
-  },
-  "rampsPaymentMethodLimits": {
-    "message": "$1 की सीमा",
-    "description": "$1 is the maximum fiat buy amount"
-  },
-  "rampsPaymentMethodMinLimit": {
-    "message": "न्यूनतम $1",
-    "description": "$1 is the minimum fiat buy amount"
-  },
-  "rampsPreviouslyUsed": {
-    "message": "पिछली बार इस्तेमाल किया गया"
-  },
-  "rampsQuoteFetchError": {
-    "message": "कोट्स मिलने में गड़बड़ी। कम अमाउंट डालें या"
-  },
-  "rampsQuoteUnavailable": {
-    "message": "कोटेशन उपलब्ध नहीं है।"
-  },
-  "rampsSelectPaymentMethod": {
-    "message": "भुगतान विधि चुनें"
-  },
-  "rampsServiceDisruptionDescription": {
-    "message": "हमारी सेवा में रुकावट आ रही है। कृपया बाद में फिर से कोशिश करें।"
-  },
-  "rampsServiceDisruptionTitle": {
-    "message": "खरीदारी अस्थायी रूप से उपलब्ध नहीं है"
-  },
-  "rampsTokenUnavailableDescription": {
-    "message": "यह टोकन आपके क्षेत्र में उपलब्ध नहीं है।",
-    "description": "Body copy of the modal opened from the info button next to a token that cannot be bought in the user's region or via an available provider (TRAM-3710/TRAM-3961)"
-  },
-  "rampsTokenUnavailableTitle": {
-    "message": "टोकन अनुपलब्ध है",
-    "description": "Title of the modal opened from the info button next to a token that cannot be bought in the user's region or via an available provider (TRAM-3710/TRAM-3961). Also used as the info button's accessible label"
-  },
-  "rampsUnsupportedDescription": {
-    "message": "आपके क्षेत्र में अभी क्रिप्टो खरीदना सपोर्टेड नहीं है।"
-  },
-  "rampsUnsupportedTitle": {
-    "message": "यहाँ खरीदारी उपलब्ध नहीं है"
-  },
-  "rank": {
-    "message": "रैंक"
-  },
-  "rateIncludesMMFee": {
-    "message": "$1% MM शुल्क शामिल है।"
-  },
   "readdToken": {
     "message": "आप भविष्य में टोकन मेनू में “टोकन मैनेज करें” पर जाकर इस टोकन को फिर से जोड़ सकते हैं"
   },
@@ -9043,9 +6228,6 @@
   },
   "recipientAddressPlaceholderNew": {
     "message": "पब्लिक एड्रेस (0x) या डोमेन नाम एंटर करें"
-  },
-  "recipientEditAriaLabel": {
-    "message": "प्राप्तकर्ता बदलें"
   },
   "recipientPlaceholderText": {
     "message": "एड्रेस या नाम टाइप करें या पेस्ट करें"
@@ -9083,9 +6265,6 @@
   "rejected": {
     "message": "अस्वीकार किया गया"
   },
-  "relayerFee": {
-    "message": "रीलेयर (relayer) फीस"
-  },
   "remindMeLater": {
     "message": "मुझे बाद में याद दिलाएं",
     "description": "Secondary action to postpone replacing a legacy passkey."
@@ -9120,15 +6299,6 @@
   },
   "removeKeyringSnapToolTip": {
     "message": "Snap इन एकाउंट्स को कंट्रोल करता है और अगर इसे हटा दिया जाता है तो एकाउंट्स MetaMask से भी हटा दिए जाएंगे। हालांकि, वे एकाउंट्स ब्लॉकचेन में बने रहेंगे।"
-  },
-  "removeNFT": {
-    "message": "NFT हटाएं"
-  },
-  "removeNftErrorMessage": {
-    "message": "हम इस NFT को नहीं हटा पाए।"
-  },
-  "removeNftMessage": {
-    "message": "NET सफलतापूर्वक हटा दिया गया!"
   },
   "removeSnap": {
     "message": "स्नैप हटाएं"
@@ -9177,10 +6347,6 @@
   },
   "required": {
     "message": "जरुरी"
-  },
-  "requiredToken": {
-    "message": "ज़रूरी टोकन",
-    "description": "Label for the required token row showing the token and amount needed by the transaction"
   },
   "reset": {
     "message": "रीसेट करें"
@@ -9295,141 +6461,6 @@
   },
   "revokeTokenApprovals": {
     "message": "टोकन एप्रूवल कैंसिल करें"
-  },
-  "reward": {
-    "message": "रिवॉर्ड"
-  },
-  "rewardsAuthFailDescription": {
-    "message": "इस अकाउंट को रिवॉर्ड्स प्रोग्राम के साथ प्रमाणित करते समय एक अज्ञात गड़बड़ी हुई। कृपया बाद में फिर से प्रयास करें।"
-  },
-  "rewardsAuthFailTitle": {
-    "message": "अज्ञात गड़बड़ी।"
-  },
-  "rewardsErrorMessagesAccountAlreadyRegistered": {
-    "message": "यह अकाउंट पहले ही किसी अन्य रिवॉर्ड्स प्रोफ़ाइल के साथ पंजीकृत है। जारी रखने के लिए कृपया अकाउंट बदलें।"
-  },
-  "rewardsErrorMessagesFailedToClaimReward": {
-    "message": "रिवॉर्ड क्लेम नहीं हो पाया। कृपया थोड़ी देर में फिर से प्रयास करें।"
-  },
-  "rewardsErrorMessagesRequestRejected": {
-    "message": "आपने अनुरोध रिजेक्ट कर दिया।"
-  },
-  "rewardsErrorMessagesServiceNotAvailable": {
-    "message": "सेवा इस समय उपलब्ध नहीं है। कृपया थोड़ी देर में फिर से प्रयास करें।"
-  },
-  "rewardsErrorMessagesSomethingWentWrong": {
-    "message": "कुछ गलत हो गया। कृपया थोड़ी देर में फिर से कोशिश करें।"
-  },
-  "rewardsLinkAccount": {
-    "message": "अकाउंट जोड़ें"
-  },
-  "rewardsLinkAccountError": {
-    "message": "अकाउंट जोड़ना नहीं हो पाया"
-  },
-  "rewardsOnboardingCheckingRegion": {
-    "message": "क्षेत्र की जांच की जा रही है…"
-  },
-  "rewardsOnboardingDescription": {
-    "message": "इनाम जीतें, फ़ायदे पाएँ, और कमाने के और भी तरीके जानें—सिर्फ़ MetaMask का इस्तेमाल करके।"
-  },
-  "rewardsOnboardingIntroGeoCheckFailedDescription": {
-    "message": "हम यह निर्धारित नहीं कर सकते कि आपका देश रिवॉर्ड्स प्रोग्राम में ऑप्ट-इन की अनुमति देता है या नहीं। कृपया अपना कनेक्शन जांचें और फिर से कोशिश करें।"
-  },
-  "rewardsOnboardingIntroGeoCheckFailedTitle": {
-    "message": "ऑप्ट-इन पात्रता निर्धारित नहीं की जा सकती"
-  },
-  "rewardsOnboardingIntroGeoCheckRetry": {
-    "message": "फिर से प्रयास करें"
-  },
-  "rewardsOnboardingIntroRewardsAuthFailRetry": {
-    "message": "फिर से प्रयास करें"
-  },
-  "rewardsOnboardingIntroUnsupportedRegionDescription": {
-    "message": "आपके क्षेत्र में रिवॉर्ड्स अभी सपोर्टेड नहीं हैं। हम पहुंच बढ़ाने पर काम कर रहे हैं, इसलिए बाद में फिर से जाँच करें।"
-  },
-  "rewardsOnboardingIntroUnsupportedRegionTitle": {
-    "message": "क्षेत्र सपोर्टेड नहीं है"
-  },
-  "rewardsOnboardingLegalDisclaimer": {
-    "message": "जॉइन करके, आप हमारे $1 से सहमत हैं। हम इस डिवाइस पर सभी अकाउंट को ऑप्ट इन करेंगे और आपको अपने आप रिवॉर्ड देने के लिए ऑन-चेन एक्टिविटी को ट्रैक करेंगे। $2",
-    "description": "$1 is the Terms and Privacy Notice link, $2 is the Learn more link"
-  },
-  "rewardsOnboardingLegalDisclaimerLearnMoreLink": {
-    "message": "ज़्यादा जानें"
-  },
-  "rewardsOnboardingLegalDisclaimerTermsLink": {
-    "message": "नियम और गोपनीयता सूचना"
-  },
-  "rewardsOnboardingOptInError": {
-    "message": "ऑप्ट-इन नहीं हो पाया"
-  },
-  "rewardsOnboardingReferralCodeError": {
-    "message": "रेफरल कोड ग़लत है"
-  },
-  "rewardsOnboardingReferralCodePlaceholder": {
-    "message": "रेफरल कोड (वैकल्पिक)"
-  },
-  "rewardsOnboardingReferralCodeUnknownError": {
-    "message": "रेफरल कोड का सत्यापन नहीं हो पाया।"
-  },
-  "rewardsOnboardingReferralCodeUnknownErrorDescription": {
-    "message": "अपना कनेक्शन जांचें और फिर से प्रयास करें।"
-  },
-  "rewardsOnboardingReferralHide": {
-    "message": "कोड छिपाएँ"
-  },
-  "rewardsOnboardingReferralPrompt": {
-    "message": "क्या आपके पास रेफ़रल कोड है?"
-  },
-  "rewardsOnboardingSignUp": {
-    "message": "रिवॉर्ड में शामिल हों"
-  },
-  "rewardsOnboardingSignUpLoading": {
-    "message": "शामिल हो रहे हैं..."
-  },
-  "rewardsOnboardingTitle": {
-    "message": "रिवॉर्ड कमाना शुरू करें"
-  },
-  "rewardsOptInVerifyingReferralCode": {
-    "message": "रेफरल कोड वेरीफाई किया जा रहा है…",
-    "description": "Text shown while verifying a referral code during rewards opt-in"
-  },
-  "rewardsPointsBalance": {
-    "message": "$1 पॉइंट",
-    "description": "$1 is the formatted number of rewards points"
-  },
-  "rewardsPointsBalance_couldntLoad": {
-    "message": "लोड नहीं हो सका",
-    "description": "Text shown when points balance couldn't be loaded"
-  },
-  "rewardsPointsIcon": {
-    "message": "रिवॉर्ड पॉइंट्स",
-    "description": "Alt text for the rewards points icon"
-  },
-  "rewardsQRCodeDescription": {
-    "message": "MetaMask रिवॉर्ड्स को एक्सेस करने के लिए, अपने मोबाइल डिवाइस से QR कोड स्कैन करें।"
-  },
-  "rewardsQRCodeTitle": {
-    "message": "मोबाइल पर जारी रखें"
-  },
-  "rewardsSignInFailed": {
-    "message": "साइन इन नहीं हो पाया",
-    "description": "Text shown when the opt-in sign attempt failed, with a retry affordance"
-  },
-  "rewardsSignInToViewPoints": {
-    "message": "पॉइंट देखने के लिए साइन इन करें",
-    "description": "Text shown when user needs to sign in to view their rewards points"
-  },
-  "rewardsSignUp": {
-    "message": "रिवॉर्ड्स के लिए साइन अप करें"
-  },
-  "rewardsSigningIn": {
-    "message": "साइन इन हो रहा है...",
-    "description": "Text shown while the user is signing in to view their rewards points"
-  },
-  "rewardsVipReferralTagLabel": {
-    "message": "VIP",
-    "description": "Label on the gold VIP tag shown next to a VIP referral code"
   },
   "rpcNameOptional": {
     "message": "RPC का नाम (वैकल्पिक)"
@@ -9564,10 +6595,6 @@
   "searchAnAcccountOrContact": {
     "message": "किसी अकाउंट या कॉन्टेक्ट को ढूंढें"
   },
-  "searchAnAccount": {
-    "message": "किसी अकाउंट को ढूंढें",
-    "description": "Search input placeholder for the Perps destination account picker"
-  },
   "searchForAnAssetToSend": {
     "message": "भेजने के लिए किसी एसेट को ढूंढें"
   },
@@ -9589,9 +6616,6 @@
   "searchYourAccounts": {
     "message": "अपने एकाउंट्स ढूंढें",
     "description": "Placeholder in a searchbar. Used on multichain account list page."
-  },
-  "searchingForBestQuotes": {
-    "message": "सबसे अच्छे कोट्स की खोज की जा रही है"
   },
   "second": {
     "message": "सेकंड"
@@ -9995,20 +7019,11 @@
   "selectAnAccountAlreadyConnected": {
     "message": "यह अकाउंट पहले ही MetaMask से जुड़ा हुआ है"
   },
-  "selectEnableDisplayMediaPrivacyPreference": {
-    "message": "डिस्प्ले NFT मीडिया चालू करें"
-  },
   "selectHdPath": {
     "message": "HD पथ को चुनें"
   },
-  "selectNFTPrivacyPreference": {
-    "message": "NFT ऑटोडिटेक्शन चालू करें"
-  },
   "selectPathHelp": {
     "message": "यदि आपको अपनी पसंद के हिसाब से अकाउंट दिखाई नहीं देते हैं, तो HD पथ या मौजूदा चुना गया नेटवर्क बदलने की कोशिश करें।"
-  },
-  "selectPerpsAccount": {
-    "message": "पर्प्स अकाउंट चुनें"
   },
   "selectRecipient": {
     "message": "प्राप्तकर्ता चुनें"
@@ -10024,9 +7039,6 @@
   },
   "selectedAccountMismatch": {
     "message": "अलग खाता चुना गया"
-  },
-  "sellAll": {
-    "message": "सभी को बेचें"
   },
   "send": {
     "message": "भेजें"
@@ -10048,14 +7060,8 @@
   "sendSelectSendAsset": {
     "message": "भेजने के लिए एसेट को चुनें"
   },
-  "sendToPerps": {
-    "message": "पर्प्स को भेजें"
-  },
   "sendingAsset": {
     "message": "$1 भेजा जा रहा है"
-  },
-  "sendingDisabled": {
-    "message": "ERC-1155 NFT संपत्तियों को भेजना अभी समर्थित नहीं है।"
   },
   "sendingNativeAsset": {
     "message": "$1 भेजा जा रहा है",
@@ -10104,618 +7110,6 @@
   "settingsSearchRequestHere": {
     "message": "यहां रिक्वेस्ट करें"
   },
-  "shieldClaim": {
-    "message": "क्लेम सबमिट करें"
-  },
-  "shieldClaimChainNotSupported": {
-    "message": "यह चेन सपोर्टेड नहीं है।"
-  },
-  "shieldClaimDeleteDraft": {
-    "message": "ड्राफ्ट मिटाएं"
-  },
-  "shieldClaimDeleteDraftDescription": {
-    "message": "आपका क्लेम ड्राफ़्ट मिटा दिया गया है।"
-  },
-  "shieldClaimDeletedDraft": {
-    "message": "ड्राफ़्ट मिटा दिया गया है"
-  },
-  "shieldClaimDescription": {
-    "message": "केस का विवरण"
-  },
-  "shieldClaimDescriptionPlaceholder": {
-    "message": "घटना का संक्षिप्त सारांश दें"
-  },
-  "shieldClaimDetails": {
-    "message": "आप किसी भी घटना के लिए $1 दिनों के भीतर एक ही क्लेम दर्ज कर सकते हैं। $2",
-    "description": "The $1 is the number of days and $2 is a link to the full coverage policy"
-  },
-  "shieldClaimDetailsViewClaims": {
-    "message": "हमारी टीम इस क्लेम की समीक्षा कर रही है। जब यह मंज़ूर हो जाएगा, तो हम आपको ईमेल से बता देंगे। पूरी कवरेज पॉलिसी देखें $1।",
-    "description": "The $1 is a link to the full coverage policy"
-  },
-  "shieldClaimDraftDeleteFailed": {
-    "message": "ड्राफ़्ट मिटाना नहीं हो पाया"
-  },
-  "shieldClaimDraftDeleteFailedDescription": {
-    "message": "आपका क्लेम ड्राफ़्ट मिटाया नहीं जा सका। कृपया फिर से कोशिश करें।"
-  },
-  "shieldClaimDraftSaveFailed": {
-    "message": "ड्राफ़्ट सेव नहीं हो पाया"
-  },
-  "shieldClaimDraftSaveFailedDescription": {
-    "message": "आपका क्लेम ड्राफ़्ट सेव नहीं किया जा सका। कृपया फिर से कोशिश करें।"
-  },
-  "shieldClaimDraftSaved": {
-    "message": "ड्राफ़्ट सेव किया गया"
-  },
-  "shieldClaimDraftSavedDescription": {
-    "message": "आपका क्लेम ड्राफ़्ट सेव किया गया।"
-  },
-  "shieldClaimDuplicateClaimExists": {
-    "message": "इस ट्रांसेक्शन हैश के लिए क्लेम पहले ही सबमिट किया जा चुका है।"
-  },
-  "shieldClaimEmail": {
-    "message": "ईमेल"
-  },
-  "shieldClaimEmailHelpText": {
-    "message": "हम इस ईमेल का उपयोग आपको अपडेट्स के साथ सूचित करने के लिए करेंगे।"
-  },
-  "shieldClaimFileErrorCountExceeded": {
-    "message": "फ़ाइलों की संख्या अधिकतम अनुमत संख्या से ज़्यादा है।"
-  },
-  "shieldClaimFileErrorInvalidType": {
-    "message": "फ़ाइल टाइप ग़लत है।"
-  },
-  "shieldClaimFileErrorSizeExceeded": {
-    "message": "कुल फ़ाइल साइज़, अधिकतम अनुमत साइज़ से ज़्यादा है।"
-  },
-  "shieldClaimFileUploader": {
-    "message": "इमेज अपलोड"
-  },
-  "shieldClaimFileUploaderAcceptText": {
-    "message": "PDF, PNG, JPG (अधिकतम $1MB)",
-    "description": "The $1 is the maximum file size in MB"
-  },
-  "shieldClaimFileUploaderHelpText": {
-    "message": "यदि आपके पास कोई अतिरिक्त प्रमाण है, तो कृपया इसे यहाँ अपलोड करें।"
-  },
-  "shieldClaimGroupActive": {
-    "message": "एक्टिव क्लेम"
-  },
-  "shieldClaimGroupActiveNote": {
-    "message": "ध्यान दें: आप एक बार में ज़्यादा से ज़्यादा $1 ड्राफ़्ट और $2 एक्टिव क्लेम कर सकते हैं।",
-    "description": "The $1 is the maximum number of drafts and $2 is the maximum number of active claims"
-  },
-  "shieldClaimGroupCompleted": {
-    "message": "पूरे किए गए क्लेम"
-  },
-  "shieldClaimGroupDrafts": {
-    "message": "ड्राफ़्ट"
-  },
-  "shieldClaimGroupNoCompletedClaims": {
-    "message": "कोई पूरे किए गए क्लेम नहीं हैं"
-  },
-  "shieldClaimGroupNoCompletedClaimsDescription": {
-    "message": "अपने पूरे किए गए क्लेम को यहां ट्रैक करें।"
-  },
-  "shieldClaimGroupNoOpenClaims": {
-    "message": "कोई खुला क्लेम नहीं है"
-  },
-  "shieldClaimGroupNoOpenClaimsDescription": {
-    "message": "अपने क्लेम का स्टेटस यहां ट्रैक करें।"
-  },
-  "shieldClaimGroupRejected": {
-    "message": "रिजेक्ट किए गए क्लेम"
-  },
-  "shieldClaimImpactedTxHash": {
-    "message": "प्रभावित ट्रांसेक्शन हैश"
-  },
-  "shieldClaimImpactedTxHashHelpText": {
-    "message": "जिसे TXID, हैश ID, या Transaction ID के रूप में भी जाना जाता है।"
-  },
-  "shieldClaimImpactedTxHashHelpTextLink": {
-    "message": "इसे खोजने में मदद चाहिए?"
-  },
-  "shieldClaimImpactedTxHashNotEligible": {
-    "message": "यह ट्रांसेक्शन MetaMask के अंतर्गत नहीं किया गया है, इसलिए यह क्लेम नहीं किया जा सकता"
-  },
-  "shieldClaimImpactedWalletAddress": {
-    "message": "प्रभावित वॉलेट एड्रेस"
-  },
-  "shieldClaimIncidentDetails": {
-    "message": "घटना का विवरण"
-  },
-  "shieldClaimInvalidChainId": {
-    "message": "कृपया एक मान्य चेन ID दर्ज करें"
-  },
-  "shieldClaimInvalidEmail": {
-    "message": "कृपया एक मान्य ईमेल एड्रेस दर्ज करें"
-  },
-  "shieldClaimInvalidRequired": {
-    "message": "यह फ़ील्ड आवश्यक है"
-  },
-  "shieldClaimInvalidTxHash": {
-    "message": "कृपया एक मान्य ट्रांसेक्शन हैश डालें"
-  },
-  "shieldClaimInvalidWalletAddress": {
-    "message": "कृपया एक मान्य वॉलेट एड्रेस डालें"
-  },
-  "shieldClaimMaxClaimsLimitExceeded": {
-    "message": "आप ओपन क्लेम की अधिकतम सीमा तक पहुँच गए हैं। अगर आपको और क्लेम सबमिट करने हैं, तो कृपया सपोर्ट से संपर्क करें।"
-  },
-  "shieldClaimMaxDraftsReached": {
-    "message": "आप ड्राफ़्ट की अधिकतम संख्या तक पहुँच गए हैं। नया ड्राफ़्ट सेव करने के लिए कृपया एक ड्राफ़्ट मिटाएं।"
-  },
-  "shieldClaimNetwork": {
-    "message": "नेटवर्क चुनें"
-  },
-  "shieldClaimPersonalDetails": {
-    "message": "व्यक्तिगत जानकारी"
-  },
-  "shieldClaimReimbursementWalletAddress": {
-    "message": "भुगतान के लिए वॉलेट एड्रेस"
-  },
-  "shieldClaimReimbursementWalletAddressHelpText": {
-    "message": "कृपया सुनिश्चित करें कि यह कोई समझौता किया गया वॉलेट नहीं है।"
-  },
-  "shieldClaimSameWalletAddressesError": {
-    "message": "इम्पैक्टेड वॉलेट एड्रेस और रीइंबर्समेंट वॉलेट एड्रेस अलग-अलग होने चाहिए।"
-  },
-  "shieldClaimSaveAsDraft": {
-    "message": "ड्राफ़्ट के तौर पर सेव करें"
-  },
-  "shieldClaimSelectAccount": {
-    "message": "किसी अकाउंट को चुनें"
-  },
-  "shieldClaimSelectNetwork": {
-    "message": "एक नेटवर्क को चुनें"
-  },
-  "shieldClaimSignatureCoverageNotCovered": {
-    "message": "दिए गए ट्रांसेक्शन हैश के लिए सिग्नेचर कवरेज नहीं मिला।"
-  },
-  "shieldClaimSubmissionWindowExpired": {
-    "message": "सबमिशन विंडो एक्सपायर हो गई है। घटना के $1 दिन के अंदर क्लेम फ़ाइल करना होगा।",
-    "description": "The $1 is the number of days"
-  },
-  "shieldClaimSubmit": {
-    "message": "क्लेम सबमिट करें"
-  },
-  "shieldClaimSubmitError": {
-    "message": "क्लेम सबमिट नहीं हो पाया"
-  },
-  "shieldClaimSubmitSuccess": {
-    "message": "क्लेम सबमिशन प्राप्त हुआ"
-  },
-  "shieldClaimSubmitSuccessDescription": {
-    "message": "आपका क्लेम सबमिट कर दिया गया है। हम इसे रिव्यू करेंगे और ईमेल से अपडेट देंगे।"
-  },
-  "shieldClaimTransactionNotFound": {
-    "message": "चेन पर ट्रांसेक्शन नहीं मिला।"
-  },
-  "shieldClaimTransactionNotFromWalletAddress": {
-    "message": "ट्रांसेक्शन हैश, वॉलेट एड्रेस से नहीं है।"
-  },
-  "shieldClaimTransactionNotSuccessful": {
-    "message": "चेन पर ट्रांसेक्शन सफल नहीं हुआ।"
-  },
-  "shieldClaimViewGuidelines": {
-    "message": "गाइड देखें"
-  },
-  "shieldClaimWalletOwnershipValidationFailed": {
-    "message": "वॉलेट ओनरशिप का सत्यापन नहीं हो पाया।"
-  },
-  "shieldClaimsLastEdited": {
-    "message": "पिछला बदलाव किया गया: $1",
-    "description": "The $1 is the date"
-  },
-  "shieldClaimsListTitle": {
-    "message": "क्लेम"
-  },
-  "shieldClaimsNumber": {
-    "message": "क्लेम #$1",
-    "description": "The $1 is the claim number"
-  },
-  "shieldClaimsTabHistory": {
-    "message": "क्लेम हिस्ट्री"
-  },
-  "shieldClaimsTabPending": {
-    "message": "क्लेम"
-  },
-  "shieldConfirmMembership": {
-    "message": "प्लान कन्फर्म करें"
-  },
-  "shieldCoverageAlertCovered": {
-    "message": "MetaMask ट्रांसेक्शन शील्ड के साथ आप $2 तक सुरक्षित हैं। $1।"
-  },
-  "shieldCoverageAlertHighRiskTransaction": {
-    "message": "यह एक ज़्यादा खतरे वाला ट्रांसेक्शन है, इसलिए इसे MetaMask ट्रांसेक्शन शील्ड के ज़रिए सुरक्षा प्राप्त नहीं है। $1।"
-  },
-  "shieldCoverageAlertMessageChainNotSupported": {
-    "message": "यह चेन सपोर्टेड नहीं है, इसलिए इसे MetaMask ट्रांसेक्शन शील्ड के ज़रिए सुरक्षा प्राप्त नहीं है। $1"
-  },
-  "shieldCoverageAlertMessageLearnHowCoverageWorks": {
-    "message": "देखें क्या कवर किया गया है"
-  },
-  "shieldCoverageAlertMessagePaused": {
-    "message": "आपके MetaMask ट्रांसेक्शन शील्ड प्लान पेमेंट में कोई दिक्कत थी। कवरेज फिर से शुरू करने के लिए कृपया अपना पेमेंट का तरीका अपडेट करें।"
-  },
-  "shieldCoverageAlertMessagePausedAcknowledgeButton": {
-    "message": "भुगतान विधि अपडेट करें"
-  },
-  "shieldCoverageAlertMessagePotentialRisks": {
-    "message": "इस ट्रांसेक्शन में संभावित खतरे हैं, इसलिए इसे MetaMask ट्रांसेक्शन शील्ड के ज़रिए सुरक्षा प्राप्त नहीं है। $1"
-  },
-  "shieldCoverageAlertMessageSignatureNotSupported": {
-    "message": "यह सिग्नेचर सपोर्टेड नहीं है, इसलिए इसे MetaMask ट्रांसेक्शन शील्ड के ज़रिए सुरक्षा प्राप्त नहीं है। $1"
-  },
-  "shieldCoverageAlertMessageTitle": {
-    "message": "यह ट्रांसेक्शन कवर नहीं किया गया है"
-  },
-  "shieldCoverageAlertMessageTitleCovered": {
-    "message": "यह ट्रांसेक्शन कवर किया गया है"
-  },
-  "shieldCoverageAlertMessageTitlePaused": {
-    "message": "ट्रांज़ैक्शन शील्ड को रोक दिया गया"
-  },
-  "shieldCoverageAlertMessageTitleSignatureRequest": {
-    "message": "इस सिग्नेचर अनुरोध को कवर नहीं किया गया है"
-  },
-  "shieldCoverageAlertMessageTitleSignatureRequestCovered": {
-    "message": "इस सिग्नेचर अनुरोध को कवर किया गया है"
-  },
-  "shieldCoverageAlertMessageTokenTrustSignalWarning": {
-    "message": "इस टोकन में बुरी नीयत वाले व्यवहार के स्पष्ट संकेत हैं। आगे बढ़ने पर फंड्स का नुकसान हो सकता है। $1।"
-  },
-  "shieldCoverageAlertMessageTxTypeNotSupported": {
-    "message": "इस तरह का ट्रांसेक्शन सपोर्टेड नहीं है, इसलिए इसे MetaMask ट्रांसेक्शन शील्ड के ज़रिए सुरक्षा प्राप्त नहीं है। $1"
-  },
-  "shieldCoverageAlertMessageUnknown": {
-    "message": "इस अनुरोध को सत्यापित नहीं किया जा सकता, इसलिए इसे MetaMask ट्रांसेक्शन शील्ड के ज़रिए सुरक्षा प्राप्त नहीं है। $1।"
-  },
-  "shieldCoverageEnding": {
-    "message": "शील्ड कवरेज जल्द ही खत्म हो जाएगा"
-  },
-  "shieldCoverageEndingAction": {
-    "message": "रिन्यू"
-  },
-  "shieldCoverageEndingDescription": {
-    "message": "प्लान $1 को खत्म हो रहा है।",
-    "description": "The $1 is the date"
-  },
-  "shieldCovered": {
-    "message": "कवर किया गया"
-  },
-  "shieldEntryModalGetStarted": {
-    "message": "14-दिन का मुफ़्त ट्रायल शुरू करें"
-  },
-  "shieldEntryModalSubtitleA": {
-    "message": "ट्रांसेक्शन शील्ड $1 तक की सुरक्षा और 24/7 प्रायोरिटी सपोर्ट देता है।",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldEntryModalSubtitleB": {
-    "message": "$1 तक की सुरक्षा और 24/7 प्रायोरिटी सपोर्ट की सुविधा पाकर, ज़्यादा भरोसे के साथ ट्रांसेक्शन करें।",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldEntryModalTitleA": {
-    "message": "ज़्यादा भरोसे के साथ ट्रांसेक्शन करें"
-  },
-  "shieldEntryModalTitleB": {
-    "message": "पेश है ट्रांसेक्शन शील्ड"
-  },
-  "shieldErrorPayerAddressAlreadyUsed": {
-    "message": "यह पता पहले से ही किसी दूसरे अकाउंट से लिंक है। सब्सक्राइब करने के लिए कोई दूसरा पता इस्तेमाल करें।"
-  },
-  "shieldEstimatedChangesMonthlyTooltipText": {
-    "message": "12 महीनों के लिए $1/महीना ऑथराइज़ करें ($2 टोटल)। आपको अभी पूरा अमाउंट नहीं देना होगा, बल्कि आपसे हर महीने बिल के हिसाब से पैसे लिए जाएंगे।"
-  },
-  "shieldFooterAgreement": {
-    "message": "जारी रखकर, मैं ट्रांसेक्शन शील्ड $1 के लिए सहमति देता/देती हूँ"
-  },
-  "shieldManagePlan": {
-    "message": "प्लान को प्रबंधित करें"
-  },
-  "shieldNotCovered": {
-    "message": "कवर नहीं किया गया"
-  },
-  "shieldPastPlansTitle": {
-    "message": "पिछला विवरण"
-  },
-  "shieldPaused": {
-    "message": "रोका गया"
-  },
-  "shieldPaymentPaused": {
-    "message": "ट्रांज़ैक्शन शील्ड को रोक दिया गया"
-  },
-  "shieldPaymentPausedActionCardPayment": {
-    "message": "अपडेट करें"
-  },
-  "shieldPaymentPausedActionCryptoPayment": {
-    "message": "अपडेट करें"
-  },
-  "shieldPaymentPausedActionUnexpectedError": {
-    "message": "देखें"
-  },
-  "shieldPaymentPausedDescriptionCardPayment": {
-    "message": "कार्ड पेमेंट नहीं हो पाया।"
-  },
-  "shieldPaymentPausedDescriptionCryptoPayment": {
-    "message": "टोकन बैलेंस कम है।"
-  },
-  "shieldPaymentPausedDescriptionUnexpectedError": {
-    "message": "एक अनपेक्षित गड़बड़ी हुई।"
-  },
-  "shieldPlanAnnual": {
-    "message": "वार्षिक"
-  },
-  "shieldPlanAnnualPrice": {
-    "message": "$1/वर्ष",
-    "description": "The $1 is the price of the annual plan"
-  },
-  "shieldPlanBillingDate": {
-    "message": "बिल बनने की तारीख"
-  },
-  "shieldPlanCard": {
-    "message": "कार्ड"
-  },
-  "shieldPlanCryptoMonthlyNote": {
-    "message": "एक साल के लिए पहले से मंज़ूर कुल मासिक फ़ीस"
-  },
-  "shieldPlanDetails": {
-    "message": "आपको क्या मिलेगा"
-  },
-  "shieldPlanDetails1": {
-    "message": "मुफ़्त $1-दिन का ट्रायल",
-    "description": "The $1 is the number of days"
-  },
-  "shieldPlanDetails2": {
-    "message": "ट्रांसेक्शन सुरक्षा में $1 तक",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldPlanDetails3": {
-    "message": "प्रायोरिटी लाइव चैट सपोर्ट के लिए 24/7 एक्सेस"
-  },
-  "shieldPlanDetailsRewards": {
-    "message": "हर $2 पर $1 पॉइंट्स कमाएँ",
-    "description": "The $1 is the number of points and $2 plan interval (month or year)"
-  },
-  "shieldPlanDetailsRewardsDescription": {
-    "message": "यह ऑफ़र सिर्फ़ रिवॉर्ड सीज़न के दौरान उपलब्ध है। रिवॉर्ड के लिए साइन अप करने वाले यूज़र्स को फ़्री ट्रायल खत्म होने पर पॉइंट्स दिए जाते हैं।"
-  },
-  "shieldPlanDetailsRewardsTitle": {
-    "message": "पुरस्कार"
-  },
-  "shieldPlanErrorText": {
-    "message": "ट्रांसेक्शन शील्ड से कनेक्ट नहीं किया जा सका"
-  },
-  "shieldPlanFooterNoteMonthly": {
-    "message": "हर महीने बिल बनता है, कभी भी कैंसिल करें"
-  },
-  "shieldPlanFooterNoteYearly": {
-    "message": "हर साल बिल बनता है, कभी भी कैंसिल करें"
-  },
-  "shieldPlanMonthly": {
-    "message": "मासिक"
-  },
-  "shieldPlanMonthlyPrice": {
-    "message": "$1/महीना",
-    "description": "The $1 is the price of the monthly plan"
-  },
-  "shieldPlanPayWith": {
-    "message": "के साथ भुगतान करें"
-  },
-  "shieldPlanPayWithCard": {
-    "message": "कार्ड से भुगतान करें"
-  },
-  "shieldPlanPayWithToken": {
-    "message": "$1 के साथ भुगतान करें",
-    "description": "The $1 is token"
-  },
-  "shieldPlanPaymentTitle": {
-    "message": "भुगतान का तरीका बदलें"
-  },
-  "shieldPlanSave": {
-    "message": "17% सेव करें"
-  },
-  "shieldPlanSelectToken": {
-    "message": "कोई टोकन चुनें"
-  },
-  "shieldPlanTitle": {
-    "message": "अपना प्लान चुनें"
-  },
-  "shieldPlanYearly": {
-    "message": "वार्षिक"
-  },
-  "shieldStartNowCTA": {
-    "message": "अभी शुरू करें"
-  },
-  "shieldStartNowCTAWithTrial": {
-    "message": "मुफ़्त ट्रायल शुरू करें"
-  },
-  "shieldTx": {
-    "message": "ट्रांसेक्शन शील्ड"
-  },
-  "shieldTxBillingAccount": {
-    "message": "बिलिंग अकाउंट"
-  },
-  "shieldTxCancelDetails": {
-    "message": "यदि आप कैंसिल करते हैं, तो आपके वॉलेट और ट्रांसेक्शन पर $1 से शुरू होने वाला कोई भी शुल्क नहीं लगेगा।",
-    "description": "The $1 is the date subscription ends"
-  },
-  "shieldTxCancelImmediateDetails": {
-    "message": "यदि आप कैंसिल करते हैं, तो आपका वॉलेट और ट्रांसेक्शन कवर नहीं होंगे।"
-  },
-  "shieldTxCancelNotAllowed": {
-    "message": "आपका सब्सक्रिप्शन अभी कैंसिल नहीं किया जा सकता।"
-  },
-  "shieldTxCancelNotAllowedPendingVerification": {
-    "message": "आपका सब्सक्रिप्शन सत्यापन अभी पूरा नहीं होने की वजह से कैंसिल नहीं किया जा सकता।"
-  },
-  "shieldTxCancelWhenPausedDetails": {
-    "message": "रोके जाने के दौरान आपका प्लान एक्टिव नहीं होता है। अगर आप कैंसिल करते हैं, तो आपका प्लान तुरंत खत्म हो जाएगा।"
-  },
-  "shieldTxDetails1DescriptionTrial": {
-    "message": "$1 दिन के लिए मुफ़्त, उसके बाद $2",
-    "description": "The $1 is the number of days and the $2 is the price of the plan"
-  },
-  "shieldTxDetails1Title": {
-    "message": "MetaMask ट्रांसेक्शन शील्ड"
-  },
-  "shieldTxDetails2Description": {
-    "message": "$1, अगली बिलिंग $2 पर",
-    "description": "The $1 is interval and the $2 is the date of next billing"
-  },
-  "shieldTxDetails2Title": {
-    "message": "बिलिंग साइकिल"
-  },
-  "shieldTxDetails3DescriptionCrypto": {
-    "message": "क्रिप्टो ($1)",
-    "description": "The $1 is the token symbol"
-  },
-  "shieldTxDetails3DescriptionCryptoWithAccount": {
-    "message": "क्रिप्टो ($1), $2",
-    "description": "The $1 is the token symbol and the $2 is the account"
-  },
-  "shieldTxDetails3Title": {
-    "message": "पेमेंट का तरीका"
-  },
-  "shieldTxDetailsManage": {
-    "message": "मैनेज करें"
-  },
-  "shieldTxDetailsTitle": {
-    "message": "प्लान का विवरण"
-  },
-  "shieldTxMembershipActive": {
-    "message": "एक्टिव प्लान"
-  },
-  "shieldTxMembershipBenefits": {
-    "message": "आपके लाभ"
-  },
-  "shieldTxMembershipBenefits1Description": {
-    "message": "कवर किए गए ट्रांसेक्शन पर एसेट्स को सुरक्षित करता है"
-  },
-  "shieldTxMembershipBenefits1Title": {
-    "message": "$1 तक की सुरक्षा",
-    "description": "The $1 is the amount of transaction protection"
-  },
-  "shieldTxMembershipBenefits2Description": {
-    "message": "कभी भी तेज़ और समर्पित सपोर्ट प्राप्त करें"
-  },
-  "shieldTxMembershipBenefits2Title": {
-    "message": "प्राथमिक सपोर्ट"
-  },
-  "shieldTxMembershipBenefits3Description": {
-    "message": "पाएँ $1 पॉइंट्स/$2",
-    "description": "The $1 is the number of points and the $2 is the interval"
-  },
-  "shieldTxMembershipBenefits3DescriptionInactive": {
-    "message": "पाएँ $1 पॉइंट्स/$2",
-    "description": "The $1 is the number of points and the $2 is the interval"
-  },
-  "shieldTxMembershipBenefits3LinkRewards": {
-    "message": "लिंक"
-  },
-  "shieldTxMembershipBenefits3SignUp": {
-    "message": "साइन अप करें"
-  },
-  "shieldTxMembershipBenefits3Title": {
-    "message": "सीज़न रिवॉर्ड कमाएं"
-  },
-  "shieldTxMembershipBenefitsInactive": {
-    "message": "आपको क्या मिलेगा"
-  },
-  "shieldTxMembershipBenefitsViewAll": {
-    "message": "सभी दिखाएं"
-  },
-  "shieldTxMembershipBillingDetailsViewBillingHistory": {
-    "message": "बिलिंग को मैनेज करें"
-  },
-  "shieldTxMembershipCancel": {
-    "message": "प्लान कैंसिल करें"
-  },
-  "shieldTxMembershipCancelNotification": {
-    "message": "आपका प्लान $1 को कैंसिल हो जाएगा।",
-    "description": "The $1 is the date"
-  },
-  "shieldTxMembershipCancelledDate": {
-    "message": "आपने $1 पर अपना प्लान कैंसिल कर दिया",
-    "description": "The $1 is the date"
-  },
-  "shieldTxMembershipErrorInsufficientFunds": {
-    "message": "आपका प्लान $1 को खत्म हो रहा है। अपने फ़ायदे जारी रखने के लिए अभी रिन्यू करें।",
-    "description": "The $1 is the date subscription ends"
-  },
-  "shieldTxMembershipErrorPausedCard": {
-    "message": "कार्ड पेमेंट न हो पाने की वजह से आपका प्लान रोक दिया गया है।"
-  },
-  "shieldTxMembershipErrorPausedCardAction": {
-    "message": "कार्ड विवरण अपडेट करें"
-  },
-  "shieldTxMembershipErrorPausedCardTooltip": {
-    "message": "आपका भुगतान अस्वीकार कर दिया गया। कृपया अपनी भुगतान विधि अपडेट करें ताकि आपका कवरेज जारी रह सके।"
-  },
-  "shieldTxMembershipErrorPausedCryptoInsufficientFunds": {
-    "message": "फ़ंड्स कम होने की वजह से प्लान रोक दिया गया है। पेमेंट अपडेट होने में $1 घंटे तक का समय लग सकता है।",
-    "description": "The $1 is the number of hours"
-  },
-  "shieldTxMembershipErrorPausedCryptoInsufficientFundsAction": {
-    "message": "फंड जोड़ें"
-  },
-  "shieldTxMembershipErrorPausedCryptoTooltip": {
-    "message": "आपके वॉलेट में टोकन बैलेंस कम है। अपने वॉलेट में पैसे डालने के बाद 'फिर से कोशिश करें' पर क्लिक करें।"
-  },
-  "shieldTxMembershipErrorPausedUnexpected": {
-    "message": "अचानक हुई गड़बड़ी की वजह से प्लान रुक गया।"
-  },
-  "shieldTxMembershipErrorPausedUnexpectedAction": {
-    "message": "सपोर्ट टीम से कॉन्टेक्ट करें"
-  },
-  "shieldTxMembershipFreeTrial": {
-    "message": "मुफ्त ट्रायल"
-  },
-  "shieldTxMembershipFreeTrialDaysLeft": {
-    "message": "आपके ट्रायल में $1 दिन बचे हैं",
-    "description": "The $1 is the number of days left"
-  },
-  "shieldTxMembershipId": {
-    "message": "सदस्य ID"
-  },
-  "shieldTxMembershipInactive": {
-    "message": "इनएक्टिव प्लान"
-  },
-  "shieldTxMembershipMakeClaim": {
-    "message": "क्लेम करें"
-  },
-  "shieldTxMembershipPaused": {
-    "message": "रोका गया"
-  },
-  "shieldTxMembershipRenew": {
-    "message": "प्लान रिन्यू करें"
-  },
-  "shieldTxMembershipRenewDescription": {
-    "message": "$1 में रीएक्टिवेट करें",
-    "description": "The $1 is the price of the plan"
-  },
-  "shieldTxMembershipResubscribe": {
-    "message": "प्लान फिर से शुरू करें"
-  },
-  "shieldTxMembershipSubmitCase": {
-    "message": "क्लेम सबमिट करें"
-  },
-  "shieldTxPastPlans": {
-    "message": "पिछले प्लान"
-  },
-  "shieldTxPastPlansMonthly": {
-    "message": "मासिक प्लान"
-  },
-  "shieldTxPastPlansYearly": {
-    "message": "सालाना प्लान"
-  },
-  "shieldTxViewPastInvoice": {
-    "message": "पिछला इनवॉइस देखें"
-  },
-  "show": {
-    "message": "दिखाएं"
-  },
   "showAccount": {
     "message": "अकाउंट दिखाएं"
   },
@@ -10747,17 +7141,11 @@
   "showHexDataDescription": {
     "message": "पैसे/टोकन भेजने वाली स्क्रीन पर हेक्स डेटा फ़ील्ड दिखाने के लिए, इसे ऑन करें"
   },
-  "showLess": {
-    "message": "कम दिखाएं"
-  },
   "showMore": {
     "message": "और दिखाएं"
   },
   "showNativeTokenAsMainBalance": {
     "message": "मूल टोकन को मुख्य बैलेंस के रूप में दिखाएं"
-  },
-  "showNft": {
-    "message": "NFT दिखाएं"
   },
   "showPermissions": {
     "message": "अनुमतियां दिखाएं"
@@ -10903,18 +7291,6 @@
   "skipLinkConfirmationScreensDescription": {
     "message": "जब आप MetaMask से कोई लिंक खोलते हैं, तो हम एक कन्फर्मेशन स्क्रीन दिखाते हैं ताकि आप गलती से अपने अकाउंट, बैलेंस या ट्रांसेक्शन हिस्ट्री जैसी सेंसिटिव जानकारी न देख पाएं। MetaMask से आने वाले लिंक के लिए उस स्क्रीन को स्किप करने के लिए इसे ऑन करें।"
   },
-  "slippage": {
-    "message": "स्लिपेज (slippage)"
-  },
-  "slippageAuto": {
-    "message": "ऑटो"
-  },
-  "slippageEditAriaLabel": {
-    "message": "स्लिपेज (slippage) बदलें"
-  },
-  "slippageExplanation": {
-    "message": "ट्रांसेक्शन कैंसिल होने से पहले आप प्राइस में जो % परिवर्तन स्वीकार करने के लिए तैयार हैं।"
-  },
   "smartAccount": {
     "message": "स्मार्ट अकाउंट"
   },
@@ -10938,12 +7314,6 @@
   },
   "smartContractAddressWarning": {
     "message": "हो सकता है कि पाने वाले का पता सीधे टोकन ट्रांसफर को सपोर्ट न करे, जिससे फंड का नुकसान हो सकता है। तभी आगे बढ़ें जब आपको पक्का हो कि यह कॉन्ट्रैक्ट आपका ट्रांसफर प्राप्त कर सकता है।"
-  },
-  "smartSwapsErrorNotEnoughFunds": {
-    "message": "स्मार्ट स्वैप के लिए पर्याप्त फंड नहीं है।"
-  },
-  "smartSwapsErrorUnavailable": {
-    "message": "स्मार्ट स्वैप अस्थायी रूप से अनुपलब्ध हैं।"
   },
   "smartTransactions": {
     "message": "स्मार्ट ट्रांसेक्शन"
@@ -11178,18 +7548,6 @@
   "speedUpTransactionTitle": {
     "message": "ट्रांसेक्शन में तेज़ी लाएं"
   },
-  "spendableBalance": {
-    "message": "खर्च करने लायक"
-  },
-  "spendableBalanceBaseReserved": {
-    "message": "रिज़र्व्ड (लॉक किया हुआ)"
-  },
-  "spendableBalanceFiatValue": {
-    "message": "मूल्य"
-  },
-  "spendableBalanceTotalBalance": {
-    "message": "कुल बैलेंस"
-  },
   "spender": {
     "message": "खर्च करने वाला"
   },
@@ -11422,56 +7780,8 @@
   "strong": {
     "message": "मजबूत"
   },
-  "stxCancelled": {
-    "message": "स्वैप विफल हो गया होगा"
-  },
-  "stxCancelledDescription": {
-    "message": "आपका ट्रांसेक्शन विफल हो सकता था और उसे कैंसिल कर दिया गया ताकि आपको नेटवर्क फ़ीस का अनावश्यक पेमेंट करने से रोका जा सके।"
-  },
-  "stxCancelledSubDescription": {
-    "message": "अपने स्वैप का पुन: प्रयास करें। हम अगली बार इसी तरह के जोखिमों से आपकी रक्षा करने के लिए यहां मौजूद रहेंगे।"
-  },
-  "stxFailure": {
-    "message": "स्वैप नहीं हो पाया"
-  },
-  "stxFailureDescription": {
-    "message": "मार्केट के आकस्मिक बदलावों के कारण विफलताएं हो सकती हैं। अगर समस्या जारी रहती है, तो कृपया $1 से कॉन्टेक्ट करें।",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
-  },
   "stxOptInDescriptionV2": {
     "message": "अधिक विश्वसनीय और सुरक्षित ट्रांसेक्शन के लिए स्मार्ट ट्रांसेक्शन चालू करें। $1"
-  },
-  "stxPendingPrivatelySubmittingSwap": {
-    "message": "आपका स्वैप निजी रूप से सबमिट किया जा रहा है..."
-  },
-  "stxPendingPubliclySubmittingSwap": {
-    "message": "आपका स्वैप सार्वजनिक रूप से सबमिट किया जा रहा है..."
-  },
-  "stxSuccess": {
-    "message": "स्वैप पूरा हुआ!"
-  },
-  "stxSuccessDescription": {
-    "message": "आपका $1 अब उपलब्ध है।",
-    "description": "$1 is a token symbol, e.g. ETH"
-  },
-  "stxSwapCompleteIn": {
-    "message": "स्वैप पूरा होने में बैलेंस समय <",
-    "description": "'<' means 'less than', e.g. Swap will complete in < 2:59"
-  },
-  "stxTryingToCancel": {
-    "message": "आपका लेन-देन रद्द करने का प्रयास किया जा रहा है..."
-  },
-  "stxUnknown": {
-    "message": "स्थिति अज्ञात है"
-  },
-  "stxUnknownDescription": {
-    "message": "लेन-देन तो सफल रहा है लेकिन हम अनिश्चित हैं कि यह क्या है। ऐसा स्वैप प्रोसेस होने के दौरान कोई अन्य लेन-देन सबमिट करने के कारण हो सकता है।"
-  },
-  "stxUserCancelled": {
-    "message": "स्वैप कैंसिल हुआ"
-  },
-  "stxUserCancelledDescription": {
-    "message": "आपका ट्रांसेक्शन कैंसिल किया गया और आपने किसी भी तरह के अनावश्यक नेटवर्क फ़ीस का पेमेंट नहीं किया।"
   },
   "submit": {
     "message": "सबमिट करें"
@@ -11492,9 +7802,6 @@
   "summary": {
     "message": "सारांश"
   },
-  "supplied": {
-    "message": "सप्लाई किया गया"
-  },
   "support": {
     "message": "सहायता"
   },
@@ -11511,25 +7818,6 @@
   "swap": {
     "message": "स्वैप करें"
   },
-  "swapAdjustSlippage": {
-    "message": "स्लिपेज को समायोजित करें"
-  },
-  "swapAgain": {
-    "message": "फिर से स्वैप करें"
-  },
-  "swapAggregator": {
-    "message": "एग्रीगेटर"
-  },
-  "swapAllowSwappingOf": {
-    "message": "$1 स्वैप करने की अनुमति दें",
-    "description": "Shows a user that they need to allow a token for swapping on their hardware wallet"
-  },
-  "swapAmountReceived": {
-    "message": "गारंटी रकम"
-  },
-  "swapAmountReceivedInfo": {
-    "message": "यह आपको प्राप्त होने वाली कम-से-कम अमाउंट है। आप स्लिपेज के आधार पर अधिक प्राप्त कर सकते हैं।"
-  },
   "swapAndSend": {
     "message": "स्वैप करें और भेजें"
   },
@@ -11537,257 +7825,20 @@
     "message": "स्वैप के लिए $1 एप्रूव करें",
     "description": "Used in the transaction display list to describe a transaction that is an approve call on a token that is to be swapped.. $1 is the symbol of a token that has been approved."
   },
-  "swapAreYouStillThere": {
-    "message": "क्या आप अभी भी हैं?"
-  },
-  "swapAreYouStillThereDescription": {
-    "message": "जब आप जारी रखना चाहते हैं तो हम आपको लेटेस्ट उद्धरण दिखाने के लिए तैयार हैं"
-  },
   "swapConfirmWithHwWallet": {
     "message": "अपने hardware wallet से कन्फर्म करें"
-  },
-  "swapContractDataDisabledErrorDescription": {
-    "message": "अपने Ledger पर Ethereum ऐप में, \"सेटिंग\" पर जाएं और कॉन्ट्रैक्ट डेटा की अनुमति दें। फिर, अपने स्वैप का फिर से कोशिश करें।"
-  },
-  "swapContractDataDisabledErrorTitle": {
-    "message": "आपके Ledger पर कॉन्ट्रैक्ट डेटा इनेबल नहीं है"
-  },
-  "swapCustom": {
-    "message": "कस्टम"
-  },
-  "swapDecentralizedExchange": {
-    "message": "विकेंद्रीकृत विनिमय"
-  },
-  "swapDirectContract": {
-    "message": "प्रत्यक्ष कॉन्ट्रैक्ट"
-  },
-  "swapEditLimit": {
-    "message": "सीमा बदलें"
-  },
-  "swapEnableDescription": {
-    "message": "यह आवश्यक है और MetaMask को आपके $1 को स्वैप करने की अनुमति देता है।",
-    "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
-  },
-  "swapEnableTokenForSwapping": {
-    "message": "विनिमय के लिए यह $1 होगा",
-    "description": "$1 is for the 'enableToken' key, e.g. 'enable ETH'"
-  },
-  "swapEstimatedNetworkFees": {
-    "message": "अनुमानित नेटवर्क फ़ीस"
-  },
-  "swapEstimatedNetworkFeesInfo": {
-    "message": "यह नेटवर्क फ़ीस का एक अनुमान है, जिसे आपके स्वैप को पूरा करने के लिए इस्तेमाल किया जाएगा। नेटवर्क का स्टेटसयों के अनुसार वास्तविक अमाउंट बदल सकती है।"
-  },
-  "swapFailedErrorDescriptionWithSupportLink": {
-    "message": "ट्रांसेक्शन विफल हो जाता है और हम मदद करने के लिए उपलब्ध हैं। यदि यह समस्या बनी रहती है, तो आप आगे की सहायता के लिए $1 पर हमारे ग्राहक सहायता से कॉन्टेक्ट कर सकते हैं।",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
-  },
-  "swapFailedErrorTitle": {
-    "message": "स्वैप नहीं हो पाया"
-  },
-  "swapFetchingQuoteNofN": {
-    "message": "$2 का $1 भाव लाया जा रहा है",
-    "description": "A count of possible quotes shown to the user while they are waiting for quotes to be fetched. $1 is the number of quotes already loaded, and $2 is the total number of resources that we check for quotes. Keep in mind that not all resources will have a quote for a particular swap."
-  },
-  "swapFetchingQuotes": {
-    "message": "कोटेशन प्राप्त कर रहे हैं.."
-  },
-  "swapFetchingQuotesErrorDescription": {
-    "message": "हम्म्म... कुछ गलत हो गया। फिर से कोशिश करें या यदि गड़बड़ीयां बनी रहती हैं, तो ग्राहक सहायता से कॉन्टेक्ट करें।"
   },
   "swapFetchingQuotesErrorTitle": {
     "message": "उद्धरण प्राप्त करने में गड़बड़ी"
   },
-  "swapFromTo": {
-    "message": "$1 से $2 का स्वैप",
-    "description": "Tells a user that they need to confirm on their hardware wallet a swap of 2 tokens. $1 is a source token and $2 is a destination token"
-  },
-  "swapGasFeesExplanation": {
-    "message": "MetaMask नेटवर्क फीस से पैसे नहीं कमाता है। ये शुल्क अनुमानित हैं और इस आधार पर बदल सकते हैं कि नेटवर्क कितना व्यस्त है और ट्रांसेक्शन कितना जटिल है। अधिक जानें $1।",
-    "description": "$1 is a link (text in link can be found at 'swapGasFeesSummaryLinkText')"
-  },
-  "swapGasFeesExplanationLinkText": {
-    "message": "यहाँ",
-    "description": "Text for link in swapGasFeesExplanation"
-  },
-  "swapGasFeesIncluded": {
-    "message": " शामिल किया गया"
-  },
-  "swapGasFeesSplit": {
-    "message": "पिछली स्क्रीन पर नेटवर्क फ़ीस इन दो ट्रांसेक्शन के बीच विभाजित हैं।"
-  },
-  "swapGasFeesSponsored": {
-    "message": "MetaMask द्वारा भुगतान किया गया"
-  },
-  "swapGasFeesSponsoredExplanation": {
-    "message": "यह नेटवर्क फीस MetaMask देता है, इसलिए आप अपने अकाउंट में $1 के बिना भी ट्रांसेक्ट कर सकते हैं।"
-  },
-  "swapIncludesMMFee": {
-    "message": "$1% MetaMask फ़ीस शामिल है।",
-    "description": "Provides information about the fee that MetaMask takes for swaps. $1 is a decimal number."
-  },
-  "swapLearnMore": {
-    "message": "स्वैप के बारे में ज्यादा जानें"
-  },
-  "swapLiquiditySourceInfo": {
-    "message": "एक्सचेंज रेट्स और नेटवर्क फ़ीस की तुलना करने के लिए, हम कई लिक्विडिटी सोर्सेज़ (एक्सचेंज, एग्रीगेटर्स और प्रोफेशनल मार्किट मेकर्स) ढूंढते हैं।"
-  },
-  "swapMaxSlippage": {
-    "message": "अधिकतम गिरावट"
-  },
-  "swapMetaMaskFee": {
-    "message": "MetaMask फीस"
-  },
-  "swapMetaMaskFeeDescription": {
-    "message": "$1% का फ़ीस ऑटोमेटिक तरीके से इस उद्धरण में समाविष्ट हो जाता है। आप इसे MetaMask's के तरलता प्रोवाइडर सूचना एकत्रीकरण सॉफ़्टवेयर का इस्तेमाल करने के लिए लाइसेंस के बदले में पेमेंट करते हैं।",
-    "description": "Provides information about the fee that MetaMask takes for swaps. $1 is a decimal number."
-  },
-  "swapNQuotesWithDot": {
-    "message": "$1 उद्धरण.",
-    "description": "$1 is the number of quotes that the user can select from when opening the list of quotes on the 'view quote' screen"
-  },
-  "swapOnceTransactionHasProcess": {
-    "message": "यह ट्रांसेक्शन संसाधित होने के बाद आपका $1 आपके अकाउंट में जोड़ दिया जाएगा।",
-    "description": "This message communicates the token that is being transferred. It is shown on the awaiting swap screen. The $1 will be a token symbol."
-  },
-  "swapProcessing": {
-    "message": "प्रोसेस हो रहा है"
-  },
-  "swapQuoteDetails": {
-    "message": "विवरण का उद्धरण दें"
-  },
-  "swapQuoteSource": {
-    "message": "उद्धरण का स्रोत"
-  },
-  "swapQuotesExpiredErrorDescription": {
-    "message": "कृपया लेटेस्ट दरों को प्राप्त करने के लिए नए उद्धरणों का रिक्वेस्ट करें।"
-  },
-  "swapQuotesExpiredErrorTitle": {
-    "message": "उद्धरण समयबाह्य"
-  },
-  "swapQuotesNotAvailableDescription": {
-    "message": "यह ट्रेड रूट अभी उपलब्ध नहीं है। राशि, नेटवर्क या टोकन बदलने का प्रयास करें और हम सबसे अच्छा विकल्प ढूंढ लेंगे।"
-  },
-  "swapQuotesNotAvailableErrorDescription": {
-    "message": "अमाउंट या स्लिपेज सेटिंग को समायोजित करने की कोशिश करें और फिर से प्रयास करें।"
-  },
   "swapQuotesNotAvailableErrorTitle": {
     "message": "कोई भी उद्धरण उपलब्ध नहीं हैं"
-  },
-  "swapRate": {
-    "message": "रेट"
-  },
-  "swapReceiving": {
-    "message": "प्राप्त कर रहे हैं"
-  },
-  "swapReceivingInfoTooltip": {
-    "message": "यह एक अनुमान है। सटीक अमाउंट स्लिपेज पर निर्भर करती है।"
-  },
-  "swapRequestForQuotation": {
-    "message": "उद्धरण के लिए अनुरोध"
-  },
-  "swapSelect": {
-    "message": "चयन करें"
-  },
-  "swapSelectAQuote": {
-    "message": "एक उद्धरण को चुनें"
-  },
-  "swapSelectAToken": {
-    "message": "टोकन चुनें"
-  },
-  "swapSelectQuotePopoverDescription": {
-    "message": "नीचे दिए गए सभी उद्धरण कई चलनिधि स्रोतों से एकत्र किए गए हैं।"
-  },
-  "swapSelectToken": {
-    "message": "टोकन चुनें"
-  },
-  "swapShowLatestQuotes": {
-    "message": "सबसे नया उद्धरण दिखाएं"
-  },
-  "swapSlippageAutoDescription": {
-    "message": "ऑटो"
-  },
-  "swapSlippageCappedDescription": {
-    "message": "स्लिपेज टॉलरेंस 100% पर कैप किया गया था।"
-  },
-  "swapSlippageHighDescription": {
-    "message": "दर्ज की गई स्लिपेज ($1%) को बहुत अधिक माना जाता है और इसकी वजह से खराब दर हो सकती है",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageHighTitle": {
-    "message": "अधिक स्लिपेज"
-  },
-  "swapSlippageLowDescription": {
-    "message": "इतने कम मूल्य ($1%) की वजह से विफल स्वैप हो सकता है",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageLowTitle": {
-    "message": "कम स्लिपेज"
-  },
-  "swapSlippageNegativeDescription": {
-    "message": "स्लिपेज शून्य से अधिक या बराबर होना चाहिए"
-  },
-  "swapSlippageNegativeTitle": {
-    "message": "जारी रखने के लिए स्लिपेज बढ़ाएं"
-  },
-  "swapSlippageOverLimitDescription": {
-    "message": "स्लिपेज टोलरेंस 15% या उससे कम होनी चाहिए। कुछ भी अधिक खराब दर में बदल जाएगा।"
-  },
-  "swapSlippageOverLimitTitle": {
-    "message": "बहुत अधिक स्लिपेज"
-  },
-  "swapSlippagePercent": {
-    "message": "$1%",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageTooltip": {
-    "message": "यदि आपके ऑर्डर किए जाने और पुष्टि किए जाने के समय के बीच मूल्य में परिवर्तन होता है, तो इसे \"स्लिपेज\" कहा जाता है। यदि स्लिपेज आपकी \"स्लिपेज टॉलरेंस\" सेटिंग से अधिक हो जाता है, तो आपका स्वैप स्वतः कैंसिल हो जाएगा।"
-  },
-  "swapSlippageZeroDescription": {
-    "message": "शून्य-स्लिपेज उद्धरण प्रोवाइडर कम हैं, जिसके परिणामस्वरूप कम प्रतिस्पर्धी उद्धरण होगा।"
-  },
-  "swapSlippageZeroTitle": {
-    "message": "शून्य-स्लिपेज प्रोवाइडरों की सोर्सिंग करना"
-  },
-  "swapSource": {
-    "message": "चलनिधि का स्रोत"
   },
   "swapSuggestedGasSettingToolTipMessage": {
     "message": "विनिमय जटिल और समय के प्रति संवेदनशील ट्रांसेक्शन हैं। हम एक सफल विनिमय की लागत और विश्वास के बीच अच्छे संतुलन के लिए इस नेटवर्क फ़ीस की अनुशंसा करते हैं।"
   },
-  "swapToConfirmWithHwWallet": {
-    "message": "अपने hardware wallet से पुष्टि करने के लिए"
-  },
-  "swapTokenAvailable": {
-    "message": "आपके अकाउंट में आपका $1 जोड़ दिया गया है।",
-    "description": "This message is shown after a swap is successful and communicates the exact amount of tokens the user has received for a swap. The $1 is a decimal number of tokens followed by the token symbol."
-  },
   "swapTokenNotAvailable": {
     "message": "इस क्षेत्र में स्वैप करने के लिए टोकन उपलब्ध नहीं है"
-  },
-  "swapTokens": {
-    "message": "टोकन स्वैप करें"
-  },
-  "swapTransactionComplete": {
-    "message": "ट्रांसेक्शन पूर्ण"
-  },
-  "swapTwoTransactions": {
-    "message": "2 ट्रांसेक्शन"
-  },
-  "swapUnknown": {
-    "message": "अज्ञात"
-  },
-  "swapValidationInsufficientGasMessage": {
-    "message": "इस स्वैप के लिए नेटवर्क फीस का भुगतान करने के लिए आपके पास पर्याप्त $1 नहीं है। कम राशि दर्ज करें या अधिक $1 खरीदें।"
-  },
-  "swapZeroSlippage": {
-    "message": "0% स्लिपेज"
-  },
-  "swapsMaxSlippage": {
-    "message": "स्लिपेज (slippage) टॉलरेंस"
-  },
-  "swapsViewInActivity": {
-    "message": "एक्टिविटी में देखें"
   },
   "switch": {
     "message": "बदलें"
@@ -11847,9 +7898,6 @@
   "terms": {
     "message": "उपयोग की शर्तें"
   },
-  "termsOfService": {
-    "message": "सेवा की शर्तें"
-  },
   "termsOfUseAgree": {
     "message": "सहमत हूं"
   },
@@ -11893,9 +7941,6 @@
   "token": {
     "message": "टोकन"
   },
-  "tokenAddress": {
-    "message": "टोकन पता"
-  },
   "tokenAllowance": {
     "message": "टोकन अलाउंस"
   },
@@ -11927,9 +7972,6 @@
   "tokenList": {
     "message": "टोकन सूचियां:"
   },
-  "tokenMarketplace": {
-    "message": "टोकन मार्केटप्लेस"
-  },
   "tokenPermissionCount": {
     "message": "$1 टोकन अनुमति",
     "description": "$1 is the count of token permissions (singular form)"
@@ -11940,9 +7982,6 @@
   },
   "tokenSearchError": {
     "message": "सर्च रिज़ल्ट लोड नहीं हो सके। कृपया फिर से कोशिश करें।"
-  },
-  "tokenStandard": {
-    "message": "टोकन स्टैंडर्ड"
   },
   "tokenStock": {
     "message": "स्टॉक"
@@ -11966,9 +8005,6 @@
     "message": "टोकन",
     "description": "is the count of tokens used for token transfers (plural form)"
   },
-  "tokensInCollection": {
-    "message": "संग्रह में टोकन"
-  },
   "tooltipSatusConnectedUpperCase": {
     "message": "कनेक्ट किया गया"
   },
@@ -11977,9 +8013,6 @@
   },
   "totalAmount": {
     "message": "कुल रकम"
-  },
-  "totalReceived": {
-    "message": "टोटल प्राप्त हुआ"
   },
   "totalVolume": {
     "message": "कुल वॉल्यूम (24h)"
@@ -11992,9 +8025,6 @@
   },
   "transactionDataFunction": {
     "message": "फंक्शन"
-  },
-  "transactionDetailGasHeading": {
-    "message": "अनुमानित नेटवर्क शुल्क"
   },
   "transactionError": {
     "message": "ट्रांसेक्शन में गड़बड़ी। कॉन्ट्रैक्ट कोड में अपवाद डाला गया।"
@@ -12042,12 +8072,6 @@
   "transactionIncludesTypes": {
     "message": "इस ट्रांसेक्शन में शामिल है: $1."
   },
-  "transactionSettings": {
-    "message": "ट्रांसेक्शन संबंधी सेटिंग्स"
-  },
-  "transactionShield": {
-    "message": "ट्रांसेक्शन शील्ड"
-  },
   "transactionSubmitted": {
     "message": "ट्रांसेक्शन सबमिट किया गया"
   },
@@ -12059,9 +8083,6 @@
   },
   "transfer": {
     "message": "ट्रांसफ़र"
-  },
-  "transferCrypto": {
-    "message": "क्रिप्टो ट्रांसफ़र करें"
   },
   "transferFrom": {
     "message": "इससे ट्रांसफ़र करें"
@@ -12076,33 +8097,6 @@
   "trezorDesktopAppRequiredError": {
     "message": "Trezor इस्तेमाल करने के लिए Trezor Suite Desktop ज़रूरी है। कृपया Trezor Suite (suite.trezor.io) इंस्टॉल करें और खोलें और फिर से कोशिश करें।",
     "description": "An error message shown to the user during the hardware connect flow."
-  },
-  "tronBandwidth": {
-    "message": "बैंडविड्थ"
-  },
-  "tronBandwidthCoverageDescriptionPlural": {
-    "message": "~$1 TRX ट्रांसफर को कवर करता है",
-    "description": "$1 is the number of TRX transfers"
-  },
-  "tronBandwidthCoverageDescriptionSingular": {
-    "message": "1 TRX ट्रांसफर को कवर करता है"
-  },
-  "tronDailyResources": {
-    "message": "दैनिक संसाधन"
-  },
-  "tronDailyResourcesDescription": {
-    "message": "यह आपके स्टेक किए गए TRX के आधार पर आपका डेली अलाउंस है। आपको रोज़ $1 बैंडविड्थ फ्री मिलता है।",
-    "description": "$1 is the maximum bandwidth value"
-  },
-  "tronEnergy": {
-    "message": "ऊर्जा"
-  },
-  "tronEnergyCoverageDescriptionPlural": {
-    "message": "~$1 USDT ट्रांसफर को कवर करता है",
-    "description": "$1 is the number of USDT transfers"
-  },
-  "tronEnergyCoverageDescriptionSingular": {
-    "message": "1 USDT ट्रांसफर को कवर करता है"
   },
   "troubleConnectingToLedgerU2FOnFirefox": {
     "message": "हमें आपके Ledger को जोड़ने में समस्या आ रही है। $1",
@@ -12193,21 +8187,11 @@
     "message": "एक अनपेक्षित गड़बड़ी हुई।",
     "description": "This is a fallback error message used for unexpected errors."
   },
-  "unifiedSwapAllowSwappingOf": {
-    "message": "स्वैपिंग के लिए $3 पर $1 $2 तक सटीक पहुंच की अनुमति दें"
-  },
-  "unifiedSwapFromTo": {
-    "message": "$1 $2 से $3 में स्वैप करें",
-    "description": "Tells a user that they need to confirm on their hardware wallet a swap of 2 tokens. $1 is a source token and $2 is a destination token"
-  },
   "units": {
     "message": "यूनिट्स"
   },
   "unknown": {
     "message": "अज्ञात"
-  },
-  "unknownCollection": {
-    "message": "अनाम संग्रह"
   },
   "unknownNetworkForGatorPermissions": {
     "message": "अज्ञात नेटवर्क",
@@ -12320,9 +8304,6 @@
   "useNftDetection": {
     "message": "ऑटोडिटेक्ट NFT"
   },
-  "useNftDetectionDescription": {
-    "message": "सभी NFT दिखाता है, जिसमें स्कैमर द्वारा एयरड्रॉप किए गए नकली NFT भी शामिल हैं।"
-  },
   "usePassword": {
     "message": "पासवर्ड का उपयोग करें"
   },
@@ -12354,10 +8335,6 @@
   "value": {
     "message": "मूल्य"
   },
-  "variationalReferralSubtitle": {
-    "message": "MetaMask रेफरल कोड के साथ 90 दिनों के लिए +15% Omni पॉइंट्स और सिल्वर टियर पाएँ।",
-    "description": "The subtitle of the Variational referral confirmation screen"
-  },
   "version": {
     "message": "वर्शन"
   },
@@ -12368,16 +8345,8 @@
     "message": "$1 पर देखें",
     "description": "$1 is the block explorer name"
   },
-  "viewAll": {
-    "message": "सभी देखें",
-    "description": "Link to show the full list for a Discover search section."
-  },
   "viewOnBlockExplorer": {
     "message": "ब्लॉक एक्सप्लोरर पर देखें"
-  },
-  "viewOnCustomBlockExplorer": {
-    "message": "$1 को $2 पर देखें",
-    "description": "$1 is the action type. e.g (Account, Transaction, Swap) and $2 is the Custom Block Explorer URL"
   },
   "viewOnEtherscan": {
     "message": "Etherscan पर $1 देखें",
@@ -12386,23 +8355,12 @@
   "viewOnExplorer": {
     "message": "एक्सप्लोरर पर देखें"
   },
-  "viewOnOpensea": {
-    "message": "Opensea पर देखें"
-  },
   "viewTokenDetails": {
     "message": "टोकन का विवरण देखें"
-  },
-  "viewXMore": {
-    "message": "$1 और देखें",
-    "description": "Link to show remaining Discover search results. $1 is the hidden result count."
   },
   "viewinExplorer": {
     "message": "एक्सप्लोरर में $1 देखें",
     "description": "$1 is the action type. e.g (Account, Transaction, Swap)"
-  },
-  "vip": {
-    "message": "VIP $1",
-    "description": "$1 is the VIP tier number"
   },
   "visitSite": {
     "message": "साइट पर जाएं"
@@ -12450,9 +8408,6 @@
   "wantToAddThisNetwork": {
     "message": "इस नेटवर्क को जोड़ना चाहते हैं?"
   },
-  "wantsToAddThisAsset": {
-    "message": "यह निम्नलिखित एसेट को आपके वॉलेट में जोड़ने की अनुमति देता है।"
-  },
   "warning": {
     "message": "चेतावनी"
   },
@@ -12495,10 +8450,6 @@
   "whatsThis": {
     "message": "यह क्या है?"
   },
-  "withdrawTo": {
-    "message": "प्राप्त करें",
-    "description": "Label for pay with row in withdrawal flows showing the destination token"
-  },
   "withdrawing": {
     "message": "निकाला जा रहा है"
   },
@@ -12509,20 +8460,11 @@
     "message": "गलत पासवर्ड। कृपया फिर से प्रयास करें।",
     "description": "Displayed when the user enters an incorrect password"
   },
-  "year": {
-    "message": "वर्ष"
-  },
   "yes": {
     "message": "हां"
   },
-  "yesSwap": {
-    "message": "हाँ, स्वैप करें"
-  },
   "you": {
     "message": "आप"
-  },
-  "youApprove": {
-    "message": "आप एप्रूव करते हैं"
   },
   "youNeedToAllowCameraAccess": {
     "message": "आपको इस सुविधा का इस्तेमाल करने के लिए कैमरे तक पहुंच की अनुमति देने की आवश्यकता है।"
@@ -12531,9 +8473,6 @@
     "message": "आपको प्राप्त हुआ",
     "description": "Label indicating the amount and asset the user received."
   },
-  "youSell": {
-    "message": "आप बेचते हैं"
-  },
   "youSent": {
     "message": "आपने भेजा",
     "description": "Label indicating the amount and asset the user sent."
@@ -12541,10 +8480,6 @@
   "youWithdrew": {
     "message": "आपने विदड्रॉ किया",
     "description": "Label indicating the amount and asset the user withdrew."
-  },
-  "youllReceive": {
-    "message": "आपको प्राप्त होगा",
-    "description": "Row label on the Perps Withdraw confirmation showing the net receive amount after fees"
   },
   "yourActivity": {
     "message": "आपकी एक्टिविटी"

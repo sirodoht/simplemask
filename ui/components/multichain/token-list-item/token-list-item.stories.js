@@ -63,9 +63,7 @@ DefaultStory.decorators = [
     </Provider>
   ),
 ];
-DefaultStory.args = {
-  isStakeable: true,
-};
+DefaultStory.args = {};
 
 export const ChaosStory = (args) => (
   <div

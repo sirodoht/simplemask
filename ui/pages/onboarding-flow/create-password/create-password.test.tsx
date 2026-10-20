@@ -8,7 +8,6 @@ import initializedMockState from '../../../../test/data/mock-send-state.json';
 import {
   ONBOARDING_METAMETRICS,
   ONBOARDING_COMPLETION_ROUTE,
-  ONBOARDING_DOWNLOAD_APP_ROUTE,
   ONBOARDING_IMPORT_WITH_SRP_ROUTE,
   ONBOARDING_REVIEW_SRP_ROUTE,
   ONBOARDING_SETUP_PASSKEY_ROUTE,
@@ -1442,7 +1441,7 @@ describe('Onboarding Create Password', () => {
       },
     };
 
-    it('routes to download-app route after wallet creation in social login flow', async () => {
+    it('routes to completion after wallet creation in social login flow', async () => {
       jest.mocked(getIsPasskeyFeatureEnabled).mockReturnValue(false);
       const store = configureMockStore([thunk])(socialLoginState);
       const { queryByTestId } = renderWithProvider(
@@ -1467,7 +1466,7 @@ describe('Onboarding Create Password', () => {
 
       await waitFor(() => {
         expect(mockUseNavigate).toHaveBeenCalledWith(
-          ONBOARDING_DOWNLOAD_APP_ROUTE,
+          ONBOARDING_COMPLETION_ROUTE,
           { replace: true },
         );
       });

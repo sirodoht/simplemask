@@ -13,7 +13,6 @@ import { MOCK_ACCOUNT_EOA } from '../../../test/data/mock-accounts';
 import { RemoteFeatureFlagsState } from '../../../shared/lib/selectors/remote-feature-flags';
 import {
   type MultichainNetworkControllerState,
-  getNonEvmMultichainNetworkConfigurationsByChainId,
   getMultichainNetworkConfigurationsByChainId,
   getSelectedMultichainNetworkChainId,
   getSelectedMultichainNetworkConfiguration,
@@ -21,37 +20,6 @@ import {
   getEvmMultichainNetworkConfigurations,
   getAllMultichainNetworkConfigurations,
 } from './networks';
-
-jest.mock('./feature-flags', () => ({
-  getIsBitcoinSupportEnabled: jest.fn((state) => {
-    const { bitcoinAccounts } = state.metamask.remoteFeatureFlags;
-    // Keep this simple, only check if it's enabled or not.
-    return bitcoinAccounts?.enabled;
-  }),
-  getIsSolanaSupportEnabled: jest.fn((state) => {
-    const { solanaAccounts } = state.metamask.remoteFeatureFlags;
-    // Keep this simple, only check if it's enabled or not.
-    return solanaAccounts?.enabled;
-  }),
-  getIsSolanaTestnetSupportEnabled: jest.fn(
-    (state) => state.metamask.remoteFeatureFlags.solanaTestnetsEnabled,
-  ),
-  getIsBitcoinTestnetSupportEnabled: jest.fn(
-    (state) => state.metamask.remoteFeatureFlags.bitcoinTestnetsEnabled,
-  ),
-  getIsTronSupportEnabled: jest.fn((state) => {
-    const { tronAccounts } = state.metamask.remoteFeatureFlags;
-    // Keep this simple, only check if it's enabled or not.
-    return tronAccounts?.enabled;
-  }),
-  getIsTronTestnetSupportEnabled: jest.fn(
-    (state) => state.metamask.remoteFeatureFlags.tronTestnetsEnabled,
-  ),
-  getIsStellarSupportEnabled: jest.fn((state) => {
-    const { stellarAccounts } = state.metamask.remoteFeatureFlags;
-    return stellarAccounts?.enabled;
-  }),
-}));
 
 jest.mock('../../../shared/lib/selectors/multichain', () => ({
   getEnabledNetworks: jest.fn(
@@ -186,14 +154,6 @@ const mockState: TestState = {
 };
 
 describe('Multichain network selectors', () => {
-  describe('getNonEvmMultichainNetworkConfigurationsByChainId', () => {
-    it('ignores saved non-EVM network configurations', () => {
-      expect(
-        getNonEvmMultichainNetworkConfigurationsByChainId(mockState),
-      ).toStrictEqual({});
-    });
-  });
-
   describe('getMultichainNetworkConfigurationsByChainId', () => {
     it('returns all multichain network configurations by chain ID when Solana and Bitcoin are enabled', () => {
       expect(

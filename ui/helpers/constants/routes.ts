@@ -57,32 +57,6 @@ export const MFA_SETTINGS_ROUTE =
   '/settings/security-and-password/verification-methods';
 export const DEVELOPER_OPTIONS_ROUTE = DEBUG_ROUTE;
 export const EXPERIMENTAL_ROUTE = '/settings/experimental';
-export const TRANSACTION_SHIELD_ROUTE = '/settings/transaction-shield';
-export const TRANSACTION_SHIELD_MANAGE_PLAN_ROUTE =
-  '/settings/transaction-shield/manage-plan';
-export const TRANSACTION_SHIELD_MANAGE_PAST_PLAN_ROUTE =
-  '/settings/transaction-shield/manage-past-plan';
-export const TRANSACTION_SHIELD_CLAIMS = '/settings/transaction-shield/claims';
-// Transaction Shield Claims routes
-export const TRANSACTION_SHIELD_CLAIM_ROUTES = {
-  BASE: TRANSACTION_SHIELD_CLAIMS,
-  NEW: {
-    FULL: `${TRANSACTION_SHIELD_CLAIMS}/new-claim`,
-    RELATIVE: '/new-claim',
-  },
-  EDIT_DRAFT: {
-    FULL: `${TRANSACTION_SHIELD_CLAIMS}/edit-draft`,
-    RELATIVE: '/edit-draft',
-  },
-  VIEW_PENDING: {
-    FULL: `${TRANSACTION_SHIELD_CLAIMS}/view-pending-claim`,
-    RELATIVE: '/view-pending-claim',
-  },
-  VIEW_HISTORY: {
-    FULL: `${TRANSACTION_SHIELD_CLAIMS}/view-history-claim`,
-    RELATIVE: '/view-history-claim',
-  },
-} as const;
 export const ABOUT_US_ROUTE = '/settings/about-us';
 export const NETWORKS_ROUTE = '/networks';
 export const NETWORKS_FORM_ROUTE = '/networks/form';
@@ -123,7 +97,6 @@ export const HARDWARE_WALLET_REPAIR_ROUTE = '/hardware-wallet-repair';
 export const SEND_ROUTE = '/send';
 export const SEND_PAGE_ROUTE = `${SEND_ROUTE}/:page?` as const;
 export const REMOTE_ROUTE = '/remote';
-export const REMOTE_ROUTE_SETUP_SWAPS = '/remote/setup-swaps';
 export const REMOTE_ROUTE_SETUP_DAILY_ALLOWANCE =
   '/remote/setup-daily-allowance';
 export const PERMISSIONS = '/permissions';
@@ -152,13 +125,7 @@ export const SIGNATURE_REQUEST_PATH = '/signature-request';
 export const DECRYPT_MESSAGE_REQUEST_PATH = '/decrypt-message-request';
 export const ENCRYPTION_PUBLIC_KEY_REQUEST_PATH =
   '/encryption-public-key-request';
-export const CROSS_CHAIN_SWAP_ROUTE = '/cross-chain';
 export const TX_DETAILS_ROUTE = '/tx';
-export const PREPARE_SWAP_ROUTE = '/swaps/prepare-bridge-page';
-export const SWAP_PATH = `${CROSS_CHAIN_SWAP_ROUTE}${PREPARE_SWAP_ROUTE}`;
-export const PREPARE_SWAP_ASSETS_ROUTE = '/swaps/prepare-bridge-page/assets';
-export const SWAP_ASSETS_PATH = `${CROSS_CHAIN_SWAP_ROUTE}${PREPARE_SWAP_ASSETS_ROUTE}`;
-export const AWAITING_SIGNATURES_ROUTE = '/swaps/awaiting-signatures';
 export const HARDWARE_WALLET_SIGNATURES_ROUTE = '/hardware-wallet-signatures';
 export const ONBOARDING_ROUTE = '/onboarding';
 export const ONBOARDING_REVEAL_SRP_ROUTE = '/onboarding/reveal-recovery-phrase';
@@ -176,37 +143,15 @@ export const ONBOARDING_WELCOME_ROUTE = '/onboarding/welcome';
 export const ONBOARDING_METAMETRICS = '/onboarding/metametrics';
 export const ONBOARDING_ACCOUNT_EXIST = '/onboarding/account-exist';
 export const ONBOARDING_ACCOUNT_NOT_FOUND = '/onboarding/account-not-found';
-export const ONBOARDING_DOWNLOAD_APP_ROUTE = '/onboarding/download-app';
 export const INITIALIZE_EXPERIMENTAL_AREA = '/initialize/experimental-area';
 export const ONBOARDING_EXPERIMENTAL_AREA = '/onboarding/experimental-area';
 export const ONBOARDING_SETUP_PASSKEY_ROUTE = '/onboarding/setup-passkey';
 export const ONBOARDING_PASSKEY_PRF_MIGRATION_ROUTE =
   '/onboarding/passkey-prf-migration';
-export const BATCH_SELL_ROOT_ROUTE = '/batch-sell';
-export const BATCH_SELL_SELECT_ROUTE = `${BATCH_SELL_ROOT_ROUTE}/select`;
-export const BATCH_SELL_REVIEW_ROUTE = `${BATCH_SELL_ROOT_ROUTE}/review`;
 export const DEEP_LINK_ROUTE = '/link';
 
-/** Shown when Basic Functionality is off and user opens a route that requires it (e.g. swap, rewards). */
+/** Shown when Basic Functionality is off and user opens a route that requires it (e.g. network services). */
 export const BASIC_FUNCTIONALITY_OFF_ROUTE = '/basic-functionality-off';
-export const MONEY_HOME_ROUTE = '/money-home';
-export const MONEY_ACTIVITY_ROUTE = '/money-home/activity';
-export const MONEY_HOW_IT_WORKS_ROUTE = '/money-home/how-it-works';
-export const MONEY_TRANSACTION_DETAILS_ROUTE =
-  '/money-home/activity/:transactionId';
-export const MONEY_EARN_ROUTE = '/money-home/earn';
-
-/**
- * Builds the Money transaction details path for a given activity item id.
- *
- * @param transactionId - The activity item / transaction id.
- * @returns The concrete details route.
- */
-export function getMoneyTransactionDetailsRoute(transactionId: string): string {
-  return `${MONEY_ACTIVITY_ROUTE}/${encodeURIComponent(transactionId)}`;
-}
-
-export const SHIELD_PLAN_ROUTE = '/shield-plan';
 export const ACTIVITY_ROUTE = '/activity';
 
 export const ROUTES = [
@@ -505,11 +450,6 @@ export const ROUTES = [
   },
   { path: REMOTE_ROUTE, label: 'Remote Mode Page', trackInAnalytics: true },
   {
-    path: REMOTE_ROUTE_SETUP_SWAPS,
-    label: 'Remote Mode Setup Swaps Page',
-    trackInAnalytics: true,
-  },
-  {
     path: REMOTE_ROUTE_SETUP_DAILY_ALLOWANCE,
     label: 'Remote Mode Setup Daily Allowance Page',
     trackInAnalytics: true,
@@ -622,16 +562,6 @@ export const ROUTES = [
     trackInAnalytics: true,
   },
   {
-    path: SWAP_ASSETS_PATH,
-    label: 'Prepare Bridge Assets Page',
-    trackInAnalytics: false,
-  },
-  {
-    path: SWAP_PATH,
-    label: 'Prepare Bridge Page',
-    trackInAnalytics: true,
-  },
-  {
     path: DEEP_LINK_ROUTE,
     label: 'Deep link Redirect Page',
     trackInAnalytics: true,
@@ -709,23 +639,13 @@ export const ROUTES = [
     trackInAnalytics: false,
   },
   {
-    path: ONBOARDING_DOWNLOAD_APP_ROUTE,
-    label: 'Onboarding Download App',
-    trackInAnalytics: false,
-  },
-  {
     path: REVIEW_PERMISSIONS,
     label: 'Review Permissions',
     trackInAnalytics: false,
   },
   {
-    path: AWAITING_SIGNATURES_ROUTE,
-    label: 'Swaps Awaiting Signatures',
-    trackInAnalytics: false,
-  },
-  {
     path: HARDWARE_WALLET_SIGNATURES_ROUTE,
-    label: 'Swaps Hardware Wallet Signatures',
+    label: 'Hardware Wallet Signatures',
     trackInAnalytics: false,
   },
   {
@@ -752,16 +672,6 @@ export const ROUTES = [
     path: REVIEW_GATOR_PERMISSIONS_DETAILS_ROUTE,
     label: 'Review Gator Permissions',
     trackInAnalytics: false,
-  },
-  {
-    path: BATCH_SELL_SELECT_ROUTE,
-    label: 'Batch Sell Select',
-    trackInAnalytics: true,
-  },
-  {
-    path: BATCH_SELL_REVIEW_ROUTE,
-    label: 'Batch Sell Review',
-    trackInAnalytics: true,
   },
   {
     path: HARDWARE_WALLET_REPAIR_ROUTE,

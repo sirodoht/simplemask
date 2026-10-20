@@ -1,15 +1,10 @@
 import {
   ACTIVITY_ROUTE,
   DEFAULT_ROUTE,
-  MONEY_ACTIVITY_ROUTE,
-  MONEY_EARN_ROUTE,
-  MONEY_HOME_ROUTE,
-  MONEY_HOW_IT_WORKS_ROUTE,
 } from '../../../helpers/constants/routes';
 
 export type ActiveBottomNavTabs = {
   isHome: boolean;
-  isMoney: boolean;
   isActivity: boolean;
 };
 
@@ -23,19 +18,13 @@ export const getActiveBottomNavTabs = (
 ): ActiveBottomNavTabs => {
   return {
     isHome: pathname === DEFAULT_ROUTE,
-    isMoney:
-      pathname === MONEY_HOME_ROUTE ||
-      pathname === MONEY_ACTIVITY_ROUTE ||
-      pathname === MONEY_HOW_IT_WORKS_ROUTE ||
-      pathname === MONEY_EARN_ROUTE ||
-      pathname.startsWith(`${MONEY_ACTIVITY_ROUTE}/`),
     isActivity: pathname === ACTIVITY_ROUTE,
   };
 };
 
 /**
  * Returns true when the pathname corresponds to one of the bottom nav
- * bar tabs (Home, Activity, Perps, Money).
+ * bar tabs (Home and Activity).
  *
  * @param pathname - The current location pathname.
  */

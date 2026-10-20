@@ -79,19 +79,6 @@ export type MultichainNetworkConfigState =
     NetworksWithTransactionActivityByAccountsState &
     RemoteFeatureFlagsState &
     AccountsState;
-export const getIsNonEvmNetworksEnabled = (_state: unknown) => ({
-  bitcoinEnabled: false,
-  solanaEnabled: false,
-  tronEnabled: false,
-  stellarEnabled: false,
-});
-const EMPTY_NON_EVM_NETWORKS: Record<
-  CaipChainId,
-  InternalMultichainNetworkConfiguration
-> = {};
-export const getNonEvmMultichainNetworkConfigurationsByChainId = (
-  _state: unknown,
-) => EMPTY_NON_EVM_NETWORKS;
 
 /**
  * Returns all EVM networks converted to multichain network configuration format.
@@ -122,24 +109,9 @@ export const getEvmMultichainNetworkConfigurations = createSelector(
     return evmNetworks;
   },
 );
-
-/**
- * Returns all multichain network configurations (both EVM and non-EVM) by chain ID.
- * This selector provides stable references when the underlying data hasn't changed.
- */
-export const getAllMultichainNetworkConfigurations = createSelector(
-  getNonEvmMultichainNetworkConfigurationsByChainId,
-  getEvmMultichainNetworkConfigurations,
-  (
-    nonEvmNetworkConfigurationsByChainId,
-    evmNetworks,
-  ): Record<CaipChainId, InternalMultichainNetworkConfiguration> => {
-    return {
-      ...nonEvmNetworkConfigurationsByChainId,
-      ...evmNetworks,
-    };
-  },
-);
+/** EVM networks in CAIP format. */
+export const getAllMultichainNetworkConfigurations =
+  getEvmMultichainNetworkConfigurations;
 
 /**
  * Returns a tuple of [multichain networks, EVM network configurations].

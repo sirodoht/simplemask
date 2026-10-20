@@ -140,8 +140,8 @@ describe('Feature Flag Registry', () => {
         (item) => Object.keys(item as Record<string, unknown>)[0],
       );
 
-      expect(flagNames).toContain('addSolanaAccount');
-      expect(flagNames).toContain('bridgeConfig');
+      expect(flagNames).not.toContain('addSolanaAccount');
+      expect(flagNames).not.toContain('bridgeConfig');
       expect(flagNames).toContain('smartTransactionsNetworks');
     });
 
@@ -224,8 +224,8 @@ describe('Feature Flag Registry', () => {
 
     it('includes known flags with correct values', () => {
       const defaults = getProductionRemoteFlagDefaults();
-      expect(defaults.addBitcoinAccount).toBe(false);
-      expect(defaults.addSolanaAccount).toBe(true);
+      expect(defaults.extensionTransactionLabels).toBe(false);
+      expect(defaults.addSolanaAccount).toBeUndefined();
     });
 
     it('only includes remote production flags', () => {
@@ -240,10 +240,10 @@ describe('Feature Flag Registry', () => {
 
   describe('getRegistryEntry', () => {
     it('returns the entry for a known flag', () => {
-      const entry = getRegistryEntry('addSolanaAccount');
+      const entry = getRegistryEntry('extensionTransactionLabels');
       expect(entry).toBeDefined();
-      expect(entry?.name).toBe('addSolanaAccount');
-      expect(entry?.productionDefault).toBe(true);
+      expect(entry?.name).toBe('extensionTransactionLabels');
+      expect(entry?.productionDefault).toBe(false);
     });
 
     it('returns undefined for an unknown flag', () => {

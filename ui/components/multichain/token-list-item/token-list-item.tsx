@@ -65,7 +65,6 @@ import { TokenWithFiatAmount } from '../../app/assets/types';
 import { useDispatch } from '../../../store/hooks';
 import { getAvatarNetworkStyle } from '../../../helpers/utils/accounts';
 import { PercentageChange } from './price/percentage-change/percentage-change';
-import { StakeableLink } from './stakeable-link';
 
 type MarketDataMap = ReturnType<typeof getMarketData>;
 type CurrencyRatesMap = ReturnType<typeof getCurrencyRates>;
@@ -100,7 +99,6 @@ type TokenListItemProps = {
   title: string;
   tooltipText?: string;
   isNativeCurrency?: boolean;
-  isStakeable?: boolean;
   isTitleNetworkName?: boolean;
   isTitleHidden?: boolean;
   tokenChainImage?: string;
@@ -140,7 +138,6 @@ export const TokenListItemComponent = ({
   tokenChainImage,
   chainId,
   isNativeCurrency = false,
-  isStakeable = false,
   isTitleNetworkName = false,
   isTitleHidden = false,
   address = null,
@@ -357,9 +354,6 @@ export const TokenListItemComponent = ({
                     ellipsis
                   >
                     {tokenMainTitleToDisplay}
-                    {isStakeable && (
-                      <StakeableLink chainId={chainId} symbol={tokenSymbol} />
-                    )}
                   </Text>
                 </Tooltip>
               ) : (
@@ -369,9 +363,6 @@ export const TokenListItemComponent = ({
                   ellipsis
                 >
                   {tokenMainTitleToDisplay}
-                  {isStakeable && (
-                    <StakeableLink chainId={chainId} symbol={tokenSymbol} />
-                  )}
                 </Text>
               )}
               {isRWAToken ? (
@@ -400,7 +391,6 @@ export const TokenListItemComponent = ({
                 variant={TextVariant.bodyMd}
                 textAlign={TextAlign.End}
                 data-testid="multichain-token-list-item-secondary-value"
-                ellipsis={isStakeable}
                 isHidden={privacyMode}
                 length={SensitiveTextLength.Medium}
               >

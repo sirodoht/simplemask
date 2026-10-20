@@ -85,24 +85,6 @@ const createTestnetState = (): ReturnType<typeof createStateOverrides> =>
     },
   });
 
-const createValidSwapState = (): ReturnType<typeof createStateOverrides> =>
-  createStateOverrides({
-    useExternalServices: true,
-    selectedNetworkClientId: 'testNetworkConfigurationId', // This points to mainnet in mock state
-  });
-
-const expectSwapButtonState = (enabled: boolean): HTMLElement => {
-  const swapButton = screen.getByRole('button', {
-    name: messages.swapTokens.message,
-  });
-  if (enabled) {
-    expect(swapButton).not.toBeDisabled();
-  } else {
-    expect(swapButton).toBeDisabled();
-  }
-  return swapButton;
-};
-
 describe('TransactionActivityEmptyState', () => {
   const middleware = [thunk];
 
@@ -148,7 +130,7 @@ describe('TransactionActivityEmptyState', () => {
     expect(screen.getByTestId('activity-tab-empty-state')).toBeInTheDocument();
   });
 
-  it('renders swap description when the account has tokens', () => {
+  it('renders activity description when the account has tokens', () => {
     mockSelectAccountGroupBalanceForEmptyState.mockReturnValue(true);
     renderComponent();
     expect(

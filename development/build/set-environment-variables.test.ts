@@ -27,7 +27,6 @@ const SET_ENVIRONMENT_VARIABLES_DECLARED_VARIABLES = [
   'DEEP_LINK_HOSTS',
   'DEEP_LINK_PUBLIC_KEY',
   'SEEDLESS_ONBOARDING_ENABLED',
-  'METAMASK_SHIELD_ENABLED',
   'QR_SYNC_ENABLED',
   'COMPLIANCE_API_URL',
 ];
@@ -52,7 +51,6 @@ function getVariablesForSetEnvironmentVariables() {
     DEEP_LINK_HOSTS: 'deep-link.example.test,deep-link-alt.example.test',
     DEEP_LINK_PUBLIC_KEY: 'public-key',
     SEEDLESS_ONBOARDING_ENABLED: 'false',
-    METAMASK_SHIELD_ENABLED: 'false',
     QR_SYNC_ENABLED: 'false',
     COMPLIANCE_API_URL: 'https://compliance.example.test',
   });

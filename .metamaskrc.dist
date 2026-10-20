@@ -7,12 +7,6 @@ INFURA_PROJECT_ID=00000000000
 ; Set this to `true` to enable Seedless onboarding (Social login flow)
 SEEDLESS_ONBOARDING_ENABLED='false'
 
-; Set this to `true` to enable Metamask Shield
-METAMASK_SHIELD_ENABLED='false'
-
-; Set to `true` to include PerpsController and perps features.
-; main and experimental builds have this enabled by default; beta and flask do not.
-
 ; Set this to `true` to enable Passkey/Biometrics unlock for SRP wallets
 PASSKEY_ENABLED='false'
 
@@ -37,12 +31,9 @@ INFURA_STORYBOOK_PROJECT_ID=
 
 ;PASSWORD=METAMASK PASSWORD
 ;SEGMENT_WRITE_KEY=
-; Override the Bridge API base URL (e.g. to point at a local server or a
-; one-off environment). Takes precedence over the environment-based mapping.
-;BRIDGE_USE_CUSTOM_BASE_URL=
 ;ANALYTICS_DATA_DELETION_SOURCE_ID=
 ;ANALYTICS_DATA_DELETION_ENDPOINT=
-;SWAPS_USE_DEV_APIS=
+;GAS_USE_DEV_APIS=
 ;PORTFOLIO_URL=
 ;TRANSACTION_SECURITY_PROVIDER=
 
@@ -98,9 +89,6 @@ BLOCKAID_PUBLIC_KEY=
 ; Note: Properties are shallow merged into the manifest.json file at build time.
 ;MANIFEST_OVERRIDES=.manifest-overrides.json
 
-; Set this to `true` to enable Metamask Shield
-; METAMASK_SHIELD_ENABLED='false'
-
 ; Set this to `true` to enable `AuthenticationController` environment config to match the extension's build type. If set to `true`, `beta` and `uat` builds will result in using `Env.UAT`. Leaving it to `false` or unset will use `Env.PRD`.
 ; FORCE_AUTH_MATCH_BUILD='false'
 
@@ -109,7 +97,7 @@ BLOCKAID_PUBLIC_KEY=
 ; at DEV backends. Defaults to prod, and is ignored outside local development
 ; (`yarn start`) builds. Restart `yarn start` after changing.
 ; Enabling DEV will break authenticated services that still talk to PRD
-; (notifications, shield, money-account, bridge, perps). After flipping,
+; (notifications). After flipping,
 ; clear the auth session from Settings → Debug → Backup and sync.
 ; MM_DEV_API_ENV=dev
 
@@ -129,15 +117,3 @@ NEW_HARDWARE_WALLET_ONBOARDING='false'
 ; transaction has balance changes, bypassing the trust signal check.
 ; Intended for local development and QA only.
 ;FORCE_ENFORCED_SIMULATIONS='true'
-
-; Set to `true` to inject curated Money Home activity rows (deposits,
-; converts, receives, sends — including pending and failed) so the Activity
-; list UI can be reviewed without live deposit/withdraw. Remote flag
-; `moneyActivityMockDataEnabled` takes precedence when it is a boolean.
-; Rebuild after changing this value.
-;MM_MONEY_ACTIVITY_MOCK_DATA_ENABLED='true'
-
-; Set to `true` so Money activity rows navigate to the transaction details
-; page. Remote flag `moneyEnableActivityDetails` takes precedence when it
-; is a boolean. Rebuild after changing this value.
-;MM_MONEY_ENABLE_ACTIVITY_DETAILS='true'

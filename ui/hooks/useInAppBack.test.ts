@@ -1,6 +1,6 @@
 import { describe, expect, it, jest, beforeEach } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
-import { MONEY_HOME_ROUTE, PREVIOUS_ROUTE } from '../helpers/constants/routes';
+import { DEFAULT_ROUTE, PREVIOUS_ROUTE } from '../helpers/constants/routes';
 import { useInAppBack } from './useInAppBack';
 
 const mockNavigate = jest.fn();
@@ -19,7 +19,7 @@ describe('useInAppBack', () => {
   it('goes back when the page was reached from another in-app route', () => {
     mockUseLocation.mockReturnValue({ key: 'in-app-entry' });
 
-    const { result } = renderHook(() => useInAppBack(MONEY_HOME_ROUTE));
+    const { result } = renderHook(() => useInAppBack(DEFAULT_ROUTE));
     result.current();
 
     expect(mockNavigate).toHaveBeenCalledWith(PREVIOUS_ROUTE);
@@ -28,10 +28,10 @@ describe('useInAppBack', () => {
   it('replaces with the fallback when the page is the first route entry', () => {
     mockUseLocation.mockReturnValue({ key: 'default' });
 
-    const { result } = renderHook(() => useInAppBack(MONEY_HOME_ROUTE));
+    const { result } = renderHook(() => useInAppBack(DEFAULT_ROUTE));
     result.current();
 
-    expect(mockNavigate).toHaveBeenCalledWith(MONEY_HOME_ROUTE, {
+    expect(mockNavigate).toHaveBeenCalledWith(DEFAULT_ROUTE, {
       replace: true,
       state: { fromFreshTab: true },
     });
@@ -43,10 +43,10 @@ describe('useInAppBack', () => {
       state: { fromFreshTab: true },
     });
 
-    const { result } = renderHook(() => useInAppBack(MONEY_HOME_ROUTE));
+    const { result } = renderHook(() => useInAppBack(DEFAULT_ROUTE));
     result.current();
 
-    expect(mockNavigate).toHaveBeenCalledWith(MONEY_HOME_ROUTE, {
+    expect(mockNavigate).toHaveBeenCalledWith(DEFAULT_ROUTE, {
       replace: true,
       state: { fromFreshTab: true },
     });
@@ -57,7 +57,7 @@ describe('useInAppBack', () => {
     const transition = jest.fn((navigateBack: () => void) => navigateBack());
 
     const { result } = renderHook(() =>
-      useInAppBack(MONEY_HOME_ROUTE, transition),
+      useInAppBack(DEFAULT_ROUTE, transition),
     );
     result.current();
 

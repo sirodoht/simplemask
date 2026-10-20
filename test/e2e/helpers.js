@@ -31,7 +31,6 @@ const {
   getServerMochaToBackground,
 } = require('./background-socket/server-mocha-to-background');
 const WebSocketRegistry = require('./websocket/registry').default;
-const { solanaWebSocketConfig } = require('./websocket/solana-mocks');
 const {
   accountActivityWebSocketConfig,
 } = require('./websocket/account-activity-mocks');
@@ -41,8 +40,6 @@ const {
   removeVirtualAuthenticator,
 } = require('./webdriver/virtual-authenticator');
 
-// Register each WebSocket service explicitly.
-WebSocketRegistry.register(solanaWebSocketConfig);
 WebSocketRegistry.register(accountActivityWebSocketConfig);
 
 const tinyDelayMs = 200;
@@ -237,7 +234,6 @@ async function withFixtures(options, testSuite) {
     ethConversionInUsd,
     monConversionInUsd,
     manifestFlags,
-    solanaWebSocketSpecificMocks = [],
     accountActivityWebSocketSpecificMocks = [],
     extendedTimeoutMultiplier = 1,
     unifiedEvmAccountsApiBalances,
@@ -297,30 +293,6 @@ async function withFixtures(options, testSuite) {
           // eslint-disable-next-line n/global-require, no-case-declarations -- load this module conditionally
           const { Anvil } = require('./seeder/anvil');
           localNode = new Anvil();
-          await localNode.start(nodeOptions);
-          localNodes.push(localNode);
-          break;
-
-        case 'solana':
-          // eslint-disable-next-line n/global-require, no-case-declarations -- load this module conditionally
-          const { SolanaNode } = require('./seeder/solana/node');
-          localNode = new SolanaNode();
-          await localNode.start(nodeOptions);
-          localNodes.push(localNode);
-          break;
-
-        case 'tron':
-          // eslint-disable-next-line n/global-require, no-case-declarations -- load this module conditionally
-          const { TronNode } = require('./seeder/tron/node');
-          localNode = new TronNode();
-          await localNode.start(nodeOptions);
-          localNodes.push(localNode);
-          break;
-
-        case 'bitcoin':
-          // eslint-disable-next-line n/global-require, no-case-declarations -- load this module conditionally
-          const { BitcoinNode } = require('./seeder/bitcoin/node');
-          localNode = new BitcoinNode();
           await localNode.start(nodeOptions);
           localNodes.push(localNode);
           break;
@@ -436,7 +408,6 @@ async function withFixtures(options, testSuite) {
 
     // Start all registered WebSocket servers and apply mocks
     await WebSocketRegistry.startAll({
-      [WEBSOCKET_SERVICES.solana]: { mocks: solanaWebSocketSpecificMocks },
       [WEBSOCKET_SERVICES.accountActivity]: {
         mocks: accountActivityWebSocketSpecificMocks,
       },

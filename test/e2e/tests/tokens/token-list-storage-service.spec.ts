@@ -17,8 +17,8 @@ import {
   mockFiatExchangeRates,
   mockPriceApiSupportedNetworks,
   mockSupportedVsCurrencies,
-} from '../btc/mocks/price-api';
-import { mockTokensV2SupportedNetworks } from '../btc/mocks/tokens-api';
+} from '../../mock-response-data/price-api';
+import { mockTokensV2SupportedNetworks } from '../../mock-response-data/tokens-api';
 import { mockTokenMetadataApis } from './utils/mocks';
 
 describe('Token List via StorageService', function () {

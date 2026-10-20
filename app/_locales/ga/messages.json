@@ -210,12 +210,6 @@
     "message": "Cuir $1 leis",
     "description": "$1 represents network name"
   },
-  "addNft": {
-    "message": "Cuir NFT leis"
-  },
-  "addNfts": {
-    "message": "Cuir NFTanna leis"
-  },
   "addRpcUrl": {
     "message": "Cuir URL RPC leis"
   },
@@ -224,9 +218,6 @@
   },
   "addSnapAccountsDescription": {
     "message": "Trí an ghné seo a chasadh air, beidh an rogha agat na Snaps cuntais Beta nua a chur leis go díreach ó do liosta cuntas. Má shuiteálann tú Snap cuntais, cuimhnigh gur seirbhís tríú páirtí í."
-  },
-  "addSuggestedNFTs": {
-    "message": "Cuir NFTanna molta leis"
   },
   "addSuggestedTokens": {
     "message": "Cuir comharthaí molta leis"
@@ -316,9 +307,6 @@
   },
   "alertAccountTypeUpgradeTitle": {
     "message": "Cineál cuntais"
-  },
-  "alertActionBuyWithNativeCurrency": {
-    "message": "Ceannaigh $1"
   },
   "alertActionUpdateGas": {
     "message": "Nuashonraigh teorainn gáis"
@@ -472,9 +460,6 @@
     "message": "$1 agus $2",
     "description": "$1 is the first item, $2 is the second item. Used in Snap Install Warning modal."
   },
-  "annual": {
-    "message": "Bliantúil"
-  },
   "appDescription": {
     "message": "An sparán cripte is iontaofa ar domhan",
     "description": "The description of the application"
@@ -536,12 +521,6 @@
   },
   "assetsDescription": {
     "message": "Braith comharthaí i do sparán go huathoibríoch, taispeáin NFTanna, agus faigh nuashonruithe baisce ar iarmhéid an chuntais"
-  },
-  "attemptToCancelSwapForFree": {
-    "message": "Iarracht an malartú a chealú saor in aisce"
-  },
-  "attributes": {
-    "message": "Tréithe"
   },
   "attributions": {
     "message": "Admhálacha"
@@ -666,10 +645,6 @@
     "message": "Sócmhainn",
     "description": "This is used with viewOnEtherscan and viewInExplorer e.g View Asset in Explorer"
   },
-  "blockExplorerSwapAction": {
-    "message": "Malartú",
-    "description": "This is used with viewOnEtherscan e.g View Swap on Etherscan"
-  },
   "blockExplorerUrl": {
     "message": "URL taiscéalaí blocála"
   },
@@ -701,74 +676,18 @@
   "blockies": {
     "message": "Blocaigh"
   },
-  "borrowed": {
-    "message": "Ar iasacht"
-  },
-  "boughtFor": {
-    "message": "Ceannaithe do"
-  },
   "bridge": {
     "message": "Droichead"
-  },
-  "bridgeAllowSwappingOf": {
-    "message": "Ceadaigh rochtain chruinn ar $1 $2 ar $3 le haghaidh droichid",
-    "description": "Shows a user that they need to allow a token for swapping on their hardware wallet"
   },
   "bridgeApproval": {
     "message": "Ceadaigh $1 don droichead",
     "description": "Used in the transaction display list to describe a transaction that is an approve call on a token that is to be bridged. $1 is the symbol of a token that has been approved."
-  },
-  "bridgeBlockExplorerLinkCopied": {
-    "message": "Nasc taiscéalaí blocála cóipeáilte!"
-  },
-  "bridgeConfirmTwoTransactions": {
-    "message": "Beidh ort 2 idirbheart a dheimhniú ar do sparán crua-earraí:"
-  },
-  "bridgeEnterAmount": {
-    "message": "Roghnaigh méid"
-  },
-  "bridgeFromTo": {
-    "message": "Droichead $1 $2 go $3",
-    "description": "Tells a user that they need to confirm on their hardware wallet a bridge. $1 is amount of source token, $2 is the source network, and $3 is the destination network"
-  },
-  "bridgeGasFeesSplit": {
-    "message": "Áirítear an dá idirbheart in aon táille líonra a luadh ar an scáileán roimhe seo agus roinnfear í."
-  },
-  "bridgeNoMMFee": {
-    "message": "Gan aon táille MM"
-  },
-  "bridgePriceImpact": {
-    "message": "Tionchar praghais"
-  },
-  "bridgePriceImpactTooltipTitle": {
-    "message": "Tionchar Praghsanna"
-  },
-  "bridgePriceImpactWarningTitle": {
-    "message": "Rabhadh Tionchair Praghsanna"
-  },
-  "bridgeSelectDestinationAccount": {
-    "message": "Roghnaigh cuntas ceann scríbe"
   },
   "bridgeSelectDifferentQuote": {
     "message": "Roghnaigh luachan difriúil le do thoil."
   },
   "bridgeSelectNetwork": {
     "message": "Roghnaigh líonra"
-  },
-  "bridgeSelectTokenAmountAndAccount": {
-    "message": "Roghnaigh comhartha, méid agus cuntas ceann scríbe"
-  },
-  "bridgeSelectTokenAndAmount": {
-    "message": "Roghnaigh comhartha agus méid"
-  },
-  "bridgeValidationInsufficientGasMessage": {
-    "message": "Níl go leor $1 agat chun an táille gáis don droichead seo a íoc. Cuir isteach méid níos lú nó ceannaigh níos mó $1."
-  },
-  "bridgeValidationInsufficientGasTitle": {
-    "message": "Teastaíonn níos mó $1 le haghaidh gásailín"
-  },
-  "bridging": {
-    "message": "Droicheadú"
   },
   "browserNotSupported": {
     "message": "Ní thacaítear le do bhrabhsálaí..."
@@ -778,10 +697,6 @@
   },
   "buy": {
     "message": "Ordú"
-  },
-  "buyMoreAsset": {
-    "message": "Ceannaigh níos mó $1",
-    "description": "$1 is the ticker symbol of a an asset the user is being prompted to purchase"
   },
   "bytes": {
     "message": "Bearta"
@@ -794,10 +709,6 @@
   },
   "cancelled": {
     "message": "Cealaithe"
-  },
-  "carouselAllCaughtUp": {
-    "message": "Tá sibh ar fad gafa suas!",
-    "description": "Message shown in carousel when all promotional slides have been dismissed"
   },
   "chainId": {
     "message": "Aitheantas Slabhra"
@@ -848,15 +759,8 @@
   "close": {
     "message": "Dún"
   },
-  "closeSlide": {
-    "message": "Dún $1",
-    "description": "Aria label for close button on carousel slides. $1 is the slide title"
-  },
   "coingecko": {
     "message": "CoinGecko"
-  },
-  "collectionName": {
-    "message": "Ainm an bhailiúcháin"
   },
   "comboNoOptions": {
     "message": "Níor aimsíodh aon roghanna",
@@ -1159,12 +1063,6 @@
   "contractInteraction": {
     "message": "Idirghníomhaíocht conartha"
   },
-  "convertTokenToNFTDescription": {
-    "message": "Tá braite againn gur NFT an tsócmhainn seo. Tá tacaíocht iomlán dhúchasach ag MetaMask anois do NFTanna. Ar mhaith leat é a bhaint de do liosta comharthaí agus é a chur leis mar NFT?"
-  },
-  "convertTokenToNFTExistDescription": {
-    "message": "Tá braite againn gur cuireadh an tsócmhainn seo leis mar NFT. Ar mhaith leat í a bhaint de do liosta comharthaí?"
-  },
   "copiedExclamation": {
     "message": "Cóipeáilte."
   },
@@ -1207,17 +1105,11 @@
   "createPasswordDetailsSocialReset": {
     "message": "Ní féidir le MetaMask é a athshocrú."
   },
-  "createPasswordMarketing": {
-    "message": "Faigh nuashonruithe táirgí, leideanna agus nuacht lena n-áirítear trí ríomhphost. Féadfaimid d’idirghníomhaíochtaí a úsáid chun feabhas a chur ar a bhfuil á roinnt againn."
-  },
   "createSnapAccountDescription": {
     "message": "Tá $1 ag iarraidh cuntas nua a chur le MetaMask."
   },
   "createSnapAccountTitle": {
     "message": "Cruthaigh cuntas"
-  },
-  "creatorAddress": {
-    "message": "Seoladh an chruthaitheora"
   },
   "criticalErrorResetMetaMaskState": {
     "message": "Athshocraigh Stádas Meitea-Masc"
@@ -1267,14 +1159,8 @@
   "customNetworks": {
     "message": "Líonraí saincheaptha"
   },
-  "customSlippage": {
-    "message": "Saincheaptha"
-  },
   "customTokenWarningInTokenDetectionNetwork": {
     "message": "Is féidir le duine ar bith comhartha a chruthú, lena n-áirítear leaganacha bréige de chomharthaí atá ann cheana a chruthú. Foghlaim faoi $1"
-  },
-  "customerSupport": {
-    "message": "tacaíocht do chustaiméirí"
   },
   "dappSuggested": {
     "message": "Suíomh molta"
@@ -1291,24 +1177,6 @@
   },
   "data": {
     "message": "Sonraí"
-  },
-  "dataCollectionForMarketing": {
-    "message": "Bailiú sonraí le haghaidh margaíochta"
-  },
-  "dataCollectionForMarketingDescription": {
-    "message": "Úsáidfimid MetaMetrics chun foghlaim conas a idirghníomhaíonn tú lenár gcumarsáid mhargaíochta. Féadfaimid nuacht ábhartha (cosúil le gnéithe táirgí agus ábhair eile) a roinnt."
-  },
-  "dataCollectionForMarketingDescriptionSocialLogin": {
-    "message": "Faigh nuashonruithe táirgí, leideanna agus nuacht - lena n-áirítear trí ríomhphost. Féadfaimid d’idirghníomhaíochtaí a úsáid chun feabhas a chur ar a bhfuil á roinnt againn."
-  },
-  "dataUnavailable": {
-    "message": "sonraí ar fáil"
-  },
-  "dateCreated": {
-    "message": "Dáta cruthaithe"
-  },
-  "debitCreditPurchaseOptions": {
-    "message": "Roghanna ceannaigh le cárta dochair nó creidmheasa"
   },
   "decimal": {
     "message": "Deicheamhach comhartha"
@@ -1379,9 +1247,6 @@
     "message": "Cuireadh anseo thú ag tríú páirtí, ní ag MetaMask. $1",
     "description": "$1 is the message 'deepLink_ContinueDescription'"
   },
-  "deepLink_theBuyPage": {
-    "message": "an leathanach ceannaigh"
-  },
   "deepLink_theHomePage": {
     "message": "an leathanach baile"
   },
@@ -1391,9 +1256,6 @@
   "deepLink_thePerpsPage": {
     "message": "an leathanach perps"
   },
-  "deepLink_theSwapsPage": {
-    "message": "an leathanach malartuithe"
-  },
   "defaultRpcUrl": {
     "message": "URL RPC réamhshocraithe"
   },
@@ -1402,22 +1264,6 @@
   },
   "defaultSettingsTitle": {
     "message": "Socruithe príobháideachta réamhshocraithe"
-  },
-  "defi": {
-    "message": "DeFi"
-  },
-  "defiEmptyDescription": {
-    "message": "Iasachtaigh, faigh iasacht, agus trádáil, díreach i do sparán."
-  },
-  "defiReferralCheckboxLabel": {
-    "message": "Lig do MetaMask cód atreoraithe a chur leis. Tá sé seo buan. Cuireann an suíomh lascainí ar fáil de réir a dtéarmaí féin. Gearrtar táille ar MetaMask.",
-    "description": "The text for the checkbox label in the DeFi referral confirmation screen"
-  },
-  "defiTabErrorContent": {
-    "message": "Déan iarracht cuairt a thabhairt arís níos déanaí."
-  },
-  "defiTabErrorTitle": {
-    "message": "Ní raibh muid in ann an leathanach seo a luchtú."
   },
   "delete": {
     "message": "Scrios"
@@ -1471,18 +1317,6 @@
     "message": "Cur síos ó $1",
     "description": "$1 represents the name of the snap"
   },
-  "destinationAccountPickerNoEligible": {
-    "message": "Ní bhfuarthas aon chuntais incháilithe"
-  },
-  "destinationAccountPickerNoMatching": {
-    "message": "Ní bhfuarthas aon chuntais chomhoiriúnacha"
-  },
-  "destinationAccountPickerSearchPlaceholderToMainnet": {
-    "message": "Seoladh glactha nó ENS"
-  },
-  "destinationAccountPickerSearchPlaceholderToSolana": {
-    "message": "Seoladh glactha"
-  },
   "details": {
     "message": "Sonraí"
   },
@@ -1530,21 +1364,6 @@
   "dontShowThisAgain": {
     "message": "Ná taispeáin seo arís"
   },
-  "downloadAppDescription": {
-    "message": "Tabhair MetaMask leat cibé áit a théann tú leis an aip shoghluaiste. Ina theannta sin, cas ar Face ID ionas go mbeidh rochtain agat i gcónaí, fiú má dhéanann tú dearmad ar do phasfhocal."
-  },
-  "downloadAppTitle": {
-    "message": "Scan an cód QR agus íoslódáil an aip"
-  },
-  "downloadMetaMaskMobileDescription": {
-    "message": "Ligeann Face ID ar ár n-aip duit dul isteach fiú má dhéanann tú dearmad ar do phasfhocal. Tabhair MetaMask leat cibé áit a théann tú!"
-  },
-  "downloadMetaMaskMobileQrNote": {
-    "message": "Scanáil an cód QR seo le tosú."
-  },
-  "downloadMetaMaskMobileTitle": {
-    "message": "Faigh ár n-aip soghluaiste"
-  },
   "downloadStateLogs": {
     "message": "Íoslódáil logaí stáit"
   },
@@ -1588,9 +1407,6 @@
   "durationSuffixYear": {
     "message": "Bl",
     "description": "Shortened form of 'year'"
-  },
-  "earn": {
-    "message": "Tuilleamh"
   },
   "edit": {
     "message": "Cuir in Eagar"
@@ -1667,9 +1483,6 @@
   "editSpendingCapSpecialCharError": {
     "message": "Cuir isteach uimhreacha amháin"
   },
-  "enableAutoDetect": {
-    "message": " Cumasaigh uathbhrath"
-  },
   "enableSmartContractAccount": {
     "message": "Cumasaigh cuntas conartha cliste"
   },
@@ -1678,10 +1491,6 @@
   },
   "enableSnap": {
     "message": "Cumasaigh"
-  },
-  "enableToken": {
-    "message": "cumasaigh $1",
-    "description": "$1 is a token symbol, e.g. ETH"
   },
   "enabled": {
     "message": "Cumasaithe"
@@ -1738,9 +1547,6 @@
   },
   "enterSymbol": {
     "message": "Cuir isteach siombail"
-  },
-  "enterTokenNameOrAddress": {
-    "message": "Cuir isteach ainm an chomhartha nó greamaigh an seoladh"
   },
   "enterYourPassword": {
     "message": "Cuir isteach do phasfhocal"
@@ -1825,9 +1631,6 @@
     "message": "Earráid le $1",
     "description": "$1 represents the name of the snap"
   },
-  "estimatedChanges": {
-    "message": "Athruithe measta"
-  },
   "estimatedFee": {
     "message": "Táille mheasta"
   },
@@ -1856,9 +1659,6 @@
   "experimental": {
     "message": "Turgnamhach"
   },
-  "exploreDefi": {
-    "message": "Déan iniúchadh ar Defi"
-  },
   "exportYourData": {
     "message": "Easpórtáil do shonraí"
   },
@@ -1871,9 +1671,6 @@
   "extendWalletWithSnaps": {
     "message": "Déan iniúchadh ar Snaps atá tógtha ag an bpobal chun do thaithí web3 a shaincheapadh",
     "description": "Banner description displayed on Snaps list page in Settings when less than 6 Snaps is installed."
-  },
-  "externalAccount": {
-    "message": "Cuntas Seachtrach"
   },
   "externalExtension": {
     "message": "Síneadh seachtrach"
@@ -1982,10 +1779,6 @@
   "form": {
     "message": "foirm"
   },
-  "freeTrialDays": {
-    "message": "$1 days free trial",
-    "description": "The $1 is the number of days"
-  },
   "from": {
     "message": "Ó"
   },
@@ -2062,15 +1855,6 @@
     "message": "(oidhreacht)",
     "description": "Text representing the MEW path"
   },
-  "hardwareWalletSubmissionWarningStep1": {
-    "message": "Bí cinnte go bhfuil do $1 plugáilte isteach agus roghnaigh an aip Ethereum."
-  },
-  "hardwareWalletSubmissionWarningStep2": {
-    "message": "Cumasaigh \"sonraí conartha cliste\" nó \"síniú dall\" ar do ghléas $1."
-  },
-  "hardwareWalletSubmissionWarningTitle": {
-    "message": "Sula gcliceálann tú ar Cuir Isteach:"
-  },
   "hardwareWallets": {
     "message": "Ceangail sparán crua-earraí"
   },
@@ -2115,12 +1899,6 @@
   },
   "highLowercase": {
     "message": "ard"
-  },
-  "highestCurrentBid": {
-    "message": "An tairiscint reatha is airde"
-  },
-  "highestFloorPrice": {
-    "message": "An praghas urláir is airde"
   },
   "history": {
     "message": "Stair"
@@ -2177,10 +1955,6 @@
   "honeypotTitle": {
     "message": "Pota Meala"
   },
-  "hyperliquidReferralSubtitle": {
-    "message": "Sábháil suas le 4% ar thrádálacha le cód atreoraithe MetaMask.",
-    "description": "The subtitle of the Hyperliquid referral confirmation screen"
-  },
   "id": {
     "message": "Aitheantas"
   },
@@ -2225,17 +1999,8 @@
   "importAnAccount": {
     "message": "Iompórtáil cuntas"
   },
-  "importNFT": {
-    "message": "Iompórtáil NFT"
-  },
-  "importNFTAddressToolTip": {
-    "message": "Ar OpenSea, mar shampla, ar leathanach an NFT faoi Shonraí, tá luach hipearnasctha gorm lipéadaithe 'Seoladh an Chonartha'. Má chliceálann tú air seo, tabharfar chuig seoladh an chonartha ar Etherscan thú; ag barr na láimhe clé den leathanach sin, ba chóir go mbeadh deilbhín lipéadaithe 'Conradh', agus ar dheis, sreang fhada litreacha agus uimhreacha. Seo seoladh an chonartha a chruthaigh do NFT. Cliceáil ar an deilbhín 'cóipeáil' ar dheis an seoladh, agus beidh sé agat ar do ghearrthaisce."
-  },
   "importNFTPage": {
     "message": "Iompórtáil leathanach NFT"
-  },
-  "importNFTTokenIdToolTip": {
-    "message": "Is aitheantóir uathúil é aitheantas NFT ós rud é nach bhfuil dhá NFT mar a chéile. Arís, ar OpenSea tá an uimhir seo faoi 'Sonraí'. Déan nóta de, nó cóipeáil í chuig do ghearrthaisce."
   },
   "importSecretRecoveryPhrase": {
     "message": "Iompórtáil Frása Rúnda Aisghabhála"
@@ -2367,16 +2132,6 @@
   "ipfsGateway": {
     "message": "Geata IPFS"
   },
-  "ipfsToggleModalDescriptionOne": {
-    "message": "Úsáidimid seirbhísí tríú páirtí chun íomhánna de do NFTanna atá stóráilte ar IPFS a thaispeáint, faisnéis a bhaineann le seoltaí ENS atá curtha isteach i mbarra seoltaí do bhrabhsálaí a thaispeáint, agus deilbhíní a fháil le haghaidh comharthaí éagsúla. D’fhéadfadh do sheoladh IP a bheith nochta do na seirbhísí seo nuair a bhíonn tú á n-úsáid."
-  },
-  "ipfsToggleModalDescriptionTwo": {
-    "message": "Má roghnaíonn tú Deimhnigh, cuirtear réiteach IPFS ar siúl. Is féidir leat é a mhúchadh i $1 ag am ar bith.",
-    "description": "$1 is the method to turn off ipfs"
-  },
-  "ipfsToggleModalSettings": {
-    "message": "Socruithe > Slándáil agus príobháideacht"
-  },
   "isSigningOrSubmitting": {
     "message": "Tá idirbheart roimhe seo fós á shíniú nó á chur isteach"
   },
@@ -2413,9 +2168,6 @@
   },
   "knownTokenWarning": {
     "message": "Cuirfidh an gníomh seo comharthaí in eagar atá liostaithe i do sparán cheana féin, ar féidir iad a úsáid chun fioscaireachta a dhéanamh ort. Ná ceadaigh ach amháin má tá tú cinnte go bhfuil sé i gceist agat athrú a dhéanamh ar a seasann na comharthaí seo dó. Foghlaim tuilleadh faoi $1"
-  },
-  "lastSold": {
-    "message": "Díolta go deireanach"
   },
   "learnHow": {
     "message": "Foghlaim conas"
@@ -2518,9 +2270,6 @@
   "link": {
     "message": "Nasc"
   },
-  "linkCentralizedExchanges": {
-    "message": "Ceangail do chuntais Coinbase nó Binance chun cripte a aistriú chuig MetaMask saor in aisce."
-  },
   "loading": {
     "message": "Ag lódáil..."
   },
@@ -2590,9 +2339,6 @@
   "mainnetToken": {
     "message": "Tá an seoladh seo ag teacht le seoladh comhartha Ethereum Mainnet aitheanta. Athsheiceáil seoladh an chonartha agus an líonra don chomhartha atá tú ag iarraidh a chur leis."
   },
-  "makeAnotherSwap": {
-    "message": "Cruthaigh malartú nua"
-  },
   "manageDefaultSettings": {
     "message": "Bainistigh socruithe réamhshocraithe"
   },
@@ -2661,9 +2407,6 @@
   "metamaskNotificationsAreOff": {
     "message": "Níl fógraí sparán gníomhach faoi láthair."
   },
-  "metamaskSwapsOfflineDescription": {
-    "message": "Tá cothabháil á déanamh ar MetaMask Swaps. Seiceáil ar ais ar ball."
-  },
   "metamaskVersion": {
     "message": "Leagan MetaMask"
   },
@@ -2678,15 +2421,6 @@
   },
   "metrics": {
     "message": "Méadrachtaí"
-  },
-  "minimumReceivedExplanation": {
-    "message": "An t-íosmhéid a gheobhaidh tú má athraíonn an praghas agus d’idirbheart á phróiseáil, bunaithe ar do shocrú sciorrtha. Tagann an meastachán ó sholáthraithe leachtachta, mar sin d’fhéadfadh an méid deiridh a bheith difriúil."
-  },
-  "minimumReceivedExplanationTitle": {
-    "message": "Íosmhéid a Fuarthas"
-  },
-  "minimumReceivedLabel": {
-    "message": "Íosmhéid faighte"
   },
   "mismatchedChainLinkText": {
     "message": "fíoraigh sonraí an líonra",
@@ -2708,9 +2442,6 @@
   "mismatchedRpcUrl": {
     "message": "De réir ár dtaifead, ní hionann luach URL an RPC a cuireadh isteach agus soláthraí aitheanta don ID slabhra seo."
   },
-  "month": {
-    "message": "mí"
-  },
   "monthly": {
     "message": "Míosúil"
   },
@@ -2720,9 +2451,6 @@
   "moreNetworks": {
     "message": "+ $1 líonraí breise",
     "description": "$1 is the number of networks"
-  },
-  "moreQuotes": {
-    "message": "Tuilleadh luachana"
   },
   "multichainAccountAddressCopied": {
     "message": "Seoladh cóipeáilte",
@@ -2766,12 +2494,6 @@
   },
   "multichainAddEthereumChainConfirmationDescription": {
     "message": "Tá tú ag cur an líonra seo le MetaMask agus ag tabhairt cead don suíomh seo é a úsáid."
-  },
-  "multichainQuoteCardRateExplanation": {
-    "message": "An ráta is fearr a fuair muid ó sholáthraithe, lena n-áirítear táillí soláthraithe agus táille $1% ar MetaMask."
-  },
-  "multichainQuoteCardRateLabel": {
-    "message": "Ráta"
   },
   "multipleSnapConnectionWarning": {
     "message": "Tá $1 ag iarraidh $2 Snaps a úsáid",
@@ -2910,12 +2632,6 @@
   "networkFee": {
     "message": "Táille líonra"
   },
-  "networkFeeExplanation": {
-    "message": "Braitheann táillí líonra ar cé chomh gnóthach is atá an líonra agus cé chomh casta is atá d’idirbheart."
-  },
-  "networkFeeExplanationTitle": {
-    "message": "Táille Líonra"
-  },
   "networkMenuHeading": {
     "message": "Roghnaigh líonra"
   },
@@ -2993,27 +2709,11 @@
   "newContract": {
     "message": "Conradh nua"
   },
-  "newNFTDetectedInImportNFTsMessageStrongText": {
-    "message": "Socruithe > Slándáil agus príobháideacht"
-  },
-  "newNFTDetectedInImportNFTsMsg": {
-    "message": "Chun Opensea a úsáid chun do NFTanna a fheiceáil, cuir 'Taispeáin Meáin NFT' ar siúl i $1.",
-    "description": "$1 is used for newNFTDetectedInImportNFTsMessageStrongText"
-  },
-  "newNFTDetectedInNFTsTabMessage": {
-    "message": "Lig do MetaMask NFTanna a bhrath agus a thaispeáint go huathoibríoch i do sparán."
-  },
-  "newNFTsAutodetected": {
-    "message": "Uathbhrath NFT"
-  },
   "newNetworkAdded": {
     "message": "Cuireadh “$1” leis go rathúil!"
   },
   "newNetworkEdited": {
     "message": "Rinneadh eagarthóireacht rathúil ar “$1”!"
-  },
-  "newNftAddedMessage": {
-    "message": "Cuireadh NFT leis go rathúil!"
   },
   "newPassword": {
     "message": "Pasfhocal nua"
@@ -3037,27 +2737,9 @@
   "next": {
     "message": "Ar Aghaidh"
   },
-  "nftAddFailedMessage": {
-    "message": "Ní féidir NFT a chur leis mar nach bhfuil na sonraí úinéireachta ag teacht le chéile. Cinntigh gur chuir tú an fhaisnéis cheart isteach."
-  },
   "nftAddressError": {
     "message": "Is NFT an comhartha seo. Cuir an $1 leis.",
     "description": "$1 is a clickable link with text defined by the 'importNFTPage' key"
-  },
-  "nftAlreadyAdded": {
-    "message": "Tá NFT curtha leis cheana féin."
-  },
-  "nftAutoDetectionEnabled": {
-    "message": "Uathbhrath NFT cumasaithe"
-  },
-  "nftEmptyDescription": {
-    "message": "Tá domhan mór NFTanna amuigh ansin. Tosaigh do bhailiúchán inniu."
-  },
-  "nftOptions": {
-    "message": "Roghanna NFT"
-  },
-  "nftTokenIdPlaceholder": {
-    "message": "Cuir isteach an aitheantas comhartha"
   },
   "nftWarningContent": {
     "message": "Tá tú ag tabhairt rochtana ar $1, lena n-áirítear aon cheann a d'fhéadfadh a bheith i do sheilbh amach anseo. Is féidir leis an bpáirtí ar an taobh eile na NFTanna seo a aistriú ó do sparán ag am ar bith gan iarraidh ort go dtí go gcuirfidh tú an cead seo ar ceal. $2",
@@ -3072,9 +2754,6 @@
   },
   "nfts": {
     "message": "NFTanna"
-  },
-  "nftsPreviouslyOwned": {
-    "message": "Úinéireacht Roimhe Seo"
   },
   "nickname": {
     "message": "Leasainm"
@@ -3096,9 +2775,6 @@
   },
   "noNetworksSelected": {
     "message": "Níl aon líonraí roghnaithe"
-  },
-  "noOptionsAvailableMessage": {
-    "message": "Níl an bealach trádála seo ar fáil faoi láthair. Bain triail as an méid, an líonra, nó an comhartha a athrú agus gheobhaimid an rogha is fearr."
   },
   "noSnaps": {
     "message": "Níl aon snaps suiteáilte agat."
@@ -3257,54 +2933,17 @@
   "notificationsSettingsPageAllowNotificationsLink": {
     "message": "Foghlaim conas a chosnaímid do phríobháideacht agus an ghné seo in úsáid agat."
   },
-  "numberOfTokens": {
-    "message": "Líon na gcomharthaí"
-  },
   "ofTextNofM": {
     "message": "de"
   },
   "off": {
     "message": "As"
   },
-  "offlineForMaintenance": {
-    "message": "As líne le haghaidh cothabhála"
-  },
   "ok": {
     "message": "Ceart go leor"
   },
   "on": {
     "message": "Ar"
-  },
-  "onboardedMetametricsAccept": {
-    "message": "Aontaím"
-  },
-  "onboardedMetametricsDisagree": {
-    "message": "Ní raibh maith agat"
-  },
-  "onboardedMetametricsKey1": {
-    "message": "Forbairtí is déanaí"
-  },
-  "onboardedMetametricsKey2": {
-    "message": "Gnéithe táirge"
-  },
-  "onboardedMetametricsKey3": {
-    "message": "Ábhair chur chun cinn ábhartha eile"
-  },
-  "onboardedMetametricsLink": {
-    "message": "MetaMetrics"
-  },
-  "onboardedMetametricsParagraph1": {
-    "message": "Chomh maith le $1, ba mhaith linn sonraí a úsáid chun tuiscint a fháil ar an gcaoi a n-idirghníomhaíonn tú le cumarsáid mhargaíochta.",
-    "description": "$1 represents the 'onboardedMetametricsLink' locale string"
-  },
-  "onboardedMetametricsParagraph2": {
-    "message": "Cuidíonn sé seo linn a bhfuil á roinnt againn leat a phearsantú, mar shampla:"
-  },
-  "onboardedMetametricsParagraph3": {
-    "message": "Cuimhnigh, ní dhíolaimid na sonraí a sholáthraíonn tú riamh agus is féidir leat rogha an diúltaithe a dhéanamh am ar bith."
-  },
-  "onboardedMetametricsTitle": {
-    "message": "Cabhraigh linn feabhas a chur ar do thaithí"
   },
   "onboardingAdvancedPrivacyIPFSDescription": {
     "message": "Leis an ngeata IPFS is féidir rochtain a fháil ar shonraí atá á óstáil ag tríú páirtithe agus iad a fheiceáil. Is féidir leat geata IPFS saincheaptha a chur leis nó leanúint ar aghaidh ag úsáid an gheata réamhshocraithe."
@@ -3346,14 +2985,8 @@
   "onboardingLoginFooterTermsOfUse": {
     "message": "Téarmaí Úsáide"
   },
-  "onboardingMetametricCheckboxDescriptionTwo": {
-    "message": "We’ll use this data to learn how you interact with our marketing communications. We may share relevant news (like product features)."
-  },
   "onboardingMetametricCheckboxTitleOne": {
     "message": "Bailigh sonraí úsáide bunúsacha"
-  },
-  "onboardingMetametricCheckboxTitleTwo": {
-    "message": "Nuashonruithe táirgí"
   },
   "onboardingMetametricsContinue": {
     "message": "Lean ar aghaidh"
@@ -3422,9 +3055,6 @@
   "otherSnaps": {
     "message": "snapanna eile",
     "description": "Used in the 'permission_rpc' message."
-  },
-  "others": {
-    "message": "daoine eile"
   },
   "outdatedBrowserNotification": {
     "message": "Tá do bhrabhsálaí as dáta. Mura ndéanann tú do bhrabhsálaí a nuashonrú, ní bheidh tú in ann paistí slándála agus gnéithe nua a fháil ó MetaMask."
@@ -3804,9 +3434,6 @@
   "price": {
     "message": "Praghas"
   },
-  "priceUnavailable": {
-    "message": "praghas ar fáil"
-  },
   "primaryType": {
     "message": "Cineál príomhúil"
   },
@@ -3860,12 +3487,6 @@
   "queued": {
     "message": "Sa scuaine"
   },
-  "rank": {
-    "message": "Céim"
-  },
-  "rateIncludesMMFee": {
-    "message": "Tá táille MM $1% san áireamh."
-  },
   "readdToken": {
     "message": "Is féidir leat an comhartha seo a chur leis arís amach anseo trí dhul go “Iompórtáil comhartha” i roghchlár roghanna do chuntais."
   },
@@ -3887,9 +3508,6 @@
   },
   "recipientAddressPlaceholderNew": {
     "message": "Cuir isteach seoladh poiblí (0x) nó ainm fearainn"
-  },
-  "recipientEditAriaLabel": {
-    "message": "Cuir an faighteoir in eagar"
   },
   "recoveryPhraseReminderBackupStart": {
     "message": "Cúltaca anois"
@@ -3937,15 +3555,6 @@
   },
   "removeKeyringSnapToolTip": {
     "message": "Rialaíonn an snap na cuntais, agus trína bhaint, bainfear na cuntais as MetaMask freisin, ach fanfaidh siad sa blockchain."
-  },
-  "removeNFT": {
-    "message": "Bain NFT"
-  },
-  "removeNftErrorMessage": {
-    "message": "Ní raibh muid in ann an NFT seo a bhaint."
-  },
-  "removeNftMessage": {
-    "message": "Baineadh NFT go rathúil!"
   },
   "removeSnap": {
     "message": "Bain Snap"
@@ -4072,9 +3681,6 @@
   },
   "revokeSimulationDetailsDesc": {
     "message": "Tá tú ag baint cead duine éigin comharthaí a chaitheamh ó do chuntas."
-  },
-  "reward": {
-    "message": "Luach saothair"
   },
   "rpcNameOptional": {
     "message": "Ainm RPC (Roghnach)"
@@ -4207,14 +3813,8 @@
   "selectAnAccountAlreadyConnected": {
     "message": "Tá an cuntas seo ceangailte le MetaMask cheana féin"
   },
-  "selectEnableDisplayMediaPrivacyPreference": {
-    "message": "Cas air Taispeáin Meáin NFT"
-  },
   "selectHdPath": {
     "message": "Roghnaigh cosán HD"
-  },
-  "selectNFTPrivacyPreference": {
-    "message": "Cumasaigh Uathbhrath NFT"
   },
   "selectPathHelp": {
     "message": "Mura bhfeiceann tú na cuntais a bhfuil súil agat leo, déan iarracht an cosán HD nó an líonra atá roghnaithe faoi láthair a athrú."
@@ -4246,9 +3846,6 @@
   "sendingAsset": {
     "message": "Ag seoladh $1"
   },
-  "sendingDisabled": {
-    "message": "Ní thacaítear le sócmhainní ERC-1155 NFT a sheoladh go fóill."
-  },
   "sendingNativeAsset": {
     "message": "Ag seoladh $1",
     "description": "$1 represents the native currency symbol for the current network (e.g. ETH or BNB)"
@@ -4278,189 +3875,6 @@
   "settingsSearchMatchingNotFound": {
     "message": "Ní bhfuarthas aon torthaí comhoiriúnacha."
   },
-  "shieldClaim": {
-    "message": "Cuir éileamh isteach"
-  },
-  "shieldClaimDescription": {
-    "message": "Cur síos ar an gcás"
-  },
-  "shieldClaimEmail": {
-    "message": "Ríomhphost"
-  },
-  "shieldClaimEmailHelpText": {
-    "message": "Úsáidfimid an ríomhphost seo chun tú a choinneáil ar an eolas faoi nuashonruithe."
-  },
-  "shieldClaimFileUploader": {
-    "message": "Uaslódáil Íomhá"
-  },
-  "shieldClaimFileUploaderHelpText": {
-    "message": "Má tá aon fhianaise bhreise agat, uaslódáil anseo í le do thoil."
-  },
-  "shieldClaimImpactedTxHash": {
-    "message": "Hais idirbhirt a ndearnadh difear dó"
-  },
-  "shieldClaimImpactedTxHashHelpText": {
-    "message": "Ar a dtugtar TXID, hais-aitheantas, nó aitheantóir idirbhirt freisin."
-  },
-  "shieldClaimImpactedTxHashHelpTextLink": {
-    "message": "An bhfuil cabhair uait chun é a aimsiú?"
-  },
-  "shieldClaimImpactedWalletAddress": {
-    "message": "Seoladh sparán atá buailte"
-  },
-  "shieldClaimInvalidEmail": {
-    "message": "Ríomhphost neamhbhailí"
-  },
-  "shieldClaimInvalidTxHash": {
-    "message": "Hais idirbhirt neamhbhailí"
-  },
-  "shieldClaimInvalidWalletAddress": {
-    "message": "Seoladh sparán neamhbhailí"
-  },
-  "shieldClaimReimbursementWalletAddress": {
-    "message": "Seoladh sparán le haghaidh aisíocaíochta"
-  },
-  "shieldClaimReimbursementWalletAddressHelpText": {
-    "message": "Cinntigh nach sparán atá i mbaol é seo."
-  },
-  "shieldClaimSubmit": {
-    "message": "Cuir éileamh isteach"
-  },
-  "shieldConfirmMembership": {
-    "message": "Deimhnigh ballraíocht"
-  },
-  "shieldCoverageAlertMessageChainNotSupported": {
-    "message": "Ní thacaítear leis an slabhra seo, mar sin níl sé faoi chosaint ag Transaction Shield. $1."
-  },
-  "shieldCoverageAlertMessageLearnHowCoverageWorks": {
-    "message": "Foghlaim conas a oibríonn clúdach"
-  },
-  "shieldCoverageAlertMessagePotentialRisks": {
-    "message": "Tá rioscaí féideartha ag baint leis an idirbheart seo, mar sin níl sé faoi chosaint ag Transaction Shield. $1."
-  },
-  "shieldCoverageAlertMessageSignatureNotSupported": {
-    "message": "Ní thacaítear leis an síniú seo, mar sin níl sé faoi chosaint ag Transaction Shield. $1."
-  },
-  "shieldCoverageAlertMessageTitle": {
-    "message": "Níl an t-idirbheart seo clúdaithe"
-  },
-  "shieldCoverageAlertMessageTxTypeNotSupported": {
-    "message": "Ní thacaítear leis an gcineál idirbhirt seo, mar sin níl sé faoi chosaint ag Transaction Shield. $1"
-  },
-  "shieldCoverageAlertMessageUnknown": {
-    "message": "Ní féidir an t-iarratas seo a fhíorú, mar sin níl sé faoi chosaint ag Transaction Shield. $1."
-  },
-  "shieldCovered": {
-    "message": "Clúdaithe"
-  },
-  "shieldEntryModalGetStarted": {
-    "message": "Tosaigh"
-  },
-  "shieldFooterAgreement": {
-    "message": "Trí leanúint ar aghaidh, aontaím le Sciath Idirbhirt $1."
-  },
-  "shieldNotCovered": {
-    "message": "Gan chlúdach"
-  },
-  "shieldPlanAnnual": {
-    "message": "Bliantúil"
-  },
-  "shieldPlanAnnualPrice": {
-    "message": "$1/bliain",
-    "description": "The $1 is the price of the annual plan"
-  },
-  "shieldPlanCard": {
-    "message": "Cárta"
-  },
-  "shieldPlanDetails": {
-    "message": "Sonraí an phlean"
-  },
-  "shieldPlanDetails1": {
-    "message": "Gan aon táille anois, bain triail as saor in aisce ar feadh $1 lá",
-    "description": "The $1 is the number of days"
-  },
-  "shieldPlanDetails3": {
-    "message": "Cosnaíonn sé do shócmhainní ó idirbhearta contúirteacha"
-  },
-  "shieldPlanMonthly": {
-    "message": "Míosúil"
-  },
-  "shieldPlanMonthlyPrice": {
-    "message": "$1/mí",
-    "description": "The $1 is the price of the monthly plan"
-  },
-  "shieldPlanPayWith": {
-    "message": "Íoc le"
-  },
-  "shieldPlanPayWithCard": {
-    "message": "Íoc le cárta"
-  },
-  "shieldPlanPayWithToken": {
-    "message": "Íoc le $1",
-    "description": "The $1 is token"
-  },
-  "shieldPlanPaymentTitle": {
-    "message": "Athraigh modh íocaíochta"
-  },
-  "shieldPlanSave": {
-    "message": "Sábháil 16%"
-  },
-  "shieldPlanSelectToken": {
-    "message": "Roghnaigh comhartha"
-  },
-  "shieldPlanTitle": {
-    "message": "Roghnaigh do phlean"
-  },
-  "shieldTx": {
-    "message": "Sciath Idirbhirt"
-  },
-  "shieldTxCancelDetails": {
-    "message": "Mura gcealaíonn tú, ní bheidh do sparán ná d’idirbhearta clúdaithe ag tosú le $1.",
-    "description": "The $1 is the date subscription ends"
-  },
-  "shieldTxMembershipActive": {
-    "message": "Ballraíocht ghníomhach"
-  },
-  "shieldTxMembershipBillingDetailsViewBillingHistory": {
-    "message": "Féach ar stair billeála"
-  },
-  "shieldTxMembershipCancel": {
-    "message": "Cealaigh ballraíocht"
-  },
-  "shieldTxMembershipCancelNotification": {
-    "message": "Cuirfear do bhallra�ocht ar ceal ar $1.",
-    "description": "The $1 is the date"
-  },
-  "shieldTxMembershipErrorPausedCardTooltip": {
-    "message": "Diúltaíodh do d’íocaíocht. Nuashonraigh do mhodh íocaíochta le go leanfaidh do chlúdach ar aghaidh."
-  },
-  "shieldTxMembershipErrorPausedCryptoTooltip": {
-    "message": "Iarmhéid neamhleor comharthaí i do sparán. Cuir barr leis chun clúdach a atosú."
-  },
-  "shieldTxMembershipFreeTrial": {
-    "message": "Triail saor in aisce"
-  },
-  "shieldTxMembershipId": {
-    "message": "Aitheantas Ball"
-  },
-  "shieldTxMembershipInactive": {
-    "message": "Ballraíocht neamhghníomhach"
-  },
-  "shieldTxMembershipPaused": {
-    "message": "Sosaithe"
-  },
-  "shieldTxMembershipRenew": {
-    "message": "Athnuachan ballraíochta"
-  },
-  "shieldTxMembershipResubscribe": {
-    "message": "Atosaigh ballraíocht"
-  },
-  "shieldTxMembershipSubmitCase": {
-    "message": "Cuir éileamh isteach"
-  },
-  "show": {
-    "message": "Taispeáin"
-  },
   "showAccount": {
     "message": "Taispeáin cuntas"
   },
@@ -4482,17 +3896,11 @@
   "showHexDataDescription": {
     "message": "Roghnaigh é seo chun an réimse sonraí heicsidheachúlach a thaispeáint ar an scáileán seolta"
   },
-  "showLess": {
-    "message": "Taispeáin níos lú"
-  },
   "showMore": {
     "message": "Taispeáin níos mó"
   },
   "showNativeTokenAsMainBalance": {
     "message": "Taispeáin an comhartha dúchasach mar phríomh-iarmhéid"
-  },
-  "showNft": {
-    "message": "Taispeáin NFT"
   },
   "showPermissions": {
     "message": "Taispeáin ceadanna"
@@ -4600,18 +4008,6 @@
   "skipDeepLinkInterstitial": {
     "message": "Ná taispeáin an scáileán idirmheánach agus naisc dhomhain á n-oscailt"
   },
-  "slippage": {
-    "message": "Sleamhnú"
-  },
-  "slippageAuto": {
-    "message": "Uath"
-  },
-  "slippageEditAriaLabel": {
-    "message": "Sleamhnú in eagar"
-  },
-  "slippageExplanation": {
-    "message": "An céatadán athraithe praghais atá tú sásta a cheadú sula gcuirtear d'idirbheart ar ceal."
-  },
   "smartAccount": {
     "message": "Cuntas cliste"
   },
@@ -4623,12 +4019,6 @@
   },
   "smartAccountUpgradeBannerTitle": {
     "message": "Athraigh go cuntas cliste"
-  },
-  "smartSwapsErrorNotEnoughFunds": {
-    "message": "Níl dóthain cistí ann le haghaidh malartú cliste."
-  },
-  "smartSwapsErrorUnavailable": {
-    "message": "Níl Smart Swaps ar fáil go sealadach."
   },
   "smartTransactions": {
     "message": "Idirbhearta Cliste"
@@ -5043,54 +4433,6 @@
   "strong": {
     "message": "Láidir"
   },
-  "stxCancelled": {
-    "message": "Theipfeadh ar an malartú"
-  },
-  "stxCancelledDescription": {
-    "message": "Theipfeadh ar d’idirbheart agus cuireadh ar ceal é chun tú a chosaint ó tháillí gáis neamhriachtanacha a íoc."
-  },
-  "stxCancelledSubDescription": {
-    "message": "Bain triail eile as do mhalartú. Beimid anseo chun tú a chosaint ar rioscaí comhchosúla an chéad uair eile."
-  },
-  "stxFailure": {
-    "message": "Theip ar an malartú"
-  },
-  "stxFailureDescription": {
-    "message": "Is féidir le hathruithe tobann sa mhargadh teipeanna a chur faoi deara. Má leanann an fhadhb, déan teagmháil le $1 le do thoil.",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
-  },
-  "stxPendingPrivatelySubmittingSwap": {
-    "message": "Ag cur isteach do Mhalartú go príobháideach..."
-  },
-  "stxPendingPubliclySubmittingSwap": {
-    "message": "Ag cur isteach do Mhalartán go poiblí..."
-  },
-  "stxSuccess": {
-    "message": "Malartú críochnaithe!"
-  },
-  "stxSuccessDescription": {
-    "message": "Tá do $1 ar fáil anois.",
-    "description": "$1 is a token symbol, e.g. ETH"
-  },
-  "stxSwapCompleteIn": {
-    "message": "Críochnófar an malartú i <",
-    "description": "'<' means 'less than', e.g. Swap will complete in < 2:59"
-  },
-  "stxTryingToCancel": {
-    "message": "Ag iarraidh do idirbheart a chealú..."
-  },
-  "stxUnknown": {
-    "message": "Stádas anaithnid"
-  },
-  "stxUnknownDescription": {
-    "message": "Tá idirbheart rathúil ach nílimid cinnte cad é. B’fhéidir gur tharla sé seo mar gheall ar idirbheart eile a chur isteach agus an malartú seo á phróiseáil."
-  },
-  "stxUserCancelled": {
-    "message": "Malartú curtha ar ceal"
-  },
-  "stxUserCancelledDescription": {
-    "message": "Tá do idirbheart curtha ar ceal agus níor íoc tú aon táillí gáis neamhriachtanacha."
-  },
   "submit": {
     "message": "Cuir isteach"
   },
@@ -5107,9 +4449,6 @@
   "suggestedTokenName": {
     "message": "Ainm molta:"
   },
-  "supplied": {
-    "message": "Soláthraithe"
-  },
   "support": {
     "message": "Tacaíocht"
   },
@@ -5122,22 +4461,6 @@
   "swap": {
     "message": "Malartú"
   },
-  "swapAdjustSlippage": {
-    "message": "Coigeartaigh an sleamhnú"
-  },
-  "swapAggregator": {
-    "message": "Comhiomlánaitheoir"
-  },
-  "swapAllowSwappingOf": {
-    "message": "Ceadaigh malartú $1",
-    "description": "Shows a user that they need to allow a token for swapping on their hardware wallet"
-  },
-  "swapAmountReceived": {
-    "message": "Méid ráthaithe"
-  },
-  "swapAmountReceivedInfo": {
-    "message": "Seo an méid íosta a gheobhaidh tú. Féadfaidh tú níos mó a fháil ag brath ar an méid a shleamhnaíonn tú."
-  },
   "swapAndSend": {
     "message": "Malartaigh & Seol"
   },
@@ -5145,248 +4468,20 @@
     "message": "Ceadaigh $1 le haghaidh malartuithe",
     "description": "Used in the transaction display list to describe a transaction that is an approve call on a token that is to be swapped.. $1 is the symbol of a token that has been approved."
   },
-  "swapAreYouStillThere": {
-    "message": "An bhfuil tú fós ann?"
-  },
-  "swapAreYouStillThereDescription": {
-    "message": "Táimid réidh chun na luachana is déanaí a thaispeáint duit nuair is mian leat leanúint ar aghaidh."
-  },
   "swapConfirmWithHwWallet": {
     "message": "Deimhnigh le do sparán crua-earraí"
-  },
-  "swapContractDataDisabledErrorDescription": {
-    "message": "San aip Ethereum ar do Ledger, téigh go \"Socruithe\" agus ceadaigh sonraí conartha. Ansin, déan iarracht arís ar do mhalartú."
-  },
-  "swapContractDataDisabledErrorTitle": {
-    "message": "Níl sonraí conartha cumasaithe ar do Ledger"
-  },
-  "swapCustom": {
-    "message": "saincheaptha"
-  },
-  "swapDecentralizedExchange": {
-    "message": "Malartán díláraithe"
-  },
-  "swapDirectContract": {
-    "message": "Conradh díreach"
-  },
-  "swapEditLimit": {
-    "message": "Teorainn in eagar"
-  },
-  "swapEnableDescription": {
-    "message": "Tá sé seo riachtanach agus tugann sé cead do MetaMask do $1 a mhalartú.",
-    "description": "Gives the user info about the required approval transaction for swaps. $1 will be the symbol of a token being approved for swaps."
-  },
-  "swapEnableTokenForSwapping": {
-    "message": "Cosnóidh sé seo $1 le haghaidh malartú",
-    "description": "$1 is for the 'enableToken' key, e.g. 'enable ETH'"
-  },
-  "swapEstimatedNetworkFees": {
-    "message": "Táillí líonra measta"
-  },
-  "swapEstimatedNetworkFeesInfo": {
-    "message": "Seo meastachán ar an táille líonra a úsáidfear chun do mhalartú a chríochnú. Féadfaidh an méid iarbhír athrú de réir choinníollacha an líonra."
-  },
-  "swapFailedErrorDescriptionWithSupportLink": {
-    "message": "Tarlaíonn teipeanna idirbheart agus táimid anseo chun cabhrú leat. Má leanann an fhadhb seo ar aghaidh, is féidir leat teagmháil a dhéanamh lenár dtacaíocht do chustaiméirí ag $1 le haghaidh tuilleadh cúnaimh.",
-    "description": "This message is shown to a user if their swap fails. The $1 will be replaced by support.metamask.io"
-  },
-  "swapFailedErrorTitle": {
-    "message": "Theip ar an malartú"
-  },
-  "swapFetchingQuoteNofN": {
-    "message": "Ag fáil luachan $1 de $2",
-    "description": "A count of possible quotes shown to the user while they are waiting for quotes to be fetched. $1 is the number of quotes already loaded, and $2 is the total number of resources that we check for quotes. Keep in mind that not all resources will have a quote for a particular swap."
-  },
-  "swapFetchingQuotes": {
-    "message": "Ag fáil luachana..."
-  },
-  "swapFetchingQuotesErrorDescription": {
-    "message": "Hmmm... chuaigh rud éigin mícheart. Déan iarracht arís, nó má leanann na hearráidí, déan teagmháil le tacaíocht do chustaiméirí."
   },
   "swapFetchingQuotesErrorTitle": {
     "message": "Earráid ag fáil luachana"
   },
-  "swapFromTo": {
-    "message": "An malartú ó $1 go $2",
-    "description": "Tells a user that they need to confirm on their hardware wallet a swap of 2 tokens. $1 is a source token and $2 is a destination token"
-  },
-  "swapGasFeesExplanation": {
-    "message": "Ní dhéanann MetaMask aon airgead ó tháillí gáis. Is meastacháin iad na táillí seo agus féadfaidh siad athrú bunaithe ar cé chomh gnóthach is atá an líonra agus cé chomh casta is atá idirbheart. Foghlaim tuilleadh $1.",
-    "description": "$1 is a link (text in link can be found at 'swapGasFeesSummaryLinkText')"
-  },
-  "swapGasFeesExplanationLinkText": {
-    "message": "anseo",
-    "description": "Text for link in swapGasFeesExplanation"
-  },
-  "swapGasFeesIncluded": {
-    "message": " San áireamh"
-  },
-  "swapGasFeesSplit": {
-    "message": "Tá táillí gáis ar an scáileán roimhe seo roinnte idir an dá idirbheart seo."
-  },
-  "swapIncludesMMFee": {
-    "message": "Áirítear táille $1% le haghaidh MetaMask.",
-    "description": "Provides information about the fee that MetaMask takes for swaps. $1 is a decimal number."
-  },
-  "swapLearnMore": {
-    "message": "Foghlaim tuilleadh faoi Mhalartuithe"
-  },
-  "swapLiquiditySourceInfo": {
-    "message": "Déanaimid cuardach ar fhoinsí leachtachta iolracha (malartáin, comhiomlánaitheoirí agus lucht déanta margaidh gairmiúla) chun rátaí malairte agus táillí líonra a chur i gcomparáid."
-  },
-  "swapMaxSlippage": {
-    "message": "Sleamhnú uasta"
-  },
-  "swapMetaMaskFee": {
-    "message": "Táille MetaMask"
-  },
-  "swapMetaMaskFeeDescription": {
-    "message": "Cuirtear an táille $1% san áireamh go huathoibríoch sa luachan seo. Íocann tú í mar mhalairt ar cheadúnas chun bogearraí comhiomlánaithe faisnéise soláthraí leachtachta MetaMask a úsáid.",
-    "description": "Provides information about the fee that MetaMask takes for swaps. $1 is a decimal number."
-  },
-  "swapNQuotesWithDot": {
-    "message": "Sleachta $1.",
-    "description": "$1 is the number of quotes that the user can select from when opening the list of quotes on the 'view quote' screen"
-  },
-  "swapOnceTransactionHasProcess": {
-    "message": "Cuirfear do $1 le do chuntas a luaithe a bheidh an t-idirbheart seo próiseáilte.",
-    "description": "This message communicates the token that is being transferred. It is shown on the awaiting swap screen. The $1 will be a token symbol."
-  },
-  "swapProcessing": {
-    "message": "Próiseáil"
-  },
-  "swapQuoteDetails": {
-    "message": "Sonraí luachana"
-  },
-  "swapQuoteSource": {
-    "message": "Foinse luachana"
-  },
-  "swapQuotesExpiredErrorDescription": {
-    "message": "Iarr luachana nua le do thoil chun na rátaí is déanaí a fháil."
-  },
-  "swapQuotesExpiredErrorTitle": {
-    "message": "Am scoir na luachana"
-  },
-  "swapQuotesNotAvailableDescription": {
-    "message": "Níl an bealach trádála seo ar fáil faoi láthair. Bain triail as an méid, an líonra, nó an comhartha a athrú agus gheobhaimid an rogha is fearr."
-  },
-  "swapQuotesNotAvailableErrorDescription": {
-    "message": "Bain triail as na socruithe méide nó sciorrtha a choigeartú agus déan iarracht arís."
-  },
   "swapQuotesNotAvailableErrorTitle": {
     "message": "Níl aon luachana ar fáil"
-  },
-  "swapRate": {
-    "message": "Ráta"
-  },
-  "swapReceiving": {
-    "message": "Ag fáil"
-  },
-  "swapReceivingInfoTooltip": {
-    "message": "Is meastachán é seo. Braitheann an méid cruinn ar an sciorradh."
-  },
-  "swapRequestForQuotation": {
-    "message": "Iarratas ar luachan"
-  },
-  "swapSelect": {
-    "message": "Roghnaigh"
-  },
-  "swapSelectAQuote": {
-    "message": "Roghnaigh luachan"
-  },
-  "swapSelectAToken": {
-    "message": "Roghnaigh comhartha"
-  },
-  "swapSelectQuotePopoverDescription": {
-    "message": "Seo thíos na luachana go léir a bailíodh ó fhoinsí leachtachta éagsúla."
-  },
-  "swapSelectToken": {
-    "message": "Roghnaigh comhartha"
-  },
-  "swapShowLatestQuotes": {
-    "message": "Taispeáin na luachana is déanaí"
-  },
-  "swapSlippageAutoDescription": {
-    "message": "Uathoibríoch"
-  },
-  "swapSlippageHighDescription": {
-    "message": "Meastar go bhfuil an sciorradh a iontráladh ($1%) an-ard agus go bhféadfadh drochráta a bheith mar thoradh air.",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageHighTitle": {
-    "message": "Sleamhnú ard"
-  },
-  "swapSlippageLowDescription": {
-    "message": "D’fhéadfadh luach chomh híseal seo ($1%) mainneachtain a bheith mar thoradh ar mhalartú",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageLowTitle": {
-    "message": "Sleamhnú íseal"
-  },
-  "swapSlippageNegativeDescription": {
-    "message": "Ní mór don sciorradh a bheith níos mó ná náid nó cothrom leis"
-  },
-  "swapSlippageNegativeTitle": {
-    "message": "Méadaigh an sleamhnú le leanúint ar aghaidh"
-  },
-  "swapSlippageOverLimitDescription": {
-    "message": "Ní mór don chaoinfhulaingt sleamhnáin a bheith 15% nó níos lú. Má tá sé níos airde ná sin, beidh drochráta mar thoradh air."
-  },
-  "swapSlippageOverLimitTitle": {
-    "message": "Sleamhnú an-ard"
-  },
-  "swapSlippagePercent": {
-    "message": "$1%",
-    "description": "$1 is the amount of % for slippage"
-  },
-  "swapSlippageTooltip": {
-    "message": "Má athraíonn an praghas idir an t-am a chuirtear d’ordú agus an t-am a dheimhnítear é, tugtar “sleamhnú” air. Cuirfear do mhalartú ar ceal go huathoibríoch má sháraíonn an sleamhnú do shocrú “lamháltas sleamhnú”."
-  },
-  "swapSlippageZeroDescription": {
-    "message": "Tá níos lú soláthraithe luachana gan aon sciorradh ann agus mar thoradh air sin beidh luachan níos lú iomaíoch."
-  },
-  "swapSlippageZeroTitle": {
-    "message": "Foinsiú soláthraithe gan aon sleamhnú"
-  },
-  "swapSource": {
-    "message": "Foinse leachtachta"
   },
   "swapSuggestedGasSettingToolTipMessage": {
     "message": "Is idirbhearta casta agus íogaire ó thaobh ama de iad malartuithe. Molaimid an táille gáis seo le haghaidh cothromaíocht mhaith idir costas agus muinín as malartú rathúil."
   },
-  "swapToConfirmWithHwWallet": {
-    "message": "le deimhniú le do sparán crua-earraí"
-  },
-  "swapTokenAvailable": {
-    "message": "Tá do $1 curtha le do chuntas.",
-    "description": "This message is shown after a swap is successful and communicates the exact amount of tokens the user has received for a swap. The $1 is a decimal number of tokens followed by the token symbol."
-  },
   "swapTokenNotAvailable": {
     "message": "Níl an comhartha ar fáil le malartú sa réigiún seo"
-  },
-  "swapTokens": {
-    "message": "Malartaigh comharthaí"
-  },
-  "swapTransactionComplete": {
-    "message": "Idirbheart críochnaithe"
-  },
-  "swapTwoTransactions": {
-    "message": "2 idirbheart"
-  },
-  "swapUnknown": {
-    "message": "Anaithnid"
-  },
-  "swapValidationInsufficientGasMessage": {
-    "message": "Níl go leor $1 agat chun an táille gáis a íoc don mhalartú seo. Cuir isteach méid níos lú nó ceannaigh níos mó $1."
-  },
-  "swapZeroSlippage": {
-    "message": "Sleamhnú 0%"
-  },
-  "swapsMaxSlippage": {
-    "message": "Caoinfhulaingt sleamhnáin"
-  },
-  "swapsViewInActivity": {
-    "message": "Féach i ngníomhaíocht"
   },
   "switch": {
     "message": "Lasc"
@@ -5430,9 +4525,6 @@
   "terms": {
     "message": "Téarmaí úsáide"
   },
-  "termsOfService": {
-    "message": "Téarmaí seirbhíse"
-  },
   "termsOfUseAgree": {
     "message": "Aontaigh"
   },
@@ -5467,9 +4559,6 @@
   "token": {
     "message": "Comhartha"
   },
-  "tokenAddress": {
-    "message": "Seoladh comhartha"
-  },
   "tokenAlreadyAdded": {
     "message": "Tá an comhartha curtha leis cheana féin."
   },
@@ -5488,9 +4577,6 @@
   "tokenList": {
     "message": "Liostaí comharthaí"
   },
-  "tokenMarketplace": {
-    "message": "Margadh comharthaí"
-  },
   "tokenPermissionCount": {
     "message": "Cead comhartha $1",
     "description": "$1 is the count of token permissions (singular form)"
@@ -5498,9 +4584,6 @@
   "tokenPermissionsCount": {
     "message": "Ceadanna comhartha $1",
     "description": "$1 is the count of token permissions (plural form)"
-  },
-  "tokenStandard": {
-    "message": "Caighdeán comharthaí"
   },
   "tokenSymbol": {
     "message": "Siombail chomhartha"
@@ -5510,9 +4593,6 @@
   },
   "tokens": {
     "message": "Comharthaí"
-  },
-  "tokensInCollection": {
-    "message": "Comharthaí sa bhailiúchán"
   },
   "tooltipSatusConnectedUpperCase": {
     "message": "Ceangailte"
@@ -5528,9 +4608,6 @@
   },
   "transactionDataFunction": {
     "message": "Feidhm"
-  },
-  "transactionDetailGasHeading": {
-    "message": "Táille gáis measta"
   },
   "transactionError": {
     "message": "Earráid idirbhirt. Caitheadh ​​eisceacht i gcód an chonartha."
@@ -5569,20 +4646,11 @@
   "transactionIncludesTypes": {
     "message": "Áirítear leis an idirbheart seo: $1."
   },
-  "transactionSettings": {
-    "message": "Socruithe idirbhirt"
-  },
-  "transactionShield": {
-    "message": "Sciath Idirbhirt"
-  },
   "transactions": {
     "message": "Idirbhearta"
   },
   "transfer": {
     "message": "Aistriú"
-  },
-  "transferCrypto": {
-    "message": "Aistrigh cripte"
   },
   "transferFrom": {
     "message": "Aistriú ó"
@@ -5651,21 +4719,11 @@
   "unapproved": {
     "message": "Gan cheadú"
   },
-  "unifiedSwapAllowSwappingOf": {
-    "message": "Ceadaigh rochtain chruinn ar $1 $2 ar $3 le haghaidh malartú"
-  },
-  "unifiedSwapFromTo": {
-    "message": "Malartaigh $1 $2 go $3",
-    "description": "Tells a user that they need to confirm on their hardware wallet a swap of 2 tokens. $1 is a source token and $2 is a destination token"
-  },
   "units": {
     "message": "aonaid"
   },
   "unknown": {
     "message": "Anaithnid"
-  },
-  "unknownCollection": {
-    "message": "Bailiúchán gan ainm"
   },
   "unknownNetworkForGatorPermissions": {
     "message": "Líonra anaithnid",
@@ -5802,19 +4860,12 @@
   "viewOnBlockExplorer": {
     "message": "Féach ar an iniúchóir bloc"
   },
-  "viewOnCustomBlockExplorer": {
-    "message": "Féach ar $1 ag $2",
-    "description": "$1 is the action type. e.g (Account, Transaction, Swap) and $2 is the Custom Block Explorer URL"
-  },
   "viewOnEtherscan": {
     "message": "Féach ar $1 ar Etherscan",
     "description": "$1 is the action type. e.g (Account, Transaction, Swap)"
   },
   "viewOnExplorer": {
     "message": "Féach ar taiscéalaí"
-  },
-  "viewOnOpensea": {
-    "message": "Féach ar Opensea"
   },
   "viewinExplorer": {
     "message": "Féach ar $1 in iniúchóir",
@@ -5859,9 +4910,6 @@
   },
   "wantToAddThisNetwork": {
     "message": "Ar mhaith leat an líonra seo a chur leis?"
-  },
-  "wantsToAddThisAsset": {
-    "message": "Ligeann sé seo an tsócmhainn seo a leanas a chur le do sparán."
   },
   "warning": {
     "message": "Rabhadh"
@@ -5912,17 +4960,11 @@
     "message": "Pasfhocal mícheart",
     "description": "Displayed when the user enters an incorrect password"
   },
-  "year": {
-    "message": "bliain"
-  },
   "yes": {
     "message": "Tá"
   },
   "you": {
     "message": "Tusa"
-  },
-  "youApprove": {
-    "message": "Ceadaíonn tú"
   },
   "youNeedToAllowCameraAccess": {
     "message": "Ní mór duit rochtain ceamara a cheadú chun an ghné seo a úsáid."

@@ -153,7 +153,6 @@ describe('Metamask onboarding (with social login)', function () {
         });
 
         const onboardingCompletePage = new OnboardingCompletePage(driver);
-        await onboardingCompletePage.displayDownloadAppPageAndContinue();
         await onboardingCompletePage.checkPageIsLoaded();
         await onboardingCompletePage.checkWalletReadyMessageIsDisplayed();
         await onboardingCompletePage.completeOnboarding();
@@ -186,7 +185,6 @@ describe('Metamask onboarding (with social login)', function () {
         });
 
         const onboardingCompletePage = new OnboardingCompletePage(driver);
-        await onboardingCompletePage.displayDownloadAppPageAndContinue();
         await onboardingCompletePage.checkPageIsLoaded();
         await onboardingCompletePage.checkWalletReadyMessageIsDisplayed();
         await onboardingCompletePage.completeOnboarding();

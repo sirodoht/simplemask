@@ -81,6 +81,6 @@ describe('FundingMethodModal', () => {
     expect(onClickReceive).toHaveBeenCalled();
     expect(
       document.querySelector('[data-testid="funding-method-modal"]'),
-    ).not.toHaveTextContent(messages.tokenMarketplace.message);
+    ).not.toHaveTextContent('Token marketplace');
   });
 });

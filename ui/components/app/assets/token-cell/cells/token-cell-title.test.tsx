@@ -10,28 +10,12 @@ jest.mock('../../asset-list/cells/asset-title', () => ({
   ),
 }));
 
-jest.mock('../../../../multichain/token-list-item/stakeable-link', () => ({
-  StakeableLink: ({ chainId, symbol }: { chainId: string; symbol: string }) => (
-    <div
-      data-testid="stakeable-link"
-      data-chain-id={chainId}
-      data-symbol={symbol}
-    >
-      Stake
-    </div>
-  ),
-}));
-
 jest.mock('../../stock-badge/stock-badge', () => ({
   StockBadge: ({ isMarketClosed }: { isMarketClosed: boolean }) => (
     <span data-testid="stock-badge" data-market-closed={String(isMarketClosed)}>
       Stock
     </span>
   ),
-}));
-
-jest.mock('../../asset-inactive-badge/asset-inactive-badge', () => ({
-  AssetInactiveBadge: () => <span data-testid="asset-inactive-badge" />,
 }));
 
 jest.mock('../../../security-trust/security-trust-inline-badge', () => ({
@@ -74,7 +58,6 @@ describe('TokenCellTitle', () => {
       tokenFiatAmount: 100,
       aggregators: [],
       isNative: false,
-      isStakeable: true,
       ...overrides,
     }) as TokenFiatDisplayInfo;
 
@@ -83,50 +66,6 @@ describe('TokenCellTitle', () => {
     const { getByTestId } = render(<TokenCellTitle token={token} />);
 
     expect(getByTestId('asset-cell-title')).toHaveTextContent('My Test Token');
-  });
-
-  it('renders inactive trustline badge when token requires activation', () => {
-    const token = createMockToken({
-      accountType: undefined,
-      chainId: 'stellar:pubnet',
-      assetId:
-        'stellar:pubnet/asset:USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN',
-      isNative: false,
-      tokenRequireActivate: true,
-      balance: '0',
-    } as unknown as TokenFiatDisplayInfo);
-
-    const { getByTestId } = render(<TokenCellTitle token={token} />);
-
-    expect(getByTestId('asset-inactive-badge')).toBeInTheDocument();
-  });
-
-  it('renders StakeableLink when isStakeable is true', () => {
-    const token = createMockToken({
-      isStakeable: true,
-      chainId: '0x1',
-      symbol: 'ETH',
-    });
-    const { getByTestId } = render(<TokenCellTitle token={token} />);
-
-    const stakeableLink = getByTestId('stakeable-link');
-    expect(stakeableLink).toBeInTheDocument();
-    expect(stakeableLink).toHaveAttribute('data-chain-id', '0x1');
-    expect(stakeableLink).toHaveAttribute('data-symbol', 'ETH');
-  });
-
-  it('does not render StakeableLink when isStakeable is false', () => {
-    const token = createMockToken({ isStakeable: false });
-    const { queryByTestId } = render(<TokenCellTitle token={token} />);
-
-    expect(queryByTestId('stakeable-link')).not.toBeInTheDocument();
-  });
-
-  it('does not render StakeableLink when isStakeable is undefined', () => {
-    const token = createMockToken({ isStakeable: undefined });
-    const { queryByTestId } = render(<TokenCellTitle token={token} />);
-
-    expect(queryByTestId('stakeable-link')).not.toBeInTheDocument();
   });
 
   describe('StockBadge', () => {
@@ -186,39 +125,6 @@ describe('TokenCellTitle', () => {
       // change only non-compared props to prove memo blocks the update.
     });
 
-    it('blocks re-render when all compared props stay the same', () => {
-      const token = createMockToken({
-        title: 'Ethereum',
-        address: '0x1',
-        chainId: '0x1',
-        symbol: 'ETH',
-        isStakeable: true,
-      });
-      const { rerender, getByTestId } = render(
-        <TokenCellTitle token={token} />,
-      );
-
-      expect(getByTestId('stakeable-link')).toHaveAttribute(
-        'data-symbol',
-        'ETH',
-      );
-
-      const updatedToken = createMockToken({
-        title: 'Ethereum',
-        address: '0x1',
-        chainId: '0x1',
-        symbol: 'ETH',
-        isStakeable: false,
-        tokenFiatAmount: 999,
-        balance: '999',
-      });
-      rerender(<TokenCellTitle token={updatedToken} />);
-
-      // isStakeable changed to false but is NOT in the areEqual check,
-      // so memo blocks the re-render and StakeableLink stays visible.
-      expect(getByTestId('stakeable-link')).toBeInTheDocument();
-    });
-
     it('re-renders when title changes', () => {
       const token = createMockToken({ title: 'Before' });
       const { rerender, getByTestId } = render(
@@ -237,7 +143,6 @@ describe('TokenCellTitle', () => {
       const token = createMockToken({
         title: 'Before',
         address: '0x1',
-        isStakeable: true,
       });
       const { rerender, getByTestId } = render(
         <TokenCellTitle token={token} />,
@@ -246,7 +151,6 @@ describe('TokenCellTitle', () => {
       const updatedToken = createMockToken({
         title: 'After',
         address: '0x2',
-        isStakeable: true,
       });
       rerender(<TokenCellTitle token={updatedToken} />);
 
@@ -257,7 +161,6 @@ describe('TokenCellTitle', () => {
       const token = createMockToken({
         title: 'Before',
         chainId: '0x1',
-        isStakeable: true,
       });
       const { rerender, getByTestId } = render(
         <TokenCellTitle token={token} />,
@@ -266,7 +169,6 @@ describe('TokenCellTitle', () => {
       const updatedToken = createMockToken({
         title: 'After',
         chainId: '0x5',
-        isStakeable: true,
       });
       rerender(<TokenCellTitle token={updatedToken} />);
 
@@ -277,7 +179,6 @@ describe('TokenCellTitle', () => {
       const token = createMockToken({
         title: 'Before',
         symbol: 'ETH',
-        isStakeable: true,
       });
       const { rerender, getByTestId } = render(
         <TokenCellTitle token={token} />,
@@ -286,43 +187,10 @@ describe('TokenCellTitle', () => {
       const updatedToken = createMockToken({
         title: 'After',
         symbol: 'WETH',
-        isStakeable: true,
       });
       rerender(<TokenCellTitle token={updatedToken} />);
 
       expect(getByTestId('asset-cell-title')).toHaveTextContent('After');
-    });
-
-    it('re-renders when tokenRequireActivate changes from false to true', () => {
-      const token = createMockToken({
-        accountType: undefined,
-        chainId: 'stellar:pubnet',
-        assetId:
-          'stellar:pubnet/asset:USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN',
-        isNative: false,
-        tokenRequireActivate: false,
-        balance: '0',
-      } as unknown as TokenFiatDisplayInfo);
-
-      const { rerender, queryByTestId } = render(
-        <TokenCellTitle token={token} />,
-      );
-
-      expect(queryByTestId('asset-inactive-badge')).not.toBeInTheDocument();
-
-      const updatedToken = createMockToken({
-        accountType: undefined,
-        chainId: 'stellar:pubnet',
-        assetId:
-          'stellar:pubnet/asset:USDC-GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN',
-        isNative: false,
-        tokenRequireActivate: true,
-        balance: '0',
-      } as unknown as TokenFiatDisplayInfo);
-
-      rerender(<TokenCellTitle token={updatedToken} />);
-
-      expect(queryByTestId('asset-inactive-badge')).toBeInTheDocument();
     });
 
     it('skips re-render when all compared props are the same', () => {

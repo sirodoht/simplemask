@@ -15,6 +15,7 @@ import {
   selectAssetsBySelectedAccountGroup,
 } from '@metamask/assets-controllers';
 import type { AccountGroupAssets } from '@metamask/assets-controllers';
+import { mockNetworkState } from '../../test/stub/networks';
 import type { MetaMaskReduxState } from '../store/store';
 import { createMockInternalAccount } from '../../test/jest/mocks';
 import {
@@ -295,15 +296,14 @@ describe('selectIsAssetInAssetsBalance', () => {
 
     expect(selectIsAssetInAssetsBalance(state, assetId)).toBe(true);
   });
-
-  it('returns true when a non-selected account in the group holds the asset', () => {
+  it('ignores assets held only by a retired non-EVM account', () => {
     const state = buildState({
       assetsBalance: {
         [solanaAccountId]: { [solanaAssetId]: { amount: '1' } },
       },
     });
 
-    expect(selectIsAssetInAssetsBalance(state, solanaAssetId)).toBe(true);
+    expect(selectIsAssetInAssetsBalance(state, solanaAssetId)).toBe(false);
   });
 
   it('returns true when the asset reference casing differs', () => {
@@ -719,7 +719,6 @@ describe('getTokenByAccountAndAddressAndChainId', () => {
         decimals: 9,
         image: 'https://example.com/token-1.png',
         isNative: true,
-        isStakeable: false,
         balance: '0',
         secondary: null,
         string: '',
@@ -731,7 +730,7 @@ describe('getTokenByAccountAndAddressAndChainId', () => {
   });
 
   describe('when the passed account is undefined', () => {
-    it('should use the selected account to return the token from the state', () => {
+    it('ignores a retired non-EVM selected account', () => {
       const account = undefined;
       const mockStateWithSelectedAccount = cloneDeep(mockState);
       mockStateWithSelectedAccount.metamask.internalAccounts.selectedAccount =
@@ -744,20 +743,7 @@ describe('getTokenByAccountAndAddressAndChainId', () => {
         'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
       );
 
-      expect(result).toEqual({
-        address: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:501',
-        chainId: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
-        decimals: 9,
-        image: 'https://example.com/token-1.png',
-        isNative: true,
-        isStakeable: false,
-        balance: '0',
-        secondary: null,
-        string: '',
-        symbol: 'TKN1',
-        title: 'Token 1',
-        tokenFiatAmount: null,
-      });
+      expect(result).toBeNull();
     });
   });
 
@@ -801,7 +787,6 @@ describe('getTokenByAccountAndAddressAndChainId', () => {
     });
   });
 });
-
 describe('getMultichainNativeAssetType', () => {
   const mockState = {
     metamask: {
@@ -809,24 +794,24 @@ describe('getMultichainNativeAssetType', () => {
         accounts: {
           '5132883f-598e-482c-a02b-84eeaa352f5b': {
             id: '5132883f-598e-482c-a02b-84eeaa352f5b',
-            address: '8A4AptCThfbuknsbteHgGKXczfJpfjuVA9SLTSGaaLGC',
-            type: 'solana:data-account',
+            address: '0x1234567890123456789012345678901234567890',
+            type: 'eip155:eoa',
           },
         },
         selectedAccount: '5132883f-598e-482c-a02b-84eeaa352f5b',
       },
       accountsAssets: {
         '5132883f-598e-482c-a02b-84eeaa352f5b': [
-          'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:501',
-          'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+          'eip155:1/slip44:60',
+          'eip155:1/erc20:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
         ],
       },
-      networkConfigurationsByChainId: {},
+      ...mockNetworkState({ chainId: '0x1' }),
       multichainNetworkConfigurationsByChainId:
         AVAILABLE_MULTICHAIN_NETWORK_CONFIGURATIONS,
       completedOnboarding: true,
       selectedMultichainNetworkChainId: SolScope.Mainnet,
-      isEvmSelected: false,
+      isEvmSelected: true,
       remoteFeatureFlags: {
         solanaAccounts: { enabled: true, minimumVersion: '13.6.0' },
         bitcoinAccounts: { enabled: true, minimumVersion: '13.6.0' },
@@ -841,9 +826,7 @@ describe('getMultichainNativeAssetType', () => {
     it('should return the native asset type', () => {
       const result = getMultichainNativeAssetType(mockState);
 
-      expect(result).toEqual(
-        'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/slip44:501',
-      );
+      expect(result).toEqual('eip155:1/slip44:60');
     });
   });
 
@@ -851,9 +834,7 @@ describe('getMultichainNativeAssetType', () => {
     const mockStateWithoutNativeAssetType = cloneDeep(mockState);
     mockStateWithoutNativeAssetType.metamask.accountsAssets[
       '5132883f-598e-482c-a02b-84eeaa352f5b'
-    ] = [
-      'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
-    ];
+    ] = ['eip155:1/erc20:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'];
 
     it('should return undefined', () => {
       const result = getMultichainNativeAssetType(

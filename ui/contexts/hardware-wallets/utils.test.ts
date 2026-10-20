@@ -2,7 +2,6 @@ import { KeyringTypes } from '@metamask/keyring-controller';
 import {
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   DEFAULT_ROUTE,
   HARDWARE_WALLET_SIGNATURES_ROUTE,
 } from '../../helpers/constants/routes';
@@ -72,14 +71,12 @@ describe('isHardwareWalletRoute', () => {
   });
 
   it('returns false for retired cross-chain swap route', () => {
-    expect(isHardwareWalletRoute(CROSS_CHAIN_SWAP_ROUTE)).toBe(false);
+    expect(isHardwareWalletRoute('/cross-chain')).toBe(false);
   });
 
   it('returns false for retired cross-chain sub-routes', () => {
     expect(
-      isHardwareWalletRoute(
-        `${CROSS_CHAIN_SWAP_ROUTE}/swaps/prepare-bridge-page`,
-      ),
+      isHardwareWalletRoute(`${'/cross-chain'}/swaps/prepare-bridge-page`),
     ).toBe(false);
   });
 
@@ -112,13 +109,13 @@ describe('isHardwareWalletErrorModalRoute', () => {
   });
 
   it('returns false for cross-chain swap route', () => {
-    expect(isHardwareWalletErrorModalRoute(CROSS_CHAIN_SWAP_ROUTE)).toBe(false);
+    expect(isHardwareWalletErrorModalRoute('/cross-chain')).toBe(false);
   });
 
   it('returns false for cross-chain sub-routes', () => {
     expect(
       isHardwareWalletErrorModalRoute(
-        `${CROSS_CHAIN_SWAP_ROUTE}/swaps/prepare-bridge-page`,
+        `${'/cross-chain'}/swaps/prepare-bridge-page`,
       ),
     ).toBe(false);
   });

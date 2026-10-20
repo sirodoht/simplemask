@@ -74,12 +74,10 @@ import {
   getMultichainIsTestnet,
   getMultichainNetworkConfigurationsByChainId,
   getMultichainShouldShowFiat,
-  getMultichainIsTron,
 } from '../../../selectors/multichain';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../../selectors/multichain-accounts/account-tree';
 import { useSafeChains } from '../../../components/multichain/networks-form/use-safe-chains';
 import { useCurrentPrice } from '../hooks/useCurrentPrice';
-import { useSpendableBalance } from '../hooks/useSpendableBalance';
 import { isNativeAsset, type Asset } from '../types/asset';
 
 import { useRWAToken } from '../../../hooks/rwa/useRWAToken';
@@ -89,8 +87,6 @@ import { AssetPageHeader } from './asset-page-header';
 import AssetChart from './chart/asset-chart';
 import { MarketClosedActionButton } from './market-closed-action-button';
 import TokenButtons from './token-buttons';
-import { SpendableBalanceSection } from './spendable-balance-section';
-import { TronDailyResources } from './tron-daily-resources';
 import {
   AssetPageSecurityTrustBanner,
   AssetPageSecurityTrustHeaderBadge,
@@ -265,17 +261,6 @@ const AssetPage = ({
     },
   };
 
-  // Prefer the route/computed CAIP id so Stellar activation and spendable-balance
-  // lookups still work when the asset is not yet in the account group (empty assetId).
-  const resolvedAssetId = (caipAssetId ||
-    bip44Asset?.assetId ||
-    assetId) as CaipAssetType;
-
-  const spendableBalanceData = useSpendableBalance({
-    assetId: resolvedAssetId,
-  });
-  const showSpendableBalance = spendableBalanceData.hasSpendableBalance;
-
   const tokenWithFiatAmount = useMemo(
     () => ({
       address: isEvm ? address : assetId,
@@ -328,13 +313,8 @@ const AssetPage = ({
     </Box>
   );
 
-  // Check if we should show Tron resources
-  const isTron = useMultichainSelector(getMultichainIsTron, selectedAccount);
-  const showTronResources = isTron && type === AssetType.native;
-
   const isUpdatedAssetNative = isNativeAsset(updatedAsset);
   const tokenAsset = isUpdatedAssetNative ? null : updatedAsset;
-  const isYourBalanceSectionShown = !showSpendableBalance;
 
   const [isMarketClosedModalOpen, setIsMarketClosedModalOpen] = useState(false);
   const handleOpenMarketClosedModal = useCallback(() => {
@@ -409,52 +389,25 @@ const AssetPage = ({
         </>
 
         <Box flexDirection={BoxFlexDirection.Column} paddingTop={3}>
-          {showTronResources && (
-            <Box>
-              <TronDailyResources
-                account={selectedAccount}
-                chainId={caipChainId}
-                t={t}
+          <>
+            <Text
+              variant={TextVariant.HeadingSm}
+              className="asset-page__balance-heading"
+            >
+              {t('yourBalance')}
+            </Text>
+            {null}
+            {null}
+            {[AssetType.token, AssetType.native].includes(type) && (
+              <TokenCell
+                key={`${symbol}-${address}`}
+                token={tokenWithFiatAmount as TokenWithFiatAmount}
+                safeChains={safeChains}
               />
-              <Box
-                marginTop={2}
-                marginBottom={2}
-                className="asset-page__divider"
-              />
-            </Box>
-          )}
-          {null}
-          {spendableBalanceData.hasSpendableBalance ? (
-            <SpendableBalanceSection
-              minimumReserveBalance={spendableBalanceData.minimumReserveBalance}
-              spendableBalance={spendableBalanceData.spendableBalance}
-              totalBalance={String(balance)}
-              symbol={symbol}
-              fiatValue={showFiat ? tokenFiatAmount : null}
-            />
-          ) : null}
-          {isYourBalanceSectionShown ? (
-            <>
-              <Text
-                variant={TextVariant.HeadingSm}
-                className="asset-page__balance-heading"
-              >
-                {t('yourBalance')}
-              </Text>
-              {null}
-              {null}
-              {[AssetType.token, AssetType.native].includes(type) && (
-                <TokenCell
-                  key={`${symbol}-${address}`}
-                  token={tokenWithFiatAmount as TokenWithFiatAmount}
-                  safeChains={safeChains}
-                />
-              )}
-              {null}
-              {null}
-            </>
-          ) : null}
-          {/* mUSD Conversion CTA - shows for eligible stablecoins */}
+            )}
+            {null}
+            {null}
+          </>
 
           <Box marginTop={6} flexDirection={BoxFlexDirection.Column} gap={4}>
             <AssetPageSecurityTrustSection />
@@ -499,7 +452,6 @@ const AssetPage = ({
                         <AddressCopyButton address={contractAddress} shorten />,
                       )}
                       <Box flexDirection={BoxFlexDirection.Column} gap={2}>
-                        {null}
                         {asset.decimals !== undefined &&
                           renderRow(
                             t('tokenDecimal'),

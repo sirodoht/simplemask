@@ -26,7 +26,6 @@ import { MetaMetricsHardwareWalletRecoveryLocation } from '../../shared/constant
 import {
   CONFIRMATION_V_NEXT_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   SIGNATURE_REQUEST_PATH,
 } from '../helpers/constants/routes';
 import { useHardwareWalletRecoveryLocation } from './useHardwareWalletRecoveryLocation';
@@ -73,8 +72,8 @@ describe('useHardwareWalletRecoveryLocation', () => {
     const { result } = renderHook(() => useHardwareWalletRecoveryLocation(), {
       wrapper: createHookWrapper(
         store,
-        `${CROSS_CHAIN_SWAP_ROUTE}/prepare`,
-        `${CROSS_CHAIN_SWAP_ROUTE}/*`,
+        `${'/cross-chain'}/prepare`,
+        `${'/cross-chain'}/*`,
       ),
     });
     expect(result.current).toBe(

@@ -5,7 +5,6 @@ import type { MetaMaskReduxState } from '../../../../../store/store';
 
 import { getMockConfirmStateForTransaction } from '../../../../../../test/data/confirmations/helper';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
-import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
 import { renderWithConfirmContextProvider } from '../../../../../../test/lib/confirmations/render-helpers';
 import configureStore from '../../../../../store/store';
 import * as ConfirmActions from '../../../hooks/useConfirmActions';
@@ -61,24 +60,6 @@ describe('<SimpleConfirmationHeader />', () => {
     expect(mockOnCancel).toHaveBeenCalledWith({
       location: 'confirmation',
       navigateBackToPreviousPage: true,
-    });
-  });
-
-  describe('musdConversion type', () => {
-    it('renders the Convert title', () => {
-      const { getByTestId } = render(TransactionType.musdConversion);
-
-      expect(getByTestId('simple-confirmation-header-title')).toHaveTextContent(
-        messages.musdConvert.message,
-      );
-    });
-
-    it('does not render the mUSD info tooltip', () => {
-      const { queryByTestId } = render(TransactionType.musdConversion);
-
-      expect(
-        queryByTestId('musd-conversion-header-tooltip-button'),
-      ).not.toBeInTheDocument();
     });
   });
 

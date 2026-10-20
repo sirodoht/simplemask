@@ -3,7 +3,6 @@ import {
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
   CONNECT_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   DEFAULT_ROUTE,
   ONBOARDING_COMPLETION_ROUTE,
   ONBOARDING_CONFIRM_SRP_ROUTE,
@@ -17,7 +16,6 @@ import {
   ONBOARDING_ROUTE,
   ONBOARDING_UNLOCK_ROUTE,
   ONBOARDING_WELCOME_ROUTE,
-  PREPARE_SWAP_ROUTE,
   SEND_ROUTE,
   SETTINGS_ROUTE,
   SIGNATURE_REQUEST_PATH,
@@ -215,11 +213,6 @@ export function detectScreenFromUrl(
     screen: ExtensionState['currentScreen'];
   }[] = [
     { matcher: (path) => hasRoutePrefix(path, SEND_ROUTE), screen: 'send' },
-    {
-      matcher: (path) =>
-        hasRoutePrefix(path, CROSS_CHAIN_SWAP_ROUTE + PREPARE_SWAP_ROUTE),
-      screen: 'swap',
-    },
     {
       matcher: (path) =>
         hasRoutePrefix(

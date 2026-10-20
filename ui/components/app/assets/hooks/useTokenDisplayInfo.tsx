@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { isEqualCaseInsensitive } from '@metamask/controller-utils';
 import { formatChainIdToCaip } from '@metamask/bridge-controller';
-import { CaipAssetType, isCaipChainId } from '@metamask/utils';
+import { isCaipChainId } from '@metamask/utils';
 import {
   getAllTokens,
   getEnabledNetworksByNamespace,
@@ -13,7 +13,6 @@ import {
 import { Token, TokenDisplayInfo, TokenWithFiatAmount } from '../types';
 import {
   getImageForChainId,
-  isChainIdMainnet,
   makeGetMultichainShouldShowFiatByChainId,
 } from '../../../../selectors/multichain';
 import { getCurrentCurrency } from '../../../../ducks/metamask/metamask';
@@ -22,7 +21,6 @@ import { useFormatters } from '../../../../hooks/useFormatters';
 import { isEvmChainId } from '../../../../../shared/lib/asset-utils';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../../../selectors/multichain-accounts/account-tree';
 import { TEST_CHAINS } from '../../../../../shared/constants/network';
-import { getIsAssetRequireActivate } from '../../../../selectors/stellar-assets';
 
 type UseTokenDisplayInfoProps = {
   token: TokenWithFiatAmount;
@@ -93,18 +91,6 @@ export const useTokenDisplayInfo = ({
     (token.tokenFiatAmount === null || token.tokenFiatAmount === undefined) &&
     !anyEnabledNetworksAreAvailable;
 
-  const isEvmMainnet =
-    token.chainId && isEvm ? isChainIdMainnet(token.chainId) : false;
-
-  const isStakeable =
-    token.isStakeable || (isEvmMainnet && isEvm && token.isNative);
-
-  const tokenRequireActivate = useSelector((state) =>
-    getIsAssetRequireActivate(state, {
-      assetId: (token.assetId as CaipAssetType | undefined) ?? '',
-    }),
-  );
-
   if (isEvm) {
     const tokenData = (
       Object.values(
@@ -138,7 +124,6 @@ export const useTokenDisplayInfo = ({
       // @ts-ignore
       secondary,
       isFiatLoading,
-      isStakeable,
       tokenChainImage: tokenChainImage as string,
     };
   }
@@ -154,9 +139,7 @@ export const useTokenDisplayInfo = ({
     tokenImage: token.image,
     secondary: showFiat ? nonEvmSecondary : null,
     isFiatLoading,
-    isStakeable: false,
     tokenChainImage: token.image as string,
-    tokenRequireActivate,
   };
 };
 

@@ -511,7 +511,6 @@ export const getMultiChainAssets = createSelector(
           secondary: balanceInFiat,
           string: '',
           tokenFiatAmount: balanceInFiat,
-          isStakeable: false,
         });
       }
     });

@@ -343,9 +343,6 @@
   "editNonceMessage": {
     "message": "這是一個進階功能，請小心使用。"
   },
-  "enableAutoDetect": {
-    "message": " Enable Autodetect"
-  },
   "encryptionPublicKeyNotice": {
     "message": "$1 想要取得您的加密公鑰。同意之後，這個網站就可以向您發送加密訊息。",
     "description": "$1 is the web3 site name"
@@ -573,9 +570,6 @@
   "mainnet": {
     "message": "以太坊 主網路"
   },
-  "makeAnotherSwap": {
-    "message": "建立新的 swap"
-  },
   "max": {
     "message": "最大值"
   },
@@ -593,9 +587,6 @@
   },
   "metaMaskConnectStatusParagraphTwo": {
     "message": "連線狀態按鈕會顯示您正在造訪的網站是否已經連結到您目前選擇的帳戶。"
-  },
-  "metamaskSwapsOfflineDescription": {
-    "message": "MetaMask Swaps 正在維護。請晚點再來看看。"
   },
   "metamaskVersion": {
     "message": "MetaMask 版本"
@@ -649,9 +640,6 @@
   "next": {
     "message": "下一頁"
   },
-  "nftTokenIdPlaceholder": {
-    "message": "Enter the NFT ID"
-  },
   "noAccountsFound": {
     "message": "指定的搜尋條件找不到帳戶"
   },
@@ -669,9 +657,6 @@
   },
   "off": {
     "message": "關閉"
-  },
-  "offlineForMaintenance": {
-    "message": "離線維護中"
   },
   "ok": {
     "message": "確認"
@@ -899,9 +884,6 @@
   "terms": {
     "message": "使用條款"
   },
-  "termsOfService": {
-    "message": "服務條款"
-  },
   "to": {
     "message": "目的帳戶"
   },
@@ -971,10 +953,6 @@
   },
   "usedByClients": {
     "message": "可用於各種不同的客戶端"
-  },
-  "viewOnCustomBlockExplorer": {
-    "message": "在 $1 瀏覽",
-    "description": "$1 is the action type. e.g (Account, Transaction, Swap) and $2 is the Custom Block Explorer URL"
   },
   "viewOnEtherscan": {
     "message": "在 Etherscan 上瀏覽",

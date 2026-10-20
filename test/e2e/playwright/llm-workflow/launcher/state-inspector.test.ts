@@ -1,9 +1,7 @@
 import type { Page } from '@playwright/test';
 import {
   CONFIRM_TRANSACTION_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   ONBOARDING_METAMETRICS,
-  PREPARE_SWAP_ROUTE,
   SETTINGS_ROUTE,
   SIGNATURE_REQUEST_PATH,
   UNLOCK_ROUTE,
@@ -87,7 +85,7 @@ const DEFAULT_METAMASK_STATE = {
   internalAccounts: {
     selectedAccount: 'account-1',
     accounts: {
-      'account-1': { address: '0xABC123def456' },
+      'account-1': { address: '0xABC123def456', type: 'eip155:eoa' },
     },
   },
   networkConfigurationsByChainId: {
@@ -157,15 +155,15 @@ describe('state-inspector', () => {
   });
 
   describe('detectScreenFromUrl', () => {
-    it('detects send, swap, settings and unlock from hash routes', () => {
+    it('detects send, settings and unlock from hash routes', () => {
       expect(detectScreenFromUrl('chrome-extension://id/home.html#/send')).toBe(
         'send',
       );
       expect(
         detectScreenFromUrl(
-          `chrome-extension://id/home.html#${CROSS_CHAIN_SWAP_ROUTE + PREPARE_SWAP_ROUTE}`,
+          'chrome-extension://id/home.html#/cross-chain/swaps/prepare-bridge-page',
         ),
-      ).toBe('swap');
+      ).toBe('unknown');
       expect(
         detectScreenFromUrl(
           `chrome-extension://id/home.html#${SETTINGS_ROUTE}`,

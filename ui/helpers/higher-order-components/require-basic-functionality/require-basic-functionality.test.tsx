@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { render } from '@testing-library/react';
-import { SWAP_PATH } from '../../constants/routes';
 import BasicFunctionalityRequired from './require-basic-functionality';
 
 jest.mock('react-redux', () => ({
@@ -28,7 +27,7 @@ describe('BasicFunctionalityRequired', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseLocation.mockReturnValue({
-      pathname: SWAP_PATH,
+      pathname: '/cross-chain/swaps/prepare-bridge-page',
       state: null,
       key: '',
       search: '',
@@ -66,7 +65,7 @@ describe('BasicFunctionalityRequired', () => {
         expect.objectContaining({
           to: basicFunctionalityOffRoute,
           state: {
-            blockedRoutePath: SWAP_PATH,
+            blockedRoutePath: '/cross-chain/swaps/prepare-bridge-page',
           },
         }),
         expect.anything(),
@@ -100,7 +99,7 @@ describe('BasicFunctionalityRequired', () => {
         expect.objectContaining({
           to: basicFunctionalityOffRoute,
           state: {
-            blockedRoutePath: SWAP_PATH,
+            blockedRoutePath: '/cross-chain/swaps/prepare-bridge-page',
           },
           replace: true,
         }),
@@ -117,7 +116,7 @@ describe('BasicFunctionalityRequired', () => {
         expect.objectContaining({
           to: basicFunctionalityOffRoute,
           state: {
-            blockedRoutePath: SWAP_PATH,
+            blockedRoutePath: '/cross-chain/swaps/prepare-bridge-page',
           },
         }),
         expect.anything(),
@@ -127,7 +126,7 @@ describe('BasicFunctionalityRequired', () => {
     it('includes search and hash in blockedRoutePath so original URL context is restored', () => {
       mockUseSelector.mockReturnValue(false);
       mockUseLocation.mockReturnValue({
-        pathname: SWAP_PATH,
+        pathname: '/cross-chain/swaps/prepare-bridge-page',
         state: null,
         key: '',
         search: '?swaps=true',
@@ -140,7 +139,7 @@ describe('BasicFunctionalityRequired', () => {
         expect.objectContaining({
           to: basicFunctionalityOffRoute,
           state: {
-            blockedRoutePath: `${SWAP_PATH}?swaps=true#section`,
+            blockedRoutePath: `${'/cross-chain/swaps/prepare-bridge-page'}?swaps=true#section`,
           },
         }),
         expect.anything(),

@@ -276,8 +276,7 @@ describe('NetworkManager Component', () => {
       screen.queryByText(messages.allPopularNetworks.message),
     ).toBeInTheDocument();
   });
-
-  it('should render custom networks tab when non-EVM devnet is selected', () => {
+  it('keeps EVM popular networks when stale non-EVM devnet state exists', () => {
     renderNetworkManagerWithNonEvmNetworkSelected({
       enabledNetworkMap: {
         solana: {
@@ -288,10 +287,8 @@ describe('NetworkManager Component', () => {
 
     expect(
       screen.queryByText(messages.allPopularNetworks.message),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(messages.addCustomNetwork.message),
     ).toBeInTheDocument();
+    expect(screen.getByText('Arbitrum')).toBeInTheDocument();
   });
 
   it('switches tab when tab is clicked', () => {
