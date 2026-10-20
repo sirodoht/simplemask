@@ -86,3 +86,7 @@ Users should still be able to use external swap, bridge, and DeFi apps through t
 - [ ] Verify that removed features no longer initialize controllers, poll, or make service requests.
 
 Browser parity, reliable core wallet behavior, and clear confirmations take priority over adding new features.
+
+## Repository cleanup and legacy audit
+
+- Removed `.cursor`, `.devcontainer`, `.husky`, and `.vscode`, their hook/download commands, and automatic agent-skill downloads during installation. Build and test commands remain available directly through Yarn.

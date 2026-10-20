@@ -130,9 +130,6 @@ temp-llm-workflow-*
 # git worktrees
 .worktrees
 
-# Cursor IDE internal state
-.cursor/hooks/
-
 # Local git worktrees
 .worktrees
 
@@ -140,22 +137,15 @@ temp-llm-workflow-*
 # Copy `.skills.local.example` to `.skills.local` and edit `SKILLS_DOMAINS=`.
 .skills.local
 
-# Local cache used by `postinstall` to auto-update skills from the public
-# MetaMask/skills repo. Safe to delete — postinstall recreates on next install.
+# Optional local cache for manually installed agent skills.
 .skills-cache/
 
 # Agent skills/commands/rules — never tracked. Synced via `yarn skills` from
 # MetaMask/skills (public) and optionally Consensys/skills (private overlay),
-# or hand-authored locally. (See ADR #57.) Only IDE/bugbot config under
-# `.cursor/` is tracked via the carve-outs below.
+# or hand-authored locally.
 .claude/skills/
 .claude/commands/
 .agents/skills/
-.cursor/rules/
-.cursor/skills/
-.cursor/commands/
-# Carve-outs: IDE/bugbot config that must stay tracked
-!.cursor/BUGBOT.md
 
 # Platform API docs
 .platform-api-docs/

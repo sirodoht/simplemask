@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "oxc.oxc-vscode",
-    "streetsidesoftware.code-spell-checker",
-    "DigitalBrainstem.javascript-ejs-support",
-    "bradlc.vscode-tailwindcss"
-  ]
-}
