@@ -109,7 +109,7 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 - [x] Remove 55 redundant/translated catalogs, leaving only `app/_locales/en/messages.json`, and remove language selectors from onboarding and settings.
 - [ ] Validate the English-only Chrome and Firefox builds and restoration flow.
 
-The English message catalog remains the source of UI copy and parameterized messages.
+The English message catalog remains the source of UI copy and parameterized messages. Storybook uses the same catalog. `yarn verify-locales` checks English keys and substitutions and rejects any additional locale folders; translation comparison tools and the translation guide have been removed.
 
 ## Repository cleanup and legacy audit
 

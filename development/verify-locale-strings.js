@@ -1,28 +1,9 @@
 #!/usr/bin/env node
-// //////////////////////////////////////////////////////////////////////////////
-//
-// Locale verification script
-//
-// usage:
-//
-//     node app/scripts/verify-locale-strings.js [<locale>] [--fix] [--quiet]
-//
-// This script will validate that locales have no unused messages. It will check
-// the English locale against string literals found under `ui/`, and it will check
-// other locales by comparing them to the English locale. It will also validate
-// that non-English locales have all descriptions present in the English locale.
-//
-// A report will be printed to the console detailing any unused messages.
-//
-// The if the optional '--fix' argument is given, locales will be automatically
-// updated to remove any unused messages.
-//
-// The optional '--quiet' argument reduces the verbosity of the output, printing
-// just a single summary of results for each locale verified
-//
-// //////////////////////////////////////////////////////////////////////////////
+// Validate the English UI catalog and its substitutions. --fix removes unused keys.
+// Non-English bundles are rejected: this project supports English only.
 
-const { deepStrictEqual, AssertionError } = require('node:assert');
+const { deepStrictEqual } = require('node:assert');
+const path = require('node:path');
 const fs = require('fs');
 const { promisify } = require('util');
 const log = require('loglevel');
@@ -30,9 +11,6 @@ const glob = require('fast-glob');
 const matchAll = require('string.prototype.matchall').getPolyfill();
 const localeIndex = require('../app/_locales/index.json');
 const {
-  compareLocalesForMissingDescriptions,
-  compareLocalesForMissingItems,
-  compareLocalesForUnexpectedReplacementKeys,
   getMessagesWithInvalidReplacementKeys,
   getLocale,
   getLocalePath,
@@ -61,41 +39,25 @@ main().catch((error) => {
 });
 
 async function main() {
-  if (specifiedLocale) {
-    log.info(`Verifying selected locale "${specifiedLocale}":\n`);
-    const localeEntry = localeIndex.find(
-      (localeMeta) => localeMeta.code === specifiedLocale,
-    );
-    if (!localeEntry) {
-      throw new Error(`No localize entry found for ${specifiedLocale}`);
-    }
-
-    const failed =
-      specifiedLocale === 'en'
-        ? await verifyEnglishLocale()
-        : await verifyLocale(specifiedLocale);
-    if (failed) {
-      process.exit(1);
-    } else {
-      console.log('No invalid entries!');
-    }
+  if (specifiedLocale && specifiedLocale !== 'en') {
+    throw new Error('Only the English locale is supported.');
+  }
+  deepStrictEqual(localeIndex, [{ code: 'en', name: 'English' }]);
+  const localeDirectories = fs
+    .readdirSync(path.resolve(__dirname, '../app/_locales'), {
+      withFileTypes: true,
+    })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+  deepStrictEqual(
+    localeDirectories,
+    ['en'],
+    'Only the English catalog may be shipped.',
+  );
+  if (await verifyEnglishLocale()) {
+    process.exitCode = 1;
   } else {
-    log.info('Verifying all locales:\n');
-    let failed = await verifyEnglishLocale(fix);
-    const localeCodes = localeIndex
-      .filter((localeMeta) => localeMeta.code !== 'en')
-      .map((localeMeta) => localeMeta.code);
-
-    for (const code of localeCodes) {
-      const localeFailed = await verifyLocale(code, fix);
-      failed = failed || localeFailed;
-    }
-
-    if (failed) {
-      process.exit(1);
-    } else {
-      console.log('No invalid entries!');
-    }
+    console.log('English catalog is valid.');
   }
 }
 
@@ -116,123 +78,6 @@ async function writeLocale(code, locale) {
     }
     process.exit(1);
   }
-}
-
-async function verifyLocale(code) {
-  const englishLocale = await getLocale('en');
-  let failed = false;
-
-  try {
-    // `en_GB` is a special case, added for compliance reasons
-    // Not used in-app. Should be identical to `en`.
-    const englishGbLocale = await getLocale('en_GB');
-    deepStrictEqual(
-      englishLocale,
-      englishGbLocale,
-      'en_GB should be identical to en',
-    );
-  } catch (error) {
-    if (!(error instanceof AssertionError)) {
-      throw error;
-    }
-
-    if (fix) {
-      console.info('Differences detected in `en_GB` local; overwriting');
-      await writeLocale('en_GB', englishLocale);
-    } else {
-      console.error(error);
-    }
-    failed = true;
-  }
-
-  const targetLocale = await getLocale(code);
-
-  const extraItems = compareLocalesForMissingItems({
-    base: targetLocale,
-    subject: englishLocale,
-  });
-
-  if (extraItems.length) {
-    console.log(`**${code}**: ${extraItems.length} unused messages`);
-    log.info('Extra items that should not be localized:');
-    extraItems.forEach(function (key) {
-      log.info(`  - [ ] ${key}`);
-    });
-  }
-
-  const missingDescriptions = compareLocalesForMissingDescriptions({
-    englishLocale,
-    targetLocale,
-  });
-
-  if (missingDescriptions.length) {
-    console.log(
-      `**${code}**: ${missingDescriptions.length} missing descriptions`,
-    );
-    log.info('Messages with missing descriptions:');
-    missingDescriptions.forEach(function (key) {
-      log.info(`  - [ ] ${key}`);
-    });
-  }
-
-  const invalidReplacementKeys =
-    getMessagesWithInvalidReplacementKeys(targetLocale);
-
-  if (invalidReplacementKeys.length) {
-    console.log(
-      `**${code}**: ${invalidReplacementKeys.length} messages with invalid replacement keys`,
-    );
-    log.info('Messages with invalid replacement keys:');
-    invalidReplacementKeys.forEach(function ({
-      key,
-      invalidReplacementKeys: invalidKeys,
-    }) {
-      log.info(`  - [ ] ${key} (${invalidKeys.join(', ')})`);
-    });
-  }
-
-  const messagesWithUnexpectedReplacementKeys =
-    compareLocalesForUnexpectedReplacementKeys({
-      englishLocale,
-      targetLocale,
-    });
-
-  if (messagesWithUnexpectedReplacementKeys.length) {
-    console.log(
-      `**${code}**: ${messagesWithUnexpectedReplacementKeys.length} messages with unexpected replacement keys`,
-    );
-    log.info('Messages with unexpected replacement keys:');
-    messagesWithUnexpectedReplacementKeys.forEach(function ({
-      key,
-      unexpectedReplacementKeys: unexpectedKeys,
-    }) {
-      log.info(`  - [ ] ${key} (${unexpectedKeys.join(', ')})`);
-    });
-  }
-
-  if (
-    extraItems.length > 0 ||
-    missingDescriptions.length > 0 ||
-    invalidReplacementKeys.length > 0 ||
-    messagesWithUnexpectedReplacementKeys.length > 0
-  ) {
-    if (fix) {
-      const newLocale = { ...targetLocale };
-      for (const item of extraItems) {
-        delete newLocale[item];
-      }
-      for (const message of Object.keys(englishLocale)) {
-        if (englishLocale[message].description && targetLocale[message]) {
-          targetLocale[message].description =
-            englishLocale[message].description;
-        }
-      }
-      await writeLocale(code, newLocale);
-    }
-    failed = true;
-  }
-
-  return failed;
 }
 
 async function verifyEnglishLocale() {
