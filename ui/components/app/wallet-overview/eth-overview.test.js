@@ -35,12 +35,6 @@ jest.mock('../../../hooks/useAnalytics', () => {
 
 const mockOpenBatchSellExperience = jest.fn();
 
-jest.mock('../../../hooks/batch-sell/useBatchSell', () => ({
-  useBatchSell: () => ({
-    openBatchSellExperience: mockOpenBatchSellExperience,
-  }),
-}));
-
 // TODO: Remove this mock when multichain accounts feature flag is entirely removed.
 // TODO: Convert any old tests (UI/UX state 1) to its state 2 equivalent (if possible).
 jest.mock(
@@ -219,8 +213,6 @@ describe('EthOverview', () => {
 
   const store = configureMockStore([thunk])(mockStore);
   const ETH_OVERVIEW_BRIDGE = 'eth-overview-bridge';
-  const ETH_OVERVIEW_RECEIVE = 'eth-overview-receive';
-  const ETH_OVERVIEW_SWAP = 'eth-overview-swap';
   const ETH_OVERVIEW_SEND = 'eth-overview-send';
   const ETH_OVERVIEW_PRIMARY_CURRENCY = 'eth-overview__primary-currency';
   const ETH_OVERVIEW_BALANCE_EMPTY_STATE = 'coin-overview-balance-empty-state';
@@ -433,34 +425,6 @@ describe('EthOverview', () => {
       expect(queryByText('*')).not.toBeInTheDocument();
     });
 
-    it('should have the Swap button enabled if chain id is part of supported chains', () => {
-      const mockedAvalancheStore = {
-        ...mockStore,
-        metamask: {
-          ...mockStore.metamask,
-          ...mockNetworkState({ chainId: '0xa86a' }),
-          accountsByChainId: {
-            [CHAIN_IDS.AVALANCHE]: {
-              '0x1': { address: '0x1', balance: '0x24da51d247e8b8' },
-            },
-          },
-        },
-      };
-      const mockedStore = configureMockStore([thunk])(mockedAvalancheStore);
-
-      const { queryByTestId } = renderWithProvider(
-        <EthOverview />,
-        mockedStore,
-      );
-      const bridgeButton = queryByTestId(ETH_OVERVIEW_SWAP);
-      expect(bridgeButton).toBeInTheDocument();
-      expect(bridgeButton).toBeEnabled();
-      expect(bridgeButton.parentElement).not.toHaveAttribute(
-        'data-original-title',
-        'Unavailable on this network',
-      );
-    });
-
     it('should not render the Bridge button on testnet chains', () => {
       const mockedFantomStore = {
         ...mockStore,
@@ -477,36 +441,6 @@ describe('EthOverview', () => {
       );
       const bridgeButton = queryByTestId(ETH_OVERVIEW_BRIDGE);
       expect(bridgeButton).not.toBeInTheDocument();
-    });
-
-    it('should show the Receive button inside the more-options dropdown', () => {
-      const { queryByTestId } = renderWithProvider(<EthOverview />, store);
-
-      // Receive moved into the "More" dropdown – it is hidden until the dropdown is opened
-      expect(queryByTestId(ETH_OVERVIEW_RECEIVE)).not.toBeInTheDocument();
-
-      fireEvent.click(queryByTestId('eth-overview-more'));
-
-      expect(queryByTestId(ETH_OVERVIEW_RECEIVE)).toBeInTheDocument();
-    });
-
-    it('should show the Batch Sell button inside the more-options dropdown', () => {
-      const { queryByTestId } = renderWithProvider(<EthOverview />, store);
-
-      expect(queryByTestId('eth-overview-batchSell')).not.toBeInTheDocument();
-
-      fireEvent.click(queryByTestId('eth-overview-more'));
-
-      expect(queryByTestId('eth-overview-batchSell')).toBeInTheDocument();
-    });
-
-    it('should call openBatchSellExperience when Batch Sell button is clicked', () => {
-      const { queryByTestId } = renderWithProvider(<EthOverview />, store);
-
-      fireEvent.click(queryByTestId('eth-overview-more'));
-      fireEvent.click(queryByTestId('eth-overview-batchSell'));
-
-      expect(mockOpenBatchSellExperience).toHaveBeenCalledTimes(1);
     });
 
     it('should show Receive as a direct button when Batch Sell is disabled', () => {
@@ -539,33 +473,8 @@ describe('EthOverview', () => {
     });
   });
 
-  it('sends an event when clicking the Batch Sell button', () => {
-    mockTrackEvent.mockClear();
-
-    const mockedStore = configureMockStore([thunk])(mockStore);
-    const { queryByTestId } = renderWithProvider(<EthOverview />, mockedStore);
-
-    fireEvent.click(queryByTestId('eth-overview-more'));
-    fireEvent.click(queryByTestId('eth-overview-batchSell'));
-
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        name: MetaMetricsEventName.NavBatchSellButtonClicked,
-        properties: expect.objectContaining({
-          category: MetaMetricsEventCategory.Navigation,
-          text: 'Batch Sell',
-          location: 'home',
-          chain_id: CHAIN_IDS.MAINNET,
-        }),
-      }),
-    );
-  });
-
   describe('Disabled buttons when an account cannot sign transactions', () => {
-    const buttonTestCases = [
-      { testId: ETH_OVERVIEW_SEND, buttonText: 'Send' },
-      { testId: ETH_OVERVIEW_SWAP, buttonText: 'Swap' },
-    ];
+    const buttonTestCases = [{ testId: ETH_OVERVIEW_SEND, buttonText: 'Send' }];
 
     it.each(buttonTestCases)(
       'should have the $buttonText button disabled when an account cannot sign transactions or user operations',

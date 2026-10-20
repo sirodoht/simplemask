@@ -158,7 +158,6 @@ import {
   ApprovalRequestNotFoundError,
 } from '@metamask/approval-controller';
 import { SmartTransactionsControllerWipeSmartTransactionsAction } from '@metamask/smart-transactions-controller';
-import { BridgeStatusControllerWipeBridgeStatusAction } from '@metamask/bridge-status-controller';
 import {
   EncAccountDataType,
   InvalidPrimarySecretDataTypeError,
@@ -605,7 +604,6 @@ type AllowedActions =
   | AuthenticationControllerGetBearerTokenAction
   | AuthenticationControllerGetStateAction
   | AuthenticationControllerPerformSignOutAction
-  | BridgeStatusControllerWipeBridgeStatusAction
   | ClaimsControllerClearStateAction
   | CurrencyRateControllerSetCurrentCurrencyAction
   | DelegationControllerSignDelegationAction
@@ -1380,11 +1378,6 @@ export class LegacyBackgroundApiService {
     });
 
     this.#messenger.call('SmartTransactionsController:wipeSmartTransactions', {
-      address: selectedAddress,
-      ignoreNetwork: false,
-    });
-
-    this.#messenger.call('BridgeStatusController:wipeBridgeStatus', {
       address: selectedAddress,
       ignoreNetwork: false,
     });

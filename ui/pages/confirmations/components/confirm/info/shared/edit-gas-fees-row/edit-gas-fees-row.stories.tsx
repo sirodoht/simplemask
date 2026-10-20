@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { getMockConfirmStateForTransaction } from '../../../../../../../../test/data/confirmations/helper';
 import configureStore from '../../../../../../../store/store';
 import { ConfirmContextProvider } from '../../../../../context/confirm';
-import { DappSwapContextProvider } from '../../../../../context/dapp-swap';
 import { GasFeeModalContextProvider } from '../../../../../context/gas-fee-modal';
 import { EditGasFeesRow } from './edit-gas-fees-row';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
@@ -39,9 +38,9 @@ const Story = {
     (story: any, { args }) => (
       <Provider store={getStore(args ?? {})}>
         <ConfirmContextProvider>
-          <DappSwapContextProvider>
+          <>
             <GasFeeModalContextProvider>{story()}</GasFeeModalContextProvider>
-          </DappSwapContextProvider>
+          </>
         </ConfirmContextProvider>
       </Provider>
     ),

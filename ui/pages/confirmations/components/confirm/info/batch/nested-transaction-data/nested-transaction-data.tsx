@@ -15,15 +15,12 @@ import {
 } from '../../../../../../../components/app/confirm/info/row';
 import { ConfirmInfoRowCurrency } from '../../../../../../../components/app/confirm/info/row/currency';
 import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
-import { useDappSwapContext } from '../../../../../context/dapp-swap';
 import { useNestedTransactionLabels } from '../../hooks/useNestedTransactionLabels';
 
 export function NestedTransactionData() {
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
   const { chainId, nestedTransactions } = currentConfirmation ?? {};
-  const { isQuotedSwapDisplayedInInfo } = useDappSwapContext();
-
-  if (!nestedTransactions?.length || isQuotedSwapDisplayedInInfo) {
+  if (!nestedTransactions?.length) {
     return null;
   }
 

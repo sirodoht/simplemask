@@ -24,7 +24,6 @@ import { useDispatch } from '../../../../store/hooks';
 import { useIsHardwareWalletAccount } from '../../../../hooks/useIsHardwareWalletAccount';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import { useShieldConfirm } from './useShieldConfirm';
-import { useDappSwapActions } from './dapp-swap-comparison/useDappSwapActions';
 import { useMoneyAccountWithdrawConfirm } from './useMoneyAccountWithdrawConfirm';
 import { useTransactionPayingAccount } from './useTransactionPayingAccount';
 
@@ -49,8 +48,6 @@ export function useTransactionConfirm() {
   const { isSponsorshipOptedOut } = useGasSponsorshipPreference(
     transactionMeta?.chainId,
   );
-  const { onDappSwapCompleted, updateSwapWithQuoteDetailsIfRequired } =
-    useDappSwapActions();
   const { shouldRedirectToHwSigningPage, redirectToHwSigningPage } =
     useSendBundleHwNavigation({ transactionMeta });
 
@@ -104,8 +101,6 @@ export function useTransactionConfirm() {
     }
 
     txToApprove.customNonceValue = customNonceValue;
-
-    updateSwapWithQuoteDetailsIfRequired(txToApprove);
 
     // If the gasless flow is not supported (e.g. stx is disabled by the user,
     // or 7702 is not supported in the chain), or the user has opted out of
@@ -180,7 +175,6 @@ export function useTransactionConfirm() {
           payingAccount,
         ),
       );
-      onDappSwapCompleted();
       return true;
     } catch (error) {
       handleShieldSubscriptionApprovalTransactionAfterConfirmErr(txToApprove);
@@ -209,7 +203,6 @@ export function useTransactionConfirm() {
     isMoneyAccountWithdraw,
     isPayingWithHardwareWallet,
     isSponsorshipOptedOut,
-    onDappSwapCompleted,
     payingAccount,
     prepareWithdrawTransaction,
     redirectToHwSigningPage,
@@ -218,7 +211,6 @@ export function useTransactionConfirm() {
     showErrorModal,
     transactionMeta,
     t,
-    updateSwapWithQuoteDetailsIfRequired,
   ]);
 
   return {

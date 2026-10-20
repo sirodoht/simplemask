@@ -1,9 +1,5 @@
-import { TxData } from '@metamask/bridge-controller';
 import { TransactionMeta } from '@metamask/transaction-controller';
 import { Hex } from '@metamask/utils';
-
-import { toHex } from '../../../../../shared/lib/delegation/utils';
-import { useDappSwapContextOptional } from '../../context/dapp-swap';
 import { HEX_ZERO } from '../../components/confirm/info/shared/constants';
 
 /**
@@ -22,18 +18,7 @@ export function useTransactionGasLimit(transactionMeta: TransactionMeta): {
   gasLimit: Hex;
   quotedGasLimit: Hex | undefined;
 } {
-  const dappSwapContext = useDappSwapContextOptional();
-  const selectedQuote = dappSwapContext?.selectedQuote;
-  const isQuotedSwapDisplayedInInfo =
-    dappSwapContext?.isQuotedSwapDisplayedInInfo ?? false;
-
-  let quotedGasLimit: Hex | undefined;
-  if (isQuotedSwapDisplayedInInfo) {
-    quotedGasLimit = toHex(
-      ((selectedQuote?.approval as TxData)?.gasLimit ?? 0) +
-        ((selectedQuote?.trade as TxData)?.gasLimit ?? 0),
-    ) as Hex;
-  }
+  const quotedGasLimit = undefined;
 
   // When container types are set (e.g. enforced simulations), the gas limit
   // has been re-estimated for the wrapped transaction, so we use

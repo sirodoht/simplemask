@@ -7,10 +7,6 @@ import {
   AccountTrackerControllerGetStateAction,
   CurrencyRateControllerActions,
 } from '@metamask/assets-controllers';
-import {
-  BridgeStatusControllerActions,
-  BridgeStatusControllerStateChangeEvent,
-} from '@metamask/bridge-status-controller';
 import { DelegationControllerSignDelegationAction } from '@metamask/delegation-controller';
 import { GasFeeControllerFetchGasFeeEstimatesAction } from '@metamask/gas-fee-controller';
 import {
@@ -78,7 +74,6 @@ export type TransactionControllerInitMessengerActions =
   | AppStateControllerGetStateAction
   | AppStateControllerSetDefaultHomeActiveTabNameAction
   | AuthenticationController.AuthenticationControllerGetBearerTokenAction
-  | BridgeStatusControllerActions
   | CurrencyRateControllerActions
   | DelegationControllerSignDelegationAction
   | GasFeeControllerFetchGasFeeEstimatesAction
@@ -109,7 +104,6 @@ export type TransactionControllerInitMessengerActions =
   | TransactionPayControllerActions;
 
 export type TransactionControllerInitMessengerEvents =
-  | BridgeStatusControllerStateChangeEvent
   | SmartTransactionsControllerSmartTransactionEvent
   | TransactionControllerPostTransactionBalanceUpdatedEvent
   | TransactionControllerStateChangeEvent
@@ -142,7 +136,6 @@ export function getTransactionControllerInitMessenger(
   messenger.delegate({
     messenger: controllerInitMessenger,
     events: [
-      'BridgeStatusController:stateChange',
       'SmartTransactionsController:smartTransaction',
       'TransactionController:postTransactionBalanceUpdated',
       'TransactionController:stateChange',
@@ -167,8 +160,6 @@ export function getTransactionControllerInitMessenger(
       'AppStateController:getState',
       'AppStateController:setDefaultHomeActiveTabName',
       'AuthenticationController:getBearerToken',
-      'BridgeStatusController:getState',
-      'BridgeStatusController:submitTx',
       'CurrencyRateController:getState',
       'DelegationController:signDelegation',
       'InstitutionalSnapController:beforeCheckPendingTransactionHook',

@@ -12,7 +12,6 @@ import { getMockConfirmStateForTransaction } from '../../../../../../test/data/c
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../test/data/confirmations/contract-interaction';
 import configureStore from '../../../../../store/store';
 import { ConfirmContextProvider } from '../../../context/confirm';
-import { DappSwapContextProvider } from '../../../context/dapp-swap';
 import { EnforcedSimulationsRow } from './enforced-simulations-row';
 
 const DELEGATION_ADDRESS_MOCK = '0x1234567890abcdef1234567890abcdef12345678';
@@ -52,7 +51,7 @@ const Story = {
           }}
         >
           <ConfirmContextProvider>
-            <DappSwapContextProvider>{story()}</DappSwapContextProvider>
+            <>{story()}</>
           </ConfirmContextProvider>
         </div>
       </Provider>
@@ -76,9 +75,9 @@ export const DisabledStory = () => {
         }}
       >
         <ConfirmContextProvider>
-          <DappSwapContextProvider>
+          <>
             <EnforcedSimulationsRow />
-          </DappSwapContextProvider>
+          </>
         </ConfirmContextProvider>
       </div>
     </Provider>
@@ -97,9 +96,9 @@ export const NotSupportedStory = () => {
         }}
       >
         <ConfirmContextProvider>
-          <DappSwapContextProvider>
+          <>
             <EnforcedSimulationsRow />
-          </DappSwapContextProvider>
+          </>
         </ConfirmContextProvider>
       </div>
     </Provider>

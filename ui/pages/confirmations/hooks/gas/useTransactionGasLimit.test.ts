@@ -1,14 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { type TransactionMeta } from '@metamask/transaction-controller';
-
-import { useDappSwapContextOptional } from '../../context/dapp-swap';
 import { useTransactionGasLimit } from './useTransactionGasLimit';
-
-jest.mock('../../context/dapp-swap', () => ({
-  useDappSwapContextOptional: jest.fn(),
-}));
-
-const mockUseDappSwapContextOptional = jest.mocked(useDappSwapContextOptional);
 
 const BASE_TRANSACTION_META = {
   chainId: '0x1',
@@ -19,7 +11,6 @@ const BASE_TRANSACTION_META = {
 describe('useTransactionGasLimit', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseDappSwapContextOptional.mockReturnValue(undefined);
   });
 
   it('prefers gasUsed when no container types are set', () => {
@@ -90,46 +81,5 @@ describe('useTransactionGasLimit', () => {
     );
 
     expect(result.current.gasLimit).toBe('0x0');
-  });
-
-  it('uses quoted gas limit when a swap quote is displayed', () => {
-    mockUseDappSwapContextOptional.mockReturnValue({
-      isQuotedSwapDisplayedInInfo: true,
-      selectedQuote: {
-        approval: { gasLimit: 100 },
-        trade: { gasLimit: 50 },
-      },
-    } as unknown as ReturnType<typeof useDappSwapContextOptional>);
-
-    const { result } = renderHook(() =>
-      useTransactionGasLimit({
-        ...BASE_TRANSACTION_META,
-        gasUsed: '0x7530',
-      } as unknown as TransactionMeta),
-    );
-
-    // 100 + 50 = 150 = 0x96
-    expect(result.current.gasLimit).toBe('0x96');
-    expect(result.current.quotedGasLimit).toBe('0x96');
-  });
-
-  it('ignores quoted gas limit when container types are set', () => {
-    mockUseDappSwapContextOptional.mockReturnValue({
-      isQuotedSwapDisplayedInInfo: true,
-      selectedQuote: {
-        approval: { gasLimit: 100 },
-        trade: { gasLimit: 50 },
-      },
-    } as unknown as ReturnType<typeof useDappSwapContextOptional>);
-
-    const { result } = renderHook(() =>
-      useTransactionGasLimit({
-        ...BASE_TRANSACTION_META,
-        containerTypes: ['EnforcedSimulations'],
-        txParams: { gas: '0x1fbd0' },
-      } as unknown as TransactionMeta),
-    );
-
-    expect(result.current.gasLimit).toBe('0x1fbd0');
   });
 });

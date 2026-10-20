@@ -1,11 +1,9 @@
 import { ApprovalRequest } from '@metamask/approval-controller';
 import { ApprovalType } from '@metamask/controller-utils';
-import { Hex, Json } from '@metamask/utils';
-import { QuoteResponseV1 } from '@metamask/bridge-controller';
+import { Json } from '@metamask/utils';
 
 import { createSelector } from 'reselect';
 import { getPendingApprovals } from '../../../selectors/approvals';
-import { ConfirmMetamaskState } from '../types/confirm';
 
 const ConfirmationApprovalTypes = [
   ApprovalType.PersonalSign,
@@ -27,23 +25,3 @@ export const firstPendingConfirmationSelector = createSelector(
   (pendingConfirmations): ApprovalRequest<Record<string, Json>> | undefined =>
     pendingConfirmations[0],
 );
-
-export function selectDappSwapComparisonData(
-  state: ConfirmMetamaskState,
-  transactionId: string,
-):
-  | {
-      quotes?: QuoteResponseV1[];
-      latency?: number;
-      commands?: string;
-      error?: string;
-      swapInfo?: {
-        srcTokenAddress: Hex;
-        destTokenAddress: Hex;
-        srcTokenAmount: Hex;
-        destTokenAmountMin: Hex;
-      };
-    }
-  | undefined {
-  return state.metamask.dappSwapComparisonData?.[transactionId] ?? undefined;
-}

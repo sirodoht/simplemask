@@ -93,10 +93,6 @@ jest.mock('../../../selectors/multi-srp/multi-srp', () => ({
   getShouldShowSeedPhraseReminder: () => false,
 }));
 
-jest.mock('../../../ducks/bridge/selectors', () => ({
-  getAllBridgeableNetworks: () => [],
-}));
-
 const mockUseNavigate = jest.fn();
 let mockLocationKey = 'default';
 jest.mock('react-router-dom', () => ({

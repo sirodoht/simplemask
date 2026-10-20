@@ -16,18 +16,13 @@ import { TxToastNotification } from '../../page-objects/components/tx-toast-noti
 import ActivityTab from '../../page-objects/pages/home/activity-tab';
 import TransactionConfirmation from '../../page-objects/pages/confirmations/transaction-confirmation';
 import HomePage from '../../page-objects/pages/home/homepage';
-import SwapPage from '../../page-objects/pages/swap/swap-page';
-import { BRIDGE_FEATURE_FLAGS_WITH_SSE_ENABLED } from '../bridge/constants';
-import { mockGetTxStatus } from '../bridge/bridge-test-utils';
 import {
   mockSpotPrices,
   getMainnet25EthAssetsControllerPatch,
 } from '../tokens/utils/mocks';
 import {
   mockSmartTransactionRequests,
-  mockGasIncludedTransactionRequests,
   mockChooseGasFeeTokenRequests,
-  mockSwapTokensMockApis,
   mockSentinelNetworks,
 } from './mocks';
 
@@ -71,11 +66,6 @@ async function withFixturesForSmartTransactions(
       },
       unifiedEvmAccountsApiBalances: {
         mainnetNativeEthHuman: '20',
-      },
-      manifestFlags: {
-        remoteFeatureFlags: {
-          bridgeConfig: BRIDGE_FEATURE_FLAGS_WITH_SSE_ENABLED,
-        },
       },
       testSpecificMock: async (mockServer: MockttpServer) => {
         await mockSpotPrices(mockServer, {
@@ -143,74 +133,6 @@ describe('Smart Transactions', function () {
         await activityTab.checkNoFailedTransactions();
         await activityTab.checkConfirmedTxNumberDisplayedInActivity(1);
         await activityTab.checkTxAmountInActivity(`-0.01 ETH`, 1);
-      },
-    );
-  });
-
-  it('should Swap using smart transaction', async function () {
-    await withFixturesForSmartTransactions(
-      {
-        title: this.test?.fullTitle(),
-        testSpecificMock: async (mockServer: MockttpServer) => {
-          await mockSmartTransactionRequests(mockServer);
-          await mockSwapTokensMockApis(mockServer);
-          await mockGetTxStatus(mockServer);
-        },
-      },
-      async ({ driver }) => {
-        const homePage = new HomePage(driver);
-        await homePage.startSwapFlow();
-
-        const swapPage = new SwapPage(driver);
-        await swapPage.checkPageIsLoaded();
-        await swapPage.enterSwapAmount('2');
-        await swapPage.selectDestinationToken('DAI');
-        await swapPage.checkQuoteIsGasIncluded();
-        await swapPage.submitSwap();
-
-        await swapPage.waitForSmartTransactionToComplete();
-        await swapPage.clickViewActivity();
-
-        await homePage.checkPageIsLoaded();
-        await homePage.goToActivityList();
-
-        const activityTab = new ActivityTab(driver);
-        await activityTab.checkCompletedTxNumberDisplayedInActivity();
-        await activityTab.checkNoFailedTransactions();
-        await activityTab.checkConfirmedTxNumberDisplayedInActivity();
-        await activityTab.checkTxAction({ action: 'Swapped' });
-        await activityTab.checkTxAmountInActivity(`+4,625.9799 DAI`, 1);
-      },
-    );
-  });
-
-  it('should Swap with gas included fee', async function () {
-    await withFixturesForSmartTransactions(
-      {
-        title: this.test?.fullTitle(),
-        testSpecificMock: mockGasIncludedTransactionRequests,
-      },
-      async ({ driver }) => {
-        const homePage = new HomePage(driver);
-        await homePage.startSwapFlow();
-
-        const swapPage = new SwapPage(driver);
-        await swapPage.checkPageIsLoaded();
-        await swapPage.enterSwapAmount('20');
-        await swapPage.waitForQuote();
-        await swapPage.checkQuoteIsGasIncluded();
-        await swapPage.submitSwap();
-
-        await swapPage.waitForSmartTransactionToComplete();
-        await swapPage.clickViewActivity();
-
-        await homePage.checkPageIsLoaded();
-        await homePage.goToActivityList();
-
-        const activityTab = new ActivityTab(driver);
-        await activityTab.checkCompletedTxNumberDisplayedInActivity();
-        await activityTab.checkNoFailedTransactions();
-        await activityTab.checkConfirmedTxNumberDisplayedInActivity();
       },
     );
   });

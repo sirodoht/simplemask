@@ -23,8 +23,6 @@ export type UseHwSwapActionsOptions = {
   needsTwoConfirmations: boolean;
   /** Whether smart transactions are enabled for the current network. */
   isStxEnabled: boolean;
-  /** True when signing a sendBundle (send) flow rather than a bridge/swap. */
-  isSendBundleFlow: boolean;
   /**
    * Ref set to `true` when sendBundle auto-submit or retry has started.
    * Retry sets this before re-submitting so the auto-submit effect does not
@@ -33,8 +31,6 @@ export type UseHwSwapActionsOptions = {
   hasStartedSendBundleSubmission: MutableRefObject<boolean>;
   /** Recreates and re-approves the sendBundle transaction. */
   retrySendBundleSubmission: () => Promise<void>;
-  /** Re-submits the locked bridge/swap quote. */
-  retrySubmission: () => Promise<void>;
   /** Stops any active QR signature scan. */
   handleQrSignatureCancel: () => void;
   /**

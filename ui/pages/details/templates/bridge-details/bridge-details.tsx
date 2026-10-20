@@ -16,10 +16,7 @@ import { Footer, Row, Section } from '../../components/shared';
 import { TokenRow } from '../../components/token-row';
 import { FeesRows, TotalAmountRow } from '../../components/amounts-section';
 import { BridgeExplorerButtons } from '../../components/bridge-explorer-buttons';
-import { SwapAgainButton } from '../../components/swap-again-button';
-import { useHistoryTokens, useBridgeHistoryItem } from './hooks';
 import { BridgeNetworkRow } from './bridge-network-row';
-import { getBridgeDisplayStatus } from './utils';
 
 export function BridgeDetails({
   item,
@@ -44,17 +41,8 @@ export function BridgeDetails({
   const sourceChainId = item.chainId;
   const sourceTxHash = item.hash;
 
-  // The indexed accounts API only sees the source chain, so an API-derived
-  // bridge item lacks the destination token, network and tx hash. Backfill them
-  // from local bridge history so the received-token row and both source and
-  // destination block explorer links render correctly.
-  const bridgeHistoryItem = useBridgeHistoryItem(sourceTxHash);
-
-  const historyTokens = useHistoryTokens(sourceTxHash);
-
-  const sourceToken = item.data.sourceToken ?? historyTokens?.sourceToken;
-  const destinationToken =
-    item.data.destinationToken ?? historyTokens?.destinationToken;
+  const { sourceToken } = item.data;
+  const { destinationToken } = item.data;
 
   const destinationChainId = destinationToken?.assetId?.split('/')[0];
 
@@ -68,13 +56,11 @@ export function BridgeDetails({
       isValidTransactionHash(sourceTxHash))
       ? sourceTxHash
       : undefined;
-
-  const destTxHash = bridgeHistoryItem?.status.destChain?.txHash;
-  const fromAddress = item.data.from || bridgeHistoryItem?.account || undefined;
+  const fromAddress = item.data.from;
 
   // The API item is marked confirmed once the source tx lands, so prefer the
   // end-to-end bridge status from local history while the destination is pending.
-  const status = getBridgeDisplayStatus(item.status, bridgeHistoryItem);
+  const { status } = item;
 
   const destinationAccountGroups = useSelector((state) =>
     fromAddress && destinationChainId && showFromTo
@@ -178,11 +164,7 @@ export function BridgeDetails({
           sourceChainId={item.chainId}
           sourceTxHash={sourceTxHash}
           destChainId={destinationChainId}
-          destTxHash={destTxHash}
-        />
-        <SwapAgainButton
-          sourceToken={sourceToken}
-          destinationToken={destinationToken}
+          destTxHash={undefined}
         />
       </Footer>
     </div>

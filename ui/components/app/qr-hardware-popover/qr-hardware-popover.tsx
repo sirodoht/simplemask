@@ -23,10 +23,7 @@ import {
   ENVIRONMENT_TYPE_POPUP,
   ENVIRONMENT_TYPE_SIDEPANEL,
 } from '../../../../shared/constants/app';
-import {
-  CROSS_CHAIN_SWAP_ROUTE,
-  HARDWARE_WALLET_SIGNATURES_ROUTE,
-} from '../../../helpers/constants/routes';
+import { HARDWARE_WALLET_SIGNATURES_ROUTE } from '../../../helpers/constants/routes';
 import { createHardwareWalletError } from '../../../contexts/hardware-wallets/errors';
 import { HardwareWalletType } from '../../../contexts/hardware-wallets/types';
 import { useDispatch } from '../../../store/hooks';
@@ -51,8 +48,8 @@ const QRHardwarePopover = () => {
   const t = useI18nContext();
   const activeScanRequest = useSelector(getActiveQrCodeScanRequest);
   const { pathname } = useLocation();
-  const isBridgeHardwareWalletSigningPage =
-    pathname === `${CROSS_CHAIN_SWAP_ROUTE}${HARDWARE_WALLET_SIGNATURES_ROUTE}`;
+  const isHardwareWalletSigningPage =
+    pathname === HARDWARE_WALLET_SIGNATURES_ROUTE;
 
   const environmentType = getEnvironmentType();
   const isRestrictedEnv =
@@ -145,7 +142,7 @@ const QRHardwarePopover = () => {
   }
 
   if (
-    isBridgeHardwareWalletSigningPage &&
+    isHardwareWalletSigningPage &&
     activeScanRequest?.type === QrScanRequestType.SIGN
   ) {
     return null;

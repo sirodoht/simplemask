@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import { CaipChainId, Hex } from '@metamask/utils';
 import type { AccountGroupAssets, Asset } from '@metamask/assets-controllers';
 import { useTokenAssetSecurityResults } from '#ui/hooks/token-asset/useTokenAssetSecurityResults';
-import type { RWATokenLike } from '../../../../pages/bridge/hooks/useRWAToken';
+import type { RWATokenLike } from '../../../../hooks/rwa/useRWAToken';
 import { enLocale as messages } from '../../../../../test/lib/i18n-helpers';
 import {
   MetaMetricsEventCategory,
@@ -136,7 +136,7 @@ const mockIsStockToken = jest.fn<boolean, [RWATokenLike | undefined]>(
   () => false,
 );
 
-jest.mock('../../../../pages/bridge/hooks/useRWAToken', () => ({
+jest.mock('../../../../hooks/rwa/useRWAToken', () => ({
   useRWAToken: () => ({
     isStockToken: mockIsStockToken,
     isTokenTradingOpen: jest.fn(() => true),

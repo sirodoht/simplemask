@@ -11,10 +11,7 @@ import {
   ENVIRONMENT_TYPE_POPUP,
   ENVIRONMENT_TYPE_SIDEPANEL,
 } from '../../../../shared/constants/app';
-import {
-  CROSS_CHAIN_SWAP_ROUTE,
-  HARDWARE_WALLET_SIGNATURES_ROUTE,
-} from '../../../helpers/constants/routes';
+import { HARDWARE_WALLET_SIGNATURES_ROUTE } from '../../../helpers/constants/routes';
 import { I18nProvider } from '../../../../test/lib/render-helpers';
 import { enLocale as en } from '../../../../test/lib/i18n-helpers';
 import QRHardwarePopover from './qr-hardware-popover';
@@ -186,7 +183,7 @@ describe('QRHardwarePopover', () => {
   });
 
   it('does not render the SIGN popover on the bridge hardware wallet signing page', () => {
-    mockPathname = `${CROSS_CHAIN_SWAP_ROUTE}${HARDWARE_WALLET_SIGNATURES_ROUTE}`;
+    mockPathname = HARDWARE_WALLET_SIGNATURES_ROUTE;
 
     const { container } = renderPopover(
       buildStore({

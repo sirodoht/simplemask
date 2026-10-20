@@ -15,9 +15,7 @@ import {
 import {
   createCancelTransaction,
   createSpeedUpTransaction,
-  updateCustomSwapsEIP1559GasParams,
   updatePreviousGasParams,
-  updateSwapsUserFeeLevel,
 } from '../../../store/actions';
 import { updateTransactionGasFees } from '../../../store/actions/update-transaction-gas-fees';
 import { useDispatch } from '../../../store/hooks';
@@ -113,13 +111,7 @@ export const useTransactionFunctions = ({
         },
         ...txMeta,
       };
-
-      if (editGasMode === EditGasModes.swaps) {
-        dispatch(
-          updateSwapsUserFeeLevel(estimateUsed || PriorityLevels.custom),
-        );
-        dispatch(updateCustomSwapsEIP1559GasParams(newGasSettings));
-      } else if (editGasModeIsSpeedUpOrCancel(editGasMode) && setRetryTxMeta) {
+      if (editGasModeIsSpeedUpOrCancel(editGasMode) && setRetryTxMeta) {
         setRetryTxMeta(updatedTxMeta);
       } else {
         newGasSettings.userEditedGasLimit = updatedTxMeta.userEditedGasLimit;

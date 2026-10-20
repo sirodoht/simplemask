@@ -1,4 +1,3 @@
-import { QuoteResponseV1, TxData } from '@metamask/bridge-controller';
 import {
   GasFeeToken,
   TransactionMeta,
@@ -7,10 +6,7 @@ import {
 import { Hex } from '@metamask/utils';
 import { act } from '@testing-library/react';
 
-import {
-  genUnapprovedContractInteractionConfirmation,
-  mockBridgeQuotes,
-} from '../../../../../test/data/confirmations/contract-interaction';
+import { genUnapprovedContractInteractionConfirmation } from '../../../../../test/data/confirmations/contract-interaction';
 import { GAS_FEE_TOKEN_MOCK } from '../../../../../test/data/confirmations/gas';
 import { getMockConfirmStateForTransaction } from '../../../../../test/data/confirmations/helper';
 import { renderHookWithConfirmContextProvider } from '../../../../../test/lib/confirmations/render-helpers';
@@ -27,11 +23,9 @@ import {
 import { DEFAULT_ROUTE } from '../../../../helpers/constants/routes';
 import { useHardwareWalletError } from '../../../../contexts/hardware-wallets';
 import { isHardwareWallet } from '../../../../../shared/lib/selectors/keyring';
-import * as DappSwapContext from '../../context/dapp-swap';
 import { useGaslessSupportedSmartTransactions } from '../gas/useGaslessSupportedSmartTransactions';
 import { useIsGaslessSupported } from '../gas/useIsGaslessSupported';
 import { useGasSponsorshipPreference } from '../gas/useGasSponsorshipPreference';
-import * as DappSwapActions from './dapp-swap-comparison/useDappSwapActions';
 import { useMoneyAccountWithdrawConfirm } from './useMoneyAccountWithdrawConfirm';
 import { useTransactionConfirm } from './useTransactionConfirm';
 
@@ -98,11 +92,14 @@ jest.mock('../gas/useGaslessSupportedSmartTransactions');
 jest.mock('../gas/useGasSponsorshipPreference');
 
 const mockNavigateToHwSigningPage = jest.fn();
-jest.mock('../../../../hooks/bridge/useBridgeNavigation', () => ({
-  useBridgeNavigation: () => ({
-    navigateToHwSigningPage: mockNavigateToHwSigningPage,
+jest.mock(
+  '../../../../hooks/hardware-wallets/useHardwareWalletNavigation',
+  () => ({
+    useHardwareWalletNavigation: () => ({
+      navigateToHwSigningPage: mockNavigateToHwSigningPage,
+    }),
   }),
-}));
+);
 
 const mockUseSendBundleAmountSymbol = jest.fn();
 jest.mock(
@@ -373,8 +370,6 @@ describe('useTransactionConfirm', () => {
     const navigateState = mockNavigateToHwSigningPage.mock.calls[0][0];
     expect(navigateState).toStrictEqual(
       expect.objectContaining({
-        bridgeState: null,
-        token: null,
         sendBundle: expect.objectContaining({
           needsTwoConfirmations: true,
           returnRoute: DEFAULT_ROUTE,
@@ -411,8 +406,6 @@ describe('useTransactionConfirm', () => {
     const navigateState = mockNavigateToHwSigningPage.mock.calls[0][0];
     expect(navigateState).toStrictEqual(
       expect.objectContaining({
-        bridgeState: null,
-        token: null,
         sendBundle: expect.objectContaining({
           needsTwoConfirmations: false,
           returnRoute: DEFAULT_ROUTE,
@@ -588,19 +581,6 @@ describe('useTransactionConfirm', () => {
     expect(actualTransactionMeta.customNonceValue).toBe(CUSTOM_NONCE_VALUE);
   });
 
-  it('call function to capture swap submit', async () => {
-    const mockOnDappSwapCompleted = jest.fn();
-    jest.spyOn(DappSwapActions, 'useDappSwapActions').mockReturnValue({
-      onDappSwapCompleted: mockOnDappSwapCompleted,
-      updateSwapWithQuoteDetailsIfRequired: jest.fn(),
-    } as unknown as ReturnType<typeof DappSwapActions.useDappSwapActions>);
-
-    const { onTransactionConfirm } = runHook({ customNonceValue: '1234' });
-    await onTransactionConfirm();
-
-    expect(mockOnDappSwapCompleted).toHaveBeenCalledTimes(1);
-  });
-
   it('updates batch transaction if smart transaction and selected gas fee token', async () => {
     useGaslessSupportedSmartTransactionsMock.mockReturnValue({
       isSupported: true,
@@ -622,42 +602,6 @@ describe('useTransactionConfirm', () => {
         type: TransactionType.gasPayment,
       }),
     ]);
-  });
-
-  it('updates swap with MM quote if available', async () => {
-    jest.spyOn(DappSwapContext, 'useDappSwapContext').mockReturnValue({
-      isQuotedSwapDisplayedInInfo: true,
-      selectedQuote: mockBridgeQuotes[0] as unknown as QuoteResponseV1,
-      setSelectedQuote: jest.fn(),
-      setQuotedSwapDisplayedInInfo: jest.fn(),
-    } as unknown as ReturnType<typeof DappSwapContext.useDappSwapContext>);
-
-    useGaslessSupportedSmartTransactionsMock.mockReturnValue({
-      isSupported: true,
-      isSmartTransaction: true,
-      pending: false,
-    });
-
-    const { onTransactionConfirm } = runHook({
-      gasFeeTokens: [GAS_FEE_TOKEN_MOCK],
-      selectedGasFeeToken: GAS_FEE_TOKEN_MOCK.tokenAddress,
-    });
-
-    await onTransactionConfirm();
-
-    const actual = updateAndApproveTxMock.mock.calls[0][0];
-    expect(actual.txParams).toStrictEqual(
-      expect.objectContaining({
-        authorizationList: undefined,
-        data: (mockBridgeQuotes[0].trade as TxData).data,
-        from: '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc',
-        gas: '0x3',
-        maxFeePerGas: '0x4',
-        maxPriorityFeePerGas: '0x5',
-        to: '0x9dDA6Ef3D919c9bC8885D5560999A3640431e8e6',
-        value: '0x0',
-      }),
-    );
   });
 
   it('updates transaction params if smart transaction and selected gas fee token', async () => {

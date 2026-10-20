@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Text } from '@metamask/design-system-react';
 import { useSelector } from 'react-redux';
-import { getMaybeHexChainId } from '../../../ducks/bridge/utils';
+import { getMaybeHexChainId } from '../../../../shared/lib/native-asset';
 import { getAllNetworkConfigurationsByCaipChainId } from '../../../../shared/lib/selectors/networks';
 import {
   MULTICHAIN_NETWORK_BLOCK_EXPLORER_FORMAT_URLS_MAP,

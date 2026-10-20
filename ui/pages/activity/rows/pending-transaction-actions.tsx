@@ -1,13 +1,9 @@
 import React, { type MouseEvent as ReactMouseEvent } from 'react';
-import { useSelector } from 'react-redux';
 import type { TransactionMeta } from '@metamask/transaction-controller';
 import type { EditGasModes } from '../../../../shared/constants/gas';
 import type { TransactionGroup } from '../../../../shared/lib/multichain/types';
-import { isIntentBridgeActivity } from '../../../helpers/transactions/pending-transaction-actions';
 import { usePendingTransactionActions } from '../../../hooks/usePendingTransactionActions';
 import { PendingTransactionActionButtons } from '../../../components/app/pending-transaction-action-buttons/pending-transaction-action-buttons';
-import { selectBridgeHistoryItemForTx } from '../../../selectors/activity';
-import type { MetaMaskReduxState } from '../../../store/store';
 
 type TransactionMetaWithSmartTransaction = TransactionMeta & {
   isSmartTransaction?: boolean;
@@ -27,14 +23,11 @@ export const TransactionListItemPendingActions = ({
   onGasModalMetaId,
 }: Readonly<TransactionListItemPendingActionsProps>) => {
   const { primaryTransaction, initialTransaction } = transactionGroup;
-  const bridgeHistoryItem = useSelector((state: MetaMaskReduxState) =>
-    selectBridgeHistoryItemForTx(state, initialTransaction),
-  );
   const { showCancel, onCancel, speedUp } = usePendingTransactionActions({
     transactionGroup,
     isEarliestNonce,
     setEditGasMode,
-    hasIntentBridgeActivity: isIntentBridgeActivity(bridgeHistoryItem),
+    hasIntentBridgeActivity: false,
   });
 
   if (

@@ -42,7 +42,7 @@ import { useMultichainBalances } from '../../../../hooks/useMultichainBalances';
 import { AvatarType } from '../../avatar-group/avatar-group.types';
 import { NETWORK_TO_SHORT_NETWORK_NAME_MAP } from '../../../../../shared/constants/bridge';
 import { useMultichainSelector } from '../../../../hooks/useMultichainSelector';
-import { getNativeTokenName } from '../../../../ducks/bridge/utils';
+import { getNativeTokenName } from '../../../../../shared/lib/native-asset';
 import {
   getMultichainConversionRate,
   getMultichainCurrencyImage,

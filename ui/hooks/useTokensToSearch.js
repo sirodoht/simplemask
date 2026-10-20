@@ -1,19 +1,9 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import BigNumber from 'bignumber.js';
-import { uniqBy } from 'lodash';
 import { formatIconUrlWithProxy } from '@metamask/assets-controllers';
 import { getTokenFiatAmount } from '../helpers/utils/token-util';
-import { getTokenExchangeRates, getSwapsDefaultToken } from '../selectors';
-import { getCurrentChainId } from '../../shared/lib/selectors/networks';
-import { getCurrentCurrency } from '../ducks/metamask/metamask';
-import { getConversionRate } from '../ducks/metamask/base-selectors';
-import { getSwapsTokens } from '../ducks/swaps/swaps';
 import { isSwapsDefaultTokenSymbol } from '../../shared/lib/swaps.utils';
 import { toChecksumHexAddress } from '../../shared/lib/hexstring-utils';
-import { TokenBucketPriority } from '../../shared/constants/swaps';
 import { CHAIN_IDS, CURRENCY_SYMBOLS } from '../../shared/constants/network';
-import { useEqualityCheck } from './useEqualityCheck';
 
 export function getRenderableTokenData(
   token,
@@ -88,123 +78,4 @@ export function getRenderableTokenData(
     rawFiat,
     image: token.image || token.iconUrl,
   };
-}
-
-export function useTokensToSearch({
-  usersTokens = [],
-  topTokens = {},
-  shuffledTokensList,
-  tokenBucketPriority = TokenBucketPriority.owned,
-}) {
-  const chainId = useSelector(getCurrentChainId);
-  const tokenConversionRates = useSelector(getTokenExchangeRates);
-  const conversionRate = useSelector(getConversionRate);
-  const currentCurrency = useSelector(getCurrentCurrency);
-  const defaultSwapsToken = useSelector(getSwapsDefaultToken);
-
-  const memoizedTopTokens = useEqualityCheck(topTokens);
-  const memoizedUsersToken = useEqualityCheck(usersTokens);
-
-  const defaultToken = getRenderableTokenData(
-    defaultSwapsToken,
-    tokenConversionRates,
-    conversionRate,
-    currentCurrency,
-    chainId,
-  );
-  const memoizedDefaultToken = useEqualityCheck(defaultToken);
-
-  const swapsTokens = useSelector(getSwapsTokens) || [];
-
-  const tokensToSearch = swapsTokens.length
-    ? swapsTokens
-    : [
-        memoizedDefaultToken,
-        ...shuffledTokensList.filter(
-          (token) => token.symbol !== memoizedDefaultToken.symbol,
-        ),
-      ];
-
-  const memoizedTokensToSearch = useEqualityCheck(tokensToSearch);
-  return useMemo(() => {
-    const usersTokensAddressMap = memoizedUsersToken.reduce(
-      (acc, token) => ({ ...acc, [token.address.toLowerCase()]: token }),
-      {},
-    );
-
-    const tokensToSearchBuckets = {
-      owned: [],
-      top: [],
-      others: [],
-    };
-
-    const memoizedSwapsAndUserTokensWithoutDuplicities = uniqBy(
-      [memoizedDefaultToken, ...memoizedTokensToSearch, ...memoizedUsersToken],
-      (token) => token.address.toLowerCase(),
-    );
-
-    memoizedSwapsAndUserTokensWithoutDuplicities.forEach((token) => {
-      const renderableDataToken = getRenderableTokenData(
-        { ...usersTokensAddressMap[token.address.toLowerCase()], ...token },
-        tokenConversionRates,
-        conversionRate,
-        currentCurrency,
-        chainId,
-      );
-      if (tokenBucketPriority === TokenBucketPriority.owned) {
-        if (
-          isSwapsDefaultTokenSymbol(renderableDataToken.symbol, chainId) ||
-          usersTokensAddressMap[token.address.toLowerCase()]
-        ) {
-          tokensToSearchBuckets.owned.push(renderableDataToken);
-        } else if (memoizedTopTokens[token.address.toLowerCase()]) {
-          tokensToSearchBuckets.top[
-            memoizedTopTokens[token.address.toLowerCase()].index
-          ] = renderableDataToken;
-        } else {
-          tokensToSearchBuckets.others.push(renderableDataToken);
-        }
-      } else if (memoizedTopTokens[token.address.toLowerCase()]) {
-        tokensToSearchBuckets.top[
-          memoizedTopTokens[token.address.toLowerCase()].index
-        ] = renderableDataToken;
-      } else if (
-        isSwapsDefaultTokenSymbol(renderableDataToken.symbol, chainId) ||
-        usersTokensAddressMap[token.address.toLowerCase()]
-      ) {
-        tokensToSearchBuckets.owned.push(renderableDataToken);
-      } else {
-        tokensToSearchBuckets.others.push(renderableDataToken);
-      }
-    });
-
-    tokensToSearchBuckets.owned = tokensToSearchBuckets.owned.sort(
-      ({ rawFiat }, { rawFiat: secondRawFiat }) => {
-        return new BigNumber(rawFiat || 0).gt(secondRawFiat || 0) ? -1 : 1;
-      },
-    );
-    tokensToSearchBuckets.top = tokensToSearchBuckets.top.filter(Boolean);
-    if (tokenBucketPriority === TokenBucketPriority.owned) {
-      return [
-        ...tokensToSearchBuckets.owned,
-        ...tokensToSearchBuckets.top,
-        ...tokensToSearchBuckets.others,
-      ];
-    }
-    return [
-      ...tokensToSearchBuckets.top,
-      ...tokensToSearchBuckets.owned,
-      ...tokensToSearchBuckets.others,
-    ];
-  }, [
-    memoizedTokensToSearch,
-    memoizedUsersToken,
-    memoizedTopTokens,
-    tokenConversionRates,
-    conversionRate,
-    currentCurrency,
-    memoizedDefaultToken,
-    chainId,
-    tokenBucketPriority,
-  ]);
 }

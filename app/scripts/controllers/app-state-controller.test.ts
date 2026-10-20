@@ -1025,7 +1025,6 @@ describe('AppStateController', () => {
               "connectedStatusPopoverHasBeenShown": true,
               "currentExtensionPopupId": 0,
               "currentPopupId": 0,
-              "dappSwapComparisonData": {},
               "defaultHomeActiveTabName": null,
               "fullScreenGasPollTokens": [],
               "hasShownMultichainAccountsIntroModal": false,

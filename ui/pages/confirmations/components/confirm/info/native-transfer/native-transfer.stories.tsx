@@ -12,7 +12,6 @@ import {
 } from '../../../../../../helpers/constants/design-system';
 import configureStore from '../../../../../../store/store';
 import { ConfirmContextProvider } from '../../../../context/confirm';
-import { DappSwapContextProvider } from '../../../../context/dapp-swap';
 import { GasFeeModalContextProvider } from '../../../../context/gas-fee-modal';
 import NativeTransferInfo from './native-transfer';
 
@@ -33,7 +32,7 @@ const Story = {
     (story: () => any) => (
       <Provider store={store}>
         <ConfirmContextProvider>
-          <DappSwapContextProvider>
+          <>
             <GasFeeModalContextProvider>
               <Box
                 display={Display.Flex}
@@ -44,7 +43,7 @@ const Story = {
                 {story()}
               </Box>
             </GasFeeModalContextProvider>
-          </DappSwapContextProvider>
+          </>
         </ConfirmContextProvider>
       </Provider>
     ),

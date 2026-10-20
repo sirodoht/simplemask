@@ -6,7 +6,6 @@ import {
   ConnectionStatus,
   useHardwareWalletState,
 } from '../../contexts/hardware-wallets';
-import { useBridgeNavigation } from '../bridge/useBridgeNavigation';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
 import { cleanupPendingApproval } from '../../pages/hardware-wallets/swap/hardware-wallet-signatures.utils';
 import {
@@ -30,7 +29,7 @@ const RETRYABLE_CONNECTION_STATUSES = new Set<ConnectionStatus>([
  * Owns retry and cancel actions for the hardware-wallet signing-progress screen.
  *
  * `handleRetry` cancels the current batch, resets the signature state machine,
- * and re-submits (bridge quote or sendBundle). `handleCancel` aborts the batch,
+ * and re-submits the send transaction. `handleCancel` aborts the batch,
  * stops QR scanning, cleans up sendBundle approvals when needed, and navigates
  * away.
  *
@@ -42,10 +41,8 @@ const RETRYABLE_CONNECTION_STATUSES = new Set<ConnectionStatus>([
  * @param options.retryGenerationRef
  * @param options.needsTwoConfirmations
  * @param options.isStxEnabled
- * @param options.isSendBundleFlow
  * @param options.hasStartedSendBundleSubmission
  * @param options.retrySendBundleSubmission
- * @param options.retrySubmission
  * @param options.handleQrSignatureCancel
  * @param options.currentApprovalRequestId
  * @param options.returnRoute
@@ -62,10 +59,8 @@ export function useHwSwapActions({
   retryGenerationRef,
   needsTwoConfirmations,
   isStxEnabled,
-  isSendBundleFlow,
   hasStartedSendBundleSubmission,
   retrySendBundleSubmission,
-  retrySubmission,
   handleQrSignatureCancel,
   currentApprovalRequestId,
   returnRoute,
@@ -74,7 +69,6 @@ export function useHwSwapActions({
 }: UseHwSwapActionsOptions) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { navigateToBridgePage } = useBridgeNavigation();
   const { connectionState } = useHardwareWalletState();
 
   // Tracks whether the user has retried at least once. Once true, the
@@ -89,7 +83,7 @@ export function useHwSwapActions({
   /**
    * Retries the hardware wallet signing flow after a rejection, failure, or
    * device disconnection. Cancels the current batch, resets the state machine,
-   * and re-submits the bridge transaction.
+   * and re-submits the send transaction.
    *
    * @param options - Optional retry configuration.
    * @param options.skipConnectionCheck - Skips the `connectionState.status`
@@ -179,12 +173,9 @@ export function useHwSwapActions({
         // captured `retryGenerationRef` no longer matches (bumped above).
         // `retrySubmission` swallows the rethrown error after that dispatch.
         isRetryingRef.current = false;
-        if (isSendBundleFlow) {
-          hasStartedSendBundleSubmission.current = true;
-          await retrySendBundleSubmission();
-        } else {
-          await retrySubmission();
-        }
+        hasStartedSendBundleSubmission.current = true;
+
+        await retrySendBundleSubmission();
       } finally {
         isRetryingRef.current = false;
         isRetryInFlightRef.current = false;
@@ -197,14 +188,12 @@ export function useHwSwapActions({
       dispatchSignatureEvent,
       hasStartedSendBundleSubmission,
       isRetryingRef,
-      isSendBundleFlow,
       isStxEnabled,
       needsTwoConfirmations,
       resetConnectionError,
       retryGenerationRef,
       onRetryGenerationBump,
       retrySendBundleSubmission,
-      retrySubmission,
       signatureState,
     ],
   );
@@ -213,33 +202,26 @@ export function useHwSwapActions({
    * Cancels the hardware wallet signing flow. Aborts the current batch, stops
    * any active QR scan, and navigates away.
    *
-   * For the sendBundle (send) flow, the pending approval is also rejected so
-   * the confirmation does not linger, then the user returns to the start of
-   * the send flow. For the bridge/swap flow, navigates back to the bridge page.
+   * Rejects the pending approval and returns to the wallet.
    */
   const handleCancel = useCallback(async () => {
     await cancelCurrentBatch();
     handleQrSignatureCancel();
-    if (isSendBundleFlow) {
-      // Reject the pending approval so the confirmation is cleaned up and
-      // does not linger after navigating back to the send flow.
-      if (currentApprovalRequestId) {
-        cleanupPendingApproval(dispatch, currentApprovalRequestId);
-      }
-      navigate(returnRoute ?? DEFAULT_ROUTE, {
-        replace: true,
-      });
-      return;
+    // Reject the pending approval so the confirmation is cleaned up and
+    // does not linger after navigating back to the send flow.
+    if (currentApprovalRequestId) {
+      cleanupPendingApproval(dispatch, currentApprovalRequestId);
     }
-    navigateToBridgePage();
+
+    navigate(returnRoute ?? DEFAULT_ROUTE, {
+      replace: true,
+    });
   }, [
     cancelCurrentBatch,
     currentApprovalRequestId,
     dispatch,
     handleQrSignatureCancel,
-    isSendBundleFlow,
     navigate,
-    navigateToBridgePage,
     returnRoute,
   ]);
 

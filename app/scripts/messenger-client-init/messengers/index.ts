@@ -116,11 +116,6 @@ import {
 } from './account-tracker-controller-messenger';
 import { getOnboardingControllerMessenger } from './onboarding-controller-messenger';
 import { getQrSyncControllerMessenger } from './qr-sync';
-import {
-  getBridgeControllerInitMessenger,
-  getBridgeControllerMessenger,
-} from './bridge-controller-messenger';
-import { getBridgeStatusControllerMessenger } from './bridge-status-controller-messenger';
 import { getPreferencesControllerMessenger } from './preferences-controller-messenger';
 import { getAppStateControllerMessenger } from './app-state-controller-messenger';
 import {
@@ -195,12 +190,6 @@ export {
 export { getAlertControllerMessenger } from './alert-controller-messenger';
 export { getAppMetadataControllerMessenger } from './app-metadata-controller-messenger';
 export { getAppStateControllerMessenger } from './app-state-controller-messenger';
-export type { BridgeControllerInitMessenger } from './bridge-controller-messenger';
-export {
-  getBridgeControllerMessenger,
-  getBridgeControllerInitMessenger,
-} from './bridge-controller-messenger';
-export { getBridgeStatusControllerMessenger } from './bridge-status-controller-messenger';
 export type { CurrencyRateControllerInitMessenger } from './currency-rate-controller-messenger';
 export {
   getCurrencyRateControllerMessenger,
@@ -348,14 +337,6 @@ export const MESSENGER_FACTORIES = {
   },
   AuthenticatedUserStorageService: {
     getMessenger: getAuthenticatedUserStorageServiceMessenger,
-    getInitMessenger: noop,
-  },
-  BridgeController: {
-    getMessenger: getBridgeControllerMessenger,
-    getInitMessenger: getBridgeControllerInitMessenger,
-  },
-  BridgeStatusController: {
-    getMessenger: getBridgeStatusControllerMessenger,
     getInitMessenger: noop,
   },
   NetworkConnectionBannerController: {

@@ -1,8 +1,17 @@
 import { isSolanaChainId } from '@metamask/bridge-controller';
 import { isObject } from '@metamask/utils';
-import { type BridgeStatusControllerState } from '@metamask/bridge-status-controller';
 import { cloneDeep } from 'lodash';
 import { captureException } from '../../../shared/lib/sentry';
+
+type LegacyBridgeState = {
+  txHistory: Record<
+    string,
+    {
+      txMetaId: string;
+      status: { srcChain: { chainId: string | number; txHash?: string } };
+    }
+  >;
+};
 
 export const version = 174;
 
@@ -35,8 +44,7 @@ function transformState(state: Record<string, unknown>) {
     return state;
   }
 
-  const { txHistory } =
-    bridgeStatusControllerState as BridgeStatusControllerState;
+  const { txHistory } = bridgeStatusControllerState as LegacyBridgeState;
   if (!isObject(txHistory)) {
     return state;
   }

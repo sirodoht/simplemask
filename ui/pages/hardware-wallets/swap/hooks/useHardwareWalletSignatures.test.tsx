@@ -20,30 +20,21 @@ import {
   findNetworkClientIdByChainId,
   updateAndApproveTx,
 } from '../../../../store/actions';
-import { useHwSwapQuoteData } from '../../../../hooks/hardware-wallets/useHwSwapQuoteData';
-import { useHwSwapSubmission } from '../../../../hooks/hardware-wallets/useHwSwapSubmission';
 import { useHwSwapConnectionMonitoring } from '../../../../hooks/hardware-wallets/useHwSwapConnectionMonitoring';
 import { useHwSwapConfirmationMonitoring } from '../../../../hooks/hardware-wallets/useHwSwapConfirmationMonitoring';
 import { useHwSwapQrState } from '../../../../hooks/hardware-wallets/useHwSwapQrState';
 import { useHwSwapNavigation } from '../../../../hooks/hardware-wallets/useHwSwapNavigation';
 import { useHwSignTracker } from '../../../../hooks/hardware-wallets/useHwSignTracker';
-import { useBridgeNavigation } from '../../../../hooks/bridge/useBridgeNavigation';
-import useSubmitBridgeTransaction from '../../../../hooks/bridge/useSubmitBridgeTransaction';
-import * as bridgeSelectors from '../../../../ducks/bridge/selectors';
 import { HardwareWalletSignatureStatus } from '../hardware-wallet-signatures-state-machine';
 import { cleanupPendingApproval } from '../hardware-wallet-signatures.utils';
 import { flushPromises } from '../../../../../test/lib/timer-helpers';
 import { useHardwareWalletSignatures } from './useHardwareWalletSignatures';
 
-jest.mock('../../../../hooks/bridge/useSubmitBridgeTransaction');
-jest.mock('../../../../hooks/hardware-wallets/useHwSwapQuoteData');
-jest.mock('../../../../hooks/hardware-wallets/useHwSwapSubmission');
 jest.mock('../../../../hooks/hardware-wallets/useHwSwapConnectionMonitoring');
 jest.mock('../../../../hooks/hardware-wallets/useHwSwapConfirmationMonitoring');
 jest.mock('../../../../hooks/hardware-wallets/useHwSwapQrState');
 jest.mock('../../../../hooks/hardware-wallets/useHwSwapNavigation');
 jest.mock('../../../../hooks/hardware-wallets/useHwSignTracker');
-jest.mock('../../../../hooks/bridge/useBridgeNavigation');
 jest.mock('../hardware-wallet-signatures.utils', () => ({
   ...jest.requireActual('../hardware-wallet-signatures.utils'),
   cleanupPendingApproval: jest.fn(),
@@ -73,13 +64,6 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate,
 }));
-
-const mockUseHwSwapQuoteData = useHwSwapQuoteData as jest.MockedFunction<
-  typeof useHwSwapQuoteData
->;
-const mockUseHwSwapSubmission = useHwSwapSubmission as jest.MockedFunction<
-  typeof useHwSwapSubmission
->;
 const mockUseHwSwapConnectionMonitoring =
   useHwSwapConnectionMonitoring as jest.MockedFunction<
     typeof useHwSwapConnectionMonitoring
@@ -97,13 +81,6 @@ const mockUseHwSwapNavigation = useHwSwapNavigation as jest.MockedFunction<
 const mockUseHwSignTracker = useHwSignTracker as jest.MockedFunction<
   typeof useHwSignTracker
 >;
-const mockUseBridgeNavigation = useBridgeNavigation as jest.MockedFunction<
-  typeof useBridgeNavigation
->;
-const mockUseSubmitBridgeTransaction =
-  useSubmitBridgeTransaction as jest.MockedFunction<
-    typeof useSubmitBridgeTransaction
-  >;
 const mockUpdateAndApproveTx = updateAndApproveTx as jest.MockedFunction<
   typeof updateAndApproveTx
 >;
@@ -136,8 +113,6 @@ const ERC20_APPROVE_DATA =
 
 const mockCancelCurrentBatch = jest.fn().mockResolvedValue(undefined);
 const mockResetConnectionError = jest.fn();
-const mockRetrySubmission = jest.fn().mockResolvedValue(undefined);
-const mockNavigateToBridgePage = jest.fn();
 
 function createSendBundleTxMeta(
   overrides: Partial<TransactionMeta> = {},
@@ -302,8 +277,6 @@ describe('useHardwareWalletSignatures', () => {
     jest.useFakeTimers();
     mockCancelCurrentBatch.mockReset().mockResolvedValue(undefined);
     mockResetConnectionError.mockReset();
-    mockRetrySubmission.mockReset().mockResolvedValue(undefined);
-    mockNavigateToBridgePage.mockReset();
     mockNavigate.mockReset();
     mockSetSigningInProgress.mockReset();
     mockEnsureDeviceReady.mockReset().mockResolvedValue(true);
@@ -328,18 +301,6 @@ describe('useHardwareWalletSignatures', () => {
     mockUseHardwareWalletState.mockReturnValue({
       connectionState: { status: ConnectionStatus.Ready },
     });
-    mockUseHwSwapQuoteData.mockReturnValue({
-      activeQuote: null,
-      lockedQuote: null,
-      fromToken: undefined,
-      toToken: undefined,
-      hardwareWalletType: undefined,
-    } as never);
-    mockUseHwSwapSubmission.mockReturnValue({
-      retrySubmission: mockRetrySubmission,
-      hasStartedSubmission: { current: false },
-      submitActiveQuote: jest.fn(),
-    } as never);
     mockUseHwSwapConnectionMonitoring.mockReturnValue({
       isDeviceDisconnectedRef: { current: false },
       resetConnectionError: mockResetConnectionError,
@@ -361,14 +322,6 @@ describe('useHardwareWalletSignatures', () => {
     mockUseHwSignTracker.mockReturnValue({
       cancelCurrentBatch: mockCancelCurrentBatch,
     } as never);
-    mockUseBridgeNavigation.mockReturnValue({
-      navigateToBridgePage: mockNavigateToBridgePage,
-    } as never);
-    mockUseSubmitBridgeTransaction.mockReturnValue({
-      submitBridgeTransaction: jest.fn().mockResolvedValue(undefined),
-      isSubmitting: false,
-    });
-    jest.spyOn(bridgeSelectors, 'getIsStxEnabled').mockReturnValue(false);
   });
 
   afterEach(async () => {
@@ -377,69 +330,6 @@ describe('useHardwareWalletSignatures', () => {
     });
     jest.useRealTimers();
     jest.restoreAllMocks();
-  });
-
-  describe('bridge/swap flow', () => {
-    it('marks the flow disconnected when the device is locked during signing', async () => {
-      let submitBridgeTransaction:
-        | Parameters<typeof useHwSwapSubmission>[0]['submitBridgeTransaction']
-        | undefined;
-      const error = {
-        code: ErrorCode.AuthenticationDeviceLocked,
-        message: 'Device locked',
-      };
-
-      mockUseHwSwapSubmission.mockImplementation((options) => {
-        submitBridgeTransaction = options.submitBridgeTransaction;
-        return {
-          retrySubmission: mockRetrySubmission,
-          hasStartedSubmission: { current: false },
-          submitActiveQuote: jest.fn(),
-        } as never;
-      });
-      mockUseSubmitBridgeTransaction.mockReturnValue({
-        submitBridgeTransaction: jest.fn().mockRejectedValue(error),
-        isSubmitting: false,
-      });
-      mockUseHwSwapQuoteData.mockReturnValue({
-        activeQuote: {
-          quote: {
-            requestId: 'quote-1',
-            src: { normalizedAmount: '1' },
-            dest: { normalizedAmount: '2' },
-          },
-          trade: { from: FROM_ADDRESS, to: TO_ADDRESS },
-        },
-        lockedQuote: {
-          quote: {
-            requestId: 'quote-1',
-            src: { normalizedAmount: '1' },
-            dest: { normalizedAmount: '2' },
-          },
-          trade: { from: FROM_ADDRESS, to: TO_ADDRESS },
-        },
-        fromToken: { symbol: 'ETH' },
-        toToken: { symbol: 'USDC' },
-        hardwareWalletType: 'ledger',
-      } as never);
-
-      const { result } = await renderUseHardwareWalletSignaturesAndFlush();
-
-      const capturedSubmitBridgeTransaction = submitBridgeTransaction;
-      if (!capturedSubmitBridgeTransaction) {
-        throw new Error('Expected useHwSwapSubmission to capture submission');
-      }
-
-      await act(async () => {
-        await expect(capturedSubmitBridgeTransaction({} as never)).rejects.toBe(
-          error,
-        );
-      });
-
-      expect(result.current.signatureStatus).toBe(
-        HardwareWalletSignatureStatus.Disconnected,
-      );
-    });
   });
 
   describe('sendBundle flow', () => {
@@ -712,7 +602,6 @@ describe('useHardwareWalletSignatures', () => {
         APPROVAL_ID,
       );
       expect(mockNavigate).toHaveBeenCalledWith('/send', { replace: true });
-      expect(mockNavigateToBridgePage).not.toHaveBeenCalled();
     });
 
     it('navigates to the default route when cancel has no return route', async () => {
@@ -759,7 +648,6 @@ describe('useHardwareWalletSignatures', () => {
       expect(mockFindNetworkClientIdByChainId).toHaveBeenCalledWith('0x1');
       expect(mockAddTransaction).toHaveBeenCalled();
       expect(mockUpdateAndApproveTx).toHaveBeenCalledTimes(2);
-      expect(mockRetrySubmission).not.toHaveBeenCalled();
 
       await waitFor(() => {
         expect(result.current.signatureStatus).toBe(
@@ -1006,7 +894,6 @@ describe('useHardwareWalletSignatures', () => {
     });
 
     it('resets the state machine when smart transactions are enabled', async () => {
-      jest.spyOn(bridgeSelectors, 'getIsStxEnabled').mockReturnValue(true);
       mockUpdateAndApproveTx
         .mockReturnValueOnce((() =>
           Promise.reject({
@@ -1062,119 +949,6 @@ describe('useHardwareWalletSignatures', () => {
 
       expect(mockCancelCurrentBatch).toHaveBeenCalled();
       expect(mockAddTransaction).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('bridge/swap approval flow', () => {
-    function mockSwapQuoteData() {
-      mockUseHwSwapQuoteData.mockReturnValue({
-        activeQuote: null,
-        lockedQuote: {
-          quote: {
-            requestId: 'quote-1',
-            src: { normalizedAmount: '10' },
-            dest: { normalizedAmount: '9.9' },
-          },
-          approval: {
-            from: FROM_ADDRESS,
-            to: TOKEN_CONTRACT_ADDRESS,
-            value: '0x0',
-            data: ERC20_APPROVE_DATA,
-          },
-          trade: { from: FROM_ADDRESS, to: TO_ADDRESS },
-        },
-        fromToken: { symbol: 'USDC', chainId: '0x1' },
-        toToken: { symbol: 'USDT', chainId: '0x1' },
-        hardwareWalletType: 'ledger',
-      } as never);
-    }
-
-    it('derives the spender from the approve calldata args', async () => {
-      mockSwapQuoteData();
-
-      const { result } = await renderUseHardwareWalletSignaturesAndFlush();
-
-      expect(result.current.stepList.firstStepDescription).toStrictEqual({
-        token: 'Token: 0xa0b86...6eb48',
-        spender: 'Spender: 0xB9035...8ca0e',
-      });
-      // The spender is decoded from the calldata args, not from
-      // `approval.to` (which is the token contract).
-      expect(result.current.stepList.firstStepDescription?.spender).not.toBe(
-        'Spender: 0xa0b86...6eb48',
-      );
-    });
-
-    it('labels the final step with the swap destination for same-chain quotes', async () => {
-      mockSwapQuoteData();
-
-      const { result } = await renderUseHardwareWalletSignaturesAndFlush();
-
-      expect(result.current.stepList.finalStepLabel).toBe(
-        'Swap 10 USDC for 9.9 USDT',
-      );
-    });
-
-    it('omits the spender description when the approve calldata is undecodable', async () => {
-      mockUseHwSwapQuoteData.mockReturnValue({
-        activeQuote: null,
-        lockedQuote: {
-          quote: {
-            requestId: 'quote-1',
-            src: { normalizedAmount: '10' },
-            dest: { normalizedAmount: '9.9' },
-          },
-          approval: {
-            from: FROM_ADDRESS,
-            to: TOKEN_CONTRACT_ADDRESS,
-            value: '0x0',
-            data: '0xnotdecodable',
-          },
-          trade: { from: FROM_ADDRESS, to: TO_ADDRESS },
-        },
-        fromToken: { symbol: 'USDC', chainId: '0x1' },
-        toToken: { symbol: 'USDT', chainId: '0x1' },
-        hardwareWalletType: 'ledger',
-      } as never);
-
-      const { result } = await renderUseHardwareWalletSignaturesAndFlush();
-
-      expect(result.current.stepList.firstStepDescription).toBeUndefined();
-    });
-  });
-
-  describe('bridge cancel', () => {
-    it('navigates back to the bridge page when cancelling a non-sendBundle flow', async () => {
-      mockUseHwSwapQuoteData.mockReturnValue({
-        activeQuote: {
-          quote: {
-            requestId: 'quote-1',
-            src: { normalizedAmount: '1' },
-            dest: { normalizedAmount: '2' },
-          },
-          trade: { from: FROM_ADDRESS, to: TO_ADDRESS },
-        },
-        lockedQuote: {
-          quote: {
-            requestId: 'quote-1',
-            src: { normalizedAmount: '1' },
-            dest: { normalizedAmount: '2' },
-          },
-          trade: { from: FROM_ADDRESS, to: TO_ADDRESS },
-        },
-        fromToken: { symbol: 'ETH' },
-        toToken: { symbol: 'USDC' },
-        hardwareWalletType: 'ledger',
-      } as never);
-
-      const { result } = await renderUseHardwareWalletSignaturesAndFlush();
-
-      await act(async () => {
-        await result.current.handleCancel();
-      });
-
-      expect(mockNavigateToBridgePage).toHaveBeenCalled();
-      expect(mockNavigate).not.toHaveBeenCalled();
     });
   });
 });

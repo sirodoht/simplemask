@@ -11,7 +11,6 @@ import {
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
   CONNECT_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   IMPORT_SRP_ROUTE,
   NOTIFICATIONS_ROUTE,
   ONBOARDING_ROUTE,
@@ -26,7 +25,6 @@ import {
   GATOR_PERMISSIONS,
   TOKEN_TRANSFER_ROUTE,
   REVIEW_GATOR_PERMISSIONS_ROUTE,
-  BATCH_SELL_ROOT_ROUTE,
   SYNC_ACCOUNTS_ROUTE,
   MFA_FLOW_ROUTE,
 } from '../../helpers/constants/routes';
@@ -247,33 +245,6 @@ export function hideAppHeader(props) {
     ),
   );
   if (isSnapsHome) {
-    return true;
-  }
-
-  const isCrossChainSwapsPage = Boolean(
-    matchPath(
-      {
-        path: `${CROSS_CHAIN_SWAP_ROUTE}`,
-        end: false,
-      },
-      location.pathname,
-    ),
-  );
-  if (isCrossChainSwapsPage) {
-    return true;
-  }
-
-  const isBatchSellPage = Boolean(
-    matchPath(
-      {
-        path: `${BATCH_SELL_ROOT_ROUTE}`,
-        end: false,
-      },
-      location.pathname,
-    ),
-  );
-
-  if (isBatchSellPage) {
     return true;
   }
 

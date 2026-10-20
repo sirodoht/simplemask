@@ -3,18 +3,15 @@ import {
   TransactionContainerType,
   TransactionMeta,
 } from '@metamask/transaction-controller';
-import { QuoteResponseV1 } from '@metamask/bridge-controller';
 import { merge } from 'lodash';
 
 import {
   CONTRACT_INTERACTION_SENDER_ADDRESS,
   genUnapprovedContractInteractionConfirmation,
-  mockBridgeQuotes,
 } from '../../../../../../../test/data/confirmations/contract-interaction';
 import { CHAIN_IDS } from '../../../../../../../shared/constants/network';
 import { renderHookWithConfirmContextProvider } from '../../../../../../../test/lib/confirmations/render-helpers';
 import mockState from '../../../../../../../test/data/mock-state.json';
-import * as DappSwapContext from '../../../../context/dapp-swap';
 import { useFeeCalculations } from './useFeeCalculations';
 
 describe('useFeeCalculations', () => {
@@ -339,44 +336,5 @@ describe('useFeeCalculations', () => {
 
     expect(result.current.estimatedFeeNative).toBe('< 0.0001');
     expect(result.current.maxFeeNative).toBe('< 0.0001');
-  });
-
-  it('uses quoted gas for balance checks if a quoted swap is displayed', () => {
-    jest.spyOn(DappSwapContext, 'useDappSwapContextOptional').mockReturnValue({
-      selectedQuote: mockBridgeQuotes[0] as unknown as QuoteResponseV1,
-      setSelectedQuote: jest.fn(),
-      setQuotedSwapDisplayedInInfo: jest.fn(),
-      isQuotedSwapDisplayedInInfo: true,
-      isQuotedSwapPresent: true,
-    } as DappSwapContext.DappSwapContextType);
-    const transactionMeta = genUnapprovedContractInteractionConfirmation({
-      address: CONTRACT_INTERACTION_SENDER_ADDRESS,
-    }) as TransactionMeta;
-
-    transactionMeta.layer1GasFee = '0x10000000000000';
-
-    const { result } = renderHookWithConfirmContextProvider(
-      () =>
-        useFeeCalculations(transactionMeta, {
-          useBalanceCheckGasLimit: true,
-        }),
-      mockState,
-    );
-
-    expect(result.current).toMatchInlineSnapshot(`
-      {
-        "addedProtectionFeeFiat": null,
-        "addedProtectionFeeUsd": null,
-        "calculateGasEstimate": [Function],
-        "estimatedFeeFiat": "$3.24",
-        "estimatedFeeFiatWith18SignificantDigits": null,
-        "estimatedFeeNative": "0.0058",
-        "estimatedFeeNativeHex": "0x14b264dbe9b842",
-        "maxFeeFiat": "$3.24",
-        "maxFeeFiatWith18SignificantDigits": null,
-        "maxFeeHex": "0x14b264dbe9b842",
-        "maxFeeNative": "0.0058",
-      }
-    `);
   });
 });

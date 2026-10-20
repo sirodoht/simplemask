@@ -46,12 +46,6 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
 }));
 
-jest.mock('../../../hooks/bridge/useBridgeNavigation', () => ({
-  useBridgeNavigation: () => ({
-    navigateToDefaultRoute: jest.fn(),
-  }),
-}));
-
 jest.mock('../../../../shared/lib/environment', () => ({
   ...jest.requireActual('../../../../shared/lib/environment'),
   getIsPerpsIncludedInBuild: jest.fn(() => true),

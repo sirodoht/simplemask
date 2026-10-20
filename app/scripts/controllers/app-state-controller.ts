@@ -11,7 +11,7 @@ import {
   ApprovalControllerAcceptRequestAction,
   ApprovalControllerAddRequestAction,
 } from '@metamask/approval-controller';
-import { DeferredPromise, Hex, createDeferredPromise } from '@metamask/utils';
+import { DeferredPromise, createDeferredPromise } from '@metamask/utils';
 import type { QrScanRequest, SerializedUR } from '@metamask/eth-qr-keyring';
 import type { Messenger } from '@metamask/messenger';
 import { Browser } from 'webextension-polyfill';
@@ -19,7 +19,6 @@ import {
   KeyringControllerGetStateAction,
   KeyringControllerUnlockEvent,
 } from '@metamask/keyring-controller';
-import { QuoteResponseV1 } from '@metamask/bridge-controller';
 import { ProfileMetricsControllerSkipInitialDelayAction } from '@metamask/profile-metrics-controller';
 import { ErrorCode } from '@metamask/hw-wallet-sdk';
 
@@ -67,19 +66,6 @@ import type {
   PreferencesControllerStateChangeEvent,
 } from './preferences-controller';
 import { AppStateControllerMethodActions } from './app-state-controller-method-action-types';
-
-export type DappSwapComparisonData = {
-  quotes?: QuoteResponseV1[];
-  latency?: number;
-  commands?: string;
-  error?: string;
-  swapInfo?: {
-    srcTokenAddress: Hex;
-    destTokenAddress: Hex;
-    srcTokenAmount: Hex;
-    destTokenAmountMin: Hex;
-  };
-};
 
 export type AppStateControllerState = {
   activeQrCodeScanRequest: QrScanRequest | null;
@@ -149,9 +135,6 @@ export type AppStateControllerState = {
   pendingShieldCohort: string | null;
   pendingShieldCohortTxType: string | null;
   defaultSubscriptionPaymentOptions?: DefaultSubscriptionPaymentOptions;
-  dappSwapComparisonData?: {
-    [uniqueId: string]: DappSwapComparisonData;
-  };
   deferredDeepLink?: DeferredDeepLink;
 
   /**
@@ -308,7 +291,6 @@ const getDefaultAppStateControllerState = (): AppStateControllerState => ({
   pendingShieldCohort: null,
   pendingShieldCohortTxType: null,
   isWalletResetInProgress: false,
-  dappSwapComparisonData: {},
   storageWriteErrorType: null,
   passkeyAutoUnlockSuppressed: false,
   lastShownPrfMigrationReminderAt: null,
@@ -627,12 +609,6 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
     includeInDebugSnapshot: false,
     usedInUi: false,
   },
-  dappSwapComparisonData: {
-    includeInStateLogs: false,
-    persist: false,
-    includeInDebugSnapshot: false,
-    usedInUi: true,
-  },
   storageWriteErrorType: {
     includeInStateLogs: true,
     persist: false,
@@ -669,10 +645,8 @@ const MESSENGER_EXPOSED_METHODS = [
   'clearAppActiveTab',
   'clearPollingTokens',
   'completeQrCodeScan',
-  'deleteDappSwapComparisonData',
   'getAddressSecurityAlertResponse',
   'getCurrentPopupId',
-  'getDappSwapComparisonData',
   'getIsWalletResetInProgress',
   'getLastInteractedConfirmationInfo',
   'getSignatureSecurityAlertResponse',
@@ -687,7 +661,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'setConnectedStatusPopoverHasBeenShown',
   'setCurrentExtensionPopupId',
   'setCurrentPopupId',
-  'setDappSwapComparisonData',
   'setDefaultHomeActiveTabName',
   'setDefaultSubscriptionPaymentOptions',
   'setDeferredDeepLink',
@@ -1632,36 +1605,6 @@ export class AppStateController extends BaseController<
     this.update((state) => {
       state.shieldSubscriptionMetricsProps = shieldSubscriptionMetricsProps;
     });
-  }
-
-  deleteDappSwapComparisonData(uniqueId: string): void {
-    this.update((state) => {
-      delete state.dappSwapComparisonData?.[uniqueId];
-      state.dappSwapComparisonData = {
-        ...state.dappSwapComparisonData,
-      };
-    });
-  }
-
-  setDappSwapComparisonData(
-    uniqueId: string,
-    info: DappSwapComparisonData,
-  ): void {
-    this.update((state) => {
-      state.dappSwapComparisonData = {
-        ...state.dappSwapComparisonData,
-        [uniqueId]: {
-          ...(state.dappSwapComparisonData?.[uniqueId] ?? {}),
-          ...info,
-        },
-      };
-    });
-  }
-
-  getDappSwapComparisonData(
-    uniqueId: string,
-  ): DappSwapComparisonData | undefined {
-    return this.state.dappSwapComparisonData?.[uniqueId] ?? undefined;
   }
 
   /**

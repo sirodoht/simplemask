@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import type { TransactionMeta } from '@metamask/transaction-controller';
 
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
-import { useBridgeNavigation } from '../bridge/useBridgeNavigation';
 import { useIsHardwareWalletAccount } from '../useIsHardwareWalletAccount';
+import { useHardwareWalletNavigation } from './useHardwareWalletNavigation';
 import { BUNDLE_SEND_TRANSACTION_TYPES } from './hw-sign-tracker/constants';
 import { useSendBundleAmountSymbol } from './useSendBundleAmountSymbol';
 
@@ -17,7 +17,7 @@ export type UseSendBundleHwNavigationArgs = {
  *
  * Redirects when the confirmation account is a hardware wallet and the
  * transaction type is a bundle send type (fungible sends only; contract
- * interactions go through the bridge flow). Applies to all hardware-wallet
+ * interactions use their own confirmation flow). Applies to all hardware-wallet
  * sends regardless of Smart Transactions (STX) / gasless support.
  *
  * transactionMeta is the only injected input; the send amount/symbol are
@@ -36,7 +36,7 @@ export function useSendBundleHwNavigation({
   const hardwareWalletUsed = useIsHardwareWalletAccount(
     transactionMeta?.txParams?.from,
   );
-  const { navigateToHwSigningPage } = useBridgeNavigation();
+  const { navigateToHwSigningPage } = useHardwareWalletNavigation();
   // Derive the send amount/symbol internally so the HW signing page label
   // matches what the user saw on the send screen.
   const { sendAmount, sendSymbol, gasSymbol } =
@@ -51,8 +51,6 @@ export function useSendBundleHwNavigation({
   const redirectToHwSigningPage = useCallback(
     (newTransactionMeta: TransactionMeta) => {
       navigateToHwSigningPage({
-        bridgeState: null,
-        token: null,
         sendBundle: {
           txMeta: newTransactionMeta,
           needsTwoConfirmations: Boolean(

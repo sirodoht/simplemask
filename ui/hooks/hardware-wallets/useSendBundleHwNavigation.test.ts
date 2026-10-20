@@ -6,7 +6,7 @@ import {
 import { useSelector } from 'react-redux';
 
 import { useIsHardwareWalletAccount } from '../useIsHardwareWalletAccount';
-import { useBridgeNavigation } from '../bridge/useBridgeNavigation';
+import { useHardwareWalletNavigation } from './useHardwareWalletNavigation';
 import { useSendBundleAmountSymbol } from './useSendBundleAmountSymbol';
 import { useSendBundleHwNavigation } from './useSendBundleHwNavigation';
 
@@ -15,7 +15,7 @@ jest.mock('react-redux', () => ({
 }));
 
 jest.mock('../useIsHardwareWalletAccount');
-jest.mock('../bridge/useBridgeNavigation');
+jest.mock('./useHardwareWalletNavigation');
 jest.mock('./useSendBundleAmountSymbol');
 
 const FROM = '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc';
@@ -26,9 +26,9 @@ describe('useSendBundleHwNavigation', () => {
 
     jest.mocked(useSelector).mockReturnValue(false);
     jest.mocked(useIsHardwareWalletAccount).mockReturnValue(true);
-    jest.mocked(useBridgeNavigation).mockReturnValue({
+    jest.mocked(useHardwareWalletNavigation).mockReturnValue({
       navigateToHwSigningPage: jest.fn(),
-    } as unknown as ReturnType<typeof useBridgeNavigation>);
+    } as unknown as ReturnType<typeof useHardwareWalletNavigation>);
     jest.mocked(useSendBundleAmountSymbol).mockReturnValue({});
   });
 

@@ -33,7 +33,7 @@ import {
   type SafeChain,
   useSafeChains,
 } from '../../networks-form/use-safe-chains';
-import { useRWAToken } from '../../../../pages/bridge/hooks/useRWAToken';
+import { useRWAToken } from '../../../../hooks/rwa/useRWAToken';
 import { hexToDecimal } from '../../../../../shared/lib/conversion.utils';
 import AssetComponent from './Asset';
 import { AssetWithDisplayData, ERC20Asset, NFT, NativeAsset } from './types';

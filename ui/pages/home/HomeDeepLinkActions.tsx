@@ -1,18 +1,12 @@
 import { memo, useCallback, useEffect, useMemo } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {
-  BATCH_SELL_SELECT_ROUTE,
-  DEFAULT_ROUTE,
-} from '../../helpers/constants/routes';
+import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
 import { selectIsNetworkMenuOpen } from '../../selectors';
-import { getIsBatchSellEnabled } from '../../selectors/batch-sell/feature-flags';
 import { toggleNetworkMenu } from '../../store/actions';
-import { setHomeDeepLinkQrCode } from '../../ducks/app/app';
 import { useDispatch } from '../../store/hooks';
 
 import { HomeQueryParams } from '../../../shared/lib/deep-links/routes/home';
-import { isDeepLinkHost } from '../../../shared/lib/deep-links/common';
 
 export type HomeDeepLinkQrCode = {
   deeplinkUrl: string;
@@ -22,24 +16,6 @@ export type HomeDeepLinkQrCode = {
 
 type HomeDeepLinkActionsProps = Record<string, never>;
 
-function isDeepLinkUrlForPath(urlString: string | undefined, pathname: string) {
-  if (!urlString) {
-    return false;
-  }
-
-  try {
-    const url = new URL(urlString);
-    return (
-      url.protocol === 'https:' &&
-      !url.port &&
-      isDeepLinkHost(url.hostname) &&
-      url.pathname === pathname
-    );
-  } catch {
-    return false;
-  }
-}
-
 /**
  * Reusable hook to handle deep link actions for the home route.
  */
@@ -48,9 +24,7 @@ export const useHomeDeepLinkEffects = () => {
   const isHomeRoute = pathname === DEFAULT_ROUTE;
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const isNetworkMenuOpen = useSelector(selectIsNetworkMenuOpen);
-  const batchSellEnabled = useSelector(getIsBatchSellEnabled);
   const dispatch = useDispatch();
 
   const openNetworkSelectorModal = useCallback(() => {
@@ -58,24 +32,6 @@ export const useHomeDeepLinkEffects = () => {
       dispatch(toggleNetworkMenu());
     }
   }, [dispatch, isNetworkMenuOpen]);
-
-  const handleBatchSellDeepLink = useCallback(
-    (deeplinkUrl: string) => {
-      if (batchSellEnabled) {
-        navigate(BATCH_SELL_SELECT_ROUTE);
-        return;
-      }
-
-      dispatch(
-        setHomeDeepLinkQrCode({
-          deeplinkUrl,
-          descriptionKey: 'deepLinkQrBatchSellDescription',
-          titleKey: 'deepLinkQrBatchSellTitle',
-        }),
-      );
-    },
-    [batchSellEnabled, navigate, dispatch],
-  );
 
   const deepLinkHandlers: Record<
     HomeQueryParams,
@@ -85,17 +41,12 @@ export const useHomeDeepLinkEffects = () => {
     }
   > = useMemo(
     () => ({
-      [HomeQueryParams.BatchSellDeeplinkUrl]: {
-        isValidParam: (param?: string) =>
-          isDeepLinkUrlForPath(param, '/batch-sell'),
-        action: handleBatchSellDeepLink,
-      },
       [HomeQueryParams.OpenNetworkSelector]: {
         isValidParam: (param?: string) => param?.toLowerCase() === 'true',
         action: openNetworkSelectorModal,
       },
     }),
-    [handleBatchSellDeepLink, openNetworkSelectorModal],
+    [openNetworkSelectorModal],
   );
 
   const clearDeepLinkParams = useCallback(() => {

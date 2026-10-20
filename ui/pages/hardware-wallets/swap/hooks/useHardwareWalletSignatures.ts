@@ -8,15 +8,14 @@ import {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import type { QuoteResponse } from '@metamask/bridge-controller';
 import type { TransactionMeta } from '@metamask/transaction-controller';
 import { useAppSelector } from '../../../../store/store';
 
-import { getIsStxEnabled } from '../../../../ducks/bridge/selectors';
+import {
+  getIsSmartTransaction,
+  type SmartTransactionsState,
+} from '../../../../../shared/lib/selectors';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
-
-import { useHwSwapQuoteData } from '../../../../hooks/hardware-wallets/useHwSwapQuoteData';
-import { useHwSwapSubmission } from '../../../../hooks/hardware-wallets/useHwSwapSubmission';
 import { useHwSwapConnectionMonitoring } from '../../../../hooks/hardware-wallets/useHwSwapConnectionMonitoring';
 import { useHwSwapConfirmationMonitoring } from '../../../../hooks/hardware-wallets/useHwSwapConfirmationMonitoring';
 import { useHwSwapQrState } from '../../../../hooks/hardware-wallets/useHwSwapQrState';
@@ -28,19 +27,13 @@ import {
 } from '../../../../contexts/hardware-wallets';
 import { isInE2eTest } from '../../../../../shared/lib/environment';
 import { isHardwareWallet } from '../../../../../shared/lib/selectors/keyring';
-import {
-  getTransactionDataRecipient,
-  parseApprovalTransactionData,
-} from '../../../../../shared/lib/transaction.utils';
-import useSubmitBridgeTransaction from '../../../../hooks/bridge/useSubmitBridgeTransaction';
+import { getTransactionDataRecipient } from '../../../../../shared/lib/transaction.utils';
 import { useHwSignTracker } from '../../../../hooks/hardware-wallets/useHwSignTracker';
 import type { MetaMaskReduxDispatch } from '../../../../store/store';
 import { internalSelectPendingApproval } from '../../../../selectors';
 import type { SignatureStepListProps } from '../components/signature-step-list.types';
 import type { SignatureFooterProps } from '../components/signature-footer.types';
 import {
-  getHardwareWalletSignatureErrorEvent,
-  getTransactionField,
   getHardwareWalletSignatureViewModel,
   isAwaitingSignature,
 } from '../hardware-wallet-signatures.utils';
@@ -128,7 +121,14 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
     sendBundleState?.approvalRequestId,
   );
   const isHardwareWalletAccount = useSelector(isHardwareWallet);
-  const isStxEnabled = useSelector(getIsStxEnabled);
+  const isStxEnabled = useAppSelector((state) =>
+    sendBundleTxMeta?.chainId
+      ? getIsSmartTransaction(
+          state as SmartTransactionsState,
+          sendBundleTxMeta.chainId,
+        )
+      : false,
+  );
   // Wallet-safety: capture the pending approval (if any) for the id we expect
   // to sign. `null` here means the approval is no longer pending — the submit
   // guard refuses to call `updateAndApproveTx` in that case to prevent
@@ -138,14 +138,8 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
       ? internalSelectPendingApproval(state, currentApprovalRequestId)
       : undefined,
   );
-
-  const { lockedQuote, fromToken, toToken } = useHwSwapQuoteData();
-  const needsTwoConfirmations = isSendBundleFlow
-    ? Boolean(sendBundleState?.needsTwoConfirmations)
-    : Boolean(lockedQuote?.approval);
-  const fromAmount = lockedQuote?.quote.src?.normalizedAmount;
-  const activeSigningRequestId =
-    lockedQuote?.quote.requestId ?? sendBundleTxMeta?.id ?? '';
+  const needsTwoConfirmations = Boolean(sendBundleState?.needsTwoConfirmations);
+  const activeSigningRequestId = sendBundleTxMeta?.id ?? '';
   const expectedSignTrackerTxIds = useMemo(() => {
     if (!sendBundleTxMeta) {
       return undefined;
@@ -197,7 +191,6 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
   // while the new attempt is still starting. `retryGenerationRef` is bumped
   // before resubmit, so those stale catches see a mismatched generation.
   const isRetryingRef = useRef(false);
-  const [firstSignatureDone, setFirstSignatureDone] = useState(false);
   // Set to true when the device has been in an awaiting-signature state for
   // longer than SIGNATURE_STUCK_TIMEOUT_MS without progressing. Resets when
   // the state leaves awaiting-signature or a retry starts.
@@ -253,40 +246,7 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
       onSubmissionNeedsRestart,
       dispatch,
     });
-
-  const { submitBridgeTransaction: submitBridgeTransactionBase } =
-    useSubmitBridgeTransaction();
-
-  /**
-   * Wraps bridge submission so hardware-wallet reject/fail/disconnect outcomes
-   * update the signature state machine. `useSubmitBridgeTransaction` throws on
-   * those outcomes; we map them to a shared signature event unless the attempt
-   * is stale (cancel-during-retry in flight, or retry advanced
-   * `retryGenerationRef` after this submission started).
-   */
-  const submitBridgeTransaction = useCallback(
-    async (quoteResponse: QuoteResponse) => {
-      const submissionGeneration = retryGenerationRef.current;
-
-      try {
-        await submitBridgeTransactionBase(quoteResponse);
-      } catch (error) {
-        if (!isStaleAttempt(submissionGeneration)) {
-          const event = getHardwareWalletSignatureErrorEvent(error);
-          if (event) {
-            dispatchSignatureEvent(event);
-          }
-        }
-        throw error;
-      }
-    },
-    [dispatchSignatureEvent, isStaleAttempt, submitBridgeTransactionBase],
-  );
-
-  const getPrimaryTxField = (field: 'from' | 'to'): string | undefined =>
-    sendBundleTxMeta?.txParams[field] ??
-    getTransactionField(lockedQuote?.trade, field);
-  const fromAddress = getPrimaryTxField('from');
+  const fromAddress = sendBundleTxMeta?.txParams?.from;
 
   // sendBundle flow: for token sends, `txParams.to` is the token contract —
   // the real recipient is decoded from the ERC20 transfer calldata (same
@@ -303,42 +263,8 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
       : undefined) ??
     sendBundleTxMeta?.txParamsOriginal?.to ??
     sendBundleTxMeta?.txParams?.to;
-
-  // Approval step: decode the spender (grantee) and, when encoded in the
-  // calldata (e.g. Permit2), the token contract from the approve data.
-  // `approval.to` is the token contract for standard ERC20 approvals — never
-  // the spender — so when the calldata is undecodable the spender is left
-  // undefined rather than showing `approval.to` as "Spender".
-  const approvalData = getTransactionField(lockedQuote?.approval, 'data');
-  const parsedApproval = approvalData
-    ? parseApprovalTransactionData(approvalData as `0x${string}`)
-    : undefined;
-  const approvalTokenAddress =
-    parsedApproval?.tokenAddress ??
-    getTransactionField(lockedQuote?.approval, 'to');
-  const approvalSpenderAddress = parsedApproval?.spender;
-
-  // Same source and destination chain means this is a swap (vs a bridge).
-  // Both chainIds must be defined — missing token metadata must not make a
-  // bridge render swap labels.
-  const isSwap =
-    fromToken?.chainId !== undefined && fromToken?.chainId === toToken?.chainId;
-
-  const { retrySubmission, hasStartedSubmission } = useHwSwapSubmission({
-    lockedQuote,
-    needsTwoConfirmations,
-    signatureState,
-    dispatchSignatureEvent,
-    submitBridgeTransaction,
-    firstSignatureDone: isStxEnabled ? undefined : firstSignatureDone,
-    onResetFirstSignature: isStxEnabled
-      ? undefined
-      : () => setFirstSignatureDone(false),
-  });
   const hasStartedSendBundleSubmission = useRef(false);
-  const hasStartedHardwareWalletSubmission = isSendBundleFlow
-    ? hasStartedSendBundleSubmission
-    : hasStartedSubmission;
+  const hasStartedHardwareWalletSubmission = hasStartedSendBundleSubmission;
 
   useEffect(() => {
     if (
@@ -418,7 +344,7 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
     isHardwareWalletAccount,
     dispatchSignatureEvent,
     {
-      enabled: true,
+      enabled: Boolean(sendBundleTxMeta),
       expectedTransactionParams: expectedSignTrackerTransactionParams,
       expectedTxIds: expectedSignTrackerTxIds,
       includeSendBundleTransactions: isSendBundleFlow,
@@ -436,10 +362,8 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
       retryGenerationRef,
       needsTwoConfirmations,
       isStxEnabled,
-      isSendBundleFlow,
       hasStartedSendBundleSubmission,
       retrySendBundleSubmission,
-      retrySubmission,
       handleQrSignatureCancel,
       currentApprovalRequestId,
       returnRoute: sendBundleState?.returnRoute,
@@ -539,16 +463,6 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
   }, [setSigningInProgress]);
 
   useEffect(() => {
-    if (
-      signatureState.status ===
-        HardwareWalletSignatureStatus.AwaitingFinalSignature ||
-      signatureState.status === HardwareWalletSignatureStatus.Submitted
-    ) {
-      setFirstSignatureDone(true);
-    }
-  }, [signatureState.status]);
-
-  useEffect(() => {
     if (!isAwaitingSignature(signatureState.status)) {
       setHasSignatureTimedOut(false);
       return;
@@ -590,20 +504,11 @@ export function useHardwareWalletSignatures(): UseHardwareWalletSignaturesReturn
     signatureState,
     isSendBundleFlow,
     needsTwoConfirmations,
-    toAddress: isSendBundleFlow
-      ? sendBundleRecipient
-      : getTransactionField(lockedQuote?.trade, 'to'),
-    spenderAddress: approvalSpenderAddress,
-    approvalTokenAddress,
-    fromAmount,
-    fromTokenSymbol: fromToken?.symbol,
-    isSwap,
-    toTokenSymbol: toToken?.symbol,
-    toAmount: lockedQuote?.quote.dest?.normalizedAmount,
+    toAddress: sendBundleRecipient,
     sendAmount: sendBundleState?.sendAmount,
     sendSymbol: sendBundleState?.sendSymbol,
     gasSymbol: sendBundleState?.gasSymbol,
-    hasSigningRequest: Boolean(lockedQuote || sendBundleTxMeta),
+    hasSigningRequest: Boolean(sendBundleTxMeta),
     hasSignatureTimedOut,
     isRetrying,
     hasRetried,

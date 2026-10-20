@@ -39,15 +39,11 @@ import {
 } from '@metamask/snaps-rpc-methods';
 import { ApprovalType, ERC20, toHex } from '@metamask/controller-utils';
 
-import { BRIDGE_CONTROLLER_NAME } from '@metamask/bridge-controller';
-
 import { TransactionStatus } from '@metamask/transaction-controller';
 import {
   hexToBigInt,
   toCaipChainId,
   parseCaipAccountId,
-  parseCaipAssetType,
-  KnownCaipNamespace,
   createDeferredPromise,
 } from '@metamask/utils';
 
@@ -86,7 +82,6 @@ import {
   requestPermittedChainsPermissionIncremental,
   getCaip25PermissionFromLegacyPermissions,
 } from '@metamask/chain-agnostic-permission';
-import { BRIDGE_STATUS_CONTROLLER_NAME } from '@metamask/bridge-status-controller';
 
 import { PRODUCT_TYPES } from '@metamask/subscription-controller';
 import { isSnapId } from '@metamask/snaps-utils';
@@ -111,7 +106,7 @@ import {
   KEYRING_DEVICE_PROPERTY_MAP,
 } from '../../shared/constants/hardware-wallets';
 import { RestrictedMethods } from '../../shared/constants/permissions';
-import { MILLISECOND, MINUTE, SECOND } from '../../shared/constants/time';
+import { MILLISECOND, SECOND } from '../../shared/constants/time';
 import {
   ORIGIN_METAMASK,
   POLLING_TOKEN_ENVIRONMENT_TYPES,
@@ -139,9 +134,7 @@ import {
   getSmartTransactionsEnabled,
 } from '../../shared/lib/selectors';
 import { endTrace, trace, TraceName } from '../../shared/lib/trace';
-import fetchWithCache from '../../shared/lib/fetch-with-cache';
 import { NON_EVM_ACCOUNT_CHANGED_CONFIGS } from '../../shared/constants/multichain/networks';
-import { ALLOWED_BRIDGE_CHAIN_IDS } from '../../shared/constants/bridge';
 import { FirstTimeFlowType } from '../../shared/constants/onboarding';
 import { updateCurrentLocale } from '../../shared/lib/translate';
 import { getEnabledAdvancedPermissions } from '../../shared/lib/gator-permissions/feature-flags';
@@ -161,7 +154,6 @@ import { keyringSnapPermissionsBuilder } from './lib/snap-keyring/keyring-snaps-
 
 import { AddressBookPetnamesBridge } from './lib/AddressBookPetnamesBridge';
 import { createPPOMMiddleware } from './lib/ppom/ppom-middleware';
-import { createDappSwapMiddleware } from './lib/dapp-swap/dapp-swap-middleware';
 import {
   createAddressScanMiddleware,
   createOriginScanMiddleware,
@@ -314,8 +306,6 @@ import { ShieldSubscriptionServiceInit } from './messenger-client-init/subscript
 import { NetworkConnectionBannerControllerInit } from './messenger-client-init/network-connection-banner';
 import { AccountTrackerControllerInit } from './messenger-client-init/account-tracker-controller-init';
 import { OnboardingControllerInit } from './messenger-client-init/onboarding-controller-init';
-import { BridgeControllerInit } from './messenger-client-init/bridge-controller-init';
-import { BridgeStatusControllerInit } from './messenger-client-init/bridge-status-controller-init';
 import { PreferencesControllerInit } from './messenger-client-init/preferences-controller-init';
 import { AppStateControllerInit } from './messenger-client-init/app-state-controller-init';
 import { PermissionControllerInit } from './messenger-client-init/permission-controller-init';
@@ -545,8 +535,6 @@ export default class MetamaskController extends EventEmitter {
       PhishingController: PhishingControllerInit,
       TransactionPayController: TransactionPayControllerInit,
       SmartTransactionsController: SmartTransactionsControllerInit,
-      BridgeController: BridgeControllerInit,
-      BridgeStatusController: BridgeStatusControllerInit,
       AssetsContractController: AssetsContractControllerInit,
       CurrencyRateController: CurrencyRateControllerInit,
       RatesController: RatesControllerInit,
@@ -673,8 +661,6 @@ export default class MetamaskController extends EventEmitter {
     this.txPayController = messengerClientsByName.TransactionPayController;
     this.smartTransactionsController =
       messengerClientsByName.SmartTransactionsController;
-    this.bridgeController = messengerClientsByName.BridgeController;
-    this.bridgeStatusController = messengerClientsByName.BridgeStatusController;
     this.backendWebSocketService =
       messengerClientsByName.BackendWebSocketService;
     this.accountActivityService = messengerClientsByName.AccountActivityService;
@@ -949,8 +935,7 @@ export default class MetamaskController extends EventEmitter {
                 ),
               isRelaySupported,
               getSendBundleSupportedChains,
-              isAuxiliaryFundsSupported: (chainId) =>
-                ALLOWED_BRIDGE_CHAIN_IDS.includes(chainId),
+              isAuxiliaryFundsSupported: () => false,
             },
             this.controllerMessenger,
           ),
@@ -1002,8 +987,7 @@ export default class MetamaskController extends EventEmitter {
                   getSecurityAlertsConfig:
                     this.getSecurityAlertsConfig.bind(this),
                 }),
-              isAuxiliaryFundsSupported: (chainId) =>
-                ALLOWED_BRIDGE_CHAIN_IDS.includes(chainId),
+              isAuxiliaryFundsSupported: () => false,
             },
             this.controllerMessenger,
           ),
@@ -1262,8 +1246,6 @@ export default class MetamaskController extends EventEmitter {
       DecryptMessageController: this.decryptMessageController,
       EncryptionPublicKeyController: this.encryptionPublicKeyController,
       SignatureController: this.signatureController,
-      BridgeController: this.bridgeController,
-      BridgeStatusController: this.bridgeStatusController,
       ApprovalController: this.approvalController,
     };
 
@@ -1397,9 +1379,7 @@ export default class MetamaskController extends EventEmitter {
         this.encryptionPublicKeyController,
       ),
       this.signatureController.resetState.bind(this.signatureController),
-      this.bridgeController.resetState.bind(this.bridgeController),
       this.approvalController.clearRequests.bind(this.approvalController),
-      // WE SHOULD ADD TokenListController.resetState here too. But it's not implemented yet.
     ];
 
     if (isManifestV3) {
@@ -1506,29 +1486,6 @@ export default class MetamaskController extends EventEmitter {
     return rpcEndpoints[defaultRpcEndpointIndex].networkClientId;
   }
 
-  // Provides a method for getting feature flags for the multichain
-  // initial rollout, such that we can remotely modify polling interval
-  getInfuraFeatureFlags() {
-    fetchWithCache({
-      url: 'https://bridge.api.cx.metamask.io/featureFlags',
-      cacheRefreshTime: MINUTE * 20,
-    })
-      .then(this.onFeatureFlagResponseReceived)
-      .catch((e) => {
-        // API unreachable (?)
-        log.warn('Feature flag endpoint is unreachable', e);
-      });
-  }
-
-  onFeatureFlagResponseReceived(response) {
-    const { multiChainAssets = {} } = response;
-    const { pollInterval } = multiChainAssets;
-    // Polling interval is provided in seconds
-    if (pollInterval > 0) {
-      this.tokenBalancesController.setIntervalLength(pollInterval * SECOND);
-    }
-  }
-
   postOnboardingInitialization() {
     const { usePhishDetect } = this.preferencesController.state;
 
@@ -1557,7 +1514,6 @@ export default class MetamaskController extends EventEmitter {
 
   triggerNetworkrequests() {
     this.tokenDetectionController.enable();
-    this.getInfuraFeatureFlags();
   }
 
   stopNetworkRequests() {
@@ -1622,25 +1578,6 @@ export default class MetamaskController extends EventEmitter {
         if (account.address && account.address !== lastSelectedAddress) {
           lastSelectedAddress = account.address;
           await this._onAccountChange(account.address);
-        }
-      },
-    );
-
-    this.controllerMessenger.subscribe(
-      'BridgeStatusController:destinationTransactionCompleted',
-      (assetId) => {
-        const { chain } = parseCaipAssetType(assetId);
-
-        if (chain.namespace === KnownCaipNamespace.Eip155) {
-          const chainId = toHex(chain?.reference);
-
-          if (chainId) {
-            this.tokenDetectionController
-              .detectTokens({ chainIds: [chainId] })
-              .catch((err) => {
-                log.error('Error detecting tokens', { err });
-              });
-          }
         }
       },
     );
@@ -2715,10 +2652,6 @@ export default class MetamaskController extends EventEmitter {
         appStateController.getLastInteractedConfirmationInfo.bind(
           appStateController,
         ),
-      deleteDappSwapComparisonData:
-        appStateController.deleteDappSwapComparisonData.bind(
-          appStateController,
-        ),
       setLastInteractedConfirmationInfo:
         appStateController.setLastInteractedConfirmationInfo.bind(
           appStateController,
@@ -3053,54 +2986,6 @@ export default class MetamaskController extends EventEmitter {
       updateInterfaceState: this.controllerMessenger.call.bind(
         this.controllerMessenger,
         'SnapInterfaceController:updateInterfaceState',
-      ),
-
-      // Bridge
-      resetState: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:resetState`,
-      ),
-      setInputPrimaryDenomination: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:setInputPrimaryDenomination`,
-      ),
-      updateBridgeQuoteRequestParams: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:updateBridgeQuoteRequestParams`,
-      ),
-      trackUnifiedSwapBridgeEvent: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:trackUnifiedSwapBridgeEvent`,
-      ),
-      setLocation: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:setLocation`,
-      ),
-      getLocation: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:getLocation`,
-      ),
-      fetchQuotes: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:fetchQuotes`,
-      ),
-      updateBatchSellTrades: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_CONTROLLER_NAME}:updateBatchSellTrades`,
-      ),
-
-      // Bridge Tx submission
-      submitTx: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_STATUS_CONTROLLER_NAME}:${'submitTx'}`,
-      ),
-      submitIntent: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_STATUS_CONTROLLER_NAME}:${'submitIntent'}`,
-      ),
-      submitBatchSell: this.controllerMessenger.call.bind(
-        this.controllerMessenger,
-        `${BRIDGE_STATUS_CONTROLLER_NAME}:${'submitBatchSell'}`,
       ),
 
       // Smart Transactions
@@ -4825,26 +4710,6 @@ export default class MetamaskController extends EventEmitter {
         this.updateSecurityAlertResponse.bind(this),
         this.getSecurityAlertsConfig.bind(this),
       ),
-    );
-
-    engine.push(
-      createDappSwapMiddleware({
-        fetchQuotes: this.controllerMessenger.call.bind(
-          this.controllerMessenger,
-          `${BRIDGE_CONTROLLER_NAME}:fetchQuotes`,
-        ),
-        setDappSwapComparisonData:
-          this.appStateController.setDappSwapComparisonData.bind(
-            this.appStateController,
-          ),
-        getNetworkConfigurationByNetworkClientId:
-          this.networkController.getNetworkConfigurationByNetworkClientId.bind(
-            this.networkController,
-          ),
-        dappSwapMetricsFlag:
-          this.remoteFeatureFlagController?.state?.remoteFeatureFlags
-            ?.dappSwapMetrics,
-      }),
     );
 
     engine.push(

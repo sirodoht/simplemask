@@ -1,22 +1,10 @@
 import { CANONICAL_DEEP_LINK_HOST } from '../common';
 import { DEFAULT_ROUTE, Route } from './route';
-import type { Destination } from './route';
 
 export const DEEP_LINK_ORIGIN = `https://${CANONICAL_DEEP_LINK_HOST}`;
 
 export enum HomeQueryParams {
-  BatchSellDeeplinkUrl = 'batchSellDeeplinkUrl',
   OpenNetworkSelector = 'openNetworkSelector',
-}
-
-export function createHomeQrCodeDestination(
-  queryParam: HomeQueryParams.BatchSellDeeplinkUrl,
-  deeplinkUrl: string,
-): Destination {
-  return {
-    path: DEFAULT_ROUTE,
-    query: new URLSearchParams({ [queryParam]: deeplinkUrl }),
-  };
 }
 
 export const home = new Route({

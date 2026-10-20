@@ -2358,11 +2358,6 @@ describe('LegacyBackgroundApiService', () => {
         );
 
         rootMessenger.registerActionHandler(
-          'BridgeStatusController:wipeBridgeStatus',
-          jest.fn(),
-        );
-
-        rootMessenger.registerActionHandler(
           'NetworkController:resetConnection',
           jest.fn(),
         );
@@ -2383,14 +2378,6 @@ describe('LegacyBackgroundApiService', () => {
 
         expect(callSpy).toHaveBeenCalledWith(
           'SmartTransactionsController:wipeSmartTransactions',
-          {
-            address: selectedAddress,
-            ignoreNetwork: false,
-          },
-        );
-
-        expect(callSpy).toHaveBeenCalledWith(
-          'BridgeStatusController:wipeBridgeStatus',
           {
             address: selectedAddress,
             ignoreNetwork: false,
@@ -7208,7 +7195,6 @@ function getMessenger(
       'ApprovalController:rejectRequest',
       'TransactionController:wipeTransactions',
       'SmartTransactionsController:wipeSmartTransactions',
-      'BridgeStatusController:wipeBridgeStatus',
       'NetworkController:resetConnection',
       'KeyringController:importAccountWithStrategy',
       'OnboardingController:getIsSocialLoginFlow',

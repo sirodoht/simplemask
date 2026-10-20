@@ -1,6 +1,5 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
-import { QuoteResponseV1 } from '@metamask/bridge-controller';
 
 import {
   CHAIN_IDS,
@@ -13,7 +12,6 @@ import { renderWithConfirmContextProvider } from '../../../../../../../../test/l
 import { GAS_FEE_TOKEN_MOCK } from '../../../../../../../../test/data/confirmations/gas';
 import { genUnapprovedContractInteractionConfirmation } from '../../../../../../../../test/data/confirmations/contract-interaction';
 import { enLocale as messages } from '../../../../../../../../test/lib/i18n-helpers';
-import * as DappSwapContext from '../../../../../context/dapp-swap';
 import { useEstimationFailed } from '../../../../../hooks/gas/useEstimationFailed';
 import { useIsGaslessSupported } from '../../../../../hooks/gas/useIsGaslessSupported';
 import { EditGasFeesRow } from './edit-gas-fees-row';
@@ -166,21 +164,6 @@ describe('<EditGasFeesRow />', () => {
         ),
       ),
     ).toThrow();
-  });
-
-  it('does not renders edit gas fee button for quote suggested swap', () => {
-    jest.spyOn(DappSwapContext, 'useDappSwapContext').mockReturnValue({
-      isQuotedSwapDisplayedInInfo: true,
-      selectedQuote: {} as unknown as QuoteResponseV1,
-      setSelectedQuote: jest.fn(),
-      setQuotedSwapDisplayedInInfo: jest.fn(),
-    } as unknown as ReturnType<typeof DappSwapContext.useDappSwapContext>);
-    const { queryByTestId } = render({
-      gasFeeTokens: undefined,
-      selectedGasFeeToken: undefined,
-    });
-
-    expect(queryByTestId('edit-gas-fee-icon')).toBeNull();
   });
 
   describe('estimationFailed', () => {

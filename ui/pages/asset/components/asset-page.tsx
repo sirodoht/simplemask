@@ -59,8 +59,6 @@ import { useMultichainSelector } from '../../../hooks/useMultichainSelector';
 import { transitionBack } from '../../../components/ui/transition';
 import {
   getDataCollectionForMarketing,
-  getIsBridgeChain,
-  getIsSwapsChain,
   getAnalyticsId,
   getConsentDecisionMade,
   getOptedIn,
@@ -86,8 +84,8 @@ import { useCurrentPrice } from '../hooks/useCurrentPrice';
 import { useSpendableBalance } from '../hooks/useSpendableBalance';
 import { getIsAssetRequireActivate } from '../../../selectors/stellar-assets';
 import { isNativeAsset, type Asset } from '../types/asset';
-// eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
-import { useRWAToken } from '../../bridge/hooks/useRWAToken';
+
+import { useRWAToken } from '../../../hooks/rwa/useRWAToken';
 import { useMusdCtaVisibility } from '../../../hooks/musd';
 import { MusdAssetCta } from '../../../components/app/musd';
 import { MoneyEarnBanner } from '../../../components/app/money/money-earn-banner';
@@ -104,7 +102,6 @@ import { processAssetParams } from '../util';
 import { AssetInactiveBadge } from '../../../components/app/assets/asset-inactive-badge/asset-inactive-badge';
 import { AssetMarketDetails } from './asset-market-details';
 import { AssetPageHeader } from './asset-page-header';
-import { AssetStickyActions } from './asset-sticky-actions';
 import AssetChart from './chart/asset-chart';
 import { MarketClosedActionButton } from './market-closed-action-button';
 import TokenButtons from './token-buttons';
@@ -162,19 +159,6 @@ const AssetPage = ({
     asset.type === AssetType.token ? asset.address : undefined;
   const aggregators =
     asset.type === AssetType.token ? asset.aggregators : undefined;
-
-  const selectIsSwapsChain = useMemo(
-    () => (state: Parameters<typeof getIsSwapsChain>[0]) =>
-      getIsSwapsChain(state, chainId),
-    [chainId],
-  );
-  const isSwapsChain = useSelector(selectIsSwapsChain);
-  const selectIsBridgeChain = useMemo(
-    () => (state: Parameters<typeof getIsBridgeChain>[0]) =>
-      getIsBridgeChain(state, chainId),
-    [chainId],
-  );
-  const isBridgeChain = useSelector(selectIsBridgeChain);
 
   const isSigningEnabled = useMemo(
     () =>
@@ -444,8 +428,6 @@ const AssetPage = ({
                       account: selectedAccount,
                       trackingLocation: 'asset-page',
                       isSigningEnabled,
-                      isSwapsChain,
-                      isBridgeChain,
                       chainId,
                       hasBalance: Boolean(
                         updatedAsset.balance?.value &&
@@ -720,11 +702,6 @@ const AssetPage = ({
       </Box>
       {/* Sibling of `asset__content` so it is a direct child of the scrolling
       container, which is what lets it stick to the bottom of the viewport. */}
-      <AssetStickyActions
-        asset={updatedAsset}
-        isMarketClosed={isMarketClosed}
-        isSigningEnabled={isSigningEnabled}
-      />
     </AssetPageSecurityTrustProvider>
   );
 };

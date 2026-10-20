@@ -491,21 +491,6 @@ export type AppStateControllerSetShieldSubscriptionMetricsPropsAction = {
   handler: AppStateController['setShieldSubscriptionMetricsProps'];
 };
 
-export type AppStateControllerDeleteDappSwapComparisonDataAction = {
-  type: `AppStateController:deleteDappSwapComparisonData`;
-  handler: AppStateController['deleteDappSwapComparisonData'];
-};
-
-export type AppStateControllerSetDappSwapComparisonDataAction = {
-  type: `AppStateController:setDappSwapComparisonData`;
-  handler: AppStateController['setDappSwapComparisonData'];
-};
-
-export type AppStateControllerGetDappSwapComparisonDataAction = {
-  type: `AppStateController:getDappSwapComparisonData`;
-  handler: AppStateController['getDappSwapComparisonData'];
-};
-
 /**
  * Updates state with deferred deep link data.
  *
@@ -594,9 +579,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerGetIsWalletResetInProgressAction
   | AppStateControllerSetDefaultSubscriptionPaymentOptionsAction
   | AppStateControllerSetShieldSubscriptionMetricsPropsAction
-  | AppStateControllerDeleteDappSwapComparisonDataAction
-  | AppStateControllerSetDappSwapComparisonDataAction
-  | AppStateControllerGetDappSwapComparisonDataAction
   | AppStateControllerSetDeferredDeepLinkAction
   | AppStateControllerRemoveDeferredDeepLinkAction
   | AppStateControllerAddAddressSecurityAlertResponseAction

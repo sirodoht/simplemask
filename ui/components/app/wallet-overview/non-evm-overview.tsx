@@ -2,8 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { getMultichainSelectedAccountCachedBalance } from '../../../selectors/multichain';
 import { getSelectedMultichainNetworkConfiguration } from '../../../selectors/multichain/networks';
-
-import { getIsSwapsChain, getIsBridgeChain } from '../../../selectors';
 import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/accounts';
 import { CoinOverview } from './coin-overview';
 
@@ -16,11 +14,6 @@ const NonEvmOverview = ({ className }: NonEvmOverviewProps) => {
   const balance = useSelector(getMultichainSelectedAccountCachedBalance);
   const account = useSelector(getSelectedInternalAccount);
 
-  let isSwapsChain = false;
-  let isBridgeChain = false;
-  isSwapsChain = useSelector((state) => getIsSwapsChain(state, chainId));
-  isBridgeChain = useSelector((state) => getIsBridgeChain(state, chainId));
-
   return (
     <CoinOverview
       account={account}
@@ -30,8 +23,6 @@ const NonEvmOverview = ({ className }: NonEvmOverviewProps) => {
       className={className}
       chainId={chainId}
       isSigningEnabled={true}
-      isSwapsChain={isSwapsChain}
-      isBridgeChain={isBridgeChain}
     />
   );
 };

@@ -14,7 +14,7 @@ import { getCurrentCurrency } from '../../../ducks/metamask/metamask';
 import { apiClient } from '../../../helpers/api-client';
 import { Asset } from '../types/asset';
 import { isEvmChainId, toAssetId } from '../../../../shared/lib/asset-utils';
-import { getNativeAssetForChainIdSafe } from '../../../ducks/bridge/utils';
+import { getNativeAssetForChainIdSafe } from '../../../../shared/lib/native-asset';
 
 /**
  * Market data for an asset, in the currently selected fiat currency.

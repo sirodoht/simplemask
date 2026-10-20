@@ -12,10 +12,8 @@ import {
   TRON_RECIPIENT_ADDRESS,
 } from '../../tron/mocks/common-tron';
 import {
-  bridgeTx,
   swapTx,
   trc20ApproveTx,
-  tronBridgeHistoryItem,
   trxReceiveTx,
   trxSendTx,
 } from '../../tron/mocks/tron-tx-fixtures';
@@ -26,7 +24,7 @@ const BASE_TIMESTAMP = Date.now();
 describe('Tron - Activity types', function (this: Suite) {
   this.timeout(180_000);
 
-  it('renders approved cap, sent, received, swapped and bridged transactions', async function () {
+  it('renders approved cap, sent, received and swapped transactions', async function () {
     // Staggered timestamps keep the activity list ordering deterministic.
     const approveTx = trc20ApproveTx({
       symbol: 'USDT',
@@ -55,19 +53,6 @@ describe('Tron - Activity types', function (this: Suite) {
       status: 'Confirmed',
       timestamp: BASE_TIMESTAMP - 240_000,
     });
-    const bridge = bridgeTx({
-      srcSymbol: 'USDT',
-      srcAmount: '1500000',
-      destChain: 'eip155:1',
-      status: 'Confirmed',
-      timestamp: BASE_TIMESTAMP - 300_000,
-    });
-    const bridgeHistory = tronBridgeHistoryItem({
-      txId: bridge.raw.txID,
-      srcAmount: '1.5',
-      destAmount: '1.49',
-      timestamp: BASE_TIMESTAMP - 300_000,
-    });
 
     await withTronFixtures(
       {
@@ -75,16 +60,12 @@ describe('Tron - Activity types', function (this: Suite) {
           {
             address: TRON_ACCOUNT_ADDRESS,
             transactions: {
-              raw: [sendTx, receiveTx, swap.raw, approveTx.raw, bridge.raw],
-              trc20: [approveTx.trc20, swap.trc20, bridge.trc20],
+              raw: [sendTx, receiveTx, swap.raw, approveTx.raw],
+              trc20: [approveTx.trc20, swap.trc20],
             },
           },
         ],
-        fixtures: new FixtureBuilderV2()
-          .withBridgeStatusController({
-            txHistory: { [bridge.raw.txID]: bridgeHistory },
-          })
-          .build(),
+        fixtures: new FixtureBuilderV2().build(),
         title: this.test?.fullTitle(),
       },
       async ({ driver }: { driver: Driver }) => {
@@ -137,19 +118,6 @@ describe('Tron - Activity types', function (this: Suite) {
         await swapDetails.checkAmount('-1 TRX');
         await swapDetails.checkAmount('+2.5 USDT');
         await swapDetails.clickBackButton();
-
-        // Bridged (reclassified from the seeded BridgeStatusController history)
-        await activityTab.checkTransactionActivityByText('Bridged USDT');
-        await activityTab.checkTransactionAmount('+1.49 USDC');
-        const bridgeDetails = await openActivityTransactionDetails({
-          driver,
-          activityTab,
-          activityText: 'Bridged USDT',
-        });
-        await bridgeDetails.checkTitle('Bridged USDT');
-        await bridgeDetails.checkAmount('-1.5 USDT');
-        await bridgeDetails.checkAmount('+1.49 USDC');
-        await bridgeDetails.clickBackButtonIfPresent();
       },
     );
   });

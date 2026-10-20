@@ -60,8 +60,6 @@ import { ShieldController } from '@metamask/shield-controller';
 import { SubscriptionController } from '@metamask/subscription-controller';
 import { NameController } from '@metamask/name-controller';
 import { SelectedNetworkController } from '@metamask/selected-network-controller';
-import { BridgeController } from '@metamask/bridge-controller';
-import { BridgeStatusController } from '@metamask/bridge-status-controller';
 import { ApprovalController } from '@metamask/approval-controller';
 import { NetworkEnablementController } from '@metamask/network-enablement-controller';
 import { PermissionLogController } from '@metamask/permission-log-controller';
@@ -147,8 +145,6 @@ export type MessengerClient =
   | AssetsController
   | AuthenticationController
   | AuthenticatedUserStorageService
-  | BridgeController
-  | BridgeStatusController
   | ChompApiService
   | ClaimsController
   | CronjobController
@@ -262,8 +258,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   AnalyticsController['state'] &
   AssetsController['state'] &
   AuthenticationController['state'] &
-  BridgeController['state'] &
-  BridgeStatusController['state'] &
   ClaimsController['state'] &
   ClientController['state'] &
   ComplianceController['state'] &

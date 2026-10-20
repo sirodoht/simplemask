@@ -18,8 +18,6 @@ import type { MultichainNetworkControllerState } from '@metamask/multichain-netw
 import type { KeyringControllerState } from '@metamask/keyring-controller';
 import type { AddressBookControllerState } from '@metamask/address-book-controller';
 import type { ApprovalControllerState } from '@metamask/approval-controller';
-import type { BridgeControllerState } from '@metamask/bridge-controller';
-import type { BridgeStatusControllerState } from '@metamask/bridge-status-controller';
 import type { NetworkState } from '@metamask/network-controller';
 import type { GasFeeState } from '@metamask/gas-fee-controller';
 import { NetworkEnablementControllerState } from '@metamask/network-enablement-controller';
@@ -149,23 +147,6 @@ export type ControllerStatePropertiesEnumerated = {
   sidePanelGasPollTokens: AppStateControllerState['sidePanelGasPollTokens'];
   passkeyAutoUnlockSuppressed: AppStateControllerState['passkeyAutoUnlockSuppressed'];
   lastShownPrfMigrationReminderAt: AppStateControllerState['lastShownPrfMigrationReminderAt'];
-  quoteRequest: BridgeControllerState['quoteRequest'];
-  quotes: BridgeControllerState['quotes'];
-  quotesInitialLoadTime: BridgeControllerState['quotesInitialLoadTime'];
-  quotesLastFetched: BridgeControllerState['quotesLastFetched'];
-  quotesLoadingStatus: BridgeControllerState['quotesLoadingStatus'];
-  quoteFetchError: BridgeControllerState['quoteFetchError'];
-  quotesRefreshCount: BridgeControllerState['quotesRefreshCount'];
-  quoteStreamComplete: BridgeControllerState['quoteStreamComplete'];
-  minimumBalanceForRentExemptionInLamports: BridgeControllerState['minimumBalanceForRentExemptionInLamports'];
-  assetExchangeRates: BridgeControllerState['assetExchangeRates'];
-  tokenSecurityTypeDestination: BridgeControllerState['tokenSecurityTypeDestination'];
-  inputPrimaryDenomination: BridgeControllerState['inputPrimaryDenomination'];
-  tokenWarnings: BridgeControllerState['tokenWarnings'];
-  batchSellTrades: BridgeControllerState['batchSellTrades'];
-  batchSellTradesLoadingStatus: BridgeControllerState['batchSellTradesLoadingStatus'];
-  txHistory: BridgeStatusControllerState['txHistory'];
-  quoteUpdateStatusStore: BridgeStatusControllerState['quoteUpdateStatusStore'];
   events: CronjobControllerState['events'];
   currentCurrency: CurrencyRateState['currentCurrency'];
   currencyRates: CurrencyRateState['currencyRates'];
@@ -329,8 +310,6 @@ export type ControllerStateTypesMerged = AccountsControllerState &
   AppMetadataControllerState &
   ApprovalControllerState &
   AppStateControllerState &
-  BridgeControllerState &
-  BridgeStatusControllerState &
   ClaimsControllerState &
   CronjobControllerState &
   CurrencyRateState &

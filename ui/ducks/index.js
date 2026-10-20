@@ -7,8 +7,6 @@ import appStateReducer from './app/app';
 import confirmTransactionReducer from './confirm-transaction/confirm-transaction.duck';
 import gasReducer from './gas/gas.duck';
 import { invalidCustomNetwork, unconnectedAccount } from './alerts';
-import swapsReducer from './swaps/swaps';
-import bridgeReducer from './bridge/bridge';
 import historyReducer from './history/history';
 import confirmAlertsReducer from './confirm-alerts/confirm-alerts';
 import sendMaxValueReducer from './send-max-value/send-max-value';
@@ -26,8 +24,6 @@ export default combineReducers({
   confirmAlerts: confirmAlertsReducer,
   sendMaxValue: sendMaxValueReducer,
   confirmTransaction: confirmTransactionReducer,
-  swaps: swapsReducer,
-  bridge: bridgeReducer,
   gas: gasReducer,
   localeMessages: localeMessagesReducer,
   smartAccounts: smartAccountsReducer,

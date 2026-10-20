@@ -9,7 +9,6 @@ import {
   ConfirmContextType,
   ConfirmContextProvider,
 } from '../../../ui/pages/confirmations/context/confirm';
-import { DappSwapContextProvider } from '../../../ui/pages/confirmations/context/dapp-swap';
 import {
   createProviderWrapper,
   I18nProvider,
@@ -38,9 +37,9 @@ export function renderWithConfirmContextProvider(
         confirmationId={confirmationId}
         initialIsAmountPending={initialIsAmountPending}
       >
-        <DappSwapContextProvider>
+        <>
           <GasFeeModalContextProvider>{children}</GasFeeModalContextProvider>
-        </DappSwapContextProvider>
+        </>
       </ConfirmContextProvider>
     </HardwareWalletErrorProvider>
   );
@@ -74,9 +73,9 @@ function renderWithContext(
     <MetaMaskTestReduxProvider store={store}>
       <I18nProvider currentLocale="en" current={en} en={en}>
         <ConfirmContext.Provider value={contextValue}>
-          <DappSwapContextProvider>
+          <>
             <GasFeeModalContextProvider>{children}</GasFeeModalContextProvider>
-          </DappSwapContextProvider>
+          </>
         </ConfirmContext.Provider>
       </I18nProvider>
     </MetaMaskTestReduxProvider>
@@ -127,22 +126,22 @@ export function renderHookWithConfirmContextProvider(
     ? ({ children }: { children: React.ReactNode }) => (
         <HardwareWalletErrorProvider>
           <ConfirmContextProvider confirmationId={confirmationId}>
-            <DappSwapContextProvider>
+            <>
               <GasFeeModalContextProvider>
                 <Container>{children}</Container>
               </GasFeeModalContextProvider>
-            </DappSwapContextProvider>
+            </>
           </ConfirmContextProvider>
         </HardwareWalletErrorProvider>
       )
     : ({ children }: { children: React.ReactNode }) => (
         <HardwareWalletErrorProvider>
           <ConfirmContextProvider confirmationId={confirmationId}>
-            <DappSwapContextProvider>
+            <>
               <GasFeeModalContextProvider>
                 {children}
               </GasFeeModalContextProvider>
-            </DappSwapContextProvider>
+            </>
           </ConfirmContextProvider>
         </HardwareWalletErrorProvider>
       );

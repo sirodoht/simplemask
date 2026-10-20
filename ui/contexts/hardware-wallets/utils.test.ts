@@ -1,6 +1,5 @@
 import { KeyringTypes } from '@metamask/keyring-controller';
 import {
-  AWAITING_SIGNATURES_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
   CROSS_CHAIN_SWAP_ROUTE,
@@ -72,20 +71,20 @@ describe('isHardwareWalletRoute', () => {
     expect(isHardwareWalletRoute(CONFIRMATION_V_NEXT_ROUTE)).toBe(true);
   });
 
-  it('returns true for cross-chain swap route', () => {
-    expect(isHardwareWalletRoute(CROSS_CHAIN_SWAP_ROUTE)).toBe(true);
+  it('returns false for retired cross-chain swap route', () => {
+    expect(isHardwareWalletRoute(CROSS_CHAIN_SWAP_ROUTE)).toBe(false);
   });
 
-  it('returns true for cross-chain sub-routes', () => {
+  it('returns false for retired cross-chain sub-routes', () => {
     expect(
       isHardwareWalletRoute(
         `${CROSS_CHAIN_SWAP_ROUTE}/swaps/prepare-bridge-page`,
       ),
-    ).toBe(true);
+    ).toBe(false);
   });
 
   it('returns true for awaiting signatures route', () => {
-    expect(isHardwareWalletRoute(AWAITING_SIGNATURES_ROUTE)).toBe(true);
+    expect(isHardwareWalletRoute(HARDWARE_WALLET_SIGNATURES_ROUTE)).toBe(true);
   });
 
   it('returns false for unrelated route', () => {
@@ -107,9 +106,9 @@ describe('isHardwareWalletErrorModalRoute', () => {
   });
 
   it('returns true for awaiting signatures route', () => {
-    expect(isHardwareWalletErrorModalRoute(AWAITING_SIGNATURES_ROUTE)).toBe(
-      true,
-    );
+    expect(
+      isHardwareWalletErrorModalRoute(HARDWARE_WALLET_SIGNATURES_ROUTE),
+    ).toBe(true);
   });
 
   it('returns false for cross-chain swap route', () => {
@@ -124,19 +123,15 @@ describe('isHardwareWalletErrorModalRoute', () => {
     ).toBe(false);
   });
 
-  it('returns true for the cross-chain hardware wallet signatures route', () => {
-    expect(
-      isHardwareWalletErrorModalRoute(
-        '/cross-chain/swaps/hardware-wallet-signatures',
-      ),
-    ).toBe(true);
+  it('returns true for the hardware wallet signatures route', () => {
+    expect(isHardwareWalletErrorModalRoute('/hardware-wallet-signatures')).toBe(
+      true,
+    );
   });
 
   it('returns true for the composed hardware wallet signatures prefix', () => {
     expect(
-      isHardwareWalletErrorModalRoute(
-        `${CROSS_CHAIN_SWAP_ROUTE}${HARDWARE_WALLET_SIGNATURES_ROUTE}`,
-      ),
+      isHardwareWalletErrorModalRoute(HARDWARE_WALLET_SIGNATURES_ROUTE),
     ).toBe(true);
   });
 

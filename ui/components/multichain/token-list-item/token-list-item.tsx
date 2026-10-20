@@ -14,7 +14,6 @@ import {
   ButtonVariant,
   IconColor,
   IconName,
-  Tag,
   Modal,
   ModalBody,
   ModalFooter,
@@ -25,7 +24,6 @@ import {
 import { useAnalytics } from '../../../hooks/useAnalytics';
 import {
   AlignItems,
-  BackgroundColor,
   BlockSize,
   Display,
   FlexDirection,
@@ -35,8 +33,8 @@ import {
   TextColor,
   TextVariant,
 } from '../../../helpers/constants/design-system';
-import { TokenInsightsModal } from '../../../pages/bridge/token-insights-modal';
-import { useRWAToken } from '../../../pages/bridge/hooks/useRWAToken';
+import { TokenInsightsModal } from '../../app/token-insights-modal';
+import { useRWAToken } from '../../../hooks/rwa/useRWAToken';
 import {
   BadgeWrapper,
   Box,
@@ -63,7 +61,6 @@ import { NETWORKS_ROUTE } from '../../../helpers/constants/routes';
 import { setEditedNetwork } from '../../../store/actions';
 import { NETWORK_TO_SHORT_NETWORK_NAME_MAP } from '../../../../shared/constants/bridge';
 import { getNetworkConfigurationsByChainId } from '../../../../shared/lib/selectors/networks';
-import { selectNoFeeAssets } from '../../../ducks/bridge/selectors';
 import { TokenWithFiatAmount } from '../../app/assets/types';
 import { useDispatch } from '../../../store/hooks';
 import { getAvatarNetworkStyle } from '../../../helpers/utils/accounts';
@@ -159,7 +156,6 @@ export const TokenListItemComponent = ({
   const t = useI18nContext();
   const isEvm = useSelector(getMultichainIsEvm);
   const { trackEvent, createEventBuilder } = useAnalytics();
-  const noFeeAssets = useSelector((state) => selectNoFeeAssets(state, chainId));
 
   // When the parent passes these props it has already read the selectors once
   // for the whole list. Switch to a no-op selector so this row does not create
@@ -253,11 +249,6 @@ export const TokenListItemComponent = ({
   const tokenTitle = getTokenTitle();
   const tokenMainTitleToDisplay =
     shouldShowPercentage && !isTitleNetworkName ? tokenTitle : tokenSymbol;
-
-  const isNoFeeAsset =
-    isDestinationToken &&
-    address &&
-    noFeeAssets?.includes(address.toLowerCase());
   const { isStockToken: checkIsStockToken, isTokenTradingOpen } = useRWAToken();
   const rwaToken = { rwaData };
   const isRWAToken = checkIsStockToken(rwaToken);
@@ -386,7 +377,6 @@ export const TokenListItemComponent = ({
               {isRWAToken ? (
                 <StockBadge isMarketClosed={!isTokenTradingOpen(rwaToken)} />
               ) : null}
-              {isNoFeeAsset && <Tag>{t('bridgeNoMMFee')}</Tag>}
             </Box>
 
             {showScamWarning ? (

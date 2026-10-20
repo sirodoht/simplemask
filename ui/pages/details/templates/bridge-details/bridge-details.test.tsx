@@ -1,20 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { StatusTypes } from '@metamask/bridge-controller';
-import type { BridgeHistoryItem } from '@metamask/bridge-status-controller';
 import type { ActivityListItem } from '../../../../../shared/lib/activity/types';
-import { useBridgeHistoryItem, useHistoryTokens } from './hooks';
 import { BridgeDetails } from './bridge-details';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
   // The component only reads mocked selectors, so state is irrelevant here.
   useSelector: (selector: (state: unknown) => unknown) => selector({}),
-}));
-
-jest.mock('./hooks', () => ({
-  useBridgeHistoryItem: jest.fn(),
-  useHistoryTokens: jest.fn(),
 }));
 
 jest.mock('../../../../hooks/useI18nContext', () => ({
@@ -100,22 +92,6 @@ jest.mock('../../components/bridge-explorer-buttons', () => ({
   ),
 }));
 
-jest.mock('../../components/swap-again-button', () => ({
-  SwapAgainButton: ({
-    sourceToken,
-    destinationToken,
-  }: {
-    sourceToken?: { symbol?: string };
-    destinationToken?: { symbol?: string };
-  }) => (
-    <div
-      data-testid="swap-again-button"
-      data-source-symbol={sourceToken?.symbol ?? ''}
-      data-dest-symbol={destinationToken?.symbol ?? ''}
-    />
-  ),
-}));
-
 jest.mock('../../../../components/app/transaction/network-name', () => ({
   NetworkName: ({ chainId }: { chainId: string }) => (
     <div data-testid="network-name" data-chain-id={chainId} />
@@ -139,9 +115,6 @@ jest.mock('../../../../components/app/transaction/transaction-id', () => ({
     <div data-testid="transaction-id" data-value={value} />
   ),
 }));
-
-const mockUseBridgeHistoryItem = useBridgeHistoryItem as unknown as jest.Mock;
-const mockUseHistoryTokens = useHistoryTokens as unknown as jest.Mock;
 
 type BridgeItem = Extract<
   ActivityListItem,
@@ -182,68 +155,12 @@ const buildItem = (data: BridgeItem['data']): BridgeItem =>
     data,
   }) as BridgeItem;
 
-const buildHistoryItem = (
-  overallStatus: StatusTypes = StatusTypes.COMPLETE,
-): BridgeHistoryItem =>
-  ({
-    account: '0xfrom',
-    status: { status: overallStatus, destChain: { txHash: DEST_TX_HASH } },
-  }) as unknown as BridgeHistoryItem;
-
 describe('BridgeDetails', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseBridgeHistoryItem.mockReturnValue(undefined);
-    mockUseHistoryTokens.mockReturnValue(undefined);
-  });
-
-  it('backfills destination token, network and explorer link from bridge history when the item only has the source token', () => {
-    mockUseBridgeHistoryItem.mockReturnValue(buildHistoryItem());
-    mockUseHistoryTokens.mockReturnValue({
-      sourceToken: sourceTokenEth,
-      destinationToken: destinationTokenDai,
-    });
-
-    const { getByTestId, getAllByTestId } = render(
-      <BridgeDetails
-        item={buildItem({ from: '0xfrom', sourceToken: sourceTokenEth })}
-      />,
-    );
-
-    const destinationRow = getAllByTestId('token-row').find(
-      (row) => row.getAttribute('data-symbol') === 'DAI',
-    );
-    expect(destinationRow).toBeDefined();
-    expect(destinationRow).toHaveAttribute(
-      'data-asset-id',
-      'eip155:137/erc20:0xdai',
-    );
-
-    const explorerButtons = getByTestId('bridge-explorer-buttons');
-    expect(explorerButtons).toHaveAttribute(
-      'data-source-tx-hash',
-      SOURCE_TX_HASH,
-    );
-    expect(explorerButtons).toHaveAttribute('data-dest-chain-id', 'eip155:137');
-    expect(explorerButtons).toHaveAttribute('data-dest-tx-hash', DEST_TX_HASH);
-
-    expect(getByTestId('bridge-network-row')).toHaveAttribute(
-      'data-to',
-      'eip155:137',
-    );
-    expect(getByTestId('swap-again-button')).toHaveAttribute(
-      'data-dest-symbol',
-      'DAI',
-    );
   });
 
   it('prefers destination data already present on the item over bridge history', () => {
-    mockUseBridgeHistoryItem.mockReturnValue(buildHistoryItem());
-    mockUseHistoryTokens.mockReturnValue({
-      sourceToken: sourceTokenEth,
-      destinationToken: destinationTokenDai,
-    });
-
     const { getByTestId, getAllByTestId } = render(
       <BridgeDetails
         item={buildItem({
@@ -267,27 +184,6 @@ describe('BridgeDetails', () => {
     expect(getByTestId('bridge-explorer-buttons')).toHaveAttribute(
       'data-dest-chain-id',
       'eip155:10',
-    );
-  });
-
-  it('shows pending while the destination leg is in flight even though the source item is confirmed', () => {
-    mockUseBridgeHistoryItem.mockReturnValue(
-      buildHistoryItem(StatusTypes.PENDING),
-    );
-    mockUseHistoryTokens.mockReturnValue({
-      sourceToken: sourceTokenEth,
-      destinationToken: destinationTokenDai,
-    });
-
-    const { getByTestId } = render(
-      <BridgeDetails
-        item={buildItem({ from: '0xfrom', sourceToken: sourceTokenEth })}
-      />,
-    );
-
-    expect(getByTestId('transaction-status')).toHaveAttribute(
-      'data-status',
-      'pending',
     );
   });
 

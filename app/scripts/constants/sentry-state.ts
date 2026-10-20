@@ -125,31 +125,6 @@ export const SENTRY_BACKGROUND_STATE: SentryBackgroundControllerMasks = {
   MultichainAssetsRatesController: {
     assetsRates: false,
   },
-  BridgeController: {
-    assetExchangeRates: false,
-    minimumBalanceForRentExemptionInLamports: false,
-    quoteRequest: [
-      {
-        walletAddress: false,
-        srcTokenAddress: true,
-        slippage: true,
-        srcChainId: true,
-        destChainId: true,
-        destTokenAddress: true,
-        srcTokenAmount: true,
-      },
-    ],
-    quotes: [],
-    quotesInitialLoadTime: true,
-    quotesLastFetched: true,
-    quotesLoadingStatus: true,
-    quoteFetchError: true,
-    quotesRefreshCount: true,
-  },
-  BridgeStatusController: {
-    txHistory: false,
-    quoteUpdateStatusStore: false,
-  },
   ConnectivityController: {
     connectivityStatus: true,
   },

@@ -375,13 +375,6 @@
       "selectedCurrency": "usd"
     },
     "AuthenticationController": {},
-    "BridgeController": {
-      "inputPrimaryDenomination": "token_amount"
-    },
-    "BridgeStatusController": {
-      "quoteUpdateStatusStore": {},
-      "txHistory": {}
-    },
     "ClaimsController": {
       "claims": [],
       "claimsConfigurations": {

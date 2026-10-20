@@ -161,8 +161,7 @@ export const SWAP_PATH = `${CROSS_CHAIN_SWAP_ROUTE}${PREPARE_SWAP_ROUTE}`;
 export const PREPARE_SWAP_ASSETS_ROUTE = '/swaps/prepare-bridge-page/assets';
 export const SWAP_ASSETS_PATH = `${CROSS_CHAIN_SWAP_ROUTE}${PREPARE_SWAP_ASSETS_ROUTE}`;
 export const AWAITING_SIGNATURES_ROUTE = '/swaps/awaiting-signatures';
-export const HARDWARE_WALLET_SIGNATURES_ROUTE =
-  '/swaps/hardware-wallet-signatures';
+export const HARDWARE_WALLET_SIGNATURES_ROUTE = '/hardware-wallet-signatures';
 export const ONBOARDING_ROUTE = '/onboarding';
 export const ONBOARDING_REVEAL_SRP_ROUTE = '/onboarding/reveal-recovery-phrase';
 export const ONBOARDING_REVIEW_SRP_ROUTE = '/onboarding/review-recovery-phrase';

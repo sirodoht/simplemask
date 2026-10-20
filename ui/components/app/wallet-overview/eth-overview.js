@@ -5,21 +5,17 @@ import { EthMethod } from '@metamask/keyring-api';
 import { getCurrentChainId } from '../../../../shared/lib/selectors/networks';
 import {
   isBalanceCached,
-  getIsSwapsChain,
   getSelectedAccountCachedBalance,
-  getIsBridgeChain,
 } from '../../../selectors';
 import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/accounts';
 import { CoinOverview } from './coin-overview';
 
 const EthOverview = ({ className }) => {
-  const isBridgeChain = useSelector(getIsBridgeChain);
   const balanceIsCached = useSelector(isBalanceCached);
   const chainId = useSelector(getCurrentChainId);
   const balance = useSelector(getSelectedAccountCachedBalance);
 
   const account = useSelector(getSelectedInternalAccount);
-  const isSwapsChain = useSelector(getIsSwapsChain);
   const isSigningEnabled =
     account.methods.includes(EthMethod.SignTransaction) ||
     account.methods.includes(EthMethod.SignUserOperation);
@@ -33,8 +29,6 @@ const EthOverview = ({ className }) => {
       classPrefix="eth"
       chainId={chainId}
       isSigningEnabled={isSigningEnabled}
-      isSwapsChain={isSwapsChain}
-      isBridgeChain={isBridgeChain}
     />
   );
 };

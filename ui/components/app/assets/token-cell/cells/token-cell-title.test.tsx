@@ -41,7 +41,7 @@ jest.mock('../../../security-trust/security-trust-inline-badge', () => ({
 const mockIsStockToken = jest.fn();
 const mockIsTokenTradingOpen = jest.fn();
 
-jest.mock('../../../../../pages/bridge/hooks/useRWAToken', () => ({
+jest.mock('../../../../../hooks/rwa/useRWAToken', () => ({
   useRWAToken: () => ({
     isStockToken: mockIsStockToken,
     isTokenTradingOpen: mockIsTokenTradingOpen,

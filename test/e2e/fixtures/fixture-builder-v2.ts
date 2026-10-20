@@ -3,7 +3,6 @@ import type { CaipAssetType, Hex, Json } from '@metamask/utils';
 import type { AccountsControllerState } from '@metamask/accounts-controller';
 import type { AccountTreeControllerState } from '@metamask/account-tree-controller';
 import type { AddressBookControllerState } from '@metamask/address-book-controller';
-import type { BridgeStatusControllerState } from '@metamask/bridge-status-controller';
 import type {
   AccountTrackerControllerState,
   CurrencyRateState,
@@ -282,11 +281,6 @@ class FixtureBuilderV2 {
 
   withAppStateController(data: Partial<AppStateControllerState>): this {
     merge(this.fixture.data.AppStateController, data);
-    return this;
-  }
-
-  withBridgeStatusController(data: Partial<BridgeStatusControllerState>): this {
-    merge(this.fixture.data.BridgeStatusController, data);
     return this;
   }
 

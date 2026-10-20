@@ -3,25 +3,15 @@ import { screen, fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { InternalAccount } from '@metamask/keyring-internal-api';
-import {
-  BtcMethod,
-  EthMethod,
-  SolMethod,
-  TrxAccountType,
-} from '@metamask/keyring-api';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
 import mockState from '../../../../test/data/mock-state.json';
 import { ThemeType } from '../../../../shared/constants/preferences';
-import useBridging from '../../../hooks/bridge/useBridging';
 import { selectAccountGroupBalanceForEmptyState } from '../../../selectors/assets';
 import {
   TransactionActivityEmptyState,
   type TransactionActivityEmptyStateProps,
 } from './transaction-activity-empty-state';
-
-// Mock the useBridging hook
-jest.mock('../../../hooks/bridge/useBridging');
 
 jest.mock('../../../selectors/assets', () => ({
   ...jest.requireActual('../../../selectors/assets'),
@@ -113,29 +103,11 @@ const expectSwapButtonState = (enabled: boolean): HTMLElement => {
   return swapButton;
 };
 
-const setupMocks = (): {
-  mockOpenBridgeExperience: jest.Mock;
-  mockUseBridging: jest.MockedFunction<typeof useBridging>;
-} => {
-  const mockOpenBridgeExperience = jest.fn();
-  const mockUseBridging = useBridging as jest.MockedFunction<
-    typeof useBridging
-  >;
-
-  jest.clearAllMocks();
-  mockUseBridging.mockReturnValue({
-    openBridgeExperience: mockOpenBridgeExperience,
-  });
-
-  return { mockOpenBridgeExperience, mockUseBridging };
-};
-
 describe('TransactionActivityEmptyState', () => {
   const middleware = [thunk];
-  let mockOpenBridgeExperience: jest.Mock;
 
   beforeEach(() => {
-    ({ mockOpenBridgeExperience } = setupMocks());
+    jest.clearAllMocks();
     mockSelectAccountGroupBalanceForEmptyState.mockReturnValue(true);
   });
 
@@ -224,74 +196,6 @@ describe('TransactionActivityEmptyState', () => {
       'src',
       './images/empty-state-activity-dark.png',
     );
-  });
-
-  describe('Swap button functionality', () => {
-    const accountWithoutSigning = createAccount({
-      methods: ['personal_sign'], // No eth_signTransaction or eth_signUserOperation
-    });
-
-    const accountWithSigning = createAccount({
-      methods: [EthMethod.SignTransaction, 'personal_sign'],
-    });
-
-    it('disables swap button when external services are disabled', () => {
-      renderComponent(
-        {},
-        createStateWithoutExternalServices(),
-        accountWithSigning,
-      );
-      expectSwapButtonState(false);
-    });
-
-    it('disables swap button when the account cannot sign transactions', () => {
-      renderComponent({}, {}, accountWithoutSigning);
-      expectSwapButtonState(false);
-    });
-
-    it('enables swap button for an EVM account that can sign', () => {
-      renderComponent({}, createValidSwapState(), accountWithSigning);
-      expectSwapButtonState(true);
-    });
-
-    it('enables swap button for a Solana account that can sign', () => {
-      renderComponent(
-        {},
-        createValidSwapState(),
-        createAccount({ methods: [SolMethod.SignTransaction] }),
-      );
-      expectSwapButtonState(true);
-    });
-
-    it('enables swap button for a Bitcoin account that can sign', () => {
-      renderComponent(
-        {},
-        createValidSwapState(),
-        createAccount({ methods: [BtcMethod.SignPsbt] }),
-      );
-      expectSwapButtonState(true);
-    });
-
-    it('enables swap button for a Tron account that can sign', () => {
-      renderComponent(
-        {},
-        createValidSwapState(),
-        createAccount({ type: TrxAccountType.Eoa, methods: [] }),
-      );
-      expectSwapButtonState(true);
-    });
-
-    it('calls openBridgeExperience when swap button is clicked', () => {
-      const stateOverrides = createValidSwapState();
-      renderComponent({}, stateOverrides, accountWithSigning);
-      const swapButton = expectSwapButtonState(true);
-
-      fireEvent.click(swapButton);
-      expect(mockOpenBridgeExperience).toHaveBeenCalledWith(
-        'Activity Tab Empty State',
-        undefined, // No specific token
-      );
-    });
   });
 
   describe('Add funds button functionality', () => {

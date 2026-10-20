@@ -1,14 +1,11 @@
 import React from 'react';
-import { renderHook, render, waitFor } from '@testing-library/react';
+import { renderHook, render } from '@testing-library/react';
 import mockState from '../../../test/data/mock-state.json';
 import configureStore from '../../store/store';
 import { createMemoryRouterWrapper } from '../../../test/lib/render-helpers-navigate';
 import { HomeQueryParams } from '../../../shared/lib/deep-links/routes/home';
 import { toggleNetworkMenu } from '../../store/actions';
-import {
-  BATCH_SELL_SELECT_ROUTE,
-  DEFAULT_ROUTE,
-} from '../../helpers/constants/routes';
+import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
 import {
   HomeDeepLinkActions,
   useHomeDeepLinkEffects,
@@ -194,71 +191,4 @@ describe('HomeDeepLinkActions', () => {
       expectedAction();
     },
   );
-
-  it('shows the QR code for a valid batch sell deeplink URL when the feature is unavailable in the extension', async () => {
-    const deeplinkUrl = 'https://link.metamask.io/batch-sell';
-    const { Wrapper, store } = createWrapper({
-      pathname: DEFAULT_ROUTE,
-      search: `?${new URLSearchParams({
-        [HomeQueryParams.BatchSellDeeplinkUrl]: deeplinkUrl,
-      }).toString()}`,
-      isNetworkMenuOpen: false,
-      batchSellEnabled: false,
-    });
-
-    render(<HomeDeepLinkActions />, { wrapper: Wrapper });
-
-    await waitFor(() => {
-      const qrCode = (
-        store.getState() as { appState: { homeDeepLinkQrCode: unknown } }
-      ).appState.homeDeepLinkQrCode;
-      expect(qrCode).toEqual({
-        deeplinkUrl,
-        descriptionKey: 'deepLinkQrBatchSellDescription',
-        titleKey: 'deepLinkQrBatchSellTitle',
-      });
-    });
-    expect(mockNavigate).not.toHaveBeenCalled();
-  });
-
-  it('navigates to the batch sell select page for a valid batch sell deeplink URL when the feature is available in the extension', async () => {
-    const deeplinkUrl = 'https://link.metamask.io/batch-sell';
-    const { Wrapper, store } = createWrapper({
-      pathname: DEFAULT_ROUTE,
-      search: `?${new URLSearchParams({
-        [HomeQueryParams.BatchSellDeeplinkUrl]: deeplinkUrl,
-      }).toString()}`,
-      isNetworkMenuOpen: false,
-      batchSellEnabled: true,
-    });
-
-    render(<HomeDeepLinkActions />, { wrapper: Wrapper });
-
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith(BATCH_SELL_SELECT_ROUTE);
-    });
-
-    const qrCode = (
-      store.getState() as { appState: { homeDeepLinkQrCode: unknown } }
-    ).appState.homeDeepLinkQrCode;
-    expect(qrCode).toBeNull();
-  });
-
-  it('ignores batch sell QR deeplink params that do not point to /batch-sell', () => {
-    const { Wrapper, store } = createWrapper({
-      pathname: DEFAULT_ROUTE,
-      search: `?${new URLSearchParams({
-        [HomeQueryParams.BatchSellDeeplinkUrl]:
-          'https://link.metamask.io/rewards?referral=ABC123',
-      }).toString()}`,
-      isNetworkMenuOpen: false,
-    });
-
-    render(<HomeDeepLinkActions />, { wrapper: Wrapper });
-
-    const qrCode = (
-      store.getState() as { appState: { homeDeepLinkQrCode: unknown } }
-    ).appState.homeDeepLinkQrCode;
-    expect(qrCode).toBeNull();
-  });
 });

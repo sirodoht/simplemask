@@ -71,8 +71,6 @@ export type CoinOverviewProps = {
   className?: string;
   classPrefix?: string;
   chainId: CaipChainId | Hex;
-  isBridgeChain: boolean;
-  isSwapsChain: boolean;
   isSigningEnabled: boolean;
 };
 
@@ -196,8 +194,6 @@ export const CoinOverview = ({
   className,
   classPrefix = 'coin',
   chainId,
-  isBridgeChain,
-  isSwapsChain,
   isSigningEnabled,
 }: CoinOverviewProps) => {
   const t: ReturnType<typeof useI18nContext> = useContext(I18nContext);
@@ -430,9 +426,7 @@ export const CoinOverview = ({
             account,
             trackingLocation: 'home',
             chainId,
-            isSwapsChain,
             isSigningEnabled,
-            isBridgeChain,
             classPrefix,
           }}
         />

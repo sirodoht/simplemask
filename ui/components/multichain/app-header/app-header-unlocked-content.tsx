@@ -33,7 +33,7 @@ import { NotificationsTagCounter } from '../notifications-tag-counter';
 import {
   ACCOUNT_LIST_PAGE_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
+  HARDWARE_WALLET_SIGNATURES_ROUTE,
 } from '../../../helpers/constants/routes';
 import { transitionForward } from '../../ui/transition';
 import VisitSupportDataConsentModal from '../../app/modals/visit-support-data-consent-modal';
@@ -63,7 +63,10 @@ export const AppHeaderUnlockedContent = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const disableAccountPicker = Boolean(
     matchPath({ path: CONFIRM_TRANSACTION_ROUTE, end: false }, pathname) ||
-    (matchPath({ path: CROSS_CHAIN_SWAP_ROUTE, end: false }, pathname) &&
+    (matchPath(
+      { path: HARDWARE_WALLET_SIGNATURES_ROUTE, end: false },
+      pathname,
+    ) &&
       !showNavbar),
   );
   // Derive from URL so drawer state survives route changes (e.g. homepage mount) without render>close>render flash

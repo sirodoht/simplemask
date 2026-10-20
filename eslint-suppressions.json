@@ -84,7 +84,7 @@
   },
   "ui/components/app/wallet-overview/coin-buttons.tsx": {
     "react-hooks/exhaustive-deps": {
-      "count": 3
+      "count": 2
     }
   },
   "ui/components/component-library/modal-content/deprecated/modal-content.tsx": {
@@ -182,41 +182,6 @@
       "count": 1
     }
   },
-  "ui/hooks/bridge/useBridging.ts": {
-    "react-hooks/preserve-manual-memoization": {
-      "count": 1
-    }
-  },
-  "ui/hooks/bridge/useInitialBridgeTokens.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/hooks/bridge/useLatestBalance.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/hooks/bridge/usePrefillFromBridgeState.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/hooks/bridge/usePrefillFromSearchQuery.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/hooks/bridge/useQuoteFetchEvents.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/hooks/bridge/useTxAlerts.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
   "ui/hooks/gator-permissions/useGatorPermissionTokenInfo.ts": {
     "react-hooks/exhaustive-deps": {
       "count": 1
@@ -240,11 +205,6 @@
   "ui/hooks/metamask-notifications/useSwitchNotifications.ts": {
     "react-hooks/exhaustive-deps": {
       "count": 3
-    }
-  },
-  "ui/hooks/swap/useSwapDefaultToToken.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
     }
   },
   "ui/hooks/useAlerts.ts": {
@@ -345,46 +305,6 @@
       "count": 1
     }
   },
-  "ui/pages/batch-sell/hooks/useBatchSellHighRateAlertModal.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/pages/batch-sell/pages/review/hooks/useBatchSellQuotesFetching.ts": {
-    "react-hooks/preserve-manual-memoization": {
-      "count": 1
-    }
-  },
-  "ui/pages/bridge/asset-picker/lazy-asset-list.tsx": {
-    "react-hooks/incompatible-library": {
-      "count": 1
-    }
-  },
-  "ui/pages/bridge/awaiting-signatures/awaiting-signatures.tsx": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/pages/bridge/hooks/useExternalAccountResolution.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/pages/bridge/hooks/useGasIncludedSupport.ts": {
-    "react-hooks/preserve-manual-memoization": {
-      "count": 1
-    }
-  },
-  "ui/pages/bridge/prepare/prepare-bridge-page.tsx": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
-  "ui/pages/confirmations/components/confirm/dapp-swap-comparison-banner/dapp-swap-comparison-banner.tsx": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
-    }
-  },
   "ui/pages/confirmations/components/confirm/footer/footer.tsx": {
     "react-hooks/preserve-manual-memoization": {
       "count": 1
@@ -478,16 +398,6 @@
       "count": 1
     }
   },
-  "ui/pages/confirmations/hooks/transactions/dapp-swap-comparison/useDappSwapComparisonInfo.ts": {
-    "react-hooks/preserve-manual-memoization": {
-      "count": 3
-    }
-  },
-  "ui/pages/confirmations/hooks/transactions/dapp-swap-comparison/useDappSwapUSDValues.ts": {
-    "react-hooks/exhaustive-deps": {
-      "count": 2
-    }
-  },
   "ui/pages/confirmations/hooks/transactions/useDepositPrefill.ts": {
     "react-hooks/set-state-in-effect": {
       "count": 1
@@ -558,11 +468,6 @@
       "count": 1
     }
   },
-  "ui/pages/details/components/swap-again-button.tsx": {
-    "react-hooks/preserve-manual-memoization": {
-      "count": 2
-    }
-  },
   "ui/pages/details/templates/helpers.ts": {
     "react-hooks/exhaustive-deps": {
       "count": 1
@@ -570,7 +475,7 @@
   },
   "ui/pages/hardware-wallets/swap/hooks/useHardwareWalletSignatures.ts": {
     "react-hooks/set-state-in-effect": {
-      "count": 3
+      "count": 2
     }
   },
   "ui/pages/hardware-wallets/swap/hooks/useSendBundleSubmission.ts": {
@@ -606,11 +511,6 @@
   "ui/pages/shield/transaction-shield/shield-banner-animation.tsx": {
     "react-hooks/exhaustive-deps": {
       "count": 2
-    }
-  },
-  "ui/pages/swaps/awaiting-signatures/awaiting-signatures.js": {
-    "react-hooks/exhaustive-deps": {
-      "count": 1
     }
   }
 }

@@ -1,18 +1,18 @@
 import { useEffect, useRef } from 'react';
 
-import { useBridgeNavigation } from '../bridge/useBridgeNavigation';
 import { HardwareWalletSignatureStatus } from '../../pages/hardware-wallets/swap/hardware-wallet-signatures-state-machine';
 import type { HardwareWalletSignaturesState } from '../../pages/hardware-wallets/swap/hardware-wallet-signatures-state-machine';
+import { useHardwareWalletNavigation } from './useHardwareWalletNavigation';
 
 type UseHardwareWalletNavigationOptions = {
   signatureState: HardwareWalletSignaturesState;
 };
 
 /**
- * Handles post-submission navigation for hardware wallet swap/bridge flows.
+ * Handles post-submission navigation for hardware wallet sends.
  *
  * When the signature state machine transitions to `Submitted`, this hook
- * navigates the user back to the default bridge route after a 1-second delay.
+ * navigates the user back to the wallet after a 1-second delay.
  * Navigation is triggered only once per submission cycle.
  *
  * Transaction toasts are handled by `useTransactionEventToasts`.
@@ -24,7 +24,7 @@ type UseHardwareWalletNavigationOptions = {
 export function useHwSwapNavigation({
   signatureState,
 }: UseHardwareWalletNavigationOptions) {
-  const { navigateToDefaultRoute } = useBridgeNavigation();
+  const { navigateToDefaultRoute } = useHardwareWalletNavigation();
   const hasNavigatedAfterSubmission = useRef(false);
 
   useEffect(() => {

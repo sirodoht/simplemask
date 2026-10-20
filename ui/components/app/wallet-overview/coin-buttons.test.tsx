@@ -1,7 +1,6 @@
 import React from 'react';
 import { EthAccountType, EthMethod } from '@metamask/keyring-api';
 import { screen } from '@testing-library/react';
-import { getNativeAssetForChainId } from '@metamask/bridge-controller';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
@@ -19,32 +18,6 @@ jest.mock('../../../hooks/useAnalytics', () => {
   };
 });
 
-jest.mock('../../../hooks/bridge/useBridging', () => ({
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: jest.fn(() => ({
-    openBridgeExperience: jest.fn(),
-  })),
-}));
-
-jest.mock('../../../pages/asset/hooks/useBalanceAwareSwapDefaults', () => ({
-  useBalanceAwareSwapDefaults: jest.fn(() => ({
-    sourceToken: {
-      symbol: 'ETH',
-      address: '0x0000000000000000000000000000000000000000',
-      chainId: '0x1',
-      decimals: 18,
-      name: 'Ether',
-    },
-  })),
-}));
-
-jest.mock('../../../hooks/batch-sell/useBatchSell', () => ({
-  useBatchSell: jest.fn(() => ({
-    openBatchSellExperience: jest.fn(),
-  })),
-}));
-
 jest.mock('../../../hooks/useMultichainSelector', () => ({
   useMultichainSelector: jest.fn((selector) => {
     if (selector.name === 'getMultichainNetwork') {
@@ -58,10 +31,6 @@ jest.mock('../../../hooks/useMultichainSelector', () => ({
 jest.mock('../../../selectors/multichain', () => ({
   getMultichainNativeCurrency: jest.fn(),
   getMultichainNetwork: jest.fn(),
-}));
-
-jest.mock('../../../selectors/batch-sell/feature-flags', () => ({
-  getIsBatchSellEnabled: jest.fn(() => true),
 }));
 
 jest.mock(
@@ -89,11 +58,7 @@ const mockAccount = {
   type: EthAccountType.Eoa,
 };
 
-describe('CoinButtons – asset page swap token', () => {
-  const { useBalanceAwareSwapDefaults } = jest.requireMock(
-    '../../../pages/asset/hooks/useBalanceAwareSwapDefaults',
-  );
-
+describe('CoinButtons', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -107,7 +72,6 @@ describe('CoinButtons – asset page swap token', () => {
         account={mockAccount as Parameters<typeof CoinButtons>[0]['account']}
         chainId={chainId as Parameters<typeof CoinButtons>[0]['chainId']}
         trackingLocation="asset-page"
-        isSwapsChain
         isSigningEnabled
         {...props}
       />,
@@ -115,59 +79,12 @@ describe('CoinButtons – asset page swap token', () => {
       '/',
     );
 
-  it('describes the native token with a CAIP-2 chain id on a non-EVM chain', () => {
-    renderAssetPageCoinButtons('bip122:000000000019d6689c085ae165831e93');
-
-    expect(useBalanceAwareSwapDefaults).toHaveBeenCalledWith({
-      currentToken: expect.objectContaining({
-        symbol: 'BTC',
-        decimals: 8,
-        // The decimal chain id from `getNativeAssetForChainId` is not a chain
-        // the bridge entry point accepts.
-        chainId: 'bip122:000000000019d6689c085ae165831e93',
-      }),
-    });
-  });
-
-  it('describes the native token with a CAIP-2 chain id on an EVM chain', () => {
-    renderAssetPageCoinButtons('0x1');
-
-    expect(useBalanceAwareSwapDefaults).toHaveBeenCalledWith({
-      currentToken: expect.objectContaining({
-        symbol: 'ETH',
-        chainId: 'eip155:1',
-      }),
-    });
-  });
-
-  it('uses Arc native USDC for the asset page native swap button', () => {
-    renderAssetPageCoinButtons('0x13b2');
-    const arcNativeAsset = getNativeAssetForChainId('0x13b2');
-
-    expect(useBalanceAwareSwapDefaults).toHaveBeenCalledWith({
-      currentToken: {
-        symbol: arcNativeAsset.symbol,
-        address: arcNativeAsset.address,
-        chainId: 'eip155:5042',
-        decimals: arcNativeAsset.decimals,
-        name: arcNativeAsset.name,
-      },
-    });
-  });
-
-  it('passes no token when the chain cannot open a swap', () => {
-    renderAssetPageCoinButtons('0x539');
-
-    expect(useBalanceAwareSwapDefaults).toHaveBeenCalledWith({
-      currentToken: null,
-    });
-  });
-
   it('keeps Send for zero balance when the standard row is rendered', () => {
     renderAssetPageCoinButtons('0x1', { hasBalance: false });
 
     expect(screen.getByTestId('coin-overview-send')).toBeInTheDocument();
     expect(screen.queryByTestId('coin-overview-buy')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('coin-overview-swap')).not.toBeInTheDocument();
     expect(
       screen.queryByTestId('coin-overview-receive'),
     ).not.toBeInTheDocument();

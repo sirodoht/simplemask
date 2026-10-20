@@ -37,7 +37,6 @@ import {
   SNAPS_VIEW_ROUTE,
   NOTIFICATIONS_ROUTE,
   NOTIFICATIONS_SETTINGS_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   HARDWARE_WALLET_SIGNATURES_ROUTE,
   TX_DETAILS_ROUTE,
   IMPORT_SRP_ROUTE,
@@ -68,7 +67,6 @@ import {
   MONEY_EARN_ROUTE,
   CONTACTS_ROUTE,
   HARDWARE_WALLET_REPAIR_ROUTE,
-  BATCH_SELL_ROOT_ROUTE,
   SYNC_ACCOUNTS_ROUTE,
   MFA_FLOW_ROUTE,
 } from '../../helpers/constants/routes';
@@ -143,7 +141,6 @@ import { UNLOCK_ROUTE_CAPABILITIES } from '../unlock-page/messenger';
 import { RESTORE_VAULT_ROUTE_CAPABILITIES } from '../keychains/restore-vault-messenger';
 import { REVEAL_SEED_ROUTE_CAPABILITIES } from '../keychains/reveal-seed-messenger';
 import { PRIVATE_KEY_LIST_ROUTE_CAPABILITIES } from '../multichain-accounts/multichain-account-private-key-list-page/messenger';
-import BatchSell from '../batch-sell/batch-sell-page';
 import { getConnectingLabel, setTheme } from './utils';
 import { ConfirmationRouter } from './confirmation-router';
 import { Modals } from './modals';
@@ -183,7 +180,6 @@ const ConfirmDecryptMessage = mmLazy(
 );
 const Confirm = mmLazy(() => import('../confirmations/confirm/confirm.tsx'));
 const SendPage = mmLazy(() => import('../confirmations/send/index.ts'));
-const CrossChainSwap = mmLazy(() => import('../bridge/index.tsx'));
 const HardwareWalletSignaturesPage = mmLazy(
   () => import('../hardware-wallets/swap/hardware-wallet-signatures-page.tsx'),
 );
@@ -389,7 +385,7 @@ export const routeConfig = [
         element: <Confirm />,
       },
       {
-        path: `${CROSS_CHAIN_SWAP_ROUTE}${HARDWARE_WALLET_SIGNATURES_ROUTE}`,
+        path: HARDWARE_WALLET_SIGNATURES_ROUTE,
         element: <HardwareWalletSignaturesPage />,
       },
       {
@@ -523,14 +519,6 @@ export const routeConfig = [
             capabilities: SNAP_VIEW_ROUTE_ALLOWED_CAPABILITIES,
             element: <SnapView />,
           }),
-          {
-            path: `${BATCH_SELL_ROOT_ROUTE}/*`,
-            element: <BatchSell />,
-          },
-          {
-            path: `${CROSS_CHAIN_SWAP_ROUTE}/*`,
-            element: <CrossChainSwap />,
-          },
           {
             path: `${MUSD_CONVERSION_ROUTE}/*`,
             element: <MusdConversionPage />,

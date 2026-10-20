@@ -67,7 +67,6 @@ export function getLegacyBackgroundApiServiceMessenger(
       'ApprovalController:rejectRequest',
       'TransactionController:wipeTransactions',
       'SmartTransactionsController:wipeSmartTransactions',
-      'BridgeStatusController:wipeBridgeStatus',
       'NetworkController:resetConnection',
       'KeyringController:importAccountWithStrategy',
       'OnboardingController:getIsSocialLoginFlow',

@@ -33,7 +33,6 @@ import { useEnableShieldCoverageChecks } from '../../../hooks/transactions/useEn
 import { useTransactionConfirm } from '../../../hooks/transactions/useTransactionConfirm';
 import { useTransactionPayingAccount } from '../../../hooks/transactions/useTransactionPayingAccount';
 import { useConfirmActions } from '../../../hooks/useConfirmActions';
-import { useDappSwapActions } from '../../../hooks/transactions/dapp-swap-comparison/useDappSwapActions';
 import { useOriginThrottling } from '../../../hooks/useOriginThrottling';
 import {
   isAddEthereumChainType,
@@ -319,7 +318,6 @@ const CancelButton = ({
 const Footer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { onDappSwapCompleted } = useDappSwapActions();
   const { onTransactionConfirm } = useTransactionConfirm();
   const { navigateNext } = useConfirmationNavigation();
   const { onSubmit: onAddEthereumChain } = useAddEthereumChain();
@@ -488,8 +486,6 @@ const Footer = () => {
       location: MetaMetricsEventLocation.Confirmation,
       navigateBackToPreviousPage: Boolean(goBackTo),
     });
-
-    onDappSwapCompleted();
     dismissErrorModal();
 
     if (goBackTo) {
@@ -512,7 +508,6 @@ const Footer = () => {
     currentConfirmationId,
     isAddEthereumChain,
     navigate,
-    onDappSwapCompleted,
     dismissErrorModal,
   ]);
 

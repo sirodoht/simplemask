@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { getMockContractInteractionConfirmState } from '../../../../../../../../test/data/confirmations/helper';
 import configureStore from '../../../../../../../store/store';
 import { ConfirmContextProvider } from '../../../../../context/confirm';
-import { DappSwapContextProvider } from '../../../../../context/dapp-swap';
 import { GasFeeModalContextProvider } from '../../../../../context/gas-fee-modal';
 import { GasFeesDetails } from './gas-fees-details';
 
@@ -26,9 +25,9 @@ const Story = {
           }}
         >
           <ConfirmContextProvider>
-            <DappSwapContextProvider>
+            <>
               <GasFeeModalContextProvider>{story()}</GasFeeModalContextProvider>
-            </DappSwapContextProvider>
+            </>
           </ConfirmContextProvider>
         </div>
       </Provider>

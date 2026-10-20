@@ -4,49 +4,38 @@ import { useSelector } from 'react-redux';
 import { type TransactionMeta } from '@metamask/transaction-controller';
 
 import {
-  PREPARE_SWAP_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   UNLOCK_ROUTE,
   CONNECT_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
+  HARDWARE_WALLET_SIGNATURES_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
   SHIELD_PLAN_ROUTE,
   TRANSACTION_SHIELD_ROUTE,
-  BATCH_SELL_ROOT_ROUTE,
-  DEFAULT_ROUTE,
 } from '../../helpers/constants/routes';
 import { getConfirmationRoute } from '../confirmations/hooks/useConfirmationNavigation';
 import { getEnvironmentType } from '../../../shared/lib/environment-type';
 import {
   ENVIRONMENT_TYPE_FULLSCREEN,
-  ENVIRONMENT_TYPE_NOTIFICATION,
-  ENVIRONMENT_TYPE_POPUP,
   SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES,
 } from '../../../shared/constants/app';
 import {
   getTransactions,
   selectHasApprovalFlows,
-  selectHasBatchSellQuotes,
-  selectHasBridgeQuotes,
   selectPendingApprovalsForNavigation,
 } from '../../selectors';
 import { useModalState } from '../../hooks/useModalState';
 import { isMusdConversionTransaction } from '../../components/app/musd/utils';
-import { resetBridgeController } from '../../ducks/bridge/actions';
-import { useDispatch } from '../../store/hooks';
 
 const EXEMPTED_ROUTES = [
-  CROSS_CHAIN_SWAP_ROUTE,
   UNLOCK_ROUTE,
   CONNECT_ROUTE,
   CONFIRMATION_V_NEXT_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
+  HARDWARE_WALLET_SIGNATURES_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
-  // shield approval transaction back to shield plan and transaction shield settings page on cancel/confirm, need to be exempted otherwise it will redirect to home page
   SHIELD_PLAN_ROUTE,
   TRANSACTION_SHIELD_ROUTE,
-  BATCH_SELL_ROOT_ROUTE,
 ];
 
 const SNAP_APPROVAL_TYPES = [
@@ -58,35 +47,19 @@ const SNAP_APPROVAL_TYPES = [
 
 export const ConfirmationRouter = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const location = useLocation();
   const { pathname } = location;
   const { closeModals } = useModalState();
 
   const envType = getEnvironmentType();
   const isFullscreen = envType === ENVIRONMENT_TYPE_FULLSCREEN;
-  const isNotification = envType === ENVIRONMENT_TYPE_NOTIFICATION;
-  const isPopup = envType === ENVIRONMENT_TYPE_POPUP;
-
-  const hasBridgeQuotes = useSelector(selectHasBridgeQuotes);
-  const hasBatchSellQuotes = useSelector(selectHasBatchSellQuotes);
   const pendingApprovals = useSelector(selectPendingApprovalsForNavigation);
   const hasApprovalFlows = useSelector(selectHasApprovalFlows);
-  const stayOnHomePage = Boolean(location.state?.stayOnHomePage);
-
-  const canRedirect = !isNotification && !stayOnHomePage;
   const transactions = useSelector(getTransactions) as TransactionMeta[];
 
   // Ported from home.component - checkStatusAndNavigate()
   const checkStatusAndNavigate = useCallback(() => {
-    if (canRedirect && hasBatchSellQuotes && isPopup) {
-      closeModals();
-      navigate(DEFAULT_ROUTE, { replace: true });
-      dispatch(resetBridgeController());
-    } else if (canRedirect && hasBridgeQuotes && isPopup) {
-      closeModals();
-      navigate(CROSS_CHAIN_SWAP_ROUTE + PREPARE_SWAP_ROUTE);
-    } else if (pendingApprovals.length || hasApprovalFlows) {
+    if (pendingApprovals.length || hasApprovalFlows) {
       const url = getConfirmationRoute(
         pendingApprovals?.[0]?.id,
         pendingApprovals,
@@ -99,17 +72,7 @@ export const ConfirmationRouter = () => {
         navigate(url, { replace: true });
       }
     }
-  }, [
-    canRedirect,
-    closeModals,
-    dispatch,
-    hasApprovalFlows,
-    hasBatchSellQuotes,
-    hasBridgeQuotes,
-    navigate,
-    pendingApprovals,
-    isPopup,
-  ]);
+  }, [closeModals, hasApprovalFlows, navigate, pendingApprovals]);
 
   // Runs on all routes (not just home), so skip navigation on exempted routes
   const isExemptedRoute = EXEMPTED_ROUTES.some((route) =>
@@ -120,8 +83,6 @@ export const ConfirmationRouter = () => {
   const hasAllowedPopupRedirectApprovals = pendingApprovals.some((approval) =>
     SNAP_APPROVAL_TYPES.includes(approval.type),
   );
-
-  const hasSwapRelatedNavigation = hasBridgeQuotes;
 
   const isMUSDConversionTransaction = pendingApprovals.some(
     (approval) =>
@@ -136,7 +97,6 @@ export const ConfirmationRouter = () => {
   const isFullscreenExemption =
     isFullscreen &&
     !hasAllowedPopupRedirectApprovals &&
-    !hasSwapRelatedNavigation &&
     !isMUSDConversionTransaction;
 
   // Ported from home.component - componentDidUpdate()

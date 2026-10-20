@@ -2,37 +2,20 @@ import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from '@metamask/design-system-react';
-import {
-  BtcMethod,
-  EthMethod,
-  SolMethod,
-  TrxAccountType,
-} from '@metamask/keyring-api';
 import { TabEmptyState } from '../../ui/tab-empty-state';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { useTheme } from '../../../hooks/useTheme';
-import { getUseExternalServices } from '../../../selectors';
 import { getCurrentChainId } from '../../../../shared/lib/selectors/networks';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
-  MetaMetricsSwapsEventSource,
 } from '../../../../shared/constants/metametrics';
-import useBridging from '../../../hooks/bridge/useBridging';
 import { ThemeType } from '../../../../shared/constants/preferences';
-import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/accounts';
 import { selectAccountGroupBalanceForEmptyState } from '../../../selectors/assets';
 import { getSelectedAccountGroup } from '../../../selectors/multichain-accounts/account-tree';
 import { FundingMethodModal } from '../../multichain/funding-method-modal/funding-method-modal';
 import { getMultichainAccountAddressListReceivePagePath } from '../../../pages/multichain-accounts/multichain-account-address-list-page';
 import { useAnalytics } from '../../../hooks/useAnalytics';
-
-const SWAP_SIGNING_METHODS = [
-  EthMethod.SignTransaction,
-  EthMethod.SignUserOperation,
-  SolMethod.SignTransaction,
-  BtcMethod.SignPsbt,
-];
 
 export type TransactionActivityEmptyStateProps = {
   /**
@@ -44,7 +27,6 @@ export type TransactionActivityEmptyStateProps = {
 export const TransactionActivityEmptyState = ({
   className,
 }: TransactionActivityEmptyStateProps) => {
-  const account = useSelector(getSelectedInternalAccount);
   const t = useI18nContext();
   const theme = useTheme();
   const navigate = useNavigate();
@@ -52,26 +34,12 @@ export const TransactionActivityEmptyState = ({
   const hasTokens = useSelector(selectAccountGroupBalanceForEmptyState);
   const selectedAccountGroup = useSelector(getSelectedAccountGroup);
   const [isFundingModalOpen, setIsFundingModalOpen] = useState(false);
-
-  const isSigningEnabled =
-    SWAP_SIGNING_METHODS.some((method) => account.methods.includes(method)) ||
-    account.type === TrxAccountType.Eoa;
-  const isExternalServicesEnabled = useSelector(getUseExternalServices);
   const chainId = useSelector(getCurrentChainId);
-
-  const { openBridgeExperience } = useBridging();
 
   const activityIcon =
     theme === ThemeType.dark
       ? './images/empty-state-activity-dark.png'
       : './images/empty-state-activity-light.png';
-
-  const handleSwapOnClick = useCallback(async () => {
-    openBridgeExperience(
-      MetaMetricsSwapsEventSource.ActivityTabEmptyState,
-      undefined, // No specific token
-    );
-  }, [openBridgeExperience]);
 
   const handleAddFundsOnClick = useCallback(() => {
     trackEvent(
@@ -102,8 +70,6 @@ export const TransactionActivityEmptyState = ({
     }
   }, [navigate, selectedAccountGroup]);
 
-  const isSwapButtonEnabled = isSigningEnabled && isExternalServicesEnabled;
-
   return (
     <>
       <TabEmptyState
@@ -115,11 +81,8 @@ export const TransactionActivityEmptyState = ({
             ? t('activityEmptyDescription')
             : t('activityEmptyNoFundsDescription')
         }
-        actionButtonText={hasTokens ? t('swapTokens') : t('addFunds')}
-        actionButtonProps={
-          hasTokens ? { isDisabled: !isSwapButtonEnabled } : undefined
-        }
-        onAction={hasTokens ? handleSwapOnClick : handleAddFundsOnClick}
+        actionButtonText={hasTokens ? undefined : t('addFunds')}
+        onAction={hasTokens ? undefined : handleAddFundsOnClick}
         data-testid="activity-tab-empty-state"
         className={twMerge('max-w-56', className)}
       />

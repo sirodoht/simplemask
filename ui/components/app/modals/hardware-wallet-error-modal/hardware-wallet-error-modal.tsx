@@ -52,7 +52,6 @@ import {
   useHardwareWalletActions,
   useHardwareWalletConfig,
 } from '../../../../contexts/hardware-wallets';
-import { useBridgeRedirectQueryString } from '../../../../contexts/hardware-wallets/useBridgeRedirectQueryString';
 import {
   getChromiumExtensionCameraSiteSettingsUrl,
   getMozExtensionOriginForDisplay,
@@ -249,7 +248,6 @@ export const HardwareWalletErrorModal = React.memo(
     const { walletType: selectedAccountWalletType } = useHardwareWalletConfig();
     const { ensureDeviceReady, clearError, setConnectionReady } =
       useHardwareWalletActions();
-    const getRedirectQueryString = useBridgeRedirectQueryString();
 
     // Prefer `walletType` from error metadata first (e.g. signature flows where the signing
     // account may differ from the selected account). Read both top-level `metadata` and RPC-style
@@ -617,7 +615,6 @@ export const HardwareWalletErrorModal = React.memo(
                   errorCode: error.code,
                   onRetry: handleRetry,
                   isLoading,
-                  redirectQueryString: getRedirectQueryString(),
                 })}
               {!isQrCameraFlow && standardErrorContent ? (
                 <>

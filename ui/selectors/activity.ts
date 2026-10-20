@@ -4,8 +4,6 @@ import {
   TransactionType,
   type TransactionMeta,
 } from '@metamask/transaction-controller';
-import { isCrossChain, StatusTypes } from '@metamask/bridge-controller';
-import type { BridgeHistoryItem } from '@metamask/bridge-status-controller';
 import type { TransactionPayControllerState } from '@metamask/transaction-pay-controller';
 import {
   EthScope,
@@ -31,16 +29,11 @@ import type { MetaMaskReduxState } from '../store/store';
 import { getNetworkConfigurationsByChainId } from '../../shared/lib/selectors/networks';
 import { getTokensControllerAllTokens } from '../../shared/lib/selectors/assets-migration';
 import { toAssetId } from '../../shared/lib/asset-utils';
-import { getLocalTransactionFees } from '../../shared/lib/activity/adapters/helpers';
 import {
   getMoneyAccountTransactionType,
   isProtectedByEnforcedSimulations,
 } from '../pages/confirmations/utils/confirm';
-import { ActivityListItem, Status } from '../../shared/lib/activity/types';
-import {
-  selectBridgeHistoryForOriginalTxMetaId,
-  selectBridgeHistoryItemByHash,
-} from '../ducks/bridge-status/selectors';
+import { ActivityListItem } from '../../shared/lib/activity/types';
 import { getInternalAccountsObject } from './accounts';
 import {
   getInternalAccountBySelectedAccountGroupAndCaip,
@@ -294,47 +287,13 @@ export const selectNonEvmTransactionsForActivity = createSelector(
   },
 );
 
-export const selectBridgeHistoryItemForTx = (
-  state: MetaMaskReduxState,
-  tx: { hash?: string; id?: string } | undefined,
-) => {
-  if (!tx) {
-    return undefined;
-  }
-
-  const byHash = selectBridgeHistoryItemByHash(state, tx.hash);
-  if (byHash) {
-    return byHash;
-  }
-
-  if (tx.id) {
-    const bridgeHistory = (state.metamask.txHistory ?? EMPTY_OBJECT) as Record<
-      string,
-      BridgeHistoryItem
-    >;
-    const directById = bridgeHistory[tx.id];
-    if (directById) {
-      return directById;
-    }
-  }
-
-  return selectBridgeHistoryForOriginalTxMetaId(state, tx.id);
-};
-
-const selectBridgeHistory = createSelector(
-  [(state: MetaMaskReduxState) => state],
-  (state) => (tx?: { hash?: string; id?: string }) =>
-    selectBridgeHistoryItemForTx(state, tx),
-);
-
 export const selectNonEvmActivityItems = createSelector(
   [
     selectNonEvmTransactionsForActivity,
     getAssetsMetadata,
     getInternalAccountsObject,
-    selectBridgeHistory,
   ],
-  (transactions, assetsMetadata, internalAccountsById, getBridgeHistory) =>
+  (transactions, assetsMetadata, internalAccountsById) =>
     transactions.map((transaction) => {
       const subjectAddress =
         internalAccountsById?.[transaction.account]?.address;
@@ -343,26 +302,6 @@ export const selectNonEvmActivityItems = createSelector(
         transaction: patchKeyringTransaction(transaction, assetsMetadata),
         subjectAddress,
       });
-
-      const bridgeHistoryEntry = getBridgeHistory({ hash: transaction.id });
-      const { quote } = bridgeHistoryEntry ?? {};
-
-      if (quote && isCrossChain(quote.srcChainId, quote.destChainId)) {
-        const tokens = getSwapTokens(bridgeHistoryEntry);
-        const status = getBridgeActivityStatus(bridgeHistoryEntry);
-        const fees = 'fees' in activity.data ? activity.data.fees : undefined;
-
-        return {
-          ...activity,
-          type: 'bridge',
-          ...(status ? { status } : {}),
-          data: {
-            from: subjectAddress,
-            ...tokens,
-            ...(fees === undefined ? {} : { fees }),
-          },
-        } as ActivityListItem;
-      }
 
       return activity;
     }),
@@ -426,72 +365,15 @@ function patchUnit(
   };
 }
 
-function getSwapTokens(bridgeHistoryItem?: BridgeHistoryItem) {
-  if (bridgeHistoryItem === undefined) {
-    return undefined;
-  }
-
-  const { quote, status } = bridgeHistoryItem;
-
-  return {
-    sourceToken: {
-      amount: quote.srcTokenAmount,
-      assetId: quote.srcAsset.assetId,
-      decimals: quote.srcAsset.decimals,
-      direction: 'out' as const,
-      symbol: quote.srcAsset.symbol,
-    },
-    destinationToken: {
-      amount: status.destChain?.amount ?? quote.destTokenAmount,
-      assetId: quote.destAsset.assetId,
-      decimals: quote.destAsset.decimals,
-      direction: 'in' as const,
-      symbol: quote.destAsset.symbol,
-    },
-  };
-}
-
-function getBridgeActivityStatus(
-  bridgeHistoryItem?: BridgeHistoryItem,
-): Status | undefined {
-  if (!bridgeHistoryItem) {
-    return undefined;
-  }
-
-  const {
-    quote,
-    status: { status },
-  } = bridgeHistoryItem;
-
-  if (status === StatusTypes.FAILED) {
-    return 'failed';
-  }
-
-  if (status === StatusTypes.COMPLETE) {
-    return 'success';
-  }
-
-  if (
-    // Same-chain swaps can leave bridge status pending after the local tx confirms
-    isCrossChain(quote.srcChainId, quote.destChainId) &&
-    (status === StatusTypes.PENDING || status === StatusTypes.SUBMITTED)
-  ) {
-    return 'pending';
-  }
-
-  return undefined;
-}
-
 export const selectLocalActivityItems = createSelector(
   selectLocalTransactions,
-  selectBridgeHistory,
   selectTransactionPayData,
   getNetworkConfigurationsByChainId,
   selectEvmAddress,
   getTokensControllerAllTokens,
   (
     transactionGroups,
-    getBridgeHistory,
+
     transactionPayData,
     networkConfigurationsByChainId,
     evmAddress,
@@ -584,29 +466,6 @@ export const selectLocalActivityItems = createSelector(
             }
           : undefined;
       })();
-
-      if (
-        type === TransactionType.swap ||
-        type === TransactionType.swapAndSend ||
-        type === TransactionType.bridge
-      ) {
-        const bridgeHistoryItem = getBridgeHistory(
-          transactionGroup.initialTransaction,
-        );
-        const activityStatus = getBridgeActivityStatus(bridgeHistoryItem);
-        const fees = getLocalTransactionFees(transactionGroup);
-
-        const prepared = {
-          ...transactionGroup,
-          ...getSwapTokens(bridgeHistoryItem),
-          ...(activityStatus ? { activityStatus } : {}),
-          fees,
-          nativeAssetSymbol,
-          contractTokenMetadata,
-        };
-
-        return enrichLocalActivity(mapLocalTransaction(prepared), prepared);
-      }
 
       const prepared = {
         ...transactionGroup,

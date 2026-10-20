@@ -8,7 +8,6 @@ import { getSelectedInternalAccount } from '../../../../shared/lib/selectors/acc
 import { getSelectedAccountGroup } from '../../../selectors/multichain-accounts/account-tree';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { getMultichainAccountAddressListReceivePagePath } from '../../multichain-accounts/multichain-account-address-list-page';
-import useBridging from '../../../hooks/bridge/useBridging';
 
 import { INVALID_ASSET_TYPE } from '../../../helpers/constants/error-keys';
 import { useDispatch } from '../../../store/hooks';
@@ -35,11 +34,6 @@ import { Asset } from '../types/asset';
 import { navigateToSendRoute } from '../../confirmations/utils/send';
 import { isEvmChainId } from '../../../../shared/lib/asset-utils';
 import { useAssetActivation } from '../hooks/useAssetActivation';
-import { useBalanceAwareSwapDefaults } from '../hooks/useBalanceAwareSwapDefaults';
-import {
-  useAssetPageSecurityTrustCtaGate,
-  useAssetPageSecurityTrustCtaGateReady,
-} from './security-trust';
 import { AssetActivationErrorToast } from './asset-activation-error-toast';
 
 const TokenButtons = ({
@@ -60,19 +54,12 @@ const TokenButtons = ({
   const isExternalServicesEnabled = useSelector(getUseExternalServices);
   const selectedAccount = useSelector(getSelectedInternalAccount);
   const selectedAccountGroup = useSelector(getSelectedAccountGroup);
-  const gateCtaAction = useAssetPageSecurityTrustCtaGate();
-  const isCtaGateReady = useAssetPageSecurityTrustCtaGateReady();
   const isEvm = isEvmChainId(token.chainId);
   const shouldShowSendButton = Boolean(
     !token.isERC721 && token.balance?.value && token.balance.value !== '0',
   );
 
   const currentChainId = token.chainId;
-  const { openBridgeExperience } = useBridging();
-  const { sourceToken, destTokenAssetId } = useBalanceAwareSwapDefaults({
-    currentToken: token,
-    currentTokenBalance: token.balance?.value ?? token.balance?.display,
-  });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [showReceiveModal, setShowReceiveModal] = useState(false);
@@ -120,23 +107,6 @@ const TokenButtons = ({
       }
     }
   }, [trackEvent, createEventBuilder, navigate, token]);
-
-  const handleSwapOnClick = useCallback(() => {
-    const runSwap = () => {
-      openBridgeExperience(
-        MetaMetricsSwapsEventSource.TokenView,
-        sourceToken,
-        destTokenAssetId,
-      );
-    };
-
-    if (gateCtaAction) {
-      gateCtaAction(runSwap, 'swap');
-      return;
-    }
-
-    runSwap();
-  }, [destTokenAssetId, gateCtaAction, openBridgeExperience, sourceToken]);
 
   const handleReceiveOnClick = useCallback(() => {
     trace({ name: TraceName.ReceiveModal });
@@ -209,23 +179,6 @@ const TokenButtons = ({
       {
         <Box className="flex" gap={3} justifyContent={BoxJustifyContent.Evenly}>
           {shouldShowSendButton ? sendButton : null}
-
-          <IconButton
-            className="token-overview__button"
-            Icon={
-              <Icon
-                name={IconName.SwapVertical}
-                color={IconColor.iconAlternative}
-                size={IconSize.Md}
-              />
-            }
-            onClick={handleSwapOnClick}
-            data-testid="token-overview-swap"
-            label={t('swap')}
-            disabled={
-              !isExternalServicesEnabled || isMarketClosed || !isCtaGateReady
-            }
-          />
 
           {canDeactivate ? (
             <IconButton

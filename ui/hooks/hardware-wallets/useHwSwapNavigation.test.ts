@@ -4,13 +4,13 @@ import { createSignatureState } from '../../pages/hardware-wallets/swap/hardware
 import { renderHookWithProvider } from '../../../test/lib/render-helpers-navigate';
 import { useHwSwapNavigation } from './useHwSwapNavigation';
 
-jest.mock('../bridge/useBridgeNavigation', () => ({
-  useBridgeNavigation: jest.fn(),
+jest.mock('./useHardwareWalletNavigation', () => ({
+  useHardwareWalletNavigation: jest.fn(),
 }));
 
-const mockUseBridgeNavigation = jest.requireMock(
-  '../bridge/useBridgeNavigation',
-).useBridgeNavigation;
+const mockUseHardwareWalletNavigation = jest.requireMock(
+  './useHardwareWalletNavigation',
+).useHardwareWalletNavigation;
 
 const mockNavigateToDefaultRoute = jest.fn();
 
@@ -18,7 +18,7 @@ describe('useHwSwapNavigation', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
-    mockUseBridgeNavigation.mockReturnValue({
+    mockUseHardwareWalletNavigation.mockReturnValue({
       navigateToDefaultRoute: mockNavigateToDefaultRoute,
     });
   });
@@ -91,7 +91,7 @@ describe('useHwSwapNavigation', () => {
 
   it('reschedules navigation when the navigation callback changes before the timeout fires', async () => {
     const updatedNavigateToDefaultRoute = jest.fn();
-    mockUseBridgeNavigation
+    mockUseHardwareWalletNavigation
       .mockReturnValueOnce({
         navigateToDefaultRoute: mockNavigateToDefaultRoute,
       })
@@ -122,7 +122,7 @@ describe('useHwSwapNavigation', () => {
   it('does not schedule duplicate navigation when the navigation callback changes while navigation is pending', async () => {
     const updatedNavigateToDefaultRoute = jest.fn();
     mockNavigateToDefaultRoute.mockReturnValue(new Promise(() => undefined));
-    mockUseBridgeNavigation
+    mockUseHardwareWalletNavigation
       .mockReturnValueOnce({
         navigateToDefaultRoute: mockNavigateToDefaultRoute,
       })

@@ -14,7 +14,6 @@ import { Title } from '../components/confirm/title';
 import { ConfirmContextProvider } from '../context/confirm';
 import { ConfirmNav } from '../components/confirm/nav/nav';
 import { GasFeeTokenToast } from '../components/confirm/info/shared/gas-fee-token-toast/gas-fee-token-toast';
-import { DappSwapContextProvider } from '../context/dapp-swap';
 import {
   GasFeeModalContextProvider,
   GasFeeModalWrapper,
@@ -26,7 +25,7 @@ const Confirm = ({ confirmationId }: { confirmationId?: string }) => {
 
   return (
     <ConfirmContextProvider confirmationId={confirmationId}>
-      <DappSwapContextProvider>
+      <>
         <GasFeeModalContextProvider>
           <TransactionModalContextProvider>
             <ConfirmAlerts>
@@ -52,7 +51,7 @@ const Confirm = ({ confirmationId }: { confirmationId?: string }) => {
             </ConfirmAlerts>
           </TransactionModalContextProvider>
         </GasFeeModalContextProvider>
-      </DappSwapContextProvider>
+      </>
     </ConfirmContextProvider>
   );
 };

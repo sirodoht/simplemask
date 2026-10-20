@@ -27,7 +27,6 @@ import { useI18nContext } from '../../../../../../../hooks/useI18nContext';
 import { useFiatFormatter } from '../../../../../../../hooks/useFiatFormatter';
 import { getPreferences } from '../../../../../../../../shared/lib/selectors/preferences';
 import { useConfirmContext } from '../../../../../context/confirm';
-import { useDappSwapContext } from '../../../../../context/dapp-swap';
 import { useEstimationFailed } from '../../../../../hooks/gas/useEstimationFailed';
 import { useIsGaslessSupported } from '../../../../../hooks/gas/useIsGaslessSupported';
 import { useGasSponsorshipPreference } from '../../../../../hooks/gas/useGasSponsorshipPreference';
@@ -59,7 +58,6 @@ export const EditGasFeesRow = ({
 
   const { currentConfirmation: transactionMeta } =
     useConfirmContext<TransactionMeta>();
-  const { isQuotedSwapDisplayedInInfo } = useDappSwapContext();
 
   const showAdvancedDetails = useSelector(
     selectConfirmationAdvancedDetailsOpen,
@@ -110,11 +108,7 @@ export const EditGasFeesRow = ({
     tooltip = t('confirmGasFeeTokenTooltip', [metamaskFeeFiat]);
   }
 
-  const isGasFeeEditable =
-    !disableUpdate &&
-    !isQuotedSwapDisplayedInInfo &&
-    !gasFeeToken &&
-    !isGasFeeSponsored;
+  const isGasFeeEditable = !disableUpdate && !gasFeeToken && !isGasFeeSponsored;
   const shouldShowPrimaryFiatValue =
     showFiat && hasFiatValue && !showAdvancedDetails && !isGasFeeSponsored;
   // Only ever show the computed added-protection surcharge, or a $0.00

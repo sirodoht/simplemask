@@ -12,7 +12,7 @@ import {
 } from '../../../../shared/constants/network';
 import { MULTICHAIN_NETWORK_TO_NICKNAME } from '../../../../shared/constants/multichain/networks';
 import { getImageForChainId } from '../../../selectors/multichain';
-import { getMaybeHexChainId } from '../../../ducks/bridge/utils';
+import { getMaybeHexChainId } from '../../../../shared/lib/native-asset';
 
 type Props = {
   chainId: CaipChainId | Hex | undefined;

@@ -19,11 +19,9 @@ import {
   ModalOverlay,
 } from '../../../component-library';
 import { ReceiveModal } from '../../../multichain/receive-modal';
-import useBridging from '../../../../hooks/bridge/useBridging';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
-  MetaMetricsSwapsEventSource,
 } from '../../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../../hooks/useAnalytics';
 import { trace, TraceName } from '../../../../../shared/lib/trace';
@@ -41,8 +39,6 @@ const AddFundsModal = ({
 }) => {
   const t = useI18nContext();
   const { trackEvent, createEventBuilder } = useAnalytics();
-
-  const { openBridgeExperience } = useBridging();
 
   const [showReceiveModal, setShowReceiveModal] = useState(false);
 
@@ -63,14 +59,6 @@ const AddFundsModal = ({
 
     setShowReceiveModal(true);
   }, [chainId, createEventBuilder, trackEvent]);
-
-  const handleSwapOnClick = useCallback(async () => {
-    openBridgeExperience(MetaMetricsSwapsEventSource.TransactionShield, {
-      symbol: token.symbol,
-      address: token.address,
-      chainId,
-    });
-  }, [chainId, token, openBridgeExperience]);
 
   const buttonRow = ({
     label,
@@ -125,12 +113,7 @@ const AddFundsModal = ({
             iconName: IconName.QrCode,
             onClick: handleReceiveOnClick,
           })}
-          {buttonRow({
-            id: 'add-funds-modal-swap-crypto-button',
-            label: t('addFundsModalSwapTokens'),
-            iconName: IconName.SwapHorizontal,
-            onClick: handleSwapOnClick,
-          })}
+
           {showReceiveModal && (
             <ReceiveModal
               address={payerAddress}

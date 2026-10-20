@@ -16,14 +16,6 @@ import * as stellarSnapRequests from '../utils/stellar-snap-client-requests';
 import { Asset } from '../types/asset';
 import TokenButtons from './token-buttons';
 
-const mockOpenBridgeExperience = jest.fn();
-
-jest.mock('../../../hooks/bridge/useBridging', () => ({
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  __esModule: true,
-  default: () => ({ openBridgeExperience: mockOpenBridgeExperience }),
-}));
-
 jest.mock('../../../selectors/assets', () => ({
   ...jest.requireActual('../../../selectors/assets'),
   getAssetsBySelectedAccountGroup: jest.fn(() => ({})),
@@ -70,30 +62,8 @@ describe('TokenButtons wallet actions', () => {
     );
 
     expect(screen.queryByTestId('token-overview-buy')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('token-overview-swap')).not.toBeInTheDocument();
     expect(screen.getByTestId('eth-overview-send')).toBeInTheDocument();
-  });
-});
-
-describe('TokenButtons swap balance-aware defaults', () => {
-  beforeEach(() => jest.clearAllMocks());
-
-  it('opens swap with the current token as from when it has balance', () => {
-    const tokenWithBalance = {
-      ...token,
-      balance: { value: '1', display: '1', fiat: '1' },
-    } as Asset & { type: AssetType.token };
-
-    const { getByTestId } = renderWithProvider(
-      <TokenButtons token={tokenWithBalance} />,
-      store,
-    );
-
-    fireEvent.click(getByTestId('token-overview-swap'));
-    expect(mockOpenBridgeExperience).toHaveBeenCalledWith(
-      'Token View',
-      tokenWithBalance,
-      undefined,
-    );
   });
 });
 

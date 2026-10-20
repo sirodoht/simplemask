@@ -25,10 +25,6 @@ import {
 } from '@metamask/chain-agnostic-permission';
 import { KeyringTypes } from '@metamask/keyring-controller';
 import {
-  FeatureId,
-  selectBridgeFeatureFlags,
-} from '@metamask/bridge-controller';
-import {
   KnownCaipNamespace,
   parseCaipAccountId,
   parseCaipChainId,
@@ -125,14 +121,6 @@ import {
 import { KeyringType } from '../../shared/constants/keyring';
 
 import { TRUNCATED_NAME_CHAR_LIMIT } from '../../shared/constants/labels';
-
-import {
-  SWAPS_CHAINID_DEFAULT_TOKEN_MAP,
-  ALLOWED_PROD_SWAPS_CHAIN_IDS,
-  ALLOWED_DEV_SWAPS_CHAIN_IDS,
-} from '../../shared/constants/swaps';
-
-import { ALLOWED_BRIDGE_CHAIN_IDS } from '../../shared/constants/bridge';
 import { AssetType } from '../../shared/constants/transaction';
 
 import {
@@ -164,10 +152,6 @@ import {
   getLedgerTransportStatus,
 } from '../ducks/app/app';
 import { isEqualCaseInsensitive } from '../../shared/lib/string-utils';
-import {
-  getValueFromWeiHex,
-  hexToDecimal,
-} from '../../shared/lib/conversion.utils';
 import { BackgroundColor } from '../helpers/constants/design-system';
 import { MULTICHAIN_NETWORK_TO_ASSET_TYPES } from '../../shared/constants/multichain/assets';
 import { MULTICHAIN_PROVIDER_CONFIGS } from '../../shared/constants/multichain/networks';
@@ -193,7 +177,6 @@ import {
 import {
   getSelectedMultichainNetworkChainId,
   getIsEvmMultichainNetworkSelected,
-  getMultichainNetwork,
 } from './multichain/networks';
 import { getApprovalRequestsByType } from './approvals';
 import { getHasShieldEntryModalShownOnce } from './subscription';
@@ -1876,166 +1859,6 @@ export { getCurrencyRateControllerCurrencyRates as getCurrencyRates };
 export function getWeb3ShimUsageStateForOrigin(state, origin) {
   return state.metamask.web3ShimUsageOrigins[origin];
 }
-
-/**
- * @typedef {object} SwapsEthToken
- * @property {string} symbol - The symbol for ETH, namely "ETH"
- * @property {string} name - The name of the ETH currency, "Ether"
- * @property {string} address - A substitute address for the metaswap-api to
- * recognize the ETH token
- * @property {string} chainId - The chainId of the ETH token
- * @property {string} decimals - The number of ETH decimals, i.e. 18
- * @property {string} balance - The user's ETH balance in decimal wei, with a
- * precision of 4 decimal places
- * @property {string} string - The user's ETH balance in decimal ETH
- */
-
-/**
- * Swaps related code uses token objects for various purposes. These objects
- * always have the following properties: `symbol`, `name`, `address`, and
- * `decimals`.
- *
- * When available for the current account, the objects can have `balance` and
- * `string` properties.
- * `balance` is the users token balance in decimal values, denominated in the
- * minimal token units (according to its decimals).
- * `string` is the token balance in a readable format, ready for rendering.
- *
- * Swaps treats the selected chain's currency as a token, and we use the token constants
- * in the SWAPS_CHAINID_DEFAULT_TOKEN_MAP to set the standard properties for
- * the token. The getSwapsDefaultToken selector extends that object with
- * `balance` and `string` values of the same type as in regular ERC-20 token
- * objects, per the above description.
- *
- * @deprecated Use getNativeAssetForChainId instead because this only supports EVM chains
- * @param {object} state - the redux state object
- * @param {string} overrideChainId - the chainId to override the current chainId
- * @returns {SwapsEthToken} The token object representation of the currently
- * selected account's ETH balance, as expected by the Swaps API.
- */
-
-export const getSwapsDefaultToken = createSelector(
-  (state) => getSelectedAccount(state),
-  (state) => getCurrentChainId(state),
-  (_state, overrideChainId = null) => overrideChainId,
-  (selectedAccount, currentChainId, overrideChainId) => {
-    const balance = selectedAccount?.balance;
-    const chainId = overrideChainId ?? currentChainId;
-    const defaultTokenObject = SWAPS_CHAINID_DEFAULT_TOKEN_MAP[chainId];
-
-    return {
-      ...defaultTokenObject,
-      chainId,
-      balance: hexToDecimal(balance),
-      string: getValueFromWeiHex({
-        value: balance,
-        numberOfDecimals: 4,
-        toDenomination: 'ETH',
-      }),
-    };
-  },
-);
-
-/**
- * @deprecated Check if chainId is in ALLOWED_BRIDGE_CHAIN_IDS constant instead
- * @param state - The Redux state
- * @param {string} [overrideChainId] - (Optional) The chainId to check
- * @returns {boolean} Whether the chainId is a swaps chain
- *
- * Parameterized selector with per-chainId LRU cache to prevent cache thrashing
- * when called with different chainIds during multi-chain operations.
- */
-export const getIsSwapsChain = createParameterizedSelector(20)(
-  getCurrentChainId,
-  (_, overrideChainId) => overrideChainId,
-  (currentChainId, overrideChainId) => {
-    const chainId = overrideChainId ?? currentChainId;
-    const isDevelopment =
-      process.env.METAMASK_ENVIRONMENT === 'development' ||
-      process.env.METAMASK_ENVIRONMENT === 'testing';
-    return isDevelopment
-      ? ALLOWED_DEV_SWAPS_CHAIN_IDS.includes(chainId)
-      : ALLOWED_PROD_SWAPS_CHAIN_IDS.includes(chainId);
-  },
-);
-
-export function selectHasBridgeQuotes(state) {
-  return Boolean(Object.values(state.metamask.quotes || {}).length);
-}
-
-/**
- * Batch sell fetches quotes through the same BridgeController state as a
- * regular swap/bridge (`state.metamask.quotes`), so a lingering batch-sell
- * quote also makes {@link selectHasBridgeQuotes} return `true`. Every quote
- * fetched for batch sell carries `featureId: FeatureId.BATCH_SELL`, which
- * lets callers tell the two apart, e.g. so a popup reopened with a stale
- * batch-sell quote doesn't get redirected to the generic swap page.
- *
- * @param state - The Redux state
- * @returns {boolean} Whether any bridge quote in state came from batch sell
- */
-export function selectHasBatchSellQuotes(state) {
-  return Object.values(state.metamask.quotes || {}).some(
-    (quote) => quote?.featureId === FeatureId.BATCH_SELL,
-  );
-}
-
-/**
- * Internal helper that returns the effective default chain ID for bridge checks.
- * For EVM networks, returns the Hex chainId. For non-EVM, returns the CAIP chainId.
- *
- * @param state - The Redux state
- * @returns {string} The effective chain ID
- */
-const getBridgeDefaultChainId = (state) => {
-  const account = getSelectedInternalAccount(state);
-  const { chainId: selectedMultiChainId, isEvmNetwork } = getMultichainNetwork(
-    state,
-    account,
-  );
-  // While we do not support the multichain network on EVM chains (ex: mainnet is eip155:1), use the old chainId
-  if (isEvmNetwork) {
-    return getCurrentChainId(state);
-  }
-  return selectedMultiChainId;
-};
-
-/**
- * @deprecated Check if chainId is in ALLOWED_BRIDGE_CHAIN_IDS constant instead
- * @param state - The Redux state
- * @param overrideChainId - The chainId to check
- * @returns {boolean} Whether the chainId is a bridge chain
- *
- * Parameterized selector with per-chainId LRU cache to prevent cache thrashing
- * when called with different chainIds during multi-chain operations.
- */
-export const getIsBridgeChain = createParameterizedSelector(20)(
-  getBridgeDefaultChainId,
-  (_, overrideChainId) => overrideChainId,
-  (defaultChainId, overrideChainId) => {
-    const chainId = overrideChainId ?? defaultChainId;
-    return ALLOWED_BRIDGE_CHAIN_IDS.includes(chainId);
-  },
-);
-
-// Deep-equal memo: getRemoteFeatureFlags returns a new merged object when any flag changes;
-// only bridgeConfig should invalidate consumers of bridge feature flags.
-const getBridgeFeatureFlags = createDeepEqualSelector(
-  [(state) => getRemoteFeatureFlags(state).bridgeConfig],
-  (bridgeConfig) => {
-    const validatedFlags = selectBridgeFeatureFlags({
-      remoteFeatureFlags: { bridgeConfig },
-    });
-    return validatedFlags;
-  },
-);
-
-export const getIsBridgeEnabled = createSelector(
-  [getBridgeFeatureFlags, getUseExternalServices],
-  (bridgeFeatureFlags, shouldUseExternalServices) => {
-    return (shouldUseExternalServices && bridgeFeatureFlags?.support) ?? false;
-  },
-);
 
 export function getNativeCurrencyImage(state) {
   const chainId = getCurrentChainId(state);

@@ -10,7 +10,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
   CONFIRMATION_V_NEXT_ROUTE,
-  CROSS_CHAIN_SWAP_ROUTE,
   DEFAULT_ROUTE,
   HARDWARE_WALLET_SIGNATURES_ROUTE,
   TOKEN_MANAGEMENT_ROUTE,
@@ -223,8 +222,8 @@ describe('Routes Component', () => {
     mockHideNetworkDropdown.mockClear();
   });
 
-  it('registers the hardware wallet signing page outside guarded swap routes', () => {
-    const path = `${CROSS_CHAIN_SWAP_ROUTE}${HARDWARE_WALLET_SIGNATURES_ROUTE}`;
+  it('registers the standalone hardware wallet signing page', () => {
+    const path = HARDWARE_WALLET_SIGNATURES_ROUTE;
     const matches = matchRoutes(routeConfig, path);
 
     expect(matches?.map(({ route }) => route.path)).toStrictEqual([
@@ -233,6 +232,15 @@ describe('Routes Component', () => {
     ]);
     expect(matches?.[0].route.element.type).toBe(RequireAuthenticated);
   });
+  it.each(['/cross-chain', '/batch-sell'])(
+    'does not register the retired trading route %s',
+    (path) => {
+      const matches = matchRoutes(routeConfig, path);
+      expect(
+        matches?.some(({ route }) => route.path?.startsWith(path)) ?? false,
+      ).toBe(false);
+    },
+  );
   it('does not register the retired DeFi dashboard', () => {
     const matches = matchRoutes(routeConfig, '/defi/0x1/protocol');
     expect(

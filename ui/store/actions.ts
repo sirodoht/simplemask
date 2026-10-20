@@ -161,7 +161,7 @@ import {
   type AnalyticsEvent,
   type AnalyticsEventBuildOptions,
 } from '../../shared/lib/analytics/create-event-builder';
-import { parseSmartTransactionsError } from '../pages/swaps/swaps.util';
+import { parseSmartTransactionsError } from '../helpers/utils/smart-transactions';
 import { isEqualCaseInsensitive } from '../../shared/lib/string-utils';
 import { getSmartTransactionsOptInStatusInternal } from '../../shared/lib/selectors';
 import {
@@ -169,10 +169,7 @@ import {
   loadRelativeTimeFormatLocaleData,
 } from '../../shared/lib/i18n';
 import { decimalToHex } from '../../shared/lib/conversion.utils';
-import {
-  type AdvancedGasFeePreferences,
-  PriorityLevels,
-} from '../../shared/constants/gas';
+import { type AdvancedGasFeePreferences } from '../../shared/constants/gas';
 import {
   getErrorMessage,
   isErrorWithMessage,
@@ -190,7 +187,6 @@ import { DecodedTransactionDataResponse } from '../../shared/types/transaction-d
 import { LastInteractedConfirmationInfo } from '../pages/confirmations/types/confirm';
 import {
   EndTraceRequest,
-  trace,
   TraceName,
   TraceOperation,
   TraceRequest,
@@ -4514,245 +4510,10 @@ export function setPendingTokens(pendingTokens: {
   };
 }
 
-// Swaps
-
-export function setSwapsLiveness(
-  swapsLiveness: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsLiveness', [swapsLiveness]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setSwapsFeatureFlags(
-  featureFlags: TemporaryFeatureFlagDef,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsFeatureFlags', [featureFlags]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
 type Quotes = [
   { destinationAmount: string; decimals: number; aggregator: string },
   string,
 ];
-
-export function fetchAndSetQuotes(
-  fetchParams: {
-    slippage: string;
-    sourceToken: string;
-    destinationToken: string;
-    value: string;
-    fromAddress: string;
-    balanceError: string;
-    sourceDecimals: number;
-    enableGasIncludedQuotes: boolean;
-  },
-  fetchParamsMetaData: {
-    sourceTokenInfo: Token;
-    destinationTokenInfo: Token;
-    accountBalance: string;
-    chainId: string;
-  },
-): ThunkAction<Promise<Quotes>, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    const [quotes, selectedAggId] = await trace(
-      {
-        name: TraceName.SwapQuotesFetched,
-        op: TraceOperation.BridgeDataFetch,
-      },
-      async () =>
-        await submitRequestToBackground<Quotes>('fetchAndSetQuotes', [
-          fetchParams,
-          fetchParamsMetaData,
-        ]),
-    );
-    await forceUpdateMetamaskState(dispatch);
-    return [quotes, selectedAggId];
-  };
-}
-
-export function setSelectedQuoteAggId(
-  aggId: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSelectedQuoteAggId', [aggId]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setSwapsTokens(
-  tokens: Token[],
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsTokens', [tokens]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function clearSwapsQuotes(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('clearSwapsQuotes');
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function resetBackgroundSwapsState(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('resetSwapsState');
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setCustomApproveTxData(
-  data: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setCustomApproveTxData', [data]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setSwapsTxGasPrice(
-  gasPrice: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsTxGasPrice', [gasPrice]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setSwapsTxGasLimit(
-  gasLimit: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsTxGasLimit', [gasLimit, true]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function updateCustomSwapsEIP1559GasParams({
-  gasLimit,
-  maxFeePerGas,
-  maxPriorityFeePerGas,
-}: {
-  gasLimit: string;
-  maxFeePerGas: string;
-  maxPriorityFeePerGas: string;
-}): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await Promise.all([
-      submitRequestToBackground('setSwapsTxGasLimit', [gasLimit]),
-      submitRequestToBackground('setSwapsTxMaxFeePerGas', [maxFeePerGas]),
-      submitRequestToBackground('setSwapsTxMaxFeePriorityPerGas', [
-        maxPriorityFeePerGas,
-      ]),
-    ]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-// Note that the type widening happening below will resolve when we switch gas
-// constants to TypeScript, at which point we'll get better type safety.
-// TODO: Remove this comment when gas constants is typescript
-export function updateSwapsUserFeeLevel(
-  swapsCustomUserFeeLevel: PriorityLevels,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsUserFeeLevel', [
-      swapsCustomUserFeeLevel,
-    ]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setSwapsQuotesPollingLimitEnabled(
-  quotesPollingLimitEnabled: boolean,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsQuotesPollingLimitEnabled', [
-      quotesPollingLimitEnabled,
-    ]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function safeRefetchQuotes(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('safeRefetchQuotes');
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function stopPollingForQuotes(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('stopPollingForQuotes');
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setBackgroundSwapRouteState(
-  routeState: '' | 'loading' | 'awaiting' | 'smartTransactionStatus',
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setBackgroundSwapRouteState', [
-      routeState,
-    ]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function resetSwapsPostFetchState(): ThunkAction<
-  void,
-  MetaMaskReduxState,
-  unknown,
-  AnyAction
-> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('resetPostFetchState');
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setSwapsErrorKey(
-  errorKey: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setSwapsErrorKey', [errorKey]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
-
-export function setInitialGasEstimate(
-  initialAggId: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    await submitRequestToBackground('setInitialGasEstimate', [initialAggId]);
-    await forceUpdateMetamaskState(dispatch);
-  };
-}
 
 // Permissions
 
@@ -7035,14 +6796,6 @@ export async function getLastInteractedConfirmationInfo(): Promise<
   return await submitRequestToBackground<void>(
     'getLastInteractedConfirmationInfo',
   );
-}
-
-export async function deleteDappSwapComparisonData(
-  uniqueId: string,
-): Promise<void> {
-  return await submitRequestToBackground<void>('deleteDappSwapComparisonData', [
-    uniqueId,
-  ]);
 }
 
 export async function setLastInteractedConfirmationInfo(

@@ -1,11 +1,9 @@
 import { ApprovalType } from '@metamask/controller-utils';
-import { QuoteResponseV1 } from '@metamask/bridge-controller';
 
 import { ConfirmMetamaskState } from '../types/confirm';
 import {
   firstPendingConfirmationSelector,
   pendingConfirmationsSortedSelector,
-  selectDappSwapComparisonData,
 } from './confirm';
 
 describe('confirm selectors', () => {
@@ -41,12 +39,6 @@ describe('confirm selectors', () => {
         },
       },
       approvalFlows: [],
-      dappSwapComparisonData: {
-        '1': {
-          quotes: [{ test: 'dummyQuote' } as unknown as QuoteResponseV1],
-          latency: 100,
-        },
-      },
     },
   };
 
@@ -113,17 +105,6 @@ describe('confirm selectors', () => {
       const result = firstPendingConfirmationSelector(mockedState);
 
       expect(result).toStrictEqual(mockedState.metamask.pendingApprovals[3]);
-    });
-  });
-
-  describe('selectDappSwapComparisonData', () => {
-    it('should return dapp swap comparison data for the given unique id from state', () => {
-      const result = selectDappSwapComparisonData(mockedState, '1');
-
-      expect(result).toStrictEqual({
-        quotes: [{ test: 'dummyQuote' } as unknown as QuoteResponseV1],
-        latency: 100,
-      });
     });
   });
 });

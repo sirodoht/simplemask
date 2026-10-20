@@ -3,24 +3,17 @@ import { render } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import type { TransactionGroup } from '../../../../shared/lib/multichain/types';
 import { usePendingTransactionActions } from '../../../hooks/usePendingTransactionActions';
-import { selectBridgeHistoryItemForTx } from '../../../selectors/activity';
 import { TransactionListItemPendingActions } from './pending-transaction-actions';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 jest.mock('../../../hooks/usePendingTransactionActions');
-jest.mock('../../../selectors/activity', () => ({
-  selectBridgeHistoryItemForTx: jest.fn(),
-}));
 
 const mockUsePendingTransactionActions = jest.mocked(
   usePendingTransactionActions,
 );
 const mockUseSelector = jest.mocked(useSelector);
-const mockSelectBridgeHistoryItemForTx = jest.mocked(
-  selectBridgeHistoryItemForTx,
-);
 
 let capturedProps: {
   onCancel: (event: React.MouseEvent) => void;
@@ -74,7 +67,6 @@ describe('TransactionListItemPendingActions', () => {
   beforeEach(() => {
     capturedProps = null;
     jest.clearAllMocks();
-    mockSelectBridgeHistoryItemForTx.mockReturnValue(undefined);
     mockUseSelector.mockImplementation((selector) => selector({} as never));
     mockActions();
   });
