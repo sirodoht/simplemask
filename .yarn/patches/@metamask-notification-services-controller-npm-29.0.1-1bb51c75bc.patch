@@ -1,5 +1,5 @@
 diff --git a/dist/NotificationServicesController/NotificationServicesController.js b/dist/NotificationServicesController/NotificationServicesController.js
-index fbaad16cd7b03248fde44160422e027c5e7f8981..caa7e9348e6689fd48eb928b0d04681098b35010 100644
+index fbaad16cd7b03248fde44160422e027c5e7f8981..9ec5054d56b4de72d555c7542acdaae09a882ea6 100644
 --- a/dist/NotificationServicesController/NotificationServicesController.js
 +++ b/dist/NotificationServicesController/NotificationServicesController.js
 @@ -7,8 +7,6 @@ import log from 'loglevel';
@@ -11,7 +11,7 @@ index fbaad16cd7b03248fde44160422e027c5e7f8981..caa7e9348e6689fd48eb928b0d046810
  // Unique name for the controller
  const controllerName = 'NotificationServicesController';
  export const ACCOUNTS_UPDATE_DEBOUNCE_TIME_MS = 1000;
-@@ -94,8 +92,8 @@ const locallyPersistedNotificationTypes = new Set([
+@@ -94,16 +92,16 @@ const locallyPersistedNotificationTypes = new Set([
   * preferences are initialized for the first time.
   */
  export const DEFAULT_PERPS_PREFERENCES = {
@@ -22,6 +22,33 @@ index fbaad16cd7b03248fde44160422e027c5e7f8981..caa7e9348e6689fd48eb928b0d046810
  };
  /**
   * Hardcoded default Social AI notification preferences. Applied when
+  * notification preferences are initialized for the first time.
+  */
+ export const DEFAULT_SOCIAL_AI_PREFERENCES = {
+-    inAppNotificationsEnabled: true,
+-    pushNotificationsEnabled: true,
++    inAppNotificationsEnabled: false,
++    pushNotificationsEnabled: false,
+     txAmountLimit: 500,
+     mutedTraderProfileIds: [],
+ };
+@@ -152,13 +150,13 @@ const buildFreshPreferences = (hasMarketingConsent, productAnnouncementEnabled)
+         accounts: [],
+     },
+     marketing: {
+-        inAppNotificationsEnabled: productAnnouncementEnabled,
+-        pushNotificationsEnabled: hasMarketingConsent,
++        inAppNotificationsEnabled: false,
++        pushNotificationsEnabled: false,
+     },
+     perps: { ...DEFAULT_PERPS_PREFERENCES },
+     socialAI: { ...DEFAULT_SOCIAL_AI_PREFERENCES },
+     agenticCli: { ...DEFAULT_AGENTIC_CLI_PREFERENCES },
+-    priceAlerts: { ...DEFAULT_PRICE_ALERT_PREFERENCES },
++    priceAlerts: { ...DEFAULT_PRICE_ALERT_PREFERENCES, inAppNotificationsEnabled: false, pushNotificationsEnabled: false },
+ });
+ const MESSENGER_EXPOSED_METHODS = [
+     'init',
 @@ -623,7 +621,7 @@ export class NotificationServicesController extends BaseController {
      async setFeatureAnnouncementsEnabled(featureAnnouncementsEnabled) {
          try {
@@ -63,7 +90,7 @@ index fbaad16cd7b03248fde44160422e027c5e7f8981..caa7e9348e6689fd48eb928b0d046810
              const metamaskNotifications = [
 -                ...processAndFilterNotifications(rawAnnouncements, readIds),
 -                ...processAndFilterNotifications(rawOnChainNotifications, readIds),
-+                ...processAndFilterNotifications(rawOnChainNotifications, readIds).filter((notification) => notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT && notification.notification_type !== 'perps'),
++                ...processAndFilterNotifications(rawOnChainNotifications, readIds).filter((notification) => ['wallet_activity', 'agentic_cli'].includes(notification.notification_type)),
                  ...snapNotifications,
              ];
              // Sort Notifications
@@ -72,7 +99,7 @@ index fbaad16cd7b03248fde44160422e027c5e7f8981..caa7e9348e6689fd48eb928b0d046810
          }
          const processedNotification = safeProcessNotification(notification);
 -        if (processedNotification) {
-+        if (processedNotification && processedNotification.notification_type !== 'perps') {
++        if (processedNotification && (processedNotification.type === TRIGGER_TYPES.SNAP || ['wallet_activity', 'agentic_cli'].includes(processedNotification.notification_type))) {
              this.update((state) => {
                  const existingNotificationIds = new Set(state.metamaskNotificationsList.map((existingNotification) => existingNotification.id));
                  // Add the new notification only if its ID is not already present in the list

@@ -28,10 +28,6 @@ jest.mock('../../components/multichain', () => ({
 jest.mock('../../components/app/terms-of-use-popup', () => ({
   TermsOfUsePopupContainer: () => null,
 }));
-jest.mock(
-  '../../components/app/metametrics-consent/metametrics-consent-container',
-  () => ({ MetaMetricsConsentContainer: () => null }),
-);
 jest.mock('../../components/app/recovery-phrase-reminder', () => ({
   RecoveryPhraseReminderContainer: () => null,
 }));

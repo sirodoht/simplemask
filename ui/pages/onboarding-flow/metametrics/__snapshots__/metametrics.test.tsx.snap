@@ -76,53 +76,6 @@ exports[`Onboarding Metametrics Component renders match snapshot 1`] = `
       </p>
     </div>
     <div
-      class="flex flex-col gap-2 p-3 bg-muted onboarding-metametrics__checkbox rounded-lg"
-      data-checked="false"
-      data-testid="metametrics-data-collection-checkbox"
-      role="button"
-      tabindex="0"
-    >
-      <label
-        class="inline-flex items-center self-start"
-        for="metametrics-datacollection-opt-in"
-      >
-        <div
-          class="relative inline-flex size-6 items-center justify-center"
-        >
-          <input
-            aria-invalid="false"
-            class="peer size-6 shrink-0 cursor-pointer appearance-none rounded-full border-2 p-0 transition-transform enabled:active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-default disabled:cursor-not-allowed bg-transparent enabled:hover:bg-hover enabled:active:bg-pressed border-default"
-            id="metametrics-datacollection-opt-in"
-            type="checkbox"
-          />
-          <svg
-            class="inline-block w-4 h-4 text-icon-inverse pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition peer-enabled:peer-active:scale-95 opacity-0"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="m21.53 7.28-12 12a.75.75 0 0 1-1.06 0l-5.25-5.25a.75.75 0 0 1 1.06-1.06L9 17.69 20.47 6.22a.75.75 0 0 1 1.06 1.06"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-default text-s-body-md leading-s-body-md tracking-s-body-md md:text-l-body-md md:leading-l-body-md md:tracking-l-body-md font-regular font-default ml-3"
-        >
-          <p
-            class="text-default text-s-body-md leading-s-body-md tracking-s-body-md md:text-l-body-md md:leading-l-body-md md:tracking-l-body-md font-medium font-default"
-          >
-            Product updates
-          </p>
-        </span>
-      </label>
-      <p
-        class="text-alternative text-s-body-sm leading-s-body-sm tracking-s-body-sm md:text-l-body-sm md:leading-l-body-sm md:tracking-l-body-sm font-regular font-default text-left"
-      >
-        We’ll use this data to learn how you interact with our marketing communications. We may share relevant news (like product features).
-      </p>
-    </div>
-    <div
       class="w-full"
     >
       <button
@@ -214,53 +167,6 @@ exports[`Onboarding Metametrics Component renders match snapshot after new polic
         class="text-alternative text-s-body-sm leading-s-body-sm tracking-s-body-sm md:text-l-body-sm md:leading-l-body-sm md:tracking-l-body-sm font-regular font-default text-left"
       >
         We’ll collect basic product usage data. We may associate this information with on-chain data.
-      </p>
-    </div>
-    <div
-      class="flex flex-col gap-2 p-3 bg-muted onboarding-metametrics__checkbox rounded-lg"
-      data-checked="false"
-      data-testid="metametrics-data-collection-checkbox"
-      role="button"
-      tabindex="0"
-    >
-      <label
-        class="inline-flex items-center self-start"
-        for="metametrics-datacollection-opt-in"
-      >
-        <div
-          class="relative inline-flex size-6 items-center justify-center"
-        >
-          <input
-            aria-invalid="false"
-            class="peer size-6 shrink-0 cursor-pointer appearance-none rounded-full border-2 p-0 transition-transform enabled:active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-default disabled:cursor-not-allowed bg-transparent enabled:hover:bg-hover enabled:active:bg-pressed border-default"
-            id="metametrics-datacollection-opt-in"
-            type="checkbox"
-          />
-          <svg
-            class="inline-block w-4 h-4 text-icon-inverse pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition peer-enabled:peer-active:scale-95 opacity-0"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="m21.53 7.28-12 12a.75.75 0 0 1-1.06 0l-5.25-5.25a.75.75 0 0 1 1.06-1.06L9 17.69 20.47 6.22a.75.75 0 0 1 1.06 1.06"
-            />
-          </svg>
-        </div>
-        <span
-          class="text-default text-s-body-md leading-s-body-md tracking-s-body-md md:text-l-body-md md:leading-l-body-md md:tracking-l-body-md font-regular font-default ml-3"
-        >
-          <p
-            class="text-default text-s-body-md leading-s-body-md tracking-s-body-md md:text-l-body-md md:leading-l-body-md md:tracking-l-body-md font-medium font-default"
-          >
-            Product updates
-          </p>
-        </span>
-      </label>
-      <p
-        class="text-alternative text-s-body-sm leading-s-body-sm tracking-s-body-sm md:text-l-body-sm md:leading-l-body-sm md:tracking-l-body-sm font-regular font-default text-left"
-      >
-        We’ll use this data to learn how you interact with our marketing communications. We may share relevant news (like product features).
       </p>
     </div>
     <div

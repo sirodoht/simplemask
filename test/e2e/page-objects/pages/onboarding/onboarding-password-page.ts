@@ -107,7 +107,11 @@ class OnboardingPasswordPage {
     console.log('Fill the wallet password fields');
     await this.driver.fill(this.newPasswordInput, newPassword);
     await this.driver.fill(this.confirmPasswordInput, confirmPassword);
-    await this.driver.clickElement(this.passwordTerms);
+    if (
+      await this.driver.isElementPresentAndVisible(this.passwordTerms, 1000)
+    ) {
+      await this.driver.clickElement(this.passwordTerms);
+    }
   }
 
   async isPageLoaded(): Promise<boolean> {

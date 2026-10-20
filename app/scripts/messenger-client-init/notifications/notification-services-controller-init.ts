@@ -2,6 +2,7 @@ import { Controller as NotificationServicesController } from '@metamask/notifica
 import { MessengerClientInitFunction } from '../types';
 import { type NotificationServicesControllerMessenger } from '../messengers/notifications';
 import packageJson from '../../../../package.json';
+import { isRetainedNotification } from '../../../../shared/lib/retained-notifications';
 
 const APP_VERSION = packageJson.version;
 
@@ -17,6 +18,10 @@ export const NotificationServicesControllerInit: MessengerClientInitFunction<
     state: {
       ...persistedState.NotificationServicesController,
       isFeatureAnnouncementsEnabled: false,
+      metamaskNotificationsList:
+        persistedState.NotificationServicesController?.metamaskNotificationsList?.filter(
+          isRetainedNotification,
+        ) ?? [],
     },
     env: {
       // Core also uses this object's platform for wallet notifications.

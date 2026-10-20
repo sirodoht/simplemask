@@ -109,7 +109,6 @@ describe('Unlock wallet - ', function () {
           await onboardingMetricsFlow(driver, {
             consentDecisionMade: true,
             optedIn: false,
-            dataCollectionForMarketing: false,
           });
         }
 

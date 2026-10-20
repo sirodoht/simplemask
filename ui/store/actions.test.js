@@ -11,7 +11,6 @@ import { stringToBytes } from '@metamask/utils';
 import { TransactionStatus } from '@metamask/transaction-controller';
 import { NotificationServicesController } from '@metamask/notification-services-controller';
 import { BACKUPANDSYNC_FEATURES } from '@metamask/profile-sync-controller/user-storage';
-import { SubscriptionUserEvent } from '@metamask/subscription-controller';
 // TODO: Remove restricted import
 // eslint-disable-next-line import-x/no-restricted-paths
 import enLocale from '../../app/_locales/en/messages.json';
@@ -232,7 +231,7 @@ describe('Actions', () => {
       sinon.restore();
     });
 
-    it('returns the seed phrase and syncs marketing consent', async () => {
+    it('returns the seed phrase without fetching or restoring marketing consent', async () => {
       const store = mockStore();
       const mnemonic = 'seed phrase';
 
@@ -251,17 +250,12 @@ describe('Actions', () => {
       expect(
         restoreSocialBackupAndGetSeedPhraseStub.calledOnceWith('password'),
       ).toStrictEqual(true);
-      expect(background.getMarketingConsent.calledOnce).toStrictEqual(true);
-      expect(
-        background.setDataCollectionForMarketing.calledOnceWith(true),
-      ).toStrictEqual(true);
+      expect(background.getMarketingConsent.called).toStrictEqual(false);
+      expect(background.setDataCollectionForMarketing.called).toStrictEqual(
+        false,
+      );
       expect(background.getStatePatches.calledOnce).toStrictEqual(true);
-      expect(store.getActions()).toStrictEqual([
-        {
-          type: actionConstants.SET_DATA_COLLECTION_FOR_MARKETING,
-          value: true,
-        },
-      ]);
+      expect(store.getActions()).toStrictEqual([]);
     });
 
     it('tracks the onboarding analytics preference event when a tracking function is provided', async () => {
@@ -284,7 +278,6 @@ describe('Actions', () => {
           event: MetaMetricsEventName.AnalyticsPreferenceSelected,
           properties: {
             [MetaMetricsUserTrait.IsMetricsOptedIn]: true,
-            [MetaMetricsUserTrait.HasMarketingConsent]: false,
             location: 'onboarding_social_login_rehydration',
           },
         }),
@@ -3136,60 +3129,6 @@ describe('Actions', () => {
     });
   });
 
-  describe('#setMusdConversionEducationSeen', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls setMusdConversionEducationSeen in background with value', async () => {
-      const store = mockStore();
-      const setMusdConversionEducationSeenStub = sinon.stub().resolves();
-
-      setBackgroundConnection({
-        setMusdConversionEducationSeen: setMusdConversionEducationSeenStub,
-      });
-
-      await store.dispatch(actions.setMusdConversionEducationSeen(true));
-      expect(setMusdConversionEducationSeenStub.callCount).toStrictEqual(1);
-      expect(setMusdConversionEducationSeenStub.calledWith(true)).toBe(true);
-    });
-
-    it('calls setMusdConversionEducationSeen in background with false', async () => {
-      const store = mockStore();
-      const setMusdConversionEducationSeenStub = sinon.stub().resolves();
-
-      setBackgroundConnection({
-        setMusdConversionEducationSeen: setMusdConversionEducationSeenStub,
-      });
-
-      await store.dispatch(actions.setMusdConversionEducationSeen(false));
-      expect(setMusdConversionEducationSeenStub.calledWith(false)).toBe(true);
-    });
-  });
-
-  describe('#addMusdConversionDismissedCtaKey', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls addMusdConversionDismissedCtaKey in background with key', async () => {
-      const store = mockStore();
-      const addMusdConversionDismissedCtaKeyStub = sinon.stub().resolves();
-
-      setBackgroundConnection({
-        addMusdConversionDismissedCtaKey: addMusdConversionDismissedCtaKeyStub,
-      });
-
-      await store.dispatch(
-        actions.addMusdConversionDismissedCtaKey('0x1-0xabc123'),
-      );
-      expect(addMusdConversionDismissedCtaKeyStub.callCount).toStrictEqual(1);
-      expect(
-        addMusdConversionDismissedCtaKeyStub.calledWith('0x1-0xabc123'),
-      ).toBe(true);
-    });
-  });
-
   describe('#setUsePhishDetect', () => {
     afterEach(() => {
       sinon.restore();
@@ -3502,42 +3441,6 @@ describe('Actions', () => {
       await expect(
         store.dispatch(actions.createCancelTransaction(txId)),
       ).rejects.toThrow('Previous transaction is already confirmed');
-    });
-  });
-
-  describe('#removeAndIgnoreNft', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('should throw when no address found', async () => {
-      const store = mockStore();
-
-      await expect(
-        store.dispatch(actions.removeAndIgnoreNft(undefined, '55', 'mainnet')),
-      ).rejects.toThrow('MetaMask - Cannot ignore NFT without address');
-    });
-
-    it('should throw when no tokenId found', async () => {
-      const store = mockStore();
-
-      await expect(
-        store.dispatch(
-          actions.removeAndIgnoreNft('Oxtest', undefined, 'mainnet'),
-        ),
-      ).rejects.toThrow('MetaMask - Cannot ignore NFT without tokenID');
-    });
-
-    it('should throw when removeAndIgnoreNft throws an error', async () => {
-      const store = mockStore();
-      const error = new Error('remove nft fake error');
-      background.removeAndIgnoreNft = sinon.stub().throws(error);
-
-      setBackgroundConnection(background);
-
-      await expect(
-        store.dispatch(actions.removeAndIgnoreNft('Oxtest', '6', 'mainnet')),
-      ).rejects.toThrow(error);
     });
   });
 
@@ -4591,57 +4494,6 @@ describe('Actions', () => {
       }
 
       expect(background.syncSeedPhrases.calledOnceWith()).toBe(true);
-    });
-  });
-
-  describe('submitSubscriptionUserEvents', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls submitSubscriptionUserEvents in the background', async () => {
-      const store = mockStore();
-      const submitSubscriptionUserEventsStub = sinon.stub().resolves();
-      background.getApi.returns({
-        submitSubscriptionUserEvents: submitSubscriptionUserEventsStub,
-      });
-      setBackgroundConnection(background.getApi());
-
-      await store.dispatch(
-        actions.submitSubscriptionUserEvents({
-          event: SubscriptionUserEvent.ShieldEntryModalViewed,
-        }),
-      );
-
-      expect(
-        submitSubscriptionUserEventsStub.calledOnceWith({
-          event: SubscriptionUserEvent.ShieldEntryModalViewed,
-        }),
-      ).toBe(true);
-    });
-
-    it('handles error when submitSubscriptionUserEvents fails', async () => {
-      const errorMessage = 'Failed to submit subscription user events';
-      const store = mockStore();
-      const submitSubscriptionUserEventsStub = sinon
-        .stub()
-        .rejects(new Error(errorMessage));
-      background.getApi.returns({
-        submitSubscriptionUserEvents: submitSubscriptionUserEventsStub,
-      });
-      setBackgroundConnection(background.getApi());
-
-      await store.dispatch(
-        actions.submitSubscriptionUserEvents({
-          event: SubscriptionUserEvent.ShieldEntryModalViewed,
-        }),
-      );
-
-      expect(
-        submitSubscriptionUserEventsStub.calledOnceWith({
-          event: SubscriptionUserEvent.ShieldEntryModalViewed,
-        }),
-      ).toBe(true);
     });
   });
 

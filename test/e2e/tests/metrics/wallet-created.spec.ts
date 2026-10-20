@@ -250,7 +250,6 @@ describe('Wallet Created Events', function () {
         // Otherwise, `optedIn` is automatically set to true for social login users
         if (process.env.SELENIUM_BROWSER === Browser.FIREFOX) {
           onboardingOptions.optedIn = true;
-          onboardingOptions.dataCollectionForMarketing = true;
         }
 
         await createNewWalletWithSocialLoginOnboardingFlow(onboardingOptions);

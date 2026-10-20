@@ -64,7 +64,6 @@ export const PRIVACY_ITEMS = {
   'batch-account-balance-requests': 'useMultiAccountBalanceChecker',
   'skip-link-confirmation': 'skipLinkConfirmationScreens',
   metametrics: 'participateInMetaMetrics',
-  'data-collection': 'dataCollectionForMarketing',
   'delete-metametrics-data': 'deleteMetaMetricsData',
   'download-state-logs': 'downloadStateLogs',
   'export-your-data': 'exportYourData',

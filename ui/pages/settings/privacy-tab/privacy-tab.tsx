@@ -13,7 +13,6 @@ import { PRIVACY_ITEMS } from '../search-config';
 import { ThirdPartyApisItem } from './third-party-apis-item';
 import { BasicFunctionalityToggleItem } from './basic-functionality-item';
 import { MetametricsToggleItem } from './metametrics-item';
-import { DataCollectionToggleItem } from './data-collection-item';
 import { DeleteMetametricsDataItem } from './delete-metametrics-data-item';
 import { DownloadStateLogsItem } from './download-state-logs-item';
 import { ExportYourDataItem } from './export-your-data-item';
@@ -56,7 +55,6 @@ export const PRIVACY_SETTING_ITEMS: SettingItemConfig[] = [
     component: MetametricsToggleItem,
     hasDividerBefore: true,
   },
-  { id: 'data-collection', component: DataCollectionToggleItem },
   { id: 'delete-metametrics-data', component: DeleteMetametricsDataItem },
   {
     id: 'download-state-logs',
@@ -79,7 +77,6 @@ export const CONSOLIDATED_BASIC_FUNCTIONALITY_PRIVACY_ITEMS: SettingItemConfig[]
       component: MetametricsToggleItem,
       hasDividerBefore: true,
     },
-    { id: 'data-collection', component: DataCollectionToggleItem },
     { id: 'delete-metametrics-data', component: DeleteMetametricsDataItem },
     {
       id: 'download-state-logs',

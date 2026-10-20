@@ -26,12 +26,8 @@ import {
 import { getOptedIn, getUseExternalServices } from '../../../selectors';
 
 const MetametricsToggle = ({
-  dataCollectionForMarketing,
-  setDataCollectionForMarketing,
   fromDefaultSettings = false,
 }: {
-  dataCollectionForMarketing: boolean;
-  setDataCollectionForMarketing: (value: boolean) => Promise<void>;
   fromDefaultSettings?: boolean;
 }) => {
   const t = useI18nContext();
@@ -61,11 +57,6 @@ const MetametricsToggle = ({
           .build(),
       );
     } else {
-      // disable data collection for marketing if participate in meta metrics is set to false
-      if (dataCollectionForMarketing) {
-        await setDataCollectionForMarketing(false);
-      }
-
       trackEvent(
         createEventBuilder(MetaMetricsEventName.TurnOffMetaMetrics)
           .addCategory(MetaMetricsEventCategory.Settings)

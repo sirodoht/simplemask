@@ -413,7 +413,7 @@ describe('Onboarding Create Password', () => {
       expect(mockCreateNewAccount).not.toHaveBeenCalled();
     });
 
-    it('should create new wallet without marketing checked when its social login flow', async () => {
+    it('creates a social-login wallet without offering marketing enrollment', async () => {
       const mockStore = configureMockStore([thunk])({
         ...mockState,
         metamask: {
@@ -454,7 +454,7 @@ describe('Onboarding Create Password', () => {
 
       const terms = queryByTestId('create-password-terms');
 
-      expect(terms).not.toBeChecked();
+      expect(terms).not.toBeInTheDocument();
 
       const createNewWalletButton = queryByTestId('create-password-submit');
 

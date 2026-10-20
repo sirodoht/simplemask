@@ -34,6 +34,9 @@ export const AnalyticsControllerInit: MessengerClientInitFunction<
 > = ({ controllerMessenger, initMessenger, persistedState, extension }) => {
   const persisted = {
     ...persistedState.AnalyticsController,
+    optedInToMarketing: false,
+    marketingConsentDecisionMade: true,
+    marketingCampaignCookieId: null,
   };
 
   persisted.analyticsId =

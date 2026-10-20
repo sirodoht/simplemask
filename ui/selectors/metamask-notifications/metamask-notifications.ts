@@ -7,6 +7,7 @@ import {
   defaultState,
 } from '@metamask/notification-services-controller/notification-services';
 import { createParameterizedSelector } from '../../../shared/lib/selectors/selector-creators';
+import { isRetainedNotification } from '../../../shared/lib/retained-notifications';
 import {
   getRemoteFeatureFlags,
   type RemoteFeatureFlagsState,
@@ -55,14 +56,7 @@ export function getIsNotificationEnabledByDefaultFeatureFlag(
 export const getMetamaskNotifications = createSelector(
   [getMetamask],
   (metamask): Notification[] => {
-    return metamask.metamaskNotificationsList.filter(
-      (notification) =>
-        notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT &&
-        !(
-          notification.type === TRIGGER_TYPES.PLATFORM &&
-          notification.notification_type === 'perps'
-        ),
-    );
+    return metamask.metamaskNotificationsList.filter(isRetainedNotification);
   },
 );
 

@@ -130,20 +130,6 @@ describe('MetametricsToggleItem', () => {
     });
   });
 
-  it('disables data collection for marketing when turning off metametrics', async () => {
-    const mockStore = createMockStore({
-      optedIn: true,
-      optedInToMarketing: true,
-    });
-    renderWithProvider(<MetametricsToggleItem />, mockStore);
-
-    fireEvent.click(screen.getByTestId('participate-in-meta-metrics-input'));
-
-    await waitFor(() => {
-      expect(mockSetDataCollectionForMarketing).toHaveBeenCalledWith(false);
-    });
-  });
-
   it('is disabled when useExternalServices is false', () => {
     const mockStore = createMockStore({ useExternalServices: false });
     renderWithProvider(<MetametricsToggleItem />, mockStore);

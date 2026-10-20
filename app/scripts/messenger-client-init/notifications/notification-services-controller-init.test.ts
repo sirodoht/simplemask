@@ -1,4 +1,13 @@
-import { Controller as NotificationServicesController } from '@metamask/notification-services-controller/notification-services';
+/* eslint-disable @typescript-eslint/naming-convention -- Notification API field names. */
+import {
+  Controller as NotificationServicesController,
+  TRIGGER_TYPES,
+} from '@metamask/notification-services-controller/notification-services';
+import { it } from '@jest/globals';
+import {
+  createMockNotificationEthReceived,
+  createMockPlatformNotification,
+} from '@metamask/notification-services-controller/notification-services/mocks';
 import {
   Messenger,
   MOCK_ANY_NAMESPACE,
@@ -66,7 +75,10 @@ describe('NotificationServicesControllerInit', () => {
 
     expect(NotificationServicesControllerClassMock).toHaveBeenCalledWith({
       messenger: requestMock.controllerMessenger,
-      state: { isFeatureAnnouncementsEnabled: false },
+      state: {
+        isFeatureAnnouncementsEnabled: false,
+        metamaskNotificationsList: [],
+      },
       env: {
         featureAnnouncements: {
           platform: 'extension',
@@ -78,6 +90,48 @@ describe('NotificationServicesControllerInit', () => {
       },
     });
   });
+
+  it.each(['marketing', 'perps', 'social_ai', 'new_campaign'])(
+    'never stores %s from the API while keeping wallet and CLI activity',
+    async (producer) => {
+      const { Controller, processNotification } = jest.requireActual<
+        typeof import('@metamask/notification-services-controller/notification-services')
+      >('@metamask/notification-services-controller/notification-services');
+      const controller = new Controller({
+        messenger:
+          getNotificationServicesControllerMessenger(getRootMessenger()),
+        env: {
+          featureAnnouncements: {
+            platform: 'extension',
+            spaceId: '',
+            accessToken: '',
+            platformVersion: '1.2.3',
+          },
+        },
+      });
+      const wallet = createMockNotificationEthReceived();
+      const platform = createMockPlatformNotification();
+      if (platform.type !== TRIGGER_TYPES.PLATFORM) {
+        throw new Error('Expected a platform notification fixture');
+      }
+      const cli = { ...platform, id: 'cli', notification_type: 'agentic_cli' };
+      await controller.updateMetamaskNotificationsList(
+        processNotification({
+          ...platform,
+          notification_type: producer,
+        }),
+      );
+      await controller.updateMetamaskNotificationsList(
+        processNotification(wallet),
+      );
+      await controller.updateMetamaskNotificationsList(
+        processNotification(cli),
+      );
+      expect(
+        controller.state.metamaskNotificationsList.map(({ id }) => id),
+      ).toEqual(['cli', wallet.id]);
+    },
+  );
 
   it('does not fetch announcements even when remote marketing preferences enable them', async () => {
     const { Controller } = jest.requireActual<

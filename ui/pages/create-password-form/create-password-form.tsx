@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Box,
@@ -16,7 +16,6 @@ import {
   BoxBackgroundColor,
   IconColor,
 } from '@metamask/design-system-react';
-import { useSelector } from 'react-redux';
 import PasswordForm from '../../components/app/password-form/password-form';
 import { useI18nContext } from '../../hooks/useI18nContext';
 import { useAnalytics } from '../../hooks/useAnalytics';
@@ -44,29 +43,9 @@ const CreatePasswordForm = ({
 }: CreatePasswordFormProps) => {
   const t = useI18nContext();
   const [password, setPassword] = useState('');
-  const {
-    value: termsChecked,
-    setValue: setTermsChecked,
-    toggle,
-  } = useBoolean();
-  const hasUserInteractedWithTermsRef = useRef(false);
-  const geolocation = useSelector(
-    (state: { metamask: { location: string } }) => state.metamask?.location,
-  );
+  const { value: termsChecked, toggle } = useBoolean();
 
   const { trackEvent, createEventBuilder } = useAnalytics();
-
-  useEffect(() => {
-    if (
-      isSocialLoginFlow &&
-      // For Social login users in US region, we set the marketing consent to true by default for the first time render
-      geolocation === 'US' &&
-      !hasUserInteractedWithTermsRef.current
-    ) {
-      setTermsChecked(true);
-      hasUserInteractedWithTermsRef.current = true;
-    }
-  }, [setTermsChecked, isSocialLoginFlow, geolocation]);
 
   const handleCreatePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,10 +81,6 @@ const CreatePasswordForm = ({
       </span>
     </a>
   );
-
-  const checkboxLabel = isSocialLoginFlow
-    ? t('createPasswordMarketing')
-    : t('passwordTermsWarning');
 
   return (
     <Box
@@ -174,41 +149,42 @@ const CreatePasswordForm = ({
               </Text>
             </Box>
           ) : null}
-          <Box
-            className="create-password__terms-container rounded-lg"
-            marginTop={6}
-            backgroundColor={BoxBackgroundColor.BackgroundMuted}
-            padding={3}
-          >
-            <Checkbox
-              id="create-password-terms"
-              data-testid="create-password-terms"
-              className="items-start"
-              isSelected={termsChecked}
-              isDisabled={loading}
-              onChange={() => {
-                hasUserInteractedWithTermsRef.current = true;
-                toggle();
-              }}
-              label={
-                <Text
-                  asChild
-                  variant={TextVariant.BodySm}
-                  color={TextColor.TextDefault}
-                >
-                  <span>
-                    {checkboxLabel}
-                    {!isSocialLoginFlow && (
-                      <>
-                        <br />
-                        {createPasswordLink}
-                      </>
-                    )}
-                  </span>
-                </Text>
-              }
-            />
-          </Box>
+          {!isSocialLoginFlow && (
+            <Box
+              className="create-password__terms-container rounded-lg"
+              marginTop={6}
+              backgroundColor={BoxBackgroundColor.BackgroundMuted}
+              padding={3}
+            >
+              <Checkbox
+                id="create-password-terms"
+                data-testid="create-password-terms"
+                className="items-start"
+                isSelected={termsChecked}
+                isDisabled={loading}
+                onChange={() => {
+                  toggle();
+                }}
+                label={
+                  <Text
+                    asChild
+                    variant={TextVariant.BodySm}
+                    color={TextColor.TextDefault}
+                  >
+                    <span>
+                      {t('passwordTermsWarning')}
+                      {!isSocialLoginFlow && (
+                        <>
+                          <br />
+                          {createPasswordLink}
+                        </>
+                      )}
+                    </span>
+                  </Text>
+                }
+              />
+            </Box>
+          )}
         </Box>
         <Box>
           <Button

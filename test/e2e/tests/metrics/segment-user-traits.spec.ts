@@ -29,36 +29,6 @@ async function mockSegment(mockServer: Mockttp) {
 }
 
 describe('Segment User Traits', function () {
-  it('sends identify event when user opts in both metrics and data collection during onboarding', async function () {
-    await withFixtures(
-      {
-        fixtures: new FixtureBuilderV2({ onboarding: true })
-          .withAnalyticsController({
-            analyticsId: MOCK_ANALYTICS_ID,
-          })
-          .build(),
-        title: this.test?.fullTitle(),
-        testSpecificMock: mockSegment,
-      },
-      async ({ driver, mockedEndpoint: mockedEndpoints }) => {
-        await createNewWalletOnboardingFlow({
-          driver,
-          consentDecisionMade: true,
-          optedIn: true,
-          dataCollectionForMarketing: true,
-        });
-        await waitForExpectedTraits(driver, mockedEndpoints, {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          is_metrics_opted_in: true,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          has_marketing_consent: true,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          account_type: 'metamask',
-        });
-      },
-    );
-  });
-
   it('sends identify event when user opts into metrics but not data collection during onboarding', async function () {
     await withFixtures(
       {
@@ -75,7 +45,6 @@ describe('Segment User Traits', function () {
           driver,
           consentDecisionMade: true,
           optedIn: true,
-          dataCollectionForMarketing: false,
         });
         await waitForExpectedTraits(driver, mockedEndpoints, {
           // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -105,7 +74,6 @@ describe('Segment User Traits', function () {
           driver,
           consentDecisionMade: true,
           optedIn: false,
-          dataCollectionForMarketing: false,
         });
         const events = await getEventPayloads(driver, mockedEndpoints);
         assert.equal(events.length, 0);
@@ -145,46 +113,6 @@ describe('Segment User Traits', function () {
           is_metrics_opted_in: true,
           // eslint-disable-next-line @typescript-eslint/naming-convention
           has_marketing_consent: false,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          account_type: 'metamask',
-        });
-      },
-    );
-  });
-
-  it('sends identify event when user opts in both metrics and data in privacy settings after opting out during onboarding', async function () {
-    await withFixtures(
-      {
-        fixtures: new FixtureBuilderV2({ onboarding: true })
-          .withAnalyticsController({
-            analyticsId: MOCK_ANALYTICS_ID,
-          })
-          .build(),
-        title: this.test?.fullTitle(),
-        testSpecificMock: mockSegment,
-      },
-      async ({ driver, mockedEndpoint: mockedEndpoints }) => {
-        await completeCreateNewWalletOnboardingFlow({
-          driver,
-          consentDecisionMade: true,
-          optedIn: false,
-        });
-        const events = await getEventPayloads(driver, mockedEndpoints);
-        assert.equal(events.length, 0);
-        await new HeaderNavbar(driver).openSettingsPage();
-        const settingsPage = new SettingsPage(driver);
-        await settingsPage.checkPageIsLoaded();
-        await settingsPage.goToPrivacySettings();
-
-        const privacySettings = new PrivacySettings(driver);
-        await privacySettings.checkPageIsLoaded();
-        await privacySettings.toggleParticipateInMetaMetrics();
-        await privacySettings.toggleDataCollectionForMarketing();
-        await waitForExpectedTraits(driver, mockedEndpoints, {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          is_metrics_opted_in: true,
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          has_marketing_consent: true,
           // eslint-disable-next-line @typescript-eslint/naming-convention
           account_type: 'metamask',
         });

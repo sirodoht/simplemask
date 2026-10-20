@@ -9609,7 +9609,7 @@ __metadata:
 
 "@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A29.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-29.0.1-1bb51c75bc.patch":
   version: 29.0.1
-  resolution: "@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A29.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-29.0.1-1bb51c75bc.patch::version=29.0.1&hash=51043b"
+  resolution: "@metamask/notification-services-controller@patch:@metamask/notification-services-controller@npm%3A29.0.1#~/.yarn/patches/@metamask-notification-services-controller-npm-29.0.1-1bb51c75bc.patch::version=29.0.1&hash=6b8ec3"
   dependencies:
     "@contentful/rich-text-html-renderer": "npm:^16.5.2"
     "@metamask/authenticated-user-storage": "npm:^4.1.0"
@@ -9625,7 +9625,7 @@ __metadata:
     loglevel: "npm:^1.8.1"
     semver: "npm:^7.6.3"
     uuid: "npm:^11.1.1"
-  checksum: 10/f2662e26b66338c712b79075c52fdd9af3ad91140fa1229d4ec06b500043532837376d4869d379670654b8ad714193d408eab20cff166253207707fb9864d323
+  checksum: 10/0eb33f65d2e4ed89dded3f57904947a16a98eb8cceec00b3595f77a04de156d96a029d70598389a55896f6509616d9c56eb16ca85c9fc0d0b26ef0c4b2662390
   languageName: node
   linkType: hard
 

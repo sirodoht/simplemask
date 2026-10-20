@@ -45,8 +45,8 @@ describe('CreatePasswordForm', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('defaults the marketing terms checkbox to checked for Social login users in US region', async () => {
-    const { getByRole } = renderWithProvider(
+  it('does not offer marketing enrollment to social login users in the US', async () => {
+    const { queryByRole } = renderWithProvider(
       <CreatePasswordForm
         isSocialLoginFlow
         onSubmit={jest.fn()}
@@ -56,12 +56,12 @@ describe('CreatePasswordForm', () => {
     );
 
     await waitFor(() => {
-      expect(getByRole('checkbox')).toBeChecked();
+      expect(queryByRole('checkbox')).not.toBeInTheDocument();
     });
   });
 
-  it('defaults the marketing terms checkbox to unchecked when marketing consent is not stored', () => {
-    const { getByRole } = renderWithProvider(
+  it('does not offer marketing enrollment outside the US', () => {
+    const { queryByRole } = renderWithProvider(
       <CreatePasswordForm
         isSocialLoginFlow
         onSubmit={jest.fn()}
@@ -70,7 +70,7 @@ describe('CreatePasswordForm', () => {
       createMockStore(false),
     );
 
-    expect(getByRole('checkbox')).not.toBeChecked();
+    expect(queryByRole('checkbox')).not.toBeInTheDocument();
   });
 
   it('renders an error message when error is true', () => {

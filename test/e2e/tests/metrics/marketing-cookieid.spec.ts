@@ -10,8 +10,6 @@ import { TestSuiteArguments } from '../confirmations/transactions/shared';
 import FixtureBuilderV2 from '../../fixtures/fixture-builder-v2';
 import { MOCK_ANALYTICS_ID, WINDOW_TITLES } from '../../constants';
 import HomePage from '../../page-objects/pages/home/homepage';
-import PrivacySettings from '../../page-objects/pages/settings/privacy-settings';
-import SettingsPage from '../../page-objects/pages/settings/settings-page';
 import TestDapp from '../../page-objects/pages/test-dapp';
 import { login } from '../../page-objects/flows/login.flow';
 
@@ -41,53 +39,6 @@ const mockSegment = async (mockServer: Mockttp) => {
 };
 
 describe('Marketing cookieId', function (this: Suite) {
-  it('should be send to segment when preferences are enabled', async function () {
-    await withFixtures(
-      {
-        dappOptions: {
-          customDappPaths: ['./tests/metrics/marketing-cookieid-mock-page'],
-        },
-        fixtures: new FixtureBuilderV2()
-          .withAnalyticsController({
-            analyticsId: MOCK_ANALYTICS_ID,
-            consentDecisionMade: true,
-            optedIn: true,
-            dataCollectionForMarketing: true,
-          })
-          .build(),
-        title: this.test?.fullTitle(),
-        testSpecificMock: mockSegment,
-      },
-      async ({
-        driver,
-        mockedEndpoint: mockedEndpoints,
-      }: TestSuiteArguments) => {
-        await login(driver);
-        const dappPage = new TestDapp(driver);
-        await dappPage.openTestDappPage();
-        await driver.switchToWindowWithTitle(
-          WINDOW_TITLES.ExtensionInFullScreenView,
-        );
-
-        // waiting for marketingCampaignCookieId to update in state
-        await driver.delay(5000);
-
-        const uiState = await getCleanAppState(driver);
-        assert.equal(uiState.metamask.marketingCampaignCookieId, 12345);
-
-        const homePage = new HomePage(driver);
-        await homePage.checkPageIsLoaded();
-        await homePage.headerNavbar.openGlobalMenu();
-        const events = await getEventPayloads(
-          driver,
-          mockedEndpoints as MockedEndpoint[],
-        );
-        assert.equal(events.length, 1);
-        const eventContext = events[0].context;
-        assert.equal(eventContext.marketingCampaignCookieId, 12345);
-      },
-    );
-  });
   it('should not be send to segment when dataCollectionForMarketing is never toggled on', async function () {
     await withFixtures(
       {
@@ -171,71 +122,6 @@ describe('Marketing cookieId', function (this: Suite) {
           mockedEndpoints as MockedEndpoint[],
         );
         assert.equal(events.length, 0);
-      },
-    );
-  });
-  it('should updates marketingCampaignCookieId to null when dataCollectionForMarketing is toggled off ', async function () {
-    await withFixtures(
-      {
-        dappOptions: {
-          customDappPaths: ['./tests/metrics/marketing-cookieid-mock-page'],
-        },
-        fixtures: new FixtureBuilderV2()
-          .withAnalyticsController({
-            analyticsId: MOCK_ANALYTICS_ID,
-            consentDecisionMade: true,
-            optedIn: true,
-            dataCollectionForMarketing: true,
-          })
-          .build(),
-        title: this.test?.fullTitle(),
-        testSpecificMock: mockSegment,
-      },
-      async ({
-        driver,
-        mockedEndpoint: mockedEndpoints,
-      }: TestSuiteArguments) => {
-        await login(driver);
-        const dappPage = new TestDapp(driver);
-        await dappPage.openTestDappPage();
-
-        await driver.switchToWindowWithTitle(
-          WINDOW_TITLES.ExtensionInFullScreenView,
-        );
-
-        // waiting for marketingCampaignCookieId to update in state
-        await driver.delay(5000);
-
-        let uiState = await getCleanAppState(driver);
-        assert.equal(uiState.metamask.marketingCampaignCookieId, 12345);
-
-        const homePage = new HomePage(driver);
-        await homePage.checkPageIsLoaded();
-        await homePage.headerNavbar.openSettingsPage();
-
-        const events = await getEventPayloads(
-          driver,
-          mockedEndpoints as MockedEndpoint[],
-        );
-        assert.equal(events.length, 1);
-        const eventContext = events[0].context;
-        assert.equal(eventContext.marketingCampaignCookieId, 12345);
-
-        // opt out data collection for marketing on privacy settings page
-        const settingsPage = new SettingsPage(driver);
-        await settingsPage.checkPageIsLoaded();
-        await settingsPage.goToPrivacySettings();
-        const privacySettings = new PrivacySettings(driver);
-        await privacySettings.checkPageIsLoaded();
-        await privacySettings.optOutDataCollectionForMarketing();
-
-        // waiting for marketingCampaignCookieId to update in state
-        await driver.delay(5000);
-
-        uiState = await getCleanAppState(driver);
-        assert.equal(uiState.metamask.optedInToMarketing, false);
-        assert.equal(uiState.metamask.marketingConsentDecisionMade, true);
-        assert.equal(uiState.metamask.marketingCampaignCookieId, null);
       },
     );
   });

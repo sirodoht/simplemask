@@ -12,7 +12,6 @@ import { isBeta, isFlask, isMain } from '../../../shared/lib/build-types';
 import { getEnvironmentType } from '../../../shared/lib/environment-type';
 import { SUPPORT_LINK } from '../../../shared/lib/ui-utils';
 import { TermsOfUsePopupContainer } from '../../components/app/terms-of-use-popup';
-import { MetaMetricsConsentContainer } from '../../components/app/metametrics-consent/metametrics-consent-container';
 import { RecoveryPhraseReminderContainer } from '../../components/app/recovery-phrase-reminder';
 import { ImportedTokensNotificationContainer } from '../../components/app/imported-tokens-notification/imported-tokens-notification-container';
 import { MultiRpcEditModalContainer } from '../../components/app/multi-rpc-edit-modal/multi-rpc-edit-modal-container';
@@ -257,7 +256,6 @@ export default function Home() {
   const homeBody = (
     <>
       <div className="home__container" data-testid="parent-selector-home">
-        <MetaMetricsConsentContainer />
         <PasswordOutdatedModalContainer />
         <MultiRpcEditModalContainer />
         <UpdateModalContainer />

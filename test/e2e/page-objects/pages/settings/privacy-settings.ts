@@ -64,9 +64,6 @@ class PrivacySettings {
 
   private readonly copySrpButton = '[data-testid="reveal-seed-copy-button"]';
 
-  private readonly dataCollectionForMarketingToggle =
-    '[data-testid="data-collection-for-marketing-toggle"] .toggle-button';
-
   private readonly deleteMetaMetricsDataButton =
     '[data-testid="delete-metametrics-data-button"]';
 
@@ -508,17 +505,6 @@ class PrivacySettings {
     await this.driver.clickElement(this.revealSrpButton);
   }
 
-  /**
-   * Settings does not show the legacy “device only” popover when opting out;
-   * this only toggles the control off.
-   */
-  async optOutDataCollectionForMarketing(): Promise<void> {
-    console.log(
-      'Opt out data collection for marketing on privacy settings page',
-    );
-    await this.toggleDataCollectionForMarketing({ targetState: 'off' });
-  }
-
   async toggleAutodetectNft(): Promise<void> {
     console.log('Toggle autodetect NFT on privacy settings page');
     await this.driver.clickElement(this.autodetectNftToggleButton);
@@ -548,18 +534,6 @@ class PrivacySettings {
     await this.driver.clickElement(this.settingsTransactionsTab);
     await this.driver.waitForSelector(this.blockaidAlertsToggle);
     await this.driver.clickElement(this.blockaidAlertsToggle);
-  }
-
-  async toggleDataCollectionForMarketing({
-    targetState = 'on',
-  }: { targetState?: 'on' | 'off' } = {}): Promise<void> {
-    console.log(
-      'Toggle data collection for marketing in Security and Privacy settings page',
-    );
-    await this.driver.clickElement(this.dataCollectionForMarketingToggle);
-    await this.driver.waitForSelector(
-      `${this.dataCollectionForMarketingToggle}.toggle-button--${targetState}`,
-    );
   }
 
   async toggleEnsDomainResolution(): Promise<void> {

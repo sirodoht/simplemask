@@ -35,7 +35,6 @@ import {
   configureAnalytics,
   getProfileIdentityProperties,
   identify,
-  setDataCollectionForMarketing,
   setParticipateInMetaMetrics,
   trackEvent,
   updateProfileSessionData,
@@ -431,30 +430,6 @@ describe('analytics', () => {
       expect(analyticsControllerState.marketingCampaignCookieId).toStrictEqual(
         TEST_GA_COOKIE_ID,
       );
-    });
-
-    it('updates AnalyticsController marketing consent', async () => {
-      const {
-        analyticsControllerState,
-        optInToMarketingHandler,
-        optOutOfMarketingHandler,
-      } = createConfiguredMessenger({
-        marketingCampaignCookieId: TEST_GA_COOKIE_ID,
-      });
-
-      const analyticsId = await setDataCollectionForMarketing(true);
-
-      expect(analyticsId).toStrictEqual(TEST_ANALYTICS_ID);
-      expect(optInToMarketingHandler).toHaveBeenCalledTimes(1);
-      expect(analyticsControllerState.optedInToMarketing).toBe(true);
-      expect(analyticsControllerState.marketingConsentDecisionMade).toBe(true);
-
-      await setDataCollectionForMarketing(false);
-
-      expect(optOutOfMarketingHandler).toHaveBeenCalledTimes(1);
-      expect(analyticsControllerState.optedInToMarketing).toBe(false);
-      expect(analyticsControllerState.marketingConsentDecisionMade).toBe(true);
-      expect(analyticsControllerState.marketingCampaignCookieId).toBeNull();
     });
 
     describe('the extension uninstall URL', () => {

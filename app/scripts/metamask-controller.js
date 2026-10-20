@@ -185,7 +185,6 @@ import {
   trackPage,
   updateEventFragment,
 } from './controllers/analytics';
-import { setDataCollectionForMarketing } from './controllers/analytics/analytics';
 import Backup from './lib/backup';
 import createMetaRPCHandler from './lib/createMetaRPCHandler';
 import {
@@ -2102,7 +2101,6 @@ export default class MetamaskController extends EventEmitter {
           preferencesController,
         ),
       setParticipateInMetaMetrics,
-      setDataCollectionForMarketing,
       setCurrentLocale: preferencesController.setCurrentLocale.bind(
         preferencesController,
       ),
@@ -2497,12 +2495,6 @@ export default class MetamaskController extends EventEmitter {
 
       // OAuthService
       startOAuthLogin: this.oauthService.startOAuthLogin.bind(
-        this.oauthService,
-      ),
-      setMarketingConsent: this.oauthService.setMarketingConsent.bind(
-        this.oauthService,
-      ),
-      getMarketingConsent: this.oauthService.getMarketingConsent.bind(
         this.oauthService,
       ),
       getGeolocation: this.geolocationController.getGeolocation.bind(

@@ -13,9 +13,11 @@ import type {
   NotificationServicesPushControllerInitMessenger,
 } from '../messengers/notifications';
 import { isManifestV3 } from '../../../../shared/lib/mv3.utils';
+import { isRetainedRemoteNotification } from '../../../../shared/lib/retained-notifications';
 import {
   onPushNotificationClicked,
   onPushNotificationReceived,
+  installPushNotificationFilter,
 } from '../../controllers/push-notifications';
 import {
   MetaMetricsEventCategory,
@@ -73,6 +75,9 @@ export const NotificationServicesPushControllerInit: MessengerClientInitFunction
   getMessengerClient,
   platform,
 }) => {
+  if (isManifestV3) {
+    installPushNotificationFilter();
+  }
   const appVersion = getAppVersionForRegistration(() => platform.getVersion());
 
   const messengerClient = new NotificationServicesPushController({
@@ -114,6 +119,9 @@ export const NotificationServicesPushControllerInit: MessengerClientInitFunction
   initMessenger.subscribe(
     'NotificationServicesPushController:pushNotificationClicked',
     (notification) => {
+      if (!isRetainedRemoteNotification(notification)) {
+        return;
+      }
       trackEvent(
         createEventBuilder(MetaMetricsEventName.PushNotificationClicked)
           .addCategory(MetaMetricsEventCategory.PushNotifications)

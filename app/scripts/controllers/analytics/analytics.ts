@@ -465,23 +465,6 @@ export async function setParticipateInMetaMetrics(
   return analyticsId;
 }
 
-export async function setDataCollectionForMarketing(
-  dataCollectionForMarketing: boolean,
-): Promise<string> {
-  const analyticsMessenger = getMessenger();
-  const { analyticsId } = analyticsMessenger.call(
-    'AnalyticsController:getState',
-  );
-
-  if (dataCollectionForMarketing) {
-    await analyticsMessenger.call('AnalyticsController:optInToMarketing');
-  } else {
-    analyticsMessenger.call('AnalyticsController:optOutOfMarketing');
-  }
-
-  return analyticsId;
-}
-
 export function trackPage(payload: MetaMetricsPagePayload): void {
   try {
     if (!canSubmitAnalytics()) {

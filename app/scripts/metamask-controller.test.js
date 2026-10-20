@@ -2235,7 +2235,7 @@ describe('MetaMaskController', () => {
       afterEach(() => {
         jest.clearAllMocks();
       });
-      it('creates a cookie handler communication stream with getCookieFromMarketingPage handler', async () => {
+      it('does not resume marketing cookie collection from saved consent', async () => {
         const attributionRequest = {
           name: METAMASK_COOKIE_HANDLER,
           data: {
@@ -2264,9 +2264,15 @@ describe('MetaMaskController', () => {
         streamTest.write(attributionRequest, null, () => {
           expect(
             localMetaMaskController.getCookieFromMarketingPage,
-          ).toHaveBeenCalledWith({
-            ga_client_id: 'XYZ.ABC',
-          });
+          ).not.toHaveBeenCalled();
+          expect(
+            localMetaMaskController.analyticsController.state
+              .optedInToMarketing,
+          ).toBe(false);
+          expect(
+            localMetaMaskController.analyticsController.state
+              .marketingCampaignCookieId,
+          ).toBeNull();
           resolveStream();
         });
 

@@ -8,16 +8,7 @@ import {
   useDisableMetametrics,
 } from '../../../hooks/useMetametrics';
 import { selectIsBackupAndSyncEnabled } from '../../../selectors/identity/backup-and-sync';
-import {
-  getOptedIn,
-  getUseExternalServices,
-  getIsSocialLoginFlow,
-} from '../../../selectors';
-import { getDataCollectionForMarketing } from '../../../selectors/metametrics';
-import {
-  setDataCollectionForMarketing,
-  setMarketingConsent,
-} from '../../../store/actions';
+import { getOptedIn, getUseExternalServices } from '../../../selectors';
 import {
   MetaMetricsEventCategory,
   MetaMetricsEventName,
@@ -25,11 +16,9 @@ import {
 } from '../../../../shared/constants/metametrics';
 import { SettingsToggleItem } from '../shared/settings-toggle-item';
 import { PRIVACY_ITEMS } from '../search-config';
-import { useDispatch } from '../../../store/hooks';
 
 export const MetametricsToggleItem = () => {
   const t = useI18nContext();
-  const dispatch = useDispatch();
   const { trackEvent, createEventBuilder } = useAnalytics();
   const { enableMetametrics, error: enableMetametricsError } =
     useEnableMetametrics();
@@ -41,8 +30,6 @@ export const MetametricsToggleItem = () => {
   const isBackupAndSyncEnabled = useSelector(selectIsBackupAndSyncEnabled);
   const isOptedIn = useSelector(getOptedIn);
   const useExternalServices = useSelector(getUseExternalServices);
-  const dataCollectionForMarketing = useSelector(getDataCollectionForMarketing);
-  const socialLoginEnabled = useSelector(getIsSocialLoginFlow);
 
   const handleToggle = async (currentValue: boolean) => {
     const newValue = !currentValue;
@@ -60,13 +47,6 @@ export const MetametricsToggleItem = () => {
           .build(),
       );
     } else {
-      if (dataCollectionForMarketing) {
-        if (socialLoginEnabled) {
-          dispatch(setMarketingConsent(false));
-        }
-        dispatch(setDataCollectionForMarketing(false));
-      }
-
       trackEvent(
         createEventBuilder(MetaMetricsEventName.TurnOffMetaMetrics)
           .addCategory(MetaMetricsEventCategory.Settings)

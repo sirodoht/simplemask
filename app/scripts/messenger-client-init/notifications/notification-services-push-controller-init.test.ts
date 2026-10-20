@@ -199,6 +199,16 @@ describe('NotificationServicesPushControllerInit - pushNotificationClicked subsc
     jest.resetAllMocks();
   });
 
+  it('ignores clicks on previously delivered marketing notifications', () => {
+    const { clickCallback } = arrange();
+    clickCallback({
+      notification_id: 'campaign',
+      notification_type: 'marketing',
+      notification_subtype: 'promotion',
+    });
+    expect(mockTrackEvent).not.toHaveBeenCalled();
+  });
+
   it('tracks the click event without chain_id when chain_id is absent', () => {
     const { clickCallback } = arrange();
     clickCallback({

@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/naming-convention -- Notification API field names. */
 import { type Json } from '@metamask/utils';
+import { it } from '@jest/globals';
 import {
   INotification as Notification,
   processNotification,
+  TRIGGER_TYPES,
 } from '@metamask/notification-services-controller/notification-services';
 import {
   createMockNotificationEthReceived,
@@ -98,6 +101,32 @@ describe('Metamask Notifications Selectors', () => {
       mockNotifications.filter((notification) => !notification.isRead).length,
     );
   });
+
+  it.each(['marketing', 'social_ai', 'new_campaign'])(
+    'excludes %s from the inbox, badge, and direct lookup',
+    (producer) => {
+      const platform = createMockPlatformNotification();
+      if (platform.type !== TRIGGER_TYPES.PLATFORM) {
+        throw new Error('Expected a platform notification fixture');
+      }
+      const notification = processNotification({
+        ...platform,
+        notification_type: producer,
+      });
+      const state = mockState();
+      state.metamask.metamaskNotificationsList = [
+        ...mockNotifications,
+        notification,
+      ];
+      expect(getMetamaskNotifications(state)).toEqual(mockNotifications);
+      expect(
+        getMetamaskNotificationById(state, notification.id),
+      ).toBeUndefined();
+      expect(getMetamaskNotificationsUnreadCount(state)).toBe(
+        mockNotifications.filter((entry) => !entry.isRead).length,
+      );
+    },
+  );
 
   it('should select the metamaskNotificationsReadList from state', () => {
     expect(getMetamaskNotificationsReadList(mockState())).toStrictEqual([]);

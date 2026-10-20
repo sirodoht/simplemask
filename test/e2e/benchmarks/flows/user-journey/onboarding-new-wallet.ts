@@ -35,7 +35,6 @@ import {
   BENCHMARK_TYPE,
   type WebVitalsMetrics,
 } from '../../../../../shared/constants/benchmarks';
-import { collectWebVitals } from '../../utils';
 import type { BenchmarkRunResult, LongTaskStepResult } from '../../utils/types';
 
 export const testTitle = 'benchmark-onboarding-new-wallet';
@@ -68,7 +67,6 @@ export async function runOnboardingNewWalletBenchmark(): Promise<BenchmarkRunRes
           await onboardingMetricsFlow(driver, {
             consentDecisionMade: true,
             optedIn: false,
-            dataCollectionForMarketing: false,
           });
         }
 

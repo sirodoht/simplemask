@@ -25,13 +25,13 @@ describe('privacyRoute', () => {
     expect(result.path).toBe(`${PRIVACY_ROUTE}#metametrics`);
   });
 
-  it('scrolls to the data collection toggle when setting=data-collection', () => {
+  it('does not navigate to the retired marketing setting', () => {
     const result = privacy.handler(
       new URLSearchParams({ setting: 'data-collection' }),
     );
 
     assertPathDestination(result);
-    expect(result.path).toBe(`${PRIVACY_ROUTE}#data-collection`);
+    expect(result.path).toBe(`${PRIVACY_ROUTE}#metametrics`);
   });
 
   it('falls back to the metametrics toggle for unknown setting values', () => {

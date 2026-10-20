@@ -11,10 +11,7 @@ export const DEFAULT_SETTING_ANCHOR = 'metametrics';
  * declared in `ui/pages/settings/privacy-tab/privacy-tab.tsx`, which the
  * settings page scrolls into view via the URL hash.
  */
-export const SETTING_ANCHORS = new Set([
-  DEFAULT_SETTING_ANCHOR,
-  'data-collection',
-]);
+export const SETTING_ANCHORS = new Set([DEFAULT_SETTING_ANCHOR]);
 
 /**
  * Deeplink to the Privacy & Security settings tab, scrolled to a specific
@@ -23,7 +20,6 @@ export const SETTING_ANCHORS = new Set([
  * Supported URL formats:
  * - https://link.metamask.io/privacy
  * - https://link.metamask.io/privacy?setting=metametrics
- * - https://link.metamask.io/privacy?setting=data-collection
  *
  * Unknown or missing `setting` values fall back to the MetaMetrics toggle so
  * stale links still land on the privacy settings page.

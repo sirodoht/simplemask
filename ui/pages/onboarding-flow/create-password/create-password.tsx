@@ -32,11 +32,7 @@ import {
 } from '../../../../shared/constants/metametrics';
 import { FirstTimeFlowType } from '../../../../shared/constants/onboarding';
 import { useIsFirefox } from '../../../hooks/useIsFirefox';
-import {
-  getIsSeedlessOnboardingUserAuthenticated,
-  setDataCollectionForMarketing,
-  setMarketingConsent,
-} from '../../../store/actions';
+import { getIsSeedlessOnboardingUserAuthenticated } from '../../../store/actions';
 import { useOnboardingReset } from '../hooks/useOnboardingReset';
 import { TraceName, TraceOperation } from '../../../../shared/lib/trace';
 import { getIsWalletResetInProgress } from '../../../ducks/metamask/metamask';
@@ -252,10 +248,7 @@ export default function CreatePassword({
     }
   };
 
-  const handleCreateNewWallet = async (
-    password: string,
-    termsChecked: boolean,
-  ) => {
+  const handleCreateNewWallet = async (password: string) => {
     trackEvent(
       createEventBuilder(MetaMetricsEventName.WalletCreationAttempted)
         .addCategory(MetaMetricsEventCategory.Onboarding)
@@ -322,16 +315,10 @@ export default function CreatePassword({
           .addCategory(MetaMetricsEventCategory.Onboarding)
           .addProperties({
             [MetaMetricsUserTrait.IsMetricsOptedIn]: true,
-            [MetaMetricsUserTrait.HasMarketingConsent]: termsChecked,
             location: 'onboarding_create_password',
           })
           .build(),
       );
-
-      if (termsChecked) {
-        dispatch(setMarketingConsent(true));
-        dispatch(setDataCollectionForMarketing(true));
-      }
       navigate(ONBOARDING_DOWNLOAD_APP_ROUTE, { replace: true });
     } else if (isPasskeyFeatureAvailable) {
       navigate(ONBOARDING_SETUP_PASSKEY_ROUTE, { replace: true });
@@ -364,10 +351,7 @@ export default function CreatePassword({
     }
   };
 
-  const handleCreatePassword = async (
-    password: string,
-    termsChecked: boolean,
-  ) => {
+  const handleCreatePassword = async (password: string) => {
     if (!password || isSubmitting) {
       return;
     }
@@ -383,7 +367,7 @@ export default function CreatePassword({
         await handleWalletImport(password);
       } else {
         // Otherwise we are in create new wallet flow
-        await handleCreateNewWallet(password, termsChecked);
+        await handleCreateNewWallet(password);
       }
     } catch (error) {
       log.error('Error creating password', error);

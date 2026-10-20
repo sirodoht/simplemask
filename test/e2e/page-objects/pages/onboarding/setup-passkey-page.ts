@@ -74,6 +74,10 @@ class SetupPasskeyPage {
     await this.driver.clickElement(this.setUpPasskeyButton);
   }
 
+  async isPageLoaded(timeout = 5000): Promise<boolean> {
+    return this.driver.isElementPresentAndVisible(this.page, timeout);
+  }
+
   async skipPasskeySetup(): Promise<void> {
     console.log('Skip passkey setup');
     await this.driver.clickElementAndWaitToDisappear(this.maybeLaterButton);

@@ -28,8 +28,6 @@ export type {
   OAuthServiceGetNewRefreshTokenAction,
   OAuthServiceRenewRefreshTokenAction,
   OAuthServiceRevokeRefreshTokenAction,
-  OAuthServiceGetMarketingConsentAction,
-  OAuthServiceSetMarketingConsentAction,
 } from './oauth-service-method-action-types';
 
 /**
