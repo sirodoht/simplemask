@@ -103,7 +103,7 @@ function getRating(
  * Numeric measurements are NOT sent here. On `chrome-extension://` pages,
  * `browserTracingIntegration` cannot capture web vitals because Chrome does
  * not emit paint performance entries for the `chrome-extension://` protocol.
- * Benchmark measurements are handled separately by `send-to-sentry.ts`.
+ * Benchmark measurements are recorded separately by the local benchmark runner.
  *
  * This function adds contextual data when callbacks do fire:
  * - Rating tags for filtering (e.g. `inp.rating:poor`)

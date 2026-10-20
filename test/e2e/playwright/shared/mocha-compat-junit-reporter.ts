@@ -1,6 +1,6 @@
 /**
  * Playwright JUnit reporter that emits XML in the shape consumed by the
- * central e2e test report parser at `.github/scripts/create-e2e-test-report.mts`.
+ * JUnit result parser used by the E2E runner.
  *
  * The parser was originally written for the output of
  * `mocha-junit-reporter` and strictly requires:
@@ -23,7 +23,7 @@
  * batched file. `PLAYWRIGHT_JUNIT_OUTPUT_FILE` is treated as a base
  * name: each spec gets `<base>-<specHash><ext>`. This matches
  * `mocha-junit-reporter`'s `[hash].xml` convention and, crucially,
- * keeps `.github/scripts/merge-test-results.mts` correct on CI
+ * preserves file-level results for test reruns
  * re-runs. That merge copies a previous XML only when none of its
  * suites ran in the current attempt; with a batched file, re-running a
  * single spec would skip the merge for the whole batch and drop the

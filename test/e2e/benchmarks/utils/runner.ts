@@ -291,7 +291,7 @@ export async function runBenchmarkWithIterations(
 }
 
 /**
- * Maps aggregated timer statistics to `BenchmarkResults` (shared with send-to-sentry and CI JSON).
+ * Maps aggregated timer statistics to `BenchmarkResults` (the local JSON output format).
  * Used by Selenium benchmarks and Playwright dapp page-load benchmarks.
  *
  * @param timers - One {@link TimerStatistics} per metric id (e.g. timer name or web vital key)
@@ -357,7 +357,7 @@ export function convertTimerStatisticsToBenchmarkResults(
 
 /**
  * Convert BenchmarkSummary (from runBenchmarkWithIterations) to BenchmarkResults format
- * for consistent output with send-to-sentry.ts
+ * for consistent benchmark output
  *
  * @param summary
  * @param testTitle

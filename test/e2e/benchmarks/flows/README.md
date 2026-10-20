@@ -149,7 +149,7 @@ Benchmark results are output as JSON, either to stdout or to a file via `--out`:
 }
 ```
 
-Results are sent to Sentry in CI via `send-to-sentry.ts` for monitoring and analysis.
+Results are written locally for review; benchmark runs do not upload telemetry.
 
 Each benchmark entry becomes a **Sentry Structured Log** (`Sentry.logger.info`):
 
