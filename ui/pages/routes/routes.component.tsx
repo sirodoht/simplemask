@@ -58,7 +58,6 @@ import {
   MULTICHAIN_SMART_ACCOUNT_PAGE_ROUTE,
   NETWORKS_ROUTE,
   TOKEN_MANAGEMENT_ROUTE,
-  DISCOVER_SEARCH_ROUTE,
   CUSTOM_TOKEN_IMPORT_ROUTE,
   SHIELD_PLAN_ROUTE,
   GATOR_PERMISSIONS,
@@ -88,7 +87,6 @@ import {
   getUnapprovedConfirmations,
   getShowExtensionInFullSizeView,
 } from '../../selectors';
-import { getIsDiscoverSearchEnabled } from '../../selectors/multichain/feature-flags';
 import { getPreferences } from '../../../shared/lib/selectors/preferences';
 import { useTheme } from '../../hooks/useTheme';
 import { useIsRedesignedConfirmationType } from '../../hooks/useIsRedesignedTransactionType';
@@ -174,7 +172,6 @@ const NetworksPage = mmLazy(() => import('../networks/index.ts'));
 const TokenManagementPage = mmLazy(
   () => import('../token-management/index.ts'),
 );
-const DiscoverSearchPage = mmLazy(() => import('../discover-search/index.ts'));
 const CustomTokenImportPage = mmLazy(
   () => import('../custom-token-import/index.ts'),
 );
@@ -285,16 +282,6 @@ const SettingsV2LegacyRedirect = () => {
 
 export const TokenManagementFeatureRoute = () => {
   return <TokenManagementPage />;
-};
-
-export const DiscoverSearchFeatureRoute = () => {
-  const isDiscoverSearchEnabled = useAppSelector(getIsDiscoverSearchEnabled);
-
-  if (!isDiscoverSearchEnabled) {
-    return <Navigate to={DEFAULT_ROUTE} replace />;
-  }
-
-  return <DiscoverSearchPage />;
 };
 
 export const CustomTokenImportFeatureRoute = () => {
@@ -524,14 +511,6 @@ export const routeConfig = [
       {
         element: <RequireBasicFunctionality />,
         children: [
-          {
-            path: DISCOVER_SEARCH_ROUTE,
-            element: (
-              <GlobalMenuRouteTransition>
-                <DiscoverSearchFeatureRoute />
-              </GlobalMenuRouteTransition>
-            ),
-          },
           {
             path: '/notifications/settings',
             element: <Navigate to={NOTIFICATIONS_SETTINGS_ROUTE} replace />,

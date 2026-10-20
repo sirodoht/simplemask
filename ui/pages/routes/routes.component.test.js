@@ -12,7 +12,6 @@ import {
   CONFIRMATION_V_NEXT_ROUTE,
   CROSS_CHAIN_SWAP_ROUTE,
   DEFAULT_ROUTE,
-  DISCOVER_SEARCH_ROUTE,
   HARDWARE_WALLET_SIGNATURES_ROUTE,
   TOKEN_MANAGEMENT_ROUTE,
 } from '../../helpers/constants/routes';
@@ -24,7 +23,6 @@ import { CHAIN_IDS } from '../../../shared/constants/network';
 import { mockNetworkState } from '../../../test/stub/networks';
 import useMultiPolling from '../../hooks/useMultiPolling';
 import { RequireAuthenticated } from '../../layouts/require-authenticated';
-import RequireBasicFunctionality from '../../helpers/higher-order-components/require-basic-functionality/require-basic-functionality';
 import Routes, { routeConfig, TokenManagementFeatureRoute } from '.';
 
 const middlewares = [thunk];
@@ -235,17 +233,11 @@ describe('Routes Component', () => {
     ]);
     expect(matches?.[0].route.element.type).toBe(RequireAuthenticated);
   });
-
-  it('guards discover search with basic functionality', () => {
-    const matches = matchRoutes(routeConfig, DISCOVER_SEARCH_ROUTE);
-
-    expect(matches?.map(({ route }) => route.path)).toStrictEqual([
-      undefined,
-      undefined,
-      DISCOVER_SEARCH_ROUTE,
-    ]);
-    expect(matches?.[0].route.element.type).toBe(RequireAuthenticated);
-    expect(matches?.[1].route.element.type).toBe(RequireBasicFunctionality);
+  it('does not register the retired Discover page', () => {
+    const matches = matchRoutes(routeConfig, '/discover-search');
+    expect(
+      matches?.some(({ route }) => route.path === '/discover-search') ?? false,
+    ).toBe(false);
   });
 
   describe('render during send flow', () => {

@@ -61,7 +61,6 @@ const NetworkListItemMenuWithButton = (args: any) => {
 export const Default: Story = {
   render: (args) => <NetworkListItemMenuWithButton {...args} />,
   args: {
-    onDiscoverClick: () => console.log('Discover clicked'),
     onEditClick: () => console.log('Edit clicked'),
     onDeleteClick: () => console.log('Delete clicked'),
     isClosing: false,

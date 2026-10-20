@@ -15,15 +15,11 @@ export const NetworkListItemMenu = ({
   onEditClick,
   onDeleteClick,
   deleteMenuLabel = 'delete',
-  onDiscoverClick,
   isOpen,
   finalFocusRef,
   isClosing: isClosingProp,
 }) => {
   const t = useI18nContext();
-
-  // Create refs for each menu item
-  const discoverRef = useRef(null);
   const editRef = useRef(null);
   const deleteRef = useRef(null);
 
@@ -35,11 +31,8 @@ export const NetworkListItemMenu = ({
     if (onEditClick) {
       return editRef;
     }
-    if (onDiscoverClick) {
-      return discoverRef;
-    }
     return null;
-  }, [onDeleteClick, onEditClick, onDiscoverClick]);
+  }, [onDeleteClick, onEditClick]);
 
   // Handle Tab key press for accessibility - close popover on last MenuItem
   const handleKeyDown = useCallback(
@@ -61,19 +54,6 @@ export const NetworkListItemMenu = ({
   const menuContent = (
     <div onKeyDown={handleKeyDown}>
       <Box>
-        {onDiscoverClick ? (
-          <MenuItem
-            ref={discoverRef}
-            iconNameLegacy={IconName.Eye}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDiscoverClick();
-            }}
-            data-testid="network-list-item-options-discover"
-          >
-            <Text>{t('discover')}</Text>
-          </MenuItem>
-        ) : null}
         {onEditClick ? (
           <MenuItem
             ref={editRef}
@@ -156,10 +136,6 @@ NetworkListItemMenu.propTypes = {
    * Locale key for the delete/disable menu item label
    */
   deleteMenuLabel: PropTypes.oneOf(['delete', 'disable']),
-  /**
-   * Function that executes when the Discover menu item is clicked
-   */
-  onDiscoverClick: PropTypes.func,
   /**
    * Represents if the menu is open or not
    *

@@ -9,7 +9,7 @@ import SelectNetworkModal from '../../page-objects/pages/networks/select-network
 import NetworkFilter from '../../page-objects/pages/networks/network-filter';
 import HeaderNavbar from '../../page-objects/pages/home/header-navbar';
 import NetworksPage from '../../page-objects/pages/networks/networks-page';
-import { TRON_CHAIN_ID, mockTronFeatureFlags } from '../tron/mocks/common-tron';
+import { mockTronFeatureFlags } from '../tron/mocks/common-tron';
 import { switchToNetworkFromNetworkSelect } from '../../page-objects/flows/network.flow';
 
 const TRON_NETWORK_NAME = 'Tron';
@@ -58,12 +58,10 @@ describe('Tron - Network', function (this: Suite) {
           await selectNetworkModal.checkNetworkIsListed(TRON_NETWORK_NAME);
           await selectNetworkModal.close();
 
-          // Tron is listed on the networks page and discoverable.
+          // Tron is listed on the networks page.
           await headerNavbar.openGlobalNetworksMenu();
           await networksPage.checkPageIsLoaded();
           await networksPage.fillNetworkSearchInput(TRON_NETWORK_NAME);
-          await networksPage.openNetworkListOptions(TRON_CHAIN_ID);
-          await networksPage.checkDiscoverButtonIsVisible();
           // End on the route leave: the back button is not rendered while the
           // header is in search mode, so navigating home is the reliable way
           // out — and no further in-page interaction is attempted after the

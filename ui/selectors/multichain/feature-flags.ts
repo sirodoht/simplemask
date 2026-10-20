@@ -183,17 +183,6 @@ export const getIsSecurityTrustTdpEnabled = createSelector(
 );
 
 /**
- * Get the state of the `extensionUXSearch` remote feature flag.
- *
- * @param _state - The MetaMask state object
- * @returns boolean - True if the feature is enabled, false otherwise.
- */
-export const getIsDiscoverSearchEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ extensionUXSearch }) => getBooleanFeatureFlag(extensionUXSearch, false),
-);
-
-/**
  * Selector that returns whether the TradingView advanced charts integration
  * should be shown on the Token Details Page.
  *

@@ -1,18 +1,14 @@
 import { useCallback } from 'react';
 import { EthScope } from '@metamask/keyring-api';
 import { type MultichainNetworkConfiguration } from '@metamask/multichain-network-controller';
-import { type CaipChainId, type Hex } from '@metamask/utils';
+import { type CaipChainId } from '@metamask/utils';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import {
-  CHAIN_IDS,
-  CHAIN_ID_PORTFOLIO_LANDING_PAGE_URL_MAP,
-} from '../../../../../shared/constants/network';
+import { CHAIN_IDS } from '../../../../../shared/constants/network';
 import {
   convertCaipToHexChainId,
   getRpcDataByChainId,
 } from '../../../../../shared/lib/network.utils';
-import { openWindow } from '../../../../helpers/utils/window';
 import { isDisableableDefaultNetwork } from '../../../../helpers/utils/network-sections';
 import {
   removeNetwork,
@@ -21,7 +17,6 @@ import {
 } from '../../../../store/actions';
 import {
   getMultichainNetworkConfigurationsByChainId,
-  getNetworkDiscoverButtonEnabled,
   getSelectedMultichainNetworkChainId,
 } from '../../../../selectors';
 import { getCompletedOnboarding } from '../../../../ducks/metamask/metamask';
@@ -33,7 +28,6 @@ export type NetworkItemCallbacks = {
   onDelete?: () => void;
   onDeleteMenuLabel?: 'disable' | 'delete';
   onEdit?: () => void;
-  onDiscoverClick?: () => void;
   onRpcConfigEdit?: () => void;
   onRpcSelect?: () => void;
 };
@@ -43,28 +37,12 @@ export const useNetworkItemCallbacks = () => {
   const [, setSearchParams] = useSearchParams();
   const isUnlocked = useSelector(getIsUnlocked);
   const currentChainId = useSelector(getSelectedMultichainNetworkChainId);
-  const isNetworkDiscoverButtonEnabled = useSelector(
-    getNetworkDiscoverButtonEnabled,
-  );
   const [, evmNetworks] = useSelector(
     getMultichainNetworkConfigurationsByChainId,
   );
   const completedOnboarding = useSelector(getCompletedOnboarding);
 
   const { hasAnyAccountsInNetwork } = useAccountNetworkAvailability();
-
-  const isDiscoverBtnEnabled = useCallback(
-    (chainId: Hex | `${string}:${string}`): boolean => {
-      // The "Discover" button should be enabled when the mapping for the chainId is enabled in the feature flag json
-      // and in the constants `CHAIN_ID_PORTFOLIO_LANDING_PAGE_URL_MAP`.
-      return Boolean(
-        isNetworkDiscoverButtonEnabled?.[
-          chainId as keyof typeof isNetworkDiscoverButtonEnabled
-        ] && CHAIN_ID_PORTFOLIO_LANDING_PAGE_URL_MAP[chainId] !== undefined,
-      );
-    },
-    [isNetworkDiscoverButtonEnabled],
-  );
 
   const hasMultiRpcOptions = useCallback(
     (network: MultichainNetworkConfiguration): boolean =>
@@ -115,20 +93,6 @@ export const useNetworkItemCallbacks = () => {
         onHide: () => undefined,
       };
 
-      const discoverChainId = isEvm ? hexChainId : chainId;
-      const onDiscoverClick = isDiscoverBtnEnabled(
-        discoverChainId as Hex | `${string}:${string}`,
-      )
-        ? () => {
-            openWindow(
-              CHAIN_ID_PORTFOLIO_LANDING_PAGE_URL_MAP[
-                discoverChainId as keyof typeof CHAIN_ID_PORTFOLIO_LANDING_PAGE_URL_MAP
-              ],
-              '_blank',
-            );
-          }
-        : undefined;
-
       const onDelete = canRemoveOrDisable
         ? () => {
             if (isDisableableDefault) {
@@ -149,7 +113,6 @@ export const useNetworkItemCallbacks = () => {
         return {
           onDelete,
           onDeleteMenuLabel,
-          onDiscoverClick,
         };
       }
 
@@ -167,7 +130,6 @@ export const useNetworkItemCallbacks = () => {
           );
           setSearchParams({ view: 'edit' });
         },
-        onDiscoverClick,
         onRpcConfigEdit: hasMultiRpcOptions(network)
           ? () => {
               setSearchParams({ view: 'add-rpc' });
@@ -188,14 +150,7 @@ export const useNetworkItemCallbacks = () => {
         },
       };
     },
-    [
-      currentChainId,
-      dispatch,
-      hasMultiRpcOptions,
-      isUnlocked,
-      isDiscoverBtnEnabled,
-      setSearchParams,
-    ],
+    [currentChainId, dispatch, hasMultiRpcOptions, isUnlocked, setSearchParams],
   );
 
   return {

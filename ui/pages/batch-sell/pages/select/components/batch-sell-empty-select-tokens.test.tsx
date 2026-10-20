@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import { ThemeType } from '../../../../../../shared/constants/preferences';
 import { getPortfolioUrl } from '../../../../../helpers/utils/portfolio';
@@ -89,10 +89,10 @@ describe('BatchSellEmptySelectTokens', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders the explore tokens button', () => {
+  it('does not offer market discovery', () => {
     render(<BatchSellEmptySelectTokens />);
 
-    expect(screen.getByText('exploreTokens')).toBeInTheDocument();
+    expect(screen.queryByText('exploreTokens')).not.toBeInTheDocument();
   });
 
   describe('defi icon', () => {
@@ -111,78 +111,6 @@ describe('BatchSellEmptySelectTokens', () => {
 
       const img = screen.getByRole('img') as HTMLImageElement;
       expect(img.src).toContain('empty-state-defi-dark.png');
-    });
-  });
-
-  describe('navigateToPortfolioDiscover', () => {
-    it('opens a new tab with the portfolio URL when the button is clicked', () => {
-      render(<BatchSellEmptySelectTokens />);
-
-      fireEvent.click(screen.getByText('exploreTokens'));
-
-      expect(global.platform.openTab).toHaveBeenCalledTimes(1);
-      expect(global.platform.openTab).toHaveBeenCalledWith({
-        url: 'https://portfolio.example.com/explore/tokens',
-      });
-    });
-
-    it('passes the correct arguments to getPortfolioUrl', () => {
-      seedSelectors({
-        analyticsId: 'test-id',
-        consentDecisionMade: true,
-        isOptedIn: true,
-        isMarketingEnabled: true,
-      });
-
-      render(<BatchSellEmptySelectTokens />);
-      fireEvent.click(screen.getByText('exploreTokens'));
-
-      expect(mockGetPortfolioUrl).toHaveBeenCalledWith(
-        'explore/tokens',
-        'ext_batch_sell_empty',
-        'test-id',
-        true,
-        true,
-      );
-    });
-
-    it('passes updated selector values when they change between renders', () => {
-      seedSelectors({
-        analyticsId: 'id-a',
-        consentDecisionMade: true,
-        isOptedIn: false,
-        isMarketingEnabled: false,
-      });
-      const { unmount } = render(<BatchSellEmptySelectTokens />);
-      fireEvent.click(screen.getByText('exploreTokens'));
-
-      expect(mockGetPortfolioUrl).toHaveBeenCalledWith(
-        'explore/tokens',
-        'ext_batch_sell_empty',
-        'id-a',
-        false,
-        false,
-      );
-
-      unmount();
-      jest.clearAllMocks();
-
-      seedSelectors({
-        analyticsId: 'id-b',
-        consentDecisionMade: true,
-        isOptedIn: true,
-        isMarketingEnabled: true,
-      });
-      render(<BatchSellEmptySelectTokens />);
-      fireEvent.click(screen.getByText('exploreTokens'));
-
-      expect(mockGetPortfolioUrl).toHaveBeenCalledWith(
-        'explore/tokens',
-        'ext_batch_sell_empty',
-        'id-b',
-        true,
-        true,
-      );
     });
   });
 });

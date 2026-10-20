@@ -77,32 +77,6 @@ export const useHomeDeepLinkEffects = () => {
     [batchSellEnabled, navigate, dispatch],
   );
 
-  const openPredictQrCodeModal = useCallback(
-    (deeplinkUrl: string) => {
-      dispatch(
-        setHomeDeepLinkQrCode({
-          deeplinkUrl,
-          descriptionKey: 'deepLinkQrPredictDescription',
-          titleKey: 'deepLinkQrPredictTitle',
-        }),
-      );
-    },
-    [dispatch],
-  );
-
-  const openTrendingQrCodeModal = useCallback(
-    (deeplinkUrl: string) => {
-      dispatch(
-        setHomeDeepLinkQrCode({
-          deeplinkUrl,
-          descriptionKey: 'deepLinkQrTrendingDescription',
-          titleKey: 'deepLinkQrTrendingTitle',
-        }),
-      );
-    },
-    [dispatch],
-  );
-
   const deepLinkHandlers: Record<
     HomeQueryParams,
     {
@@ -120,23 +94,8 @@ export const useHomeDeepLinkEffects = () => {
         isValidParam: (param?: string) => param?.toLowerCase() === 'true',
         action: openNetworkSelectorModal,
       },
-      [HomeQueryParams.PredictDeeplinkUrl]: {
-        isValidParam: (param?: string) =>
-          isDeepLinkUrlForPath(param, '/predict'),
-        action: openPredictQrCodeModal,
-      },
-      [HomeQueryParams.TrendingDeeplinkUrl]: {
-        isValidParam: (param?: string) =>
-          isDeepLinkUrlForPath(param, '/trending'),
-        action: openTrendingQrCodeModal,
-      },
     }),
-    [
-      handleBatchSellDeepLink,
-      openNetworkSelectorModal,
-      openPredictQrCodeModal,
-      openTrendingQrCodeModal,
-    ],
+    [handleBatchSellDeepLink, openNetworkSelectorModal],
   );
 
   const clearDeepLinkParams = useCallback(() => {

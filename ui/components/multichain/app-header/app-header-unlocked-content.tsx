@@ -34,7 +34,6 @@ import {
   ACCOUNT_LIST_PAGE_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
   CROSS_CHAIN_SWAP_ROUTE,
-  DISCOVER_SEARCH_ROUTE,
 } from '../../../helpers/constants/routes';
 import { transitionForward } from '../../ui/transition';
 import VisitSupportDataConsentModal from '../../app/modals/visit-support-data-consent-modal';
@@ -47,7 +46,6 @@ import {
 import { trace, TraceName, TraceOperation } from '../../../../shared/lib/trace';
 import { MultichainAccountNetworkGroupWithCopyIcon } from '../../multichain-accounts/multichain-account-network-group-with-copy-icon';
 import { useDispatch } from '../../../store/hooks';
-import { getIsDiscoverSearchEnabled } from '../../../selectors/multichain/feature-flags';
 
 type AppHeaderUnlockedContentProps = {
   menuRef: React.RefObject<HTMLButtonElement>;
@@ -75,7 +73,6 @@ export const AppHeaderUnlockedContent = ({
     getMultichainAccountGroupById(state, selectedMultichainAccountId),
   );
   const accountListStats = useSelector(getAccountListStats);
-  const isDiscoverSearchEnabled = useSelector(getIsDiscoverSearchEnabled);
 
   const accountName = selectedMultichainAccount?.metadata.name ?? '';
 
@@ -112,24 +109,6 @@ export const AppHeaderUnlockedContent = ({
       return prev;
     });
   }, [accountOptionsMenuOpen, trackEvent, createEventBuilder, setSearchParams]);
-
-  const handleOpenDiscoverSearch = useCallback(() => {
-    trackEvent(
-      createEventBuilder(MetaMetricsEventName.ExploreSearchInteracted)
-        .addProperties({
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          interaction_type: 'opened',
-        })
-        .build(),
-    );
-    transitionForward(() =>
-      navigate(DISCOVER_SEARCH_ROUTE, {
-        state: {
-          globalMenuTransition: 'forward',
-        },
-      }),
-    );
-  }, [createEventBuilder, navigate, trackEvent]);
 
   const multichainAccountAppContent = useMemo(() => {
     return (
@@ -227,15 +206,6 @@ export const AppHeaderUnlockedContent = ({
           className="w-full"
           gap={2}
         >
-          {isDiscoverSearchEnabled && (
-            <ButtonIcon
-              iconName={IconName.Search}
-              data-testid="discover-search-button"
-              ariaLabel={t('searchTokens')}
-              onClick={handleOpenDiscoverSearch}
-              size={ButtonIconSize.Md}
-            />
-          )}
           <BadgeWrapper
             badge={
               accountOptionsMenuOpen ? null : (

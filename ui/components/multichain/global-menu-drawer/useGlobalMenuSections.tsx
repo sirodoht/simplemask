@@ -55,10 +55,6 @@ import {
   getUnapprovedTransactions,
   getAnySnapUpdateAvailable,
   getUseExternalServices,
-  getAnalyticsId,
-  getConsentDecisionMade,
-  getOptedIn,
-  getDataCollectionForMarketing,
 } from '../../../selectors';
 import { useUserSubscriptions } from '../../../hooks/subscription/useSubscription';
 import {
@@ -68,7 +64,6 @@ import {
   getSubscriptionPaymentData,
 } from '../../../../shared/lib/shield';
 import { useSubscriptionMetrics } from '../../../hooks/shield/metrics/useSubscriptionMetrics';
-import { getPortfolioUrl } from '../../../helpers/utils/portfolio';
 import type { GlobalMenuSection } from '../global-menu/global-menu-list.types';
 import { isBeta, isFlask } from '../../../../shared/lib/build-types';
 import { useDispatch } from '../../../store/hooks';
@@ -126,12 +121,6 @@ export function useGlobalMenuSections(
       basicFunctionality,
     ],
   );
-
-  const analyticsId = useSelector(getAnalyticsId);
-  const consentDecisionMade = useSelector(getConsentDecisionMade);
-  const isOptedIn = useSelector(getOptedIn);
-  const isMetaMetricsEnabled = consentDecisionMade && isOptedIn;
-  const isMarketingEnabled = useSelector(getDataCollectionForMarketing);
 
   const supportText =
     isBeta() || isFlask() ? t('needHelpSubmitTicket') : t('support');
@@ -241,29 +230,6 @@ export function useGlobalMenuSections(
       hideDividerAbove: true, // No divider between notifications and this section
       items: [],
     };
-
-    section2.items.push({
-      id: 'discover',
-      iconName: IconName.Export,
-      label: t('discover'),
-      onClick: () => {
-        const url = getPortfolioUrl(
-          'explore/tokens',
-          'ext_portfolio_button',
-          analyticsId,
-          isMetaMetricsEnabled === true,
-          isMarketingEnabled === true,
-        );
-        global.platform.openTab({ url });
-        trackEvent(
-          createEventBuilder(MetaMetricsEventName.PortfolioLinkClicked)
-            .addCategory(MetaMetricsEventCategory.Navigation)
-            .addProperties({ location: METRICS_LOCATION, text: 'Portfolio' })
-            .build(),
-        );
-        onClose();
-      },
-    });
 
     if (isPopup || isSidepanel) {
       section2.items.push({
@@ -462,9 +428,6 @@ export function useGlobalMenuSections(
     dispatch,
     trackEvent,
     createEventBuilder,
-    analyticsId,
-    isMetaMetricsEnabled,
-    isMarketingEnabled,
     browserSupportsSidePanel,
     isSidePanelEnabled,
     supportText,

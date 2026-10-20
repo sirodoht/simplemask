@@ -40,10 +40,6 @@ class NetworksPage {
     testId: 'network-list-item-options-delete',
   };
 
-  private readonly discoverButton = {
-    testId: 'network-list-item-options-discover',
-  };
-
   private readonly drawerOverlay =
     'div[class*="bg-[var(--color-overlay-default)]"]';
 
@@ -99,11 +95,6 @@ class NetworksPage {
     await this.driver.waitForSelector({
       text: information,
     });
-  }
-
-  async checkDiscoverButtonIsVisible(): Promise<void> {
-    console.log('Check Discover button is visible in network options');
-    await this.driver.waitForSelector(this.discoverButton);
   }
 
   async checkEditNetworkMessageIsDisplayed(networkName: string): Promise<void> {
@@ -227,11 +218,6 @@ class NetworksPage {
   async clickCloseButton(): Promise<void> {
     console.log('Click Close Button');
     await this.driver.clickElementAndWaitToDisappear(this.closeButton);
-  }
-
-  async clickDiscoverButton(): Promise<void> {
-    console.log('Click Discover button in network options');
-    await this.driver.clickElement(this.discoverButton);
   }
 
   /**

@@ -53,7 +53,6 @@ export const NetworkListItem = ({
   onDeleteClick,
   deleteMenuLabel = 'delete',
   onEditClick,
-  onDiscoverClick,
   onRpcEndpointClick,
   startAccessory,
   endAccessory,
@@ -73,7 +72,6 @@ export const NetworkListItem = ({
   onDeleteClick?: () => void;
   deleteMenuLabel?: 'disable' | 'delete';
   onEditClick?: () => void;
-  onDiscoverClick?: () => void;
   focus?: boolean;
   startAccessory?: ReactNode;
   endAccessory?: ReactNode;
@@ -131,7 +129,7 @@ export const NetworkListItem = ({
   const { isNetworkGasSponsored } = useIsNetworkGasSponsored(chainId);
 
   const renderButton = useCallback(() => {
-    return onDeleteClick || onEditClick || onDiscoverClick ? (
+    return onDeleteClick || onEditClick ? (
       <DsButtonIcon
         iconName={IconName.MoreVertical}
         ref={setNetworkListItemMenuRef}
@@ -160,7 +158,6 @@ export const NetworkListItem = ({
   }, [
     onDeleteClick,
     onEditClick,
-    onDiscoverClick,
     chainId,
     t,
     setNetworkListItemMenuRef,
@@ -309,7 +306,6 @@ export const NetworkListItem = ({
               onDeleteClick={handleMenuItemClick(onDeleteClick)}
               deleteMenuLabel={deleteMenuLabel}
               onEditClick={handleMenuItemClick(onEditClick)}
-              onDiscoverClick={handleMenuItemClick(onDiscoverClick)}
               onClose={() => {
                 // When closing via click-outside: prepare close and update state
                 prepareMenuClose();

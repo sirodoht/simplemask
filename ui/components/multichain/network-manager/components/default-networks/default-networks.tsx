@@ -328,13 +328,8 @@ const DefaultNetworks = memo(() => {
         return null;
       }
 
-      const {
-        onDelete,
-        onDeleteMenuLabel,
-        onEdit,
-        onDiscoverClick,
-        onRpcSelect,
-      } = getItemCallbacks(network);
+      const { onDelete, onDeleteMenuLabel, onEdit, onRpcSelect } =
+        getItemCallbacks(network);
       const iconSrc = getNetworkIcon(network);
       const isSelected = isSingleNetworkSelected(hexChainId as Hex);
 
@@ -366,7 +361,6 @@ const DefaultNetworks = memo(() => {
           onDeleteClick={onDelete}
           deleteMenuLabel={onDeleteMenuLabel}
           onEditClick={onEdit}
-          onDiscoverClick={onDiscoverClick}
           onRpcEndpointClick={onRpcSelect}
           selected={isSelected}
           // Last-remaining stays clickable so the modal can still close; the

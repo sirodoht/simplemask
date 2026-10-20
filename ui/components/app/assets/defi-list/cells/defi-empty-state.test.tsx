@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
@@ -39,23 +39,11 @@ describe('DeFiEmptyStateMessage', () => {
     expect(screen.getByTestId('defi-tab-empty-state')).toBeInTheDocument();
   });
 
-  it('renders explore DeFi button', () => {
+  it('does not offer market discovery', () => {
     renderComponent();
     expect(
-      screen.getByRole('button', { name: messages.exploreDefi.message }),
-    ).toBeInTheDocument();
-  });
-
-  it('opens portfolio when explore DeFi button is clicked', () => {
-    const openTabSpy = jest.spyOn(global.platform, 'openTab');
-    renderComponent();
-
-    fireEvent.click(
-      screen.getByRole('button', { name: messages.exploreDefi.message }),
-    );
-
-    expect(openTabSpy).toHaveBeenCalled();
-    expect(mockTrackEvent).toHaveBeenCalled();
+      screen.queryByRole('button', { name: messages.exploreDefi.message }),
+    ).not.toBeInTheDocument();
   });
 
   it('renders light theme icon by default', () => {

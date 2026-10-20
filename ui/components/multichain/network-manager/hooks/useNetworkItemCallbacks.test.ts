@@ -51,7 +51,6 @@ jest.mock('../../../../selectors', () => ({
       },
     },
   ],
-  getNetworkDiscoverButtonEnabled: () => ({}),
   getSelectedMultichainNetworkChainId: jest.fn(() => 'eip155:1'),
 }));
 

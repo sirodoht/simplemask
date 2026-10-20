@@ -8,14 +8,11 @@ import { notificationsSettings } from './notifications-settings';
 import { onboarding } from './onboarding';
 import { money } from './money';
 import { musd } from './musd';
-import { predict } from './predict';
 import { privacy } from './privacy';
 import type { Route } from './route';
 import { sell } from './sell';
 import { shield } from './shield';
 import { swap } from './swap';
-import { topTraders } from './top-traders';
-import { trending } from './trending';
 
 export type { Route } from './route';
 
@@ -56,9 +53,6 @@ addRoute(onboarding);
 addRoute(swap);
 addRoute(money);
 addRoute(musd);
-addRoute(predict);
 addRoute(privacy);
 addRoute(shield);
 addRoute(asset);
-addRoute(topTraders);
-addRoute(trending);

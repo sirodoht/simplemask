@@ -1338,23 +1338,6 @@ export const CHAIN_ID_TOKEN_IMAGE_MAP = {
   [MultichainNetworks.STELLAR]: STELLAR_IMAGE_URL,
 } as const;
 
-/**
- * A mapping for networks with enabled portfolio landing page to their URLs.
- */
-export const CHAIN_ID_PORTFOLIO_LANDING_PAGE_URL_MAP: Record<
-  Hex | `${string}:${string}`,
-  string
-> = {
-  [CHAIN_IDS.LINEA_MAINNET]: 'https://app.metamask.io/explore/networks/linea',
-  [CHAIN_IDS.SEI]: 'https://app.metamask.io/explore/networks/sei',
-  [CHAIN_IDS.MONAD]: 'https://app.metamask.io/explore/networks/monad',
-  [MultichainNetworks.SOLANA]:
-    'https://app.metamask.io/explore/networks/solana',
-  [MultichainNetworks.TRON]: 'https://app.metamask.io/explore/networks/tron',
-  [MultichainNetworks.STELLAR]:
-    'https://app.metamask.io/explore/networks/stellar',
-} as const;
-
 export const INFURA_BLOCKED_KEY = 'countryBlocked';
 
 const defaultEtherscanDomain = 'etherscan.io';

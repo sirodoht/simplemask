@@ -7,15 +7,10 @@ export const DEEP_LINK_ORIGIN = `https://${CANONICAL_DEEP_LINK_HOST}`;
 export enum HomeQueryParams {
   BatchSellDeeplinkUrl = 'batchSellDeeplinkUrl',
   OpenNetworkSelector = 'openNetworkSelector',
-  PredictDeeplinkUrl = 'predictDeeplinkUrl',
-  TrendingDeeplinkUrl = 'trendingDeeplinkUrl',
 }
 
 export function createHomeQrCodeDestination(
-  queryParam:
-    | HomeQueryParams.BatchSellDeeplinkUrl
-    | HomeQueryParams.PredictDeeplinkUrl
-    | HomeQueryParams.TrendingDeeplinkUrl,
+  queryParam: HomeQueryParams.BatchSellDeeplinkUrl,
   deeplinkUrl: string,
 ): Destination {
   return {

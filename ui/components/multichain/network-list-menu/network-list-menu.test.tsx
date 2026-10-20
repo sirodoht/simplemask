@@ -405,7 +405,7 @@ describe('NetworkListMenu', () => {
     ).toHaveLength(0);
   });
 
-  it('enables the "Discover" for Linea button when the Feature Flag `neNetworkDiscoverButton` is true for Linea and the network is supported', () => {
+  it('does not restore Discover when an old remote flag enables it', () => {
     const { queryByTestId, getByTestId } = render({
       neNetworkDiscoverButton: {
         '0xe708': true,
@@ -421,7 +421,7 @@ describe('NetworkListMenu', () => {
 
     expect(
       queryByTestId('network-list-item-options-discover'),
-    ).toBeInTheDocument();
+    ).not.toBeInTheDocument();
   });
 
   it('disables the "Discover" button when the Feature Flag `neNetworkDiscoverButton` is false for Linea even if the network is supported', () => {

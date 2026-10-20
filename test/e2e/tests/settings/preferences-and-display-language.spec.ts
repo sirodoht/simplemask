@@ -34,7 +34,7 @@ const selectors = {
     testId: 'auto-lockout-button',
     text: da.save.message,
   },
-  discoverTextवर्तमान: { text: hi.discover.message, tag: 'a' },
+  headerTextHindi: { text: hi.settings.message, tag: 'p' },
   headerTextAr: { text: ar.settings.message, tag: 'p' },
 };
 
@@ -165,7 +165,7 @@ describe('Settings - Preferences and display', function (this: Suite) {
     );
   });
 
-  it('validates "मानक हिन्दी" localization in tooltips', async function () {
+  it('validates "मानक हिन्दी" localization after refreshing the wallet', async function () {
     await withFixtures(
       {
         fixtures: new FixtureBuilderV2().build(),
@@ -193,11 +193,12 @@ describe('Settings - Preferences and display', function (this: Suite) {
         await driver.refresh();
         await homepage.checkPageIsLoaded();
         await homepage.checkExpectedBalanceIsDisplayed();
-        const isDiscoverButtonTextChanged = await driver.isElementPresent(
-          selectors.discoverTextवर्तमान,
+        await new HeaderNavbar(driver).openSettingsPage();
+        const isSettingsHeaderTranslated = await driver.isElementPresent(
+          selectors.headerTextHindi,
         );
         assert.equal(
-          isDiscoverButtonTextChanged,
+          isSettingsHeaderTranslated,
           true,
           'Language change is not reflected in headers',
         );

@@ -1,7 +1,4 @@
-import {
-  type AddNetworkFields,
-  type NetworkConfiguration,
-} from '@metamask/network-controller';
+import { type AddNetworkFields } from '@metamask/network-controller';
 import {
   toEvmCaipChainId,
   type MultichainNetworkConfiguration,
@@ -243,13 +240,8 @@ export const NetworksPageList = ({
 
   const renderNetworkListItem = useCallback(
     (network: MultichainNetworkConfiguration) => {
-      const {
-        onDelete,
-        onDeleteMenuLabel,
-        onEdit,
-        onDiscoverClick,
-        onRpcSelect,
-      } = getItemCallbacks(network);
+      const { onDelete, onDeleteMenuLabel, onEdit, onRpcSelect } =
+        getItemCallbacks(network);
 
       return (
         <NetworkListItem
@@ -269,7 +261,6 @@ export const NetworksPageList = ({
           onDeleteClick={onDelete}
           deleteMenuLabel={onDeleteMenuLabel}
           onEditClick={onEdit}
-          onDiscoverClick={onDiscoverClick}
           onRpcEndpointClick={onRpcSelect}
           disabled={!isNetworkEnabled(network)}
           notSelectable

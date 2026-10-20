@@ -93,13 +93,8 @@ export const CustomNetworks = React.memo(() => {
 
       const isEnabled = Boolean(enabledNetworksByNamespace[convertedChainId]);
 
-      const {
-        onDelete,
-        onDeleteMenuLabel,
-        onEdit,
-        onDiscoverClick,
-        onRpcSelect,
-      } = getItemCallbacks(network);
+      const { onDelete, onDeleteMenuLabel, onEdit, onRpcSelect } =
+        getItemCallbacks(network);
 
       const rpcEndpoint =
         network.isEvm && hasMultiRpcOptions(network)
@@ -119,7 +114,6 @@ export const CustomNetworks = React.memo(() => {
           onDeleteClick={onDelete}
           deleteMenuLabel={onDeleteMenuLabel}
           onEditClick={onEdit}
-          onDiscoverClick={onDiscoverClick}
           selected={isEnabled}
           onRpcEndpointClick={onRpcSelect}
           disabled={isPending || !isNetworkEnabled(network)}

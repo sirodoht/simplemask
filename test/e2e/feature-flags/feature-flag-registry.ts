@@ -3419,20 +3419,6 @@ export const FEATURE_FLAG_REGISTRY: Record<string, FeatureFlagRegistryEntry> = {
     type: FeatureFlagType.Remote,
   },
 
-  neNetworkDiscoverButton: {
-    inProd: true,
-    name: 'neNetworkDiscoverButton',
-    productionDefault: {
-      '0x531': true,
-      '0x8f': true,
-      '0xe708': true,
-      'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp': true,
-      'tron:728126428': true,
-    },
-    status: FeatureFlagStatus.Active,
-    type: FeatureFlagType.Remote,
-  },
-
   networkAssetsSnapsMigrationSolana: {
     inProd: true,
     name: 'networkAssetsSnapsMigrationSolana',

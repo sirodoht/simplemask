@@ -544,10 +544,10 @@ describe('EthOverview', () => {
       expect(queryByTestId('eth-overview-batchSell')).not.toBeInTheDocument();
     });
 
-    it('should always show the Portfolio button', () => {
+    it('does not show the retired Discover link', () => {
       const { queryByTestId } = renderWithProvider(<EthOverview />, store);
       const portfolioButton = queryByTestId('portfolio-link');
-      expect(portfolioButton).toBeInTheDocument();
+      expect(portfolioButton).not.toBeInTheDocument();
     });
 
     it('should always show the Buy button regardless of current chain Id', () => {

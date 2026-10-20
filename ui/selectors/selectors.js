@@ -3129,18 +3129,6 @@ export function getIsCustomNetwork(state) {
 }
 
 /**
- * Get the state of the `neNetworkDiscoverButton` remote feature flag.
- * This flag determines whether the user should see a `Discover` button on the network menu list.
- *
- * @param {*} state
- * @returns The state of the `neNetworkDiscoverButton` remote feature flag.
- */
-export function getNetworkDiscoverButtonEnabled(state) {
-  const { neNetworkDiscoverButton } = getRemoteFeatureFlags(state);
-  return neNetworkDiscoverButton;
-}
-
-/**
  * Get the state of the `gasFeesSponsoredNetwork` remote feature flag.
  * This flag determines whether the user should see a `Gas sponsored` label on the network menu list.
  *

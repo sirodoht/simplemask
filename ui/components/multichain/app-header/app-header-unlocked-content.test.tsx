@@ -165,13 +165,14 @@ describe('Unread notifications badge', () => {
       'notifications-tag-counter__unread-dot',
     );
     const menuButton = screen.getByTestId('account-options-menu-button');
-    const searchButton = screen.getByTestId('discover-search-button');
+    expect(
+      screen.queryByTestId('discover-search-button'),
+    ).not.toBeInTheDocument();
 
     // The badge is positioned against the menu button alone, so adding icons to
     // the header cannot move it onto a neighbouring icon.
     const badgeWrapper = menuButton.parentElement?.parentElement;
     expect(badgeWrapper).toContainElement(badge);
-    expect(badgeWrapper).not.toContainElement(searchButton);
   });
 });
 
