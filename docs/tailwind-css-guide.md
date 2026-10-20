@@ -2,42 +2,6 @@
 
 This guide will help you get started with Tailwind CSS in the MetaMask extension project. Tailwind CSS is a utility-first CSS framework that allows you to rapidly build modern interfaces by composing classes directly in your HTML/JSX.
 
-## Table of Contents
-
-1. [VSCode Setup](#vscode-setup)
-2. [Understanding Tailwind in MetaMask](#understanding-tailwind-in-metamask)
-3. [ESLint Configuration](#eslint-configuration)
-4. [Best Practices](#best-practices)
-
-5. [Getting Help](#getting-help)
-
-## VSCode Setup
-
-### Install Tailwind CSS IntelliSense Extension
-
-The project recommends the [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) extension for better development experience. It provides:
-
-- Autocomplete for class names
-- Syntax highlighting
-- Hover previews
-- Error detection for invalid classes
-
-**Installation:**
-
-- Open VSCode
-- Go to Extensions (Ctrl+Shift+X)
-- Search for "Tailwind CSS IntelliSense"
-- Install the extension by Brad Cornes
-
-The extension is already configured in `.vscode/extensions.json` and will be recommended when you open the project.
-
-### Verify Extension is Working
-
-1. Open a TypeScript/TSX file in the `ui/` directory
-2. Try typing `className="text-`
-3. You should see Tailwind class suggestions
-4. Hover over existing Tailwind classes to see their CSS properties
-
 ## Understanding Tailwind in MetaMask
 
 ### Current Implementation
@@ -122,5 +86,3 @@ Read the MetaMask Contributor Docs [Tailwind CSS Guidelines](https://github.com/
 - [Design System Storybook](https://metamask.github.io/metamask-design-system)
 
 ### Getting Help
-
-- Reach out to the design system team on slack #metamask-design-system

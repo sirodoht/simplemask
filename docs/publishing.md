@@ -1,52 +1,9 @@
-# Publishing Guide
+# Manual publishing
 
-When publishing a new version of MetaMask, we follow this procedure:
+This fork has no automated release, store-upload, tagging, or notification workflow. Test CI does not publish artifacts outside its temporary test artifacts.
 
-## Overview
+Before a public release, choose the project's new identity and configure its own extension identifiers, store listings, and credentials. Do not reuse upstream publishing credentials or assume old MetaMask links belong to this project.
 
-The below diagram outlines our process for design, development, and release. Building MetaMask is a community affair, and many steps of the process invite participation from external contributors as indicated. All QA, code review, and release of new versions is done by members of the core MetaMask team.
+Update the version and release notes manually. Review migrations, permissions, dependency/policy changes, and retained wallet flows in latest stable Chrome and Firefox. Build production archives with `yarn dist` (Chrome MV3) and `yarn dist:mv2` (Firefox MV2); each build cleans output, so preserve the first archive before building the second. Inspect the actual outputs and manifests before upload.
 
-<img width="664" alt="mm-dev-process" src="https://user-images.githubusercontent.com/1016190/56308059-36906000-60fb-11e9-8e61-6655bca0c54f.png">
-
-## Preparation
-
-We try to ensure certain criteria are met before deploying:
-
-- Deploy early in the week, to give time for emergency responses to unforeseen bugs.
-- Deploy early in the day, for the same reason.
-- Make sure at least one member of the support team is "on duty" to watch for new user issues coming through the support system.
-- Roll out incrementally when possible, to a small number of users first, and gradually to more users.
-
-## Incrementing Version & Changelog
-
-Version can be automatically incremented by creating a branch with the name `release/X.Y.Z`, where `X`, `Y`, and `Z` are numbers. Branches should be created off of the main branch. [Branches can be created on GitHub.](https://help.github.com/en/articles/creating-and-deleting-branches-within-your-repository)
-
-Once a version branch has been created, a build on CI will create a Pull Request for the release with the app manifest and changelog versions bumped.
-
-## Preparing for Sensitive Changes
-
-In the case that a new release has sensitive changes that cannot be fully verified prior to publication, please follow the [sensitive release protocol](./sensitive-release.md).
-
-## Building
-
-While we develop on the `main` branch, our production builds are created from the release branch HEAD using the [`publish-release-from-release-head.yml`](../.github/workflows/publish-release-from-release-head.yml) workflow. This workflow builds, tags, and publishes from the release branch before it is merged to `stable`.
-
-## Publishing
-
-Release archives target Chrome and Firefox only. Before the first public release, configure this fork's store listings and publishing credentials.
-
-1. Publish the Chrome archive to this project's Chrome Web Store listing.
-2. Publish the Firefox archive to this project's Firefox Add-ons listing.
-3. Attach both archives to the project's GitHub release.
-
-## Hotfix Differences
-
-Our `main` branch is usually not yet fully tested for quality assurance, and so should be treated as if it is in an unstable state.
-
-For this reason, when an urgent change is needed in production, its pull request should:
-
-- Describe it as a hotfix.
-- Use a hotfix tag.
-- Should be proposed against the `stable` branch.
-
-Publishing is done from the hotfix branch HEAD using the [`publish-release-from-release-head.yml`](../.github/workflows/publish-release-from-release-head.yml) workflow. After publishing, the hotfix branch is merged to `stable`, and stable-sync PRs propagate changes back to `main`.
+Publishing to either store or creating a public release requires an explicit publishing request. Retain license and attribution requirements. Repository settings, signing credentials, rollout choices, and store submissions are managed separately from test CI.

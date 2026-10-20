@@ -2,7 +2,7 @@
 
 A lean, EVM-only wallet browser extension adapted from MetaMask, initially for personal use. The goal is excellent everyday wallet UX without ads, trading products, or unnecessary features.
 
-This repository preserves MetaMask’s Git history. The original project documentation is in [README.upstream.md](README.upstream.md). This README records the agreed product direction and implementation backlog. Unchecked items are planned work, not completed changes.
+This repository preserves MetaMask’s Git history. Historical upstream documentation remains available in Git history. This README records the agreed product direction and implementation backlog. Unchecked items are planned work, not completed changes.
 
 This fork will have its own identity and does not retain compatibility with legacy MetaMask deep links. Links for removed features are retired along with those features.
 
@@ -13,6 +13,22 @@ This fork will have its own identity and does not retain compatibility with lega
 - Shared Chromium implementation may still work in other Chromium browsers; those browsers are not supported targets.
 - Support Ethereum and EVM-compatible networks, including custom networks and custom RPC endpoints.
 - Remove non-EVM support, including Bitcoin, Solana, Tron, Stellar, and their associated integrations.
+
+## Development
+
+Use the Node version in `.nvmrc` and Yarn version in `package.json`:
+
+```sh
+corepack enable
+yarn install
+cp .metamaskrc.dist .metamaskrc
+yarn start          # Chrome MV3
+yarn start:mv2      # Firefox MV2
+```
+
+Configure your own RPC/API credentials in `.metamaskrc` for live use. Load the unpacked build using the [Chrome](docs/add-to-chrome.md) or [Firefox](docs/add-to-firefox.md) instructions. For verification, use `yarn build:test` or `yarn build:test:mv2` (LavaMoat enabled), followed by `yarn test:e2e:single path/to/spec.ts --browser=chrome` or `--browser=firefox`. Each build cleans the distribution directory.
+
+Run `yarn lint:changed:fix`, affected unit tests, and `yarn lint:tsc` before commits. Dependency changes require lockfile deduplication, allow-scripts review, and `yarn lavamoat:auto`. See [contributing](.github/CONTRIBUTING.md) and [browser support](docs/browser-support.md). Repository automation only builds and tests; dependency updates and publishing are manual.
 
 ## Keep and polish
 
@@ -94,3 +110,26 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 - Removed orphaned release publishing, Slack announcements, AI release planning, benchmark telemetry uploads, Crowdin/Codecov configuration, and bot scripts. `yarn audit` now runs the standard dependency audit directly, without downloading a MetaMask baseline or opening issues. Retained E2E splitting/result helpers and the read-only diff helper used by local code-quality checks.
 
 - Replaced broad browser targets and Chrome 126/Firefox-driver pins with latest stable targets. Build manifests and the outdated-browser warning now use the same locked Browserslist data as compilation. Removed the obsolete Chrome 113–120 prerender workaround; kept current back/forward-cache handling. Browser database updates remain manual (`yarn dlx update-browserslist-db@latest`), followed by policy regeneration and both browser tests.
+
+- Removed unused AI SDKs, Slack packages, Sentry publishing tools, static-site deployers, Husky, upstream agent-skill tooling, Octokit clients used only by deleted automation, and the upstream changelog generator. Removed the Yarn preview-package aliasing plugin. Runtime error reporting, test tools, and read-only GitHub helpers with live consumers remain.
+
+### Remaining legacy code and libraries
+
+These still have active consumers. They need migrations rather than deletion; naming alone does not make wallet or security code disposable.
+
+| Area | Evidence / current consumer | Remaining work |
+| --- | --- | --- |
+| `react-tippy` / Popper v1 | `ui/components/ui/tooltip/tooltip.tsx`, unit inputs, permission tooltips, migration dashboard | Replace with the current design-system tooltip; verify focus, positioning, and accessibility before removing the packages. |
+| `ethereumjs-wallet` | Transitive dependency of `@metamask/keyring-controller` | Upgrade/migrate the keyring dependency with vault import/export and recovery tests. |
+| `ethereumjs-util` and older Ethers/BN helpers | Signing, transactions, fixtures, and shared dependencies | Consolidate incrementally onto current APIs while preserving serialization and signature behavior. |
+| `cids`, `multibase`, `multicodec` | Transitive ENS content-hash encoding dependencies | Upgrade the ENS dependency chain and verify existing names/content-hash decoding. Corrected the stale Truffle attribution and removed an unused drag-and-drop audit exception. |
+| Redux 4, older Redux Toolkit / React Redux, `connect` and JavaScript components | Existing application state and screens | Migrate by feature; new code uses TypeScript and functional components. |
+| Legacy background API bridge | Active UI-to-background calls and `legacy-background-api:check` | Move callers to typed controller/messenger APIs before retiring the bridge. |
+| Gulp/Browserify/Babel and TypeScript migration dashboard | Development scripts and dashboard alongside the primary Webpack build | Consolidate tooling separately; do not remove packages while those commands still consume them. |
+| Selenium alongside Playwright | Existing E2E specs and page objects | Continue test migration while preserving coverage; current Selenium tests now use stable browsers. |
+| Beta/Flask and experimental build variants | Build configuration and Snap/experimental tests | Review which variants belong in the renamed project before removing associated functionality. |
+| Upstream branding, support/service URLs, analytics/error reporting | Runtime strings, identifiers, configuration and retained service clients | Separate rename/service audit; removing organization CI alerts does not remove runtime telemetry. |
+
+Retained intentionally: Firefox MV2 background support, `webextension-polyfill`, Node API shims (including `core-js-pure`'s `setImmediate` for the build), state migrations, and compatible keyring readers. These support current wallet behavior or protect existing data. Legal notices, license terms, and historical changelogs remain.
+
+Removed stale setup/release guidance and documents for deleted trading products. The automated checks are statically validated locally; GitHub-hosted workflow execution requires a push and is not implied by local validation. Repository-level GitHub settings and installed apps are separate from the files removed here.

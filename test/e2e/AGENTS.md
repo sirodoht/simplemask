@@ -1,43 +1,15 @@
-# AGENTS.md — E2E Testing Directory
+# E2E testing
 
-Instructions for AI coding agents working on E2E tests in the MetaMask Browser Extension. All patterns, commands, and rules are in the canonical docs below — read those, do not duplicate.
+Use TypeScript for new specs. Page objects under `page-objects/pages/` own selectors and UI actions; flows under `page-objects/flows/` orchestrate multiple page objects. Specs orchestrate those APIs and make assertions.
 
-**POM** (Page Object Model) is how this repo structures E2E UI automation: locators and UI actions live in page object classes under `test/e2e/page-objects/pages/`; multi-page workflows live in flows under `test/e2e/page-objects/flows/`; specs under `test/e2e/tests/` only orchestrate those methods (they must not click, fill, or wait on locators directly).
+- Keep selectors out of specs and flows. A one-page flow belongs on its page object.
+- Wait for observable conditions; do not add arbitrary sleeps or swallow failures.
+- Keep tests isolated and deterministic. Mock external services and avoid real funds or private credentials.
+- Build first: `yarn build:test` for Chrome or `yarn build:test:mv2` for Firefox. Each build cleans the distribution directory.
+- Run a spec with `yarn test:e2e:single test/e2e/tests/path.spec.ts --browser=chrome` (or `firefox`). Set `SELENIUM_HEADLESS=true` for headless runs.
+- Selenium Manager resolves the current stable Chrome/Firefox and compatible driver. Do not pin obsolete browser versions. `GECKODRIVER_PATH` remains an explicit local debugging override.
+- CI runs all Selenium specs across eight shards per browser using `.github/workflows/main.yml`. There are no label-based skips, organization secrets, or reused upstream artifacts.
+- Playwright specs (`*.pw.spec.ts`) use the separate Playwright runner; see `playwright/README.md`. They are not Selenium inputs.
+- Run `yarn lint:changed:fix` before commits. Report browser versions and actual test outcomes; do not infer visual verification from source inspection.
 
----
-
-## Canonical Testing Docs
-
-- **Extension testing skill (primary):** [.cursor/rules/mms-extension-testing/RULE.md](../../.cursor/rules/mms-extension-testing/RULE.md) — layer gate + routes to unit / E2E create / maintain / flakiness / POM anti-patterns. Source: [MetaMask/skills](https://github.com/MetaMask/skills) `testing/extension-testing` (edit upstream, then `yarn skills`).
-- **E2E create:** `mms-extension-testing` → `references/e2e.md` → `references/e2e/writing-tests.md`
-- **E2E maintain (flake / bad practices):** `mms-extension-testing` → `references/e2e.md` → `references/e2e/maintain.md`
-- **E2E CI decision tree:** [.github/guidelines/E2E_DECISION_TREE.md](../../.github/guidelines/E2E_DECISION_TREE.md) — when E2E runs/skips, label effects, build-reuse logic
-- **E2E deprecated patterns & POM anti-patterns (local review):** [.cursor/BUGBOT.md](../../.cursor/BUGBOT.md) — sections **3.1–3.9**. Applied by **local** review (CODEBOT / `/review` / local Bugbot run) and agent self-check, **not** by Bugbot on the PR — see skill `references/e2e/pom-antipatterns.md`.
-- **Human E2E guidelines (POM best practices):** [contributor-docs extension E2E guidelines](https://github.com/MetaMask/contributor-docs/blob/main/docs/testing/e2e/extension-e2e-guidelines.md#best-practices)
-- **Testing philosophy:** [docs/testing.md](../../docs/testing.md)
-- **E2E Driver API:** [webdriver/README.md](./webdriver/README.md)
-- **Flask E2E:** [flask/README.md](./flask/README.md)
-- **Playwright migration (`*.pw.spec.ts`):** [playwright/README.md](./playwright/README.md) — Selenium → Playwright migration guide
-- **Playwright benchmark:** [playwright/benchmark/README.md](./playwright/benchmark/README.md)
-- **Forking mainnet for testing:** [docs/forking-mainnet-for-testing.md](../../docs/forking-mainnet-for-testing.md)
-- **QA migrations:** [docs/QA_MIGRATIONS_GUIDE.md](../../docs/QA_MIGRATIONS_GUIDE.md)
-
-Deprecated standalone skills (`mms-e2e-testing`, `mms-e2e-flakiness-patterns`) redirect to `mms-extension-testing`.
-
----
-
-## POM anti-patterns (quick checklist)
-
-Write E2E correctly from the start using `mms-extension-testing`. Before submitting, run local review against [.cursor/BUGBOT.md](../../.cursor/BUGBOT.md) sections **3.3–3.9** and the skill checklist `references/e2e/pom-antipatterns.md`. Do **not** introduce:
-
-| Avoid                                                         | Prefer                                                |
-| ------------------------------------------------------------- | ----------------------------------------------------- |
-| Locators / selectors in `*.flow.ts`                           | Locators only in page objects                         |
-| Flow that uses a single page object                           | Method on that page object                            |
-| Local UI helpers inside `*.spec.ts`                           | Page object method or multi-page flow                 |
-| `driver.clickElement` / locators in specs                     | Page object or flow calls only                        |
-| Hardcoded `driver.delay` / `setTimeout` without justification | Wait for a condition; comment if delay is unavoidable |
-| Page object importing/calling another page object             | Flow that owns both page objects                      |
-| `try` / `catch` in page objects or flows                      | Let failures surface via waits / `check*` messages    |
-
-Run `yarn skills` after `yarn install` if `.cursor/rules/mms-extension-testing/` is missing locally.
+See [webdriver API](webdriver/README.md), [testing principles](../../docs/testing.md), [fixture generation](../../docs/generating-fixture-data.md), and [migration testing](../../docs/QA_MIGRATIONS_GUIDE.md).
