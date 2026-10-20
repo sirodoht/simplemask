@@ -21,8 +21,8 @@ jest.mock('../../../../../ducks/locale/locale', () => ({
   getIntlLocale: (state: { locale?: string }) => state?.locale,
 }));
 
-jest.mock('../../../../../components/app/perps/perps-slider', () => ({
-  PerpsSlider: ({
+jest.mock('../../../../../components/ui/amount-slider/amount-slider', () => ({
+  AmountSlider: ({
     onChange,
     value,
   }: {
@@ -32,14 +32,14 @@ jest.mock('../../../../../components/app/perps/perps-slider', () => ({
     <>
       <input
         type="range"
-        aria-label="perps-slider"
+        aria-label="amount-slider"
         value={value}
         onChange={(e) => onChange(e, Number(e.target.value))}
         readOnly
       />
       <button
         type="button"
-        aria-label="perps-slider-array"
+        aria-label="amount-slider-array"
         onClick={() => onChange(null, [42, 99])}
       >
         slider-array
@@ -258,7 +258,7 @@ describe('QuotesListItem', () => {
       />,
     );
 
-    fireEvent.change(screen.getByLabelText('perps-slider'), {
+    fireEvent.change(screen.getByLabelText('amount-slider'), {
       target: { value: '75' },
     });
 
@@ -278,7 +278,7 @@ describe('QuotesListItem', () => {
       />,
     );
 
-    fireEvent.click(screen.getByLabelText('perps-slider-array'));
+    fireEvent.click(screen.getByLabelText('amount-slider-array'));
 
     expect(onSendAmountPercentChange).toHaveBeenCalledWith(asset, 42);
   });

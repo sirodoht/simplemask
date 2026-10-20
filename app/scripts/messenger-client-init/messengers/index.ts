@@ -188,7 +188,6 @@ import { getGeolocationApiServiceMessenger } from './geolocation-api-service-mes
 import { getGeolocationControllerMessenger } from './geolocation-controller-messenger';
 import { getComplianceControllerMessenger } from './compliance-controller-messenger';
 import { getComplianceServiceMessenger } from './compliance-service-messenger';
-import { getPerpsControllerMessenger } from './perps-controller-messenger';
 import { getDataDeletionServiceMessenger } from './data-deletion-service-messenger';
 import { getUserTraitsServiceMessenger } from './user-traits-service-messenger';
 import { getLegacyBackgroundApiServiceMessenger } from './legacy-background-api-service-messenger';
@@ -288,8 +287,6 @@ export type { ComplianceControllerMessenger } from './compliance-controller-mess
 export { getComplianceControllerMessenger } from './compliance-controller-messenger';
 export type { ComplianceServiceMessenger } from './compliance-service-messenger';
 export { getComplianceServiceMessenger } from './compliance-service-messenger';
-export type { PerpsControllerMessenger } from './perps-controller-messenger';
-export { getPerpsControllerMessenger } from './perps-controller-messenger';
 export { getPhishingControllerMessenger } from './phishing-controller-messenger';
 export { getSelectedNetworkControllerMessenger } from './selected-network-controller-messenger';
 export type { SignatureControllerInitMessenger } from './signature-controller-messenger';
@@ -549,10 +546,6 @@ export const MESSENGER_FACTORIES = {
   },
   PermissionLogController: {
     getMessenger: getPermissionLogControllerMessenger,
-    getInitMessenger: noop,
-  },
-  PerpsController: {
-    getMessenger: getPerpsControllerMessenger,
     getInitMessenger: noop,
   },
   PhishingController: {

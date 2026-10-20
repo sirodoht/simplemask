@@ -1,6 +1,6 @@
 import { it } from '@jest/globals';
 import React from 'react';
-import { fireEvent, Matcher } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import configureStore from '../../../store/store';
 import mockState from '../../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
@@ -8,7 +8,6 @@ import {
   ACTIVITY_ROUTE,
   DEFAULT_ROUTE,
   MONEY_HOME_ROUTE,
-  PERPS_HOME_PAGE_ROUTE,
 } from '../../../helpers/constants/routes';
 import { ScreenViewedEntryPoint } from '../../../../shared/constants/metametrics';
 import type { MoneyAccountAvailability } from '../../../hooks/money/use-money-account-availability';
@@ -99,35 +98,6 @@ describe('BottomNavBar', () => {
   });
 
   describe('renders all tabs', () => {
-    it('renders Home, Perps, Money, and Activity when available', () => {
-      const { getByTestId, getAllByRole } = renderBottomNavBar();
-
-      expect(getByTestId('bottom-nav-home')).toBeInTheDocument();
-      expect(getByTestId('bottom-nav-perps')).toBeInTheDocument();
-      expect(getByTestId('bottom-nav-money')).toBeInTheDocument();
-      expect(getByTestId('bottom-nav-activity')).toBeInTheDocument();
-      expect(
-        getAllByRole('button').map((button) =>
-          button.getAttribute('data-testid'),
-        ),
-      ).toStrictEqual([
-        'bottom-nav-home',
-        'bottom-nav-perps',
-        'bottom-nav-money',
-        'bottom-nav-activity',
-      ]);
-    });
-
-    it('renders Home, Money, and Activity tabs when Perps is unavailable', () => {
-      const { getByTestId, queryByTestId } = renderBottomNavBar(
-        stateWithPerpsDisabled,
-      );
-
-      expect(getByTestId('bottom-nav-home')).toBeInTheDocument();
-      expect(queryByTestId('bottom-nav-perps')).not.toBeInTheDocument();
-      expect(getByTestId('bottom-nav-activity')).toBeInTheDocument();
-    });
-
     it('hides Money when the Money Account is unavailable', () => {
       mockUseMoneyAccountAvailability.mockReturnValueOnce({
         availability: { isAvailable: false },
@@ -141,15 +111,16 @@ describe('BottomNavBar', () => {
 
   describe('active state', () => {
     it('marks Home as active on the root route', () => {
-      const { getByTestId } = renderBottomNavBar(baseState, DEFAULT_ROUTE);
+      const { getByTestId, queryByTestId } = renderBottomNavBar(
+        baseState,
+        DEFAULT_ROUTE,
+      );
 
       expect(getByTestId('bottom-nav-home')).toHaveAttribute(
         'aria-current',
         'page',
       );
-      expect(getByTestId('bottom-nav-perps')).not.toHaveAttribute(
-        'aria-current',
-      );
+      expect(queryByTestId('bottom-nav-perps')).not.toBeInTheDocument();
       expect(getByTestId('bottom-nav-activity')).not.toHaveAttribute(
         'aria-current',
       );
@@ -159,21 +130,6 @@ describe('BottomNavBar', () => {
       const { getByTestId } = renderBottomNavBar(baseState, ACTIVITY_ROUTE);
 
       expect(getByTestId('bottom-nav-activity')).toHaveAttribute(
-        'aria-current',
-        'page',
-      );
-      expect(getByTestId('bottom-nav-home')).not.toHaveAttribute(
-        'aria-current',
-      );
-    });
-
-    it('marks Perps as active on the /perps-home route', () => {
-      const { getByTestId } = renderBottomNavBar(
-        baseState,
-        PERPS_HOME_PAGE_ROUTE,
-      );
-
-      expect(getByTestId('bottom-nav-perps')).toHaveAttribute(
         'aria-current',
         'page',
       );
@@ -220,15 +176,6 @@ describe('BottomNavBar', () => {
           entryPoint: ScreenViewedEntryPoint.BottomNavClick,
           stayOnHomePage: true,
         },
-      });
-    });
-
-    it('navigates to the perps page when Perps is clicked', () => {
-      const { getByTestId } = renderBottomNavBar();
-
-      fireEvent.click(getByTestId('bottom-nav-perps'));
-      expect(mockNavigate).toHaveBeenCalledWith(PERPS_HOME_PAGE_ROUTE, {
-        state: { stayOnHomePage: true },
       });
     });
 

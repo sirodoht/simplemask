@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,15 +21,13 @@ import {
 } from '../../../../helpers/constants/design-system';
 import { ONBOARDING_REVIEW_SRP_ROUTE } from '../../../../helpers/constants/routes';
 
-import { perpsToggleTestnet, resetOnboarding } from '../../../../store/actions';
-import { selectPerpsIsTestnet } from '../../../../selectors/perps-controller';
+import { resetOnboarding } from '../../../../store/actions';
 import { getEnvironmentType } from '../../../../../shared/lib/environment-type';
 import { ENVIRONMENT_TYPE_POPUP } from '../../../../../shared/constants/app';
 import { getRemoteFeatureFlags } from '../../../../../shared/lib/selectors/remote-feature-flags';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { ConfirmationsDeveloperOptions } from '../../../confirmations/components/developer/confirmations-developer-options';
 import { useDispatch } from '../../../../store/hooks';
-import ToggleRow from './toggle-row-component';
 import SentryTest from './sentry-test';
 import { BackupAndSyncDevSettings } from './backup-and-sync';
 import MigrateToSplitStateTest from './migrate-to-split-state-test';
@@ -129,13 +127,6 @@ const DebugContent = () => {
     );
   };
 
-  const isPerpsTestnet = useSelector(selectPerpsIsTestnet);
-  const perpsTestnetToggleRef = useRef<HTMLDivElement>(null);
-
-  const handleTogglePerpsTestnet = useCallback(async (): Promise<void> => {
-    await perpsToggleTestnet();
-  }, []);
-
   const remoteFeatureFlags = useSelector(getRemoteFeatureFlags);
 
   const renderRemoteFeatureFlags = () => {
@@ -196,16 +187,6 @@ const DebugContent = () => {
       </Text>
       <div className="settings-page__content-padded">
         {renderOnboardingReset()}
-        {process.env.METAMASK_DEBUG && (
-          <ToggleRow
-            title="Perps Testnet"
-            description="Toggle perps controller between mainnet and testnet markets."
-            isEnabled={isPerpsTestnet}
-            onToggle={handleTogglePerpsTestnet}
-            dataTestId="perps-testnet-toggle"
-            settingsRef={perpsTestnetToggleRef}
-          />
-        )}
       </div>
 
       <BackupAndSyncDevSettings />

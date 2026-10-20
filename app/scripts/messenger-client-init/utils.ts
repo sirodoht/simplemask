@@ -65,7 +65,6 @@ export type MessengerClientsToInitialize =
   | 'SnapInterfaceController'
   | 'GeolocationApiService'
   | 'GeolocationController'
-  | 'PerpsController'
   | 'PPOMController'
   | 'QrSyncController'
   | 'SentinelApiService'

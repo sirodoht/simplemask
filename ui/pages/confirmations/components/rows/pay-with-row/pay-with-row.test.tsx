@@ -14,7 +14,6 @@ import { useTransactionMetadataRequestOptional } from '../../../hooks/transactio
 import useAlerts from '../../../../../hooks/useAlerts';
 import { AlertsName } from '../../../hooks/alerts/constants';
 import { useMoneyAccountWithdrawableFiat } from '../../../../../hooks/money/useMoneyAccountWithdrawableFiat';
-import { useIsMoneyAccountPerpsNavigation } from '../../../hooks/pay/useIsMoneyAccountPerpsNavigation';
 // eslint-disable-next-line import-x/no-restricted-paths -- TODO(ADR-0021): route-isolation backlog
 import { isHardwareAccount } from '../../../../multichain-accounts/account-details/account-type-utils';
 import { PayWithRow, PayWithRowSkeleton } from './pay-with-row';
@@ -25,9 +24,6 @@ jest.mock('../../../hooks/pay/useTransactionPayAvailableTokens');
 jest.mock('../../../selectors/feature-flags', () => ({
   ...jest.requireActual('../../../selectors/feature-flags'),
   selectIsMoneyAccountTransactionEnabled: jest.fn(() => false),
-}));
-jest.mock('../../../hooks/pay/useIsMoneyAccountPerpsNavigation', () => ({
-  useIsMoneyAccountPerpsNavigation: jest.fn(() => false),
 }));
 jest.mock('../../../hooks/send/useSendTokens');
 jest.mock('../../../context/confirm');
@@ -416,22 +412,6 @@ describe('PayWithRow', () => {
         '($150.00)',
       );
     });
-
-    it('does not render the balance for a perps withdraw', () => {
-      useConfirmContextMock.mockReturnValue({
-        currentConfirmation: {
-          id: 'test-id',
-          type: TransactionType.perpsWithdraw,
-          chainId: CHAIN_ID_MOCK,
-          txParams: { from: FROM_ADDRESS_MOCK },
-        },
-      } as never);
-
-      const store = mockStore(getMockState());
-      renderWithProvider(<PayWithRow />, store);
-
-      expect(screen.queryByTestId('pay-with-balance')).not.toBeInTheDocument();
-    });
   });
 
   it('renders the Money account icon and balance when selected', () => {
@@ -449,42 +429,6 @@ describe('PayWithRow', () => {
     expect(screen.getByTestId('pay-with-balance')).toHaveTextContent(
       '($12.34)',
     );
-  });
-
-  it('hides the token select for money account perps deposits', () => {
-    jest.mocked(useIsMoneyAccountPerpsNavigation).mockReturnValue(true);
-    const store = mockStore(getMockState());
-    useTransactionMetadataRequestOptionalMock.mockReturnValue({
-      id: 'test-id',
-      type: TransactionType.perpsDeposit,
-      chainId: CHAIN_ID_MOCK,
-      txParams: {
-        from: FROM_ADDRESS_MOCK,
-      },
-    } as never);
-
-    renderWithProvider(<PayWithRow />, store, '/?payWithOption=money_account');
-
-    expect(screen.queryByTestId('pay-with-row')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('pay-with-pill')).not.toBeInTheDocument();
-  });
-
-  it('shows the token select when Money Account pay is not enabled for perps deposit', () => {
-    jest.mocked(useIsMoneyAccountPerpsNavigation).mockReturnValue(false);
-    const store = mockStore(getMockState());
-    useTransactionMetadataRequestOptionalMock.mockReturnValue({
-      id: 'test-id',
-      type: TransactionType.perpsDeposit,
-      chainId: CHAIN_ID_MOCK,
-      txParams: {
-        from: FROM_ADDRESS_MOCK,
-      },
-    } as never);
-
-    renderWithProvider(<PayWithRow />, store, '/?payWithOption=money_account');
-
-    expect(screen.getByTestId('pay-with-row')).toBeInTheDocument();
-    expect(screen.getByTestId('pay-with-pill')).toBeInTheDocument();
   });
 });
 

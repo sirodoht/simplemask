@@ -30,7 +30,6 @@ import { SEND_TRANSACTION_TYPES } from '../../../constants/send';
 import { useConfirmActions } from '../../../hooks/useConfirmActions';
 import { useHasInsufficientBalance } from '../../../hooks/useHasInsufficientBalance';
 import { useShieldConfirm } from '../../../hooks/transactions/useShieldConfirm';
-import { useIsMoneyAccountPerpsNavigation } from '../../../hooks/pay/useIsMoneyAccountPerpsNavigation';
 import { AdvancedDetailsButton } from './advanced-details-button';
 
 export const WalletInitiatedHeader = () => {
@@ -42,7 +41,6 @@ export const WalletInitiatedHeader = () => {
   const { hasInsufficientBalance, isNativeBalanceKnown } =
     useHasInsufficientBalance();
   const navigate = useNavigate();
-  const isMoneyAccountPerpsDeposit = useIsMoneyAccountPerpsNavigation();
 
   const confirmationType = getConfirmationTransactionType(currentConfirmation);
 
@@ -111,14 +109,6 @@ export const WalletInitiatedHeader = () => {
     }
     if (confirmationType === TransactionType.musdClaim) {
       return null;
-    }
-    if (confirmationType === TransactionType.perpsDeposit) {
-      return isMoneyAccountPerpsDeposit
-        ? t('sendToPerps')
-        : t('perpsDepositFundsTitle');
-    }
-    if (confirmationType === TransactionType.perpsWithdraw) {
-      return t('perpsWithdrawFundsTitle');
     }
     return t('review');
   };

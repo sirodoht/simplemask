@@ -87,7 +87,6 @@ import { navigateToSendRoute } from '../../../pages/confirmations/utils/send';
 import { useOnClickOutside } from '../../../hooks/useClickOutside';
 import { useBatchSell } from '../../../hooks/batch-sell/useBatchSell';
 import { getIsBatchSellEnabled } from '../../../selectors/batch-sell/feature-flags';
-import { PerpsTradeButtons } from '../perps/perps-trade-buttons';
 import { useBalanceAwareSwapDefaults } from '../../../pages/asset/hooks/useBalanceAwareSwapDefaults';
 
 export function getSwapNativeTokenWithOverridesForChain(
@@ -213,16 +212,6 @@ type CoinButtonsProps = {
    * omitted (e.g. wallet overview), Buy opens the token-selection page instead.
    */
   buyAssetId?: CaipAssetType;
-  /**
-   * When set (asset page, asset with a matching Perps market), the row shows
-   * Long / Short / Send / More and Buy / Swap move into the More menu,
-   * matching the mobile Token Details actions.
-   *
-   * Callers must resolve the Perps market lookup before mounting this row:
-   * an unset symbol renders the standard Buy / Swap actions, so passing it
-   * while the lookup is still pending would flash the wrong row.
-   */
-  perpsMarketSymbol?: string;
 };
 
 const CoinButtons = ({
@@ -235,7 +224,6 @@ const CoinButtons = ({
   hasBalance = true,
   disableSendForNonEvm = false,
   buyAssetId,
-  perpsMarketSymbol,
 }: CoinButtonsProps) => {
   const t = useContext(I18nContext);
   const dispatch = useDispatch();
@@ -557,13 +545,6 @@ const CoinButtons = ({
     active: isMoreOptionsDropdownOpen,
   });
 
-  /**
-   * Whether Receive replaces Send on the Perps action row. When true, Receive
-   * is omitted from More so it is not duplicated and `*-overview-receive`
-   * matches a single control.
-   */
-  const showReceiveOnActionRow = Boolean(perpsMarketSymbol) && !hasBalance;
-
   return (
     <Box
       flexDirection={BoxFlexDirection.Row}
@@ -572,12 +553,7 @@ const CoinButtons = ({
       gap={3}
       ref={containerRef}
     >
-      {perpsMarketSymbol ? (
-        <PerpsTradeButtons
-          marketSymbol={perpsMarketSymbol}
-          classPrefix={classPrefix}
-        />
-      ) : (
+      {
         <>
           <IconButton
             className={`${classPrefix}-overview__button`}
@@ -612,23 +588,8 @@ const CoinButtons = ({
             }
           />
         </>
-      )}
-      {showReceiveOnActionRow ? (
-        <IconButton
-          className={`${classPrefix}-overview__button`}
-          data-testid={`${classPrefix}-overview-receive`}
-          Icon={
-            <Icon
-              name={IconName.Received}
-              color={IconColor.IconAlternative}
-              size={IconSize.Md}
-            />
-          }
-          label={t('receive')}
-          onClick={handleReceiveOnClick}
-          width={BlockSize.Full}
-        />
-      ) : (
+      }
+      {
         <IconButton
           className={`${classPrefix}-overview__button`}
           data-testid={`${classPrefix}-overview-send`}
@@ -650,7 +611,7 @@ const CoinButtons = ({
             generateTooltip('sendButton', contents)
           }
         />
-      )}
+      }
       {showReceiveModal && (
         <ReceiveModal
           address={selectedAddress}
@@ -663,25 +624,6 @@ const CoinButtons = ({
         modalIsOpen={isMoreOptionsDropdownOpen}
         classPrefix={classPrefix}
         actions={[
-          // Buy and Swap move into the More menu when the Perps row replaces
-          // them with Long / Short.
-          {
-            label: t('buy'),
-            onClick: handleBuyAndSellOnClick,
-            testId: `${classPrefix}-overview-more-buy`,
-            iconName: IconName.AttachMoney,
-            enabled: Boolean(perpsMarketSymbol),
-          },
-          {
-            label: t('swap'),
-            onClick: handleSwapOnClick,
-            testId: `${classPrefix}-overview-more-swap`,
-            iconName: IconName.SwapVertical,
-            enabled:
-              Boolean(perpsMarketSymbol) &&
-              isSigningEnabled &&
-              isExternalServicesEnabled,
-          },
           {
             label: t('batchSell'),
             onClick: handleBatchSellOnClick,
@@ -700,11 +642,9 @@ const CoinButtons = ({
           {
             label: t('receive'),
             onClick: handleReceiveOnClick,
-            testId: perpsMarketSymbol
-              ? `${classPrefix}-overview-more-receive`
-              : `${classPrefix}-overview-receive`,
+            testId: `${classPrefix}-overview-receive`,
             iconName: IconName.Received,
-            enabled: !showReceiveOnActionRow,
+            enabled: true,
           },
         ]}
       />

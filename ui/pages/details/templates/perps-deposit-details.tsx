@@ -1,14 +1,7 @@
 import React from 'react';
 import { toEvmCaipChainId } from '@metamask/multichain-network-controller';
-import {
-  Button,
-  ButtonSize,
-  ButtonVariant,
-} from '@metamask/design-system-react';
-import { TransactionStatus as TransactionMetaStatus } from '@metamask/transaction-controller';
 import type { ActivityListItem } from '../../../../shared/lib/activity/types';
 import { CHAIN_IDS } from '../../../../shared/constants/network';
-import { usePerpsDepositConfirmation } from '../../../components/app/perps/hooks/usePerpsDepositConfirmation';
 import { useLocalTransactionMeta } from '../../../hooks/activity/useLocalTransactionMeta';
 import {
   ARBITRUM_USDC,
@@ -30,7 +23,6 @@ type Props = {
 
 export function PerpsDepositDetails({ item }: Readonly<Props>) {
   const t = useI18nContext();
-  const { trigger: triggerDeposit } = usePerpsDepositConfirmation();
   const { formatCurrencyWithMinThreshold } = useFormatters();
   const transactionMeta = useLocalTransactionMeta(item.hash);
   const { metamaskPay } = transactionMeta ?? {};
@@ -47,19 +39,8 @@ export function PerpsDepositDetails({ item }: Readonly<Props>) {
   return (
     <MmPayDetailsLayout
       avatarTokens={[PERPS_USDC_ASSET_ID]}
+      footer={null}
       feeSectionAlwaysVisible
-      footer={
-        transactionMeta?.status === TransactionMetaStatus.confirmed ? (
-          <Button
-            className="w-full"
-            size={ButtonSize.Lg}
-            variant={ButtonVariant.Primary}
-            onClick={() => triggerDeposit()}
-          >
-            {t('perpsFundAgain')}
-          </Button>
-        ) : null
-      }
       formatFiat={formatFiat}
       heroAmount={formattedTargetFiat ? `+${formattedTargetFiat}` : null}
       item={item}

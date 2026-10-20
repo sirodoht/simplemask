@@ -1,16 +1,28 @@
 diff --git a/dist/NotificationServicesController/NotificationServicesController.js b/dist/NotificationServicesController/NotificationServicesController.js
-index fbaad16cd7b03248fde44160422e027c5e7f8981..f2e4730ab557de2a22a4a7fedd8f96fa8b5ba1af 100644
+index fbaad16cd7b03248fde44160422e027c5e7f8981..caa7e9348e6689fd48eb928b0d04681098b35010 100644
 --- a/dist/NotificationServicesController/NotificationServicesController.js
 +++ b/dist/NotificationServicesController/NotificationServicesController.js
-@@ -7,7 +7,6 @@ import log from 'loglevel';
+@@ -7,8 +7,6 @@ import log from 'loglevel';
  import { TRIGGER_TYPES } from './constants/notification-schema.js';
  import { processAndFilterNotifications, safeProcessNotification, } from './processors/process-notifications.js';
  import { getAPINotifications, getNotificationsApiConfigCached, markNotificationsAsRead, updateOnChainNotifications, } from './services/api-notifications.js';
 -import { getFeatureAnnouncementNotifications } from './services/feature-announcements.js';
- import { createPerpOrderNotification } from './services/perp-notifications.js';
+-import { createPerpOrderNotification } from './services/perp-notifications.js';
  // Unique name for the controller
  const controllerName = 'NotificationServicesController';
-@@ -623,7 +622,7 @@ export class NotificationServicesController extends BaseController {
+ export const ACCOUNTS_UPDATE_DEBOUNCE_TIME_MS = 1000;
+@@ -94,8 +92,8 @@ const locallyPersistedNotificationTypes = new Set([
+  * preferences are initialized for the first time.
+  */
+ export const DEFAULT_PERPS_PREFERENCES = {
+-    inAppNotificationsEnabled: true,
+-    pushNotificationsEnabled: true,
++    inAppNotificationsEnabled: false,
++    pushNotificationsEnabled: false,
+ };
+ /**
+  * Hardcoded default Social AI notification preferences. Applied when
+@@ -623,7 +621,7 @@ export class NotificationServicesController extends BaseController {
      async setFeatureAnnouncementsEnabled(featureAnnouncementsEnabled) {
          try {
              this.update((state) => {
@@ -19,7 +31,7 @@ index fbaad16cd7b03248fde44160422e027c5e7f8981..f2e4730ab557de2a22a4a7fedd8f96fa
              });
          }
          catch (error) {
-@@ -711,7 +710,7 @@ export class NotificationServicesController extends BaseController {
+@@ -711,7 +709,7 @@ export class NotificationServicesController extends BaseController {
                  else {
                      // User is turning on notifications from a disabled state
                      state.isNotificationServicesEnabled = true;
@@ -28,7 +40,7 @@ index fbaad16cd7b03248fde44160422e027c5e7f8981..f2e4730ab557de2a22a4a7fedd8f96fa
                      state.isMetamaskNotificationsFeatureSeen = true;
                  }
              });
-@@ -839,16 +838,6 @@ export class NotificationServicesController extends BaseController {
+@@ -839,16 +837,6 @@ export class NotificationServicesController extends BaseController {
              // This is used by Feature Announcement & On Chain
              // Not used by Snaps
              const isGlobalNotifsEnabled = this.state.isNotificationServicesEnabled;
@@ -45,13 +57,40 @@ index fbaad16cd7b03248fde44160422e027c5e7f8981..f2e4730ab557de2a22a4a7fedd8f96fa
              // Raw On Chain Notifications
              const rawOnChainNotifications = [];
              if (isGlobalNotifsEnabled) {
-@@ -874,8 +863,7 @@ export class NotificationServicesController extends BaseController {
+@@ -874,8 +862,7 @@ export class NotificationServicesController extends BaseController {
              const readIds = this.state.metamaskNotificationsReadList;
              // Combine Notifications
              const metamaskNotifications = [
 -                ...processAndFilterNotifications(rawAnnouncements, readIds),
 -                ...processAndFilterNotifications(rawOnChainNotifications, readIds),
-+                ...processAndFilterNotifications(rawOnChainNotifications, readIds).filter((notification) => notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT),
++                ...processAndFilterNotifications(rawOnChainNotifications, readIds).filter((notification) => notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT && notification.notification_type !== 'perps'),
                  ...snapNotifications,
              ];
              // Sort Notifications
+@@ -1029,7 +1016,7 @@ export class NotificationServicesController extends BaseController {
+             return;
+         }
+         const processedNotification = safeProcessNotification(notification);
+-        if (processedNotification) {
++        if (processedNotification && processedNotification.notification_type !== 'perps') {
+             this.update((state) => {
+                 const existingNotificationIds = new Set(state.metamaskNotificationsList.map((existingNotification) => existingNotification.id));
+                 // Add the new notification only if its ID is not already present in the list
+@@ -1049,14 +1036,8 @@ export class NotificationServicesController extends BaseController {
+      *
+      * @param input perp input
+      */
+-    async sendPerpPlaceOrderNotification(input) {
+-        try {
+-            const { bearerToken } = await this.#getBearerToken();
+-            await createPerpOrderNotification(bearerToken, input);
+-        }
+-        catch {
+-            // Do Nothing
+-        }
++    async sendPerpPlaceOrderNotification(_input) {
++        // Integrated perpetual futures are not supported by this wallet.
+     }
+ }
+ //# sourceMappingURL=NotificationServicesController.js.map
+\ No newline at end of file

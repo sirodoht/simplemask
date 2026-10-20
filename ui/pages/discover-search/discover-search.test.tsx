@@ -121,10 +121,6 @@ const getEmptyDiscoverSearchResult = () => ({
   isDebouncing: false,
 });
 
-jest.mock('../../selectors/perps/feature-flags', () => ({
-  getIsPerpsExperienceAvailable: () => mockGetIsPerpsExperienceAvailable(),
-}));
-
 const mockStore = configureMockStore();
 
 describe('DiscoverSearchPage', () => {
@@ -424,55 +420,5 @@ describe('DiscoverSearchPage', () => {
     expect(
       screen.getByText(messages.discoverSearchPopularAssets.message),
     ).toBeInTheDocument();
-  });
-
-  it('renders no results when the selected Perps tab is empty, regardless of other feeds loading', () => {
-    mockGetIsPerpsExperienceAvailable.mockReturnValue(true);
-    mockUseDiscoverSearch.mockReturnValue({
-      ...getEmptyDiscoverSearchResult(),
-      crypto: {
-        ...getEmptyDiscoverSearchResult().crypto,
-        isLoading: true,
-      },
-      stocks: {
-        ...getEmptyDiscoverSearchResult().stocks,
-        isLoading: true,
-      },
-    });
-    renderPage({ route: `${DISCOVER_SEARCH_ROUTE}?q=eth&tab=perps` });
-
-    expect(
-      screen.getByTestId('discover-search-no-results'),
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByTestId('discover-search-loading'),
-    ).not.toBeInTheDocument();
-  });
-
-  it('does not render other category results in an empty selected Perps tab', () => {
-    mockGetIsPerpsExperienceAvailable.mockReturnValue(true);
-    mockUseDiscoverSearch.mockReturnValue({
-      ...getDefaultDiscoverSearchResult(),
-      perps: {
-        ...getDefaultDiscoverSearchResult().perps,
-        items: [],
-      },
-    });
-    renderPage();
-
-    fireEvent.change(screen.getByTestId('discover-search-input'), {
-      target: { value: 'eth' },
-    });
-    fireEvent.click(screen.getByTestId('discover-tab-perps'));
-
-    expect(
-      screen.getByTestId('discover-search-no-results'),
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByTestId('discover-crypto-preview-eip155:1/slip44:60'),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId('discover-section-crypto'),
-    ).not.toBeInTheDocument();
   });
 });

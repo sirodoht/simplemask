@@ -4055,24 +4055,6 @@ export function getPendingRedirectRoute(state) {
 }
 
 /**
- * Get the last visited Perps route and the timestamp it was recorded.
- *
- * Keyed on the primitive fields, not on `lastVisitedRoute`: state pushes replace
- * nested objects, and a fresh reference per push re-runs the dispatching effect
- * in `useLastVisitedPerpsRoute` on every render.
- *
- * @param {MetaMaskReduxState} state - The Redux state
- * @returns {{ path: string, timestamp: number } | null} The last visited Perps route, or null if none.
- */
-export const getLastVisitedPerpsRoute = createSelector(
-  (state) => state.metamask?.lastVisitedRoute?.name,
-  (state) => state.metamask?.lastVisitedRoute?.path,
-  (state) => state.metamask?.lastVisitedRoute?.timestamp,
-  (name, path, timestamp) =>
-    name === 'perps' && path !== undefined ? { path, timestamp } : null,
-);
-
-/**
  * Retrieves the deferred deep link from the MetaMask state.
  *
  * @param {MetaMaskReduxState} state - The Redux state object.

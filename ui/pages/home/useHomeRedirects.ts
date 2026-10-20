@@ -1,10 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
-import { wasPerpsUnmountedInAppRecently } from '../../helpers/perps/in-app-leave-marker';
-import {
-  PERPS_ROUTE,
-  PERPS_REOPEN_TTL_MS,
-} from '../../helpers/constants/routes';
 
 export type PendingRedirectRoute = {
   path: string;
@@ -15,11 +10,6 @@ export type PendingRedirectRoute = {
 export type RedirectAfterDefaultPage = {
   shouldRedirect?: boolean;
   path?: string;
-};
-
-export type LastVisitedPerpsRoute = {
-  path: string;
-  timestamp: number;
 };
 
 /**
@@ -92,75 +82,5 @@ export function usePendingRedirectRoute({
     envType,
     setRedirectAfterDefaultPage,
     clearPendingRedirectRoute,
-  ]);
-}
-
-/**
- * When `lastVisitedPerpsRoute` is set, resumes the persisted perps path when all
- * guards pass. Always clears the persisted entry so a later home mount cannot
- * replay it.
- *
- * Navigates directly rather than via `redirectAfterDefaultPage`: the
- * `pageChanged` reducer cancels that flag while the path is the default route,
- * which is where this hook runs.
- * @param options0
- * @param options0.lastVisitedPerpsRoute
- * @param options0.pendingRedirectRoute
- * @param options0.envType
- * @param options0.navigate
- * @param options0.clearLastVisitedPerpsRoute
- */
-export function useLastVisitedPerpsRoute({
-  lastVisitedPerpsRoute,
-  pendingRedirectRoute,
-  envType,
-  navigate,
-  clearLastVisitedPerpsRoute,
-}: {
-  lastVisitedPerpsRoute?: LastVisitedPerpsRoute | null;
-  pendingRedirectRoute?: PendingRedirectRoute | null;
-  envType?: string;
-  navigate?: NavigateFunction;
-  clearLastVisitedPerpsRoute?: () => void;
-}) {
-  // One resume per path, so the dispatching effect below cannot repeat even if a
-  // caller passes a new object identity every render.
-  const resumedPathRef = useRef<string | null>(null);
-  const path = lastVisitedPerpsRoute?.path ?? null;
-  const timestamp = lastVisitedPerpsRoute?.timestamp;
-  const hasPendingRedirect = Boolean(pendingRedirectRoute);
-  const pendingEnvironmentType = pendingRedirectRoute?.environmentType;
-
-  useEffect(() => {
-    if (path === null || timestamp === undefined) {
-      return;
-    }
-    if (resumedPathRef.current === path) {
-      return;
-    }
-    resumedPathRef.current = path;
-
-    clearLastVisitedPerpsRoute?.();
-
-    const isFresh = Date.now() - timestamp < PERPS_REOPEN_TTL_MS;
-    const pathname = typeof path === 'string' ? path.split(/[?#]/u)[0] : '';
-    const isPerpsPath =
-      pathname === PERPS_ROUTE || pathname.startsWith(`${PERPS_ROUTE}/`);
-    const pendingApplies =
-      hasPendingRedirect &&
-      (!pendingEnvironmentType || pendingEnvironmentType === envType);
-    const justLeftPerpsInApp = wasPerpsUnmountedInAppRecently(1500);
-
-    if (!pendingApplies && !justLeftPerpsInApp && isFresh && isPerpsPath) {
-      navigate?.(path);
-    }
-  }, [
-    path,
-    timestamp,
-    hasPendingRedirect,
-    pendingEnvironmentType,
-    envType,
-    navigate,
-    clearLastVisitedPerpsRoute,
   ]);
 }

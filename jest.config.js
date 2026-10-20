@@ -20,11 +20,6 @@ module.exports = {
     '\\.css$': '<rootDir>/test/mocks/style.ts',
     // Mock lightweight-charts since it requires browser/canvas APIs not available in Jest
     '^lightweight-charts$': '<rootDir>/test/mocks/lightweight-charts.js',
-    // Stub @metamask/perps-controller so every test suite can resolve it without
-    // listing jest.mock() individually. Tests needing a fuller fake can still
-    // override with their own jest.mock() call.
-    '^@metamask/perps-controller$':
-      '<rootDir>/test/mocks/metamask-perps-controller.js',
   },
   // This mirrors Jest's default module extensions with `mts` added. Importing
   // `jest-config` defaults would avoid this list, but lint rejects that package

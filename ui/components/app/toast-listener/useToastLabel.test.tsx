@@ -140,33 +140,6 @@ describe('useToastLabel', () => {
     });
   });
 
-  it('returns pending perps withdraw toast content', () => {
-    addPerpsWithdrawItem('tx-1');
-
-    const { result } = renderHook(() => useToastLabel('pending', 'tx-1'));
-
-    expect(result.current).toStrictEqual({
-      title: 'perpsWithdrawPostQuoteToastPendingTitle',
-      description: 'perpsWithdrawPostQuoteToastPendingDescription',
-    });
-  });
-
-  it('returns success perps withdraw toast content with amount and symbol', () => {
-    addPerpsWithdrawItem('tx-1', {
-      data: {
-        fiat: { amount: '20.73' },
-        token: { symbol: 'BNB', direction: 'out' },
-      },
-    } as Partial<ActivityListItem>);
-
-    const { result } = renderHook(() => useToastLabel('success', 'tx-1'));
-
-    expect(result.current).toStrictEqual({
-      title: 'perpsWithdrawPostQuoteToastSuccessTitle',
-      description: 'perpsWithdrawPostQuoteToastSuccessDescription:$20.73,BNB',
-    });
-  });
-
   it('returns generic success description when amount or symbol is missing', () => {
     addPerpsWithdrawItem('tx-1');
 
@@ -175,17 +148,6 @@ describe('useToastLabel', () => {
     expect(result.current).toStrictEqual({
       title: 'perpsWithdrawPostQuoteToastSuccessTitle',
       description: 'perpsWithdrawPostQuoteToastSuccessGenericDescription',
-    });
-  });
-
-  it('returns failed perps withdraw toast content', () => {
-    addPerpsWithdrawItem('tx-1');
-
-    const { result } = renderHook(() => useToastLabel('failed', 'tx-1'));
-
-    expect(result.current).toStrictEqual({
-      title: 'perpsWithdrawPostQuoteToastErrorTitle',
-      description: 'perpsWithdrawPostQuoteToastErrorDescription',
     });
   });
 });

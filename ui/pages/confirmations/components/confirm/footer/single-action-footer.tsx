@@ -3,10 +3,7 @@ import { TransactionType } from '@metamask/transaction-controller';
 import React, { useMemo, useState } from 'react';
 import { BigNumber } from 'bignumber.js';
 import { Button, ButtonSize } from '@metamask/design-system-react';
-import {
-  hasTransactionType,
-  isPerpsWithdrawTransaction,
-} from '../../../../../../shared/lib/transactions.utils';
+import { hasTransactionType } from '../../../../../../shared/lib/transactions.utils';
 import { Footer as PageFooter } from '../../../../../components/multichain/pages/page';
 import useAlerts from '../../../../../hooks/useAlerts';
 import { useI18nContext } from '../../../../../hooks/useI18nContext';
@@ -20,7 +17,6 @@ import {
 import { useLastMoneyAccountWithdrawAmount } from '../../../hooks/transactions/useLastMoneyAccountWithdrawAmount';
 import { getConfirmationTransactionType } from '../../../utils/confirm';
 import { FlexDirection } from '../../../../../helpers/constants/design-system';
-import { useIsMoneyAccountPerpsNavigation } from '../../../hooks/pay/useIsMoneyAccountPerpsNavigation';
 
 type ButtonState = {
   buttonText: string;
@@ -32,8 +28,6 @@ const BUTTON_TEXT_BY_TYPE: Partial<Record<TransactionType, string>> = {
   [TransactionType.moneyAccountDeposit]: 'addFunds',
   [TransactionType.moneyAccountWithdraw]: 'send',
   [TransactionType.musdConversion]: 'musdConvert',
-  [TransactionType.perpsDeposit]: 'addFunds',
-  [TransactionType.perpsWithdraw]: 'perpsWithdraw',
 };
 
 function useSingleActionButtonState(isGaslessLoading: boolean): ButtonState {
@@ -45,7 +39,6 @@ function useSingleActionButtonState(isGaslessLoading: boolean): ButtonState {
   const isMoneyAccountDeposit = hasTransactionType(currentConfirmation, [
     TransactionType.moneyAccountDeposit,
   ]);
-  const isMoneyAccountPerpsDeposit = useIsMoneyAccountPerpsNavigation();
 
   const { alerts } = useAlerts(transactionId);
   const isPayLoading = useIsTransactionPayQuotePending();
@@ -56,8 +49,7 @@ function useSingleActionButtonState(isGaslessLoading: boolean): ButtonState {
   // Same-token mUSD deposits produce a Pay no-op unless `isQuoteRequired` is
   // set. Without an executable quote, Add funds skips Pay and never moves
   // funds onto the money account.
-  const requiresExecutableQuote =
-    isPerpsWithdrawTransaction(currentConfirmation) || isMoneyAccountDeposit;
+  const requiresExecutableQuote = isMoneyAccountDeposit;
   const isPayReady = !requiresExecutableQuote || hasExecutableQuote;
   const totals = useTransactionPayTotals();
   const lastWithdrawAmount = useLastMoneyAccountWithdrawAmount(transactionId);
@@ -68,10 +60,8 @@ function useSingleActionButtonState(isGaslessLoading: boolean): ButtonState {
   );
 
   return useMemo(() => {
-    const i18nKey = isMoneyAccountPerpsDeposit
-      ? 'send'
-      : ((transactionType && BUTTON_TEXT_BY_TYPE[transactionType]) ??
-        'confirm');
+    const i18nKey =
+      (transactionType && BUTTON_TEXT_BY_TYPE[transactionType]) ?? 'confirm';
     const defaultButtonText = t(i18nKey);
 
     // Money-account withdraw batches have no `requiredAssets`, so Pay never
@@ -118,7 +108,6 @@ function useSingleActionButtonState(isGaslessLoading: boolean): ButtonState {
     isMoneyAccountWithdraw,
     isPayReady,
     isPayLoading,
-    isMoneyAccountPerpsDeposit,
     lastWithdrawAmount,
     primaryRequiredToken,
     totals,

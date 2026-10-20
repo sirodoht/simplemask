@@ -143,7 +143,6 @@ export type AppStateControllerState = {
   trezorModel: string | null;
   updateModalLastDismissedAt: number | null;
   hasShownMultichainAccountsIntroModal: boolean;
-  perpsTabBadgeSeen: boolean;
   musdConversionEducationSeen: boolean;
   musdConversionDismissedCtaKeys: string[];
   moneyEarnBannerDismissedTokenKeys: string[];
@@ -153,12 +152,6 @@ export type AppStateControllerState = {
    * If this is set, next time default page is loaded, the redirect will be applied.
    */
   pendingRedirectRoute: PendingRedirectRoute | null;
-  /**
-   * The last visited feature route together with the timestamp it was recorded.
-   * Used by feature flows that resume a recent in-extension route after a brief
-   * close/reopen, then clear the entry once inspected.
-   */
-  lastVisitedRoute: { name: string; path: string; timestamp: number } | null;
   pendingShieldCohort: string | null;
   pendingShieldCohortTxType: string | null;
   defaultSubscriptionPaymentOptions?: DefaultSubscriptionPaymentOptions;
@@ -194,12 +187,6 @@ export type AppStateControllerState = {
    * Timestamp when the legacy passkey PRF migration reminder was last shown.
    */
   lastShownPrfMigrationReminderAt: number | null;
-
-  /**
-   * The entry point that initiated the last Perps deposit flow (e.g.
-   * 'hyperliquid_deposit_prompt'). Currently used to show custom toast UI.
-   */
-  lastPerpsDepositEntryPoint: string | null;
 };
 
 const controllerName = 'AppStateController';
@@ -320,13 +307,11 @@ const getDefaultAppStateControllerState = (): AppStateControllerState => ({
   trezorModel: null,
   updateModalLastDismissedAt: null,
   hasShownMultichainAccountsIntroModal: false,
-  perpsTabBadgeSeen: false,
   musdConversionEducationSeen: false,
   musdConversionDismissedCtaKeys: [],
   moneyEarnBannerDismissedTokenKeys: [],
   showShieldEntryModalOnce: null,
   pendingRedirectRoute: null,
-  lastVisitedRoute: null,
   pendingShieldCohort: null,
   pendingShieldCohortTxType: null,
   isWalletResetInProgress: false,
@@ -334,7 +319,6 @@ const getDefaultAppStateControllerState = (): AppStateControllerState => ({
   storageWriteErrorType: null,
   passkeyAutoUnlockSuppressed: false,
   lastShownPrfMigrationReminderAt: null,
-  lastPerpsDepositEntryPoint: null,
   ...getInitialStateOverrides(),
 });
 
@@ -597,12 +581,6 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
     usedInUi: true,
     includeInStateLogs: true,
   },
-  perpsTabBadgeSeen: {
-    persist: true,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-    includeInStateLogs: true,
-  },
   musdConversionEducationSeen: {
     persist: true,
     includeInDebugSnapshot: true,
@@ -629,18 +607,6 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
   },
   pendingRedirectRoute: {
     includeInStateLogs: true,
-    persist: false,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
-  lastVisitedRoute: {
-    // Scrubbed from shared state logs — feature paths can reveal portfolio or
-    // activity details when a user shares a support log.
-    includeInStateLogs: false,
-    // Memory-only, like `pendingRedirectRoute` — the "brief close/reopen"
-    // the feature targets happens within the MV3 service worker's
-    // in-memory lifetime and a 5-minute TTL, so disk persistence is not
-    // needed and would leave stale paths in persisted state indefinitely.
     persist: false,
     includeInDebugSnapshot: true,
     usedInUi: true,
@@ -705,12 +671,6 @@ const controllerMetadata: StateMetadata<AppStateControllerState> = {
     includeInDebugSnapshot: false,
     usedInUi: true,
   },
-  lastPerpsDepositEntryPoint: {
-    includeInStateLogs: true,
-    persist: false,
-    includeInDebugSnapshot: true,
-    usedInUi: true,
-  },
 };
 
 const MESSENGER_EXPOSED_METHODS = [
@@ -749,11 +709,9 @@ const MESSENGER_EXPOSED_METHODS = [
   'setIsWalletResetInProgress',
   'setLastActiveTime',
   'setLastInteractedConfirmationInfo',
-  'setLastPerpsDepositEntryPoint',
   'setLastUpdatedAt',
   'setLastUpdatedFromVersion',
   'setLastViewedUserSurvey',
-  'setLastVisitedRoute',
   'setMusdConversionEducationSeen',
   'setNewPrivacyPolicyToastClickedOrClosed',
   'setNewPrivacyPolicyToastShownDate',
@@ -764,7 +722,6 @@ const MESSENGER_EXPOSED_METHODS = [
   'setPendingExtensionVersion',
   'setPendingRedirectRoute',
   'setPendingShieldCohort',
-  'setPerpsTabBadgeSeen',
   'setPna25Acknowledged',
   'setProductTour',
   'setRecoveryPhraseReminderHasBeenShown',
@@ -1306,18 +1263,6 @@ export class AppStateController extends BaseController<
   }
 
   /**
-   * Sets whether the user has seen (and therefore dismissed) the Perps tab
-   * "New" badge.
-   *
-   * @param value - Whether the Perps tab badge has been seen
-   */
-  setPerpsTabBadgeSeen(value: boolean): void {
-    this.update((state) => {
-      state.perpsTabBadgeSeen = value;
-    });
-  }
-
-  /**
    * Sets whether the mUSD conversion education screen has been seen.
    *
    * @param value - Whether the education screen has been seen
@@ -1488,17 +1433,6 @@ export class AppStateController extends BaseController<
   ): void {
     this.update((state) => {
       state.lastInteractedConfirmationInfo = lastInteractedConfirmationInfo;
-    });
-  }
-
-  /**
-   * Sets the entry point that initiated the last Perps deposit flow.
-   *
-   * @param entryPoint - The entry point identifier, or undefined to clear.
-   */
-  setLastPerpsDepositEntryPoint(entryPoint: string | null): void {
-    this.update((state) => {
-      state.lastPerpsDepositEntryPoint = entryPoint;
     });
   }
 
@@ -1683,24 +1617,6 @@ export class AppStateController extends BaseController<
   setPendingRedirectRoute(route: PendingRedirectRoute | null): void {
     this.update((state) => {
       state.pendingRedirectRoute = route;
-    });
-  }
-
-  /**
-   * Records the last visited feature route with the current timestamp, or
-   * clears it. Feature UIs read this on home page mount to resume a recent
-   * route after a brief close/reopen.
-   *
-   * @param name - The feature route namespace.
-   * @param path - The route path to persist, or `null` to clear.
-   */
-  setLastVisitedRoute(name: string, path: string | null): void {
-    this.update((state) => {
-      if (path) {
-        state.lastVisitedRoute = { name, path, timestamp: Date.now() };
-      } else if (state.lastVisitedRoute?.name === name) {
-        state.lastVisitedRoute = null;
-      }
     });
   }
 

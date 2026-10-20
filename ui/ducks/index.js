@@ -15,7 +15,6 @@ import sendMaxValueReducer from './send-max-value/send-max-value';
 import smartAccountsReducer from './smart-accounts/smart-accounts';
 import rewardsReducer from './rewards';
 import moneyBalanceReducer from './money-balance';
-import { perpsTutorialReducer } from './perps';
 
 export default combineReducers({
   [AlertTypes.invalidCustomNetwork]: invalidCustomNetwork,
@@ -34,6 +33,5 @@ export default combineReducers({
   localeMessages: localeMessagesReducer,
   smartAccounts: smartAccountsReducer,
   rewards: rewardsReducer,
-  perpsTutorial: perpsTutorialReducer,
   moneyBalance: moneyBalanceReducer,
 });

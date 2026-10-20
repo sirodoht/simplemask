@@ -73,9 +73,6 @@ jest.mock('../../rows/pay-with-row/pay-with-row', () => ({
   PayWithRow: () => <div data-testid="pay-with-row" />,
   PayWithRowSkeleton: () => <div data-testid="pay-with-row-skeleton" />,
 }));
-jest.mock('../../rows/perps-account-picker-row', () => ({
-  PerpsAccountPickerRow: () => <div data-testid="perps-account-picker-row" />,
-}));
 jest.mock('../../rows/bridge-fee-row/bridge-fee-row', () => ({
   BridgeFeeRow: () => <div data-testid="bridge-fee-row" />,
 }));
@@ -548,12 +545,6 @@ describe('CustomAmountInfo', () => {
 
       expect(queryByTestId('pay-with-row')).not.toBeInTheDocument();
     });
-
-    it('renders the perps account picker row', () => {
-      const { getByTestId } = render();
-
-      expect(getByTestId('perps-account-picker-row')).toBeInTheDocument();
-    });
   });
 
   describe('input disabled state', () => {
@@ -854,85 +845,6 @@ describe('CustomAmountInfo', () => {
       expect(queryByTestId('bridge-fee-row')).not.toBeInTheDocument();
       expect(queryByTestId('bridge-time-row')).not.toBeInTheDocument();
       expect(queryByTestId('total-row')).not.toBeInTheDocument();
-    });
-
-    it('does not render Perps Withdraw result rows before an amount is entered even when the required amount is positive', () => {
-      const transactionMeta = {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.perpsWithdraw,
-      } as TransactionMeta;
-
-      const { queryByTestId } = render({
-        customAmountHookReturn: {
-          ...DEFAULT_CUSTOM_AMOUNT_HOOK_RETURN,
-          hasAmount: false,
-        },
-        transactionMeta,
-        hasPositiveRequiredAmount: true,
-        hasQuotes: true,
-        isPostQuote: true,
-        withdraw: { isWithdraw: true, canSelectWithdrawToken: true },
-      });
-
-      expect(queryByTestId('bridge-fee-row')).not.toBeInTheDocument();
-      expect(queryByTestId('bridge-time-row')).not.toBeInTheDocument();
-      expect(queryByTestId('receive-row')).not.toBeInTheDocument();
-    });
-
-    it('renders Perps Withdraw result rows while post-quote setup is pending', () => {
-      const transactionMeta = {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.perpsWithdraw,
-      } as TransactionMeta;
-
-      const { queryByTestId } = render({
-        transactionMeta,
-        hasQuotes: true,
-        isPostQuote: false,
-        withdraw: { isWithdraw: true, canSelectWithdrawToken: true },
-      });
-
-      expect(queryByTestId('bridge-fee-row')).toBeInTheDocument();
-      expect(queryByTestId('bridge-time-row')).toBeInTheDocument();
-      expect(queryByTestId('receive-row-skeleton')).toBeInTheDocument();
-      expect(queryByTestId('receive-row')).not.toBeInTheDocument();
-    });
-
-    it('does not render Perps Withdraw result rows before an amount is entered', () => {
-      const transactionMeta = {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.perpsWithdraw,
-      } as TransactionMeta;
-
-      const { queryByTestId } = render({
-        transactionMeta,
-        hasPositiveRequiredAmount: false,
-        hasQuotes: true,
-        isPostQuote: false,
-        withdraw: { isWithdraw: true, canSelectWithdrawToken: true },
-      });
-
-      expect(queryByTestId('bridge-fee-row')).not.toBeInTheDocument();
-      expect(queryByTestId('bridge-time-row')).not.toBeInTheDocument();
-      expect(queryByTestId('receive-row-skeleton')).not.toBeInTheDocument();
-    });
-
-    it('renders Perps Withdraw result rows when the post-quote route is ready', () => {
-      const transactionMeta = {
-        ...genUnapprovedContractInteractionConfirmation(),
-        type: TransactionType.perpsWithdraw,
-      } as TransactionMeta;
-
-      const { getByTestId } = render({
-        transactionMeta,
-        hasQuotes: true,
-        isPostQuote: true,
-        withdraw: { isWithdraw: true, canSelectWithdrawToken: true },
-      });
-
-      expect(getByTestId('bridge-fee-row')).toBeInTheDocument();
-      expect(getByTestId('bridge-time-row')).toBeInTheDocument();
-      expect(getByTestId('receive-row')).toBeInTheDocument();
     });
 
     it('renders the receive row for a withdraw when post-quote is enabled', () => {

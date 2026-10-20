@@ -250,44 +250,6 @@ describe('<SingleActionFooter />', () => {
     expect(button).toHaveTextContent('Insufficient funds');
   });
 
-  it('shows alert reason on perpsDeposit button when there is a blocking alert', () => {
-    const { getByTestId } = render({
-      confirmation: genPerpsDeposit(),
-      alerts: [
-        {
-          key: 'some-blocking-alert',
-          severity: Severity.Danger,
-          reason: 'Insufficient funds',
-          message: 'Some longer description',
-          isBlocking: true,
-        },
-      ],
-    });
-
-    const button = getByTestId('confirm-footer-button');
-    expect(button).toBeDisabled();
-    expect(button).toHaveTextContent('Insufficient funds');
-  });
-
-  it('shows insufficient funds on perpsWithdraw button when amount exceeds balance', () => {
-    const { getByTestId } = render({
-      confirmation: genPerpsWithdraw(),
-      alerts: [
-        {
-          key: 'insufficient-pay-token-balance',
-          severity: Severity.Danger,
-          reason: 'Insufficient funds',
-          message: 'Amount exceeds your available Perps balance.',
-          isBlocking: true,
-        },
-      ],
-    });
-
-    const button = getByTestId('confirm-footer-button');
-    expect(button).toBeDisabled();
-    expect(button).toHaveTextContent('Insufficient funds');
-  });
-
   it('disables button when amount is zero', () => {
     jest.mocked(useTransactionPayPrimaryRequiredToken).mockReturnValue({
       amountUsd: '0',
@@ -376,37 +338,6 @@ describe('<SingleActionFooter />', () => {
     expect(button).toHaveAttribute('aria-busy', 'true');
   });
 
-  it('shows Add funds label for perpsDeposit transaction type', () => {
-    const { getByTestId } = render({ confirmation: genPerpsDeposit() });
-
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.addFunds.message,
-    );
-  });
-
-  it('shows Send label for perpsDeposit from money account', () => {
-    const { getByTestId } = render({
-      confirmation: genPerpsDeposit(),
-      pathname: '/?payWithOption=money_account',
-      isMoneyAccountPayEnabled: true,
-    });
-
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.send.message,
-    );
-  });
-
-  it('keeps the Add funds label when Money Account pay is not enabled for perps deposit', () => {
-    const { getByTestId } = render({
-      confirmation: genPerpsDeposit(),
-      pathname: '/?payWithOption=money_account',
-    });
-
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.addFunds.message,
-    );
-  });
-
   it('shows Add funds label for moneyAccountDeposit transaction type', () => {
     const { getByTestId } = render({ confirmation: genMoneyAccountDeposit() });
 
@@ -457,14 +388,6 @@ describe('<SingleActionFooter />', () => {
     expect(button).not.toHaveAttribute('aria-busy', 'true');
   });
 
-  it('shows Withdraw label for perpsWithdraw transaction type', () => {
-    const { getByTestId } = render({ confirmation: genPerpsWithdraw() });
-
-    expect(getByTestId('confirm-footer-button')).toHaveTextContent(
-      messages.perpsWithdraw.message,
-    );
-  });
-
   it('shows Send label for moneyAccountWithdraw transaction type', () => {
     const { getByTestId } = render({ confirmation: genMoneyAccountWithdraw() });
 
@@ -485,49 +408,6 @@ describe('<SingleActionFooter />', () => {
     const button = getByTestId('confirm-footer-button');
     expect(button).toBeDisabled();
     expect(button).not.toHaveAttribute('aria-busy', 'true');
-  });
-
-  it('does not show a loader before a Perps Withdraw amount is entered', () => {
-    jest.mocked(useTransactionPayPrimaryRequiredToken).mockReturnValue({
-      amountUsd: '0',
-      skipIfBalance: false,
-    } as never);
-    jest.mocked(useTransactionPayHasExecutableQuote).mockReturnValue(false);
-
-    const { getByTestId } = render({ confirmation: genPerpsWithdraw() });
-
-    const button = getByTestId('confirm-footer-button');
-    expect(button).toBeDisabled();
-    expect(button).not.toHaveAttribute('aria-busy', 'true');
-  });
-
-  it('disables perps withdrawal while post-quote setup is pending', () => {
-    jest.mocked(useIsTransactionPayQuotePending).mockReturnValue(true);
-
-    const { getByTestId } = render({ confirmation: genPerpsWithdraw() });
-
-    expect(getByTestId('confirm-footer-button')).toBeDisabled();
-  });
-
-  it('disables perps withdrawal without an executable quote', () => {
-    jest.mocked(useTransactionPayHasExecutableQuote).mockReturnValue(false);
-
-    const { getByTestId } = render({ confirmation: genPerpsWithdraw() });
-
-    expect(getByTestId('confirm-footer-button')).toBeDisabled();
-  });
-
-  it('submits perps withdrawal when an executable quote is ready', async () => {
-    const { getByTestId } = render({ confirmation: genPerpsWithdraw() });
-
-    // `handleSubmit` is async: it flips `isSubmitting` back in a `finally`
-    // that lands a microtask after the click, so the click must be awaited
-    // inside `act` for that update to be covered.
-    await act(async () => {
-      fireEvent.click(getByTestId('confirm-footer-button'));
-    });
-
-    expect(MOCK_ON_SUBMIT).toHaveBeenCalledTimes(1);
   });
 
   it('enables Send for a withdraw when a positive amount was typed', () => {

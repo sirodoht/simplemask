@@ -1,6 +1,16 @@
+import { parse } from '../parse';
 import { addRoute, routes, Route } from '.';
 
+const registeredRoutes = new Map(routes);
 describe('addRoute', () => {
+  afterEach(() => {
+    routes.clear();
+    for (const [pathname, route] of registeredRoutes) {
+      routes.set(pathname, route);
+    }
+    delete process.env.DEBUG;
+  });
+
   const testRoute: Route = {
     pathname: '/test',
     name: 'Test Route',
@@ -40,4 +50,14 @@ describe('addRoute', () => {
     expect(() => addRoute(testRoute)).not.toThrow();
     expect(routes.get('/test')).toBe(testRoute);
   });
+});
+
+describe('retired feature links', () => {
+  for (const path of ['/perps', '/perps-asset?symbol=ETH', '/perps-markets']) {
+    it(`rejects the removed Perps link ${path}`, async () => {
+      expect(await parse(new URL(`https://link.metamask.io${path}`))).toBe(
+        false,
+      );
+    });
+  }
 });

@@ -22,10 +22,6 @@ jest.mock('../../../../shared/lib/environment-type', () => ({
   isInteractiveUI: () => mockIsInteractiveUI(),
 }));
 
-jest.mock('../perps/perps-deposit-toast', () => ({
-  PerpsDepositToast: () => mockPerpsDepositToast(),
-}));
-
 jest.mock('../../../hooks/musd', () => ({
   useMusdConversionToastStatus: () => mockUseMusdConversionToastStatus(),
   useMusdConversionConfirmTrace: (...args: unknown[]) =>

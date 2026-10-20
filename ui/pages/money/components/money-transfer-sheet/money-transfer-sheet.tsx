@@ -19,7 +19,6 @@ import {
 } from '../../../../components/component-library';
 import { useI18nContext } from '../../../../hooks/useI18nContext';
 import { useMoneyAccountWithdrawal } from '../../../../hooks/money/useMoneyAccountWithdrawal';
-import { useMoneyPerpsDeposit } from '../../../../hooks/money/useMoneyPerpsDeposit';
 import { useMoneyAnalytics } from '../../../../hooks/money/useMoneyAnalytics';
 import { useTrackOnce } from '../../../../hooks/useTrackOnce';
 import {
@@ -31,7 +30,6 @@ import {
 export const MONEY_TRANSFER_SHEET_TEST_IDS = {
   container: 'money-transfer-sheet',
   betweenAccounts: 'money-transfer-between-accounts',
-  perpsAccount: 'money-transfer-perps-account',
   sendExternal: 'money-transfer-send-external',
   withdrawToBank: 'money-transfer-withdraw-to-bank',
 } as const;
@@ -52,8 +50,6 @@ export type MoneyTransferSheetProps = {
 
 /**
  * Money home “Send funds to” sheet — mirrors mobile `MoneyTransferSheet`.
- * “Perps account” opens the Perps deposit confirmation funded from the money
- * account; destination is chosen on the confirmation via the perps picker.
  * @param options0
  * @param options0.isOpen
  * @param options0.onClose
@@ -65,12 +61,6 @@ export function MoneyTransferSheet({
   const t = useI18nContext();
   const { initiateWithdrawal, isLoading: isWithdrawLoading } =
     useMoneyAccountWithdrawal();
-  const {
-    isEnabled: isPerpsEnabled,
-    isEligible: isPerpsEligible,
-    initiatePerpsDeposit,
-    isLoading: isPerpsLoading,
-  } = useMoneyPerpsDeposit();
 
   const { trackBottomSheetViewed, trackSurfaceClicked } = useMoneyAnalytics({
     bottomSheetName: MoneyBottomSheetName.TransferMoneySheet,
@@ -78,7 +68,7 @@ export function MoneyTransferSheet({
 
   useTrackOnce(isOpen, trackBottomSheetViewed);
 
-  const isBusy = isWithdrawLoading || isPerpsLoading;
+  const isBusy = isWithdrawLoading;
 
   const handleBetweenAccounts = useCallback(() => {
     trackSurfaceClicked({
@@ -94,20 +84,6 @@ export function MoneyTransferSheet({
     });
   }, [initiateWithdrawal, onClose, trackSurfaceClicked]);
 
-  const handlePerpsAccount = useCallback(() => {
-    trackSurfaceClicked({
-      componentName: MoneyComponentName.TransferMoneySheetPerpsAccount,
-      redirectTarget: MoneyScreenName.MoneyTransfer,
-    });
-    onClose();
-    initiatePerpsDeposit().catch((error: unknown) => {
-      console.error(
-        '[MoneyTransferSheet] Perps deposit initiation failed',
-        error,
-      );
-    });
-  }, [initiatePerpsDeposit, onClose, trackSurfaceClicked]);
-
   const options = useMemo((): MoneyTransferOption[] => {
     const rows: MoneyTransferOption[] = [
       {
@@ -118,16 +94,6 @@ export function MoneyTransferSheet({
         disabled: isBusy,
       },
     ];
-
-    if (isPerpsEligible) {
-      rows.push({
-        label: t('moneyTransferPerpsAccount'),
-        icon: IconName.Candlestick,
-        onPress: handlePerpsAccount,
-        testId: MONEY_TRANSFER_SHEET_TEST_IDS.perpsAccount,
-        disabled: !isPerpsEnabled || isBusy,
-      });
-    }
 
     rows.push(
       {
@@ -150,14 +116,7 @@ export function MoneyTransferSheet({
       ...rows.filter((option) => !option.disabled),
       ...rows.filter((option) => option.disabled),
     ];
-  }, [
-    handleBetweenAccounts,
-    handlePerpsAccount,
-    isBusy,
-    isPerpsEligible,
-    isPerpsEnabled,
-    t,
-  ]);
+  }, [handleBetweenAccounts, isBusy, t]);
 
   return (
     <Modal

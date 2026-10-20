@@ -25,12 +25,10 @@ import { BridgeTimeRow } from '../../rows/bridge-time-row/bridge-time-row';
 import { TotalRow } from '../../rows/total-row/total-row';
 import { ConfirmInfoRowSize } from '../../../../../components/app/confirm/info/row/row';
 import { ReceiveRow } from '../../rows/receive-row/receive-row';
-import { PerpsAccountPickerRow } from '../../rows/perps-account-picker-row';
 import {
   PercentageButtons,
   PercentageButtonsSkeleton,
 } from '../../percentage-buttons';
-import { isPerpsWithdrawTransaction } from '../../../../../../shared/lib/transactions.utils';
 import { useTransactionCustomAmount } from '../../../hooks/transactions/useTransactionCustomAmount';
 import { useTransactionCustomAmountAlerts } from '../../../hooks/transactions/useTransactionCustomAmountAlerts';
 import { useAutomaticTransactionPayToken } from '../../../hooks/pay/useAutomaticTransactionPayToken';
@@ -402,8 +400,6 @@ function BottomContainer({
   const t = useI18nContext();
   const isResultReady = useIsResultReady(hasAmount, disablePay);
   const { currentConfirmation } = useConfirmContext<TransactionMeta>();
-
-  const isPerpsWithdraw = isPerpsWithdrawTransaction(currentConfirmation);
   // Withdrawals show Receive only when post-quote token selection is enabled;
   // otherwise the direct transfer keeps its regular Total. Input-based quotes
   // show Receive according to the controller-owned totals semantics.
@@ -418,7 +414,7 @@ function BottomContainer({
       paddingBottom={4}
     >
       {displayAccountRow && <FromAccountRow showDivider />}
-      <PerpsAccountPickerRow />
+
       {/* Keep mounted while funding tokens load after account override so the
           selector does not unmount for the reselect wait, then remount. */}
       {disablePay !== true && <PayWithRow />}
@@ -426,12 +422,7 @@ function BottomContainer({
         <>
           {disablePay !== true && (
             <>
-              <BridgeFeeRow
-                variant={ConfirmInfoRowSize.Small}
-                tooltipDescription={
-                  isPerpsWithdraw ? t('perpsWithdrawTooltip') : undefined
-                }
-              />
+              <BridgeFeeRow variant={ConfirmInfoRowSize.Small} />
               <BridgeTimeRow rowVariant={ConfirmInfoRowSize.Small} />
             </>
           )}
@@ -475,10 +466,6 @@ function useIsResultReady(hasAmount: boolean, disablePay?: boolean) {
   // A $0 withdraw must not show those as a real quote.
   if (!hasAmount) {
     return false;
-  }
-
-  if (isPerpsWithdrawTransaction(currentConfirmation)) {
-    return hasPositiveRequiredAmount && (isQuotePending || hasExecutableQuote);
   }
 
   // Direct withdraws never fetch quotes. Show the total once an amount is

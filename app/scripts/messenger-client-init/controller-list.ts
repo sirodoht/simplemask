@@ -106,7 +106,6 @@ import {
   ComplianceController,
   ComplianceService,
 } from '@metamask/compliance-controller';
-import { PerpsController } from '@metamask/perps-controller';
 import { RampsController, RampsService } from '@metamask/ramps-controller';
 import { PasskeyController } from '@metamask/passkey-controller';
 import { AnalyticsController } from '@metamask/analytics-controller';
@@ -204,7 +203,6 @@ export type MessengerClient =
       CaveatSpecificationConstraint
     >
   | PermissionLogController
-  | PerpsController
   | PhishingController
   | PPOMController
   | PreferencesController
@@ -311,7 +309,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
     CaveatSpecificationConstraint
   >['state'] &
   PermissionLogController['state'] &
-  PerpsController['state'] &
   PhishingController['state'] &
   PPOMController['state'] &
   PreferencesController['state'] &

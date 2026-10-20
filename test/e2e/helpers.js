@@ -35,7 +35,6 @@ const { solanaWebSocketConfig } = require('./websocket/solana-mocks');
 const {
   accountActivityWebSocketConfig,
 } = require('./websocket/account-activity-mocks');
-const { perpsWebSocketConfig } = require('./websocket/perps-mocks');
 const { WEBSOCKET_SERVICES } = require('./websocket/constants');
 const {
   addVirtualAuthenticator,
@@ -45,7 +44,6 @@ const {
 // Register each WebSocket service explicitly.
 WebSocketRegistry.register(solanaWebSocketConfig);
 WebSocketRegistry.register(accountActivityWebSocketConfig);
-WebSocketRegistry.register(perpsWebSocketConfig);
 
 const tinyDelayMs = 200;
 const regularDelayMs = tinyDelayMs * 2;
@@ -241,7 +239,6 @@ async function withFixtures(options, testSuite) {
     manifestFlags,
     solanaWebSocketSpecificMocks = [],
     accountActivityWebSocketSpecificMocks = [],
-    perpsWebSocketSpecificMocks = [],
     extendedTimeoutMultiplier = 1,
     unifiedEvmAccountsApiBalances,
     virtualAuthenticator,
@@ -443,7 +440,6 @@ async function withFixtures(options, testSuite) {
       [WEBSOCKET_SERVICES.accountActivity]: {
         mocks: accountActivityWebSocketSpecificMocks,
       },
-      [WEBSOCKET_SERVICES.perps]: { mocks: perpsWebSocketSpecificMocks },
     });
 
     // Sync native balances to what's actually on the node so Accounts API v5

@@ -4,6 +4,8 @@ A lean, EVM-only wallet browser extension adapted from MetaMask, initially for p
 
 This repository preserves MetaMask’s Git history. The original project documentation is in [README.upstream.md](README.upstream.md). This README records the agreed product direction and implementation backlog. Unchecked items are planned work, not completed changes.
 
+This fork will have its own identity and does not retain compatibility with legacy MetaMask deep links. Links for removed features are retired along with those features.
+
 ## Supported browsers and networks
 
 - Support and test Chrome and Firefox.
@@ -42,7 +44,7 @@ Keep the home screen focused on everyday wallet tasks:
 For every removed feature, address both its visible interface and its underlying controllers, dependencies, polling, services, configuration, and permissions where no longer needed. Hiding a button is only part of the work.
 
 - [x] Remove ads, promotional cards/carousels, and marketing announcements. Removed the home carousel, remote carousel fetching, legacy announcement controller, and notification-service feature announcements, including fetching, saved announcements, marketing settings, and unused rendering dependencies. Product-specific promotional placements and push marketing are covered by their respective items below.
-- [ ] Remove perpetual futures, including Perps navigation and promotional placements.
+- [x] Remove perpetual futures, including Perps navigation and promotional placements. Removed the trading UI, controller, streaming connections, funding prompts, deep links, notification inbox entries, and dedicated dependencies. Migrated saved Perps state while preserving accounts and transaction history. Verified wallet- and dApp-initiated ETH sends in Chrome and Firefox, and regenerated all LavaMoat policies.
 - [ ] Remove rewards and referral features.
 - [ ] Remove NFT galleries, discovery, import, and other dedicated NFT features.
 - [ ] Remove Discover, trending-token, and market-browsing features.

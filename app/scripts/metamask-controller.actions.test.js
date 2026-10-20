@@ -16,16 +16,6 @@ import mockEncryptor from '../../test/lib/mock-encryptor';
 import { HardwareKeyringNames } from '../../shared/constants/hardware-wallets';
 import MetaMaskController from './metamask-controller';
 
-jest.mock('./messenger-client-init/perps-controller-init', () => ({
-  PerpsControllerInit: jest.fn().mockReturnValue({
-    messengerClient: {
-      state: {},
-      name: 'PerpsController',
-    },
-    api: {},
-  }),
-}));
-
 jest.mock('./messenger-client-init/accounts/snap-account-service-init', () => ({
   SnapAccountServiceInit: jest
     .fn()

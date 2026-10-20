@@ -22,8 +22,6 @@ import { CustomAmountInfoSkeleton } from '../../info/custom-amount-info';
 import { MoneyAccountDepositInfo } from '../../info/money-account-deposit-info';
 import { MoneyAccountWithdrawInfo } from '../../info/money-account-withdraw-info';
 import { MusdConversionInfo } from '../../info/musd-conversion-info';
-import { PerpsDepositInfo } from './perps-deposit-info';
-import { PerpsWithdrawInfo } from './perps-withdraw-info';
 import ApproveInfo from './approve/approve';
 import BaseTransactionInfo from './base-transaction-info/base-transaction-info';
 import NativeTransferInfo from './native-transfer/native-transfer';
@@ -167,8 +165,6 @@ const Info = () => {
       // still in flight across the upgrade renders instead of throwing here.
       [TransactionType.musdClaim]: () => BaseTransactionInfo,
       [TransactionType.musdConversion]: () => MusdConversionInfo,
-      [TransactionType.perpsDeposit]: () => PerpsDepositInfo,
-      [TransactionType.perpsWithdraw]: () => PerpsWithdrawInfo,
     }),
     [currentConfirmation, enabledPermissions],
   );

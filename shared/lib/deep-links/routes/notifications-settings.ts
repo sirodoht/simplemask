@@ -1,4 +1,3 @@
-import { getIsPerpsIncludedInBuild } from '../../environment';
 import {
   getNotificationsSettingsSectionTypeFromSlug,
   NotificationsSettingsQueryParams,
@@ -18,10 +17,9 @@ export const notificationsSettings = new Route({
     const sectionType = getNotificationsSettingsSectionTypeFromSlug(
       params.get(NotificationsSettingsQueryParams.Section),
     );
-    const path =
-      sectionType && (sectionType !== 'perps' || getIsPerpsIncludedInBuild())
-        ? NOTIFICATIONS_SETTINGS_SECTION_ROUTES[sectionType]
-        : NOTIFICATIONS_SETTINGS_ROUTE;
+    const path = sectionType
+      ? NOTIFICATIONS_SETTINGS_SECTION_ROUTES[sectionType]
+      : NOTIFICATIONS_SETTINGS_ROUTE;
 
     return { path, query: new URLSearchParams() };
   },

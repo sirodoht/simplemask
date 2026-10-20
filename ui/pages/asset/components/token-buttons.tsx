@@ -7,12 +7,7 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-  Box,
-  BoxFlexDirection,
-  BoxJustifyContent,
-  IconName as IconNameDs,
-} from '@metamask/design-system-react';
+import { Box, BoxJustifyContent } from '@metamask/design-system-react';
 import { I18nContext } from '../../../contexts/i18n';
 import useRampsNavigation from '../../../hooks/ramps/useRampsNavigation/useRampsNavigation';
 import { getUseExternalServices } from '../../../selectors';
@@ -33,15 +28,13 @@ import {
   MetaMetricsEventName,
   MetaMetricsSwapsEventSource,
 } from '../../../../shared/constants/metametrics';
-import { BlockSize, IconColor } from '../../../helpers/constants/design-system';
+import { IconColor } from '../../../helpers/constants/design-system';
 import IconButton from '../../../components/ui/icon-button/icon-button';
 import {
   Icon,
   IconName,
   IconSize,
 } from '../../../components/component-library';
-import { MoreButtonsGroup } from '../../../components/app/wallet-overview/coin-buttons';
-import { PerpsTradeButtons } from '../../../components/app/perps/perps-trade-buttons';
 import { ReceiveModal } from '../../../components/multichain/receive-modal';
 import { transitionForward } from '../../../components/ui/transition';
 import { useOnClickOutside } from '../../../hooks/useClickOutside';
@@ -58,41 +51,16 @@ import {
 } from './security-trust';
 import { AssetActivationErrorToast } from './asset-activation-error-toast';
 
-/**
- * Whether the token overview should render Long / Short instead of Buy / Swap.
- * Narrows `marketSymbol` so the Perps row can pass it without a cast.
- *
- * @param marketSymbol - Matched Perps market name, when the lookup found one
- * @param isNft - ERC-721 tokens keep the standard action row
- */
-function hasPerpsActionMarket(
-  marketSymbol: string | undefined,
-  isNft: boolean | undefined,
-): marketSymbol is string {
-  return Boolean(marketSymbol) && !isNft;
-}
-
 const TokenButtons = ({
   token,
   disableSendForNonEvm = false,
   isMarketClosed = false,
-  perpsMarketSymbol,
 }: {
   token: Asset & { type: AssetType.token };
   /** When true, disables the send button for non-EVM chains (used on asset page) */
   disableSendForNonEvm?: boolean;
   /** When true, disables the swap button because the stock market is closed */
   isMarketClosed?: boolean;
-  /**
-   * When set (token with a matching Perps market), the row shows
-   * Long / Short / Send / More and Buy / Swap move into the More menu,
-   * matching the mobile Token Details actions.
-   *
-   * Callers must resolve the Perps market lookup before mounting this row:
-   * an unset symbol renders the standard Buy / Swap actions, so passing it
-   * while the lookup is still pending would flash the wrong row.
-   */
-  perpsMarketSymbol?: string;
 }) => {
   const dispatch = useDispatch();
   const t = useContext(I18nContext);
@@ -302,11 +270,7 @@ const TokenButtons = ({
       }
       label={t('send')}
       data-testid="eth-overview-send"
-      width={
-        hasPerpsActionMarket(perpsMarketSymbol, token.isERC721)
-          ? BlockSize.Full
-          : undefined
-      }
+      width={undefined}
       disabled={
         token.isERC721 ||
         (disableSendForNonEvm && !isEvm && !isExternalServicesEnabled)
@@ -316,79 +280,7 @@ const TokenButtons = ({
 
   return (
     <>
-      {hasPerpsActionMarket(perpsMarketSymbol, token.isERC721) ? (
-        // Mobile Token Details parity: Long / Short / Send (or Receive when
-        // the balance is zero) / More, with the displaced actions in More.
-        <Box
-          ref={containerRef}
-          className="flex relative w-full"
-          flexDirection={BoxFlexDirection.Row}
-          justifyContent={BoxJustifyContent.Between}
-          gap={3}
-        >
-          <PerpsTradeButtons
-            marketSymbol={perpsMarketSymbol}
-            classPrefix="token"
-          />
-          {shouldShowSendButton ? (
-            sendButton
-          ) : (
-            <IconButton
-              className="token-overview__button"
-              onClick={handleReceiveOnClick}
-              Icon={
-                <Icon
-                  name={IconName.Received}
-                  color={IconColor.iconAlternative}
-                  size={IconSize.Md}
-                />
-              }
-              label={t('receive')}
-              data-testid="token-overview-receive"
-              width={BlockSize.Full}
-            />
-          )}
-          <MoreButtonsGroup
-            onClick={handleMoreOptionsButtonClick}
-            modalIsOpen={isMoreOptionsDropdownOpen}
-            classPrefix="token"
-            actions={[
-              {
-                label: t('buy'),
-                onClick: handleBuyAndSellOnClick,
-                testId: 'token-overview-more-buy',
-                iconName: IconNameDs.AttachMoney,
-                enabled: isCtaGateReady,
-              },
-              {
-                label: t('swap'),
-                onClick: handleSwapOnClick,
-                testId: 'token-overview-more-swap',
-                iconName: IconNameDs.SwapVertical,
-                enabled:
-                  isExternalServicesEnabled &&
-                  !isMarketClosed &&
-                  isCtaGateReady,
-              },
-              {
-                // Receive is in the row when there is no balance to send.
-                label: t('receive'),
-                onClick: handleReceiveOnClick,
-                testId: 'token-overview-more-receive',
-                iconName: IconNameDs.Received,
-                enabled: shouldShowSendButton,
-              },
-              {
-                label: t('assetDeactivate') as string,
-                onClick: deactivateAsset,
-                testId: 'token-overview-more-deactivate-asset',
-                iconName: IconNameDs.Trash,
-                enabled: canDeactivate && !isDeactivating,
-              },
-            ]}
-          />
-        </Box>
-      ) : (
+      {
         <Box className="flex" gap={3} justifyContent={BoxJustifyContent.Evenly}>
           <IconButton
             className="token-overview__button"
@@ -441,7 +333,7 @@ const TokenButtons = ({
             />
           ) : null}
         </Box>
-      )}
+      }
       {showReceiveModal && selectedAccount ? (
         <ReceiveModal
           address={selectedAccount.address}

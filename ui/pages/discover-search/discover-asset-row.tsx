@@ -25,7 +25,6 @@ import { useFormatters } from '../../hooks/useFormatters';
 import { useI18nContext } from '../../hooks/useI18nContext';
 import { getCurrentCurrency } from '../../ducks/metamask/metamask';
 import { getCurrencyRates } from '../../selectors';
-import { getChangeColor } from '../../components/app/perps/utils';
 import {
   getSecurityTrustBadgeConfig,
   SecurityTrustInlineBadge,
@@ -207,9 +206,13 @@ export const DiscoverAssetRow = ({
   const formattedChange = changePct
     ? formatPriceChangePercent(changePct)
     : null;
-  const changeColor = formattedChange
-    ? getChangeColor(formattedChange)
-    : TextColor.TextAlternative;
+  let changeColor: TextColor = TextColor.TextAlternative;
+  if (formattedChange && Number.isFinite(Number.parseFloat(formattedChange))) {
+    changeColor =
+      Number.parseFloat(formattedChange) < 0
+        ? TextColor.ErrorDefault
+        : TextColor.SuccessDefault;
+  }
 
   const securityBadge = useMemo(
     () =>

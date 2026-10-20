@@ -4,7 +4,6 @@ import { selectPrimaryMoneyAccount } from '../../../../selectors/money-account';
 import { applyMoneyAccountOverride } from '../../utils/transaction-pay';
 import { useTransactionMetadataRequestOptional } from '../transactions/useTransactionMetadataRequest';
 import { useIsMoneyAccountFlagDefault } from './useIsMoneyAccountFlagDefault';
-import { useIsMoneyAccountPerpsNavigation } from './useIsMoneyAccountPerpsNavigation';
 
 /**
  * Applies the Money Account payment override when either:
@@ -19,13 +18,12 @@ export function useDefaultPaySelectedSection(): void {
   const transactionMeta = useTransactionMetadataRequestOptional();
   const moneyAccount = useSelector(selectPrimaryMoneyAccount);
   const isDefaultMoneyAccount = useIsMoneyAccountFlagDefault();
-  const isMoneyAccountNavigation = useIsMoneyAccountPerpsNavigation();
   const appliedRef = useRef<string | undefined>(undefined);
   const transactionId = transactionMeta?.id;
 
   useEffect(() => {
     if (
-      (!isDefaultMoneyAccount && !isMoneyAccountNavigation) ||
+      !isDefaultMoneyAccount ||
       !transactionId ||
       appliedRef.current === transactionId
     ) {
@@ -41,7 +39,6 @@ export function useDefaultPaySelectedSection(): void {
     );
   }, [
     isDefaultMoneyAccount,
-    isMoneyAccountNavigation,
     moneyAccount?.address,
     transactionId,
     transactionMeta,

@@ -1,10 +1,8 @@
 import {
   NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
-  NOTIFICATIONS_SETTINGS_PERPS_ROUTE,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
   THIRD_PARTY_APIS_ROUTE,
 } from '../../helpers/constants/routes';
-import { getIsPerpsIncludedInBuild } from '../../../shared/lib/environment';
 
 export type SearchItemMeta = {
   readonly id: string;
@@ -109,7 +107,6 @@ export const NOTIFICATIONS_ITEMS = {
 
 export const NOTIFICATIONS_SECTION_ITEMS = {
   'wallet-activity': 'notificationsSettingsWalletActivityTitle',
-  perps: 'notificationsSettingsPerpsTitle',
   'agentic-cli': 'notificationsSettingsAgenticCliTitle',
 } as const;
 
@@ -167,16 +164,6 @@ export const SETTINGS_SEARCH_CONFIG: TabSearchConfig[] = [
           'wallet-activity': NOTIFICATIONS_SECTION_ITEMS['wallet-activity'],
         }),
       },
-      ...(getIsPerpsIncludedInBuild()
-        ? [
-            {
-              path: NOTIFICATIONS_SETTINGS_PERPS_ROUTE,
-              items: createSearchItemMeta({
-                perps: NOTIFICATIONS_SECTION_ITEMS.perps,
-              }),
-            },
-          ]
-        : []),
       {
         path: NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
         items: createSearchItemMeta({

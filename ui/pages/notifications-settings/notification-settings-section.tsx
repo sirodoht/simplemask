@@ -59,7 +59,6 @@ type NotificationSettingsSectionProps = {
 
 const SETTINGS_TYPE_BY_SECTION: Record<SectionType, string> = {
   walletActivity: 'wallet_activity',
-  perps: 'perps',
   agenticCli: 'agentic_cli',
 };
 

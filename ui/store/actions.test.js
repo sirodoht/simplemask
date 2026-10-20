@@ -43,19 +43,6 @@ const toSerializedSeedPhraseBuffer = (seedPhrase) => ({
   data: actions.encodeSeedPhraseForBackground(seedPhrase),
 });
 
-jest.mock(
-  '../../app/scripts/messenger-client-init/perps-controller-init',
-  () => ({
-    PerpsControllerInit: jest.fn().mockReturnValue({
-      messengerClient: {
-        state: {},
-        name: 'PerpsController',
-      },
-      api: {},
-    }),
-  }),
-);
-
 jest.mock('./hardware-wallet-signing', () => ({
   ...jest.requireActual('./hardware-wallet-signing'),
   listenForHardwareSigningCompletion: jest.fn(),
@@ -5422,19 +5409,6 @@ describe('Actions', () => {
 
       await store.dispatch(actions.removeDeferredDeepLink());
       expect(background.removeDeferredDeepLink.callCount).toStrictEqual(1);
-    });
-  });
-
-  describe('#perpsToggleTestnet', () => {
-    afterEach(() => {
-      sinon.restore();
-    });
-
-    it('calls perpsToggleTestnet in the background', async () => {
-      background.perpsToggleTestnet = sinon.stub().resolves();
-      setBackgroundConnection(background);
-      await actions.perpsToggleTestnet();
-      expect(background.perpsToggleTestnet.callCount).toStrictEqual(1);
     });
   });
 

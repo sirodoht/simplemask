@@ -49,13 +49,11 @@ import {
   getIsHardwareWalletErrorModalVisible,
   getApprovalFlows,
   getPendingRedirectRoute,
-  getLastVisitedPerpsRoute,
 } from '../../selectors';
 import {
   attemptCloseNotificationPopup,
   lookupSelectedNetworks,
   setPendingRedirectRoute,
-  setLastVisitedPerpsRoute,
 } from '../../store/actions';
 import type { MetaMaskReduxState } from '../../store/types';
 import { useDispatch } from '../../store/hooks';
@@ -66,7 +64,6 @@ import { HomeNotificationsContainer } from './home-notifications-container';
 import BetaAndFlaskHomeFooter from './beta-and-flask-home-footer.component';
 import { HomeDeepLinkActions } from './HomeDeepLinkActions';
 import {
-  useLastVisitedPerpsRoute,
   usePendingRedirectRoute,
   useRedirectAfterDefaultPage,
 } from './useHomeRedirects';
@@ -97,7 +94,6 @@ function useHomeState() {
     getIsHardwareWalletErrorModalVisible,
   );
   const pendingRedirectRoute = useSelector(getPendingRedirectRoute);
-  const lastVisitedPerpsRoute = useSelector(getLastVisitedPerpsRoute);
   const redirectAfterDefaultPage = useSelector(getRedirectAfterDefaultPage);
 
   const notificationClosing = useMemo(
@@ -119,7 +115,6 @@ function useHomeState() {
   return {
     envType,
     forgottenPassword,
-    lastVisitedPerpsRoute,
     notificationClosing,
     pendingRedirectRoute,
     redirectAfterDefaultPage,
@@ -133,8 +128,6 @@ function useHomeActions() {
   return useMemo(
     () => ({
       closeNotificationPopup: () => attemptCloseNotificationPopup(),
-      clearLastVisitedPerpsRoute: () =>
-        dispatch(setLastVisitedPerpsRoute(null)),
       clearPendingRedirectRoute: () => dispatch(setPendingRedirectRoute(null)),
       clearRedirectAfterDefaultPageAction: () =>
         dispatch(clearRedirectAfterDefaultPage()),
@@ -156,7 +149,6 @@ export default function Home() {
   const {
     envType,
     forgottenPassword,
-    lastVisitedPerpsRoute,
     notificationClosing,
     pendingRedirectRoute,
     redirectAfterDefaultPage,
@@ -164,7 +156,6 @@ export default function Home() {
   } = useHomeState();
   const {
     closeNotificationPopup,
-    clearLastVisitedPerpsRoute,
     clearPendingRedirectRoute,
     clearRedirectAfterDefaultPageAction,
     lookupSelectedNetworksAction,
@@ -188,13 +179,6 @@ export default function Home() {
     envType,
     setRedirectAfterDefaultPage: setRedirectAfterDefaultPageAction,
     clearPendingRedirectRoute,
-  });
-  useLastVisitedPerpsRoute({
-    lastVisitedPerpsRoute,
-    pendingRedirectRoute,
-    envType,
-    navigate,
-    clearLastVisitedPerpsRoute,
   });
 
   useEffect(() => {

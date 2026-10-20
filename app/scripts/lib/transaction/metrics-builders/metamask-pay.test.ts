@@ -6,7 +6,6 @@ import {
 } from '@metamask/transaction-controller';
 import { TransactionPayStrategy } from '@metamask/transaction-pay-controller';
 import { TransactionMetaMetricsEvent } from '../../../../../shared/constants/transaction';
-import { HYPERLIQUID_DEPOSIT_PROMPT } from '../../../../../shared/constants/hyperliquid-deposit-prompt';
 import { getManifestFlags } from '../../../../../shared/lib/manifestFlags';
 import { createBuilderRequest } from './test-utils';
 import { getMetaMaskPayProperties } from './metamask-pay';
@@ -222,7 +221,7 @@ describe('getMetaMaskPayProperties', () => {
           ...base.transactionMetricsRequest,
           getTransactionUIMetricsFragment: jest.fn().mockReturnValue({
             properties: {
-              mm_pay_entry_point: HYPERLIQUID_DEPOSIT_PROMPT,
+              mm_pay_entry_point: 'hyperliquid_deposit_prompt',
             },
           }),
         },
@@ -231,7 +230,7 @@ describe('getMetaMaskPayProperties', () => {
       const result = await getMetaMaskPayProperties(request);
 
       expect(result.properties.mm_pay_entry_point).toBe(
-        HYPERLIQUID_DEPOSIT_PROMPT,
+        'hyperliquid_deposit_prompt',
       );
     });
 

@@ -3,7 +3,7 @@ import type { DiscoverSearchSectionId } from './types';
 
 /** Feeds whose result set is fully loaded client-side; count-based "View X more" is exact. */
 export const LOCAL_SEARCH_SECTIONS: ReadonlySet<DiscoverSearchSectionId> =
-  new Set(['perps']);
+  new Set();
 
 export type DiscoverViewMoreAction =
   | { kind: 'viewAll' }

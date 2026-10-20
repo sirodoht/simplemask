@@ -133,16 +133,5 @@ describe('AccountOverviewEth', () => {
         queryByTestId('account-overview__activity-tab'),
       ).not.toBeInTheDocument();
     });
-
-    it('hides the perps tab', () => {
-      const { queryByTestId } = render({
-        setBasicFunctionalityModalOpen: jest.fn(),
-        onSupportLinkClick: jest.fn(),
-      });
-
-      expect(
-        queryByTestId('account-overview__perps-tab'),
-      ).not.toBeInTheDocument();
-    });
   });
 });

@@ -18,12 +18,6 @@ jest.mock('../basic-functionality-migration-toast', () => ({
   ),
 }));
 
-jest.mock('../perps/perps-withdraw-toast', () => ({
-  PerpsWithdrawToast: () => (
-    <div data-testid="mock-perps-withdraw-toast">PerpsWithdrawToast</div>
-  ),
-}));
-
 jest.mock('../../ui/survey-toast/survey-toast', () => ({
   SurveyToast: () => null,
 }));
@@ -39,51 +33,6 @@ function createStore() {
     },
   });
 }
-
-describe('ToastMaster routing', () => {
-  describe('on perps routes', () => {
-    it('renders PerpsWithdrawToast on /perps', () => {
-      renderWithProvider(<ToastMaster />, createStore(), '/perps');
-      expect(
-        screen.getByTestId('mock-perps-withdraw-toast'),
-      ).toBeInTheDocument();
-    });
-
-    it('renders perps toasts on nested perps routes', () => {
-      renderWithProvider(<ToastMaster />, createStore(), '/perps/trade/BTC');
-      expect(
-        screen.getByTestId('mock-perps-withdraw-toast'),
-      ).toBeInTheDocument();
-    });
-  });
-
-  describe('on non-perps non-home routes', () => {
-    it('does not render perps toasts on settings route', () => {
-      renderWithProvider(<ToastMaster />, createStore(), '/settings');
-      expect(
-        screen.queryByTestId('mock-perps-withdraw-toast'),
-      ).not.toBeInTheDocument();
-    });
-
-    it('does not render perps toasts on an arbitrary route', () => {
-      renderWithProvider(<ToastMaster />, createStore(), '/swap');
-      expect(
-        screen.queryByTestId('mock-perps-withdraw-toast'),
-      ).not.toBeInTheDocument();
-    });
-
-    it('renders the Basic Functionality migration toast outside home', () => {
-      renderWithProvider(
-        <ToastMaster />,
-        createStore(),
-        '/confirm-transaction',
-      );
-      expect(
-        screen.getByTestId('mock-bft-migration-toast'),
-      ).toBeInTheDocument();
-    });
-  });
-});
 
 const ARC_ACCOUNT = '0x0DCD5D886577d5081B0c52e242Ef29E70Be3E7bc';
 const NATIVE_ASSET = '0x0000000000000000000000000000000000000000';

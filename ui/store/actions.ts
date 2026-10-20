@@ -10,7 +10,6 @@ import capitalize from 'lodash/capitalize';
 import { ThunkAction } from 'redux-thunk';
 import { Action, AnyAction } from 'redux';
 import { providerErrors } from '@metamask/rpc-errors';
-import type { DataWithOptionalCause } from '@metamask/rpc-errors';
 import {
   bytesToString,
   CaipAccountId,
@@ -119,14 +118,12 @@ import { getEnvironmentType } from '../../shared/lib/environment-type';
 // eslint-disable-next-line import-x/no-restricted-paths
 import { addHexPrefix } from '../../app/scripts/lib/util';
 import {
-  getMetaMaskAccounts,
   hasTransactionPendingApprovals,
   getApprovalFlows,
   getCurrentNetworkTransactions,
   getIsSigningQRHardwareTransaction,
   getIsHardwareWalletErrorModalVisible,
   getPermissionSubjects,
-  getFirstSnapInstallOrUpdateRequest,
   getInternalAccountByAddress,
   getAllPermittedAccountsForCurrentTab,
   getOriginOfCurrentTab,
@@ -3985,24 +3982,6 @@ export async function setDefaultHomeActiveTabName(
   }
 }
 
-export function setLastVisitedPerpsRoute(
-  path: string | null,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (_dispatch: MetaMaskReduxDispatch) => {
-    // Fire-and-forget: this write is a pure navigation hint for the next
-    // home mount. Swallow errors without a warning toast — users should
-    // never see UI noise for an internal persistence operation. We also
-    // skip `forceUpdateMetamaskState` because the field is memory-only
-    // (persist:false) and every Perps route change would otherwise pull
-    // the entire background state.
-    try {
-      await submitRequestToBackground('setLastVisitedRoute', ['perps', path]);
-    } catch (error) {
-      log.error('[setLastVisitedPerpsRoute] error', error);
-    }
-  };
-}
-
 export function setShowNativeTokenAsMainBalancePreference(value: boolean) {
   return setPreference('showNativeTokenAsMainBalance', value);
 }
@@ -7469,24 +7448,6 @@ export function setMusdConversionEducationSeen(value: boolean) {
 }
 
 /**
- * Persist that the user has seen (and dismissed) the Perps tab "New" badge.
- * Stored in AppStateController until uninstall.
- *
- * @param value
- */
-export function setPerpsTabBadgeSeen(value: boolean) {
-  return async () => {
-    await submitRequestToBackground('setPerpsTabBadgeSeen', [value]);
-  };
-}
-
-export function setLastPerpsDepositEntryPoint(entryPoint: string | null) {
-  return submitRequestToBackground('setLastPerpsDepositEntryPoint', [
-    entryPoint,
-  ]);
-}
-
-/**
  * Persist a dismissed mUSD asset-detail CTA key (chainId-tokenAddress).
  * Stored in AppStateController until uninstall.
  *
@@ -7845,13 +7806,4 @@ export function removeDeferredDeepLink(): ThunkAction<
       logErrorWithMessage(error);
     }
   };
-}
-
-export async function perpsToggleTestnet(): Promise<void> {
-  log.debug(`background.perpsToggleTestnet`);
-  try {
-    await submitRequestToBackground<void>('perpsToggleTestnet');
-  } catch (error) {
-    logErrorWithMessage(error);
-  }
 }

@@ -44,7 +44,6 @@ import {
   TransactionType,
 } from '@metamask/transaction-controller';
 import type { AssetsControllerState } from '@metamask/assets-controller';
-import type { PerpsControllerState } from '@metamask/perps-controller';
 import type { PasskeyControllerState } from '@metamask/passkey-controller';
 import type { AppStateControllerState } from '../../../app/scripts/controllers/app-state-controller';
 import type { OnboardingControllerState } from '../../../app/scripts/controllers/onboarding';
@@ -421,17 +420,6 @@ class FixtureBuilderV2 {
     merge(
       (this.fixture.data as Record<string, unknown>).SubjectMetadataController,
       data,
-    );
-    return this;
-  }
-
-  withPerpsController(data: Partial<PerpsControllerState>): this {
-    if (!(this.fixture.data as Record<string, unknown>).PerpsController) {
-      (this.fixture.data as Record<string, unknown>).PerpsController = {};
-    }
-    merge(
-      (this.fixture.data as Record<string, unknown>).PerpsController,
-      data as Record<string, unknown>,
     );
     return this;
   }

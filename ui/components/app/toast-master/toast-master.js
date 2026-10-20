@@ -17,7 +17,6 @@ import {
 } from '../../../helpers/constants/design-system';
 import {
   DEFAULT_ROUTE,
-  PERPS_ROUTE,
   REVEAL_SEED_ROUTE,
   SETTINGS_ROUTE,
   TRANSACTION_SHIELD_ROUTE,
@@ -29,7 +28,6 @@ import { Toast, ToastContainer } from '../../multichain';
 import { SurveyToast } from '../../ui/survey-toast/survey-toast';
 import { StorageWriteErrorType } from '../../../../shared/constants/app-state';
 import { BasicFunctionalityMigrationToast } from '../basic-functionality-migration-toast';
-import { PerpsWithdrawToast } from '../perps/perps-withdraw-toast';
 import { ArcUsageNoticeToast } from '../arc-usage-notice-toast';
 import {
   useUserSubscriptionByProduct,
@@ -81,7 +79,6 @@ import {
 const MemoizedSurveyToast = memo(SurveyToast);
 const MemoizedPrivacyPolicyToast = memo(PrivacyPolicyToast);
 const MemoizedInfuraSwitchToast = memo(InfuraSwitchToast);
-const MemoizedPerpsWithdrawToast = memo(PerpsWithdrawToast);
 const MemoizedShieldPausedToast = memo(ShieldPausedToast);
 const MemoizedShieldEndingToast = memo(ShieldEndingToast);
 const MemoizedSidePanelMigrationToast = memo(SidePanelMigrationToast);
@@ -101,7 +98,6 @@ export function ToastMaster() {
   // Get current pathname from React Router
   const currentPathname = location?.pathname ?? DEFAULT_ROUTE;
   const onHomeScreen = currentPathname === DEFAULT_ROUTE;
-  const onPerpsScreen = currentPathname.startsWith(PERPS_ROUTE);
   const onSettingsScreen = currentPathname.startsWith(SETTINGS_ROUTE);
 
   // BFT migration toast must appear on any screen (including confirmation /
@@ -118,20 +114,10 @@ export function ToastMaster() {
         <MemoizedPrivacyPolicyToast />
         <MemoizedArcUsageNoticeToast />
         <MemoizedInfuraSwitchToast />
-        <MemoizedPerpsWithdrawToast />
+
         <MemoizedShieldPausedToast />
         <MemoizedShieldEndingToast />
         <MemoizedSidePanelMigrationToast />
-        {basicFunctionalityMigrationToast}
-      </ToastContainer>
-    );
-  }
-
-  if (onPerpsScreen) {
-    return (
-      <ToastContainer>
-        <MemoizedStorageErrorToast />
-        <MemoizedPerpsWithdrawToast />
         {basicFunctionalityMigrationToast}
       </ToastContainer>
     );

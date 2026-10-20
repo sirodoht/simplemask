@@ -1,9 +1,8 @@
 import type { TrendingAsset } from '@metamask/assets-controllers';
-import type { PerpsMarketData } from '@metamask/perps-controller';
 
-export type DiscoverSearchTab = 'all' | 'crypto' | 'perps' | 'stocks';
+export type DiscoverSearchTab = 'all' | 'crypto' | 'stocks';
 
-export type DiscoverSearchSectionId = 'crypto' | 'perps' | 'stocks';
+export type DiscoverSearchSectionId = 'crypto' | 'stocks';
 
 export type DiscoverSearchSection<TItem = unknown> = {
   id: DiscoverSearchSectionId;
@@ -19,7 +18,6 @@ export type DiscoverSearchSection<TItem = unknown> = {
 
 export type DiscoverSearchResult = {
   crypto: DiscoverSearchSection<TrendingAsset>;
-  perps: DiscoverSearchSection<PerpsMarketData>;
   stocks: DiscoverSearchSection<TrendingAsset>;
   isDebouncing: boolean;
 };

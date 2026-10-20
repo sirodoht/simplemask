@@ -57,7 +57,11 @@ export const getMetamaskNotifications = createSelector(
   (metamask): Notification[] => {
     return metamask.metamaskNotificationsList.filter(
       (notification) =>
-        notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT,
+        notification.type !== TRIGGER_TYPES.FEATURES_ANNOUNCEMENT &&
+        !(
+          notification.type === TRIGGER_TYPES.PLATFORM &&
+          notification.notification_type === 'perps'
+        ),
     );
   },
 );

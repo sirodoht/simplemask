@@ -56,11 +56,6 @@ import {
 import { getStartupTraceTags } from './helpers/utils/tags';
 import { SEEDLESS_PASSWORD_OUTDATED_CHECK_INTERVAL_MS } from './constants';
 import { initWebVitals } from './helpers/utils/web-vitals';
-import { getPerpsStreamManager } from './providers/perps';
-import {
-  primePerpsLifecycleContext,
-  markPerpsLifecycleWarm,
-} from './helpers/perps/entry-trace';
 import { createUIMessenger } from './messengers/ui-messenger';
 
 export { CriticalStartupErrorHandler } from './helpers/utils/critical-startup-error-handler';
@@ -104,15 +99,7 @@ export const connectToBackground = (
       const store = await reduxStore.promise;
       store.dispatch(actions.updateMetamaskState(data.params[0]));
     } else if (method === START_UI_SYNC) {
-      primePerpsLifecycleContext();
       await handleStartUISync(data.params[0]);
-    } else if (method === 'perpsStreamUpdate') {
-      const payload = data.params[0];
-      if (payload.channel === 'lifecycleContext' && payload.data === 'warm') {
-        markPerpsLifecycleWarm();
-      } else {
-        getPerpsStreamManager().handleBackgroundUpdate(payload);
-      }
     } else if (method !== MESSENGER_SUBSCRIPTION_NOTIFICATION) {
       throw new Error(
         `Internal JSON-RPC Notification Not Handled:\n\n ${JSON.stringify(data)}`,
@@ -473,7 +460,6 @@ function setupStateHooks(store) {
   if (process.env.METAMASK_DEBUG) {
     globalThis.stateHooks.store = store;
     globalThis.stateHooks.submitRequestToBackground = submitRequestToBackground;
-    globalThis.stateHooks.getPerpsStreamManager = getPerpsStreamManager;
   }
 
   if (process.env.IN_TEST) {

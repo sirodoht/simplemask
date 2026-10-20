@@ -103,7 +103,6 @@ import { PRODUCT_TYPES } from '@metamask/subscription-controller';
 import { isSnapId } from '@metamask/snaps-utils';
 import { KeyringType } from '@metamask/keyring-api/v2';
 import { KeyringControllerErrorMessage } from '@metamask/keyring-controller';
-import { AggregatedOrderBookConnection } from '@metamask/perps-controller';
 import { KeyringType as KeyringTypes } from '../../shared/constants/keyring';
 import {
   findAtomicBatchSupportForChain,
@@ -166,7 +165,6 @@ import { NON_EVM_ACCOUNT_CHANGED_CONFIGS } from '../../shared/constants/multicha
 import { ALLOWED_BRIDGE_CHAIN_IDS } from '../../shared/constants/bridge';
 import { FirstTimeFlowType } from '../../shared/constants/onboarding';
 import { updateCurrentLocale } from '../../shared/lib/translate';
-import { getIsPerpsIncludedInBuild } from '../../shared/lib/environment';
 import { getEnabledAdvancedPermissions } from '../../shared/lib/gator-permissions/feature-flags';
 import { isSnapPreinstalled } from '../../shared/lib/snaps/snaps';
 import { toChecksumHexAddress } from '../../shared/lib/hexstring-utils';
@@ -179,8 +177,6 @@ import {
   getAccountTrackerControllerAccountsByChainId,
   getTokensControllerAllTokens,
 } from '../../shared/lib/selectors/assets-migration';
-import { isPerpsRemoteConfigSatisfied } from '../../shared/lib/perps-feature-flags';
-import { getRemoteFeatureFlags } from '../../shared/lib/selectors/remote-feature-flags';
 import { accountSupports7702 } from './lib/account-supports-7702';
 import { keyringSnapPermissionsBuilder } from './lib/snap-keyring/keyring-snaps-permissions';
 
@@ -239,10 +235,6 @@ import {
 } from './lib/util';
 import createMetamaskMiddleware from './lib/createMetamaskMiddleware';
 import { createDefiReferralMiddleware } from './lib/defi-referrals/createDefiReferralMiddleware';
-import { isHyperliquidDepositPromptEligible } from './lib/hyperliquid-deposit/eligibility';
-import { showHyperliquidDepositPromptApproval } from './lib/hyperliquid-deposit/prompt';
-import { createHyperliquidDepositMiddleware } from './lib/hyperliquid-deposit/createHyperliquidDepositMiddleware';
-import { createPopupOpener } from './popup/background';
 
 import {
   diffMap,
@@ -300,8 +292,6 @@ import { ComplianceServiceInit } from './messenger-client-init/compliance-servic
 import { ComplianceControllerInit } from './messenger-client-init/compliance-controller-init';
 import { RampsServiceInit } from './messenger-client-init/ramps-service-init';
 import { RampsControllerInit } from './messenger-client-init/ramps-controller-init';
-import { PerpsControllerInit } from './messenger-client-init/perps-controller-init';
-import { PerpsStreamBridge } from './controllers/perps/perps-stream-bridge';
 import { PPOMControllerInit } from './messenger-client-init/confirmations/ppom-controller-init';
 import { SmartTransactionsControllerInit } from './messenger-client-init/smart-transactions/smart-transactions-controller-init';
 import { initMessengerClients } from './messenger-client-init/utils';
@@ -427,15 +417,6 @@ const API_TYPE = {
 // stream channels
 const PHISHING_SAFELIST = 'metamask-phishing-safelist';
 
-/**
- * Grace window (ms) after the last UI connection closes before the Perps
- * WebSocket is torn down. Matches the "brief close/reopen" pattern from
- * Swaps: reopening the extension within this window reuses the live
- * provider session so positions/markets stay hot and no skeleton flashes.
- * Wallet lock bypasses this grace — see {@link MetamaskController._onLock}.
- */
-const PERPS_DISCONNECT_GRACE_MS = 60 * 1000;
-
 function isKeyringV2NotSupportedError(error) {
   return error?.message?.includes(
     KeyringControllerErrorMessage.KeyringV2NotSupported,
@@ -474,11 +455,6 @@ export default class MetamaskController extends EventEmitter {
     // this keeps track of how many "controllerStream" connections are open
     // the only thing that uses controller connections are open metamask UI instances
     this.activeControllerConnections = 0;
-
-    // Timer id for the deferred perps disconnect. Set when the last UI
-    // connection closes; cleared either by a reconnect within the grace
-    // window or by the timer firing (which then disconnects perps).
-    this.perpsDisconnectTimer = null;
 
     this.offscreenPromise = opts.offscreenPromise ?? Promise.resolve();
 
@@ -597,9 +573,6 @@ export default class MetamaskController extends EventEmitter {
       ComplianceController: ComplianceControllerInit,
       RampsService: RampsServiceInit,
       RampsController: RampsControllerInit,
-      ...(getIsPerpsIncludedInBuild()
-        ? { PerpsController: PerpsControllerInit }
-        : {}),
       PPOMController: PPOMControllerInit,
       AccountTrackerController: AccountTrackerControllerInit,
       PhishingController: PhishingControllerInit,
@@ -1644,18 +1617,6 @@ export default class MetamaskController extends EventEmitter {
       });
     }
 
-    // Start perps eligibility monitoring only when basic functionality is on (no external calls when off)
-    if (
-      getIsPerpsIncludedInBuild() &&
-      this.preferencesController.state.useExternalServices
-    ) {
-      this.messengerClientApi
-        .perpsStartEligibilityMonitoring?.()
-        ?.catch((error) => {
-          console.error(error);
-        });
-    }
-
     if (this.preferencesController.state.useExternalServices) {
       this.messengerClientApi.startRampsLifecycle?.();
     }
@@ -1664,16 +1625,6 @@ export default class MetamaskController extends EventEmitter {
   triggerNetworkrequests() {
     this.tokenDetectionController.enable();
     this.getInfuraFeatureFlags();
-    if (
-      getIsPerpsIncludedInBuild() &&
-      this.preferencesController.state.useExternalServices
-    ) {
-      this.messengerClientApi
-        .perpsStartEligibilityMonitoring?.()
-        ?.catch((error) => {
-          console.error(error);
-        });
-    }
     if (this.preferencesController.state.useExternalServices) {
       this.messengerClientApi.startRampsLifecycle?.();
     }
@@ -1681,78 +1632,7 @@ export default class MetamaskController extends EventEmitter {
 
   stopNetworkRequests() {
     this.tokenDetectionController.disable();
-    if (getIsPerpsIncludedInBuild()) {
-      this.messengerClientApi
-        .perpsStopEligibilityMonitoring?.()
-        ?.catch((error) => {
-          console.error(error);
-        });
-    }
     this.messengerClientApi.stopRampsLifecycle?.();
-  }
-
-  /**
-   * Disconnect an active Perps session without affecting non-Perps users.
-   *
-   * Perps is an optional feature, so guard on build inclusion, controller
-   * presence, and active connection state before calling into the controller.
-   */
-  #disconnectPerpsIfActive() {
-    try {
-      if (
-        !getIsPerpsIncludedInBuild() ||
-        !this.messengerClientsByName.PerpsController ||
-        typeof this.messengerClientApi.perpsDisconnect !== 'function'
-      ) {
-        return;
-      }
-
-      PerpsStreamBridge.invalidateController(
-        this.messengerClientsByName.PerpsController,
-      );
-
-      if (
-        this.messengerClientApi.perpsGetConnectionState?.() === 'disconnected'
-      ) {
-        return;
-      }
-
-      this.messengerClientApi.perpsDisconnect().catch((error) => {
-        console.error(error);
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  /**
-   * Cancel any pending deferred perps disconnect. Called when a UI
-   * connection reopens within {@link PERPS_DISCONNECT_GRACE_MS} so the
-   * live provider session survives the close/reopen round-trip.
-   */
-  #cancelPerpsDisconnectTimer() {
-    if (this.perpsDisconnectTimer) {
-      clearTimeout(this.perpsDisconnectTimer);
-      this.perpsDisconnectTimer = null;
-    }
-  }
-
-  /**
-   * Schedule a deferred perps disconnect. If another UI connection
-   * arrives within the grace window, the timer is cancelled; otherwise
-   * the perps WebSocket is torn down. Re-schedules are no-ops — the
-   * existing timer keeps running.
-   */
-  #schedulePerpsDisconnect() {
-    if (this.perpsDisconnectTimer) {
-      return;
-    }
-    this.perpsDisconnectTimer = setTimeout(() => {
-      this.perpsDisconnectTimer = null;
-      if (this.activeControllerConnections === 0) {
-        this.#disconnectPerpsIfActive();
-      }
-    }, PERPS_DISCONNECT_GRACE_MS);
   }
 
   resetStates(resetMethods) {
@@ -1812,29 +1692,6 @@ export default class MetamaskController extends EventEmitter {
       previousValueComparator((prevState, currState) => {
         const { useExternalServices: prev } = prevState;
         const { useExternalServices: curr } = currState;
-        if (prev !== curr && !curr) {
-          this.#disconnectPerpsIfActive();
-        }
-        if (
-          getIsPerpsIncludedInBuild() &&
-          prev !== curr &&
-          this.messengerClientApi.perpsStartEligibilityMonitoring &&
-          this.messengerClientApi.perpsStopEligibilityMonitoring
-        ) {
-          if (curr) {
-            this.messengerClientApi
-              .perpsStartEligibilityMonitoring?.()
-              ?.catch((error) => {
-                console.error(error);
-              });
-          } else {
-            this.messengerClientApi
-              .perpsStopEligibilityMonitoring?.()
-              ?.catch((error) => {
-                console.error(error);
-              });
-          }
-        }
         if (
           prev !== curr &&
           this.messengerClientApi.startRampsLifecycle &&
@@ -2663,10 +2520,6 @@ export default class MetamaskController extends EventEmitter {
         this.rewardsController.linkAccountsToSubscriptionCandidate.bind(
           this.rewardsController,
         ),
-      rewardsGetPerpsDiscountForAccount:
-        this.rewardsController.getPerpsDiscountForAccount.bind(
-          this.rewardsController,
-        ),
       rewardsGetVipTierForAccount:
         this.rewardsController.getVipTierForAccount.bind(
           this.rewardsController,
@@ -2962,8 +2815,6 @@ export default class MetamaskController extends EventEmitter {
         appStateController.setBrowserEnvironment.bind(appStateController),
       setDefaultHomeActiveTabName:
         appStateController.setDefaultHomeActiveTabName.bind(appStateController),
-      setLastVisitedRoute:
-        appStateController.setLastVisitedRoute.bind(appStateController),
       removeDeferredDeepLink:
         appStateController.removeDeferredDeepLink.bind(appStateController),
       setConnectedStatusPopoverHasBeenShown:
@@ -3041,12 +2892,6 @@ export default class MetamaskController extends EventEmitter {
         ),
       setHasShownMultichainAccountsIntroModal:
         appStateController.setHasShownMultichainAccountsIntroModal.bind(
-          appStateController,
-        ),
-      setPerpsTabBadgeSeen:
-        appStateController.setPerpsTabBadgeSeen.bind(appStateController),
-      setLastPerpsDepositEntryPoint:
-        appStateController.setLastPerpsDepositEntryPoint.bind(
           appStateController,
         ),
       setMusdConversionEducationSeen:
@@ -4705,111 +4550,15 @@ export default class MetamaskController extends EventEmitter {
       });
     };
 
-    // A UI reopened within the grace window. Keep the live perps WS and
-    // cancel the deferred disconnect so positions/markets stay hot.
-    this.#cancelPerpsDisconnectTimer();
-
     const messengerSubscriptions = new MessengerSubscriptions(
       this.controllerMessenger,
       outStream,
     );
 
-    const perpsController = this.messengerClientsByName.PerpsController;
-    // Dedicated Hyperliquid WebSocket for the order-book panel's aggregated
-    // (`nSigFigs`) subscription, isolated from the controller's shared socket so
-    // the raw and aggregated `l2Book` streams for the same coin cannot
-    // cross-contaminate (the SDK dispatches `l2Book` events by coin only).
-    const aggregatedOrderBookConnection = perpsController
-      ? new AggregatedOrderBookConnection({
-          isTestnet: () => Boolean(perpsController.state?.isTestnet),
-        })
-      : null;
-    const perpsStream = perpsController
-      ? new PerpsStreamBridge({
-          controller: perpsController,
-          // `getSelectedAccount` returns the last selected *EVM* account: it
-          // falls back to `listAccounts()`, which filters to EVM types. So a
-          // selected Bitcoin or Tron account still yields the EVM address the
-          // UI sends, and `#initForAccount` does not reject the preload.
-          getSelectedAddress: () =>
-            this.accountsController.getSelectedAccount().address,
-          onControllerStateChange: (cb) => {
-            this.controllerMessenger.subscribe(
-              'PerpsController:stateChange',
-              cb,
-            );
-            return () =>
-              this.controllerMessenger.unsubscribe(
-                'PerpsController:stateChange',
-                cb,
-              );
-          },
-          onConnectivityChange: (cb) => {
-            this.controllerMessenger.subscribe(
-              'ConnectivityController:stateChange',
-              cb,
-            );
-            return () =>
-              this.controllerMessenger.unsubscribe(
-                'ConnectivityController:stateChange',
-                cb,
-              );
-          },
-          perpsInit: this.messengerClientApi.perpsInit,
-          perpsDisconnect: this.messengerClientApi.perpsDisconnect,
-          perpsToggleTestnet: this.messengerClientApi.perpsToggleTestnet,
-          isConnectionAlive: () => !outStream.mmFinished,
-          isPreloadAllowed: () => {
-            const { remoteFeatureFlags } = this.controllerMessenger.call(
-              'RemoteFeatureFlagController:getState',
-            );
-            const flags = getRemoteFeatureFlags({
-              metamask: { remoteFeatureFlags },
-            });
-            return (
-              this.keyringController.state.isUnlocked &&
-              this.onboardingController.state.completedOnboarding &&
-              this.preferencesController.state.useExternalServices &&
-              getIsPerpsIncludedInBuild() &&
-              isPerpsRemoteConfigSatisfied(flags.perpsEnabledVersion)
-            );
-          },
-          subscribeAggregatedOrderBook: (params) =>
-            aggregatedOrderBookConnection.subscribe(params),
-          isTerminalBackendEnabled: () => {
-            const { remoteFeatureFlags } = this.controllerMessenger.call(
-              'RemoteFeatureFlagController:getState',
-            );
-            // Resolve through the same manifest-merged path as the UI selector
-            // (`getIsPerpsTerminalBackendEnabled`). Reading raw controller state
-            // here would ignore `.manifest-overrides.json`, so a manifest
-            // override could enable the Terminal backend in the UI while the
-            // bridge kept emitting un-enriched direct-provider market data.
-            const mergedFlags = getRemoteFeatureFlags({
-              metamask: { remoteFeatureFlags },
-            });
-            return isPerpsRemoteConfigSatisfied(
-              mergedFlags.perpsTerminalBackendEnabled,
-            );
-          },
-          emit: (channel, data, extra) => {
-            if (!perpsStream.canEmit(channel) || !isStreamWritable(outStream)) {
-              return;
-            }
-            outStream.write({
-              jsonrpc: '2.0',
-              method: 'perpsStreamUpdate',
-              params: [{ channel, data, ...extra }],
-            });
-          },
-        })
-      : null;
-
     const api = {
       ...this.getApi(),
       ...this.messengerClientApi,
       ...getTransactionControllerApi(this.txController),
-      ...(perpsStream ? perpsStream.bridgeApi() : {}),
       startSendingPatches: () => {
         onStartSendingPatchesOrStreamClosed();
         uiReady = true;
@@ -4870,14 +4619,6 @@ export default class MetamaskController extends EventEmitter {
         this.removeListener('update', handleUpdate);
         patchStore.destroy();
         messengerSubscriptions.clear();
-        perpsStream?.dispose();
-        aggregatedOrderBookConnection?.close();
-        if (this.activeControllerConnections === 0) {
-          // Defer the controller-owned Perps WS teardown so a brief close/reopen
-          // within PERPS_DISCONNECT_GRACE_MS reuses the live session instead of
-          // re-fetching markets + positions and flashing a skeleton.
-          this.#schedulePerpsDisconnect();
-        }
       }
     };
 
@@ -5390,43 +5131,6 @@ export default class MetamaskController extends EventEmitter {
             triggerType,
           ),
         ),
-      );
-
-      // Prompt the user to fund Hyperliquid through MetaMask after a
-      // successful ApproveAgent ("Enable trading") signature.
-      engine.push(
-        createHyperliquidDepositMiddleware({
-          isEligible: ({ signerAddress }) =>
-            isHyperliquidDepositPromptEligible({
-              accountsController: this.accountsController,
-              assetsController: this.assetsController,
-              perpsController: this.messengerClientsByName.PerpsController,
-              remoteFeatureFlagController: this.remoteFeatureFlagController,
-              signerAddress,
-            }),
-          showDepositPrompt: ({
-            origin: promptOrigin,
-            signerAddress,
-            tabId: sourceTabId,
-          }) => {
-            const useSidePanelAsDefault =
-              this.preferencesController.state.preferences
-                ?.useSidePanelAsDefault ?? true;
-
-            return showHyperliquidDepositPromptApproval({
-              approvalController: this.approvalController,
-              origin: promptOrigin,
-              selectedAddress: signerAddress,
-              tabId: sourceTabId,
-              requestOpenPopup: useSidePanelAsDefault
-                ? undefined
-                : createPopupOpener({ extension: this.extension }),
-              closeNotification: useSidePanelAsDefault
-                ? undefined
-                : () => this.notificationManager.closePopup(),
-            });
-          },
-        }),
       );
     }
 
@@ -6117,9 +5821,6 @@ export default class MetamaskController extends EventEmitter {
     // KeyringController event. Other controllers subscribe to the 'lock'
     // event of the MetaMaskController itself.
     this.emit('lock');
-    // Lock bypasses the close/reopen grace window — the user is done.
-    this.#cancelPerpsDisconnectTimer();
-    this.#disconnectPerpsIfActive();
   }
 
   /**

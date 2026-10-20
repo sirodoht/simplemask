@@ -48,7 +48,6 @@ const SEGMENT_CTA_MAPPING: Record<string, string> = {
   musd: 'basicFunctionalityRequired_openMusdConversionPage',
   'shield-plan': 'basicFunctionalityRequired_openTransactionShieldPage',
   rewards: 'basicFunctionalityRequired_openRewardsPage',
-  perps: 'basicFunctionalityRequired_openPerpsPage',
 };
 
 /**

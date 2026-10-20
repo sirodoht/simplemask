@@ -1,6 +1,5 @@
 export const NOTIFICATIONS_SETTINGS_ROUTE = '/settings/notifications';
 export const NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE = `${NOTIFICATIONS_SETTINGS_ROUTE}/wallet-activity`;
-export const NOTIFICATIONS_SETTINGS_PERPS_ROUTE = `${NOTIFICATIONS_SETTINGS_ROUTE}/perps`;
 export const NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE = `${NOTIFICATIONS_SETTINGS_ROUTE}/agentic-cli`;
 
 // Deep-link input must not resolve inherited properties such as `constructor`.
@@ -8,7 +7,6 @@ export const NOTIFICATIONS_SETTINGS_SECTION_ROUTES = Object.assign(
   Object.create(null) as object,
   {
     walletActivity: NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
-    perps: NOTIFICATIONS_SETTINGS_PERPS_ROUTE,
     agenticCli: NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
   } as const,
 );

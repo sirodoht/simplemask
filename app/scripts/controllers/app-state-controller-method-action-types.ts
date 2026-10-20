@@ -270,17 +270,6 @@ export type AppStateControllerSetHasShownMultichainAccountsIntroModalAction = {
 };
 
 /**
- * Sets whether the user has seen (and therefore dismissed) the Perps tab
- * "New" badge.
- *
- * @param value - Whether the Perps tab badge has been seen
- */
-export type AppStateControllerSetPerpsTabBadgeSeenAction = {
-  type: `AppStateController:setPerpsTabBadgeSeen`;
-  handler: AppStateController['setPerpsTabBadgeSeen'];
-};
-
-/**
  * Sets whether the mUSD conversion education screen has been seen.
  *
  * @param value - Whether the education screen has been seen
@@ -393,16 +382,6 @@ export type AppStateControllerSetLastInteractedConfirmationInfoAction = {
 };
 
 /**
- * Sets the entry point that initiated the last Perps deposit flow.
- *
- * @param entryPoint - The entry point identifier, or undefined to clear.
- */
-export type AppStateControllerSetLastPerpsDepositEntryPointAction = {
-  type: `AppStateController:setLastPerpsDepositEntryPoint`;
-  handler: AppStateController['setLastPerpsDepositEntryPoint'];
-};
-
-/**
  * A getter to retrieve currentPopupId saved in the appState
  */
 export type AppStateControllerGetCurrentPopupIdAction = {
@@ -490,19 +469,6 @@ export type AppStateControllerSetShowShieldEntryModalOnceAction = {
 export type AppStateControllerSetPendingRedirectRouteAction = {
   type: `AppStateController:setPendingRedirectRoute`;
   handler: AppStateController['setPendingRedirectRoute'];
-};
-
-/**
- * Records the last visited feature route with the current timestamp, or
- * clears it. Feature UIs read this on home page mount to resume a recent
- * route after a brief close/reopen.
- *
- * @param name - The feature route namespace.
- * @param path - The route path to persist, or `null` to clear.
- */
-export type AppStateControllerSetLastVisitedRouteAction = {
-  type: `AppStateController:setLastVisitedRoute`;
-  handler: AppStateController['setLastVisitedRoute'];
 };
 
 export type AppStateControllerSetPendingShieldCohortAction = {
@@ -612,7 +578,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerRemovePollingTokenAction
   | AppStateControllerClearPollingTokensAction
   | AppStateControllerSetHasShownMultichainAccountsIntroModalAction
-  | AppStateControllerSetPerpsTabBadgeSeenAction
   | AppStateControllerSetMusdConversionEducationSeenAction
   | AppStateControllerAddMusdConversionDismissedCtaKeyAction
   | AppStateControllerAddMoneyEarnBannerDismissedTokenKeyAction
@@ -625,7 +590,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerSetCurrentPopupIdAction
   | AppStateControllerGetLastInteractedConfirmationInfoAction
   | AppStateControllerSetLastInteractedConfirmationInfoAction
-  | AppStateControllerSetLastPerpsDepositEntryPointAction
   | AppStateControllerGetCurrentPopupIdAction
   | AppStateControllerGetThrottledOriginStateAction
   | AppStateControllerUpdateThrottledOriginStateAction
@@ -636,7 +600,6 @@ export type AppStateControllerMethodActions =
   | AppStateControllerClearAppActiveTabAction
   | AppStateControllerSetShowShieldEntryModalOnceAction
   | AppStateControllerSetPendingRedirectRouteAction
-  | AppStateControllerSetLastVisitedRouteAction
   | AppStateControllerSetPendingShieldCohortAction
   | AppStateControllerSetIsWalletResetInProgressAction
   | AppStateControllerGetIsWalletResetInProgressAction

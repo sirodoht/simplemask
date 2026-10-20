@@ -5,7 +5,6 @@ import { selectPrimaryMoneyAccount } from '../../../../selectors/money-account';
 import { applyMoneyAccountOverride } from '../../utils/transaction-pay';
 import { useTransactionMetadataRequestOptional } from '../transactions/useTransactionMetadataRequest';
 import { useIsMoneyAccountFlagDefault } from './useIsMoneyAccountFlagDefault';
-import { useIsMoneyAccountPerpsNavigation } from './useIsMoneyAccountPerpsNavigation';
 import { useDefaultPaySelectedSection } from './useDefaultPaySelectedSection';
 
 jest.mock('react-redux', () => ({
@@ -15,9 +14,6 @@ jest.mock('react-redux', () => ({
 jest.mock('../transactions/useTransactionMetadataRequest');
 jest.mock('./useIsMoneyAccountFlagDefault', () => ({
   useIsMoneyAccountFlagDefault: jest.fn(),
-}));
-jest.mock('./useIsMoneyAccountPerpsNavigation', () => ({
-  useIsMoneyAccountPerpsNavigation: jest.fn(),
 }));
 jest.mock('../../utils/transaction-pay', () => ({
   applyMoneyAccountOverride: jest.fn(),
@@ -34,9 +30,6 @@ describe('useDefaultPaySelectedSection', () => {
   const useIsMoneyAccountFlagDefaultMock = jest.mocked(
     useIsMoneyAccountFlagDefault,
   );
-  const useIsMoneyAccountPerpsNavigationMock = jest.mocked(
-    useIsMoneyAccountPerpsNavigation,
-  );
   const applyMoneyAccountOverrideMock = jest.mocked(applyMoneyAccountOverride);
 
   function mockConfirmation(
@@ -51,7 +44,6 @@ describe('useDefaultPaySelectedSection', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     useIsMoneyAccountFlagDefaultMock.mockReturnValue(false);
-    useIsMoneyAccountPerpsNavigationMock.mockReturnValue(false);
     useSelectorMock.mockImplementation((selector: unknown) => {
       if (selector === selectPrimaryMoneyAccount) {
         return { address: MONEY_ACCOUNT_ADDRESS };
@@ -76,36 +68,6 @@ describe('useDefaultPaySelectedSection', () => {
     expect(applyMoneyAccountOverrideMock).not.toHaveBeenCalled();
   });
 
-  it('applies the Money Account override for perpsWithdraw', () => {
-    useIsMoneyAccountFlagDefaultMock.mockReturnValue(true);
-
-    renderHook(() => useDefaultPaySelectedSection());
-
-    expect(applyMoneyAccountOverrideMock).toHaveBeenCalledWith(
-      TRANSACTION_ID,
-      MONEY_ACCOUNT_ADDRESS,
-      expect.objectContaining({
-        id: TRANSACTION_ID,
-        type: TransactionType.perpsWithdraw,
-      }),
-    );
-  });
-
-  it('applies the override for perpsDeposit', () => {
-    useIsMoneyAccountFlagDefaultMock.mockReturnValue(true);
-    mockConfirmation(TransactionType.perpsDeposit);
-
-    renderHook(() => useDefaultPaySelectedSection());
-
-    expect(applyMoneyAccountOverrideMock).toHaveBeenCalledWith(
-      TRANSACTION_ID,
-      MONEY_ACCOUNT_ADDRESS,
-      expect.objectContaining({
-        type: TransactionType.perpsDeposit,
-      }),
-    );
-  });
-
   it('applies the override for predictWithdraw', () => {
     useIsMoneyAccountFlagDefaultMock.mockReturnValue(true);
     mockConfirmation(TransactionType.predictWithdraw);
@@ -117,22 +79,6 @@ describe('useDefaultPaySelectedSection', () => {
       MONEY_ACCOUNT_ADDRESS,
       expect.objectContaining({
         type: TransactionType.predictWithdraw,
-      }),
-    );
-  });
-
-  it('applies the money account override on a Money Account → Perps navigation', () => {
-    useIsMoneyAccountPerpsNavigationMock.mockReturnValue(true);
-    mockConfirmation(TransactionType.perpsDeposit);
-
-    renderHook(() => useDefaultPaySelectedSection());
-
-    expect(applyMoneyAccountOverrideMock).toHaveBeenCalledWith(
-      TRANSACTION_ID,
-      MONEY_ACCOUNT_ADDRESS,
-      expect.objectContaining({
-        id: TRANSACTION_ID,
-        type: TransactionType.perpsDeposit,
       }),
     );
   });

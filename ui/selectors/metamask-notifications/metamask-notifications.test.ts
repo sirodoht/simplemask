@@ -6,6 +6,7 @@ import {
 import {
   createMockNotificationEthReceived,
   createMockFeatureAnnouncementRaw,
+  createMockPlatformNotification,
 } from '@metamask/notification-services-controller/notification-services/mocks';
 import {
   selectIsMetamaskNotificationsEnabled,
@@ -75,6 +76,24 @@ describe('Metamask Notifications Selectors', () => {
 
     expect(getMetamaskNotifications(state)).toStrictEqual(mockNotifications);
     expect(getMetamaskNotificationById(state, announcement.id)).toBeUndefined();
+    expect(getMetamaskNotificationsUnreadCount(state)).toBe(
+      mockNotifications.filter((notification) => !notification.isRead).length,
+    );
+  });
+
+  it('excludes retired Perps notifications while retaining wallet activity', () => {
+    const perpsNotification = processNotification(
+      createMockPlatformNotification(),
+    );
+    const state = mockState();
+    state.metamask.metamaskNotificationsList = [
+      ...mockNotifications,
+      perpsNotification,
+    ];
+    expect(getMetamaskNotifications(state)).toStrictEqual(mockNotifications);
+    expect(
+      getMetamaskNotificationById(state, perpsNotification.id),
+    ).toBeUndefined();
     expect(getMetamaskNotificationsUnreadCount(state)).toBe(
       mockNotifications.filter((notification) => !notification.isRead).length,
     );

@@ -17,8 +17,8 @@ import {
 import { useSelector } from 'react-redux';
 import BigNumber from 'bignumber.js';
 import { CaipAssetType } from '@metamask/utils';
+import { AmountSlider } from '../../../../../components/ui/amount-slider/amount-slider';
 import { BatchSellAsset } from '../../../../../ducks/batch-sell/types';
-import { PerpsSlider } from '../../../../../components/app/perps/perps-slider';
 import { getCurrentCurrency } from '../../../../../ducks/metamask/metamask';
 import {
   formatCurrencyAmount,
@@ -164,7 +164,7 @@ export const QuotesListItem = ({
         />
       </Box>
       <Box paddingRight={3}>
-        <PerpsSlider
+        <AmountSlider
           min={MIN_SEND_PERCENT}
           max={MAX_SEND_PERCENT}
           step={SEND_PERCENTS_STEPS}

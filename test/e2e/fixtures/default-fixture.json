@@ -216,7 +216,6 @@
       "outdatedBrowserWarningLastShown": null,
       "pendingShieldCohort": "wallet_home",
       "pendingShieldCohortTxType": null,
-      "perpsTabBadgeSeen": false,
       "pna25Acknowledged": true,
       "productTour": "accountIcon",
       "recoveryPhraseReminderHasBeenShown": false,
@@ -1000,40 +999,6 @@
     "PermissionController": {},
     "PermissionLogController": {
       "permissionHistory": {}
-    },
-    "PerpsController": {
-      "accountState": null,
-      "activeProvider": "hyperliquid",
-      "depositRequests": [],
-      "hasPlacedFirstOrder": {
-        "mainnet": false,
-        "testnet": false
-      },
-      "hip3ConfigVersion": 1,
-      "isFirstTimeUser": {
-        "mainnet": true,
-        "testnet": true
-      },
-      "isTestnet": false,
-      "marketFilterPreferences": {
-        "direction": "desc",
-        "optionId": "volume"
-      },
-      "perpsBalances": {},
-      "tradeConfigurations": {
-        "mainnet": {},
-        "testnet": {}
-      },
-      "watchlistMarkets": {
-        "mainnet": [],
-        "testnet": []
-      },
-      "withdrawalProgress": {
-        "activeWithdrawalId": null,
-        "lastUpdated": 0,
-        "progress": 0
-      },
-      "withdrawalRequests": []
     },
     "PhishingController": {
       "addressScanCache": {},

@@ -18,7 +18,6 @@ import {
   LANGUAGE_ROUTE,
   NOTIFICATIONS_SETTINGS_ROUTE,
   NOTIFICATIONS_SETTINGS_WALLET_ACTIVITY_ROUTE,
-  NOTIFICATIONS_SETTINGS_PERPS_ROUTE,
   NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE,
   PREFERENCES_AND_DISPLAY_ROUTE,
   SECURITY_AND_PASSWORD_ROUTE,
@@ -38,10 +37,7 @@ import {
   SYNC_ACCOUNTS_ROUTE,
 } from '../../helpers/constants/routes';
 import { mmLazy } from '../../helpers/utils/mm-lazy';
-import {
-  getIsQrSyncEnabled,
-  getIsPerpsIncludedInBuild,
-} from '../../../shared/lib/environment';
+import { getIsQrSyncEnabled } from '../../../shared/lib/environment';
 import type {
   UIMessengerActions,
   UIMessengerEvents,
@@ -187,17 +183,6 @@ export const SETTINGS_ROUTES: Record<string, SettingsRouteMeta> = {
       () => import('./notifications-tab/wallet-activity-sub-page.tsx'),
     ),
   },
-  ...(getIsPerpsIncludedInBuild()
-    ? {
-        [NOTIFICATIONS_SETTINGS_PERPS_ROUTE]: {
-          labelKey: 'notificationsSettingsPerpsTitle',
-          parentPath: NOTIFICATIONS_SETTINGS_ROUTE,
-          component: mmLazy(
-            () => import('./notifications-tab/perps-sub-page.tsx'),
-          ),
-        },
-      }
-    : {}),
   [NOTIFICATIONS_SETTINGS_AGENTIC_CLI_ROUTE]: {
     labelKey: 'notificationsSettingsAgenticCliTitle',
     parentPath: NOTIFICATIONS_SETTINGS_ROUTE,

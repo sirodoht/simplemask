@@ -5004,53 +5004,6 @@ describe('getLastQrScanCompletedSuccessfully', () => {
   });
 });
 
-describe('getLastVisitedPerpsRoute', () => {
-  it('returns the perps lastVisitedRoute value when set', () => {
-    const entry = { path: '/perps/market/BTC', timestamp: 1700000000000 };
-    const state = {
-      metamask: { lastVisitedRoute: { name: 'perps', ...entry } },
-    };
-
-    expect(selectors.getLastVisitedPerpsRoute(state)).toStrictEqual(entry);
-  });
-
-  it('returns null when lastVisitedRoute is for another feature', () => {
-    const state = {
-      metamask: {
-        lastVisitedRoute: {
-          name: 'bridge',
-          path: '/bridge',
-          timestamp: 1700000000000,
-        },
-      },
-    };
-
-    expect(selectors.getLastVisitedPerpsRoute(state)).toBeNull();
-  });
-
-  it('returns null when lastVisitedRoute is undefined', () => {
-    const state = { metamask: {} };
-
-    expect(selectors.getLastVisitedPerpsRoute(state)).toBeNull();
-  });
-
-  it('returns a stable reference when a state push replaces the route object', () => {
-    const buildState = () => ({
-      metamask: {
-        lastVisitedRoute: {
-          name: 'perps',
-          path: '/perps/trade/BTC',
-          timestamp: 1700000000000,
-        },
-      },
-    });
-
-    expect(selectors.getLastVisitedPerpsRoute(buildState())).toBe(
-      selectors.getLastVisitedPerpsRoute(buildState()),
-    );
-  });
-});
-
 describe('snap selectors', () => {
   const snapState = {
     metamask: {

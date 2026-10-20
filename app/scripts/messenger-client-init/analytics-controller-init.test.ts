@@ -4,7 +4,6 @@ import {
   AB_TEST_ANALYTICS_MAPPINGS,
 } from '../../../shared/lib/ab-testing/ab-test-analytics';
 import { CHAIN_VALUE_ORDER_AB_KEY } from '../../../shared/lib/ab-testing/configs/chain-value-order';
-import { PERPS_TAB_BADGE_AB_KEY } from '../../../shared/lib/ab-testing/configs/perps-tab-badge';
 import { getRootMessenger } from '../lib/messenger';
 import { getAnalyticsControllerMessenger } from './messengers';
 import { getAnalyticsControllerInitMessenger } from './messengers/analytics-controller-messenger';
@@ -59,7 +58,7 @@ describe('AnalyticsControllerInit', () => {
     }
   });
 
-  it('registers the Chain Value Order and Perps Tab Badge mappings before controller initialization', () => {
+  it('registers the Chain Value Order mapping before controller initialization', () => {
     const baseMessenger = getRootMessenger();
     const requestMock = {
       ...buildControllerInitRequestMock(),
@@ -71,28 +70,21 @@ describe('AnalyticsControllerInit', () => {
     AnalyticsControllerInit(requestMock);
 
     expect(registryAtInit).toEqual(
-      expect.arrayContaining([
-        CHAIN_VALUE_ORDER_AB_KEY,
-        PERPS_TAB_BADGE_AB_KEY,
-      ]),
+      expect.arrayContaining([CHAIN_VALUE_ORDER_AB_KEY]),
     );
 
     // Registration is idempotent; a second init must not duplicate entries.
     const countAfterFirstInit = AB_TEST_ANALYTICS_MAPPINGS.filter(
-      ({ flagKey }) =>
-        flagKey === CHAIN_VALUE_ORDER_AB_KEY ||
-        flagKey === PERPS_TAB_BADGE_AB_KEY,
+      ({ flagKey }) => flagKey === CHAIN_VALUE_ORDER_AB_KEY,
     ).length;
 
     AnalyticsControllerInit(requestMock);
 
     const countAfterSecondInit = AB_TEST_ANALYTICS_MAPPINGS.filter(
-      ({ flagKey }) =>
-        flagKey === CHAIN_VALUE_ORDER_AB_KEY ||
-        flagKey === PERPS_TAB_BADGE_AB_KEY,
+      ({ flagKey }) => flagKey === CHAIN_VALUE_ORDER_AB_KEY,
     ).length;
 
-    expect(countAfterFirstInit).toBe(2);
-    expect(countAfterSecondInit).toBe(2);
+    expect(countAfterFirstInit).toBe(1);
+    expect(countAfterSecondInit).toBe(1);
   });
 });
