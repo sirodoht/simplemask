@@ -90,3 +90,4 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 ## Repository cleanup and legacy audit
 
 - Removed `.cursor`, `.devcontainer`, `.husky`, and `.vscode`, their hook/download commands, and automatic agent-skill downloads during installation. Build and test commands remain available directly through Yarn.
+- Replaced upstream GitHub automation with testing only: static checks, unit/integration/build-tool/component tests, LavaMoat builds, and sharded Chrome/Firefox E2E tests. Removed release/deployment jobs, schedules, Slack/Sentry alerts, issue/PR bots, Dependabot, issue forms, funding, and CODEOWNERS. Workflows use read-only permissions and no organization secrets.
