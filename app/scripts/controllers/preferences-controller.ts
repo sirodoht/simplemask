@@ -144,7 +144,7 @@ export const getDefaultPreferencesControllerState =
   (): PreferencesControllerState => ({
     addSnapAccountEnabled: false,
     advancedGasFee: {},
-    currentLocale: '',
+    currentLocale: FALLBACK_LOCALE,
     dismissSeedBackUpReminder: false,
     featureFlags: {},
     forgottenPassword: false,
@@ -470,6 +470,8 @@ export class PreferencesController extends BaseController<
     const mergedState = {
       ...defaultState,
       ...state,
+      currentLocale: FALLBACK_LOCALE,
+      textDirection: 'auto',
       preferences: {
         ...defaultState.preferences,
         ...state?.preferences,
@@ -856,17 +858,14 @@ export class PreferencesController extends BaseController<
   /**
    * Setter for the `currentLocale` property
    *
-   * @param key - he preferred language locale key
+   * @param _key - Legacy locale argument; English is always used.
    */
-  setCurrentLocale(key: string): string {
-    const textDirection = ['ar', 'dv', 'fa', 'he', 'ku'].includes(key)
-      ? 'rtl'
-      : 'auto';
+  setCurrentLocale(_key: string): string {
     this.update((state) => {
-      state.currentLocale = key;
-      state.textDirection = textDirection;
+      state.currentLocale = FALLBACK_LOCALE;
+      state.textDirection = 'auto';
     });
-    return textDirection;
+    return 'auto';
   }
 
   /**

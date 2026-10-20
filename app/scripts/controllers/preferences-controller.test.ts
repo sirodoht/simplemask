@@ -160,14 +160,14 @@ describe('preferences controller', () => {
     it('checks the default currentLocale', () => {
       const { controller } = setupController({});
       const { currentLocale } = controller.state;
-      expect(currentLocale).toStrictEqual('');
+      expect(currentLocale).toStrictEqual('en');
     });
 
     it('sets current locale in preferences controller', () => {
       const { controller } = setupController({});
       controller.setCurrentLocale('ja');
       const { currentLocale } = controller.state;
-      expect(currentLocale).toStrictEqual('ja');
+      expect(currentLocale).toStrictEqual('en');
     });
   });
 
@@ -956,7 +956,7 @@ describe('preferences controller', () => {
       ).toMatchInlineSnapshot(`
         {
           "advancedGasFee": {},
-          "currentLocale": "",
+          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1023,7 +1023,7 @@ describe('preferences controller', () => {
         {
           "addSnapAccountEnabled": false,
           "advancedGasFee": {},
-          "currentLocale": "",
+          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1102,7 +1102,7 @@ describe('preferences controller', () => {
         {
           "addSnapAccountEnabled": false,
           "advancedGasFee": {},
-          "currentLocale": "",
+          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1182,7 +1182,7 @@ describe('preferences controller', () => {
         {
           "addSnapAccountEnabled": false,
           "advancedGasFee": {},
-          "currentLocale": "",
+          "currentLocale": "en",
           "dismissSeedBackUpReminder": false,
           "featureFlags": {},
           "forgottenPassword": false,
@@ -1299,7 +1299,7 @@ describe('preferences controller', () => {
       });
 
       // Verify state was customized
-      expect(controller.state.currentLocale).toBe('ja');
+      expect(controller.state.currentLocale).toBe('en');
       expect(controller.state.theme).toBe(ThemeType.dark);
 
       controller.resetState();

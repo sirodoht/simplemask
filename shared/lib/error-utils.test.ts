@@ -146,58 +146,24 @@ describe('Error utils Tests', function () {
       expect(result.enLocaleMessages).toBe(result.currentLocaleMessages);
     });
 
-    it('fetches a separate locale when currentLocale differs from "en"', async () => {
-      const esMessages: I18NMessageDict = {
-        troubleStartingTitle: { message: 'MetaMask tuvo problemas.' },
-      };
-      jest
-        .mocked(fetchLocale)
-        .mockResolvedValueOnce(enMessages) // en fetch
-        .mockResolvedValueOnce(esMessages); // es fetch
-      jest
-        .mocked(loadRelativeTimeFormatLocaleData)
-        .mockResolvedValue(undefined);
-
-      const result = await setupLocale('es_419');
-
-      expect(fetchLocale).toHaveBeenCalledWith('en');
-      expect(fetchLocale).toHaveBeenCalledWith('es_419');
-      expect(result.enLocaleMessages).toStrictEqual(enMessages);
-      expect(result.currentLocaleMessages).toStrictEqual(esMessages);
-    });
-
-    it('returns an empty object for currentLocaleMessages when currentLocale is undefined', async () => {
-      jest.mocked(fetchLocale).mockResolvedValue(enMessages);
-      jest
-        .mocked(loadRelativeTimeFormatLocaleData)
-        .mockResolvedValue(undefined);
-
-      const result = await setupLocale(undefined);
-
-      expect(result.currentLocaleMessages).toStrictEqual({});
-      expect(result.enLocaleMessages).toStrictEqual(enMessages);
-    });
+    it.each(['es_419', 'ar', undefined])(
+      'uses English for legacy locale %s',
+      async (locale: string | undefined) => {
+        jest.mocked(fetchLocale).mockResolvedValue(enMessages);
+        const result = await setupLocale(locale);
+        expect(fetchLocale).toHaveBeenCalledTimes(1);
+        expect(fetchLocale).toHaveBeenCalledWith('en');
+        expect(result.currentLocaleMessages).toBe(result.enLocaleMessages);
+      },
+    );
   });
 
   describe('maybeGetLocaleContext', () => {
-    it('uses getFirstPreferredLangCode when no currentLocale is provided', async () => {
-      jest.mocked(getFirstPreferredLangCode).mockResolvedValue('fr');
-      const frMessages: I18NMessageDict = {
-        greeting: { message: 'Bonjour' },
-      };
-      jest
-        .mocked(fetchLocale)
-        .mockResolvedValueOnce(enMessages) // en fetch
-        .mockResolvedValueOnce(frMessages); // fr fetch
-      jest
-        .mocked(loadRelativeTimeFormatLocaleData)
-        .mockResolvedValue(undefined);
-
-      const context = await maybeGetLocaleContext();
-
-      expect(getFirstPreferredLangCode).toHaveBeenCalledTimes(1);
-      expect(context.preferredLocale).toBe('fr');
-      expect(context.t('greeting')).toBe('Bonjour');
+    it('uses English for critical errors even with a saved RTL locale', async () => {
+      jest.mocked(fetchLocale).mockResolvedValue(enMessages);
+      const context = await maybeGetLocaleContext('ar');
+      expect(context.preferredLocale).toBe('en');
+      expect(context.localeMessages).toStrictEqual(enMessages);
     });
 
     it('falls back gracefully and returns an identity t function when an error occurs', async () => {

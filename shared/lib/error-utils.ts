@@ -6,12 +6,7 @@ import {
   type CriticalErrorType,
 } from '../constants/critical-error';
 import type { I18NMessageDict } from './i18n';
-import {
-  fetchLocale,
-  getMessage,
-  loadRelativeTimeFormatLocaleData,
-} from './i18n';
-import getFirstPreferredLangCode from './get-first-preferred-lang-code';
+import { fetchLocale, getMessage } from './i18n';
 import { switchDirectionForPreferredLocale } from './switch-direction';
 import {
   REINSTALL_METAMASK_RECOVERY_LINK,
@@ -56,36 +51,13 @@ export type LocaleContext = {
 };
 
 const _setupLocale = async (
-  currentLocale: string | undefined,
+  _currentLocale: string | undefined,
 ): Promise<{
   currentLocaleMessages: I18NMessageDict;
   enLocaleMessages: I18NMessageDict;
 }> => {
-  const enRelativeTime = loadRelativeTimeFormatLocaleData(defaultLocale);
-  const enLocale = fetchLocale(defaultLocale);
-
-  const promises: Promise<I18NMessageDict | void>[] = [
-    enRelativeTime,
-    enLocale,
-  ];
-  if (currentLocale === defaultLocale) {
-    // enLocaleMessages and currentLocaleMessages are the same; reuse enLocale
-    promises.push(enLocale); // currentLocaleMessages
-  } else if (currentLocale) {
-    // currentLocale does not match enLocaleMessages
-    promises.push(fetchLocale(currentLocale)); // currentLocaleMessages
-    promises.push(loadRelativeTimeFormatLocaleData(currentLocale));
-  } else {
-    // currentLocale is not set
-    promises.push(Promise.resolve({}) as Promise<I18NMessageDict>); // currentLocaleMessages
-  }
-
-  const [, enLocaleMessages, currentLocaleMessages] =
-    await Promise.all(promises);
-  return {
-    currentLocaleMessages: currentLocaleMessages as I18NMessageDict,
-    enLocaleMessages: enLocaleMessages as I18NMessageDict,
-  };
+  const enLocaleMessages = await fetchLocale(defaultLocale);
+  return { currentLocaleMessages: enLocaleMessages, enLocaleMessages };
 };
 
 export const setupLocale = memoize(_setupLocale);
@@ -135,15 +107,14 @@ export function getErrorHtmlBase(errorBody: string): string {
  *
  * Does not throw.
  *
- * @param currentLocale - The current locale
+ * @param _currentLocale - Legacy locale; errors always render in English.
  * @returns A promise that resolves to an object containing the preferred locale, translation function, and message dicts for getMessage when needed.
  */
 export async function maybeGetLocaleContext(
-  currentLocale?: string,
+  _currentLocale?: string,
 ): Promise<LocaleContext> {
-  let preferredLocale: string | undefined;
+  const preferredLocale = defaultLocale;
   try {
-    preferredLocale = currentLocale ?? (await getFirstPreferredLangCode());
     const response = await setupLocale(preferredLocale);
     const { currentLocaleMessages, enLocaleMessages } = response;
     const t = getLocaleContext(currentLocaleMessages, enLocaleMessages);

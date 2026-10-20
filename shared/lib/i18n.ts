@@ -91,8 +91,9 @@ export const getMessage = <T>(
 };
 
 export async function fetchLocale(
-  localeCode: string,
+  _localeCode: string,
 ): Promise<I18NMessageDict> {
+  const localeCode = FALLBACK_LOCALE;
   try {
     const response = await fetchWithTimeout(
       `../_locales/${localeCode}/messages.json`,

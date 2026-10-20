@@ -133,7 +133,6 @@ import {
 } from '../../shared/lib/selectors';
 import { endTrace, trace, TraceName } from '../../shared/lib/trace';
 import { FirstTimeFlowType } from '../../shared/constants/onboarding';
-import { updateCurrentLocale } from '../../shared/lib/translate';
 import { getEnabledAdvancedPermissions } from '../../shared/lib/gator-permissions/feature-flags';
 import { isSnapPreinstalled } from '../../shared/lib/snaps/snaps';
 import { toChecksumHexAddress } from '../../shared/lib/hexstring-utils';
@@ -1421,15 +1420,6 @@ export default class MetamaskController extends EventEmitter {
    */
   setupControllerEventSubscriptions() {
     let lastSelectedAddress;
-
-    this.controllerMessenger.subscribe(
-      'PreferencesController:stateChange',
-      previousValueComparator(async (_, currState) => {
-        const { currentLocale } = currState;
-
-        await updateCurrentLocale(currentLocale);
-      }, this.preferencesController.state),
-    );
 
     this.controllerMessenger.subscribe(
       `${this.accountsController.name}:selectedAccountChange`,

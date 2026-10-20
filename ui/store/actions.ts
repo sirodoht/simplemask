@@ -3886,8 +3886,9 @@ export function setUseAddressBarEnsResolution(
 }
 
 export function updateCurrentLocale(
-  key: string,
+  _key: string,
 ): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
+  const key = 'en';
   return async (dispatch: MetaMaskReduxDispatch) => {
     dispatch(showLoadingIndication());
 

@@ -22,18 +22,8 @@ const enMessages = {
   },
 };
 
-const esMessages = {
-  troubleStarting: {
-    message:
-      'MetaMask tuvo problemas para iniciarse. Este error podría ser intermitente, así que intente reiniciar la extensión.',
-  },
-  restartMetamask: {
-    message: 'Reiniciar metamáscara',
-  },
-};
-
 jest.mock('../shared/lib/i18n', () => ({
-  fetchLocale: jest.fn((locale) => (locale === 'en' ? enMessages : esMessages)),
+  fetchLocale: jest.fn(() => enMessages),
   loadRelativeTimeFormatLocaleData: jest.fn(),
 }));
 
@@ -79,11 +69,13 @@ describe('Index Tests', () => {
     expect(clm2).toBeDefined();
     expect(elm2).toBeDefined();
 
-    expect(clm2.troubleStarting).toStrictEqual(esMessages.troubleStarting);
+    expect(clm2.troubleStarting).toStrictEqual(enMessages.troubleStarting);
 
-    expect(clm2.restartMetamask).toStrictEqual(esMessages.restartMetamask);
+    expect(clm2.restartMetamask).toStrictEqual(enMessages.restartMetamask);
 
-    expect(clm2.stillGettingMessage).toBeUndefined();
+    expect(clm2.stillGettingMessage).toStrictEqual(
+      enMessages.stillGettingMessage,
+    );
     expect(elm2.stillGettingMessage).toStrictEqual(
       enMessages.stillGettingMessage,
     );

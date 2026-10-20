@@ -10,7 +10,7 @@ import {
 
 const localeCodeMock = 'te';
 const keyMock = 'testKey';
-const errorLocaleMock = 'testLocaleError';
+let mockFailFetch = false;
 const errorMock = 'TestError';
 
 jest.mock('loglevel');
@@ -19,7 +19,7 @@ jest.mock('./fetch-with-timeout', () =>
   jest.fn(() => (url: string) => {
     return Promise.resolve({
       json: () => {
-        if (url.includes(errorLocaleMock)) {
+        if (mockFailFetch) {
           throw new Error(errorMock);
         }
 
@@ -33,6 +33,7 @@ describe('I18N Module', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     clearCaches();
+    mockFailFetch = false;
     process.env.IN_TEST = 'true';
   });
 
@@ -295,21 +296,23 @@ describe('I18N Module', () => {
     it('returns json from locale file', async () => {
       const result = await fetchLocale(localeCodeMock);
       expect(result).toStrictEqual({
-        url: `../_locales/${localeCodeMock}/messages.json`,
+        url: '../_locales/en/messages.json',
       });
     });
 
     it('logs if fetch fails', async () => {
-      await fetchLocale(errorLocaleMock);
+      mockFailFetch = true;
+      await fetchLocale('en');
 
       expect(log.error).toHaveBeenCalledTimes(1);
       expect(log.error).toHaveBeenCalledWith(
-        `failed to fetch testLocaleError locale because of Error: ${errorMock}`,
+        `failed to fetch en locale because of Error: ${errorMock}`,
       );
     });
 
     it('returns empty object if fetch fails', async () => {
-      expect(await fetchLocale(errorLocaleMock)).toStrictEqual({});
+      mockFailFetch = true;
+      expect(await fetchLocale('en')).toStrictEqual({});
     });
   });
 
