@@ -10,12 +10,7 @@ export const AccountOverviewUnknown = (props: AccountOverviewUnknownProps) => {
   const t = useI18nContext();
 
   return (
-    <AccountOverviewLayout
-      showTokens={false}
-      showDefi={false}
-      showActivity={true}
-      {...props}
-    >
+    <AccountOverviewLayout showTokens={false} showActivity={true} {...props}>
       <Box className="account-overview-unknown__empty">
         <Box className="account-overview-unknown__empty-text">
           <span>{t('accountTypeNotSupported')}</span>

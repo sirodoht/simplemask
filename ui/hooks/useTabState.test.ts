@@ -19,7 +19,7 @@ describe('useTabState', () => {
     const { result } = renderHook(() => useTabState());
 
     act(() => {
-      result.current[1]('defi');
+      result.current[1]('activity');
     });
 
     expect(mockSetSearchParams).toHaveBeenCalledWith(expect.any(Function), {

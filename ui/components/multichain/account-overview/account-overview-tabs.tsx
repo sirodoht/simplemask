@@ -8,17 +8,13 @@ import {
   AccountOverviewTab,
 } from '../../../../shared/constants/app-state';
 import { endTrace, trace } from '../../../../shared/lib/trace';
-import { ASSET_ROUTE, DEFI_ROUTE } from '../../../helpers/constants/routes';
+import { ASSET_ROUTE } from '../../../helpers/constants/routes';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import { useTabState } from '../../../hooks/useTabState';
 import { useSafeChains } from '../networks-form/use-safe-chains';
-import {
-  getDefaultHomeActiveTabName,
-  getIsDefiPositionsEnabled,
-} from '../../../selectors';
+import { getDefaultHomeActiveTabName } from '../../../selectors';
 import { setDefaultHomeActiveTabName } from '../../../store/actions';
 import AssetList from '../../app/assets/asset-list';
-import DeFiTab from '../../app/assets/defi-list/defi-tab';
 import { Tab, Tabs } from '../../ui/tabs';
 import { useBottomNavBar } from '../../../hooks/useBottomNavBar';
 import { ActivityList } from '../../../pages/activity/activity-list';
@@ -30,14 +26,12 @@ import { AccountOverviewCommonProps } from './common';
 export type AccountOverviewTabsProps = AccountOverviewCommonProps & {
   showTokensLinks?: boolean;
   showTokens?: boolean;
-  showDefi?: boolean;
   showActivity?: boolean;
 };
 
 export const AccountOverviewTabs = ({
   showTokensLinks,
   showTokens = true,
-  showDefi = true,
   showActivity = true,
 }: AccountOverviewTabsProps) => {
   const persistedTab = useSelector(getDefaultHomeActiveTabName);
@@ -59,7 +53,6 @@ export const AccountOverviewTabs = ({
 
   const t = useI18nContext();
   const prefetchTransactions = usePrefetchTransactions();
-  const defiPositionsEnabled = useSelector(getIsDefiPositionsEnabled);
   const showBottomNav = useBottomNavBar();
 
   useEffect(() => {
@@ -94,13 +87,6 @@ export const AccountOverviewTabs = ({
       ),
     [navigate],
   );
-  const onClickDeFi = useCallback(
-    (chainId: string, protocolId: string) =>
-      transitionForward(() =>
-        navigate(`${DEFI_ROUTE}/${chainId}/${encodeURIComponent(protocolId)}`),
-      ),
-    [navigate],
-  );
 
   const { safeChains } = useSafeChains();
 
@@ -129,23 +115,6 @@ export const AccountOverviewTabs = ({
               <AssetList
                 showTokensLinks={showTokensLinks ?? true}
                 onClickAsset={onClickAsset}
-                safeChains={safeChains}
-                entryPoint={tabEntryPoint}
-              />
-            </ErrorBoundary>
-          </Tab>
-        )}
-
-        {showDefi && defiPositionsEnabled && (
-          <Tab
-            name={t('defi')}
-            tabKey={AccountOverviewTabKey.DeFi}
-            data-testid="account-overview__defi-tab"
-          >
-            <ErrorBoundary key="defi">
-              <DeFiTab
-                showTokensLinks={showTokensLinks ?? true}
-                onClickAsset={onClickDeFi}
                 safeChains={safeChains}
                 entryPoint={tabEntryPoint}
               />

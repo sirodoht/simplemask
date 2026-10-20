@@ -23,11 +23,6 @@ import type { Json } from '@metamask/utils';
 import { ENABLED_ADVANCED_PERMISSIONS_FEATURE_FLAG } from '../../../shared/lib/gator-permissions/feature-flags';
 import { getBooleanFeatureFlag } from '../../../shared/lib/remote-feature-flag-utils';
 import { ACTIVE_TAB_DOMAIN_METRICS_FLAG } from '../../../shared/lib/active-tab-domain-metrics';
-import {
-  MONEY_ENABLE_ACTIVITY_DETAILS_FLAG_NAME,
-  MONEY_ENABLE_MONEY_ACCOUNT_FLAG_NAME,
-  MONEY_HOME_SCREEN_CARD_ENABLED_FLAG_NAME,
-} from '../../../shared/lib/money/feature-flags';
 import { toDeterministicThresholdScopes } from './deterministic-threshold-scopes';
 
 // ============================================================================
@@ -154,14 +149,6 @@ export const FEATURE_FLAG_REGISTRY: Record<string, FeatureFlagRegistryEntry> = {
         ],
       },
     },
-    status: FeatureFlagStatus.Active,
-    type: FeatureFlagType.Remote,
-  },
-
-  assetsDefiPositionsEnabled: {
-    inProd: true,
-    name: 'assetsDefiPositionsEnabled',
-    productionDefault: true,
     status: FeatureFlagStatus.Active,
     type: FeatureFlagType.Remote,
   },
@@ -2845,35 +2832,6 @@ export const FEATURE_FLAG_REGISTRY: Record<string, FeatureFlagRegistryEntry> = {
     name: 'dappSwapUi',
     productionDefault: {
       enabled: false,
-    },
-    status: FeatureFlagStatus.Active,
-    type: FeatureFlagType.Remote,
-  },
-
-  defiControllerV2: {
-    inProd: true,
-    name: 'defiControllerV2',
-    productionDefault: {
-      versions: {
-        '13.41.0': {
-          enabled: false,
-        },
-        '13.47.0': [
-          {
-            scope: {
-              type: 'threshold',
-              value: 1,
-            },
-            thresholdName: 'feature is ON',
-            thresholdVersion: 2,
-            value: {
-              enabled: true,
-              maxAttempts: 5,
-              pollInterval: 5000,
-            },
-          },
-        ],
-      },
     },
     status: FeatureFlagStatus.Active,
     type: FeatureFlagType.Remote,

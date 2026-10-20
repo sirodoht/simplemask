@@ -48,8 +48,6 @@ export type MessengerClientsToInitialize =
   | 'AuthenticationController'
   | 'ClientController'
   | 'CronjobController'
-  | 'DeFiPositionsController'
-  | 'DeFiPositionsControllerV2'
   | 'ExecutionService'
   | 'MultichainAssetsController'
   | 'MultichainAssetsRatesController'

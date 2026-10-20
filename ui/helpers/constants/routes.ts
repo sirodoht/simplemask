@@ -193,8 +193,6 @@ export const DEEP_LINK_ROUTE = '/link';
 /** Shown when Basic Functionality is off and user opens a route that requires it (e.g. swap, rewards). */
 export const BASIC_FUNCTIONALITY_OFF_ROUTE = '/basic-functionality-off';
 
-export const DEFI_ROUTE = '/defi';
-
 // Ramps (native buy) routes
 export const RAMPS_ROUTE = '/ramps';
 export const RAMPS_BUILD_QUOTE_ROUTE = '/ramps/build-quote';
@@ -801,8 +799,6 @@ export const ROUTES = [
     label: 'Onboarding Download App',
     trackInAnalytics: false,
   },
-  // Additional routes
-  { path: DEFI_ROUTE, label: 'DeFi', trackInAnalytics: false },
   {
     path: REVIEW_PERMISSIONS,
     label: 'Review Permissions',

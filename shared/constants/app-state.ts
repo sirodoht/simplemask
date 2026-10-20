@@ -3,7 +3,6 @@ import { TraceName } from '../lib/trace';
 export enum AccountOverviewTabKey {
   Tokens = 'tokens',
   Activity = 'activity',
-  DeFi = 'defi',
 }
 
 export type AccountOverviewTab = `${AccountOverviewTabKey}`;
@@ -11,7 +10,6 @@ export type AccountOverviewTab = `${AccountOverviewTabKey}`;
 export const ACCOUNT_OVERVIEW_TAB_KEY_TO_TRACE_NAME_MAP = {
   [AccountOverviewTabKey.Tokens]: TraceName.AccountOverviewAssetListTab,
   [AccountOverviewTabKey.Activity]: TraceName.AccountOverviewActivityTab,
-  [AccountOverviewTabKey.DeFi]: TraceName.AccountOverviewDeFiTab,
 } as const;
 
 export enum ClaimSubmitToastType {

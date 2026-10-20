@@ -10,8 +10,6 @@ import type {
   MultichainBalancesControllerState,
   MultichainAssetsRatesControllerState,
   MultichainAssetsControllerState,
-  DeFiPositionsControllerState,
-  DeFiPositionsControllerV2State,
   AccountTrackerControllerState,
 } from '@metamask/assets-controllers';
 import type { AssetsControllerState } from '@metamask/assets-controller';
@@ -173,9 +171,6 @@ export type ControllerStatePropertiesEnumerated = {
   currencyRates: CurrencyRateState['currencyRates'];
   unapprovedDecryptMsgs: DecryptMessageControllerState['unapprovedDecryptMsgs'];
   unapprovedDecryptMsgCount: DecryptMessageControllerState['unapprovedDecryptMsgCount'];
-  allDeFiPositions: DeFiPositionsControllerState['allDeFiPositions'];
-  allDeFiPositionsCount: DeFiPositionsControllerState['allDeFiPositionsCount'];
-  allDeFiPositionsV2: DeFiPositionsControllerV2State['allDeFiPositionsV2'];
   unapprovedEncryptionPublicKeyMsgs: EncryptionPublicKeyControllerState['unapprovedEncryptionPublicKeyMsgs'];
   unapprovedEncryptionPublicKeyMsgCount: EncryptionPublicKeyControllerState['unapprovedEncryptionPublicKeyMsgCount'];
   gasFeeEstimatesByChainId?: GasFeeState['gasFeeEstimatesByChainId'];
@@ -340,8 +335,6 @@ export type ControllerStateTypesMerged = AccountsControllerState &
   CronjobControllerState &
   CurrencyRateState &
   DecryptMessageControllerState &
-  DeFiPositionsControllerState &
-  DeFiPositionsControllerV2State &
   EncryptionPublicKeyControllerState & {
     // This is necessary due to the nested unions and intersections in the `GasFeeState` type definition
     [P in keyof GasFeeState]: GasFeeState[P];

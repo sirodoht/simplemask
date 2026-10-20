@@ -419,9 +419,6 @@
       },
       "currentCurrency": "usd"
     },
-    "DeFiPositionsControllerV2": {
-      "allDeFiPositionsV2": {}
-    },
     "GasFeeController": {
       "estimatedGasFeeTimeBounds": {},
       "gasEstimateType": "none",

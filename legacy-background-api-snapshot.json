@@ -151,8 +151,6 @@
     "createSpeedUpTransaction",
     "currencyRateStartPolling",
     "currencyRateStopPollingByPollingToken",
-    "deFiStartPolling",
-    "deFiStopPolling",
     "decodeTransactionData",
     "decryptMessage",
     "decryptMessageInline",

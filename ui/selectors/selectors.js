@@ -182,10 +182,6 @@ import {
   createShallowResultSelector,
 } from '../../shared/lib/selectors/selector-creators';
 import { isSnapIgnoredInProd } from '../helpers/utils/snaps';
-import {
-  FeatureFlagNames,
-  DEFAULT_FEATURE_FLAG_VALUES,
-} from '../../shared/lib/feature-flags';
 import { getSelectedInternalAccount } from '../../shared/lib/selectors/accounts';
 import { HARDWARE_WALLET_ERROR_MODAL_NAME } from '../contexts/hardware-wallets/constants';
 import { UTM_PARAMETERS } from '../../shared/types/metametrics';
@@ -3092,21 +3088,6 @@ export function getIsWatchEthereumAccountEnabled(state) {
 export function getManageInstitutionalWallets(state) {
   return state.metamask.manageInstitutionalWallets;
 }
-
-/**
- * Get the state of the `defiPositionsEnabled` remote feature flag.
- *
- * @param state - The MetaMask state object
- * @returns The state of the `defiPositionsEnabled` remote feature flag.
- */
-export const getIsDefiPositionsEnabled = createSelector(
-  getRemoteFeatureFlags,
-  (remoteFeatureFlags) =>
-    Boolean(
-      remoteFeatureFlags[FeatureFlagNames.AssetsDefiPositionsEnabled] ??
-      DEFAULT_FEATURE_FLAG_VALUES[FeatureFlagNames.AssetsDefiPositionsEnabled],
-    ),
-);
 
 /**
  * Returns true if any EVM networks are enabled in the network filter.

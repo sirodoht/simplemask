@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import useStaticTokensPollingHook from '../hooks/useStaticTokensPolling';
-import useDeFiPolling from '../hooks/defi/useDeFiPolling';
 import { useArcDefaultTokens } from '../hooks/useArcDefaultTokens';
 import {
   AssetPollingContext,
@@ -11,11 +10,9 @@ import {
 } from './assetPolling';
 
 jest.mock('../hooks/useStaticTokensPolling');
-jest.mock('../hooks/defi/useDeFiPolling');
 jest.mock('../hooks/useArcDefaultTokens');
 
 const mockUseStaticTokensPollingHook = jest.mocked(useStaticTokensPollingHook);
-const mockUseDeFiPolling = jest.mocked(useDeFiPolling);
 const mockUseArcDefaultTokens = jest.mocked(useArcDefaultTokens);
 
 const renderProvider = () => {
@@ -30,7 +27,6 @@ describe('AssetPollingProvider', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseStaticTokensPollingHook.mockReturnValue({});
-    mockUseDeFiPolling.mockReturnValue({});
     mockUseArcDefaultTokens.mockImplementation(() => undefined);
   });
 
@@ -41,8 +37,6 @@ describe('AssetPollingProvider', () => {
 
   it('calls AssetsControllerPolling hooks', () => {
     renderProvider();
-
-    expect(mockUseDeFiPolling).toHaveBeenCalledTimes(1);
     expect(mockUseStaticTokensPollingHook).toHaveBeenCalledTimes(1);
     expect(mockUseArcDefaultTokens).toHaveBeenCalledTimes(1);
   });

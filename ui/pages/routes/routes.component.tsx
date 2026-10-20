@@ -42,7 +42,6 @@ import {
   TX_DETAILS_ROUTE,
   IMPORT_SRP_ROUTE,
   BASIC_FUNCTIONALITY_OFF_ROUTE,
-  DEFI_ROUTE,
   RAMPS_BUILD_QUOTE_ROUTE,
   RAMPS_TOKEN_SELECTION_ROUTE,
   RAMPS_PAYMENT_METHOD_ROUTE,
@@ -208,9 +207,6 @@ const CreateAccountPage = mmLazy(
 const Asset = mmLazy(() => import('../asset/index.js'));
 const SecurityTrustPage = mmLazy(
   () => import('../asset/security-trust/index.ts'),
-);
-const DeFiPage = mmLazy(
-  () => import('../defi/components/defi-details-page.tsx'),
 );
 const RampsBuildQuote = mmLazy(() => import('../ramps/build-quote/index.ts'));
 const RampsTokenSelection = mmLazy(
@@ -547,10 +543,6 @@ export const routeConfig = [
           {
             path: `${CROSS_CHAIN_SWAP_ROUTE}/*`,
             element: <CrossChainSwap />,
-          },
-          {
-            path: `${DEFI_ROUTE}/:chainId/:protocolId`,
-            element: <DeFiPage />,
           },
           {
             element: <RampsFlowLayout />,

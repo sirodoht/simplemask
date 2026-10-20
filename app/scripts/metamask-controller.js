@@ -290,8 +290,6 @@ import {
 import { AuthenticationControllerInit } from './messenger-client-init/identity/authentication-controller-init';
 import { UserStorageControllerInit } from './messenger-client-init/identity/user-storage-controller-init';
 import { AuthenticatedUserStorageServiceInit } from './messenger-client-init/authenticated-user-storage-service-init';
-import { DeFiPositionsControllerInit } from './messenger-client-init/defi-positions/defi-positions-controller-init';
-import { DeFiPositionsControllerV2Init } from './messenger-client-init/defi-positions/defi-positions-controller-v2-init';
 import { NotificationServicesControllerInit } from './messenger-client-init/notifications/notification-services-controller-init';
 import { NotificationServicesPushControllerInit } from './messenger-client-init/notifications/notification-services-push-controller-init';
 import { DelegationControllerInit } from './messenger-client-init/delegation/delegation-controller-init';
@@ -585,8 +583,6 @@ export default class MetamaskController extends EventEmitter {
       NotificationServicesController: NotificationServicesControllerInit,
       NotificationServicesPushController:
         NotificationServicesPushControllerInit,
-      DeFiPositionsController: DeFiPositionsControllerInit,
-      DeFiPositionsControllerV2: DeFiPositionsControllerV2Init,
       DelegationController: DelegationControllerInit,
       OAuthService: OAuthServiceInit,
       NetworkConnectionBannerController: NetworkConnectionBannerControllerInit,
@@ -724,10 +720,6 @@ export default class MetamaskController extends EventEmitter {
       messengerClientsByName.NotificationServicesController;
     this.notificationServicesPushController =
       messengerClientsByName.NotificationServicesPushController;
-    this.deFiPositionsController =
-      messengerClientsByName.DeFiPositionsController;
-    this.deFiPositionsControllerV2 =
-      messengerClientsByName.DeFiPositionsControllerV2;
     this.accountTreeController = messengerClientsByName.AccountTreeController;
     this.oauthService = messengerClientsByName.OAuthService;
     this.shieldSubscriptionService =
@@ -1334,8 +1326,6 @@ export default class MetamaskController extends EventEmitter {
       NotificationServicesPushController:
         this.notificationServicesPushController,
       RemoteFeatureFlagController: this.remoteFeatureFlagController,
-      DeFiPositionsController: this.deFiPositionsController,
-      DeFiPositionsControllerV2: this.deFiPositionsControllerV2,
       ShieldController: this.shieldController,
       ClaimsController: this.claimsController,
       SubscriptionController: this.subscriptionController,
@@ -1401,8 +1391,6 @@ export default class MetamaskController extends EventEmitter {
         NotificationServicesPushController:
           this.notificationServicesPushController,
         RemoteFeatureFlagController: this.remoteFeatureFlagController,
-        DeFiPositionsController: this.deFiPositionsController,
-        DeFiPositionsControllerV2: this.deFiPositionsControllerV2,
         PhishingController: this.phishingController,
         ShieldController: this.shieldController,
         ClaimsController: this.claimsController,
@@ -2241,7 +2229,6 @@ export default class MetamaskController extends EventEmitter {
       authenticatedUserStorageService,
       notificationServicesController,
       notificationServicesPushController,
-      deFiPositionsController,
       multichainAssetsRatesController,
       staticAssetsController,
     } = this;
@@ -3280,13 +3267,6 @@ export default class MetamaskController extends EventEmitter {
         ),
       updateBalances: tokenBalancesController.updateBalances.bind(
         tokenBalancesController,
-      ),
-
-      deFiStartPolling: deFiPositionsController.startPolling.bind(
-        deFiPositionsController,
-      ),
-      deFiStopPolling: deFiPositionsController.stopPollingByPollingToken.bind(
-        deFiPositionsController,
       ),
 
       // GasFeeController
@@ -6004,7 +5984,6 @@ export default class MetamaskController extends EventEmitter {
       this.staticAssetsController.stopAllPolling();
       this.appStateController.clearPollingTokens();
       this.accountTrackerController.stopAllPolling();
-      this.deFiPositionsController.stopAllPolling();
       this.subscriptionController.stopAllPolling();
     } catch (error) {
       console.error(error);

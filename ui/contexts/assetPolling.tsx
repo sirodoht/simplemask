@@ -1,10 +1,8 @@
 import React, { ReactNode, createContext, useMemo } from 'react';
 import useStaticTokensPollingHook from '../hooks/useStaticTokensPolling';
-import useDeFiPolling from '../hooks/defi/useDeFiPolling';
 import { useArcDefaultTokens } from '../hooks/useArcDefaultTokens';
 
 const AssetsControllerPolling = ({ children }: { children: ReactNode }) => {
-  useDeFiPolling();
   useStaticTokensPollingHook();
   useArcDefaultTokens();
 

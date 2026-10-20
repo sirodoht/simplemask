@@ -29,12 +29,12 @@ const NON_EVM_ICON_TIMEOUT = 20_000;
  *
  * Screen: `#/` (DEFAULT_ROUTE), after unlock / onboarding.
  * Owns: balance and empty-state checks, Send / Swap / Bridge / Receive,
- * navigating to Tokens / NFTs / DeFi / Activity tabs, home notifications,
+ * navigating to Tokens / Activity tabs, home notifications,
  * shield entry modal, survey and SRP toasts, and page-ready waits.
- * Boundaries: tab content belongs to `TokensTab`, `NftsTab`, `DeFiTab`,
+ * Boundaries: tab content belongs to `TokensTab`,
  * `ActivityTab`, and `PerpsTab`. The promotional carousel belongs to
  * `CarouselPage`. Non-EVM account-specific helpers live on `NonEvmHomepage`.
- * Related: `HeaderNavbar`, `TokensTab` / `NftsTab` / `DeFiTab` /
+ * Related: `HeaderNavbar`, `TokensTab` /
  * `ActivityTab` / `PerpsTab` / `CarouselPage` / `NonEvmHomepage`.
  *
  * @see ui/pages/home/home.tsx
@@ -85,10 +85,6 @@ class HomePage {
 
   private readonly defaultAddressContainer =
     '[data-testid="default-address-container"]';
-
-  protected readonly defiTab = {
-    testId: 'account-overview__defi-tab',
-  };
 
   protected driver: Driver;
 
@@ -581,11 +577,6 @@ class HomePage {
       this.backupSecretRecoveryPhraseNotification,
     );
     await this.driver.clickElement(this.backupSecretRecoveryPhraseButton);
-  }
-
-  async goToDeFiTab(): Promise<void> {
-    console.log(`Go to DeFi tab on homepage`);
-    await this.driver.clickElement(this.defiTab);
   }
 
   async goToHomePage(): Promise<void> {

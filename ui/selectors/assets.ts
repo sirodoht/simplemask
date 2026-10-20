@@ -1,6 +1,5 @@
 import {
   AssetListState,
-  DeFiPositionsControllerState,
   MultichainAssetsControllerState,
   MultichainAssetsRatesControllerState,
   calculateBalanceForAllWallets,
@@ -136,10 +135,6 @@ export type AssetsState = {
 
 export type AssetsRatesState = {
   metamask: MultichainAssetsRatesControllerState;
-};
-
-export type DefiState = {
-  metamask: DeFiPositionsControllerState;
 };
 
 // Type for the main Redux state that includes all controller states needed for balance calculations
@@ -356,18 +351,6 @@ export function getUnifiedBalanceForAccountGroup(
  * @returns An object containing non-EVM assets per accounts.
  */
 export { getMultichainAssetsRatesControllerConversionRates as getAssetsRates };
-
-/**
- * Gets DeFi positions
- *
- * @param state - Redux state object.
- * @returns An object containing defi positions for all accounts
- */
-export function getDefiPositions(
-  state: DefiState,
-): DeFiPositionsControllerState['allDeFiPositions'] {
-  return state?.metamask?.allDeFiPositions;
-}
 
 /**
  * @deprecated use selectBalanceByAccountGroup instead

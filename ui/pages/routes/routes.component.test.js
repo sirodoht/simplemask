@@ -233,6 +233,13 @@ describe('Routes Component', () => {
     ]);
     expect(matches?.[0].route.element.type).toBe(RequireAuthenticated);
   });
+  it('does not register the retired DeFi dashboard', () => {
+    const matches = matchRoutes(routeConfig, '/defi/0x1/protocol');
+    expect(
+      matches?.some(({ route }) => route.path?.startsWith('/defi')) ?? false,
+    ).toBe(false);
+  });
+
   it('does not register the retired Discover page', () => {
     const matches = matchRoutes(routeConfig, '/discover-search');
     expect(
