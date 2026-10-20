@@ -93,6 +93,9 @@ class ChromeDriver {
 
     // Selenium Manager resolves the current stable Chrome for Testing release.
     options.setBrowserVersion('stable');
+    // Current ChromeDriver omits extension popups unless introspection is enabled.
+    // https://developer.chrome.com/docs/chromedriver/capabilities
+    options.get('goog:chromeOptions').enableExtensionTargets = true;
 
     // Allow disabling DoT local testing
     if (process.env.SELENIUM_USE_SYSTEM_DN) {

@@ -95,8 +95,12 @@ const getScuttleGlobalThisExceptions = (args: Args) => [
   // v10 Sentry web-vitals (whenIdleOrHidden) feature-detects this;
   // under scuttling the detection itself throws unless excepted.
   'requestIdleCallback',
-  // globals used by e2e
-  ...(args.test ? ['ret_nodes', 'browser', 'chrome', 'indexedDB'] : []),
+  // Globals used by instrumented E2E builds only. Current ChromeDriver atoms
+  // require self/Window for DOM queries and value serialization. Production
+  // keeps both scuttled; this must never become an unconditional allowance.
+  ...(args.test
+    ? ['ret_nodes', 'browser', 'chrome', 'indexedDB', 'self', 'Window']
+    : []),
 ];
 
 type IsolatedHtmlEntries = {

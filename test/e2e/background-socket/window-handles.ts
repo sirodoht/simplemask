@@ -1,5 +1,5 @@
 import log from 'loglevel';
-import { ThenableWebDriver } from 'selenium-webdriver';
+import { ThenableWebDriver, error as webdriverError } from 'selenium-webdriver';
 import { getServerMochaToBackground } from './server-mocha-to-background';
 import { Handle, WindowProperties } from './types';
 
@@ -67,7 +67,7 @@ export class WindowHandles {
     let currentTitle, currentUrl;
 
     // Wait 25 x 200ms = 5 seconds for the title and url to be set
-    for (let i = 0; i < 25 && !currentTitle && !currentUrl; i++) {
+    for (let i = 0; i < 25 && (!currentTitle || !currentUrl); i++) {
       currentTitle = await this.driver.getTitle();
       currentUrl = await this.driver.getCurrentUrl();
 
@@ -143,49 +143,41 @@ export class WindowHandles {
       value,
     );
 
-    await this.getAllWindowHandles();
-
-    // See if we already know the handle by annotation
-    const handle = this.annotatedHandles.find((a) => a[property] === value);
-    let handleId = handle?.id;
-
-    // If there's exactly one un-annotated handle, we should try it
-    if (!handleId) {
-      if (this.countHandlesWithoutProperty(property) === 1) {
-        handleId = this.annotatedHandles.find((a) => !a[property])?.id;
-      }
-    }
-
-    // Do the actual switching for the one we found
-    if (handleId) {
-      const matchesProperty = await this.switchToHandleAndCheckForProperty(
-        handleId,
-        property,
-        value,
-      );
-
-      if (matchesProperty) {
-        return handleId;
-      }
-    }
-
-    // We have not found it in the annotatedHandles, or the one we found was wrong, so we have to cycle through all
-    // handles and bring them into focus to get their titles/urls. There is no need for repeats or delays, because
-    // ServerMochaToBackground has already waited for the tab to be found
-    for (handleId of this.rawHandles) {
-      const matchesProperty = await this.switchToHandleAndCheckForProperty(
-        handleId,
-        property,
-        value,
-      );
-
-      if (matchesProperty) {
-        return handleId;
-      }
-    }
-
-    // If we still haven't found it, throw an error
-    throw new Error(`No window with ${property}: ${value}`);
+    // Extension tab events can precede WebDriver's target discovery. Poll the
+    // driver's own handle list and title rather than assuming they are in sync.
+    return await this.driver.wait(
+      async () => {
+        await this.getAllWindowHandles();
+        const known = this.annotatedHandles.find(
+          (handle) => handle[property] === value,
+        );
+        const handles = known
+          ? [known.id, ...this.rawHandles.filter((id) => id !== known.id)]
+          : this.rawHandles;
+        for (const handleId of handles) {
+          try {
+            if (
+              await this.switchToHandleAndCheckForProperty(
+                handleId,
+                property,
+                value,
+              )
+            ) {
+              return handleId;
+            }
+          } catch (error) {
+            // A closing notification can disappear between enumeration and switch.
+            if (!(error instanceof webdriverError.NoSuchWindowError)) {
+              throw error;
+            }
+          }
+        }
+        return undefined;
+      },
+      10000,
+      `No window with ${property}: ${value}`,
+      100,
+    );
   }
 
   /**

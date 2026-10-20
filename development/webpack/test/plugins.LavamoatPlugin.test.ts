@@ -22,6 +22,28 @@ const mockChunk = (name: string | undefined): Chunk =>
   ({ name }) as unknown as Chunk;
 
 describe('LavamoatPlugin', () => {
+  it('allows current WebDriver globals only in instrumented test builds', () => {
+    for (const test of [false, true]) {
+      const plugin = lavamoatPlugin({ ...mockArgs, test }) as unknown as {
+        options: {
+          scuttleGlobalThis: {
+            enabled: boolean;
+            exceptions: (string | RegExp)[];
+          };
+        };
+      };
+      const { scuttleGlobalThis } = plugin.options;
+      assert.strictEqual(scuttleGlobalThis.enabled, true);
+      for (const global of ['self', 'Window']) {
+        assert.strictEqual(
+          scuttleGlobalThis.exceptions.includes(global),
+          test,
+          `${global} must be exposed only for WebDriver in test builds`,
+        );
+      }
+    }
+  });
+
   describe('lavamoatUnsafeLayerRule', () => {
     it('excludes background entry from the unsafe LavaMoat exclude-loader', () => {
       const { exclude } = lavamoatUnsafeLayerRule;
