@@ -1,11 +1,11 @@
 # Browser Support
 
-MetaMask's browser support policy is to support:
+SimpleMask supports Chrome and Firefox:
 
 - The last two years of Chrome stable releases
 - The current and previous Firefox Extended Support Release
 
-We try to support browser forks as well (aligned with supported Chrome/Firefox releases), but we don't actively test them.
+Builds, release packaging, and browser tests target Chrome and Firefox only. Other Chromium browsers may run the shared Chrome implementation, but they are not supported or tested targets. Safari is out of scope.
 
 ## Providing notice of minimum supported version changes
 

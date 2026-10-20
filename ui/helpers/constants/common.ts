@@ -16,20 +16,14 @@ export const SUPPORT_LINK = process.env.SUPPORT_LINK;
 export const CONTRACT_ADDRESS_LINK = _contractAddressLink;
 export const PASSWORD_MIN_LENGTH = 8;
 export const OUTDATED_BROWSER_VERSIONS = {
-  // Chrome and Edge should match the latest Chrome version released ~2 years ago,
+  // Chrome should match the latest Chrome version released ~2 years ago,
   // or the earliest version that supports our MV3 functionality, whichever is higher
   chrome: '<123',
-  edge: '<123',
   // Firefox should match the previous extended support release
   // Current ESR: 140 - first released to ESR 2025/06/24
   // Previous ESR: 128 - first released to ESR 2024/07/09
   // per https://whattrainisitnow.com/release/?version=esr
   firefox: '<128',
-  // Opera versions correspond to differently numbered Chromium versions.
-  // Opera should be set to the equivalent of the Chromium version set
-  // Opera 109 is based on Chromium 123
-  // See https://en.wikipedia.org/wiki/History_of_the_Opera_web_browser
-  opera: '<109',
 };
 
 /**
@@ -41,7 +35,6 @@ export const OUTDATED_BROWSER_VERSIONS = {
  */
 export const BROKEN_PRERENDER_BROWSER_VERSIONS = {
   chrome: '>=113',
-  edge: '>=113',
 };
 
 /**
@@ -54,14 +47,11 @@ export const FIXED_PRERENDER_BROWSER_VERSIONS = {
   // https://chromiumdash.appspot.com/commits?commit=a88eee8a2798c1dc4d69b255ccad24fea5ff2d8b&platform=Windows
   windows: {
     chrome: '>=120',
-    edge: '>=120',
   },
   // https://chromiumdash.appspot.com/commits?commit=a88eee8a2798c1dc4d69b255ccad24fea5ff2d8b&platform=Mac
   macos: {
     chrome: '>=120',
-    edge: '>=120',
   },
   // https://chromiumdash.appspot.com/commits?commit=a88eee8a2798c1dc4d69b255ccad24fea5ff2d8b&platform=Linux
   chrome: '>=121',
-  edge: '>=121',
 };

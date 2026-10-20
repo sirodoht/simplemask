@@ -2,8 +2,8 @@ import { getIsSidePanelFeatureEnabled } from '../../shared/lib/environment';
 
 /**
  * Custom hook to check if sidepanel feature is enabled.
- * Checks the build-time environment flag and browser compatibility.
- * Returns false for Firefox (no sidePanel API) and Arc browser (doesn't support sidepanel properly).
+ * Checks browser API availability.
+ * Returns false for Firefox, which has no sidePanel API.
  *
  * @returns boolean - True if sidepanel feature is enabled, false otherwise
  */

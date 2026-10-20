@@ -6,11 +6,7 @@ import Bowser from 'bowser';
 import browser from 'webextension-polyfill';
 import type { Runtime } from 'webextension-polyfill';
 import log from 'loglevel';
-import {
-  PLATFORM_BRAVE,
-  PLATFORM_EDGE,
-  PLATFORM_FIREFOX,
-} from '../constants/app';
+import { PLATFORM_FIREFOX } from '../constants/app';
 import {
   BROKEN_PRERENDER_BROWSER_VERSIONS,
   FIXED_PRERENDER_BROWSER_VERSIONS,
@@ -80,25 +76,18 @@ export function getIsBrowserPrerenderBroken(
  * Returns the name of the browser
  *
  * @param bowser - optional Bowser instance to check against
- * @param navigator - optional Navigator instance to check against
  * @returns The name of the browser
  */
 export function getBrowserName(
   bowser: Bowser.Parser.Parser = Bowser.getParser(window.navigator.userAgent),
-  navigator: Navigator = window.navigator,
 ): string {
-  // Handle case for brave by parsing navigator.userAgent
-  if ('brave' in navigator) {
-    return 'Brave';
-  }
-
   return bowser.getBrowserName();
 }
 
 /**
  * Checks whether the current browser is Firefox.
  *
- * @param args - Same optional `[bowser, navigator]` accepted by {@link getBrowserName}.
+ * @param args - Same optional `[bowser]` accepted by {@link getBrowserName}.
  * @returns Whether the host browser is Firefox (MV2 extension build).
  */
 export function isFirefoxBrowser(
@@ -108,24 +97,12 @@ export function isFirefoxBrowser(
 }
 
 /**
- * Chromium-family browsers URL that opens **this extension's** site settings.
- * Uses {@link browser.runtime.getURL} so the `site` query parameter always matches the running build.
+ * Open this extension's camera permissions in Chrome's site settings.
  *
- * @param args - Same optional `[bowser, navigator]` accepted by {@link getBrowserName}.
- * @returns `chrome://`, `brave://`, or `edge://` site-details URL with encoded `chrome-extension://…/` site.
+ * @returns Chrome site-details URL for the running extension.
  */
-export function getChromiumExtensionCameraSiteSettingsUrl(
-  ...args: Parameters<typeof getBrowserName>
-): string {
-  const extensionRootUrl = browser.runtime.getURL('/');
-  const site = encodeURIComponent(extensionRootUrl);
-  const name = getBrowserName(...args);
-  if (name === PLATFORM_BRAVE) {
-    return `brave://settings/content/siteDetails?site=${site}`;
-  }
-  if (name === PLATFORM_EDGE || name === 'Microsoft Edge') {
-    return `edge://settings/content/siteDetails?site=${site}`;
-  }
+export function getChromeExtensionCameraSiteSettingsUrl(): string {
+  const site = encodeURIComponent(browser.runtime.getURL('/'));
   return `chrome://settings/content/siteDetails?site=${site}`;
 }
 

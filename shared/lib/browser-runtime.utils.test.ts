@@ -113,55 +113,9 @@ describe('Browser Runtime Utils', () => {
       },
     );
 
-    // @ts-expect-error This is missing from the Mocha type definitions
-    it.each([
-      ['windows', '112.0.0.0', 'Windows NT 10.0; Win64; x64'],
-      ['windows', '120.0.0.0', 'Windows NT 10.0; Win64; x64'],
-      ['macos', '112.0.0.0', 'Macintosh; Intel Mac OS X 10_16_0'],
-      ['macos', '120.0.0.0', 'Macintosh; Intel Mac OS X 10_16_0'],
-      ['linux', '112.0.0.0', 'X11; Linux x86_64'],
-      ['linux', '121.0.0.0', 'X11; Linux x86_64'],
-    ])(
-      'returns false when given an edge browser with working prerender in %s on version %s',
-      (_: string, version: string, os: string) => {
-        const bowser = Bowser.getParser(
-          `Mozilla/5.0 (${os}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/i${version} Safari/537.36 Edg/${version}`,
-        );
-        const result = BrowserRuntimeUtil.getIsBrowserPrerenderBroken(bowser);
-        expect(result).toStrictEqual(false);
-      },
-    );
-
-    // @ts-expect-error This is missing from the Mocha type definitions
-    it.each([
-      ['windows', '113.0.0.0', 'Windows NT 10.0; Win64; x64'],
-      ['windows', '119.0.0.0', 'Windows NT 10.0; Win64; x64'],
-      ['macos', '113.0.0.0', 'Macintosh; Intel Mac OS X 10_16_0'],
-      ['macos', '119.0.0.0', 'Macintosh; Intel Mac OS X 10_16_0'],
-      ['linux', '113.0.0.0', 'X11; Linux x86_64'],
-      ['linux', '120.0.0.0', 'X11; Linux x86_64'],
-    ])(
-      'returns true when given an edge browser with broken prerender in %s on version %s',
-      (_: string, version: string, os: string) => {
-        const bowser = Bowser.getParser(
-          `Mozilla/5.0 (${os}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/i${version} Safari/537.36 Edg/${version}`,
-        );
-        const result = BrowserRuntimeUtil.getIsBrowserPrerenderBroken(bowser);
-        expect(result).toStrictEqual(true);
-      },
-    );
-
     it('returns false when given a firefox browser', () => {
       const bowser = Bowser.getParser(
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/91.0',
-      );
-      const result = BrowserRuntimeUtil.getIsBrowserPrerenderBroken(bowser);
-      expect(result).toStrictEqual(false);
-    });
-
-    it('returns false when given an opera browser', () => {
-      const bowser = Bowser.getParser(
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_16_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.3578.98 Safari/537.36 OPR/76.0.3135.47',
       );
       const result = BrowserRuntimeUtil.getIsBrowserPrerenderBroken(bowser);
       expect(result).toStrictEqual(false);
@@ -184,18 +138,6 @@ describe('Browser Runtime Utils', () => {
       const result = BrowserRuntimeUtil.getBrowserName(bowser);
       expect(result).toStrictEqual('Firefox');
     });
-
-    it('returns Brave when given a brave browser', () => {
-      const bowser = Bowser.getParser(
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
-      );
-      const result = BrowserRuntimeUtil.getBrowserName(bowser, {
-        userAgent:
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
-        brave: {},
-      } as unknown as Navigator);
-      expect(result).toStrictEqual('Brave');
-    });
   });
 
   describe('isFirefoxBrowser', () => {
@@ -203,7 +145,6 @@ describe('Browser Runtime Utils', () => {
       const getParserSpy = jest.spyOn(Bowser, 'getParser');
       const explicit = BrowserRuntimeUtil.isFirefoxBrowser(
         Bowser.getParser(window.navigator.userAgent),
-        window.navigator,
       );
       getParserSpy.mockClear();
 
@@ -229,70 +170,13 @@ describe('Browser Runtime Utils', () => {
       expect(BrowserRuntimeUtil.isFirefoxBrowser(bowser)).toBe(false);
     });
   });
-
-  describe('getChromiumExtensionCameraSiteSettingsUrl', () => {
-    const extensionRoot =
-      'chrome-extension://hebhblbkkdabgoldnojllkipeoacjioc/';
-    const encodedSite = encodeURIComponent(extensionRoot);
-
-    beforeEach(() => {
-      mockGetURL.mockReturnValue(extensionRoot);
-    });
-
-    it('uses window.navigator defaults when called with no arguments', () => {
-      const getParserSpy = jest.spyOn(Bowser, 'getParser');
-      const explicit =
-        BrowserRuntimeUtil.getChromiumExtensionCameraSiteSettingsUrl(
-          Bowser.getParser(window.navigator.userAgent),
-          window.navigator,
-        );
-      getParserSpy.mockClear();
-
-      const implicit =
-        BrowserRuntimeUtil.getChromiumExtensionCameraSiteSettingsUrl();
-
-      expect(getParserSpy).toHaveBeenCalledTimes(1);
-      expect(getParserSpy).toHaveBeenCalledWith(window.navigator.userAgent);
-      expect(implicit).toBe(explicit);
-      getParserSpy.mockRestore();
-    });
-
-    it('returns Chrome site-details URL with encoded extension site', () => {
-      const ua =
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
-      const bowser = Bowser.getParser(ua);
-      expect(
-        BrowserRuntimeUtil.getChromiumExtensionCameraSiteSettingsUrl(bowser, {
-          userAgent: ua,
-        } as Navigator),
-      ).toBe(`chrome://settings/content/siteDetails?site=${encodedSite}`);
-    });
-
-    it('returns Brave site-details URL when navigator exposes brave', () => {
-      const ua =
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36';
-      const bowser = Bowser.getParser(ua);
-      const nav = {
-        userAgent: ua,
-        brave: {},
-      } as unknown as Navigator;
-      expect(
-        BrowserRuntimeUtil.getChromiumExtensionCameraSiteSettingsUrl(
-          bowser,
-          nav,
-        ),
-      ).toBe(`brave://settings/content/siteDetails?site=${encodedSite}`);
-    });
-
-    it('returns Edge site-details URL for Edge user agent', () => {
-      const ua =
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0';
-      const bowser = Bowser.getParser(ua);
-      expect(
-        BrowserRuntimeUtil.getChromiumExtensionCameraSiteSettingsUrl(bowser, {
-          userAgent: ua,
-        } as Navigator),
-      ).toBe(`edge://settings/content/siteDetails?site=${encodedSite}`);
+  describe('getChromeExtensionCameraSiteSettingsUrl', () => {
+    it('uses the running extension origin for Chrome camera settings', () => {
+      const root = 'chrome-extension://hebhblbkkdabgoldnojllkipeoacjioc/';
+      mockGetURL.mockReturnValue(root);
+      expect(BrowserRuntimeUtil.getChromeExtensionCameraSiteSettingsUrl()).toBe(
+        `chrome://settings/content/siteDetails?site=${encodeURIComponent(root)}`,
+      );
     });
   });
 

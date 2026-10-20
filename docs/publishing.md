@@ -33,12 +33,11 @@ While we develop on the `main` branch, our production builds are created from th
 
 ## Publishing
 
-1. Publish to chrome store.
-2. Visit [the chrome developer dashboard](https://chrome.google.com/webstore/developer/dashboard?authuser=2).
-3. Publish to [firefox addon marketplace](http://addons.mozilla.org/en-us/firefox/addon/ether-metamask).
-4. Publish to [Opera store](https://addons.opera.com/en/extensions/details/metamask/).
-5. Post on [Github releases](https://github.com/MetaMask/metamask-extension/releases) page.
-6. Run the `yarn announce` script, and post that announcement in our public places.
+Release archives target Chrome and Firefox only. Before the first public release, configure this fork's store listings and publishing credentials.
+
+1. Publish the Chrome archive to this project's Chrome Web Store listing.
+2. Publish the Firefox archive to this project's Firefox Add-ons listing.
+3. Attach both archives to the project's GitHub release.
 
 ## Hotfix Differences
 

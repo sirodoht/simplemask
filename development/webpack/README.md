@@ -123,7 +123,7 @@ the cache, but most do. Search for "`cacheKey`" in [./utils/cli.ts](./utils/cli.
 - You can use the `--config` flag to specify your own JSON config file to use as the build configuration. This is useful
   if you want to customize the defaults
 - You can specify options via environment variables by prefixing the option name with `BUNDLE_`, e.g.,
-  `BUNDLE_BROWSER=opera yarn webpack` on \*nix.
+  `BUNDLE_BROWSER=firefox yarn webpack` on \*nix.
 - don't run the build process with the Node Debugger attached; it will make things build much more slowly.
 
 ## Development

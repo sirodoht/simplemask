@@ -6,7 +6,7 @@ import { ErrorCode } from '@metamask/hw-wallet-sdk';
 import { renderWithProvider } from '../../../../../test/lib/render-helpers-navigate';
 import WebcamUtils from '../../../../helpers/utils/webcam-utils';
 import {
-  getChromiumExtensionCameraSiteSettingsUrl,
+  getChromeExtensionCameraSiteSettingsUrl,
   getMozExtensionOriginForDisplay,
   isFirefoxBrowser,
 } from '../../../../../shared/lib/browser-runtime.utils';
@@ -58,7 +58,7 @@ jest.mock('../../../../../shared/lib/environment-type', () => ({
 
 jest.mock('../../../../../shared/lib/browser-runtime.utils', () => ({
   ...jest.requireActual('../../../../../shared/lib/browser-runtime.utils'),
-  getChromiumExtensionCameraSiteSettingsUrl: jest.fn(
+  getChromeExtensionCameraSiteSettingsUrl: jest.fn(
     () =>
       'chrome://settings/content/siteDetails?site=chrome-extension%3A%2F%2Fmock%2F',
   ),
@@ -80,8 +80,8 @@ jest.mock('@ngraveio/bc-ur', () => ({
 }));
 
 const mockGetEnvironmentType = jest.mocked(getEnvironmentType);
-const mockGetChromiumExtensionCameraSiteSettingsUrl = jest.mocked(
-  getChromiumExtensionCameraSiteSettingsUrl,
+const mockGetChromeExtensionCameraSiteSettingsUrl = jest.mocked(
+  getChromeExtensionCameraSiteSettingsUrl,
 );
 const mockIsFirefoxBrowser = jest.mocked(isFirefoxBrowser);
 const mockGetMozExtensionOriginForDisplay = jest.mocked(
@@ -146,7 +146,7 @@ describe('BaseQrReader', () => {
       openTab: jest.fn(),
       openExtensionInBrowser: jest.fn(),
     };
-    mockGetChromiumExtensionCameraSiteSettingsUrl.mockReturnValue(
+    mockGetChromeExtensionCameraSiteSettingsUrl.mockReturnValue(
       'chrome://settings/content/siteDetails?site=chrome-extension%3A%2F%2Fmock%2F',
     );
     mockIsFirefoxBrowser.mockReturnValue(false);

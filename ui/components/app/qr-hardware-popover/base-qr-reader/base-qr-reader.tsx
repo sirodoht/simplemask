@@ -11,7 +11,7 @@ import {
 import { MetaMetricsEventName } from '../../../../../shared/constants/metametrics';
 import { useAnalytics } from '../../../../hooks/useAnalytics';
 import {
-  getChromiumExtensionCameraSiteSettingsUrl,
+  getChromeExtensionCameraSiteSettingsUrl,
   getMozExtensionOriginForDisplay,
   isFirefoxBrowser,
 } from '../../../../../shared/lib/browser-runtime.utils';
@@ -249,7 +249,7 @@ const BaseQrReader = ({
   /** Opens the Chromium camera site-settings page in a new tab. */
   const handleOpenChromiumCameraSettings = useCallback(() => {
     globalThis.platform.openTab({
-      url: getChromiumExtensionCameraSiteSettingsUrl(),
+      url: getChromeExtensionCameraSiteSettingsUrl(),
     });
   }, []);
 

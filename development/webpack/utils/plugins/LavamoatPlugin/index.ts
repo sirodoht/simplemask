@@ -79,8 +79,6 @@ const getScuttleGlobalThisExceptions = (args: Args) => [
   'history',
   // globals used by react-dom
   'getSelection',
-  // globals opera needs to function
-  'opr',
   // for @popperjs/core and snap simple keyring site
   'devicePixelRatio',
   // for @floating-ui/dom (via @metamask/design-system-react Popover), which

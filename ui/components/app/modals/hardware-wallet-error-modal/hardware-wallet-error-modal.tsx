@@ -53,7 +53,7 @@ import {
   useHardwareWalletConfig,
 } from '../../../../contexts/hardware-wallets';
 import {
-  getChromiumExtensionCameraSiteSettingsUrl,
+  getChromeExtensionCameraSiteSettingsUrl,
   getMozExtensionOriginForDisplay,
   isFirefoxBrowser,
 } from '../../../../../shared/lib/browser-runtime.utils';
@@ -126,7 +126,7 @@ function renderQrCameraFlowContent({
 }): JSX.Element {
   const handleOpenSettings = () => {
     globalThis.platform.openTab({
-      url: getChromiumExtensionCameraSiteSettingsUrl(),
+      url: getChromeExtensionCameraSiteSettingsUrl(),
     });
   };
 

@@ -27,7 +27,7 @@ import { createHardwareWalletError } from '../../../../contexts/hardware-wallets
 import { HardwareWalletType } from '../../../../contexts/hardware-wallets/types';
 import configureStore from '../../../../store/store';
 import {
-  getChromiumExtensionCameraSiteSettingsUrl,
+  getChromeExtensionCameraSiteSettingsUrl,
   isFirefoxBrowser,
 } from '../../../../../shared/lib/browser-runtime.utils';
 import { HardwareWalletErrorModal } from './hardware-wallet-error-modal';
@@ -58,7 +58,7 @@ jest.mock('../../../../../shared/lib/browser-runtime.utils', () => {
   return {
     ...actual,
     isFirefoxBrowser: jest.fn(() => false),
-    getChromiumExtensionCameraSiteSettingsUrl: jest.fn(
+    getChromeExtensionCameraSiteSettingsUrl: jest.fn(
       () =>
         'chrome://settings/content/siteDetails?site=chrome-extension%3A%2F%2Fmock%2F',
     ),
@@ -69,8 +69,8 @@ jest.mock('../../../../../shared/lib/browser-runtime.utils', () => {
 });
 
 const mockIsFirefoxBrowser = jest.mocked(isFirefoxBrowser);
-const mockGetChromiumExtensionCameraSiteSettingsUrl = jest.mocked(
-  getChromiumExtensionCameraSiteSettingsUrl,
+const mockGetChromeExtensionCameraSiteSettingsUrl = jest.mocked(
+  getChromeExtensionCameraSiteSettingsUrl,
 );
 
 const mockHideModal = jest.fn();
@@ -162,7 +162,7 @@ describe('HardwareWalletErrorModal', () => {
     });
     mockIsFirefoxBrowser.mockReturnValue(false);
     mockGetEnvironmentType.mockReturnValue(ENVIRONMENT_TYPE_FULLSCREEN);
-    mockGetChromiumExtensionCameraSiteSettingsUrl.mockReturnValue(
+    mockGetChromeExtensionCameraSiteSettingsUrl.mockReturnValue(
       'chrome://settings/content/siteDetails?site=chrome-extension%3A%2F%2Fmock%2F',
     );
   });
@@ -579,7 +579,7 @@ describe('HardwareWalletErrorModal', () => {
         fireEvent.click(getByTestId('qr-camera-open-settings'));
       });
 
-      expect(mockGetChromiumExtensionCameraSiteSettingsUrl).toHaveBeenCalled();
+      expect(mockGetChromeExtensionCameraSiteSettingsUrl).toHaveBeenCalled();
       expect(openTabSpy).toHaveBeenCalledWith({
         url: 'chrome://settings/content/siteDetails?site=chrome-extension%3A%2F%2Fmock%2F',
       });
@@ -750,7 +750,7 @@ describe('HardwareWalletErrorModal', () => {
         expect(mockHandleContinueWithPermissionCheck).toHaveBeenCalledTimes(1);
         expect(mockHandleContinueWithPermissionCheck).toHaveBeenCalledWith(
           expect.any(Function),
-          null,
+          undefined,
         );
       });
 
@@ -772,7 +772,7 @@ describe('HardwareWalletErrorModal', () => {
         expect(mockHandleContinueWithPermissionCheck).toHaveBeenCalledTimes(1);
         expect(mockHandleContinueWithPermissionCheck).toHaveBeenCalledWith(
           expect.any(Function),
-          null,
+          undefined,
         );
       });
 

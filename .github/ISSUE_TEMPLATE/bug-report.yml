@@ -80,14 +80,11 @@ body:
     id: browsers
     attributes:
       label: Browser
-      description: Which browsers have you seen the problem on?
+      description: Which supported browsers have you seen the problem on?
       multiple: true
       options:
         - Chrome
         - Firefox
-        - Microsoft Edge
-        - Brave
-        - Other (please elaborate in the "Additional Context" section)
     validations:
       required: true
   - type: dropdown
