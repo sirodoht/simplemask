@@ -10367,17 +10367,17 @@ __metadata:
   linkType: hard
 
 "@metamask/selected-network-controller@npm:^26.1.4":
-  version: 26.1.4
-  resolution: "@metamask/selected-network-controller@npm:26.1.4"
+  version: 26.1.7
+  resolution: "@metamask/selected-network-controller@npm:26.1.7"
   dependencies:
     "@metamask/base-controller": "npm:^9.1.0"
     "@metamask/json-rpc-engine": "npm:^10.5.0"
-    "@metamask/messenger": "npm:^1.2.0"
-    "@metamask/network-controller": "npm:^33.0.0"
+    "@metamask/messenger": "npm:^2.0.0"
+    "@metamask/network-controller": "npm:^36.0.0"
     "@metamask/permission-controller": "npm:^13.1.1"
     "@metamask/swappable-obj-proxy": "npm:^2.3.0"
     "@metamask/utils": "npm:^11.11.0"
-  checksum: 10/0cef6df328d36ac4634ebf2a037ec4a3acc0aa4b628e60579b15f44b3aa95edf34b67988a276438ad28ae53e18ee74216350de3657f85c65d2524500ec18f028
+  checksum: 10/acf3d2e8a039ff48c4a0d3653396bf5478d25294e289688ee615c279b6436beffa905a6b90d242b40a6096716be93261b38991f663eb293eb942bf5e3c881300
   languageName: node
   linkType: hard
 
