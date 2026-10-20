@@ -1,0 +1,216 @@
+diff --git a/dist/AccountsController.cjs b/dist/AccountsController.cjs
+index a2356306cf09ff7f9201859b54854c594b876dcd..a412494a077fc35663e518525029851bdf046775 100644
+--- a/dist/AccountsController.cjs
++++ b/dist/AccountsController.cjs
+@@ -152,23 +152,11 @@ class AccountsController extends base_controller_1.BaseController {
+         const accounts = Object.values(this.state.internalAccounts.accounts);
+         return accounts.filter((account) => (0, keyring_api_1.isEvmAccountType)(account.type));
+     }
+-    /**
+-     * Returns an array of all internal accounts.
+-     *
+-     * @deprecated This method is deprecated and will be removed in a future version.
+-     * Use `AccountTreeController`, `MultichainAccountService`, or the Keyring API v2 instead.
+-     * @param chainId - The chain ID.
+-     * @returns An array of InternalAccount objects.
+-     */
+     listMultichainAccounts(chainId) {
+-        const accounts = Object.values(this.state.internalAccounts.accounts);
+-        if (!chainId) {
+-            return accounts;
+-        }
+-        if (!(0, utils_1.isCaipChainId)(chainId)) {
+-            throw new Error(`Invalid CAIP-2 chain ID: ${String(chainId)}`);
+-        }
+-        return accounts.filter((account) => (0, keyring_utils_1.isScopeEqualToAny)(chainId, account.scopes));
++      const accounts = this.listAccounts();
++      if (!chainId) return accounts;
++      if (!chainId.startsWith('eip155:')) return [];
++      return accounts.filter(account => account.scopes.includes('eip155:0') || account.scopes.includes(chainId));
+     }
+     /**
+      * Returns the last selected EVM account.
+@@ -197,28 +185,9 @@ class AccountsController extends base_controller_1.BaseController {
+         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+         return __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getLastSelectedAccount).call(this, accounts);
+     }
+-    /**
+-     * __WARNING The return value may be undefined if there isn't an account for that chain id.__
+-     *
+-     * Retrieves the last selected account by chain ID.
+-     *
+-     * @deprecated This method is deprecated and will be removed in a future version.
+-     * Use `AccountTreeController`, `MultichainAccountService`, or the Keyring API v2 instead.
+-     * @param chainId - The chain ID to filter the accounts.
+-     * @returns The last selected account compatible with the specified chain ID or undefined.
+-     */
+     getSelectedMultichainAccount(chainId) {
+-        const { internalAccounts: { selectedAccount }, } = this.state;
+-        // Edge case where the extension is setup but the srp is not yet created
+-        // certain ui elements will query the selected address before any accounts are created.
+-        if (!selectedAccount) {
+-            return exports.EMPTY_ACCOUNT;
+-        }
+-        if (!chainId) {
+-            return __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getAccountExpect).call(this, selectedAccount);
+-        }
+-        const accounts = this.listMultichainAccounts(chainId);
+-        return __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getLastSelectedAccount).call(this, accounts);
++      if (!chainId) return this.getSelectedAccount();
++      return this.listMultichainAccounts(chainId).sort((a,b) => (b.metadata.lastSelected ?? 0) - (a.metadata.lastSelected ?? 0))[0];
+     }
+     /**
+      * Returns the account with the specified address.
+@@ -246,14 +215,9 @@ class AccountsController extends base_controller_1.BaseController {
+         }
+         return accountId ? this.getAccount(accountId) : undefined;
+     }
+-    /**
+-     * Sets the selected account by its ID.
+-     *
+-     * @deprecated This method is deprecated and will be removed in a future version.
+-     * Use `AccountTreeController`, `MultichainAccountService`, or the Keyring API v2 instead.
+-     * @param accountId - The ID of the account to be selected.
+-     */
+-    setSelectedAccount(accountId) {
++setSelectedAccount(accountId) {
++        const candidate = this.getAccount(accountId);
++        if (!candidate || !(0, keyring_api_1.isEvmAccountType)(candidate.type)) throw new Error('Only EVM accounts can be selected');
+         const account = __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getAccountExpect).call(this, accountId);
+         if (this.state.internalAccounts.selectedAccount === account.id) {
+             return;
+@@ -643,11 +607,12 @@ _AccountsController_instances = new WeakSet(), _AccountsController_getAccountExp
+         if (diff.removed.length > 0) {
+             this.messenger.publish('AccountsController:accountsRemoved', diff.removed);
+         }
+-        for (const account of diff.added) {
++        const activeAdded = diff.added.filter(account => (0, keyring_api_1.isEvmAccountType)(account.type));
++        for (const account of activeAdded) {
+             this.messenger.publish('AccountsController:accountAdded', account);
+         }
+-        if (diff.added.length > 0) {
+-            this.messenger.publish('AccountsController:accountsAdded', diff.added);
++        if (activeAdded.length > 0) {
++            this.messenger.publish('AccountsController:accountsAdded', activeAdded);
+         }
+     });
+     (0, logger_js_1.projectLogger)('Accounts synchronized (through :stateChange)!');
+@@ -661,8 +626,8 @@ _AccountsController_instances = new WeakSet(), _AccountsController_getAccountExp
+         callback(state);
+         // If the account no longer exists (or none is selected), we need to re-select another one.
+         const { internalAccounts } = state;
+-        if (!internalAccounts.accounts[previouslySelectedAccount]) {
+-            const accounts = Object.values(internalAccounts.accounts);
++        if (!internalAccounts.accounts[previouslySelectedAccount] || !(0, keyring_api_1.isEvmAccountType)(internalAccounts.accounts[previouslySelectedAccount].type)) {
++            const accounts = Object.values(internalAccounts.accounts).filter(account => (0, keyring_api_1.isEvmAccountType)(account.type));
+             // Get the lastly selected account (according to the current accounts).
+             const lastSelectedAccount = __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getLastSelectedAccount).call(this, accounts);
+             if (lastSelectedAccount) {
+diff --git a/dist/AccountsController.mjs b/dist/AccountsController.mjs
+index c48020a0e3551627155f8f385cdd80464427a006..fee99870425e739d09fdf558e97ff4b75936af95 100644
+--- a/dist/AccountsController.mjs
++++ b/dist/AccountsController.mjs
+@@ -149,23 +149,11 @@ export class AccountsController extends BaseController {
+         const accounts = Object.values(this.state.internalAccounts.accounts);
+         return accounts.filter((account) => isEvmAccountType(account.type));
+     }
+-    /**
+-     * Returns an array of all internal accounts.
+-     *
+-     * @deprecated This method is deprecated and will be removed in a future version.
+-     * Use `AccountTreeController`, `MultichainAccountService`, or the Keyring API v2 instead.
+-     * @param chainId - The chain ID.
+-     * @returns An array of InternalAccount objects.
+-     */
+     listMultichainAccounts(chainId) {
+-        const accounts = Object.values(this.state.internalAccounts.accounts);
+-        if (!chainId) {
+-            return accounts;
+-        }
+-        if (!isCaipChainId(chainId)) {
+-            throw new Error(`Invalid CAIP-2 chain ID: ${String(chainId)}`);
+-        }
+-        return accounts.filter((account) => isScopeEqualToAny(chainId, account.scopes));
++      const accounts = this.listAccounts();
++      if (!chainId) return accounts;
++      if (!chainId.startsWith('eip155:')) return [];
++      return accounts.filter(account => account.scopes.includes('eip155:0') || account.scopes.includes(chainId));
+     }
+     /**
+      * Returns the last selected EVM account.
+@@ -194,28 +182,9 @@ export class AccountsController extends BaseController {
+         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+         return __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getLastSelectedAccount).call(this, accounts);
+     }
+-    /**
+-     * __WARNING The return value may be undefined if there isn't an account for that chain id.__
+-     *
+-     * Retrieves the last selected account by chain ID.
+-     *
+-     * @deprecated This method is deprecated and will be removed in a future version.
+-     * Use `AccountTreeController`, `MultichainAccountService`, or the Keyring API v2 instead.
+-     * @param chainId - The chain ID to filter the accounts.
+-     * @returns The last selected account compatible with the specified chain ID or undefined.
+-     */
+     getSelectedMultichainAccount(chainId) {
+-        const { internalAccounts: { selectedAccount }, } = this.state;
+-        // Edge case where the extension is setup but the srp is not yet created
+-        // certain ui elements will query the selected address before any accounts are created.
+-        if (!selectedAccount) {
+-            return EMPTY_ACCOUNT;
+-        }
+-        if (!chainId) {
+-            return __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getAccountExpect).call(this, selectedAccount);
+-        }
+-        const accounts = this.listMultichainAccounts(chainId);
+-        return __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getLastSelectedAccount).call(this, accounts);
++      if (!chainId) return this.getSelectedAccount();
++      return this.listMultichainAccounts(chainId).sort((a,b) => (b.metadata.lastSelected ?? 0) - (a.metadata.lastSelected ?? 0))[0];
+     }
+     /**
+      * Returns the account with the specified address.
+@@ -243,14 +212,9 @@ export class AccountsController extends BaseController {
+         }
+         return accountId ? this.getAccount(accountId) : undefined;
+     }
+-    /**
+-     * Sets the selected account by its ID.
+-     *
+-     * @deprecated This method is deprecated and will be removed in a future version.
+-     * Use `AccountTreeController`, `MultichainAccountService`, or the Keyring API v2 instead.
+-     * @param accountId - The ID of the account to be selected.
+-     */
+-    setSelectedAccount(accountId) {
++setSelectedAccount(accountId) {
++        const candidate = this.getAccount(accountId);
++        if (!candidate || !isEvmAccountType(candidate.type)) throw new Error('Only EVM accounts can be selected');
+         const account = __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getAccountExpect).call(this, accountId);
+         if (this.state.internalAccounts.selectedAccount === account.id) {
+             return;
+@@ -639,11 +603,12 @@ _AccountsController_instances = new WeakSet(), _AccountsController_getAccountExp
+         if (diff.removed.length > 0) {
+             this.messenger.publish('AccountsController:accountsRemoved', diff.removed);
+         }
+-        for (const account of diff.added) {
++        const activeAdded = diff.added.filter(account => isEvmAccountType(account.type));
++        for (const account of activeAdded) {
+             this.messenger.publish('AccountsController:accountAdded', account);
+         }
+-        if (diff.added.length > 0) {
+-            this.messenger.publish('AccountsController:accountsAdded', diff.added);
++        if (activeAdded.length > 0) {
++            this.messenger.publish('AccountsController:accountsAdded', activeAdded);
+         }
+     });
+     log('Accounts synchronized (through :stateChange)!');
+@@ -657,8 +622,8 @@ _AccountsController_instances = new WeakSet(), _AccountsController_getAccountExp
+         callback(state);
+         // If the account no longer exists (or none is selected), we need to re-select another one.
+         const { internalAccounts } = state;
+-        if (!internalAccounts.accounts[previouslySelectedAccount]) {
+-            const accounts = Object.values(internalAccounts.accounts);
++        if (!internalAccounts.accounts[previouslySelectedAccount] || !isEvmAccountType(internalAccounts.accounts[previouslySelectedAccount].type)) {
++            const accounts = Object.values(internalAccounts.accounts).filter(account => isEvmAccountType(account.type));
+             // Get the lastly selected account (according to the current accounts).
+             const lastSelectedAccount = __classPrivateFieldGet(this, _AccountsController_instances, "m", _AccountsController_getLastSelectedAccount).call(this, accounts);
+             if (lastSelectedAccount) {

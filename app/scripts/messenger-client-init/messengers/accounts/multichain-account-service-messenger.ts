@@ -51,9 +51,6 @@ export function getMultichainAccountServiceMessenger(
       'KeyringController:createNewVaultAndRestore',
       'NetworkController:getNetworkClientById',
       'NetworkController:findNetworkClientIdByChainId',
-      'SnapController:handleRequest',
-      'SnapAccountService:ensureReady',
-      'SnapAccountService:getCapabilities',
     ],
   });
   return serviceMessenger;

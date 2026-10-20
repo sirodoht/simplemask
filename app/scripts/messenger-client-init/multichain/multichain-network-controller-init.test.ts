@@ -1,3 +1,11 @@
+import type { NetworkControllerSetActiveNetworkAction } from '@metamask/network-controller';
+import { SolScope } from '@metamask/keyring-api';
+import {
+  Messenger,
+  MOCK_ANY_NAMESPACE,
+  MockAnyNamespace,
+  EventConstraint,
+} from '@metamask/messenger';
 import {
   MultichainNetworkController,
   MultichainNetworkControllerMessenger,
@@ -55,5 +63,41 @@ describe('MultichainNetworkControllerInit', () => {
       state: requestMock.persistedState.MultichainNetworkController,
       networkService: expect.any(Object),
     });
+  });
+});
+
+describe('EVM-only network boundary', () => {
+  it('rejects saved non-EVM networks and explicit requests while forwarding EVM switching', async () => {
+    const { MultichainNetworkController: RealController } = jest.requireActual<
+      typeof import('@metamask/multichain-network-controller')
+    >('@metamask/multichain-network-controller');
+    const root = new Messenger<
+      MockAnyNamespace,
+      NetworkControllerSetActiveNetworkAction,
+      EventConstraint
+    >({ namespace: MOCK_ANY_NAMESPACE });
+    const setActiveNetwork = jest.fn();
+    root.registerActionHandler(
+      'NetworkController:setActiveNetwork',
+      setActiveNetwork,
+    );
+    const controller = new RealController({
+      messenger: getMultichainNetworkControllerMessenger(root),
+      networkService: { fetchNetworkActivity: jest.fn() },
+      state: {
+        isEvmSelected: false,
+        selectedMultichainNetworkChainId: SolScope.Mainnet,
+      },
+    });
+    expect(controller.state.isEvmSelected).toBe(true);
+    expect(controller.state.multichainNetworkConfigurationsByChainId).toEqual(
+      {},
+    );
+    await expect(controller.setActiveNetwork(SolScope.Mainnet)).rejects.toThrow(
+      'Only EVM',
+    );
+    expect(setActiveNetwork).not.toHaveBeenCalled();
+    await controller.setActiveNetwork('mainnet');
+    expect(setActiveNetwork).toHaveBeenCalledWith('mainnet');
   });
 });

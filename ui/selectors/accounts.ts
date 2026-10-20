@@ -49,9 +49,15 @@ export function isNonEvmAccount(account: InternalAccount) {
     isStellarAccount(account)
   );
 }
-
-export const getInternalAccountsObject = (state: AccountsState) =>
-  state.metamask.internalAccounts.accounts;
+export const getInternalAccountsObject = createSelector(
+  (state: AccountsState) => state.metamask.internalAccounts.accounts,
+  (accounts) =>
+    Object.fromEntries(
+      Object.entries(accounts).filter(([, account]) =>
+        isEvmAccountType(account.type),
+      ),
+    ),
+);
 
 export const getInternalAccounts = createSelector(
   getInternalAccountsObject,

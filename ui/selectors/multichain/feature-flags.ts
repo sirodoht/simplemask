@@ -1,7 +1,6 @@
 // TODO: remove dead code in this file and related files now that code fences are gone
 
 import { createSelector } from 'reselect';
-import { isMultichainFeatureEnabled } from '../../../shared/lib/multichain-feature-flags';
 import { getBooleanFeatureFlag } from '../../../shared/lib/remote-feature-flag-utils';
 import { EXTENSION_TRUST_AND_SECURITY_TDP_FLAG } from '../../../shared/lib/assets/security-trust-feature-flags';
 import { TOKEN_DETAILS_ADVANCED_CHARTS_FLAG } from '../../../shared/lib/assets/advanced-charts-feature-flags';
@@ -21,15 +20,7 @@ export {
  * @param _state - The MetaMask state object
  * @returns The state of the `bitcoinAccounts` feature flag.
  */
-export const getIsBitcoinSupportEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ bitcoinAccounts }) => {
-    // When bitcoin is not enabled, always return false
-    let enabled = false;
-    enabled = isMultichainFeatureEnabled(bitcoinAccounts);
-    return enabled;
-  },
-);
+export const getIsBitcoinSupportEnabled = (_state: unknown) => false;
 
 /**
  * Get the state of the `solanaAccounts` feature flag with version check.
@@ -37,10 +28,7 @@ export const getIsBitcoinSupportEnabled = createSelector(
  * @param _state - The MetaMask state object
  * @returns The state of the `solanaAccounts` feature flag.
  */
-export const getIsSolanaSupportEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ solanaAccounts }) => isMultichainFeatureEnabled(solanaAccounts),
-);
+export const getIsSolanaSupportEnabled = (_state: unknown) => false;
 
 /**
  * Get the state of the `tronSupportEnabled` remote feature flag.
@@ -48,14 +36,7 @@ export const getIsSolanaSupportEnabled = createSelector(
  * @param _state - The MetaMask state object
  * @returns The state of the `tronSupportEnabled` remote feature flag.
  */
-export const getIsTronSupportEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ tronAccounts }) => {
-    let enabled = false;
-    enabled = isMultichainFeatureEnabled(tronAccounts);
-    return enabled;
-  },
-);
+export const getIsTronSupportEnabled = (_state: unknown) => false;
 
 /**
  * Get the state of the `stellarAccounts` remote feature flag.
@@ -63,14 +44,7 @@ export const getIsTronSupportEnabled = createSelector(
  * @param _state - The MetaMask state object
  * @returns The state of the `stellarAccounts` remote feature flag.
  */
-export const getIsStellarSupportEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ stellarAccounts }) => {
-    let enabled = false;
-    enabled = isMultichainFeatureEnabled(stellarAccounts);
-    return enabled;
-  },
-);
+export const getIsStellarSupportEnabled = (_state: unknown) => false;
 
 /**
  * Get the state of the `solanaTestnetsEnabled` remote feature flag.
@@ -78,10 +52,7 @@ export const getIsStellarSupportEnabled = createSelector(
  * @param _state - The MetaMask state object
  * @returns The state of the `solanaTestnetsEnabled` remote feature flag.
  */
-export const getIsSolanaTestnetSupportEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ solanaTestnetsEnabled }) => Boolean(solanaTestnetsEnabled),
-);
+export const getIsSolanaTestnetSupportEnabled = (_state: unknown) => false;
 
 /**
  * Get the state of the `bitcoinTestnetsEnabled` remote feature flag.
@@ -89,10 +60,7 @@ export const getIsSolanaTestnetSupportEnabled = createSelector(
  * @param _state - The MetaMask state object
  * @returns The state of the `bitcoinTestnetsEnabled` remote feature flag.
  */
-export const getIsBitcoinTestnetSupportEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ bitcoinTestnetsEnabled }) => Boolean(bitcoinTestnetsEnabled),
-);
+export const getIsBitcoinTestnetSupportEnabled = (_state: unknown) => false;
 
 /**
  * Get the state of the `tronTestnetsEnabled` remote feature flag.
@@ -100,10 +68,7 @@ export const getIsBitcoinTestnetSupportEnabled = createSelector(
  * @param _state - The MetaMask state object
  * @returns The state of the `tronTestnetsEnabled` remote feature flag.
  */
-export const getIsTronTestnetSupportEnabled = createSelector(
-  getRemoteFeatureFlags,
-  ({ tronTestnetsEnabled }) => Boolean(tronTestnetsEnabled),
-);
+export const getIsTronTestnetSupportEnabled = (_state: unknown) => false;
 
 export const getIsTransactionLabelsEnabled = createSelector(
   getRemoteFeatureFlags,

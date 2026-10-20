@@ -709,7 +709,7 @@ describe('TokenManagementPage', () => {
     ).toBeInTheDocument();
   });
 
-  it('shows all default networks in the filter label when Solana is active but multiple namespaces are enabled', () => {
+  it('ignores a saved Solana selection and excludes its assets from the EVM list', () => {
     renderPage(
       createState({
         selectedMultichainNetworkChainId: solanaChainId,
@@ -731,7 +731,7 @@ describe('TokenManagementPage', () => {
     expect(screen.queryByText(messages.networkNameSolana.message)).toBeNull();
     expect(screen.getByText('Alpha Token')).toBeInTheDocument();
     expect(screen.getByText('Beta Token')).toBeInTheDocument();
-    expect(screen.getByText('Solana Token')).toBeInTheDocument();
+    expect(screen.queryByText('Solana Token')).not.toBeInTheDocument();
   });
 
   it('hides the Arc USDC ERC20 from the token list while keeping the native token', () => {
@@ -864,7 +864,7 @@ describe('TokenManagementPage', () => {
     ).toBeInTheDocument();
   });
 
-  it('enables API browse results for EVM and non-EVM networks when the page opens', () => {
+  it('requests API browse results only for EVM networks even with saved non-EVM enablement', () => {
     renderPage(
       createState({
         enabledNetworkMap: {
@@ -878,7 +878,7 @@ describe('TokenManagementPage', () => {
       expect.objectContaining({
         query: '',
         enableTokenBrowse: true,
-        networks: ['eip155:1', solanaChainId],
+        networks: ['eip155:1'],
       }),
     );
   });
@@ -1481,41 +1481,6 @@ describe('TokenManagementPage', () => {
     );
   });
 
-  it('toggling ON a not-yet-imported non-EVM browse result imports via multichainAddAssets and seeds unified assets', async () => {
-    const solanaResultId = `${solanaChainId}/token:EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v`;
-    const solanaTokenReference = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
-    setTokenSearchState({
-      results: [
-        {
-          assetId: solanaResultId,
-          symbol: 'USDC',
-          decimals: 6,
-          name: 'USD Coin',
-        },
-      ],
-    });
-
-    const actions = getMockedActions();
-
-    renderPage(createStateWithSolanaAccount());
-
-    fireEvent.click(
-      screen.getByTestId(
-        `token-management-cell-search-${solanaResultId.toLowerCase()}-toggle`,
-      ),
-    );
-
-    await expectNonEvmApiResultImport({
-      accountId: solanaAccountId,
-      actions,
-      address: solanaTokenReference,
-      assetId: solanaResultId,
-      decimals: 6,
-      name: 'USD Coin',
-      symbol: 'USDC',
-    });
-  });
-
   it('toggling OFF an EVM token defers the hide and keeps the row visible until unmount', async () => {
     const actions = getMockedActions();
 
@@ -2007,64 +1972,6 @@ describe('TokenManagementPage', () => {
     ).toHaveTextContent(messages.noTokensMatchSearch.message);
   });
 
-  it('shows the multichain network name for a non-EVM search result', () => {
-    const solanaResultId = `${solanaChainId}/token:So11111111111111111111111111111111111111112`;
-    setTokenSearchState({
-      results: [
-        {
-          assetId: solanaResultId,
-          symbol: 'USDC',
-          decimals: 6,
-          name: 'USD Coin',
-        },
-      ],
-    });
-
-    const baseState = createState({
-      enabledNetworkMap: {
-        eip155: { '0x1': true },
-        solana: { [solanaChainId]: true },
-      },
-      accountGroupAssets: {
-        [solanaChainId]: [solanaToken],
-      },
-    });
-    const stateWithSolanaAccount = {
-      ...baseState,
-      metamask: {
-        ...baseState.metamask,
-        internalAccounts: {
-          ...baseState.metamask.internalAccounts,
-          accounts: {
-            ...baseState.metamask.internalAccounts.accounts,
-            'solana-internal-account': {
-              id: 'solana-internal-account',
-              address: 'SolanaAddress',
-              type: 'solana:data-account',
-              scopes: [solanaChainId],
-              options: {},
-              methods: [],
-              metadata: { name: 'Solana 1', keyring: { type: 'Snap Keyring' } },
-            },
-          },
-        },
-      },
-    };
-    renderPage(
-      stateWithSolanaAccount as unknown as ReturnType<typeof createState>,
-    );
-
-    fireEvent.change(screen.getByTestId('token-management-search-input'), {
-      target: { value: 'usdc' },
-    });
-
-    const row = screen.getByTestId(
-      `token-management-cell-search-${solanaResultId.toLowerCase()}`,
-    );
-    expect(row.textContent ?? '').not.toContain(solanaChainId);
-    expect(row.textContent ?? '').toContain(messages.networkNameSolana.message);
-  });
-
   it('surfaces a friendly error message when the search request fails', () => {
     setTokenSearchState({ error: new Error('boom') });
     renderPage();
@@ -2094,56 +2001,6 @@ describe('TokenManagementPage', () => {
     expect(
       screen.getByTestId('token-management-search-error'),
     ).toBeInTheDocument();
-  });
-
-  it('hides the Add a custom token CTA when only a non-EVM network is enabled', () => {
-    renderPage(
-      createState({
-        enabledNetworkMap: {
-          solana: { [solanaChainId]: true },
-        },
-        accountGroupAssets: {
-          [solanaChainId]: [solanaToken],
-        },
-      }),
-    );
-
-    expect(
-      screen.queryByTestId('token-management-add-custom-token-button'),
-    ).not.toBeInTheDocument();
-  });
-
-  it('renders an enabled toggle for non-native Solana tokens', () => {
-    renderPage(
-      createState({
-        enabledNetworkMap: {
-          eip155: { '0x1': true },
-          solana: { [solanaChainId]: true },
-        },
-        accountGroupAssets: {
-          '0x1': [mainnetToken],
-          [solanaChainId]: [solanaToken],
-        },
-      }),
-    );
-
-    const solanaToggle = screen.getByTestId(
-      `token-management-cell-${solanaChainId}:${solanaTokenAssetId.toLowerCase()}-toggle`,
-    );
-
-    expect(screen.getByText('Solana Token')).toBeInTheDocument();
-    expect(
-      screen.getByTestId(
-        `token-management-cell-${solanaChainId}:${solanaTokenAssetId.toLowerCase()}-network-badge`,
-      ),
-    ).toBeInTheDocument();
-    expect(solanaToggle).toBeInTheDocument();
-    expect(solanaToggle.closest('.toggle-button')).toHaveClass(
-      'toggle-button--on',
-    );
-    expect(solanaToggle.closest('.toggle-button')).not.toHaveClass(
-      'toggle-button--disabled',
-    );
   });
 
   it('renders a disabled on toggle for native tokens', () => {

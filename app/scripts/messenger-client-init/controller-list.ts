@@ -17,9 +17,6 @@ import {
   AccountTrackerController,
   AssetsContractController,
   CurrencyRateController,
-  MultichainAssetsController,
-  MultichainAssetsRatesController,
-  MultichainBalancesController,
   RatesController,
   TokenBalancesController,
   TokenDetectionController,
@@ -29,11 +26,9 @@ import {
 } from '@metamask/assets-controllers';
 import { AssetsController } from '@metamask/assets-controller';
 import { MultichainNetworkController } from '@metamask/multichain-network-controller';
-import { MultichainTransactionsController } from '@metamask/multichain-transactions-controller';
 import {
   CronjobController,
   ExecutionService,
-  MultichainRoutingService,
   SnapController,
   SnapInsightsController,
   SnapInterfaceController,
@@ -153,12 +148,7 @@ export type MessengerClient =
   | LegacyBackgroundApiService
   | LoggingController
   | MetaMetricsDataDeletionController
-  | MultichainAssetsController
-  | MultichainAssetsRatesController
-  | MultichainBalancesController
-  | MultichainTransactionsController
   | MultichainNetworkController
-  | MultichainRoutingService
   | NameController
   | NetworkController
   | NetworkOrderController
@@ -247,10 +237,6 @@ export type MessengerClientFlatState = AccountOrderController['state'] &
   KeyringController['state'] &
   LoggingController['state'] &
   MetaMetricsDataDeletionController['state'] &
-  MultichainAssetsController['state'] &
-  MultichainAssetsRatesController['state'] &
-  MultichainBalancesController['state'] &
-  MultichainTransactionsController['state'] &
   MultichainNetworkController['state'] &
   NameController['state'] &
   NetworkController['state'] &

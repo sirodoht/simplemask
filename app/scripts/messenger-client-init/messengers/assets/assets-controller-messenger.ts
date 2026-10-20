@@ -34,8 +34,6 @@ export const ASSETS_CONTROLLER_DELEGATED_ACTIONS = [
   'NetworkController:getState',
   'NetworkController:getNetworkClientById',
   'AccountsController:getSelectedAccount',
-  'SnapController:handleRequest',
-  'SnapController:getRunnableSnaps',
   'PermissionController:getPermissions',
   'PhishingController:bulkScanTokens',
   'RemoteFeatureFlagController:getState',
@@ -58,12 +56,9 @@ export const ASSETS_CONTROLLER_DELEGATED_EVENTS = [
   'NetworkController:stateChange',
   'AccountsController:accountBalancesUpdated',
   'PermissionController:stateChange',
-  'SnapController:snapInstalled',
   'PreferencesController:stateChange',
   'TransactionController:transactionConfirmed',
   'TransactionController:unapprovedTransactionAdded',
-  // core#10585: Snap keyring confirmations refresh balances when AccountActivity is down
-  'MultichainTransactionsController:transactionConfirmed',
   'AccountActivityService:balanceUpdated',
   'AccountActivityService:statusChanged',
   'RemoteFeatureFlagController:stateChange',
@@ -74,7 +69,6 @@ export const ASSETS_CONTROLLER_DELEGATED_EVENTS = [
  */
 export const ASSETS_CONTROLLER_INIT_DELEGATED_ACTIONS = [
   'AuthenticationController:getBearerToken',
-  'SnapController:handleRequest',
   'PreferencesController:getState',
   'OnboardingController:getState',
   'RemoteFeatureFlagController:getState',

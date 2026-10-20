@@ -57,13 +57,10 @@ import { useNetworkFilterButtonLabel } from '../../components/app/assets/hooks/u
 import { getNetworkConfigurationsByChainId } from '../../../shared/lib/selectors/networks';
 import {
   addNetwork,
-  addCustomAsset,
   addImportedTokens,
   hideAsset,
   ignoreTokens as ignoreTokensAction,
   importCustomAssetsBatch,
-  multichainAddAssets,
-  multichainIgnoreAssets,
 } from '../../store/actions';
 import { getInternalAccountBySelectedAccountGroupAndCaip } from '../../selectors/multichain-accounts/account-tree';
 import {
@@ -1023,12 +1020,7 @@ export const TokenManagementPage = () => {
             if (entry.caipAssetId) {
               await dispatch(hideAsset(entry.caipAssetId));
             }
-            return;
           }
-          await dispatch(
-            multichainIgnoreAssets([entry.assetId], entry.accountId),
-          );
-          await dispatch(hideAsset(entry.assetId));
         }),
       );
     };
@@ -1265,19 +1257,7 @@ export const TokenManagementPage = () => {
           if (addedNetwork) {
             showNetworkAddedToast(addedNetwork.name);
           }
-          return;
         }
-
-        const account = getAccountForChain(payload.caipChainId);
-        if (!account?.id) {
-          return;
-        }
-
-        await Promise.all([
-          dispatch(multichainAddAssets([payload.assetId], account.id)),
-          dispatch(importEvmSearchResultToUnifiedAssets(account.id, payload)),
-        ]);
-        trackEvent(tokenAddedEvent);
       } finally {
         removePendingKey(stagedKey);
       }

@@ -1,0 +1,123 @@
+diff --git a/dist/AssetsController.js b/dist/AssetsController.js
+index 550acfb0bc0860bdbd0207163323a26d345fa9a8..86d733a0cfa5fa16ab04977b17e86a253a5040c8 100644
+--- a/dist/AssetsController.js
++++ b/dist/AssetsController.js
+@@ -32,6 +32,7 @@ var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn,
+     if (target) Object.defineProperty(target, contextIn.name, descriptor);
+     done = true;
+ };
++import { isEvmAccountType } from '@metamask/keyring-api';
+ import { BaseController } from '@metamask/base-controller';
+ import { clientControllerSelectors } from '@metamask/client-controller';
+ import { isCaipChainId, isStrictHexString, KnownCaipNamespace, parseCaipAssetType, parseCaipChainId, } from '@metamask/utils';
+@@ -44,7 +45,6 @@ import { isStakingContractAssetId } from './data-sources/evm-rpc-services/index.
+ import { shouldSkipNativeForCaipChainId } from './data-sources/evm-rpc-services/utils/assets.js';
+ import { isPriceableAsset, PriceDataSource, } from './data-sources/PriceDataSource.js';
+ import { RpcDataSource } from './data-sources/RpcDataSource.js';
+-import { SnapDataSource } from './data-sources/SnapDataSource.js';
+ import { StakedBalanceDataSource } from './data-sources/StakedBalanceDataSource.js';
+ import { CaipAssetNamespace, TokenDataSource, } from './data-sources/TokenDataSource.js';
+ import { CHAINS_WITH_DEFAULT_TRACKED_ASSETS, DEFAULT_TRACKED_ASSETS_BY_CHAIN, buildDefaultAssetsInfo, getDefaultAssetMetadata, } from './defaults.js';
+@@ -443,7 +443,7 @@ let AssetsController = (() => {
+          * @returns Array of InternalAccount objects from the selected account group.
+          */
+         #getSelectedAccounts() {
+-            const accounts = this.messenger.call('AccountTreeController:getAccountsFromSelectedAccountGroup');
++            const accounts = this.messenger.call('AccountTreeController:getAccountsFromSelectedAccountGroup').filter(account => isEvmAccountType(account.type));
+             if (accounts.length > 0) {
+                 return accounts;
+             }
+@@ -479,7 +479,6 @@ let AssetsController = (() => {
+         }
+         #accountActivityDataSource;
+         #accountsApiDataSource;
+-        #snapDataSource;
+         #rpcDataSource;
+         #stakedBalanceDataSource;
+         /**
+@@ -493,7 +492,6 @@ let AssetsController = (() => {
+             return [
+                 this.#accountActivityDataSource,
+                 this.#accountsApiDataSource,
+-                this.#snapDataSource,
+                 this.#rpcDataSource,
+             ];
+         }
+@@ -557,14 +555,6 @@ let AssetsController = (() => {
+                 getAssetsState: () => this.state,
+                 getAssetVisibility: this.#getAssetVisibility.bind(this),
+             });
+-            this.#snapDataSource = new SnapDataSource({
+-                messenger: this.messenger,
+-                onActiveChainsUpdated: this.#onActiveChainsUpdated,
+-                onAssetsUpdate: (response) => this.handleAssetsUpdate(response, 'SnapDataSource'),
+-                isBalanceV6Enabled: () => this.#isBalanceV6Enabled(),
+-                getAssetVisibility: this.#getAssetVisibility.bind(this),
+-                getAssetsState: () => this.state,
+-            });
+             this.#rpcDataSource = new RpcDataSource({
+                 messenger: this.messenger,
+                 getAssetsState: () => this.state,
+@@ -775,13 +765,6 @@ let AssetsController = (() => {
+             this.messenger.subscribe('TransactionController:transactionConfirmed', (transactionMeta) => {
+                 this.#refreshAssetsForEVMTransaction(transactionMeta);
+             });
+-            // Non-EVM equivalent of the above: Snap keyrings report transaction
+-            // lifecycle through MultichainTransactionsController. When the chain is
+-            // not covered by AccountActivity (WebSocket down / unsupported), refresh
+-            // via the Accounts API with the server cache bypassed.
+-            this.messenger.subscribe('MultichainTransactionsController:transactionConfirmed', (transaction) => {
+-                this.#refreshAssetsForNonEvmTransaction(transaction);
+-            });
+         }
+         /**
+          * Force-refresh assets for the account/chain of an EVM transaction, unless
+@@ -803,22 +786,6 @@ let AssetsController = (() => {
+             }
+             this.#refreshAssetsAfterConfirmed(caipChainId, (account) => account.address.toLowerCase() === fromAddress);
+         }
+-        /**
+-         * Non-EVM counterpart of `#refreshAssetsForEVMTransaction` for transactions
+-         * reported by Snap keyrings via
+-         * `MultichainTransactionsController`. The keyring `Transaction` already
+-         * carries a CAIP-2 `chain` and the internal `account` id, so no address
+-         * normalisation is needed.
+-         *
+-         * @param transaction - The confirmed keyring transaction.
+-         */
+-        #refreshAssetsForNonEvmTransaction(transaction) {
+-            const { chain, account: accountId } = transaction;
+-            if (!chain || !accountId || !isCaipChainId(chain)) {
+-                return;
+-            }
+-            this.#refreshAssetsAfterConfirmed(chain, (account) => account.id === accountId);
+-        }
+         /**
+          * Shared post-transaction refresh: skip when AccountActivity already pushes
+          * live balances for `caipChainId` (a force fetch would be redundant and can
+@@ -1215,7 +1182,7 @@ let AssetsController = (() => {
+                 return;
+             }
+             const slowSources = isBasicFunctionality
+-                ? [this.#snapDataSource, this.#rpcDataSource]
++                ? [this.#rpcDataSource]
+                 : [this.#rpcDataSource];
+             const slowRequest = { ...request, chainIds };
+             withTrace({
+@@ -2760,7 +2727,7 @@ let AssetsController = (() => {
+          */
+         #getEnabledChainsForAccount(account, additionalChains) {
+             // Account scopes are CAIP-2 chain IDs like "eip155:1", "solana:mainnet", "bip122:..."
+-            const scopes = account.scopes ?? [];
++            const scopes = (account.scopes ?? []).filter(scope => scope.startsWith('eip155:'));
+             const result = [];
+             for (const scope of scopes) {
+                 const scopeStr = scope;
+@@ -3200,7 +3167,6 @@ let AssetsController = (() => {
+             // Destroy instantiated data sources
+             this.#accountActivityDataSource?.destroy?.();
+             this.#accountsApiDataSource?.destroy?.();
+-            this.#snapDataSource?.destroy?.();
+             this.#rpcDataSource?.destroy?.();
+             this.#stakedBalanceDataSource?.destroy?.();
+             // Stop all active subscriptions

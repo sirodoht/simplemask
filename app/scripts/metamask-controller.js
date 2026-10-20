@@ -132,7 +132,6 @@ import {
   getSmartTransactionsEnabled,
 } from '../../shared/lib/selectors';
 import { endTrace, trace, TraceName } from '../../shared/lib/trace';
-import { NON_EVM_ACCOUNT_CHANGED_CONFIGS } from '../../shared/constants/multichain/networks';
 import { FirstTimeFlowType } from '../../shared/constants/onboarding';
 import { updateCurrentLocale } from '../../shared/lib/translate';
 import { getEnabledAdvancedPermissions } from '../../shared/lib/gator-permissions/feature-flags';
@@ -205,8 +204,6 @@ import {
   getRemovedAuthorizations,
   getChangedAuthorizations,
   getAuthorizedScopesByOrigin,
-  getPermittedAccountsForScopesByOrigin,
-  getOriginsWithSessionProperty,
 } from './controllers/permissions';
 import createRPCMethodTrackingMiddleware from './lib/createRPCMethodTrackingMiddleware';
 import { addDappTransaction } from './lib/transaction/util';
@@ -230,13 +227,7 @@ import { PatchStore } from './lib/PatchStore';
 import { sanitizeUIState } from './lib/state-utils';
 import { rejectOriginApprovals } from './lib/approval/utils';
 import { InstitutionalSnapControllerInit } from './messenger-client-init/institutional-snap/institutional-snap-controller-init';
-import {
-  MultichainAssetsControllerInit,
-  MultichainTransactionsControllerInit,
-  MultichainBalancesControllerInit,
-  MultichainAssetsRatesControllerInit,
-  MultichainNetworkControllerInit,
-} from './messenger-client-init/multichain';
+import { MultichainNetworkControllerInit } from './messenger-client-init/multichain';
 import {
   AssetsContractControllerInit,
   AssetsControllerInit,
@@ -261,7 +252,6 @@ import {
   SnapsNameProviderInit,
   SnapRegistryControllerInit,
   WebSocketServiceInit,
-  MultichainRoutingServiceInit,
 } from './messenger-client-init/snaps';
 import {
   BackendWebSocketServiceInit,
@@ -537,12 +527,7 @@ export default class MetamaskController extends EventEmitter {
       // reacting to any `:multichainAccountGroup*` events.
       AccountTreeController: AccountTreeControllerInit,
       SnapAccountService: SnapAccountServiceInit,
-      MultichainAssetsController: MultichainAssetsControllerInit,
-      MultichainAssetsRatesController: MultichainAssetsRatesControllerInit,
-      MultichainBalancesController: MultichainBalancesControllerInit,
-      MultichainTransactionsController: MultichainTransactionsControllerInit,
       MultichainAccountService: MultichainAccountServiceInit,
-      MultichainRoutingService: MultichainRoutingServiceInit,
       AuthenticationController: AuthenticationControllerInit,
       UserStorageController: UserStorageControllerInit,
       AuthenticatedUserStorageService: AuthenticatedUserStorageServiceInit,
@@ -642,14 +627,6 @@ export default class MetamaskController extends EventEmitter {
     this.assetsContractController =
       messengerClientsByName.AssetsContractController;
     this.assetsController = messengerClientsByName.AssetsController;
-    this.multichainAssetsController =
-      messengerClientsByName.MultichainAssetsController;
-    this.multichainBalancesController =
-      messengerClientsByName.MultichainBalancesController;
-    this.multichainTransactionsController =
-      messengerClientsByName.MultichainTransactionsController;
-    this.multichainAssetsRatesController =
-      messengerClientsByName.MultichainAssetsRatesController;
     this.multichainAccountService =
       messengerClientsByName.MultichainAccountService;
     this.tokenBalancesController =
@@ -1217,10 +1194,6 @@ export default class MetamaskController extends EventEmitter {
         ConnectivityController: this.connectivityController,
         AppStateController: this.appStateController,
         AppMetadataController: this.appMetadataController,
-        MultichainAssetsController: this.multichainAssetsController,
-        MultichainBalancesController: this.multichainBalancesController,
-        MultichainTransactionsController: this.multichainTransactionsController,
-        MultichainAssetsRatesController: this.multichainAssetsRatesController,
         TokenRatesController: this.tokenRatesController,
         MultichainNetworkController: this.multichainNetworkController,
         NetworkController: this.networkController,
@@ -1449,24 +1422,6 @@ export default class MetamaskController extends EventEmitter {
    */
   setupControllerEventSubscriptions() {
     let lastSelectedAddress;
-    const lastSelectedAccountAddressByNetwork = {};
-
-    NON_EVM_ACCOUNT_CHANGED_CONFIGS.forEach(({ network }) => {
-      // this throws if there is no account for the given network... perhaps we should handle this better at the controller level
-      try {
-        lastSelectedAccountAddressByNetwork[network] =
-          this.accountsController.getSelectedMultichainAccount(
-            network,
-          )?.address;
-      } catch (err) {
-        // This scenario shouldn't occur, but if it does, we track it for debugging
-        const error = new Error(
-          `Failed to get selected multichain account for network: ${network}`,
-          { cause: err },
-        );
-        captureException(error);
-      }
-    });
 
     this.controllerMessenger.subscribe(
       'PreferencesController:stateChange',
@@ -1575,56 +1530,6 @@ export default class MetamaskController extends EventEmitter {
       getAuthorizedScopesByOrigin,
     );
 
-    // wallet_notify for multichain accountChanged when permission changes
-    this.controllerMessenger.subscribe(
-      `${this.permissionController.name}:stateChange`,
-      async (currentValue, previousValue) => {
-        const origins = uniq([...previousValue.keys(), ...currentValue.keys()]);
-        NON_EVM_ACCOUNT_CHANGED_CONFIGS.forEach(
-          ({ chains, notificationProperty, network }) => {
-            origins.forEach((origin) => {
-              const previousCaveatValue = previousValue.get(origin);
-              const currentCaveatValue = currentValue.get(origin);
-
-              const notificationsEnabled =
-                Boolean(
-                  previousCaveatValue?.sessionProperties?.[
-                    notificationProperty
-                  ],
-                ) ||
-                Boolean(
-                  currentCaveatValue?.sessionProperties?.[notificationProperty],
-                );
-
-              if (!notificationsEnabled) {
-                return;
-              }
-
-              const previousSelectedAddress =
-                this._getSelectedMultichainAccountAddress(
-                  previousCaveatValue,
-                  chains,
-                );
-              const currentSelectedAddress =
-                this._getSelectedMultichainAccountAddress(
-                  currentCaveatValue,
-                  chains,
-                );
-
-              if (previousSelectedAddress !== currentSelectedAddress) {
-                this._notifyMultichainAccountChange(
-                  origin,
-                  currentSelectedAddress ? [currentSelectedAddress] : [],
-                  network,
-                );
-              }
-            });
-          },
-        );
-      },
-      getAuthorizedScopesByOrigin,
-    );
-
     // wallet_notify for multichain accountChanged when selected account group changes
     this.controllerMessenger.subscribe(
       `${this.accountTreeController.name}:selectedAccountGroupChange`,
@@ -1639,58 +1544,6 @@ export default class MetamaskController extends EventEmitter {
         ] of authorizationsByOrigin.entries()) {
           this._notifyAuthorizationChange(origin, authorization);
         }
-
-        NON_EVM_ACCOUNT_CHANGED_CONFIGS.forEach(
-          ({ network, accountType, notificationProperty, chains }) => {
-            const [account] =
-              this.accountTreeController.getAccountsFromSelectedAccountGroup({
-                scopes: [network],
-                type: accountType,
-              });
-
-            const lastSelectedAccountAddress =
-              lastSelectedAccountAddressByNetwork[network];
-
-            if (
-              !account ||
-              account.type !== accountType ||
-              account.address === lastSelectedAccountAddress
-            ) {
-              return;
-            }
-
-            lastSelectedAccountAddressByNetwork[network] = account.address;
-
-            const originsWithAccountChangedNotifications =
-              getOriginsWithSessionProperty(
-                this.permissionController.state,
-                notificationProperty,
-              );
-
-            const permittedAccounts = getPermittedAccountsForScopesByOrigin(
-              this.permissionController.state,
-              chains,
-            );
-
-            for (const [origin, accounts] of permittedAccounts.entries()) {
-              const parsedAddresses = accounts.map((caipAccountId) => {
-                const { address } = parseCaipAccountId(caipAccountId);
-                return address;
-              });
-
-              if (
-                parsedAddresses.includes(account.address) &&
-                originsWithAccountChangedNotifications[origin]
-              ) {
-                this._notifyMultichainAccountChange(
-                  origin,
-                  [account.address],
-                  network,
-                );
-              }
-            }
-          },
-        );
       },
     );
 
@@ -2027,7 +1880,6 @@ export default class MetamaskController extends EventEmitter {
       authenticatedUserStorageService,
       notificationServicesController,
       notificationServicesPushController,
-      multichainAssetsRatesController,
       staticAssetsController,
     } = this;
 
@@ -2852,14 +2704,6 @@ export default class MetamaskController extends EventEmitter {
         currencyRateController.stopPollingByPollingToken.bind(
           currencyRateController,
         ),
-      multichainAssetsRatesStartPolling:
-        multichainAssetsRatesController.startPolling.bind(
-          multichainAssetsRatesController,
-        ),
-      multichainAssetsRatesStopPollingByPollingToken:
-        multichainAssetsRatesController.stopPollingByPollingToken.bind(
-          multichainAssetsRatesController,
-        ),
 
       tokenRatesStartPolling:
         tokenRatesController.startPolling.bind(tokenRatesController),
@@ -3052,23 +2896,6 @@ export default class MetamaskController extends EventEmitter {
         this.nameController,
       ),
       setName: this.nameController.setName.bind(this.nameController),
-
-      // Multichain Assets Controller
-      multichainAddAssets: (assetIds, accountId) =>
-        this.multichainAssetsController.addAssets(assetIds, accountId),
-
-      multichainIgnoreAssets: (assetIds, accountId) =>
-        this.multichainAssetsController.ignoreAssets(assetIds, accountId),
-
-      // MultichainBalancesController
-      multichainUpdateBalance: (accountId) =>
-        this.multichainBalancesController.updateBalance(accountId),
-
-      // MultichainTransactionsController
-      multichainUpdateTransactions: (accountId) =>
-        this.multichainTransactionsController.updateTransactionsForAccount(
-          accountId,
-        ),
       // Transaction Decode
       decodeTransactionData: this.controllerMessenger.call.bind(
         this.controllerMessenger,
@@ -3486,90 +3313,8 @@ export default class MetamaskController extends EventEmitter {
     );
   }
 
-  getNonEvmSupportedMethods(scope) {
-    return this.controllerMessenger.call(
-      'MultichainRoutingService:getSupportedMethods',
-      scope,
-    );
-  }
-
-  /**
-   * For origins with a solana or tron scope permitted, sends a wallet_notify -> metamask_accountChanged
-   * event to fire for the scope with the currently selected account if any are
-   * permitted or empty array otherwise.
-   *
-   * @param {string} origin - The origin to notify with the current account
-   */
-  notifyNonEVMAccountChangedForCurrentAccount(origin) {
-    let caip25Caveat;
-    try {
-      caip25Caveat = this.permissionController.getCaveat(
-        origin,
-        Caip25EndowmentPermissionName,
-        Caip25CaveatType,
-      );
-    } catch {
-      // noop
-    }
-    if (!caip25Caveat) {
-      return;
-    }
-
-    const sessionScopes = getSessionScopes(caip25Caveat.value, {
-      getNonEvmSupportedMethods: this.getNonEvmSupportedMethods.bind(this),
-    });
-
-    // The optional chain operator below shouldn't be needed as
-    // the existence of sessionProperties is enforced by the caveat
-    // validator, but we are still seeing some instances where it
-    // isn't defined in production:
-    // https://github.com/MetaMask/metamask-extension/issues/33412
-    // This suggests state corruption, but we can't find definitive proof that.
-    // For now we are using this patch which is harmless and silences the error in Sentry.
-    NON_EVM_ACCOUNT_CHANGED_CONFIGS.forEach(
-      ({ network, chains, notificationProperty }) => {
-        const accountsChangedNotifications =
-          caip25Caveat.value.sessionProperties?.[notificationProperty];
-
-        if (!accountsChangedNotifications) {
-          return;
-        }
-
-        // Collect accounts from all scopeObjects for all chains in the config
-        // This ensures we don't miss accounts if different chains have different accounts
-        const scopeObjects = chains
-          .map((chain) => sessionScopes[chain])
-          .filter((scope) => scope !== undefined);
-
-        if (scopeObjects.length === 0) {
-          return;
-        }
-
-        // Collect all unique accounts from all scopeObjects
-        const allAccounts = new Set(
-          scopeObjects.flatMap((scopeObject) => scopeObject.accounts),
-        );
-
-        const parsedPermittedAddresses = Array.from(allAccounts).map(
-          (caipAccountId) => {
-            const { address } = parseCaipAccountId(caipAccountId);
-            return address;
-          },
-        );
-
-        const [accountAddressToEmit] = this.sortAddressesByLastSelected(
-          parsedPermittedAddresses,
-        );
-
-        if (accountAddressToEmit) {
-          this._notifyMultichainAccountChange(
-            origin,
-            [accountAddressToEmit],
-            network,
-          );
-        }
-      },
-    );
+  getNonEvmSupportedMethods() {
+    return [];
   }
   // Identity Management (signature operations)
 
@@ -4272,16 +4017,6 @@ export default class MetamaskController extends EventEmitter {
       engine,
     });
 
-    // Solana and Tron account changed notifications
-    // This delay is needed because it's possible for a dapp to not have listeners
-    // setup in time right after a connection is established.
-    // This can be resolved if we amend the caip standards to include a liveliness
-    // handshake as part of the initial connection.
-    setTimeout(
-      () => this.notifyNonEVMAccountChangedForCurrentAccount(origin),
-      500,
-    );
-
     pipeline(
       outStream,
       dupeReqFilterStream,
@@ -4939,22 +4674,11 @@ export default class MetamaskController extends EventEmitter {
             origin,
           ),
         getNonEvmSupportedMethods: this.getNonEvmSupportedMethods.bind(this),
-        isNonEvmScopeSupported: this.controllerMessenger.call.bind(
-          this.controllerMessenger,
-          'MultichainRoutingService:isSupportedScope',
-        ),
-        handleNonEvmRequestForOrigin: (params) =>
-          this.controllerMessenger.call(
-            'MultichainRoutingService:handleRequest',
-            {
-              ...params,
-              origin,
-            },
-          ),
-        getNonEvmAccountAddresses: this.controllerMessenger.call.bind(
-          this.controllerMessenger,
-          'MultichainRoutingService:getSupportedAccounts',
-        ),
+        isNonEvmScopeSupported: () => false,
+        handleNonEvmRequestForOrigin: () => {
+          throw new Error('Non-EVM requests are unsupported');
+        },
+        getNonEvmAccountAddresses: () => [],
         trackSessionCreatedEvent: (approvedCaip25CaveatValue) =>
           trackEvent(
             createEventBuilder(MetaMetricsEventName.PermissionsRequested)

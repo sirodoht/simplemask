@@ -893,10 +893,9 @@
         "@metamask/base-controller": true,
         "@metamask/assets-controller>@metamask/client-controller": true,
         "@metamask/assets-controller>@metamask/controller-utils": true,
-        "@metamask/keyring-snap-client": true,
+        "@metamask/keyring-api": true,
         "@metamask/assets-controller>@metamask/phishing-controller": true,
         "@metamask/assets-controller>@metamask/polling-controller": true,
-        "@metamask/snaps-utils": true,
         "@metamask/utils": true,
         "async-mutex": true,
         "@metamask/assets-controller>bignumber.js": true,
@@ -928,12 +927,9 @@
         "@metamask/assets-controllers>@metamask/controller-utils": true,
         "@metamask/controller-utils>@metamask/eth-query": true,
         "@metamask/keyring-api": true,
-        "@metamask/keyring-snap-client": true,
         "@metamask/metamask-eth-abis": true,
-        "@metamask/assets-controllers>@metamask/phishing-controller": true,
         "@metamask/assets-controllers>@metamask/polling-controller": true,
         "@metamask/rpc-errors": true,
-        "@metamask/snaps-utils": true,
         "@metamask/utils": true,
         "@tanstack/react-query>@tanstack/query-core": true,
         "async-mutex": true,
@@ -941,7 +937,7 @@
         "@metamask/assets-controllers>immer": true,
         "@metamask/assets-controller>lodash-es": true,
         "@metamask/assets-controllers>multiformats": true,
-        "reselect": true,
+        "@metamask/assets-controllers>reselect": true,
         "@metamask/assets-controllers>single-call-balance-checker-abi": true,
         "@metamask/assets-controllers>uuid": true
       }
@@ -2113,11 +2109,8 @@
       "packages": {
         "@ethereumjs/tx>@ethereumjs/util": true,
         "@metamask/account-api": true,
-        "@metamask/eth-snap-keyring": true,
         "@metamask/keyring-api": true,
         "@metamask/keyring-controller": true,
-        "@metamask/keyring-snap-client": true,
-        "@metamask/snaps-utils": true,
         "@metamask/utils": true,
         "async-mutex": true
       }
@@ -2156,17 +2149,6 @@
     "@metamask/bridge-controller>@metamask/multichain-network-controller": {
       "packages": {
         "@metamask/utils": true
-      }
-    },
-    "@metamask/multichain-transactions-controller": {
-      "globals": {
-        "console.error": true
-      },
-      "packages": {
-        "@metamask/base-controller": true,
-        "@metamask/keyring-api": true,
-        "@metamask/keyring-snap-client": true,
-        "@metamask/snaps-utils": true
       }
     },
     "@metamask/name-controller": {
@@ -6512,6 +6494,12 @@
       }
     },
     "reselect": {
+      "globals": {
+        "WeakRef": true,
+        "console.warn": true
+      }
+    },
+    "@metamask/assets-controllers>reselect": {
       "globals": {
         "WeakRef": true,
         "console.warn": true

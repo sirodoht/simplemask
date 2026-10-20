@@ -1,0 +1,214 @@
+diff --git a/dist/MultichainNetworkController/MultichainNetworkController.cjs b/dist/MultichainNetworkController/MultichainNetworkController.cjs
+index 5ea59e5e6a7976b2fbde69b715a5e851daa55d78..3a736574ac4f548133040daa5d6c3c5c594a81c8 100644
+--- a/dist/MultichainNetworkController/MultichainNetworkController.cjs
++++ b/dist/MultichainNetworkController/MultichainNetworkController.cjs
+@@ -37,9 +37,8 @@ class MultichainNetworkController extends base_controller_1.BaseController {
+             state: {
+                 ...(0, constants_js_1.getDefaultMultichainNetworkControllerState)(),
+                 ...state,
+-                // We can keep the current network as a hardcoded value
+-                // since it is not expected to add/remove networks yet.
+-                multichainNetworkConfigurationsByChainId: constants_js_1.AVAILABLE_MULTICHAIN_NETWORK_CONFIGURATIONS,
++                multichainNetworkConfigurationsByChainId: {},
++                isEvmSelected: true,
+             },
+         });
+         _MultichainNetworkController_instances.add(this);
+@@ -48,21 +47,9 @@ class MultichainNetworkController extends base_controller_1.BaseController {
+         __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_subscribeToMessageEvents).call(this);
+         __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_registerMessageHandlers).call(this);
+     }
+-    /**
+-     * Sets the active network.
+-     *
+-     * @param id - The non-EVM Caip chain ID or EVM client ID of the network to set active.
+-     * @returns - A promise that resolves when the network is set active.
+-     */
+     async setActiveNetwork(id) {
+-        if ((0, utils_1.isCaipChainId)(id)) {
+-            const isSupportedCaipChainId = (0, utils_js_1.checkIfSupportedCaipChainId)(id);
+-            if (!isSupportedCaipChainId) {
+-                throw new Error(`Unsupported Caip chain ID: ${String(id)}`);
+-            }
+-            return __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_setActiveNonEvmNetwork).call(this, id);
+-        }
+-        return await __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_setActiveEvmNetwork).call(this, id);
++        if (id.includes(':')) { throw new Error('Only EVM network client IDs are supported'); }
++        return this.messenger.call('NetworkController:setActiveNetwork', id);
+     }
+     /**
+      * Returns the active networks for the available EVM addresses (non-EVM networks will be supported in the future).
+@@ -132,19 +119,8 @@ async function _MultichainNetworkController_setActiveEvmNetwork(id) {
+     if (shouldSetEvmActive || shouldNotifyNetworkChange) {
+         this.messenger.publish('MultichainNetworkController:networkDidChange', id);
+     }
+-}, _MultichainNetworkController_setActiveNonEvmNetwork = function _MultichainNetworkController_setActiveNonEvmNetwork(id) {
+-    if (id === this.state.selectedMultichainNetworkChainId &&
+-        !this.state.isEvmSelected) {
+-        // Same non-EVM network is already selected, no need to update
+-        return;
+-    }
+-    this.update((state) => {
+-        state.selectedMultichainNetworkChainId = id;
+-        state.isEvmSelected = false;
+-    });
+-    // Notify listeners that the network changed
+-    this.messenger.publish('MultichainNetworkController:networkDidChange', id);
+-}, _MultichainNetworkController_removeEvmNetwork = 
++}, _MultichainNetworkController_setActiveNonEvmNetwork =
++function () { throw new Error("Non-EVM networks are unsupported"); }, _MultichainNetworkController_removeEvmNetwork = 
+ /**
+  * Removes an EVM network from the list of networks.
+  * This method re-directs the request to the network-controller.
+@@ -169,40 +145,9 @@ async function _MultichainNetworkController_removeEvmNetwork(chainId) {
+     this.messenger.call('NetworkController:removeNetwork', hexChainId);
+ }, _MultichainNetworkController_removeNonEvmNetwork = function _MultichainNetworkController_removeNonEvmNetwork(_chainId) {
+     throw new Error('Removal of non-EVM networks is not supported');
+-}, _MultichainNetworkController_handleOnSelectedAccountChange = function _MultichainNetworkController_handleOnSelectedAccountChange(account) {
+-    const { type: accountType, scopes } = account;
+-    const isEvmAccount = (0, keyring_api_1.isEvmAccountType)(accountType);
+-    // Handle switching to EVM network
+-    if (isEvmAccount) {
+-        if (this.state.isEvmSelected) {
+-            // No need to update if already on evm network
+-            return;
+-        }
+-        // Make EVM network active
+-        this.update((state) => {
+-            state.isEvmSelected = true;
+-        });
+-        return;
+-    }
+-    // Handle switching to non-EVM network
+-    if (scopes.includes(this.state.selectedMultichainNetworkChainId)) {
+-        // No need to update if the account's scope includes the active network
+-        this.update((state) => {
+-            state.isEvmSelected = false;
+-        });
+-        return;
+-    }
+-    const nonEvmChainId = (0, utils_js_1.getChainIdForNonEvm)(scopes);
+-    this.update((state) => {
+-        state.selectedMultichainNetworkChainId = nonEvmChainId;
+-        state.isEvmSelected = false;
+-    });
+-    // No need to publish NetworkController:setActiveNetwork because EVM accounts falls back to use the last selected EVM network
+-    // DO NOT publish MultichainNetworkController:networkDidChange to prevent circular listener loops
+-}, _MultichainNetworkController_subscribeToMessageEvents = function _MultichainNetworkController_subscribeToMessageEvents() {
+-    // Handle network switch when account is changed
+-    this.messenger.subscribe('AccountsController:selectedAccountChange', (account) => __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_handleOnSelectedAccountChange).call(this, account));
+-}, _MultichainNetworkController_registerMessageHandlers = function _MultichainNetworkController_registerMessageHandlers() {
++}, _MultichainNetworkController_handleOnSelectedAccountChange =
++function () { throw new Error("Non-EVM networks are unsupported"); }, _MultichainNetworkController_subscribeToMessageEvents =
++function () {}, _MultichainNetworkController_registerMessageHandlers = function _MultichainNetworkController_registerMessageHandlers() {
+     this.messenger.registerMethodActionHandlers(this, MESSENGER_EXPOSED_METHODS);
+ };
+ //# sourceMappingURL=MultichainNetworkController.cjs.map
+\ No newline at end of file
+diff --git a/dist/MultichainNetworkController/MultichainNetworkController.mjs b/dist/MultichainNetworkController/MultichainNetworkController.mjs
+index 346303ff9171def1a2df5fb8ccf07e63ec4cac34..e73ad51c1540551874573916bad64ae10acf5e79 100644
+--- a/dist/MultichainNetworkController/MultichainNetworkController.mjs
++++ b/dist/MultichainNetworkController/MultichainNetworkController.mjs
+@@ -34,9 +34,8 @@ export class MultichainNetworkController extends BaseController {
+             state: {
+                 ...getDefaultMultichainNetworkControllerState(),
+                 ...state,
+-                // We can keep the current network as a hardcoded value
+-                // since it is not expected to add/remove networks yet.
+-                multichainNetworkConfigurationsByChainId: AVAILABLE_MULTICHAIN_NETWORK_CONFIGURATIONS,
++                multichainNetworkConfigurationsByChainId: {},
++                isEvmSelected: true,
+             },
+         });
+         _MultichainNetworkController_instances.add(this);
+@@ -45,21 +44,9 @@ export class MultichainNetworkController extends BaseController {
+         __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_subscribeToMessageEvents).call(this);
+         __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_registerMessageHandlers).call(this);
+     }
+-    /**
+-     * Sets the active network.
+-     *
+-     * @param id - The non-EVM Caip chain ID or EVM client ID of the network to set active.
+-     * @returns - A promise that resolves when the network is set active.
+-     */
+     async setActiveNetwork(id) {
+-        if (isCaipChainId(id)) {
+-            const isSupportedCaipChainId = checkIfSupportedCaipChainId(id);
+-            if (!isSupportedCaipChainId) {
+-                throw new Error(`Unsupported Caip chain ID: ${String(id)}`);
+-            }
+-            return __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_setActiveNonEvmNetwork).call(this, id);
+-        }
+-        return await __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_setActiveEvmNetwork).call(this, id);
++        if (id.includes(':')) { throw new Error('Only EVM network client IDs are supported'); }
++        return this.messenger.call('NetworkController:setActiveNetwork', id);
+     }
+     /**
+      * Returns the active networks for the available EVM addresses (non-EVM networks will be supported in the future).
+@@ -128,19 +115,8 @@ async function _MultichainNetworkController_setActiveEvmNetwork(id) {
+     if (shouldSetEvmActive || shouldNotifyNetworkChange) {
+         this.messenger.publish('MultichainNetworkController:networkDidChange', id);
+     }
+-}, _MultichainNetworkController_setActiveNonEvmNetwork = function _MultichainNetworkController_setActiveNonEvmNetwork(id) {
+-    if (id === this.state.selectedMultichainNetworkChainId &&
+-        !this.state.isEvmSelected) {
+-        // Same non-EVM network is already selected, no need to update
+-        return;
+-    }
+-    this.update((state) => {
+-        state.selectedMultichainNetworkChainId = id;
+-        state.isEvmSelected = false;
+-    });
+-    // Notify listeners that the network changed
+-    this.messenger.publish('MultichainNetworkController:networkDidChange', id);
+-}, _MultichainNetworkController_removeEvmNetwork = 
++}, _MultichainNetworkController_setActiveNonEvmNetwork =
++function () { throw new Error("Non-EVM networks are unsupported"); }, _MultichainNetworkController_removeEvmNetwork = 
+ /**
+  * Removes an EVM network from the list of networks.
+  * This method re-directs the request to the network-controller.
+@@ -165,40 +141,9 @@ async function _MultichainNetworkController_removeEvmNetwork(chainId) {
+     this.messenger.call('NetworkController:removeNetwork', hexChainId);
+ }, _MultichainNetworkController_removeNonEvmNetwork = function _MultichainNetworkController_removeNonEvmNetwork(_chainId) {
+     throw new Error('Removal of non-EVM networks is not supported');
+-}, _MultichainNetworkController_handleOnSelectedAccountChange = function _MultichainNetworkController_handleOnSelectedAccountChange(account) {
+-    const { type: accountType, scopes } = account;
+-    const isEvmAccount = isEvmAccountType(accountType);
+-    // Handle switching to EVM network
+-    if (isEvmAccount) {
+-        if (this.state.isEvmSelected) {
+-            // No need to update if already on evm network
+-            return;
+-        }
+-        // Make EVM network active
+-        this.update((state) => {
+-            state.isEvmSelected = true;
+-        });
+-        return;
+-    }
+-    // Handle switching to non-EVM network
+-    if (scopes.includes(this.state.selectedMultichainNetworkChainId)) {
+-        // No need to update if the account's scope includes the active network
+-        this.update((state) => {
+-            state.isEvmSelected = false;
+-        });
+-        return;
+-    }
+-    const nonEvmChainId = getChainIdForNonEvm(scopes);
+-    this.update((state) => {
+-        state.selectedMultichainNetworkChainId = nonEvmChainId;
+-        state.isEvmSelected = false;
+-    });
+-    // No need to publish NetworkController:setActiveNetwork because EVM accounts falls back to use the last selected EVM network
+-    // DO NOT publish MultichainNetworkController:networkDidChange to prevent circular listener loops
+-}, _MultichainNetworkController_subscribeToMessageEvents = function _MultichainNetworkController_subscribeToMessageEvents() {
+-    // Handle network switch when account is changed
+-    this.messenger.subscribe('AccountsController:selectedAccountChange', (account) => __classPrivateFieldGet(this, _MultichainNetworkController_instances, "m", _MultichainNetworkController_handleOnSelectedAccountChange).call(this, account));
+-}, _MultichainNetworkController_registerMessageHandlers = function _MultichainNetworkController_registerMessageHandlers() {
++}, _MultichainNetworkController_handleOnSelectedAccountChange =
++function () { throw new Error("Non-EVM networks are unsupported"); }, _MultichainNetworkController_subscribeToMessageEvents =
++function () {}, _MultichainNetworkController_registerMessageHandlers = function _MultichainNetworkController_registerMessageHandlers() {
+     this.messenger.registerMethodActionHandlers(this, MESSENGER_EXPOSED_METHODS);
+ };
+ //# sourceMappingURL=MultichainNetworkController.mjs.map
+\ No newline at end of file

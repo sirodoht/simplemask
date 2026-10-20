@@ -90,15 +90,15 @@ describe('useSendType', () => {
       isBitcoinSendType: false,
       isEvmNativeSendType: false,
       isEvmSendType: false,
-      isNonEvmNativeSendType: true,
-      isNonEvmSendType: true,
-      isSolanaSendType: true,
+      isNonEvmNativeSendType: false,
+      isNonEvmSendType: false,
+      isSolanaSendType: false,
       isStellarSendType: false,
       isTronSendType: false,
     });
   });
 
-  it('return correct type for solana asset send', () => {
+  it('rejects solana asset send', () => {
     jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
       asset: SOLANA_ASSET,
       chainId: SOLANA_NATIVE_ASSET.chainId,
@@ -109,25 +109,25 @@ describe('useSendType', () => {
       isEvmNativeSendType: false,
       isEvmSendType: false,
       isNonEvmNativeSendType: false,
-      isNonEvmSendType: true,
-      isSolanaSendType: true,
+      isNonEvmSendType: false,
+      isSolanaSendType: false,
       isStellarSendType: false,
       isTronSendType: false,
     });
   });
 
-  it('return correct type for bitcoin asset send', () => {
+  it('rejects bitcoin asset send', () => {
     jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
       asset: BITCOIN_ASSET,
       chainId: BITCOIN_ASSET.chainId,
     } as unknown as SendContext.SendContextType);
     const result = renderHook();
     expect(result).toEqual({
-      isBitcoinSendType: true,
+      isBitcoinSendType: false,
       isEvmNativeSendType: false,
       isEvmSendType: false,
-      isNonEvmNativeSendType: true,
-      isNonEvmSendType: true,
+      isNonEvmNativeSendType: false,
+      isNonEvmSendType: false,
       isSolanaSendType: false,
       isStellarSendType: false,
       isTronSendType: false,

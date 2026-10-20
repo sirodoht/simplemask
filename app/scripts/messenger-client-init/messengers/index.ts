@@ -10,8 +10,6 @@ import {
 import {
   getCronjobControllerMessenger,
   getExecutionServiceMessenger,
-  getMultichainRoutingServiceInitMessenger,
-  getMultichainRoutingServiceMessenger,
   getRateLimitControllerInitMessenger,
   getRateLimitControllerMessenger,
   getSnapControllerInitMessenger,
@@ -27,16 +25,7 @@ import {
   getBackendWebSocketServiceInitMessenger,
   getAccountActivityServiceMessenger,
 } from './core-backend';
-import {
-  getMultichainBalancesControllerMessenger,
-  getMultichainBalancesControllerInitMessenger,
-  getMultichainTransactionsControllerMessenger,
-  getMultichainAssetsControllerMessenger,
-  getMultichainAssetsControllerInitMessenger,
-  getMultichainNetworkControllerMessenger,
-  getMultichainAssetsRatesControllerMessenger,
-  getMultichainAssetsRatesControllerInitMessenger,
-} from './multichain';
+import { getMultichainNetworkControllerMessenger } from './multichain';
 import { getInstitutionalSnapControllerMessenger } from './accounts/institutional-snap-controller-messenger';
 import {
   getAuthenticationControllerInitMessenger,
@@ -65,7 +54,6 @@ import {
   getAccountTreeControllerMessenger,
   getAccountTreeControllerInitMessenger,
   getMultichainAccountServiceMessenger,
-  getMultichainAccountServiceInitMessenger,
   getSnapAccountServiceMessenger,
 } from './accounts';
 import { getOAuthServiceMessenger } from './seedless-onboarding';
@@ -378,29 +366,9 @@ export const MESSENGER_FACTORIES = {
     getMessenger: getMetaMetricsDataDeletionControllerMessenger,
     getInitMessenger: noop,
   },
-  MultichainAssetsController: {
-    getMessenger: getMultichainAssetsControllerMessenger,
-    getInitMessenger: getMultichainAssetsControllerInitMessenger,
-  },
-  MultichainAssetsRatesController: {
-    getMessenger: getMultichainAssetsRatesControllerMessenger,
-    getInitMessenger: getMultichainAssetsRatesControllerInitMessenger,
-  },
-  MultichainBalancesController: {
-    getMessenger: getMultichainBalancesControllerMessenger,
-    getInitMessenger: getMultichainBalancesControllerInitMessenger,
-  },
-  MultichainTransactionsController: {
-    getMessenger: getMultichainTransactionsControllerMessenger,
-    getInitMessenger: noop,
-  },
   MultichainNetworkController: {
     getMessenger: getMultichainNetworkControllerMessenger,
     getInitMessenger: noop,
-  },
-  MultichainRoutingService: {
-    getMessenger: getMultichainRoutingServiceMessenger,
-    getInitMessenger: getMultichainRoutingServiceInitMessenger,
   },
   NameController: {
     getMessenger: getNameControllerMessenger,
@@ -556,7 +524,7 @@ export const MESSENGER_FACTORIES = {
   },
   MultichainAccountService: {
     getMessenger: getMultichainAccountServiceMessenger,
-    getInitMessenger: getMultichainAccountServiceInitMessenger,
+    getInitMessenger: noop,
   },
   NetworkOrderController: {
     getMessenger: getNetworkOrderControllerMessenger,

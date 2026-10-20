@@ -1,3 +1,4 @@
+import { isEvmAccountType } from '@metamask/keyring-api';
 import type { AccountsControllerState } from '@metamask/accounts-controller';
 import { createSelector } from 'reselect';
 
@@ -13,7 +14,17 @@ const selectSelectedInternalAccountId = (state: AccountsState) =>
 
 export const getSelectedInternalAccount = createSelector(
   [selectSelectedInternalAccountId, selectInternalAccounts],
-  (accountId, accounts) => accounts[accountId],
+  (accountId, accounts) => {
+    if (!accountId) {
+      return accounts[accountId];
+    }
+    const selected = accounts[accountId];
+    return selected && isEvmAccountType(selected.type)
+      ? selected
+      : Object.values(accounts).filter((account) =>
+          isEvmAccountType(account.type),
+        )[0];
+  },
 );
 
 /**
@@ -25,7 +36,12 @@ export const getSelectedInternalAccount = createSelector(
  */
 export function getMaybeSelectedInternalAccount(state: AccountsState) {
   const accountId = state.metamask.internalAccounts?.selectedAccount;
-  return accountId
+  const account = accountId
     ? state.metamask.internalAccounts?.accounts[accountId]
     : undefined;
+  return account && isEvmAccountType(account.type)
+    ? account
+    : Object.values(state.metamask.internalAccounts?.accounts ?? {}).find(
+        (candidate) => isEvmAccountType(candidate.type),
+      );
 }

@@ -8,7 +8,6 @@ import {
   NetworkEnablementControllerMessenger,
 } from '@metamask/network-enablement-controller';
 import { BtcScope, SolAccountType, SolScope } from '@metamask/keyring-api';
-import { AccountsControllerSelectedAccountChangeEvent } from '@metamask/accounts-controller';
 import {
   AccountTreeControllerGetAccountsFromSelectedAccountGroupAction,
   AccountTreeControllerSelectedAccountGroupChangeEvent,
@@ -84,100 +83,6 @@ describe('NetworkEnablementControllerInit', () => {
     const { messengerClient } =
       NetworkEnablementControllerInit(getInitRequestMock());
     expect(messengerClient).toBeInstanceOf(NetworkEnablementController);
-  });
-
-  it('enables the Solana network when `AccountsController:selectedAccountChange` is emitted', () => {
-    const messenger = new Messenger<
-      MockAnyNamespace,
-      never,
-      AccountsControllerSelectedAccountChangeEvent
-    >({
-      namespace: MOCK_ANY_NAMESPACE,
-    });
-    const request = getInitRequestMock(messenger);
-    const { messengerClient } = NetworkEnablementControllerInit(request);
-
-    expect(messengerClient.enableNetworkInNamespace).not.toHaveBeenCalled();
-
-    // @ts-expect-error: Partial mock.
-    messenger.publish('AccountsController:selectedAccountChange', {
-      type: SolAccountType.DataAccount,
-    });
-
-    expect(messengerClient.enableNetworkInNamespace).toHaveBeenCalledWith(
-      'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
-      'solana',
-    );
-  });
-
-  it('enables the Ethereum network when `AccountTreeController:selectedAccountGroupChange` is emitted, the current chain ID is Solana mainnet, and there are no Solana accounts', () => {
-    const messenger = new Messenger<
-      MockAnyNamespace,
-      AccountTreeControllerGetAccountsFromSelectedAccountGroupAction,
-      AccountTreeControllerSelectedAccountGroupChangeEvent
-    >({
-      namespace: MOCK_ANY_NAMESPACE,
-    });
-
-    messenger.registerActionHandler(
-      'AccountTreeController:getAccountsFromSelectedAccountGroup',
-      () => [],
-    );
-
-    const request = getInitRequestMock(messenger);
-    const { messengerClient } = NetworkEnablementControllerInit(request);
-
-    messengerClient.state = {
-      enabledNetworkMap: {
-        solana: { [SolScope.Mainnet]: true },
-      },
-      nativeAssetIdentifiers: {},
-    };
-
-    expect(messengerClient.enableNetwork).not.toHaveBeenCalled();
-
-    messenger.publish(
-      'AccountTreeController:selectedAccountGroupChange',
-      '',
-      '',
-    );
-
-    expect(messengerClient.enableNetwork).toHaveBeenCalledWith('0x1');
-  });
-
-  it('enables the Ethereum network when `AccountTreeController:selectedAccountGroupChange` is emitted, the current chain ID is Bitcoin mainnet, and there are no Bitcoin accounts', () => {
-    const messenger = new Messenger<
-      MockAnyNamespace,
-      AccountTreeControllerGetAccountsFromSelectedAccountGroupAction,
-      AccountTreeControllerSelectedAccountGroupChangeEvent
-    >({
-      namespace: MOCK_ANY_NAMESPACE,
-    });
-
-    messenger.registerActionHandler(
-      'AccountTreeController:getAccountsFromSelectedAccountGroup',
-      () => [],
-    );
-
-    const request = getInitRequestMock(messenger);
-    const { messengerClient } = NetworkEnablementControllerInit(request);
-
-    messengerClient.state = {
-      enabledNetworkMap: {
-        bitcoin: { [BtcScope.Mainnet]: true },
-      },
-      nativeAssetIdentifiers: {},
-    };
-
-    expect(messengerClient.enableNetwork).not.toHaveBeenCalled();
-
-    messenger.publish(
-      'AccountTreeController:selectedAccountGroupChange',
-      '',
-      '',
-    );
-
-    expect(messengerClient.enableNetwork).toHaveBeenCalledWith('0x1');
   });
 
   it('does not enable the Ethereum network when `AccountTreeController:selectedAccountGroupChange` is emitted and there are accounts', () => {
@@ -272,12 +177,6 @@ describe('NetworkEnablementControllerInit', () => {
               [CHAIN_IDS.SEPOLIA]: false,
               [CHAIN_IDS.LOCALHOST]: false,
             },
-            [KnownCaipNamespace.Solana]: {
-              [SolScope.Mainnet]: false,
-            },
-            [KnownCaipNamespace.Bip122]: {
-              [BtcScope.Mainnet]: false,
-            },
           },
           nativeAssetIdentifiers: {},
         },
@@ -302,12 +201,6 @@ describe('NetworkEnablementControllerInit', () => {
             [CHAIN_IDS.POLYGON]: false,
             [CHAIN_IDS.SEPOLIA]: false,
             [CHAIN_IDS.LOCALHOST]: true,
-          },
-          [KnownCaipNamespace.Solana]: {
-            [SolScope.Mainnet]: false,
-          },
-          [KnownCaipNamespace.Bip122]: {
-            [BtcScope.Mainnet]: false,
           },
         },
         nativeAssetIdentifiers: {},
@@ -362,12 +255,6 @@ describe('NetworkEnablementControllerInit', () => {
             [CHAIN_IDS.SEPOLIA]: false,
             [CHAIN_IDS.LOCALHOST]: true,
             [CHAIN_IDS.ARC]: false,
-          },
-          [KnownCaipNamespace.Solana]: {
-            [SolScope.Mainnet]: false,
-          },
-          [KnownCaipNamespace.Bip122]: {
-            [BtcScope.Mainnet]: false,
           },
         },
         nativeAssetIdentifiers: {},

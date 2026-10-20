@@ -10,7 +10,6 @@ import {
   validateERC1155Balance,
   validateTokenBalance,
   validatePositiveNumericString,
-  mapSnapErrorCodeIntoTranslation,
 } from './useAmountValidation';
 
 const mockDebounce = jest.fn((fn: (...args: unknown[]) => unknown) => {
@@ -26,13 +25,6 @@ jest.mock('lodash', () => ({
 }));
 
 const mockValidateAmountWithSnap = jest.fn();
-
-jest.mock('./useSnapAmountOnInput', () => ({
-  useSnapAmountOnInput: () => ({
-    validateAmountWithSnap: (...args: unknown[]) =>
-      mockValidateAmountWithSnap(...args),
-  }),
-}));
 
 const MOCK_ADDRESS_1 = '0x0dcd5d886577d5081b0c52e242ef29e70be3e7bc';
 
@@ -217,38 +209,6 @@ describe('validateTokenBalance', () => {
   });
 });
 
-describe('mapSnapErrorCodeIntoTranslation', () => {
-  it('returns insufficientFundsSend for InsufficientBalance', () => {
-    expect(
-      mapSnapErrorCodeIntoTranslation(
-        'InsufficientBalance',
-        (str: string) => str,
-      ),
-    ).toEqual('insufficientFundsSend');
-  });
-
-  it('returns insufficientBalanceToCoverFees for InsufficientBalanceToCoverFee', () => {
-    expect(
-      mapSnapErrorCodeIntoTranslation(
-        'InsufficientBalanceToCoverFee',
-        (str: string) => str,
-      ),
-    ).toEqual('insufficientBalanceToCoverFees');
-  });
-
-  it('returns invalidValue for Invalid', () => {
-    expect(
-      mapSnapErrorCodeIntoTranslation('Invalid', (str: string) => str),
-    ).toEqual('invalidValue');
-  });
-
-  it('returns invalidValue for unknown error codes', () => {
-    expect(
-      mapSnapErrorCodeIntoTranslation('UnknownErrorCode', (str: string) => str),
-    ).toEqual('invalidValue');
-  });
-});
-
 describe('useAmountValidation', () => {
   afterEach(() => {
     jest.restoreAllMocks();
@@ -261,36 +221,6 @@ describe('useAmountValidation', () => {
       mockState,
     );
     expect(result.current.amountError).toEqual(undefined);
-    expect(result.current.validateNonEvmAmountAsync).toBeDefined();
-  });
-
-  it('snap validation is debounced with 300ms delay for non-EVM send flows', async () => {
-    jest.useFakeTimers();
-
-    jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
-      asset: {
-        isNative: true,
-        rawBalance: '0xde0b6b3a7640000',
-        decimals: 18,
-      },
-      chainId: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
-      from: MOCK_ADDRESS_1,
-      value: '1',
-    } as unknown as SendContext.SendContextType);
-
-    mockValidateAmountWithSnap.mockResolvedValue({ valid: true, errors: [] });
-
-    renderHookWithProvider(() => useAmountValidation(), mockState);
-
-    expect(mockValidateAmountWithSnap).not.toHaveBeenCalled();
-
-    jest.advanceTimersByTime(300);
-
-    await waitFor(() => {
-      expect(mockValidateAmountWithSnap).toHaveBeenCalled();
-    });
-
-    jest.useRealTimers();
   });
 
   it('return error for invalid amount value', async () => {
@@ -529,81 +459,6 @@ describe('useAmountValidation', () => {
     );
     await waitFor(() =>
       expect(result.current.amountError).toEqual('Invalid value'),
-    );
-  });
-
-  it('validateNonEvmAmountAsync can be called manually', async () => {
-    jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
-      asset: EVM_NATIVE_ASSET,
-      from: MOCK_ADDRESS_1,
-      value: '1',
-    } as unknown as SendContext.SendContextType);
-
-    const { result } = renderHookWithProvider(
-      () => useAmountValidation(),
-      mockState,
-    );
-
-    const error = await result.current.validateNonEvmAmountAsync();
-    expect(error).toEqual(undefined);
-  });
-
-  it('returns error when non-EVM account has zero balance', async () => {
-    jest.spyOn(SendContext, 'useSendContext').mockReturnValue({
-      asset: {
-        isNative: true,
-        rawBalance: '0x0',
-        decimals: 18,
-      },
-      chainId: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
-      from: MOCK_ADDRESS_1,
-      value: '1',
-    } as unknown as SendContext.SendContextType);
-
-    const { result } = renderHookWithProvider(
-      () => useAmountValidation(),
-      mockState,
-    );
-    await waitFor(() =>
-      expect(result.current.amountError).toEqual('Insufficient funds'),
-    );
-  });
-
-  it('re-runs non-EVM validation when balance changes with the same amount', async () => {
-    const mockSendContext = jest.spyOn(SendContext, 'useSendContext');
-    mockSendContext.mockReturnValue({
-      asset: {
-        isNative: true,
-        rawBalance: '0xde0b6b3a7640000',
-        decimals: 18,
-      },
-      chainId: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
-      from: MOCK_ADDRESS_1,
-      value: '1',
-    } as unknown as SendContext.SendContextType);
-
-    const { result, rerender } = renderHookWithProvider(
-      () => useAmountValidation(),
-      mockState,
-    );
-
-    await waitFor(() => expect(result.current.amountError).toEqual(undefined));
-
-    mockSendContext.mockReturnValue({
-      asset: {
-        isNative: true,
-        rawBalance: '0x0',
-        decimals: 18,
-      },
-      chainId: 'solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp',
-      from: MOCK_ADDRESS_1,
-      value: '1',
-    } as unknown as SendContext.SendContextType);
-
-    rerender();
-
-    await waitFor(() =>
-      expect(result.current.amountError).toEqual('Insufficient funds'),
     );
   });
 });

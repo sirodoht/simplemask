@@ -2333,30 +2333,6 @@ export function addImportedTokens(
 }
 
 /**
- * To add multichain assets (non-EVM tokens like Solana, Bitcoin)
- *
- * @param assetIds - The CAIP asset IDs (includes chain information)
- * @param accountId - The account ID to add the asset to
- */
-export function multichainAddAssets(
-  assetIds: string[],
-  accountId: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    try {
-      await submitRequestToBackground('multichainAddAssets', [
-        assetIds,
-        accountId,
-      ]);
-    } catch (error) {
-      logErrorWithMessage(error);
-    } finally {
-      await forceUpdateMetamaskState(dispatch);
-    }
-  };
-}
-
-/**
  * To add ignored token addresses to state
  *
  * @param options
@@ -2520,31 +2496,6 @@ export function importCustomAssetsBatch(
     }
     await forceUpdateMetamaskState(dispatch);
     dispatch(hideLoadingIndication());
-  };
-}
-
-/**
- * To ignore multichain assets (non-EVM tokens like Solana, Bitcoin)
- *
- * @param assetIds - The CAIP asset IDs (includes chain information)
- * @param accountId - The account ID to add the asset to
- */
-export function multichainIgnoreAssets(
-  assetIds: string[],
-  accountId: string,
-): ThunkAction<void, MetaMaskReduxState, unknown, AnyAction> {
-  return async (dispatch: MetaMaskReduxDispatch) => {
-    try {
-      await submitRequestToBackground('multichainIgnoreAssets', [
-        assetIds,
-        accountId,
-      ]);
-    } catch (error) {
-      logErrorWithMessage(error);
-    } finally {
-      await forceUpdateMetamaskState(dispatch);
-      dispatch(hideLoadingIndication());
-    }
   };
 }
 
@@ -6256,22 +6207,6 @@ export async function decodeTransactionData({
       contractAddress,
       chainId,
     },
-  ]);
-}
-
-export async function multichainUpdateBalance(
-  accountId: string,
-): Promise<void> {
-  return await submitRequestToBackground<void>('multichainUpdateBalance', [
-    accountId,
-  ]);
-}
-
-export async function multichainUpdateTransactions(
-  accountId: string,
-): Promise<void> {
-  return await submitRequestToBackground<void>('multichainUpdateTransactions', [
-    accountId,
   ]);
 }
 

@@ -4,20 +4,12 @@ import {
   RpcEndpointType,
   NetworkStatus,
 } from '@metamask/network-controller';
-import {
-  type Hex,
-  type CaipChainId,
-  KnownCaipNamespace,
-} from '@metamask/utils';
+import { type Hex, type CaipChainId } from '@metamask/utils';
 import { type MultichainNetworkConfiguration } from '@metamask/multichain-network-controller';
 
 import { type NetworkState } from '../../../shared/lib/selectors/networks';
 import type { AccountsState } from '../../../shared/lib/selectors/accounts';
-import {
-  MOCK_ACCOUNT_EOA,
-  MOCK_ACCOUNT_BIP122_P2WPKH,
-  MOCK_ACCOUNT_SOLANA_MAINNET,
-} from '../../../test/data/mock-accounts';
+import { MOCK_ACCOUNT_EOA } from '../../../test/data/mock-accounts';
 import { RemoteFeatureFlagsState } from '../../../shared/lib/selectors/remote-feature-flags';
 import {
   type MultichainNetworkControllerState,
@@ -195,12 +187,10 @@ const mockState: TestState = {
 
 describe('Multichain network selectors', () => {
   describe('getNonEvmMultichainNetworkConfigurationsByChainId', () => {
-    it('returns the non-EVM multichain network configurations by chain ID', () => {
+    it('ignores saved non-EVM network configurations', () => {
       expect(
         getNonEvmMultichainNetworkConfigurationsByChainId(mockState),
-      ).toStrictEqual({
-        ...mockNonEvmNetworks,
-      });
+      ).toStrictEqual({});
     });
   });
 
@@ -209,32 +199,7 @@ describe('Multichain network selectors', () => {
       expect(
         getMultichainNetworkConfigurationsByChainId(mockState),
       ).toStrictEqual([
-        { ...mockNonEvmNetworks, ...mockEvmNetworksWithNewConfig },
-        mockEvmNetworksWithOldConfig,
-      ]);
-    });
-
-    it('returns all multichain network configurations by chain ID excluding Solana when support is disabled and there is no Solana account', () => {
-      const mockMultichainNetworkStateWithSolanaSupportDisabled = {
-        ...mockState,
-        metamask: {
-          ...mockState.metamask,
-          remoteFeatureFlags: {
-            ...mockState.metamask.remoteFeatureFlags,
-            solanaAccounts: { enabled: false, minimumVersion: '13.6.0' },
-          },
-        },
-      };
-
-      expect(
-        getMultichainNetworkConfigurationsByChainId(
-          mockMultichainNetworkStateWithSolanaSupportDisabled,
-        ),
-      ).toStrictEqual([
-        {
-          [BtcScope.Mainnet]: mockNonEvmNetworks[BtcScope.Mainnet],
-          ...mockEvmNetworksWithNewConfig,
-        },
+        mockEvmNetworksWithNewConfig,
         mockEvmNetworksWithOldConfig,
       ]);
     });
@@ -265,117 +230,6 @@ describe('Multichain network selectors', () => {
         ),
       ).toStrictEqual([
         mockEvmNetworksWithNewConfig,
-        mockEvmNetworksWithOldConfig,
-      ]);
-    });
-
-    it('returns Solana as part of the multichain network configurations if there is a Solana account', () => {
-      const mockMultichainNetworkStateWithBitcoinSupportDisabled = {
-        ...mockState,
-        metamask: {
-          ...mockState.metamask,
-          remoteFeatureFlags: {
-            ...mockState.metamask.remoteFeatureFlags,
-            solanaAccounts: { enabled: false, minimumVersion: '13.6.0' },
-            bitcoinAccounts: { enabled: false, minimumVersion: '13.6.0' },
-          },
-          internalAccounts: {
-            ...mockState.metamask.internalAccounts,
-            accounts: {
-              ...mockState.metamask.internalAccounts.accounts,
-              [MOCK_ACCOUNT_SOLANA_MAINNET.id]: MOCK_ACCOUNT_SOLANA_MAINNET,
-            },
-          },
-        },
-      };
-
-      expect(
-        getMultichainNetworkConfigurationsByChainId(
-          mockMultichainNetworkStateWithBitcoinSupportDisabled,
-        ),
-      ).toStrictEqual([
-        {
-          ...mockEvmNetworksWithNewConfig,
-          [SolScope.Mainnet]: mockNonEvmNetworks[SolScope.Mainnet],
-          [SolScope.Devnet]: mockNonEvmNetworks[SolScope.Devnet],
-        },
-        mockEvmNetworksWithOldConfig,
-      ]);
-    });
-
-    it('returns Bitcoin as part of the multichain network configurations if there is a Bitcoin account', () => {
-      const mockMultichainNetworkStateWithBitcoinSupportDisabled = {
-        ...mockState,
-        metamask: {
-          ...mockState.metamask,
-          remoteFeatureFlags: {
-            ...mockState.metamask.remoteFeatureFlags,
-            solanaAccounts: { enabled: false, minimumVersion: '13.6.0' },
-            bitcoinAccounts: { enabled: true, minimumVersion: '13.6.0' },
-          },
-          internalAccounts: {
-            ...mockState.metamask.internalAccounts,
-            accounts: {
-              ...mockState.metamask.internalAccounts.accounts,
-              [MOCK_ACCOUNT_BIP122_P2WPKH.id]: MOCK_ACCOUNT_BIP122_P2WPKH,
-            },
-          },
-          multichainNetworkConfigurationsByChainId: {
-            [BtcScope.Mainnet]: mockNonEvmNetworks[BtcScope.Mainnet],
-            ...mockEvmNetworksWithNewConfig,
-          },
-        },
-      };
-
-      expect(
-        getMultichainNetworkConfigurationsByChainId(
-          mockMultichainNetworkStateWithBitcoinSupportDisabled,
-        ),
-      ).toStrictEqual([
-        {
-          ...mockEvmNetworksWithNewConfig,
-          [BtcScope.Mainnet]: mockNonEvmNetworks[BtcScope.Mainnet],
-        },
-        mockEvmNetworksWithOldConfig,
-      ]);
-    });
-
-    it('returns Bitcoin and Solana as part of the multichain network configurations if there is Bitcoin and Solana accounts', () => {
-      const mockMultichainNetworkStateWithBitcoinSupportDisabled = {
-        ...mockState,
-        metamask: {
-          ...mockState.metamask,
-          remoteFeatureFlags: {
-            ...mockState.metamask.remoteFeatureFlags,
-            solanaAccounts: { enabled: false, minimumVersion: '13.6.0' },
-            bitcoinAccounts: { enabled: true, minimumVersion: '13.6.0' },
-          },
-          internalAccounts: {
-            ...mockState.metamask.internalAccounts,
-            accounts: {
-              ...mockState.metamask.internalAccounts.accounts,
-              [MOCK_ACCOUNT_BIP122_P2WPKH.id]: MOCK_ACCOUNT_BIP122_P2WPKH,
-              [MOCK_ACCOUNT_SOLANA_MAINNET.id]: MOCK_ACCOUNT_SOLANA_MAINNET,
-            },
-          },
-        },
-      };
-
-      const expectedNonEvmNetworks = {
-        [SolScope.Mainnet]: mockNonEvmNetworks[SolScope.Mainnet],
-        [SolScope.Devnet]: mockNonEvmNetworks[SolScope.Devnet],
-        [BtcScope.Mainnet]: mockNonEvmNetworks[BtcScope.Mainnet],
-      };
-
-      expect(
-        getMultichainNetworkConfigurationsByChainId(
-          mockMultichainNetworkStateWithBitcoinSupportDisabled,
-        ),
-      ).toStrictEqual([
-        {
-          ...mockEvmNetworksWithNewConfig,
-          ...expectedNonEvmNetworks,
-        },
         mockEvmNetworksWithOldConfig,
       ]);
     });
@@ -431,9 +285,8 @@ describe('Multichain network selectors', () => {
   });
 
   describe('getAllMultichainNetworkConfigurations', () => {
-    it('returns all multichain networks (EVM + non-EVM)', () => {
+    it('returns only EVM networks despite saved non-EVM networks', () => {
       expect(getAllMultichainNetworkConfigurations(mockState)).toStrictEqual({
-        ...mockNonEvmNetworks,
         ...mockEvmNetworksWithNewConfig,
       });
     });
@@ -565,22 +418,22 @@ describe('Multichain network selectors', () => {
   describe('getSelectedMultichainNetworkChainId', () => {
     it('returns the selected multichain network chain ID', () => {
       expect(getSelectedMultichainNetworkChainId(mockState)).toStrictEqual(
-        SolScope.Mainnet,
+        'eip155:1',
       );
     });
   });
 
   describe('getIsEvmMultichainNetworkSelected', () => {
     it('returns whether the EVM network is selected', () => {
-      expect(getIsEvmMultichainNetworkSelected(mockState)).toStrictEqual(false);
+      expect(getIsEvmMultichainNetworkSelected(mockState)).toStrictEqual(true);
     });
   });
 
   describe('getSelectedMultichainNetworkConfiguration', () => {
-    it('returns the selected non EVM multichain network configuration if isEvmSelected is false', () => {
+    it('falls back to the EVM selection for saved non-EVM selection', () => {
       expect(
         getSelectedMultichainNetworkConfiguration(mockState),
-      ).toStrictEqual(mockNonEvmNetworks[SolScope.Mainnet]);
+      ).toStrictEqual(mockEvmNetworksWithNewConfig['eip155:1']);
     });
     it('returns the selected EVM multichain network configuration if isEvmSelected is true', () => {
       const mockMultichainNetworkStateWithEvmSelected = {

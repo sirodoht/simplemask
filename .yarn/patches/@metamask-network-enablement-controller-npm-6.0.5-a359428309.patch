@@ -1,0 +1,278 @@
+diff --git a/dist/NetworkEnablementController.cjs b/dist/NetworkEnablementController.cjs
+index 1f6279d02ff9cfb84cf983b5f234ffdf4e99ab87..d07f063974a1fb8b1521f1fc9ea537946459d67e 100644
+--- a/dist/NetworkEnablementController.cjs
++++ b/dist/NetworkEnablementController.cjs
+@@ -57,25 +57,6 @@ const getDefaultNetworkEnablementControllerState = () => ({
+             [controller_utils_1.ChainId[controller_utils_1.BuiltInNetworkName.SeiMainnet]]: true,
+             [controller_utils_1.ChainId[controller_utils_1.BuiltInNetworkName.MonadMainnet]]: true,
+         },
+-        [utils_1.KnownCaipNamespace.Solana]: {
+-            [keyring_api_1.SolScope.Mainnet]: true,
+-            [keyring_api_1.SolScope.Testnet]: false,
+-            [keyring_api_1.SolScope.Devnet]: false,
+-        },
+-        [utils_1.KnownCaipNamespace.Bip122]: {
+-            [keyring_api_1.BtcScope.Mainnet]: true,
+-            [keyring_api_1.BtcScope.Testnet]: false,
+-            [keyring_api_1.BtcScope.Signet]: false,
+-        },
+-        [utils_1.KnownCaipNamespace.Tron]: {
+-            [keyring_api_1.TrxScope.Mainnet]: true,
+-            [keyring_api_1.TrxScope.Nile]: false,
+-            [keyring_api_1.TrxScope.Shasta]: false,
+-        },
+-        [utils_1.KnownCaipNamespace.Stellar]: {
+-            [keyring_api_1.XlmScope.Pubnet]: true,
+-            [keyring_api_1.XlmScope.Testnet]: false,
+-        },
+     },
+     // nativeAssetIdentifiers is initialized as empty and should be populated
+     // by the client using initNativeAssetIdentifiers() during controller init
+@@ -121,6 +102,7 @@ class NetworkEnablementController extends base_controller_1.BaseController {
+             state: {
+                 ...getDefaultNetworkEnablementControllerState(),
+                 ...state,
++                enabledNetworkMap: { eip155: state?.enabledNetworkMap?.eip155 ?? getDefaultNetworkEnablementControllerState().enabledNetworkMap.eip155 },
+             },
+         });
+         _NetworkEnablementController_instances.add(this);
+@@ -133,23 +115,8 @@ class NetworkEnablementController extends base_controller_1.BaseController {
+             __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_removeNetworkEntry).call(this, chainId);
+         });
+     }
+-    /**
+-     * Enables or disables a network for the user.
+-     *
+-     * This method accepts either a Hex chain ID (for EVM networks) or a CAIP-2 chain ID
+-     * (for any blockchain network). The method will automatically convert Hex chain IDs
+-     * to CAIP-2 format internally. This dual parameter support allows for backward
+-     * compatibility with existing EVM chain ID formats while supporting newer
+-     * multi-chain standards.
+-     *
+-     * When enabling a non-popular network, this method will disable all other networks
+-     * to ensure only one network is active at a time (exclusive mode).
+-     *
+-     * @param chainId - The chain ID of the network to enable or disable. Can be either:
+-     * - A Hex string (e.g., '0x1' for Ethereum mainnet) for EVM networks
+-     * - A CAIP-2 chain ID (e.g., 'eip155:1' for Ethereum mainnet, 'solana:mainnet' for Solana)
+-     */
+-    enableNetwork(chainId) {
++enableNetwork(chainId) {
++        if (chainId.includes(':') && !chainId.startsWith('eip155:')) throw new Error('Non-EVM networks are unsupported');
+         const { namespace, storageKey } = (0, utils_js_1.deriveKeys)(chainId);
+         this.update((state) => {
+             // disable all networks in all namespaces first
+@@ -167,23 +134,9 @@ class NetworkEnablementController extends base_controller_1.BaseController {
+             state.enabledNetworkMap[namespace][storageKey] = true;
+         });
+     }
+-    /**
+-     * Enables a network for the user within a specific namespace.
+-     *
+-     * This method accepts either a Hex chain ID (for EVM networks) or a CAIP-2 chain ID
+-     * (for any blockchain network) and enables it within the specified namespace.
+-     * The method validates that the chainId belongs to the specified namespace for safety.
+-     *
+-     * Before enabling the target network, this method disables all other networks
+-     * in the same namespace to ensure exclusive behavior within the namespace.
+-     *
+-     * @param chainId - The chain ID of the network to enable. Can be either:
+-     * - A Hex string (e.g., '0x1' for Ethereum mainnet) for EVM networks
+-     * - A CAIP-2 chain ID (e.g., 'eip155:1' for Ethereum mainnet, 'solana:mainnet' for Solana)
+-     * @param namespace - The CAIP namespace where the network should be enabled
+-     * @throws Error if the chainId's derived namespace doesn't match the provided namespace
+-     */
+-    enableNetworkInNamespace(chainId, namespace) {
++enableNetworkInNamespace(chainId, namespace) {
++        if (chainId.includes(':') && !chainId.startsWith('eip155:')) throw new Error('Non-EVM networks are unsupported');
++        if (namespace !== 'eip155') throw new Error('Non-EVM networks are unsupported');
+         const { namespace: derivedNamespace, storageKey } = (0, utils_js_1.deriveKeys)(chainId);
+         // Validate that the derived namespace matches the provided namespace
+         if (derivedNamespace !== namespace) {
+@@ -222,7 +175,6 @@ class NetworkEnablementController extends base_controller_1.BaseController {
+             });
+             // Get current network configurations to check if networks exist
+             const networkControllerState = this.messenger.call('NetworkController:getState');
+-            const multichainState = this.messenger.call('MultichainNetworkController:getState');
+             // Enable all popular EVM networks that exist in NetworkController configurations
+             __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_getPopularEvmChainIds).call(this).forEach((chainId) => {
+                 const { namespace, storageKey } = (0, utils_js_1.deriveKeys)(chainId);
+@@ -234,39 +186,6 @@ class NetworkEnablementController extends base_controller_1.BaseController {
+                     state.enabledNetworkMap[namespace][storageKey] = true;
+                 }
+             });
+-            // Enable Solana mainnet if it exists in MultichainNetworkController configurations
+-            const solanaKeys = (0, utils_js_1.deriveKeys)(keyring_api_1.SolScope.Mainnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[keyring_api_1.SolScope.Mainnet]) {
+-                // Ensure namespace bucket exists
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, solanaKeys.namespace);
+-                // Enable Solana mainnet
+-                state.enabledNetworkMap[solanaKeys.namespace][solanaKeys.storageKey] =
+-                    true;
+-            }
+-            // Enable Bitcoin mainnet if it exists in MultichainNetworkController configurations
+-            const bitcoinKeys = (0, utils_js_1.deriveKeys)(keyring_api_1.BtcScope.Mainnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[keyring_api_1.BtcScope.Mainnet]) {
+-                // Ensure namespace bucket exists
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, bitcoinKeys.namespace);
+-                // Enable Bitcoin mainnet
+-                state.enabledNetworkMap[bitcoinKeys.namespace][bitcoinKeys.storageKey] =
+-                    true;
+-            }
+-            // Enable Tron mainnet if it exists in MultichainNetworkController configurations
+-            const tronKeys = (0, utils_js_1.deriveKeys)(keyring_api_1.TrxScope.Mainnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[keyring_api_1.TrxScope.Mainnet]) {
+-                // Ensure namespace bucket exists
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, tronKeys.namespace);
+-                // Enable Tron mainnet
+-                state.enabledNetworkMap[tronKeys.namespace][tronKeys.storageKey] = true;
+-            }
+-            // Enable Stellar mainnet if it exists in MultichainNetworkController configurations
+-            const stellarKeys = (0, utils_js_1.deriveKeys)(keyring_api_1.XlmScope.Pubnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[keyring_api_1.XlmScope.Pubnet]) {
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, stellarKeys.namespace);
+-                state.enabledNetworkMap[stellarKeys.namespace][stellarKeys.storageKey] =
+-                    true;
+-            }
+         });
+     }
+     /**
+diff --git a/dist/NetworkEnablementController.mjs b/dist/NetworkEnablementController.mjs
+index 1790f878ecd1ce7d82c63f3c4c00b45c2ba8d0b6..c6f43b8cd31637e6edfaf0c3dc8fd18c0b8d5e9a 100644
+--- a/dist/NetworkEnablementController.mjs
++++ b/dist/NetworkEnablementController.mjs
+@@ -54,25 +54,6 @@ const getDefaultNetworkEnablementControllerState = () => ({
+             [ChainId[BuiltInNetworkName.SeiMainnet]]: true,
+             [ChainId[BuiltInNetworkName.MonadMainnet]]: true,
+         },
+-        [KnownCaipNamespace.Solana]: {
+-            [SolScope.Mainnet]: true,
+-            [SolScope.Testnet]: false,
+-            [SolScope.Devnet]: false,
+-        },
+-        [KnownCaipNamespace.Bip122]: {
+-            [BtcScope.Mainnet]: true,
+-            [BtcScope.Testnet]: false,
+-            [BtcScope.Signet]: false,
+-        },
+-        [KnownCaipNamespace.Tron]: {
+-            [TrxScope.Mainnet]: true,
+-            [TrxScope.Nile]: false,
+-            [TrxScope.Shasta]: false,
+-        },
+-        [KnownCaipNamespace.Stellar]: {
+-            [XlmScope.Pubnet]: true,
+-            [XlmScope.Testnet]: false,
+-        },
+     },
+     // nativeAssetIdentifiers is initialized as empty and should be populated
+     // by the client using initNativeAssetIdentifiers() during controller init
+@@ -118,6 +99,7 @@ export class NetworkEnablementController extends BaseController {
+             state: {
+                 ...getDefaultNetworkEnablementControllerState(),
+                 ...state,
++                enabledNetworkMap: { eip155: state?.enabledNetworkMap?.eip155 ?? getDefaultNetworkEnablementControllerState().enabledNetworkMap.eip155 },
+             },
+         });
+         _NetworkEnablementController_instances.add(this);
+@@ -130,23 +112,8 @@ export class NetworkEnablementController extends BaseController {
+             __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_removeNetworkEntry).call(this, chainId);
+         });
+     }
+-    /**
+-     * Enables or disables a network for the user.
+-     *
+-     * This method accepts either a Hex chain ID (for EVM networks) or a CAIP-2 chain ID
+-     * (for any blockchain network). The method will automatically convert Hex chain IDs
+-     * to CAIP-2 format internally. This dual parameter support allows for backward
+-     * compatibility with existing EVM chain ID formats while supporting newer
+-     * multi-chain standards.
+-     *
+-     * When enabling a non-popular network, this method will disable all other networks
+-     * to ensure only one network is active at a time (exclusive mode).
+-     *
+-     * @param chainId - The chain ID of the network to enable or disable. Can be either:
+-     * - A Hex string (e.g., '0x1' for Ethereum mainnet) for EVM networks
+-     * - A CAIP-2 chain ID (e.g., 'eip155:1' for Ethereum mainnet, 'solana:mainnet' for Solana)
+-     */
+-    enableNetwork(chainId) {
++enableNetwork(chainId) {
++        if (chainId.includes(':') && !chainId.startsWith('eip155:')) throw new Error('Non-EVM networks are unsupported');
+         const { namespace, storageKey } = deriveKeys(chainId);
+         this.update((state) => {
+             // disable all networks in all namespaces first
+@@ -164,23 +131,9 @@ export class NetworkEnablementController extends BaseController {
+             state.enabledNetworkMap[namespace][storageKey] = true;
+         });
+     }
+-    /**
+-     * Enables a network for the user within a specific namespace.
+-     *
+-     * This method accepts either a Hex chain ID (for EVM networks) or a CAIP-2 chain ID
+-     * (for any blockchain network) and enables it within the specified namespace.
+-     * The method validates that the chainId belongs to the specified namespace for safety.
+-     *
+-     * Before enabling the target network, this method disables all other networks
+-     * in the same namespace to ensure exclusive behavior within the namespace.
+-     *
+-     * @param chainId - The chain ID of the network to enable. Can be either:
+-     * - A Hex string (e.g., '0x1' for Ethereum mainnet) for EVM networks
+-     * - A CAIP-2 chain ID (e.g., 'eip155:1' for Ethereum mainnet, 'solana:mainnet' for Solana)
+-     * @param namespace - The CAIP namespace where the network should be enabled
+-     * @throws Error if the chainId's derived namespace doesn't match the provided namespace
+-     */
+-    enableNetworkInNamespace(chainId, namespace) {
++enableNetworkInNamespace(chainId, namespace) {
++        if (chainId.includes(':') && !chainId.startsWith('eip155:')) throw new Error('Non-EVM networks are unsupported');
++        if (namespace !== 'eip155') throw new Error('Non-EVM networks are unsupported');
+         const { namespace: derivedNamespace, storageKey } = deriveKeys(chainId);
+         // Validate that the derived namespace matches the provided namespace
+         if (derivedNamespace !== namespace) {
+@@ -219,7 +172,6 @@ export class NetworkEnablementController extends BaseController {
+             });
+             // Get current network configurations to check if networks exist
+             const networkControllerState = this.messenger.call('NetworkController:getState');
+-            const multichainState = this.messenger.call('MultichainNetworkController:getState');
+             // Enable all popular EVM networks that exist in NetworkController configurations
+             __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_getPopularEvmChainIds).call(this).forEach((chainId) => {
+                 const { namespace, storageKey } = deriveKeys(chainId);
+@@ -231,39 +183,6 @@ export class NetworkEnablementController extends BaseController {
+                     state.enabledNetworkMap[namespace][storageKey] = true;
+                 }
+             });
+-            // Enable Solana mainnet if it exists in MultichainNetworkController configurations
+-            const solanaKeys = deriveKeys(SolScope.Mainnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[SolScope.Mainnet]) {
+-                // Ensure namespace bucket exists
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, solanaKeys.namespace);
+-                // Enable Solana mainnet
+-                state.enabledNetworkMap[solanaKeys.namespace][solanaKeys.storageKey] =
+-                    true;
+-            }
+-            // Enable Bitcoin mainnet if it exists in MultichainNetworkController configurations
+-            const bitcoinKeys = deriveKeys(BtcScope.Mainnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[BtcScope.Mainnet]) {
+-                // Ensure namespace bucket exists
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, bitcoinKeys.namespace);
+-                // Enable Bitcoin mainnet
+-                state.enabledNetworkMap[bitcoinKeys.namespace][bitcoinKeys.storageKey] =
+-                    true;
+-            }
+-            // Enable Tron mainnet if it exists in MultichainNetworkController configurations
+-            const tronKeys = deriveKeys(TrxScope.Mainnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[TrxScope.Mainnet]) {
+-                // Ensure namespace bucket exists
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, tronKeys.namespace);
+-                // Enable Tron mainnet
+-                state.enabledNetworkMap[tronKeys.namespace][tronKeys.storageKey] = true;
+-            }
+-            // Enable Stellar mainnet if it exists in MultichainNetworkController configurations
+-            const stellarKeys = deriveKeys(XlmScope.Pubnet);
+-            if (multichainState.multichainNetworkConfigurationsByChainId[XlmScope.Pubnet]) {
+-                __classPrivateFieldGet(this, _NetworkEnablementController_instances, "m", _NetworkEnablementController_ensureNamespaceBucket).call(this, state, stellarKeys.namespace);
+-                state.enabledNetworkMap[stellarKeys.namespace][stellarKeys.storageKey] =
+-                    true;
+-            }
+         });
+     }
+     /**

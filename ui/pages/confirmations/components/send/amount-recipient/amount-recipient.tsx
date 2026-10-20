@@ -17,7 +17,6 @@ import { useRecipientValidation } from '../../../hooks/send/useRecipientValidati
 import { useRecipientSelectionMetrics } from '../../../hooks/send/metrics/useRecipientSelectionMetrics';
 import { useAmountValidation } from '../../../hooks/send/useAmountValidation';
 import { useAddressPoisoningDetection } from '../../../hooks/send/useAddressPoisoningDetection';
-import { useSendType } from '../../../hooks/send/useSendType';
 import { useUnreliableNetworkRpc } from '../../../hooks/send/useUnreliableNetworkRpc';
 import { SendHero } from '../../UI/send-hero';
 import { Amount } from '../amount/amount';
@@ -33,8 +32,7 @@ export const AmountRecipient = () => {
   const [shouldSubmitOnAcknowledge, setShouldSubmitOnAcknowledge] =
     useState(false);
   const { asset, to, toResolved, nonEVMSubmitError } = useSendContext();
-  const { amountError, validateNonEvmAmountAsync } = useAmountValidation();
-  const { isNonEvmSendType } = useSendType();
+  const { amountError } = useAmountValidation();
   const { handleSubmit } = useSendActions();
   const { captureAmountSelected } = useAmountSelectionMetrics();
   const { captureRecipientSelected } = useRecipientSelectionMetrics();
@@ -76,24 +74,10 @@ export const AmountRecipient = () => {
   }, []);
 
   const proceedWithSubmit = useCallback(async () => {
-    if (isNonEvmSendType) {
-      // Non EVM flows need an extra validation because "value" can be empty dependent on the blockchain (e.g it's fine for Solana but not for Bitcoin)
-      // Hence we do a call for `validateNonEvmAmountAsync` here to raise UI validation errors if exists
-      const nonEvmAmountError = await validateNonEvmAmountAsync();
-      if (nonEvmAmountError) {
-        return;
-      }
-    }
     handleSubmit();
     captureAmountSelected();
     captureRecipientSelected();
-  }, [
-    captureAmountSelected,
-    captureRecipientSelected,
-    handleSubmit,
-    isNonEvmSendType,
-    validateNonEvmAmountAsync,
-  ]);
+  }, [captureAmountSelected, captureRecipientSelected, handleSubmit]);
 
   const handleAlertModalAcknowledge = useCallback(
     async (acknowledgedKeys: string[]) => {

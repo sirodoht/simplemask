@@ -12,11 +12,7 @@ import {
   METAMASK_STALELIST_FILE,
   METAMASK_HOTLIST_DIFF_FILE,
 } from '@metamask/phishing-controller';
-import {
-  EthAccountType,
-  SolAccountType,
-  TrxAccountType,
-} from '@metamask/keyring-api';
+import { EthAccountType, SolAccountType } from '@metamask/keyring-api';
 import { KeyringType as KeyringTypeV2 } from '@metamask/keyring-api/v2';
 import { MOCK_ANY_NAMESPACE, Messenger } from '@metamask/messenger';
 import { LoggingController, LogType } from '@metamask/logging-controller';
@@ -27,7 +23,6 @@ import ObjectMultiplex from '@metamask/object-multiplex';
 import {
   Caip25CaveatType,
   Caip25EndowmentPermissionName,
-  KnownSessionProperties,
   getEthAccounts,
 } from '@metamask/chain-agnostic-permission';
 import { PermissionDoesNotExistError } from '@metamask/permission-controller';
@@ -48,13 +43,11 @@ import { LOG_EVENT } from '../../shared/constants/logs';
 import mockEncryptor from '../../test/lib/mock-encryptor';
 
 import { ETH_EOA_METHODS } from '../../shared/constants/eth-methods';
-import { createMockInternalAccount } from '../../test/jest/mocks';
 import { mockNetworkState } from '../../test/stub/networks';
 import * as NetworkFailoverModule from '../../shared/constants/network-failover';
 import { withResolvers } from '../../shared/lib/promise-with-resolvers';
 import { flushPromises } from '../../test/lib/timer-helpers';
 import { FirstTimeFlowType } from '../../shared/constants/onboarding';
-import { MultichainNetworks } from '../../shared/constants/multichain/networks';
 import { toChecksumHexAddress } from '../../shared/lib/hexstring-utils';
 import { toAssetId } from '../../shared/lib/asset-utils';
 import * as gatorPermissionFeatureFlags from '../../shared/lib/gator-permissions/feature-flags';
@@ -62,11 +55,7 @@ import * as metamaskControllerUtils from '../../shared/lib/metamask-controller-u
 import { trace, endTrace, TraceName } from '../../shared/lib/trace';
 import * as utils from './lib/util';
 import { METAMASK_COOKIE_HANDLER } from './constants/stream';
-import {
-  getAuthorizedScopesByOrigin,
-  getOriginsWithSessionProperty,
-  getPermittedAccountsForScopesByOrigin,
-} from './controllers/permissions';
+import { getAuthorizedScopesByOrigin } from './controllers/permissions';
 import { forwardRequestToSnap } from './lib/forwardRequestToSnap';
 import { trackEvent } from './controllers/analytics';
 import MetaMaskController from './metamask-controller';
@@ -4403,328 +4392,6 @@ describe('MetaMaskController', () => {
       ).toHaveBeenCalledTimes(2);
 
       jest.useRealTimers();
-    });
-  });
-
-  describe('selectedAccountGroupChange subscription for Solana', () => {
-    let metamaskController;
-
-    const mockOrigin = 'https://test-dapp.com';
-    const mockSolanaAddress = '7ThGuS6a4KmX2rMFhqeCPHrRmmYEF7XoimGG53171xJa';
-    const mockSolanaAccount = createMockInternalAccount({
-      type: SolAccountType.DataAccount,
-      address: mockSolanaAddress,
-      name: 'Solana Account 1',
-    });
-    const mockEvmAccount = createMockInternalAccount({
-      type: EthAccountType.Eoa,
-      address: '0x742d35Cc6634C0532925a3b8D69b5b7f6Bb5b0bF',
-      name: 'EVM Account 1',
-    });
-
-    const setupMocks = ({
-      account = mockSolanaAccount,
-      hasNotifications = true,
-      hasPermittedAccounts = true,
-    } = {}) => {
-      jest
-        .spyOn(
-          metamaskController.accountTreeController,
-          'getAccountsFromSelectedAccountGroup',
-        )
-        .mockReturnValue([account]);
-
-      jest
-        .mocked(getOriginsWithSessionProperty)
-        .mockReturnValue(hasNotifications ? { [mockOrigin]: true } : {});
-
-      const mockSolanaAccounts = hasPermittedAccounts
-        ? new Map([
-            [mockOrigin, [`${MultichainNetworks.SOLANA}:${mockSolanaAddress}`]],
-          ])
-        : new Map();
-
-      jest
-        .mocked(getPermittedAccountsForScopesByOrigin)
-        .mockReturnValue(mockSolanaAccounts);
-
-      jest.mocked(parseCaipAccountId).mockReturnValue({
-        address: mockSolanaAddress,
-      });
-
-      const mockPermissionState = new Map();
-      if (hasNotifications) {
-        mockPermissionState.set(mockOrigin, {
-          sessionProperties: {
-            [KnownSessionProperties.SolanaAccountChangedNotifications]: true,
-          },
-        });
-      }
-      jest
-        .spyOn(metamaskController.permissionController, 'state', 'get')
-        .mockReturnValue(mockPermissionState);
-    };
-
-    const triggerSubscription = () => {
-      metamaskController.controllerMessenger.publish(
-        'AccountTreeController:selectedAccountGroupChange',
-      );
-    };
-
-    beforeEach(async () => {
-      metamaskController = new MetaMaskController({
-        showUserConfirmation: noop,
-        encryptor: mockEncryptor,
-        initState: cloneDeep(firstTimeState),
-        initLangCode: 'en_US',
-        platform: {
-          showTransactionNotification: () => undefined,
-          getVersion: () => 'foo',
-          switchToAnotherURL: jest.fn(),
-        },
-        browser: browserPolyfillMock,
-        getRequestAccountTabIds: () => ({}),
-        getOpenMetamaskTabsIds: () => ({}),
-        notificationManager: {
-          closePopup: jest.fn(),
-          markAsAutomaticallyClosed: jest.fn(),
-        },
-        infuraProjectId: 'foo',
-        isFirstMetaMaskControllerSetup: true,
-        cronjobControllerStorageManager:
-          createMockCronjobControllerStorageManager(),
-        controllerMessenger: new Messenger({
-          namespace: MOCK_ANY_NAMESPACE,
-        }),
-      });
-
-      jest
-        .spyOn(metamaskController, '_notifyMultichainAccountChange')
-        .mockImplementation(() => undefined);
-    });
-
-    it('notifies Solana account change when selected account group changes', async () => {
-      setupMocks();
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).toHaveBeenCalledWith(
-        mockOrigin,
-        [mockSolanaAddress],
-        MultichainNetworks.SOLANA,
-      );
-    });
-
-    it('does not notify when account is not a Solana DataAccount', async () => {
-      setupMocks({ account: mockEvmAccount });
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
-    });
-
-    it('does not notify when account address has not changed', async () => {
-      setupMocks();
-
-      // First call to set the lastSelectedSolanaAccountAddress
-      triggerSubscription();
-
-      // Reset the mock to check the second call
-      jest.clearAllMocks();
-
-      // Second call with same address should not trigger notification
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
-    });
-
-    it('does not notify when no origins have Solana account change notifications enabled', async () => {
-      setupMocks({ hasNotifications: false, hasPermittedAccounts: false });
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
-    });
-
-    it('does not notify when no account is returned from selected account group', async () => {
-      jest
-        .spyOn(
-          metamaskController.accountTreeController,
-          'getAccountsFromSelectedAccountGroup',
-        )
-        .mockReturnValue([]);
-
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('selectedAccountGroupChange subscription for Tron', () => {
-    let metamaskController;
-
-    const mockOrigin = 'https://test-dapp.com';
-    const mockTronAddress = 'TYThGuS6a4KmX2rMFhqeCPHrRmmYEF7Xoi';
-    const mockTronAccount = createMockInternalAccount({
-      type: TrxAccountType.Eoa,
-      address: mockTronAddress,
-      name: 'Tron Account 1',
-    });
-    const mockEvmAccount = createMockInternalAccount({
-      type: EthAccountType.Eoa,
-      address: '0x742d35Cc6634C0532925a3b8D69b5b7f6Bb5b0bF',
-      name: 'EVM Account 1',
-    });
-
-    const setupMocks = ({
-      account = mockTronAccount,
-      hasNotifications = true,
-      hasPermittedAccounts = true,
-    } = {}) => {
-      jest
-        .spyOn(
-          metamaskController.accountTreeController,
-          'getAccountsFromSelectedAccountGroup',
-        )
-        .mockReturnValue([account]);
-
-      jest
-        .mocked(getOriginsWithSessionProperty)
-        .mockReturnValue(hasNotifications ? { [mockOrigin]: true } : {});
-
-      const mockTronAccounts = hasPermittedAccounts
-        ? new Map([
-            [mockOrigin, [`${MultichainNetworks.TRON}:${mockTronAddress}`]],
-          ])
-        : new Map();
-
-      jest
-        .mocked(getPermittedAccountsForScopesByOrigin)
-        .mockReturnValue(mockTronAccounts);
-
-      jest.mocked(parseCaipAccountId).mockReturnValue({
-        address: mockTronAddress,
-      });
-
-      const mockPermissionState = new Map();
-      if (hasNotifications) {
-        mockPermissionState.set(mockOrigin, {
-          sessionProperties: {
-            [KnownSessionProperties.TronAccountChangedNotifications]: true,
-          },
-        });
-      }
-      jest
-        .spyOn(metamaskController.permissionController, 'state', 'get')
-        .mockReturnValue(mockPermissionState);
-    };
-
-    const triggerSubscription = () => {
-      metamaskController.controllerMessenger.publish(
-        'AccountTreeController:selectedAccountGroupChange',
-      );
-    };
-
-    beforeEach(async () => {
-      metamaskController = new MetaMaskController({
-        showUserConfirmation: noop,
-        encryptor: mockEncryptor,
-        initState: cloneDeep(firstTimeState),
-        initLangCode: 'en_US',
-        platform: {
-          showTransactionNotification: () => undefined,
-          getVersion: () => 'foo',
-          switchToAnotherURL: jest.fn(),
-        },
-        browser: browserPolyfillMock,
-        getRequestAccountTabIds: () => ({}),
-        getOpenMetamaskTabsIds: () => ({}),
-        notificationManager: {
-          closePopup: jest.fn(),
-          markAsAutomaticallyClosed: jest.fn(),
-        },
-        infuraProjectId: 'foo',
-        isFirstMetaMaskControllerSetup: true,
-        cronjobControllerStorageManager:
-          createMockCronjobControllerStorageManager(),
-        controllerMessenger: new Messenger({
-          namespace: MOCK_ANY_NAMESPACE,
-        }),
-      });
-
-      jest
-        .spyOn(metamaskController, '_notifyMultichainAccountChange')
-        .mockImplementation(() => undefined);
-    });
-
-    it('notifies Tron account change when selected account group changes', async () => {
-      setupMocks();
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).toHaveBeenCalledWith(
-        mockOrigin,
-        [mockTronAddress],
-        MultichainNetworks.TRON,
-      );
-    });
-
-    it('does not notify when account is not a Tron DataAccount', async () => {
-      setupMocks({ account: mockEvmAccount });
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
-    });
-
-    it('should not notify when account address has not changed', async () => {
-      setupMocks();
-
-      // First call to set the lastSelectedTronAccountAddress
-      triggerSubscription();
-
-      // Reset the mock to check the second call
-      jest.clearAllMocks();
-
-      // Second call with same address should not trigger notification
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
-    });
-
-    it('does not notify when no origins have Tron account change notifications enabled', async () => {
-      setupMocks({ hasNotifications: false, hasPermittedAccounts: false });
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
-    });
-
-    it('does not notify when no account is returned from selected account group', async () => {
-      jest
-        .spyOn(
-          metamaskController.accountTreeController,
-          'getAccountsFromSelectedAccountGroup',
-        )
-        .mockReturnValue([]);
-
-      triggerSubscription();
-
-      expect(
-        metamaskController._notifyMultichainAccountChange,
-      ).not.toHaveBeenCalled();
     });
   });
 });

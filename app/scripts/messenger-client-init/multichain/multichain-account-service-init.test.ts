@@ -1,318 +1,145 @@
+import type {
+  AccountsControllerListMultichainAccountsAction,
+  AccountsControllerMessenger,
+} from '@metamask/accounts-controller';
 import {
-  AccountProviderWrapper,
-  MultichainAccountService,
-  MultichainAccountServiceMessenger,
-} from '@metamask/multichain-account-service';
-import {
-  ActionConstraint,
-  MOCK_ANY_NAMESPACE,
   Messenger,
+  MessengerActions,
+  MessengerEvents,
+  MOCK_ANY_NAMESPACE,
   MockAnyNamespace,
+  EventConstraint,
 } from '@metamask/messenger';
-import { RemoteFeatureFlagControllerGetStateAction } from '@metamask/remote-feature-flag-controller';
+import { MultichainAccountService } from '@metamask/multichain-account-service';
 import { buildControllerInitRequestMock } from '../test/utils';
-import { MessengerClientInitRequest } from '../types';
-import {
-  getMultichainAccountServiceInitMessenger,
-  getMultichainAccountServiceMessenger,
-  MultichainAccountServiceInitMessenger,
-} from '../messengers/accounts';
-import { PreferencesControllerGetStateAction } from '../../controllers/preferences-controller';
+import { getMultichainAccountServiceMessenger } from '../messengers/accounts';
+import { getRootMessenger } from '../../lib/messenger';
 import { MultichainAccountServiceInit } from './multichain-account-service-init';
 
 jest.mock('@metamask/multichain-account-service');
 
-const PREFERENCES_STATE = { useExternalServices: false };
-
-function buildInitRequestMock(
-  remoteFeatureFlags: Record<string, unknown> = {},
-): jest.Mocked<
-  MessengerClientInitRequest<
-    MultichainAccountServiceMessenger,
-    MultichainAccountServiceInitMessenger
-  >
-> {
-  const baseControllerMessenger = new Messenger<
-    MockAnyNamespace,
-    | PreferencesControllerGetStateAction
-    | RemoteFeatureFlagControllerGetStateAction
-    | ActionConstraint,
-    never
-  >({ namespace: MOCK_ANY_NAMESPACE });
-
-  baseControllerMessenger.registerActionHandler(
-    'PreferencesController:getState',
-    jest.fn().mockReturnValue(PREFERENCES_STATE),
-  );
-
-  baseControllerMessenger.registerActionHandler(
-    'RemoteFeatureFlagController:getState',
-    jest.fn().mockReturnValue({
-      remoteFeatureFlags,
-    }),
-  );
-
-  return {
-    ...buildControllerInitRequestMock(),
-    controllerMessenger: getMultichainAccountServiceMessenger(
-      baseControllerMessenger,
-    ),
-    initMessenger: getMultichainAccountServiceInitMessenger(
-      baseControllerMessenger,
-    ),
-  };
-}
-
 describe('MultichainAccountServiceInit', () => {
-  const multichainAccountServiceClassMock = jest.mocked(
-    MultichainAccountService,
-  );
-
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
-  describe('return value', () => {
-    it('returns controller as MultichainAccountService instance', () => {
-      const requestMock = buildInitRequestMock();
-      const result = MultichainAccountServiceInit(requestMock);
-
-      expect(result.messengerClient).toBeInstanceOf(MultichainAccountService);
+  it('uses the patched EVM provider without Snap providers or flag subscriptions', () => {
+    const controllerMessenger =
+      getMultichainAccountServiceMessenger(getRootMessenger());
+    const result = MultichainAccountServiceInit({
+      ...buildControllerInitRequestMock(),
+      controllerMessenger,
+      initMessenger: undefined,
     });
-
-    it('returns null memStateKey and persistedStateKey', () => {
-      const requestMock = buildInitRequestMock();
-      const result = MultichainAccountServiceInit(requestMock);
-
-      expect(result.memStateKey).toBeNull();
-      expect(result.persistedStateKey).toBeNull();
-    });
-  });
-
-  describe('MultichainAccountService constructor', () => {
-    it('is called with controller messenger, providers array, providerConfigs and config', () => {
-      const requestMock = buildInitRequestMock();
-      MultichainAccountServiceInit(requestMock);
-
-      expect(multichainAccountServiceClassMock).toHaveBeenCalledWith({
-        messenger: requestMock.controllerMessenger,
-        providers: [expect.any(AccountProviderWrapper)],
-        providerConfigs: expect.any(Object),
-        config: expect.any(Object),
-        ensureOnboardingComplete: requestMock.ensureOnboardingComplete,
-      });
-    });
-
-    it('passes Solana provider config with maxConcurrency 1, discovery/createAccounts timeouts, and batched true', () => {
-      const requestMock = buildInitRequestMock();
-      MultichainAccountServiceInit(requestMock);
-
-      const callArg = multichainAccountServiceClassMock.mock.calls[0][0];
-      expect(callArg.providerConfigs).toMatchObject({
-        Solana: {
-          maxConcurrency: 1,
-          discovery: {
-            timeoutMs: 2000,
-            maxAttempts: 3,
-            backOffMs: 1000,
-          },
-          createAccounts: {
-            timeoutMs: 3000,
-          },
-        },
-      });
-    });
-
-    it('passes config with trace function', () => {
-      const requestMock = buildInitRequestMock();
-      MultichainAccountServiceInit(requestMock);
-
-      const callArg = multichainAccountServiceClassMock.mock.calls[0][0];
-      expect(callArg.config).toBeDefined();
-      expect(typeof (callArg.config as { trace: unknown }).trace).toBe(
-        'function',
-      );
-    });
-  });
-
-  describe('init messenger usage', () => {
-    it('calls PreferencesController:getState during init', () => {
-      const requestMock = buildInitRequestMock();
-      const callSpy = jest.spyOn(
-        requestMock.initMessenger,
-        'call',
-      ) as jest.Mock;
-
-      MultichainAccountServiceInit(requestMock);
-
-      expect(callSpy).toHaveBeenCalledWith('PreferencesController:getState');
-    });
-  });
-
-  describe('subscriptions', () => {
-    it('subscribes to PreferencesController:stateChange on initMessenger', () => {
-      const requestMock = buildInitRequestMock();
-      const subscribeSpy = jest.spyOn(requestMock.initMessenger, 'subscribe');
-
-      MultichainAccountServiceInit(requestMock);
-
-      expect(subscribeSpy).toHaveBeenCalledWith(
-        'PreferencesController:stateChange',
-        expect.any(Function),
-      );
-    });
-  });
-
-  describe('PreferencesController:stateChange handler', () => {
-    it('calls setBasicFunctionality when useExternalServices changes', async () => {
-      const requestMock = buildInitRequestMock();
-      const subscribeSpy = jest.spyOn(requestMock.initMessenger, 'subscribe');
-
-      const result = MultichainAccountServiceInit(requestMock);
-      const setBasicFunctionalitySpy = jest
-        .spyOn(result.messengerClient, 'setBasicFunctionality')
-        .mockResolvedValue(undefined as never);
-
-      const handler = subscribeSpy.mock.calls.find(
-        (call) => call[0] === 'PreferencesController:stateChange',
-      )?.[1];
-      expect(handler).toBeDefined();
-
-      await (handler as (payload: unknown) => Promise<boolean>)({
-        useExternalServices: true,
-      });
-
-      expect(setBasicFunctionalitySpy).toHaveBeenCalledWith(true);
-    });
-
-    it('does not call setBasicFunctionality when useExternalServices is unchanged', async () => {
-      const requestMock = buildInitRequestMock();
-      const subscribeSpy = jest.spyOn(requestMock.initMessenger, 'subscribe');
-
-      const result = MultichainAccountServiceInit(requestMock);
-      const setBasicFunctionalitySpy = jest
-        .spyOn(result.messengerClient, 'setBasicFunctionality')
-        .mockResolvedValue(undefined as never);
-
-      const handler = subscribeSpy.mock.calls.find(
-        (call) => call[0] === 'PreferencesController:stateChange',
-      )?.[1];
-      expect(handler).toBeDefined();
-
-      await (handler as (payload: unknown) => Promise<boolean>)({
-        useExternalServices: false,
-      });
-
-      expect(setBasicFunctionalitySpy).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Stellar provider', () => {
-    const mockSetEnabled = jest.fn();
-    const mockXlmProvider = {
-      setEnabled: mockSetEnabled,
-    } as unknown as AccountProviderWrapper;
-
-    function getSubscriptionHandler(
-      subscribeSpy: jest.SpyInstance,
-      eventName: string,
-    ) {
-      const handler = subscribeSpy.mock.calls.find(
-        (call) => call[0] === eventName,
-      )?.[1];
-      expect(handler).toBeDefined();
-      return handler as (payload: unknown) => unknown;
-    }
-
-    beforeEach(() => {
-      jest
-        .mocked(AccountProviderWrapper)
-        .mockImplementation(() => mockXlmProvider);
-    });
-
-    it('calls RemoteFeatureFlagController:getState during init', () => {
-      const requestMock = buildInitRequestMock();
-      const callSpy = jest.spyOn(
-        requestMock.initMessenger,
-        'call',
-      ) as jest.Mock;
-
-      MultichainAccountServiceInit(requestMock);
-
-      expect(callSpy).toHaveBeenCalledWith(
-        'RemoteFeatureFlagController:getState',
-      );
-    });
-
-    // @ts-expect-error This is missing from the Mocha type definitions
-    it.each([true, false])(
-      'sets XLM provider enabled to %s based on stellarAccounts feature flag',
-      (enabled: boolean) => {
-        MultichainAccountServiceInit(
-          buildInitRequestMock({ stellarAccounts: enabled }),
-        );
-
-        expect(mockSetEnabled).toHaveBeenCalledWith(enabled);
-      },
+    expect(result.messengerClient).toBeInstanceOf(MultichainAccountService);
+    expect(result.memStateKey).toBeNull();
+    expect(result.persistedStateKey).toBeNull();
+    expect(MultichainAccountService).toHaveBeenCalledWith(
+      expect.objectContaining({
+        messenger: controllerMessenger,
+        config: { trace: expect.any(Function) },
+      }),
     );
+    const options = jest.mocked(MultichainAccountService).mock.calls[0][0];
+    expect(options.providers).toBeUndefined();
+    expect(options.providerConfigs).toBeUndefined();
+  });
+});
 
-    it('subscribes to RemoteFeatureFlagController:stateChange on initMessenger', () => {
-      const requestMock = buildInitRequestMock();
-      const subscribeSpy = jest.spyOn(requestMock.initMessenger, 'subscribe');
+describe('EVM-only default account providers', () => {
+  it('initializes and aligns without requesting Snap services', async () => {
+    const {
+      MultichainAccountService: RealService,
+      EvmAccountProvider,
+      SolAccountProvider,
+      BtcAccountProvider,
+      TrxAccountProvider,
+    } = jest.requireActual<
+      typeof import('@metamask/multichain-account-service')
+    >('@metamask/multichain-account-service');
+    const root = new Messenger<
+      MockAnyNamespace,
+      AccountsControllerListMultichainAccountsAction,
+      EventConstraint
+    >({ namespace: MOCK_ANY_NAMESPACE });
+    root.registerActionHandler(
+      'AccountsController:listMultichainAccounts',
+      () => [],
+    );
+    const messenger = getMultichainAccountServiceMessenger(root);
+    const call = jest.spyOn(messenger, 'call');
+    const evmInit = jest.spyOn(EvmAccountProvider.prototype, 'init');
+    const snapInits = [
+      SolAccountProvider,
+      BtcAccountProvider,
+      TrxAccountProvider,
+    ].map((Provider) => jest.spyOn(Provider.prototype, 'init'));
+    const service = new RealService({ messenger });
+    await service.init();
+    await service.alignWallets();
+    expect(evmInit).toHaveBeenCalledTimes(1);
+    for (const initialize of snapInits) {
+      expect(initialize).not.toHaveBeenCalled();
+    }
+    expect(
+      call.mock.calls.every(([action]) => !action.startsWith('Snap')),
+    ).toBe(true);
+    jest.restoreAllMocks();
+  });
+});
 
-      MultichainAccountServiceInit(requestMock);
-
-      expect(subscribeSpy).toHaveBeenCalledWith(
-        'RemoteFeatureFlagController:stateChange',
-        expect.any(Function),
+describe('Archived non-EVM accounts', () => {
+  it('keeps account metadata while excluding non-EVM accounts from selection and discovery', () => {
+    const { AccountsController } = jest.requireActual<
+      typeof import('@metamask/accounts-controller')
+    >('@metamask/accounts-controller');
+    const { MOCK_ACCOUNT_EOA, MOCK_ACCOUNT_SOLANA_MAINNET } =
+      jest.requireActual<typeof import('../../../../test/data/mock-accounts')>(
+        '../../../../test/data/mock-accounts',
       );
+    const root = new Messenger<
+      MockAnyNamespace,
+      MessengerActions<AccountsControllerMessenger>,
+      MessengerEvents<AccountsControllerMessenger>
+    >({ namespace: MOCK_ANY_NAMESPACE });
+    const messenger: AccountsControllerMessenger = new Messenger<
+      'AccountsController',
+      MessengerActions<AccountsControllerMessenger>,
+      MessengerEvents<AccountsControllerMessenger>,
+      typeof root
+    >({ namespace: 'AccountsController', parent: root });
+    root.delegate({
+      messenger,
+      events: [
+        'KeyringController:stateChange',
+        'SnapAccountService:accountAssetListUpdated',
+        'SnapAccountService:accountBalancesUpdated',
+        'SnapAccountService:accountTransactionsUpdated',
+        'MultichainNetworkController:networkDidChange',
+      ],
     });
-
-    // @ts-expect-error This is missing from the Mocha type definitions
-    it.each([
-      { initial: false, next: true, setEnabledCalls: 1, alignCalls: 1 },
-      { initial: true, next: false, setEnabledCalls: 0, alignCalls: 0 },
-      { initial: false, next: false, setEnabledCalls: 0, alignCalls: 0 },
-      { initial: true, next: true, setEnabledCalls: 0, alignCalls: 0 },
-    ])(
-      'when feature flag goes from $initial to $next, setEnabled=$setEnabledCalls alignWallets=$alignCalls',
-      async ({
-        initial,
-        next,
-        setEnabledCalls,
-        alignCalls,
-      }: {
-        initial: boolean;
-        next: boolean;
-        setEnabledCalls: number;
-        alignCalls: number;
-      }) => {
-        const requestMock = buildInitRequestMock({
-          stellarAccounts: initial,
-        });
-        const subscribeSpy = jest.spyOn(requestMock.initMessenger, 'subscribe');
-
-        const result = MultichainAccountServiceInit(requestMock);
-        const alignWalletsSpy = jest
-          .spyOn(result.messengerClient, 'alignWallets')
-          .mockResolvedValue(undefined as never);
-
-        mockSetEnabled.mockClear();
-
-        const handler = getSubscriptionHandler(
-          subscribeSpy,
-          'RemoteFeatureFlagController:stateChange',
-        );
-
-        await handler({
-          remoteFeatureFlags: {
-            stellarAccounts: next,
-          },
-        });
-
-        expect(mockSetEnabled).toHaveBeenCalledTimes(setEnabledCalls);
-        expect(alignWalletsSpy).toHaveBeenCalledTimes(alignCalls);
+    const accounts = {
+      [MOCK_ACCOUNT_EOA.id]: MOCK_ACCOUNT_EOA,
+      [MOCK_ACCOUNT_SOLANA_MAINNET.id]: MOCK_ACCOUNT_SOLANA_MAINNET,
+    };
+    const controller = new AccountsController({
+      messenger,
+      state: {
+        accountIdByAddress: {},
+        internalAccounts: {
+          accounts,
+          selectedAccount: MOCK_ACCOUNT_SOLANA_MAINNET.id,
+        },
       },
+    });
+    expect(controller.listMultichainAccounts()).toEqual([MOCK_ACCOUNT_EOA]);
+    expect(
+      controller.listMultichainAccounts(MOCK_ACCOUNT_SOLANA_MAINNET.scopes[0]),
+    ).toEqual([]);
+    expect(controller.getSelectedMultichainAccount()).toEqual(MOCK_ACCOUNT_EOA);
+    expect(() =>
+      controller.setSelectedAccount(MOCK_ACCOUNT_SOLANA_MAINNET.id),
+    ).toThrow('Only EVM');
+    expect(controller.state.internalAccounts.accounts).toEqual(accounts);
+    controller.setSelectedAccount(MOCK_ACCOUNT_EOA.id);
+    expect(controller.state.internalAccounts.selectedAccount).toBe(
+      MOCK_ACCOUNT_EOA.id,
     );
   });
 });
