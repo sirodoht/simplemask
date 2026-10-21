@@ -193,8 +193,8 @@ describe('Gas sponsorship confirmation alerts', () => {
       await screen.findByText(tEn('alertMinimumReserve')),
     ).toBeInTheDocument();
     expect(
-      await screen.findByTestId('alert-modal-action-buy'),
-    ).toHaveTextContent(tEn('alertActionBuyWithNativeCurrency', ['MON']));
+      screen.queryByTestId('alert-modal-action-buy'),
+    ).not.toBeInTheDocument();
     expect(await screen.findByTestId('confirm-footer-button')).toBeDisabled();
   });
 
