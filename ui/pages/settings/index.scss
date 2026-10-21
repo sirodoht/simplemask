@@ -26,11 +26,6 @@
 
   &__back-button {
     margin-right: 8px;
-
-    [dir='rtl'] & {
-      margin: 0 0 0 8px;
-      transform: rotate(180deg);
-    }
   }
 
   &__body {
@@ -117,11 +112,6 @@
   }
 
   .toggle-button {
-    /*rtl:ignore*/
     direction: ltr;
-
-    [dir='rtl'] & {
-      justify-content: flex-end;
-    }
   }
 }

@@ -107,6 +107,7 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 
 - [x] Remove all language catalogs and language selectors from onboarding, settings, and Storybook.
 - [x] Remove locale detection, preference state and APIs, Redux locale state, React translation providers/hooks, runtime message fetching, and translation validation/setup.
+- [x] Remove automatic RTL CSS generation, its build dependency, and language-direction style variants. Keep text-direction primitives used for chart layout, domain truncation, and arbitrary user text.
 - [x] Remove browser `__MSG_` tokens, `default_locale`, locale copying, and startup message-file preloads. Extension manifests and loading CSS contain English directly.
 - [x] Migrate saved language preferences away while preserving wallet data and other settings.
 - [x] Remove the obsolete translation-check dependency, test wrappers, fixture locale fields, and validation-only text calls. Remove the unused non-EVM aggregate-balance component found during the audit.
@@ -125,6 +126,8 @@ English product copy lives in `shared/constants/english-text.ts` as plain string
 - Removed unused AI SDKs, Slack packages, Sentry publishing tools, static-site deployers, Husky, upstream agent-skill tooling, Octokit clients used only by deleted automation, and the upstream changelog generator. Removed the Yarn preview-package aliasing plugin. Runtime error reporting, test tools, and read-only GitHub helpers with live consumers remain.
 
 ### Remaining legacy code and libraries
+
+The optional API-documentation generator still brings Docusaurus theme translations and `rtlcss` transitively. These are dependency internals for `yarn docs:platform-api:build`, not extension localization setup or packaged wallet catalogs. Permission-schema dependencies also retain their public `I18nFunction`/`I18nValue` type names; the wallet supplies English text only.
 
 These still have active consumers. They need migrations rather than deletion; naming alone does not make wallet or security code disposable.
 

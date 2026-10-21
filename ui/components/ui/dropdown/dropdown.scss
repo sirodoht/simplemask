@@ -19,10 +19,6 @@
     background-color: var(--color-background-default);
     padding: 12px 40px 12px 16px;
     width: 100%;
-
-    [dir='rtl'] & {
-      padding: 8px 16px 8px 40px;
-    }
   }
 
   &__icon-caret-down {
@@ -31,9 +27,5 @@
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-
-    [dir='rtl'] & {
-      left: 16px;
-    }
   }
 }

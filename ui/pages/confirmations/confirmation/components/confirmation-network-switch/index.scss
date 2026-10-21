@@ -27,10 +27,6 @@
     }
   }
 
-  [dir='rtl'] &__arrow {
-    transform: rotate(180deg);
-  }
-
   &__dashed-line {
     width: 130px;
     border-bottom: 1px solid var(--color-border-muted);

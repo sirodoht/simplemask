@@ -4,11 +4,6 @@
   // top: 10px !important;
   // left: -7px !important;
 
-  &--rtl {
-    left: 6px !important;
-    right: 6px !important;
-  }
-
   &__permissions-page-tour {
     left: auto !important; //important required for permissions page popup center alignment, overrides .multichain-product-tour-menu -7px left styling
     top: 0 !important; //important required for permissions page styling, since the anchorElement is inside Page Content

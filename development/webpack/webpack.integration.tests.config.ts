@@ -11,7 +11,6 @@ import {
 } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
-import rtlCss from 'postcss-rtlcss';
 import autoprefixer from 'autoprefixer';
 import * as sassEmbedded from 'sass-embedded';
 import tailwindcss from 'tailwindcss';
@@ -75,7 +74,6 @@ const config = {
                 plugins: [
                   tailwindcss(),
                   autoprefixer({ overrideBrowserslist: browsersListQuery }),
-                  rtlCss({ processEnv: false }),
                 ],
               },
             },

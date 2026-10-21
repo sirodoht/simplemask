@@ -38,19 +38,12 @@ export const ProductTour = ({
   anchorElement,
   onClick,
   prevClick = () => undefined,
-  productTourDirection = 'ltr',
   ...props
 }) => {
   const t = getText;
   return (
     <Menu
-      className={classnames(
-        'multichain-product-tour-menu',
-        {
-          'multichain-product-tour-menu--rtl': productTourDirection === 'rtl',
-        },
-        className,
-      )}
+      className={classnames('multichain-product-tour-menu', className)}
       anchorElement={anchorElement}
       onHide={closeMenu}
       data-testid="multichain-product-tour-menu-popover"
@@ -180,8 +173,4 @@ ProductTour.propTypes = {
    * The handler to be passed to prevIcon
    */
   prevClick: PropTypes.func,
-  /**
-   * Direction to determine the css for menu component
-   */
-  productTourDirection: PropTypes.string,
 };

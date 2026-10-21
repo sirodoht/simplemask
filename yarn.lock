@@ -31974,7 +31974,6 @@ __metadata:
     pify: "npm:^5.0.0"
     postcss: "npm:^8.5.25"
     postcss-loader: "npm:^8.2.1"
-    postcss-rtlcss: "npm:^6.0.0"
     postcss-scss: "npm:^4.0.9"
     prettier: "npm:^3.6.2"
     prettier-2: "npm:prettier@^2.8.8"
@@ -36067,17 +36066,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-rtlcss@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "postcss-rtlcss@npm:6.0.0"
-  dependencies:
-    rtlcss: "npm:4.3.0"
-  peerDependencies:
-    postcss: ^8.4.21
-  checksum: 10/d63282caf358531c5cf8844fb5a7669996262c8def25a2b9f90caccae79bcc6a9634b2345b96c256f3cfd0d637b236c7d88aae0f73318a1fb6845f72118f099b
-  languageName: node
-  linkType: hard
-
 "postcss-safe-parser@npm:^7.0.1":
   version: 7.0.1
   resolution: "postcss-safe-parser@npm:7.0.1"
@@ -38721,7 +38709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rtlcss@npm:4.3.0, rtlcss@npm:^4.1.0":
+"rtlcss@npm:^4.1.0":
   version: 4.3.0
   resolution: "rtlcss@npm:4.3.0"
   dependencies:

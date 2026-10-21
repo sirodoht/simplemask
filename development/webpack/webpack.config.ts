@@ -16,7 +16,6 @@ import {
 } from 'webpack';
 import CopyPlugin from 'copy-webpack-plugin';
 import HtmlBundlerPlugin from 'html-bundler-webpack-plugin';
-import rtlCss from 'postcss-rtlcss';
 import autoprefixer from 'autoprefixer';
 import * as sassEmbedded from 'sass-embedded';
 import tailwindcss from 'tailwindcss';
@@ -519,7 +518,6 @@ const config = {
                 plugins: [
                   tailwindcss(),
                   autoprefixer({ overrideBrowserslist: browsersListQuery }),
-                  rtlCss({ processEnv: false }),
                   discardFontFace(['woff2']), // keep woff2 fonts
                 ],
               },

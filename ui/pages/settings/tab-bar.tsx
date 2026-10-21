@@ -89,9 +89,7 @@ function renderTabItems({
     const active = isActive(key, content);
     const activeClass =
       active && !removeFullscreenStyles ? 'sm:bg-pressed' : '';
-    const caretClass = removeFullscreenStyles
-      ? 'rtl:rotate-180'
-      : 'sm:hidden rtl:rotate-180';
+    const caretClass = removeFullscreenStyles ? '' : 'sm:hidden';
     const handleClick = getTabClickHandler(
       navigate,
       key,

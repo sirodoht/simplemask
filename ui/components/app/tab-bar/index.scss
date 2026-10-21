@@ -85,10 +85,6 @@
         display: block;
         margin-inline-start: auto;
         margin-inline-end: 8px;
-
-        [dir='rtl'] & {
-          transform: rotate(180deg);
-        }
       }
     }
 

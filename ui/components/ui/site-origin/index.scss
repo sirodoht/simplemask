@@ -17,8 +17,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-
-    /*rtl:ignore*/
+    // Keep the hostname suffix visible when truncating a long origin.
     direction: rtl;
     max-width: 100%;
   }

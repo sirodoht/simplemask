@@ -42,10 +42,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
-        [dir='rtl'] & {
-          transform: rotate(180deg);
-        }
       }
 
       &__arrow-circle {
@@ -70,21 +66,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-
-        [dir='rtl'] & {
-          /*rtl:ignore*/
-          direction: ltr;
-
-          /*rtl:ignore*/
-          text-align: right;
-
-          span {
-            display: block;
-
-            /*rtl:ignore*/
-            direction: rtl;
-          }
-        }
       }
     }
   }
@@ -119,31 +100,12 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-
-        [dir='rtl'] & {
-          /*rtl:ignore*/
-          direction: ltr;
-
-          /*rtl:ignore*/
-          text-align: right;
-
-          span {
-            display: block;
-
-            /*rtl:ignore*/
-            direction: rtl;
-          }
-        }
       }
 
       &__arrow-container {
         display: flex;
         justify-content: center;
         align-items: center;
-
-        [dir='rtl'] & {
-          transform: rotate(180deg);
-        }
       }
     }
   }
@@ -176,31 +138,12 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         margin-inline-start: 8px;
-
-        [dir='rtl'] & {
-          /*rtl:ignore*/
-          direction: ltr;
-
-          /*rtl:ignore*/
-          text-align: right;
-
-          span {
-            display: block;
-
-            /*rtl:ignore*/
-            direction: rtl;
-          }
-        }
       }
 
       &__arrow-container {
         display: flex;
         justify-content: center;
         align-items: center;
-
-        [dir='rtl'] & {
-          transform: rotate(180deg);
-        }
       }
     }
   }

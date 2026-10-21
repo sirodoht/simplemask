@@ -2890,12 +2890,6 @@
         "stylelint>postcss-value-parser": true
       }
     },
-    "postcss-rtlcss": {
-      "packages": {
-        "postcss": true,
-        "postcss-rtlcss>rtlcss": true
-      }
-    },
     "stylelint>postcss-selector-parser": {
       "packages": {
         "stylelint>postcss-selector-parser>cssesc": true,
@@ -2918,34 +2912,6 @@
       }
     },
     "css-loader>postcss": {
-      "builtin": {
-        "fs.existsSync": true,
-        "fs.readFileSync": true,
-        "path.dirname": true,
-        "path.isAbsolute": true,
-        "path.join": true,
-        "path.relative": true,
-        "path.resolve": true,
-        "path.sep": true,
-        "url.fileURLToPath": true,
-        "url.pathToFileURL": true
-      },
-      "globals": {
-        "Buffer": true,
-        "URL": true,
-        "atob": true,
-        "btoa": true,
-        "console": true,
-        "process.env.LANG": true,
-        "process.env.NODE_ENV": true
-      },
-      "packages": {
-        "nanoid": true,
-        "postcss>picocolors": true,
-        "postcss>source-map-js": true
-      }
-    },
-    "postcss-rtlcss>rtlcss>postcss": {
       "builtin": {
         "fs.existsSync": true,
         "fs.readFileSync": true,
@@ -3121,11 +3087,6 @@
         "depcheck>resolve>es-errors": true,
         "depcheck>is-core-module": true,
         "depcheck>resolve>path-parse": true
-      }
-    },
-    "postcss-rtlcss>rtlcss": {
-      "packages": {
-        "postcss-rtlcss>rtlcss>postcss": true
       }
     },
     "fast-glob>@nodelib/fs.walk>@nodelib/fs.scandir>run-parallel": {
