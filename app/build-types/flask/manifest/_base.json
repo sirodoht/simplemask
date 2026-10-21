@@ -25,6 +25,6 @@
     "128": "images/icon-128.png",
     "512": "images/icon-512.png"
   },
-  "name": "__MSG_appNameFlask__",
-  "short_name": "__MSG_appNameFlask__"
+  "name": "MetaMask Flask",
+  "short_name": "MetaMask Flask"
 }
