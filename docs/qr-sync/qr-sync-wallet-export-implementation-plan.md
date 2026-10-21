@@ -6,7 +6,7 @@ QR Sync lets MetaMask Extension users pair with MetaMask Mobile over the Mobile 
 
 The extension is the **sender**; mobile is the **receiver**.
 
-**User entry point:** Settings → **Sync with mobile** (`syncAccounts` locale key).
+**User entry point:** Settings → **Sync with mobile** (`syncAccounts` product-copy key).
 
 **Last updated:** 2026-09-01.
 

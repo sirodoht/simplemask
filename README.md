@@ -111,9 +111,13 @@ Browser parity, reliable core wallet behavior, and clear confirmations take prio
 - [x] Remove browser `__MSG_` tokens, `default_locale`, locale copying, and startup message-file preloads. Extension manifests and loading CSS contain English directly.
 - [x] Migrate saved language preferences away while preserving wallet data and other settings.
 - [x] Remove the obsolete translation-check dependency, test wrappers, fixture locale fields, and validation-only text calls. Remove the unused non-EVM aggregate-balance component found during the audit.
-- [ ] Validate the final Chrome and Firefox builds, restoration flow, and affected tests after removing the infrastructure.
+- [x] Validate the final Chrome and Firefox builds, restoration flow, and affected tests after removing the infrastructure.
 
 English product copy lives in `shared/constants/english-text.ts` as plain strings. Small text-formatting functions insert values and React content into that copy; they have no language selection, locale catalogs, fallback language, fetch, provider, or setup. Native `Intl` APIs still format English numbers and dates. External service APIs that require a language receive the fixed value `en`.
+
+Validation covered 379 affected unit-test suites and 14 retained confirmation integration suites, including focused reruns after fixes, plus 519 build-tool tests. TypeScript, changed-file linting, styles, API snapshots, messenger checks, circular-dependency checks, and workflow validation passed. Storybook built successfully, and LavaMoat policies were regenerated for all eight application variants and the build tooling. Chrome and Firefox passed saved-language restoration/reload, wallet- and dApp-initiated ETH sends, personal signing, and UI/background lockdown checks.
+
+Both final LavaMoat test builds passed. Their packages contain no locale catalogs, `default_locale`, or manifest/CSS translation tokens; Beta and Flask manifest overrides also use literal English names.
 
 ## Repository cleanup and legacy audit
 

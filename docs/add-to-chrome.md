@@ -10,8 +10,8 @@
 - At the top, click `Load Unpacked Extension`.
 - Navigate to your `metamask-extension/dist/chrome` folder.
 - Click `Select`.
-- Change to your locale via `chrome://settings/languages`
-- Restart the browser and test the extension in your locale
+
+The extension uses English regardless of the browser's language settings.
 
 Your dev build is now added to Chrome, and you can click `Inspect views
 background.html` in its card on the extension settings page to view its dev console.
